@@ -23,6 +23,21 @@ class Videos_Controller extends ZP_Controller {
 	public function index() {
 		$this->videos();
 	}
+
+	public function rss() {
+		$this->helper("time");
+		$this->Videos_Model = $this->model("Videos_Model");
+		$data = $this->Videos_Model->getRSS();
+		
+		if($data) {
+			$vars["videos"]= $data;	
+
+			$this->view("rss", $vars, $this->application);
+		} else {
+			redirect();
+		}
+
+	}
 	
 	public function videos() {
 		$this->CSS("videos", $this->application);

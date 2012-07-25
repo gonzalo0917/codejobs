@@ -8,6 +8,7 @@
 	<title><?php echo $this->getTitle(); ?></title>
 	<link href="<?php echo path("blog/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __(_("Blog")); ?>" />
 	<link href="<?php echo path("bookmarks/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __(_("Bookmarks")); ?>" >
+	<link href="<?php echo path("videos/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __(_("Videos")); ?>" >
 	<link rel="stylesheet" href="<?php echo path("www/lib/css/default.css", TRUE); ?>" type="text/css">
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/style.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.css" type="text/css">

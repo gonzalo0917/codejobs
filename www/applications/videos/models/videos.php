@@ -22,6 +22,12 @@ class Videos_Model extends ZP_Model {
 		$this->Data = $this->core("Data");
 	}
 	
+	public function getRSS() {
+		$this->fields = "ID_Video, ID_YouTube, Title, Description, Text_Date";	
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Video DESC");
+		
+	}
+
 	public function cpanel($action, $limit = NULL, $order = "ID_Video DESC", $search = NULL, $field = NULL, $trash = FALSE) {	
 		if($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave();
