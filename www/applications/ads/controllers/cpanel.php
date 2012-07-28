@@ -136,7 +136,7 @@ class CPanel_Controller extends ZP_Controller {
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
 		
-		$this->js("www/lib/scripts/js/prettyphoto/js/jquery.prettyphoto.js");
+		$this->js("prettyphoto");
 		$this->js("actions", "ads");
 		$this->js("banner-lightbox", "ads");	
 		
