@@ -187,9 +187,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(150) NOT NULL,
   `Slug` varchar(150) NOT NULL,
-  `Code` text NOT NULL,
-  `Syntax` varchar(50) NOT NULL DEFAULT 'application/x-httpd-php',
-  `Tags` varchar(100) NOT NULL,
+  `Languages` varchar(100) NOT NULL,
   `Author` varchar(100) NOT NULL,
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Text_Date` varchar(50) NOT NULL,
@@ -200,15 +198,76 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
   `Language` varchar(20) NOT NULL DEFAULT 'English',
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `muu_codes`
 --
 
-INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Slug`, `Code`, `Syntax`, `Tags`, `Author`, `Start_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
-(1, 1, 'Mensajes de alerta en Javascript', 'mensajes-de-alerta-en-javascript', '// Primer script :D\n\nalert(\"Hola Mundo!\");', 'text/javascript', 'javascript, mensajes', 'codejobs', 1342473232, 'Monday, 16 de Julio de 2012', 12, 2, 0, 1, 'Spanish', 'Active'),
-(2, 1, 'Mostrar información en PHP', 'mostrar-informacion-en-php', '// La siguiente línea despliega información de PHP\n\nphpinfo();', 'text/x-php', 'php, info', 'codejobs', 1342473272, 'Monday, 16 de Julio de 2012', 3, 0, 0, 0, 'Spanish', 'Active');
+INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Slug`, `Languages`, `Author`, `Start_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
+(1, 1, 'Mi primera página web', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
+(2, 1, 'Mostrar información en PHP', 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
+(3, 1, 'My first webpage', 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 'Sunday, 29 de July de 2012', 1, 0, 0, 0, 'English', 'Active');
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `muu_codes_syntax`
+--
+
+CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
+  `ID_Syntax` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL,
+  `MIME` varchar(50) NOT NULL,
+  `Filename` varchar(50) NOT NULL,
+  `Extension` varchar(10) NOT NULL,
+  PRIMARY KEY (`ID_Syntax`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `muu_codes_syntax`
+--
+
+INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extension`) VALUES
+(1, 'Text plain', 'text/plain', '', ''),
+(2, 'JSON', 'application/json', 'javascript', 'json'),
+(3, 'C++', 'text/x-c++src', 'clike', 'cpp'),
+(4, 'PHP', 'application/x-httpd-php', 'php', 'php'),
+(5, 'Javascript', 'text/javascript', 'javascript', 'js'),
+(6, 'HTML', 'text/html', 'htmlmixed', 'html'),
+(7, 'CSS', 'text/css', 'css', 'css');
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `muu_codes_files`
+--
+
+CREATE TABLE IF NOT EXISTS `muu_codes_files` (
+  `ID_File` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_Code` int(11) unsigned NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `ID_Syntax` int(11) NOT NULL,
+  `Code` text NOT NULL,
+  PRIMARY KEY (`ID_File`),
+  KEY `ID_Code` (`ID_Code`),
+  KEY `ID_Syntax` (`ID_Syntax`),
+  CONSTRAINT `muu_codes_files_ibfk_1` FOREIGN KEY (`ID_Code`) REFERENCES `muu_codes` (`ID_Code`),
+  CONSTRAINT `muu_codes_files_ibfk_2` FOREIGN KEY (`ID_Syntax`) REFERENCES `muu_codes_syntax` (`ID_Syntax`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `muu_codes_files`
+--
+
+INSERT INTO `muu_codes_files` (`ID_File`, `ID_Code`, `Name`, `ID_Syntax`, `Code`) VALUES
+(1, 1, 'pagina.html', 6, '<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n  <meta charset=\"utf-8\" />\r\n  <title>Título de la página</title>\r\n  <link href=\"estilo.css\" />\r\n</head>\r\n<body>\r\n  Esta es mi primera página web.\r\n</body>\r\n</html>'),
+(2, 1, 'estilo.css', 7, '/* Estilo del cuerpo */\r\n\r\nbody {\r\n  background-color: lightyellow;\r\n  margin: 10px;\r\n}'),
+(3, 2, 'info.php', 4, '<?php\r\n // La siguiente línea muestra información\r\n phpinfo();\r\n?>'),
+(4, 3, 'page.html', 6, '<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"utf-8\" />\r\n  <title>Title\'s webpage</title>\r\n  <link href=\"estilo.css\" />\r\n</head>\r\n<body>\r\n  This is my first webpage.\r\n</body>\r\n</html>'),
+(5, 3, 'style.css', 7, '/* Body\'s style */\r\n\r\nbody {\r\n  background-color: lightyellow;\r\n  margin: 10px;\r\n}');
 
 
 -- --------------------------------------------------------
