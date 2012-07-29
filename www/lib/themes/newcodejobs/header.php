@@ -19,11 +19,22 @@
 		echo $this->getCSS(); 
 	 	
 	 	echo $this->js("jquery", NULL, TRUE); 
+                
+                if (defined("_codemirror")) {
+                    print $this->js("codemirror", NULL, TRUE);
+                }
+                
 	 ?>
 
 	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/social.js"></script>
 
 	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/porlets.js"></script>
+        
+        <script type="text/javascript">
+		var PATH = "<?php print path(); ?>";
+		
+		var URL  = "<?php print get('webURL'); ?>";
+	</script>
 </head>
 
 <body>	
