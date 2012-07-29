@@ -1,6 +1,6 @@
 <?php if(!defined("_access")) { die("Error: You don't have permission to access here..."); } ?>
 <!DOCTYPE html>
-<html lang="<?php print get("webLang"); ?>">
+<html lang="<?php print get("webLang"); ?>"<?php print defined("_angularjs") ? " ng-app" : "";?>>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?php print $this->getTitle(); ?></title>
@@ -15,6 +15,15 @@
 		print $this->themeCSS("cpanel"); 
 		
 		print $this->js("jquery", NULL, TRUE); 
+                
+                if (defined("_angularjs")) {
+                    print $this->js("angular", NULL, TRUE);
+                }
+                
+                if (defined("_codemirror")) {
+                    print $this->js("codemirror", NULL, TRUE);
+                }
+                
 		$this->js("www/lib/scripts/js/main.js");
 	?>
 	
