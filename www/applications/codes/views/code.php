@@ -1,5 +1,10 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
-
+<?php
+    if(!defined("_access")) {
+        die("Error: You don't have permission to access here...");
+    }
+    
+    $this->CSS("code", "codes", TRUE);
+?>
 <div class="codes">
 	<h2>
 		<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo path("codes/". $code["ID_Code"] . "/" . $code["Slug"]); ?>" title="<?php echo $code["Title"]; ?>"><?php echo $code["Title"]; ?></a>
@@ -9,8 +14,8 @@
 		<?php 
 			echo __(_("Published")) ." ". howLong($code["Start_Date"]) ." ". __(_("by")) .' <a title="'. $code["Author"] .'" href="'. path("users/". $code["Author"]) .'">'. $code["Author"] .'</a> '; 
 			 
-			if($code["Tags"] !== "") {
-				echo __(_("in")) ." ". exploding($code["Tags"], "codes/tag/");
+			if($code["Languages"] !== "") {
+				echo __(_("in")) ." ". exploding(implode(", ", array_map("strtolower", explode(", ", $code["Languages"]))), "codes/language/");
 			}
 		?>			
 		<br />
@@ -21,10 +26,18 @@
 			echo ' <span class="bold">'. __(_("Views")) .":</span> ". (int) $code["Views"];
 		?>
 	</span>
-		
-	<p><textarea id="code" data-mime="<?php echo $code["Syntax"];?>"><?php echo $code["Code"]; ?></textarea></p>
-
-	<?php
+	
+        <?php
+            foreach ($code["Files"] as $file) {
+        ?>
+            <p>
+                <a href="#<?php echo slug($file["Name"])?>" name="<?php echo slug($file["Name"])?>"><?php echo tagHTML("div", array(
+                    "class" => "filename"
+                ), $file["Name"]); ?></a>
+                <textarea name="code" data-syntax="<?php echo $file["ID_Syntax"];?>"><?php echo $file["Code"]; ?></textarea>
+            </p>
+        <?php
+            }
 		if(SESSION("ZanUser")) {
 	?>
 			<p class="small italic">
@@ -49,17 +62,20 @@
 		<a href="<?php echo path("codes"); ?>">&lt;&lt; <?php echo __(_("Go back")); ?></a>
 	</p>
 </div>
-<?php
-    $syntaxFiles = array_unique(getFilesByMIME(array($code["Syntax"])));
-    foreach ($syntaxFiles as $syntaxFile) $this->js("CodeMirror/mode/$syntaxFile.js", "codes");
-    echo $this->js;
-?>
+
 <script type="text/javascript">
-    var editor = CodeMirror.fromTextArea($("#code").get(0), {
-        lineNumbers: true,
-        matchBrackets: true,
-        mode: $("#code").dataset("mime"),
-        readOnly: "nocursor",
-        theme: "monokai"
-    });
+    var syntax = [];
+    <?php
+        $data = getSyntax();
+        foreach ($data as $language) {
+    ?>
+    syntax[<?php echo $language["ID_Syntax"]; ?>] = <?php echo json($language); ?>;
+    <?php
+        }
+    ?>
 </script>
+
+<?php
+    echo $this->js("jquery.dataset.js", "codes", TRUE);
+    echo $this->js("codes.js", "codes", TRUE);
+?>

@@ -19,6 +19,7 @@ class Codes_Controller extends ZP_Controller {
 		$this->config("codes");
 		
 		$this->Codes_Model = $this->model("Codes_Model");
+                $this->CodesFiles_Model = $this->model("CodesFiles_Model");
 
 		$this->helper("pagination");
 	}
@@ -47,19 +48,29 @@ class Codes_Controller extends ZP_Controller {
 		$this->Codes_Model->setReport($ID);
 	}	
 
-	public function tag($tag) {
+	public function language($language) {
 		$this->title(__("Codes"));
-		$this->setResources();
+		
                 $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 		
-		$limit = $this->limit($tag);
+                $limit = $this->limit($language);
 
-		$data = $this->Cache->data("tag-$tag-$limit", "codes", $this->Codes_Model, "getByTag", array($tag, $limit));
+		$data = $this->Cache->data("tag-$language-$limit", "codes", $this->Codes_Model, "getByLanguage", array($language, $limit));
 
 		if($data) {
 			$this->helper("time");
-
+                        $this->helper("codes", $this->application);
+                        
+                        foreach ($data as $pos => $code) {
+                            $file = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                            if ($file) {
+                                $data[$pos]["File"] = $file[0];
+                            } else {
+                                redirect();
+                                exit;
+                            }
+                        }
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -71,7 +82,6 @@ class Codes_Controller extends ZP_Controller {
 	}
 
 	public function go($codeID = 0) {
-                $this->setResources();	
                 $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 
@@ -79,15 +89,22 @@ class Codes_Controller extends ZP_Controller {
 
 		if($data) {
 			$this->helper("time");
-
-			$this->title(__(_("Codes")) ." - ". $data[0]["Title"]);
+                        $this->helper("codes", $this->application);
+                        
+                        $files = $this->CodesFiles_Model->getByCode($data[0]["ID_Code"]);
+                        if ($files) {
+                            $data[0]["Files"] = $files;
+                            $this->title(__(_("Codes")) ." - ". $data[0]["Title"]);
 			
-			$this->Codes_Model->updateViews($codeID);
+                            $this->Codes_Model->updateViews($codeID);
 
-			$vars["code"] 	= $data[0];
-			$vars["view"]   = $this->view("code", TRUE);
-			
-			$this->render("content", $vars);
+                            $vars["code"] 	= $data[0];
+                            $vars["view"]   = $this->view("code", TRUE);
+
+                            $this->render("content", $vars);
+                        } else {
+                            redirect();
+                        }
 		} else {
 			redirect();
 		}
@@ -95,17 +112,27 @@ class Codes_Controller extends ZP_Controller {
 
 	public function getCodes() {
 		$this->title(__(_("Codes")));
-                $this->setResources();
-		$this->CSS("codes", $this->application);
+                
+                $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
-		
+                
 		$limit = $this->limit();
 		
 		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAll", array($limit));
-	
+
 		$this->helper("time");
+                $this->helper("codes", $this->application);
 		
 		if($data) {	
+                    foreach ($data as $pos => $code) {
+                        $content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                        if ($content) {
+                            $data[$pos]["File"] = $content[0];
+                        } else {
+                            redirect();
+                            exit;
+                        }
+                    }
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -115,7 +142,33 @@ class Codes_Controller extends ZP_Controller {
 			redirect();	
 		} 
 	}
+
+	public function rss() {
+		$this->helper("time");
+
+		$data = $this->Codes_Model->getRSS();
 		
+		if($data) {
+                        $this->helper("codes", $this->application);
+                        
+                        foreach ($data as $pos => $code) {
+                            $content = $this->CodesFiles_Model->getCodeOnly($code["ID_Code"]);
+                            if ($content) {
+                                $data[$pos]["Code"] = $content;
+                            } else {
+                                redirect();
+                                exit;
+                            }
+                        }
+			$vars["codes"]= $data;	
+
+			$this->view("rss", $vars, $this->application);
+		} else {
+			redirect();
+		}
+
+	}
+        
 	private function limit($tag = NULL) {
 		$count = $this->Codes_Model->count($tag);	
 		
@@ -133,13 +186,5 @@ class Codes_Controller extends ZP_Controller {
 
 		return $limit;
 	}
-        
-        private function setResources() {
-            $this->helper("codes", $this->application);
-            $this->CSS("CodeMirror/codemirror", $this->application);
-            $this->CSS("CodeMirror/theme/monokai", $this->application);
-            $this->js("CodeMirror/codemirror.js", $this->application);
-            $this->js("jquery.dataset.js", $this->application);
-        }
         
 }

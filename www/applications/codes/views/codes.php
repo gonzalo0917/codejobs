@@ -1,9 +1,13 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
-
+<?php
+    if(!defined("_access")) {
+        die("Error: You don't have permission to access here...");
+    }
+    
+    $this->CSS("codes_", "codes", TRUE);
+?>
 <div class="codes">
 	<?php 
 		foreach($codes as $code) { 
-                    $syntax[] = $code["Syntax"];
 	?>
 			<h2>
 				<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>" title="<?php echo $code["Title"]; ?>"><?php echo $code["Title"]; ?></a>
@@ -13,8 +17,8 @@
 				<?php 
 					echo __(_("Published")) ." ". howLong($code["Start_Date"]) ." ". __(_("by")) .' <a title="'. $code["Author"] .'" href="'. path("users/". $code["Author"]) .'">'. $code["Author"] .'</a> '; 
 					 
-					if($code["Tags"] !== "") {
-						echo __(_("in")) ." ". exploding($code["Tags"], "codes/tag/");
+					if($code["Languages"] !== "") {
+						echo __(_("in")) ." ". exploding(implode(", ", array_map("strtolower", explode(", ", $code["Languages"]))), "codes/language/");
 					}
 				?>			
 				<br />
@@ -26,7 +30,7 @@
 				?>
 			</span>
 
-                        <p><textarea name="code" data-mime="<?php echo $code["Syntax"];?>"><?php echo $code["Code"]; ?></textarea></p>
+                        <p><textarea name="code" data-syntax="<?php echo $code["File"]["ID_Syntax"];?>"><?php echo linesWrap($code["File"]["Code"]); ?></textarea></p>
 
 			<?php 
 				if(SESSION("ZanUser")) { 
@@ -53,22 +57,24 @@
 		
 	<?php 
 		} 
-                $syntaxFiles = array_unique(getFilesByMIME($syntax));
-                foreach ($syntaxFiles as $syntaxFile) $this->js("CodeMirror/mode/$syntaxFile.js", "codes");
-                echo $this->js;
 	?>
 
 	<?php echo $pagination; ?>
 </div>
 
 <script type="text/javascript">
-    $('textarea[name="code"]').each(function(index) {
-        CodeMirror.fromTextArea(this, {
-            lineNumbers: true,
-            matchBrackets: true,
-            mode: $(this).dataset("mime"),
-            readOnly: "nocursor",
-            theme: "monokai"
-        });
-    });
+    var syntax = [];
+    <?php
+        $data = getSyntax();
+        foreach ($data as $language) {
+    ?>
+    syntax[<?php echo $language["ID_Syntax"]; ?>] = <?php echo json($language); ?>;
+    <?php
+        }
+    ?>
 </script>
+
+<?php
+    echo $this->js("jquery.dataset.js", "codes", TRUE);
+    echo $this->js("codes.js", "codes", TRUE);
+?>

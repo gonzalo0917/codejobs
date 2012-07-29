@@ -12,8 +12,10 @@ class CPanel_Controller extends ZP_Controller {
 	
 	public function __construct() {		
 		$this->app("cpanel");
+                
+                $this->config("cpanel", "codes");
 
-		$this->application = "bookmarks";
+		$this->application = whichApplication();
 		
 		$this->CPanel = $this->classes("cpanel", "CPanel", NULL, "cpanel");
 		
@@ -30,10 +32,29 @@ class CPanel_Controller extends ZP_Controller {
 	
 	public function index() {
 		if($this->isAdmin) {
-			$this->redirect("cpanel");
+			redirect("cpanel");
 		} else {
 			$this->login();
 		}
+	}
+        
+        public function login() {
+		$this->title("Login");
+		$this->CSS("login", "users");
+		
+		if(POST("connect")) {	
+			$this->Users_Controller = $this->controller("Users_Controller");
+			
+			$this->Users_Controller->login("cpanel");
+		} else {
+			$this->vars["URL"]  = getURL();
+			$this->vars["view"] = $this->view("login", TRUE, "cpanel");
+		}
+		
+		$this->render("include", $this->vars);
+		$this->rendering("header", "footer");
+		
+		exit;
 	}
 
 	public function check() {
@@ -128,7 +149,10 @@ class CPanel_Controller extends ZP_Controller {
 		$this->title("Add");
 				
 		$this->CSS("forms", "cpanel");
-			
+                
+                $this->helper("forms");
+                $this->helper("codes", $this->application);
+                
 		$Model = ucfirst($this->application) ."_Model";
 		
 		$this->$Model = $this->model($Model);
@@ -150,29 +174,36 @@ class CPanel_Controller extends ZP_Controller {
 		if(!$this->isAdmin) {
 			$this->login();
 		}
-		
-		if((int) $ID === 0) { 
+                
+                if((int) $ID === 0 AND !POST("edit", "clean")) { 
 			redirect($this->application ."/cpanel/results");
 		}
 
 		$this->title("Edit");
 		
 		$this->CSS("forms", "cpanel");
-		
+                
 		$Model = ucfirst($this->application) ."_Model";
-		
+		$Model_Files = ucfirst($this->application . "Files_Model");
+                
 		$this->$Model = $this->model($Model);
-		
+		$this->$Model_Files = $this->model($Model_Files);
+                
 		if(POST("edit")) {
 			$this->vars["alert"] = $this->$Model->cpanel("edit");
 		} elseif(POST("cancel")) {
 			redirect("cpanel");
 		} 
 		
-		$data = $this->$Model->getByID($ID);
-		
+                $data = $this->$Model->getByID(isset($this->$Model->id) ? $this->$Model->id : $ID);
+                
 		if($data) {
-			$this->vars["data"] = $data;
+                        $data[0]["Files"] = $this->$Model_Files->getByCode(isset($this->$Model->id) ? $this->$Model->id : $ID);
+                        
+                        $this->helper("forms");
+                        $this->helper("codes", $this->application);
+                        
+                        $this->vars["data"] = $data;
 			$this->vars["view"] = $this->view("add", TRUE, $this->application);
 			
 			$this->render("content", $this->vars);

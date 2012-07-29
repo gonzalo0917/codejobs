@@ -26,7 +26,6 @@ $j = 2;
 			<th>&nbsp;</th>
 			<th>ID</th>
 			<th><?php echo __(_("Title")); ?></th>
-			<th><?php echo __(_("URL")); ?></th>
 			<th><?php echo __(_("Author")); ?></th>
 			<th><?php echo __(_("Views")); ?></th>
 			<th><?php echo __(_("Reported")); ?></th>
@@ -48,7 +47,7 @@ $j = 2;
 	<?php
 		if($tFoot) {
 			foreach($tFoot as $column) {
-				$ID = $column["ID_Bookmark"];
+				$ID = $column["ID_Code"];
 				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];
 				
 				$i = ($i === 1) ? 0 : 1;
@@ -64,15 +63,13 @@ $j = 2;
 					</td>
 																				
 					<td>
-					<?php			
-						$title = cut($column["Title"], 4, "text");	
-					
-						echo $title; 
-					?>
-					</td>
-								
-					<td class="center">
-						<a href="<?php echo __(_($column["URL"])); ?>" target="_blank"><?php echo __(_("View")); ?></a>
+                                        <a href="<?php echo __(_(path("codes/{$column["ID_Code"]}/{$column["Slug"]}"))); ?>" target="_blank">
+                                            <?php			
+                                                    $title = cut($column["Title"], 4, "text");	
+
+                                                    echo $title; 
+                                            ?>
+                                        </a>
 					</td>
 								
 					<td class="center">
@@ -92,7 +89,7 @@ $j = 2;
 					</td>
 
 					<td class="center">
-						<?php echo $column["Situation"]; ?>
+						<?php echo __(_($column["Situation"])); ?>
 					</td>
 
 					<td class="center">

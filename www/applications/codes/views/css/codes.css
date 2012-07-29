@@ -20,7 +20,7 @@
     border: 1px solid #eee;
 }
 .CodeMirror-scroll {
-    height: auto;
-    overflow-y: hidden;
+    height: auto !important;
+    overflow-y: hidden !important;
     overflow-x: auto !important;
 }
