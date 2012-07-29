@@ -21,7 +21,7 @@ class Applications_Model extends ZP_Model {
 	public function getList() {		
 		$this->Db->select("ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
 
-		$data = $this->Db->findAll($this->table, NULL, "Title ASC");
+		$data = $this->Db->findAll($this->table, NULL, NULL, "Title ASC");
 
 		$list  = NULL;		
 		
