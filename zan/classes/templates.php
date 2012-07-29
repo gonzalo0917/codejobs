@@ -123,6 +123,16 @@ class ZP_Templates extends ZP_Load {
 					$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />' . "\n";
 				}	
 			}
+		} elseif($CSS == "codemirror") {
+                        if ($print) {
+                            print '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />' . "\n";
+                        } else {
+                            if (is_null($this->CSS)) {
+                                $this->CSS = '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />' . "\n";
+                            } else {
+                                $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />' . "\n";
+                            }
+                        }
 		}
 
 		$file = is_null($application) ? "www/lib/css/$CSS.css" : "www/applications/$application/views/css/$CSS.css";
@@ -252,6 +262,12 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/tiny_mce/tiny_mce.js", "zan") .'"></script>';
 		} elseif($js === "lesscss") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
+		} elseif($js === "angular") {
+			$js = '<script type="text/javascript" src="'. path("vendors/js/angular/angular-1.0.1.min.js", "zan") .'"></script>';
+		} elseif($js === "codemirror") {
+			$js = '<script type="text/javascript" src="'. path("vendors/js/codemirror/codemirror.js", "zan") .'"></script>';
+			$js .= '<script type="text/javascript" src="'. path("vendors/js/codemirror/util/loadmode.js", "zan") .'"></script>';
+                        $this->CSS("codemirror", NULL, TRUE);
 		} elseif(file_exists($js)) {
 			$js = '<script type="text/javascript" src="'. path($js, TRUE) .'"></script>';
 		} elseif(file_exists(path($js, "zan"))) {
