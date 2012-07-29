@@ -169,6 +169,22 @@ class Codes_Controller extends ZP_Controller {
 
 	}
         
+        public function add() {
+		isConnected();
+
+		if(POST("save")) {
+			$vars["alert"] = $this->Codes_Model->add();
+		} 
+
+		$this->CSS("forms", "cpanel");
+
+		$this->helper(array("html", "forms"));
+
+		$vars["view"] = $this->view("new", TRUE);
+
+		$this->render("content", $vars);
+	}
+        
 	private function limit($tag = NULL) {
 		$count = $this->Codes_Model->count($tag);	
 		

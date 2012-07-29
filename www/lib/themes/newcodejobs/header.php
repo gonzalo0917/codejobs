@@ -126,7 +126,7 @@
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="#"><?php echo __(_("Publish a code")); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("codes/add"); ?>"><?php echo __(_("Publish a code")); ?></a></span><br />
 							<span class="small grey"><a href="#"><?php echo __(_("Publish a job")); ?></a></span><br />
 							<span class="small grey"><a href="<?php echo path("bookmarks/add"); ?>"><?php echo __(_("Publish a bookmark")); ?></a></span><br />
 							<span class="small grey"><a href="#"><?php echo __(_("Publish a post")); ?></a></span><br />
