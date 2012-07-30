@@ -34,7 +34,8 @@ class CPanel_Controller extends ZP_Controller {
 		}
 	}
 	
-	public function edit() {		
+	public function edit() {
+		$this->helper("forms");		
 		$this->title("Edit");
 		
 		$this->CSS("forms", "cpanel");
