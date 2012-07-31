@@ -43,6 +43,14 @@ class Bookmarks_Model extends ZP_Model {
 			return $this->search($search, $field);
 		}
 	}
+
+	private function search($search, $field) {
+		if($search and $field) {
+			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);	      
+		} else {
+			return FALSE;
+		}
+	}
 	
 	private function all($trash, $order, $limit) {
 		$fields = "ID_Bookmark, ID_User, Title, URL, Author, Views, Reported, Language, Start_Date, Situation";
