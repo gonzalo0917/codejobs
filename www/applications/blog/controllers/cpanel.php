@@ -135,7 +135,7 @@ class CPanel_Controller extends ZP_Controller {
 		
 		$this->CSS("forms", "cpanel");
 		
-		$this->js("tiny-mce");
+		$this->js("redactorjs");
 		$this->js("insert-html");
 		$this->js("show-element");
 

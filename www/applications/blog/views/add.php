@@ -38,10 +38,10 @@
 			));
 
 			echo formTextarea(array(	
-				"id" 	 => "editor", 
+				"id" 	 => "redactor_content", 
 				"name" 	 => "content", 
-				"class"  => "span10",
-				"style"  => "height: 400px;", 
+				"class"  => "span9",
+				"style"  => "height: 400px; width: 690px;", 
 				"field"  => __(_("Content")), 
 				"p" 	 => TRUE, 
 				"value"  => $content

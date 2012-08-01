@@ -9,16 +9,11 @@ $dir = '/home/web/sitecom/images/';
  
 $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
  
-if ($_FILES['file']['type'] == 'image/png' 
-|| $_FILES['file']['type'] == 'image/jpg' 
-|| $_FILES['file']['type'] == 'image/gif' 
-|| $_FILES['file']['type'] == 'image/jpeg'
-|| $_FILES['file']['type'] == 'image/pjpeg')
-{	
+if($_FILES['file']['type'] == 'image/png' or $_FILES['file']['type'] == 'image/jpg' or $_FILES['file']['type'] == 'image/gif' or $_FILES['file']['type'] == 'image/jpeg'or $_FILES['file']['type'] == 'image/pjpeg') {	
     // setting file's mysterious name
     $filename = md5(date('YmdHis')).'.jpg';
-    $file = $dir.$filename;
-
+    $file = $dir . $filename;
+    die(var_dump($_FILES));
     // copying
     copy($_FILES['file']['tmp_name'], $file);
 

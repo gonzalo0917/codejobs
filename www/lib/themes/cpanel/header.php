@@ -31,7 +31,15 @@
 		var PATH = "<?php print path(); ?>";
 		
 		var URL  = "<?php print get('webURL'); ?>";
-	</script>
+
+		$(document).ready(function() {
+			$('#redactor_content').redactor({ 	
+				imageUpload: 	'/zan/vendors/js/editors/redactorjs/scripts/image_upload.php',
+				fileUpload: 	'<?php echo path("vendors/js/editors/redactorjs/scripts/file_upload.php", "zan"); ?>',
+				imageGetJson: 	'<?php echo path("vendors/js/editors/redactorjs/json/data.json", "zan"); ?>'
+			});
+		});
+	</script>			
 </head>
 
 <body>
