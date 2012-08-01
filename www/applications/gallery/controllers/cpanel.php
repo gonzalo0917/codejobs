@@ -141,6 +141,7 @@ class CPanel_Controller extends ZP_Controller {
 			redirect("cpanel");
 		}
 		
+                $this->helper("forms");
 		$this->vars["view"] = $this->view("add", TRUE, $this->application);
 		
 		$this->render("content", $this->vars);
@@ -205,7 +206,7 @@ class CPanel_Controller extends ZP_Controller {
 		$this->vars["message"]    = (!$tFoot) ? "Error" : NULL;
 		$this->vars["pagination"] = $pagination;
 		$this->vars["trash"]  	  = $trash;	
-		$this->vars["search"] 	  = getSearch(); 
+		$this->vars["search"] 	  = getSearch(); 			
 		$this->vars["table"]      = getTable(__("Manage " . ucfirst($this->application)), $thead, $tFoot, $total);					
 		$this->vars["view"]       = $this->view("results", TRUE, "cpanel");
 		
