@@ -211,7 +211,7 @@ class CPanel_Controller extends ZP_Controller {
 		}
 		
 		$this->render("include", $this->vars);
-		$this->render("header", "footer");
+		$this->rendering("header", "footer");
 		
 		exit;
 	}
