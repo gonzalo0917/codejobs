@@ -283,20 +283,20 @@ class Blog_Controller extends ZP_Controller {
 	}
         
         public function uploadImage() {
-            $dir = "www/lib/files/images/blog/";
- 
-            $_FILES['file']['type'] = strtolower($_FILES['file']['type']);
+            if (isset($_FILES['file'])) {
+                if (preg_match("/^image\\//i", $_FILES['file']['type'])) {	
+                    $dir = "www/lib/files/images/blog/";
+                    $filename = md5(date('YmdHis')) . ".jpg";
+                    $file = $dir . $filename;
+                    
+                    copy($_FILES['file']['tmp_name'], $file);
 
-            if($_FILES['file']['type'] == 'image/png' or $_FILES['file']['type'] == 'image/jpg' or $_FILES['file']['type'] == 'image/gif' or $_FILES['file']['type'] == 'image/jpeg'or $_FILES['file']['type'] == 'image/pjpeg') {	
-                $filename = md5(date('YmdHis')). ".jpg";
-                $file = $dir . $filename;
-                copy($_FILES['file']['tmp_name'], $file);
+                    $array = array(
+                        "filelink" => path($file, TRUE)
+                    );
 
-                $array = array(
-                    "filelink" => path("www/lib/files/images/blog/$filename", TRUE)
-                );
-
-                echo stripslashes(json_encode($array));
+                    echo stripslashes(json_encode($array));
+                }
             }
         }
 }
