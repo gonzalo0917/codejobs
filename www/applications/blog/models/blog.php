@@ -13,7 +13,7 @@ class Blog_Model extends ZP_Model {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "blog";
-		$this->fields   = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Small, Image_Medium, Comments, Enable_Comments, Language, Pwd";
+		$this->fields   = "ID_Post, ID_URL, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Small, Image_Medium, Comments, Enable_Comments, Language, Pwd, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -34,7 +34,7 @@ class Blog_Model extends ZP_Model {
 		}
 		
 		if($action === "all") {
-			return $this->all($trash, $order, $limit);
+			return $this->all($trash, "ID_Post DESC", $limit);
 		} elseif($action === "edit") {
 			return $this->edit();															
 		} elseif($action === "save") {

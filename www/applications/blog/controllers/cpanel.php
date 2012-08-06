@@ -175,12 +175,18 @@ class CPanel_Controller extends ZP_Controller {
 
 		$this->title("Edit");
 		
-		$this->CSS("forms", "cpanel");
-		$this->CSS("categories", "categories");
+		$this->helper("forms");
 		
-		$this->js("tiny-mce");
+		$this->title("Add");
+		
+		$this->CSS("forms", "cpanel");
+		
+		$this->js("redactorjs");
 		$this->js("insert-html");
-		$this->js("show-element");	
+		$this->js("show-element");
+
+		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
+		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
 		
 		if(POST("edit")) {
 			$this->vars["alert"] = $this->{"$this->Model"}->cpanel("edit");
@@ -191,8 +197,8 @@ class CPanel_Controller extends ZP_Controller {
 		$data = $this->{"$this->Model"}->getByID($ID);
 		
 		if($data) {
-			$this->Library 	  = $this->classes("Library", "cpanel");
-			$this->Categories = $this->classes("Categories", "categories");		
+			//$this->Library 	  = $this->classes("Library", "cpanel");
+			//$this->Categories = $this->classes("Categories", "categories");		
 			
 			$this->vars["data"]				= $data;
 			$this->vars["muralImage"] 		= $this->{"$this->Model"}->getMuralByID(segment(3, isLang()));
