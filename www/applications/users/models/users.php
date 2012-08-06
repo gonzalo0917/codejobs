@@ -474,6 +474,10 @@ class Users_Model extends ZP_Model {
 		return $data;
 	}
 	
+	public function getPrivileges() {
+		return $this->Db->findAll("privileges");
+	}
+	
 	public function setLike($ID, $table, $application) {
 		if($this->Db->find($ID, $table)) {
 			if($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {

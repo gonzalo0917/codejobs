@@ -416,7 +416,7 @@ function getTFoot($trash) {
 		$j = 2;		
 	}	
 	
-	$data  = $CPanel_Model->
+	$data  = $CPanel_Model->records($trash);
 	$tFoot = array();
 	
 	if($data) {		
