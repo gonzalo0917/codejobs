@@ -34,7 +34,7 @@
 
 		$(document).ready(function() {
 			$('#redactor_content').redactor({ 	
-				imageUpload: 	'/zan/vendors/js/editors/redactorjs/scripts/image_upload.php',
+                                imageUpload: 	PATH + '/<?php echo whichApplication(); ?>/uploadImage',
 				fileUpload: 	'<?php echo path("vendors/js/editors/redactorjs/scripts/file_upload.php", "zan"); ?>',
 				imageGetJson: 	'<?php echo path("vendors/js/editors/redactorjs/json/data.json", "zan"); ?>'
 			});

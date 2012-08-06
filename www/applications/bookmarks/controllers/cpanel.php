@@ -181,6 +181,25 @@ class CPanel_Controller extends ZP_Controller {
 		}
 	}
 	
+        public function login() {
+		$this->title("Login");
+		$this->CSS("login", "users");
+		
+		if(POST("connect")) {	
+			$this->Users_Controller = $this->controller("Users_Controller");
+			
+			$this->Users_Controller->login("cpanel");
+		} else {
+			$this->vars["URL"]  = getURL();
+			$this->vars["view"] = $this->view("login", TRUE, "cpanel");
+		}
+		
+		$this->render("include", $this->vars);
+		$this->rendering("header", "footer");
+		
+		exit;
+	}
+        
 	public function results() {
 		if(!$this->isAdmin) {
 			$this->login();

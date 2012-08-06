@@ -281,4 +281,22 @@ class Blog_Controller extends ZP_Controller {
 		
 		return $limit;
 	}
+        
+        public function uploadImage() {
+            if (isset($_FILES['file'])) {
+                if (preg_match("/^image\\//i", $_FILES['file']['type'])) {	
+                    $dir = "www/lib/files/images/blog/";
+                    $filename = md5(date('YmdHis')) . ".jpg";
+                    $file = $dir . $filename;
+                    
+                    copy($_FILES['file']['tmp_name'], $file);
+
+                    $array = array(
+                        "filelink" => path($file, TRUE)
+                    );
+
+                    echo stripslashes(json_encode($array));
+                }
+            }
+        }
 }
