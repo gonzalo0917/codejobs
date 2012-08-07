@@ -417,6 +417,7 @@ function getTFoot($trash) {
 	}	
 	
 	$data  = $CPanel_Model->records($trash);
+	
 	$tFoot = array();
 	
 	if($data) {		
@@ -566,10 +567,10 @@ function getTFoot($trash) {
 				$tFoot = $CPanel_Model->getTFoot($a, "Situation", $record["Situation"], 	  			$tFoot);
 				$tFoot = $CPanel_Model->getTFoot($a, "Action",    $action, 			      	  			$tFoot);	
 			} elseif($application === "users") {
-				if($record["Situation"] === "Deleted") {
-					$action = $CPanel_Model->action(TRUE, $record["ID_User"]);
-				} else {
-					$action = $CPanel_Model->action(FALSE, $record["ID_User"]);
+				if($record["Situation"] === "Deleted") {					
+					$action = $CPanel_Model->action(TRUE, $record["ID_Post"]);
+				} else {					
+					$action = $CPanel_Model->action(FALSE, $record["ID_Post"]);
 				}
 				
 				$tFoot = $CPanel_Model->getTFoot($a, "checkbox",  getCheckbox($record["ID_User"]), 	    $tFoot);
