@@ -137,7 +137,7 @@ class Bookmarks_Model extends ZP_Model {
 	}
 	
 	public function getAll($limit) {		
-		$data = $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
+		$data = $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 		
 		return $data;
 	}
