@@ -260,30 +260,6 @@ class ZP_Files extends ZP_Load {
 		}
 	}
 
-	public function uploadResource() {
-		ini_set("post_max_size", "128M");
-		ini_set("upload_max_filesize", "128M");
-		ini_set("max_execution_time", "1000");
-		ini_set("max_input_time", "1000");
-
-		$filename = isset($_SERVER["HTTP_X_FILENAME"]) ? $_SERVER["HTTP_X_FILENAME"] : FALSE;
-
-		$file = $this->getFileInformation($filename);
-		
-		if($filename) {
-			if(file_put_contents("www/lib/multimedia/". $file["type"] ."/". $filename, file_get_contents("php://input"))) {
-				____(get("webURL") . "www/lib/multimedia/". $file["type"] ."/". $filename);
-				$a = $this->resize("www/lib/multimedia/". $file["type"] ."/", $filename);
-	
-				return __(_("Upload success!"));
-			} else {
-				return __(_("Permission problems!"));
-			}
-		}
-
-		return __(_("Upload failed!"));
-	}
-
 	public function resize($dir, $filename) {
 		$this->Images = $this->core("Images");
 				
