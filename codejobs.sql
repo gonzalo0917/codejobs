@@ -89,7 +89,8 @@ INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Ad
 (14, 'Users', 'users', 1, 1, 0, 0, 'Active'),
 (15, 'Videos', 'videos', 1, 1, 1, 0, 'Active'),
 (16, 'Works', 'works', 1, 1, 1, 0, 'Active'),
-(17, 'Codes', 'codes', 1, 1, 1, 0, 'Active');
+(17, 'Codes', 'codes', 1, 1, 1, 0, 'Active'),
+(18, 'Jobs', 'jobs', 1, 1, 1, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -905,6 +906,7 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `Technologies` varchar(250) NOT NULL,
   `Additional_Information` text NOT NULL,
   `Company_Contact` text NOT NULL,
+  `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Job`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -1352,7 +1354,11 @@ INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `
 (1, 17, 1, 1, 1, 1),
 (2, 17, 1, 1, 1, 1),
 (3, 17, 1, 0, 0, 1),
-(4, 17, 0, 0, 0, 0);
+(4, 17, 0, 0, 0, 0),
+(1, 18, 1, 1, 1, 1),
+(2, 18, 1, 1, 1, 1),
+(3, 18, 1, 0, 0, 1),
+(4, 18, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
