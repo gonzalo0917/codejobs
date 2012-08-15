@@ -156,6 +156,7 @@ $phrase["text_plain"]									= "Texto plano";
 $phrase["do_you_want_to_remove_this_file"]				= "¿Desea eliminar este archivo?";
 $phrase["remove_file"]									= "Eliminar archivo";
 $phrase["add_another_file"]								= "Agregar otro archivo";
+$phrase["permalink_to_this_file"]						= "Enlace a este archivo";
 
 //Applications
 $phrase["applications"] 					= "Aplicaciones";

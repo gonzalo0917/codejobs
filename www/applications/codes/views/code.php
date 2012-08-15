@@ -31,9 +31,20 @@
             foreach ($code["Files"] as $file) {
         ?>
             <p>
-                <a href="#<?php echo slug($file["Name"])?>" name="<?php echo slug($file["Name"])?>"><?php echo tagHTML("div", array(
-                    "class" => "filename"
-                ), $file["Name"]); ?></a>
+                <div class="title-file">
+                    <?php
+                        echo tagHTML("div", array(
+                            "class" => "filename"
+                        ), $file["Name"]);
+                        
+                        echo tagHTML("a", array(
+                            "name"  => slug($file["Name"]),
+                            "class" => "permalink",
+                            "title" => __(_("Permalink to this file")),
+                            "href"  => slug($file["Name"])
+                        ), "&para;");
+                    ?>
+                </div>
                 <textarea name="code" data-syntax="<?php echo $file["ID_Syntax"];?>"><?php echo $file["Code"]; ?></textarea>
             </p>
         <?php
