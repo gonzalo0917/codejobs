@@ -72,7 +72,12 @@
 		<div class="clear"></div>
 	</div>
 
-        <p><div class="fb-comments" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>" data-num-posts="2" data-width="750"></div></p>
+        <p>
+            <a name="comments">
+                <div class="fb-comments" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>" data-num-posts="2" data-width="750"></div>
+            </a>
+        </p>
+	<p>
 	<p>
 		<a href="<?php echo path("codes"); ?>">&lt;&lt; <?php echo __(_("Go back")); ?></a>
 	</p>
