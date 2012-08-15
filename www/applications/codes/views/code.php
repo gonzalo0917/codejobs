@@ -41,8 +41,8 @@
                             "name"  => slug($file["Name"]),
                             "class" => "permalink",
                             "title" => __(_("Permalink to this file")),
-                            "href"  => slug($file["Name"])
-                        ), "&para;");
+                            "href"  => "#" . slug($file["Name"])
+                        ), "&para;&nbsp;");
                     ?>
                 </div>
                 <textarea name="code" data-syntax="<?php echo $file["ID_Syntax"];?>"><?php echo $file["Code"]; ?></textarea>
