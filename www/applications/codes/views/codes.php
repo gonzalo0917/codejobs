@@ -29,7 +29,11 @@
 					echo ' <span class="bold">'. __(_("Views")) .":</span> ". (int) $code["Views"];
 				?>
 			</span>
-
+                        <div class="code-right">
+                            <a href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>#comments">
+                                <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
+                            </a>
+                        </div>
                         <p><textarea name="code" data-syntax="<?php echo $code["File"]["ID_Syntax"];?>"><?php echo linesWrap($code["File"]["Code"]); ?></textarea></p>
 
 			<?php 

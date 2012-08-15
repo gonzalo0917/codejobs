@@ -24,3 +24,8 @@
     overflow-y: hidden !important;
     overflow-x: auto !important;
 }
+
+.code-right {
+    float: right;
+    font-size: 0.75em;
+}

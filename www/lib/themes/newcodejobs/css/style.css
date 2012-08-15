@@ -472,3 +472,7 @@ input:required:valid {
   	background-position: right top;
   	background-repeat: no-repeat;
 }
+
+.fb-comments-count {
+    display: inline;
+}

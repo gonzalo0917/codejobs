@@ -26,7 +26,11 @@
 			echo ' <span class="bold">'. __(_("Views")) .":</span> ". (int) $code["Views"];
 		?>
 	</span>
-	
+	<div class="code-right">
+        <a href="#comments">
+            <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
+        </a>
+    </div>	
         <?php
             foreach ($code["Files"] as $file) {
         ?>

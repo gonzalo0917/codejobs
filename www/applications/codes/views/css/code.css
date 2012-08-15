@@ -18,3 +18,8 @@ a.permalink {
 div.title-file:hover a.permalink {
     visibility: visible;
 }
+
+.code-right {
+    float: right;
+    font-size: 0.75em;
+}
