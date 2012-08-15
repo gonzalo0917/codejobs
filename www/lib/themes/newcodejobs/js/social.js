@@ -17,4 +17,15 @@ window.___gcfg = {lang: 'es'};
 	
 !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
 
+$(document).ready(function() {
+    $(".fb-comments-count").each(function (index) {
+        $(this).on("DOMNodeInserted", function (event) {
+            $target = $(event.target);
+            if (parseInt($target.text()) == 1) {
+                $target.parent().next().css("display", "none");
+                $target.parent().next().next().css("display", "inline");
+            }
+        });
+    });
+});
 
