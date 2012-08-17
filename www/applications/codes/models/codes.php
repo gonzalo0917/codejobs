@@ -130,7 +130,8 @@ class Codes_Model extends ZP_Model {
 	}
         
         public function getRSS() {	
-		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC");
+            $language = ($this->language !== "English" ? "(Language = '$this->language' OR Language = 'English')" : "Language = 'English'");
+            return $this->Db->findBySQL("$language AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC");
 	}
         
         private function proccessFiles($ID) {
