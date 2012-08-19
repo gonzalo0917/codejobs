@@ -132,24 +132,19 @@ class Blog_Controller extends ZP_Controller {
 		}
 	}
 	
-	private function slug($year = NULL, $month = NULL, $day = NULL, $slug = NULL) {	
-		$this->Comments_Model = $this->model("Comments_Model");
-		
+	private function slug($year = NULL, $month = NULL, $day = NULL, $slug = NULL) {			
 		$this->CSS("posts", $this->application);
 		$this->CSS("comments", $this->application);
 		$this->CSS("forms");
-		$this->helper(array("forms","html"));
 
-		$alert = (POST("publish")) ? $this->Comments_Model->addComment() : FALSE;
+		$this->helper(array("forms","html"));
 		
 		$data = $this->Cache->data("$slug-$year-$month-$day-". $this->language, "blog", $this->Blog_Model, "getPost", array($year, $month, $day, $slug));
 
 		$URL = path("blog/$year/$month/$day/". segment(4, isLang()));
 		
-		$vars["alert"]        = $alert;
 		$vars["ID_Post"]      = $data[0]["post"][0]["ID_Post"];
 		$vars["post"] 		  = $data[0]["post"][0];
-		$vars["dataComments"] = $data[0]["comments"];
 		$vars["URL"] 	      = $URL;					
 		
 		if($data) {	
@@ -157,10 +152,6 @@ class Blog_Controller extends ZP_Controller {
 			
 			if($data[0]["post"][0]["Pwd"] === "") {	 
 				$vars["view"][0] = $this->view("post", TRUE);		
-				
-				if($data[0]["post"][0]["Enable_Comments"]) {	
-					$vars["view"][1] = $this->view("comments", TRUE);
-				}
 			} elseif(POST("access")) {
 				if(POST("password", "encrypt") === POST("pwd")) {
 					if(!SESSION("access-id")) {
@@ -177,11 +168,7 @@ class Blog_Controller extends ZP_Controller {
 				$vars["password"] = $data[0]["post"][0]["Pwd"];
 				$vars["view"] 	  = $this->view("access", TRUE);
 			} elseif(SESSION("access-id") === $data[0]["post"][0]["ID_Post"]) {
-				$vars["view"][0] = $this->view("post", TRUE);		
-					
-				if($data[0]["post"][0]["Enable_Comments"]) {	
-					$vars["view"][1] = $this->view("comments", TRUE);
-				}
+				$vars["view"][0] = $this->view("post", TRUE);
 			} elseif(SESSION("access-id") and SESSION("access-id") !== $data[0]["post"][0]["ID_Post"]) {
 				$vars["password"] = $data[0]["post"][0]["Pwd"];
 				$vars["view"] 	  = $this->view("access", TRUE);						
