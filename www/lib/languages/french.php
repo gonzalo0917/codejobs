@@ -1,28 +1,28 @@
 <?php
-$phrase["spanish"] 	 						= "Español";
-$phrase["english"] 	 						= "Inglés";
-$phrase["portuguese"] 	 					= "Portugués";
-$phrase["french"] 	 						= "Francés";
+$phrase["spanish"] 	 						= "Espagnol";
+$phrase["english"] 	 						= "Anglais";
+$phrase["portuguese"] 	 					= "Portugais";
+$phrase["french"] 	 						= "Français";
 
 //Header
-$phrase["home"] 	 						= "Inicio";
-$phrase["bookmarks"] 						= "Marcadores";
-$phrase["videos"] 	 						= "Vídeos";
-$phrase["codes"] 	 						= "Códigos";
-$phrase["jobs"] 	 						= "Empleos";
-$phrase["forums"] 	 						= "Foros";
-$phrase["are_you_new_on_codejobs_register"] = "¿Eres nuevo en CodeJobs?, ¡Regístrate!";
-$phrase["full_name"] 						= "Nombre Completo";
-$phrase["password"]  						= "Contraseña";
-$phrase["register_on_codejobs"]  			= "¡Regístrate en CodeJobs!";
-$phrase["do_you_have_an_account_login"]  	= "¿Tienes una cuenta?, Conectáte!";
-$phrase["username_or_email"]  				= "Nombre de Usuario o Email";
-$phrase["forgot_your_password"]  			= "¿Olvidaste tu contraseña?";
-$phrase["login"]  							= "Conectar";
-$phrase["see_my_profile_page"]  			= "Ver mi página de perfil";
-$phrase["direct_messages"]  				= "Mensajes Directos";
-$phrase["help"]  							= "Ayúda";
-$phrase["my_codes"]  						= "Mis códigos";
+$phrase["home"] 	 						= "Initiation";
+$phrase["bookmarks"] 						= "Favoris";
+$phrase["videos"] 	 						= "Vidéos";
+$phrase["codes"] 	 						= "Codes";
+$phrase["jobs"] 	 						= "Offres d'emploi";
+$phrase["forums"] 	 						= "forums";
+$phrase["are_you_new_on_codejobs_register"] = "Êtes-vous CodeJobs nouvelles?, Inscrivez-vous!";
+$phrase["full_name"] 						= "Nom et Prénom";
+$phrase["password"]  						= "Mot de passe";
+$phrase["register_on_codejobs"]  			= "Se Connecter CodeJobs!";
+$phrase["do_you_have_an_account_login"]  	= "Vous avez un compte?, Connectez vous!";
+$phrase["username_or_email"]  				= "Nom d'utilisateur ou e-mail";
+$phrase["forgot_your_password"]  			= "Mot de passe oublié?";
+$phrase["login"]  							= "Login";
+$phrase["see_my_profile_page"]  			= "Voir ma page de profil";
+$phrase["direct_messages"]  				= "Messages directs";
+$phrase["help"]  							= "Aider";
+$phrase["my_codes"]  						= "Mes codes";
 $phrase["my_jobs"]  						= "Mis empleos";
 $phrase["my_posts"]  						= "Mis publicaciones";
 $phrase["my_courses"]  						= "Mis cursos";
@@ -166,4 +166,3 @@ $phrase["the_username_already_exists"]		  = "El nombre de usuario ya existe";
 $phrase["the_email_already_exists"]			  = "El Email ya existe";
 $phrase["you_cant_register_many_times_a_day"] = "No se puede registrar varias veces al día";
 $phrase["the_account_has_been_created_correctly_we_will_send_you_an_email_so_you_can_activate_your_account"] = "La cuenta ha sido creada correctamente, enviaremos un e-mail con las indicaciones para que pueda activar su cuenta.";
-

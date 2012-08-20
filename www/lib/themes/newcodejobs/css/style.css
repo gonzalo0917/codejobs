@@ -109,6 +109,7 @@ header #topbar nav ul li a:hover, header ul li a.current {
 header #wrapper {
 	width: 1020px;
 	margin: 0 auto;
+	margin-top: 20px;
 }
 
 header #wrapper nav ul {
@@ -145,8 +146,6 @@ header #wrapper nav ul li a:hover, header ul li a.current {
 header #logo {
 	width: 250px;
 	height: 90px;
-	background-image: url('../images/logo.png');
-	text-indent: -9999px;
 }
 
 #content {
@@ -332,7 +331,7 @@ footer a:hover {
 	position: absolute;
 	top: 32px;
 	left: 920px;
-	z-index: 1;
+	z-index: 5;
 	background-color: #FFF;
     background-clip: padding-box;
     background-color: #FFFFFF;
@@ -397,6 +396,11 @@ footer a:hover {
 
 #top-box-login a:hover {
 	color: #004a7d;
+}
+
+.ads {
+	width: 336px;
+	margin: 0 auto;
 }
 
 #top-box-profile {

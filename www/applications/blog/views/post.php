@@ -11,7 +11,7 @@
 			</div>
 			
 		
-		<div class="post-left">
+			<div class="post-left">
 				<?php echo __(_("Published")) ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "blog/tag/") ." " . __(_("by")) . ' <a href="'. path("users/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 			</div>
 			
@@ -36,17 +36,25 @@
 
 				<?php echo showContent(bbCode($post["Content"], $URL)); ?>
 				<br />
-				<script type="text/javascript"><!--
-					google_ad_client = "ca-pub-4006994369722584";
-					/* CodeJobs.biz */
-					google_ad_slot = "1672839256";
-					google_ad_width = 728;
-					google_ad_height = 90;
-					//-->
-					</script>
-					<script type="text/javascript"
-					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-				</script>
+				<?php 
+					if(!SESSION("ZanUser")) {
+					?>
+						<p>
+							<script type="text/javascript"><!--
+								google_ad_client = "ca-pub-4006994369722584";
+								/* CodeJobs.biz */
+								google_ad_slot = "1672839256";
+								google_ad_width = 728;
+								google_ad_height = 90;
+								//-->
+								</script>
+								<script type="text/javascript"
+								src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+							</script>
+						</p>
+					<?php
+					}
+				?>
 			</div>
 		</div>
 		<br /></br />
