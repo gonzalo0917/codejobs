@@ -24,7 +24,7 @@
 		
 	<div class="addthis_toolbox addthis_default_style ">
 		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="<?php echo $URL; ?>"></a>
-		<a class="addthis_button_tweet" addthis:title="<?php echo $post["Title"]; ?>"></a>
+		<a class="addthis_button_tweet" addthis:title="<?php echo $bookmark["Title"]; ?>"></a>
 	</div>
 
 	<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
