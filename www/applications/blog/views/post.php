@@ -46,11 +46,7 @@
 					</script>
 					<script type="text/javascript"
 					src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-					</script>
-			</div>
-
-			<div class="post-social">		
-				
+				</script>
 			</div>
 		</div>
 		<br /></br />

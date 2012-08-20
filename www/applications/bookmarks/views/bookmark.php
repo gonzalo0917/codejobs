@@ -22,6 +22,11 @@
 		?>
 	</span>
 		
+	<div class="addthis_toolbox addthis_default_style ">
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="<?php echo $URL; ?>"></a>
+		<a class="addthis_button_tweet" addthis:title="<?php echo $post["Title"]; ?>"></a>
+	</div>
+
 	<p class="justify">				
 		<?php echo $bookmark["Description"]; ?> 
 	</p>
@@ -40,15 +45,18 @@
 		}
 	?>
 
-	<div class="bookmarks-social">		
-		<div class="fb-like logo-facebook" data-href="<?php echo path("bookmarks/go/". $bookmark["ID_Bookmark"]); ?>" data-send="false" data-layout="button_count" data-width="45" data-show-faces="true" data-font="arial"></div>
-			
-		<a href="https://twitter.com/share" data-url="<?php echo path("bookmarks/go/". $bookmark["ID_Bookmark"]);?>" data-text="<?php echo $bookmark["Title"]; ?>" class="twitter-share-button logo-twitter" data-via="codejobs" data-lang="es" data-related="codejobs.biz" data-count="none" data-hashtags="codejobs.biz">
-			<?php echo __(_("Tweet")); ?>
-		</a>
-
-		<div class="clear"></div>
-	</div>
+	<br />
+	<script type="text/javascript"><!--
+		google_ad_client = "ca-pub-4006994369722584";
+		/* CodeJobs.biz */
+		google_ad_slot = "1672839256";
+		google_ad_width = 728;
+		google_ad_height = 90;
+		//-->
+		</script>
+		<script type="text/javascript"
+		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
 	
 	<p><div class="fb-comments" data-href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]); ?>" data-num-posts="2" data-width="750"></div></p>
 	<p>
