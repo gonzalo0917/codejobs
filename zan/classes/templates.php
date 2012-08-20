@@ -240,7 +240,7 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getTitle() {
-		return (is_null($this->title)) ? get("webName") ." - ". get("webSlogan") : $this->title;
+		return (is_null($this->title)) ? get("webName") ." - ". get("webSlogan") : encode($this->title);
 	}
 	
     /**
