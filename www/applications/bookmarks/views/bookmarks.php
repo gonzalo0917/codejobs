@@ -38,16 +38,6 @@
 			<?php 
 				} 
 			?>
-			
-			<div class="bookmarks-social">		
-				<div class="fb-like logo-facebook" data-href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"]); ?>" data-send="false" data-layout="button_count" data-width="45" data-show-faces="true" data-font="arial"></div>
-			
-				<a href="https://twitter.com/share" data-url="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"]);?>" data-text="<?php echo $bookmark["Title"]; ?>" class="twitter-share-button logo-twitter" data-via="codejobs" data-lang="es" data-related="codejobs.biz" data-count="none" data-hashtags="codejobs.biz">
-					<?php echo __(_("Tweet")); ?>
-				</a>
-
-				<div class="clear"></div>
-			</div>
 			<br />
 		
 	<?php 
