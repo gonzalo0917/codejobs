@@ -158,13 +158,13 @@
 						?>
 								<li class="float-right">
 									<a id="display-login" href="#" title="<?php echo __(_("Login")); ?>">
-										<?php echo __(_("Login")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" />
+										<?php echo __(_("Login")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 									</a>
 								</li>
 								
 								<li class="float-right">
 									<a id="display-register" href="#" title="<?php echo __(_("Register!")); ?>">
-										<?php echo __(_("Register!")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" />
+										<?php echo __(_("Register!")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 									</a>
 								</li>
 						<?php
@@ -172,7 +172,7 @@
 						?>
 								<li class="float-right">
 									<a id="display-profile" href="#" title="<?php echo __(_("Hi")); ?>">
-										<?php echo __(_("Hi")) .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" />
+										<?php echo __(_("Hi")) .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 									</a>
 								</li>
 						<?php
@@ -181,7 +181,7 @@
 						
 						<li class="float-right">
 							<a id="display-languages" href="#" title="<?php echo __(_("Language")); ?>">
-								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __(_("Language")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" />
+								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __(_("Language")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 							</a>
 						</li>
 					</ul>
