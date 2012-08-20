@@ -38,7 +38,7 @@ if(is_array($posts)) {
 			<div class="clear"></div>
 					
 			<div class="post-content">
-				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>
+				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>			
 			</div>
 			
 			<div class="clear"></div>

@@ -399,6 +399,11 @@ footer a:hover {
 	color: #004a7d;
 }
 
+.ads {
+	width: 336px;
+	margin: 0 auto;
+}
+
 #top-box-profile {
 	border: 1px solid #000;
 	width: 270px;

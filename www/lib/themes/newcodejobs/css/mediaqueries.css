@@ -54,7 +54,7 @@
 	}
 
 	#top-box-languages {
-		left: 1440px;
+		left: 1450px;
 	}
 
 	#top-box-register {
@@ -63,6 +63,10 @@
 
 	#top-box-login {
 		left: 1400px;
+	}	
+
+	#top-box-profile {
+		left: 1450px;
 	}	
 
 	aside .transmission ul {
