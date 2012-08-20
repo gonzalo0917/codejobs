@@ -66,10 +66,10 @@
 				</nav>
 
 				<div id="top-box-languages" class="toggle">
-					<a href="<?php echo path("es"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/es.png" alt="Español" /></a>
-					<a href="<?php echo path("en"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/en.png" alt="Español" /></a>
-					<a href="<?php echo path("fr"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/fr.png" alt="Español" /></a>
-					<a href="<?php echo path("pt"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/pt.png" alt="Español" /></a>
+					<a href="<?php echo path("es"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/es.png" alt="Spanish" style="border: none;" /></a>
+					<a href="<?php echo path("en"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/en.png" alt="English" style="border: none;" /></a>
+					<a href="<?php echo path("fr"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/fr.png" alt="French" style="border: none;" /></a>
+					<a href="<?php echo path("pt"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/pt.png" alt="Portuguese" style="border: none;" /></a>
 				</div>
 
 				<div id="top-box-register" class="toggle">
