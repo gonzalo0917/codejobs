@@ -182,6 +182,7 @@ $phrase["the_email_already_exists"]			  = "El Email ya existe";
 $phrase["you_cant_register_many_times_a_day"] = "No se puede registrar varias veces al día";
 $phrase["the_account_has_been_created_correctly_we_will_send_you_an_email_so_you_can_activate_your_account"] = "La cuenta ha sido creada correctamente, enviaremos un e-mail con las indicaciones para que pueda activar su cuenta.";
 
-$phrase["read_more"]	= "Leer más";
-$phrase["likes"]		= "Me Gusta";
-$phrase["dislikes"]		= "No me gusta";
+$phrase["read_more"]	  = "Leer más";
+$phrase["likes"]		  = "Me Gusta";
+$phrase["dislikes"]		  = "No me gusta";
+$phrase["visit_bookmark"] = "Visitar Marcador";
