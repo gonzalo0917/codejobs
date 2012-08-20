@@ -14,7 +14,7 @@
                 <h3><?php print __(_("Live broadcast")); ?></h3>
             </header>
 
-            <p class="text"><?php print __(_("Every Saturday in")); ?> <a href="<?php path("tv"); ?>">CodeJobs TV!</a></p> 
+            <p class="text"><?php print __(_("Every Saturday in")); ?> <a href="<?php echo path("tv"); ?>">CodeJobs TV!</a></p> 
 
             <ul>
                 <li>
