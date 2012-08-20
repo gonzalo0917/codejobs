@@ -53,7 +53,7 @@
 					$li[] = " | ". span("bold", __(_("Welcome"))) .": " . SESSION("ZanUser");
 					$li[] = " | ". span("bold", __(_("Online users"))) .": $online";
 					$li[] = " | ". span("bold", __(_("Registered users"))) .": $registered";
-					$li[] = " | ". span("bold", __(_("Last user"))) .": ". a($lastUser["Username"], path("users/editprofile/"));
+					$li[] = " | ". span("bold", __(_("Last user"))) .": ". a($lastUser["Username"], path("users/$lastUser"));
 					$li[] = " | ". a(__(_("Logout")) ."&rsaquo;&rsaquo;", path("cpanel/logout/")) ."";			
 					
 					print ul($li);				
