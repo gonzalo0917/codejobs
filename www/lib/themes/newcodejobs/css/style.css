@@ -145,8 +145,6 @@ header #wrapper nav ul li a:hover, header ul li a.current {
 header #logo {
 	width: 250px;
 	height: 90px;
-	background-image: url('../images/logo.png');
-	text-indent: -9999px;
 }
 
 #content {
