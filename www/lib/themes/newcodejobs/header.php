@@ -193,7 +193,7 @@
 
 		<div id="wrapper">
 			<div id="logo">
-				<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE); ?>" alt="CodeJobs" class="noborder" /></a>
+				<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE); ?>" alt="CodeJobs" style="border: none;" /></a>
 			</div>
 
 			<nav>
