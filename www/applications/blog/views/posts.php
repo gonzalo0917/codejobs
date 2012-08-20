@@ -32,7 +32,11 @@ if(is_array($posts)) {
 			</div>
 			
 			<div class="post-right">
-
+				<?php
+					if($post["Enable_Comments"]) {
+						?><fb:comments-count href="<?php echo $URL; ?>"></fb:comments-count> <?php echo __("comments");
+					}
+				?>
 			</div>
 
 			<div class="clear"></div>

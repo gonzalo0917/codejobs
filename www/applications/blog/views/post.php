@@ -11,7 +11,7 @@
 			</div>
 			
 		
-		<div class="post-left">
+			<div class="post-left">
 				<?php echo __(_("Published")) ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "blog/tag/") ." " . __(_("by")) . ' <a href="'. path("users/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 			</div>
 			
