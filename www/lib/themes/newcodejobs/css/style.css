@@ -8,6 +8,19 @@ body {
    	overflow-x: hidden;
 }
 
+.code {
+	margin: 10px;
+	max-height: 500px;
+	overflow: scroll;
+	border: 1px dotted #666;
+	background-color: #FFF;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0;
+	line-height: 15px;
+	background-image: url('../images/lines.png');
+}
+
 a {
     color: #CC2A2A;
     outline: medium none;

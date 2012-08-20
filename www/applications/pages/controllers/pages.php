@@ -32,11 +32,7 @@ class Pages_Controller extends ZP_Controller {
 	public function tv() {
 		$this->CSS("style", "pages");
 		
-		$vars["view"] = $this->view("tv", TRUE, "pages");
-
-		$this->render("include", $vars);
-		
-		$this->rendering("header", "footer");
+		$this->view("tv", NULL, "pages");
 	}
 
 	private function getView($view = NULL) {

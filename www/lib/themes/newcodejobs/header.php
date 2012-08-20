@@ -14,23 +14,22 @@
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/style.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.css" type="text/css">
 	
-	
 	<?php 
 		echo $this->getCSS(); 
 	 	
 	 	echo $this->js("jquery", NULL, TRUE); 
                 
-                if (defined("_codemirror")) {
-                    print $this->js("codemirror", NULL, TRUE);
-                }
-                
+        if(defined("_codemirror")) {
+            print $this->js("codemirror", NULL, TRUE);
+        }
+            
 	 ?>
 
 	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/social.js"></script>
 
 	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/porlets.js"></script>
         
-        <script type="text/javascript">
+    <script type="text/javascript">
 		var PATH = "<?php print path(); ?>";
 		
 		var URL  = "<?php print get('webURL'); ?>";
@@ -58,9 +57,9 @@
 				<nav>
 					<ul>
 						<li><a href="<?php echo path(); ?>"><?php echo __("Home"); ?></a></li>
-						<li><a href="<?php echo path("codes"); ?>"><?php echo __(_("Codes")); ?></a></li>
-						<li><a href="<?php echo path("jobs"); ?>"><?php echo __(_("Jobs")); ?></a></li>
-						<li><a href="<?php echo path("forums"); ?>"><?php echo __(_("Forums")); ?></a></li>
+						<!--<li><a href="<?php echo path("codes"); ?>"><?php echo __(_("Codes")); ?></a></li>-->
+						<!--<li><a href="<?php echo path("jobs"); ?>"><?php echo __(_("Jobs")); ?></a></li>-->
+						<!--<li><a href="<?php echo path("forums"); ?>"><?php echo __(_("Forums")); ?></a></li>-->
 						<li><a href="<?php echo path("videos"); ?>"><?php echo __(_("Videos")); ?></a></li>
 						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __(_("Bookmarks")); ?></a></li>
 					</ul>

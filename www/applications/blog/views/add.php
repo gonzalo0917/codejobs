@@ -38,14 +38,12 @@
 				"value" => $tags
 			));
 
-			echo formTextarea(array(	
-				"id" 	 => "redactor_content", 
+			echo formTextarea(array(	 
 				"name" 	 => "content", 
-				"class"  => "span9",
-				"style"  => "height: 400px; width: 690px;", 
+				"class"  => "markItUp",
 				"field"  => __(_("Content")), 
 				"p" 	 => TRUE, 
-				"value"  => decode($content)
+				"value"  => $content
 			));
 
 			?>
@@ -59,8 +57,8 @@
 			echo formField(NULL, __(_("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
 
 			$options = array(
-				0 => array("value" => 1, "option" => __(_("Yes"))),
-				1 => array("value" => 0, "option" => __(_("No")), "selected" => TRUE)
+				0 => array("value" => 1, "option" => __(_("Yes")), "selected" => TRUE),
+				1 => array("value" => 0, "option" => __(_("No")))
 			);
 
 			echo formSelect(array(

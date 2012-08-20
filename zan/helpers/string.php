@@ -362,6 +362,58 @@ function pathToImages($HTML = NULL, $imagePath = NULL) {
 	return FALSE;
 }
 
+function getCode($code) {
+    if(!is_array($code)) {
+    	$code = explode("\n", $code);
+    }
+
+    $result = NULL;
+
+    foreach($code as $line => $codeLine) {
+        if(preg_match("/<\?(php)?[^[:graph:]]/", $codeLine)) {
+            $result .= highlight_string($codeLine, TRUE) ."<br />";
+        } else {
+            $result .= preg_replace("/(&lt;\?php&nbsp;)+/", "", highlight_string("<?php ". $codeLine, TRUE)) ."<br />";
+        }
+    }
+
+    return '<div class="code">'. $result .'</div>';
+}
+
+function showContent($content) {
+	$content = str_replace("------", "", $content);
+	
+	return setCode($content, TRUE);
+}
+
+function setCode($HTML, $return = FALSE) {
+   	$codes = explode("[Code]", $HTML);
+
+   	if(count($codes) > 1) {
+   		for($i = 1; $i <= count($codes) - 1; $i++) {
+   			if(isset($codes[$i])) {
+				$code = explode("[/Code]", $codes[$i]);
+
+		   		if(isset($code[0])) {
+		   	 		if($return) {
+		   				$code[0] = getCode($code[0]);
+		   			} else {
+			   			$code[0] = addslashes($code[0]);
+			   		}
+		   		}
+
+		   		if($return) {
+		   			$codes[$i] = implode("", $code);
+		   		} else {
+		   			$codes[$i] = implode("[/Code]", $code);
+		   		}
+		   	}	
+	   	}
+   	} 	
+
+   	return ($return) ? implode("", $codes) : implode("[Code]", $codes);
+}
+
 function randomString($length = 6) {  
     $consonant = array("b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "x", "y", "z");  
     $vocal	   = array("a", "e", "i", "o", "u");  
@@ -429,7 +481,10 @@ function pageBreak($content, $URL = NULL) {
 	$content = str_replace('<p style="text-align: justify;"><!-- pagebreak --></p>', "<!---->", $content);
 	$content = str_replace('<p><!-- pagebreak -->', "<p><!-- pagebreak --></p>\n<p>", $content);
 	$content = str_replace("<p><!-- pagebreak --></p>", "<!---->", $content);
-	$content = str_replace('<!-- pagebreak -->', "<!---->", $content);		
+	$content = str_replace('<!-- pagebreak -->', "<!---->", $content);	
+	$content = str_replace('<!-- Pagebreak -->', "<!---->", $content);
+	$content = str_replace('<!--Pagebreak-->', "<!---->", $content);
+	$content = str_replace('------', "<!---->", $content);
 			
 	$parts = explode("<!---->", $content);
 

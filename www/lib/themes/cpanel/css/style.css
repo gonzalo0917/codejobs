@@ -31,8 +31,14 @@ a:hover {
 	width: 1020px;
 	height: 100%;
 	margin: 0 auto;
+	padding-left: 10px;
 	border: 1px solid #333333;
 	background-color: #FFFFFF;
+}
+
+#header {
+	width: 1030px;
+	margin-left: -10px;
 }
 
 #top-bar-logout {

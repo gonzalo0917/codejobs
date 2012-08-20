@@ -29,7 +29,7 @@ echo div("new-user", "class");
 				echo formInput(array(
 					"id"	   => "username",
 					"name" 	   => "username",
-					"pattern"  => "^[a-z0-9_-]{3,15}$", 
+					"pattern"  => "^[A-Za-z0-9_-]{3,15}$", 
 					"class"    => "required", 
 					"field"    => __(_("Username")), 
 					"p" 	   => TRUE, 
@@ -47,7 +47,6 @@ echo div("new-user", "class");
 
 				echo formInput(array(	
 					"name" 	   => "password",
-					"pattern"  => "^.*(?=.{6,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", 
 					"type"     => "password",
 					"field"    => __(_("Password")), 
 					"p" 	   => TRUE, 

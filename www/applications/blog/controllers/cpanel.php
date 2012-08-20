@@ -135,7 +135,6 @@ class CPanel_Controller extends ZP_Controller {
 		
 		$this->CSS("forms", "cpanel");
 		
-		$this->js("redactorjs");
 		$this->js("insert-html");
 		$this->js("show-element");
 
@@ -151,13 +150,6 @@ class CPanel_Controller extends ZP_Controller {
 		}
 		
 		$this->vars["application"] = $this->CPanel->getApplicationID();
-
-		$this->js("actions", $this->application);
-		$this->js("tagsinput.min", "cpanel");
-		$this->js("jquery-ui.min", "cpanel");
-		$this->js("tags", "cpanel");
-		
-		$this->CSS("tagsinput", "cpanel");
 		
 		$this->vars["view"] = $this->view("add", TRUE, $this->application);
 		

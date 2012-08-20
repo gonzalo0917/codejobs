@@ -32,23 +32,13 @@ if(is_array($posts)) {
 			</div>
 			
 			<div class="post-right">
-				<?php 
-					echo ($post["Enable_Comments"]) ? getTotal($post["Comments"], "comment", "comments") : NULL; 
-				?>
+
 			</div>
 
 			<div class="clear"></div>
 					
 			<div class="post-content">
-				<?php echo bbCode(pagebreak($post["Content"], $URL)); ?>
-			</div>
-
-			<div class="post-social">		
-				<div class="fb-like logo-facebook" data-href="<?php echo $URL; ?>" data-send="false" data-layout="button_count" data-width="45" data-show-faces="true" data-font="arial"></div>
-			
-				<a href="https://twitter.com/share" data-url="<?php echo $URL;?>" data-text="<?php echo $post["Title"];?>" class="twitter-share-button logo-twitter" data-via="codejobs" data-lang="es" data-related="codejobs.biz" data-count="none" data-hashtags="codejobs.biz">
-					<?php echo __(_("Tweet")); ?>
-				</a>
+				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>
 			</div>
 			
 			<div class="clear"></div>

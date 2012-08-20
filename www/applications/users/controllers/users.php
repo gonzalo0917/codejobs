@@ -107,7 +107,9 @@ class Users_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 	
-	public function register() {			
+	public function register() {	
+		$this->helper("html");
+				
 		if(!SESSION("ZanUser")) {
 			$this->title(__(_("Register")));
 

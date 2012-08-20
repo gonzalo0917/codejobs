@@ -53,17 +53,24 @@ class Blog_Model extends ZP_Model {
 	}
 	
 	private function editOrSave($action) {
-		$validations = array(
-			"exists"  => array(
-				"Slug" 	   => slug(POST("title", "clean")), 
-				"Year"	   => date("Y"),
-				"Month"	   => date("m"),
-				"Day"	   => date("d"),
-				"Language" => POST("language")
-			),
-			"title"   => "required",
-			"content" => "required"
-		);
+		if($action === "save") {
+			$validations = array(
+				"exists"  => array(
+					"Slug" 	   => slug(POST("title", "clean")), 
+					"Year"	   => date("Y"),
+					"Month"	   => date("m"),
+					"Day"	   => date("d"),
+					"Language" => POST("language")
+				),
+				"title"   => "required",
+				"content" => "required"
+			);
+		} else {
+			$validations = array(				
+				"title"   => "required",
+				"content" => "required"
+			);
+		}
 		 
 		$this->URL        = path("blog/". date("Y")) ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean"));
 		$this->muralExist = POST("mural_exist");
@@ -91,7 +98,7 @@ class Blog_Model extends ZP_Model {
 		$data = array(
 			"ID_User"      => SESSION("ZanUserID"),
 			"Slug"         => slug(POST("title", "clean")),
-			"Content"      => POST("content", "clean"),
+			"Content"      => setCode(decode(POST("content", "clean"))),
 			"Author"       => SESSION("ZanUser"),
 			"Year"	       => date("Y"),
 			"Month"	       => date("m"),
@@ -103,7 +110,7 @@ class Blog_Model extends ZP_Model {
 			"Text_Date"    => now(2),
 			"Tags"		   => POST("tags")
 		);
-	
+
 		$this->Data->ignore(array("categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
 
 		$this->data = $this->Data->proccess($data, $validations);

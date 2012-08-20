@@ -13,32 +13,33 @@
 	
 	 	print $this->getCSS();
 		print $this->themeCSS("cpanel"); 
-		
-		print $this->js("jquery", NULL, TRUE); 
                 
-                if (defined("_angularjs")) {
-                    print $this->js("angular", NULL, TRUE);
-                }
-                
-                if (defined("_codemirror")) {
-                    print $this->js("codemirror", NULL, TRUE);
-                }
+        if(defined("_angularjs")) {
+            print $this->js("angular", NULL, TRUE);
+        }
+        
+        if(defined("_codemirror")) {
+            print $this->js("codemirror", NULL, TRUE);
+        }
                 
 		$this->js("www/lib/scripts/js/main.js");
 	?>
+
+	<script type="text/javascript" src="<?php echo path("vendors/js/jquery/jquery.js", "zan"); ?>"></script>
+	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
+	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/html/set.js", "zan"); ?>"></script>
+
+	<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.css", "zan"); ?>" />
+	<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/html/style.css", "zan"); ?>" />
 	
 	<script type="text/javascript">
 		var PATH = "<?php print path(); ?>";
 		
 		var URL  = "<?php print get('webURL'); ?>";
 
-		$(document).ready(function() {
-			$('#redactor_content').redactor({ 	
-                                imageUpload: 	PATH + '/<?php echo whichApplication(); ?>/uploadImage',
-				fileUpload: 	'<?php echo path("vendors/js/editors/redactorjs/scripts/file_upload.php", "zan"); ?>',
-				imageGetJson: 	'<?php echo path("vendors/js/editors/redactorjs/json/data.json", "zan"); ?>'
-			});
-		});
+		$(document).on("ready", function() {
+      		$("textarea").markItUp(mySettings);
+   		});
 	</script>			
 </head>
 
