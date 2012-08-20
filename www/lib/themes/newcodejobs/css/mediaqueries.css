@@ -30,7 +30,7 @@
 	}
 }
 
-@media (max-width: 1920px), (max-device-width: 1920px) {
+@media (min-width: 1920px), (min-device-width: 1920px) {
 	header #wrapper {
 		width: 1500px;
 	}
