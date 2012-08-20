@@ -382,6 +382,7 @@ function getCode($code) {
 
 function showContent($content) {
 	$content = str_replace("------", "", $content);
+	$content = str_replace("\\", "", $content);
 	
 	return setCode($content, TRUE);
 }
