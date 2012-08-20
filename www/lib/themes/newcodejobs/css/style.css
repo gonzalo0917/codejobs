@@ -109,6 +109,7 @@ header #topbar nav ul li a:hover, header ul li a.current {
 header #wrapper {
 	width: 1020px;
 	margin: 0 auto;
+	margin-top: 20px;
 }
 
 header #wrapper nav ul {
