@@ -28,7 +28,7 @@
 			);
 
 			echo formSelect(array(
-				"name" 	=> "company", 
+				"name" 	=> "id_company", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
 				"field" => __(_("Company"))), 
@@ -53,9 +53,9 @@
 
 			echo formTextarea(array(	
 				"id" 	 => "", 
-				"name" 	 => "company_information", 
+				"name" 	 => "Company_Information", 
 				"class"  => "span9", 
-				"field"  => __(_("Company information")), 
+				"field"  => __(_("Company Information")), 
 				"p" 	 => TRUE, 
 				"value"  => ""
 			));

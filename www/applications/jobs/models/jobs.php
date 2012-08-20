@@ -57,7 +57,7 @@ class Jobs_Model extends ZP_Model {
 	private function editOrSave($action) {
 		 
 		$validations = array(
-			"company"   => "required",
+			"id_company"   => "required",
 			"title" => "required",
 			"email" => "email?",
 			"Company_Information" => "required",
