@@ -261,41 +261,6 @@ footer a:hover {
 	padding-left: 156px;
 }
 
-/* Posts */
-.post .post-image {
-	float: right;
-	padding: 2px;
-	margin: 10px;
-	border: 1px solid #045c98;
-}
-
-.post .post-image:hover {
-	background-color: #045c98;
-}
-
-.post h2 {
-    font-size: 2em;
-    line-height: 1em;
-    margin-bottom: 3px;
-}
-
-.post h2 span {
-    color: #CC2A2A;
-}
-
-.post h2 a {
-    color: #292929;
-    text-decoration: none;
-}
-
-.post h2 a:hover {
-	color: #CC2A2A;
-}
-
-.post h2 a:active, .standardPost h2 a:focus {
-    color: #CC2A2A;
-}
-
 /* Top bar */
 #top-box .flag {
 	vertical-align: middle;
