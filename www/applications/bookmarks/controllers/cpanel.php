@@ -126,6 +126,8 @@ class CPanel_Controller extends ZP_Controller {
 		}
 		
 		$this->title("Add");
+
+		$this->helper("forms");
 				
 		$this->CSS("forms", "cpanel");
 			

@@ -39,7 +39,7 @@
 			echo formTextarea(array(	
 				"id" 	 => "editor", 
 				"name" 	 => "description", 
-				"class"  => "span10 required",
+				"class"  => "required",
 				"style"  => "height: 200px;", 
 				"field"  => __(_("Description")), 
 				"p" 	 => TRUE, 
