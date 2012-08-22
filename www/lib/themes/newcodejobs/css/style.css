@@ -14,9 +14,7 @@ body {
 	overflow: scroll;
 	border: 1px dotted #666;
 	background-color: #FFF;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 0;
+	padding: 10px;
 	line-height: 15px;
 	background-image: url('../images/lines.png');
 }
