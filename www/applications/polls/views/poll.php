@@ -4,7 +4,7 @@
 		if(!COOKIE("ZanPoll")) {
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
-					<p>
+					<p style="text-align: left;">
 						<strong><?php echo $poll["question"]["Title"];?></strong>
 					</p>
 							
