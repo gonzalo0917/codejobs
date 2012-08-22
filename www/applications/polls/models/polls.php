@@ -167,6 +167,8 @@ class Polls_Model extends ZP_Model {
 		$data = $this->Db->findBySQL("ID_Poll = '$ID_Poll' AND IP = '$IP' AND End_Date > $date", "polls_ips");
 		
 		if($data) {
+			COOKIE("ZanPoll", $ID_Poll, 3600);
+			
 			showAlert(__("You've previously voted on this poll"), path());
 		} else {								
 			$this->Db->updateBySQL("polls_answers", "Votes = (Votes) + 1 WHERE ID_Answer = '$ID_Answer'");								
