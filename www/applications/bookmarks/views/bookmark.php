@@ -23,7 +23,6 @@
 	</span>
 		
 	<div class="addthis_toolbox addthis_default_style ">
-		<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]); ?>"></a>
 		<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo $bookmark["Title"]; ?>"></a>
 	</div>
 

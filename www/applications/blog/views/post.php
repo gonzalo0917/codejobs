@@ -18,9 +18,9 @@
 			<div class="post-right">
 				<?php
 					if($post["Enable_Comments"]) {
-                                ?>
-                                <div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
-                                <?php
+                    ?>
+                   		<div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
+                    <?php
 					}
 				?>
 			</div>
@@ -29,8 +29,7 @@
 				
 			<div class="post-content">
 				<div class="addthis_toolbox addthis_default_style ">
-					<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="<?php echo $URL; ?>"></a>
-					<a class="addthis_button_tweet" addthis:title="<?php echo $post["Title"]; ?>"></a>
+					<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo $post["Title"]; ?>" tw:url="<?php echo $URL; ?>"></a>
 				</div>
 
 				<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
