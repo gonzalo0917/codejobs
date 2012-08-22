@@ -26,13 +26,13 @@ class Bookmarks_Model extends ZP_Model {
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_Link DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
 		if($action === "edit" or $action === "save") {
-			$validation = $this->editOrSave();
+			$validation = $this->editOrSave($action);
 			
 			if($validation) {
 				return $validation;
 			}
 		}
-		
+
 		if($action === "all") {
 			return $this->all($trash, $order, $limit);
 		} elseif($action === "edit") {
@@ -62,14 +62,21 @@ class Bookmarks_Model extends ZP_Model {
 		}				
 	}
 	
-	private function editOrSave() {
-		$validations = array(
-			"exists"  => array(
-				"URL" => POST("URL")
-			),
-			"title" 	  => "required",
-			"description" => "required"
-		);
+	private function editOrSave($action) {
+		if($action == "save") {
+			$validations = array(
+				"exists"  => array(
+					"URL" => POST("URL")
+				),
+				"title" 	  => "required",
+				"description" => "required"
+			);
+		} else {
+			$validations = array(
+				"title" 	  => "required",
+				"description" => "required"
+			);			
+		}
 
 		$this->helper("time");
 
@@ -120,7 +127,7 @@ class Bookmarks_Model extends ZP_Model {
 	private function edit() {
 		$this->Db->update($this->table, $this->data, POST("ID"));
 		
-		return getAlert("The link has been edit correctly", "success");
+		return getAlert(__("The bookmark has been edit correctly"), "success");
 	}
 
 	public function count($tag = NULL) {

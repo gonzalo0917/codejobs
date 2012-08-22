@@ -167,17 +167,31 @@ function getLanguagesInput($lang = NULL, $name = "language", $input = "radio") {
 	}
 
 	foreach($languages as $language) {
-		if($language["default"] or $lang === $language["name"]) {
-			$check = ($input === "radio") ? ' checked="checked"' : ' selected="selected"';
-		} else {
-			$check = NULL;
-		}	
+		if(!isset($checked)) {
+			if(!is_null($lang)) {
+				if($lang === $language["name"]) {
+					$check = ($input === "radio") ? ' checked="checked"' : ' selected="selected"';
+					$checked = TRUE;								
+				} else {
+					$check = NULL;
+				}
+			} else {
+				if($language["default"] === TRUE) {				
+					$check = ($input === "radio") ? ' checked="checked"' : ' selected="selected"';
+					$checked = TRUE;
+				}
+			}
+		}
 
 		if($input === "radio") {
-			$HTML .= ' <input id="language" name="'. $name .'" type="radio" value="'. $language["name"] .'" '. $check .' /> '. $language["value"] .' ';
+			$HTML .= ' <input id="language" name="'. $name .'" type="radio" value="'. $language["name"] .'" '. $check .' /> '. $language["value"] .' ';			
 		} elseif($input === "select") {
-			$HTML .= ' <option value="'. $language["name"] .'"'. $check .'>'. __(_($language["name"])) .'</option>';
+			$show = isset($check) ? $check : NULL;
+
+			$HTML .= ' <option value="'. $language["name"] .'"'. $show .'>'. __($language["name"]) .'</option>';
 		}
+
+		unset($check);
 	}
 
 	if($input === "select") {

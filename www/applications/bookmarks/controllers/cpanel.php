@@ -161,6 +161,8 @@ class CPanel_Controller extends ZP_Controller {
 		
 		$this->CSS("forms", "cpanel");
 		
+		$this->helper("forms");
+
 		$Model = ucfirst($this->application) ."_Model";
 		
 		$this->$Model = $this->model($Model);
