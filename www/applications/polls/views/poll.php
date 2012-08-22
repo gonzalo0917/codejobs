@@ -4,7 +4,7 @@
 		if(!COOKIE("ZanPoll")) {
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
-					<p style="text-align: left;">
+					<p style="text-align: center;">
 						<strong><?php echo $poll["question"]["Title"];?></strong>
 					</p>
 							
@@ -36,7 +36,7 @@
 				
 				?>
 					<p class="section">					
-						<p style="text-align: left;">
+						<p style="text-align: center;">
 							<strong><?php echo $poll["question"]["Title"]; ?></strong>
 						</p>
 					
