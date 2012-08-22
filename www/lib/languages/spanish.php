@@ -186,3 +186,4 @@ $phrase["read_more"]	  = "Leer más";
 $phrase["likes"]		  = "Me Gusta";
 $phrase["dislikes"]		  = "No me gusta";
 $phrase["visit_bookmark"] = "Visitar Marcador";
+$phrase["votes"] 		  = "votos";
