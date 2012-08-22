@@ -1,4 +1,4 @@
-<div style="width: 300px; font-size: 12px; margin: 0 auto; border:1px solod #000;">
+<div style="width: 250px; font-size: 12px; margin: 0 auto; border:1px solod #000;">
 <?php	
 	if(isset($poll["answers"])) {
 		if(!COOKIE("ZanPoll")) {
@@ -88,3 +88,4 @@
 	}
 ?>
 </div>
+<br />
