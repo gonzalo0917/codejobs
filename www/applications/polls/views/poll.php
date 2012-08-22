@@ -4,7 +4,7 @@
 		if(!COOKIE("ZanPoll")) {
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
-					<p style="text-align: center;">
+					<p style="text-align: center; width: 250px;">
 						<strong><?php echo $poll["question"]["Title"];?></strong>
 					</p>
 							
@@ -36,7 +36,7 @@
 				
 				?>
 					<p class="section">					
-						<p style="text-align: center;">
+						<p style="text-align: center; width: 250px;">
 							<strong><?php echo $poll["question"]["Title"]; ?></strong>
 						</p>
 					
@@ -66,7 +66,7 @@
 								
 								<span style="margin-left:5px;"><?php echo $answers["Answer"]; ?> (<?php echo $percentage; ?>%)</span> <br />
 								
-								<div class="poll-graphic" style="background-color: #EEE; width: 300px; border: 1px solid <?php echo $color[$i]; ?>; padding: 2px;">
+								<div class="poll-graphic" style="background-color: #EEE; width: 250px; border: 1px solid <?php echo $color[$i]; ?>; padding: 2px;">
 									<div style="<?php echo $style; ?>">&nbsp;</div>
 								</div>
 								
