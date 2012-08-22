@@ -68,7 +68,6 @@ class Bookmarks_Model extends ZP_Model {
 				"URL" => POST("URL")
 			),
 			"title" 	  => "required",
-			"URL"   	  => "ping",
 			"description" => "required"
 		);
 
