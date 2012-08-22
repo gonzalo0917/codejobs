@@ -1,4 +1,4 @@
-<div id="poll">
+<div style="width: 300px; font-size: 12px; margin: 0 auto; border:1px solod #000;">
 <?php	
 	if(isset($poll["answers"])) {
 		if(!COOKIE("ZanPoll")) {
@@ -28,12 +28,6 @@
 			<?php
 		} else {
 			if(isset($poll)) {
-				$color[0] = _pollColor1;
-				$color[1] = _pollColor2;
-				$color[2] = _pollColor3;
-				$color[3] = _pollColor4;
-				$color[4] = _pollColor5;
-				$color[5] = _pollColor6;
 				$total    = 0;
 				
 				foreach($poll["answers"] as $answers) {
@@ -61,13 +55,19 @@
 									}
 								}			
 
-								$style = "width: ". intval($percentage) ."%; background-color: ". $color[$i] .";";
+								if($percentage == 0) {
+									$color = "transparent";
+								} else {
+									$color = "#3478E3";
+								}
+
+								$style = "width: ". intval($percentage) ."%; background-color: ". $color .";";
 						?>
 								
-								<span style="margin-left:5px;"><?php echo $answers["Answer"]; ?></span> <br />
+								<span style="margin-left:5px;"><?php echo $answers["Answer"]; ?> (<?php echo $percentage; ?>%)</span> <br />
 								
-								<div class="poll-graphic" style="border: 1px solid <?php echo $color[$i]; ?>;">
-									<span class="poll-graphic-bar bold" style="<?php echo $style; ?>"><?php echo $percentage; ?>%</span>
+								<div class="poll-graphic" style="background-color: #EEE; width: 300px; border: 1px solid <?php echo $color[$i]; ?>; padding: 2px;">
+									<div style="<?php echo $style; ?>">&nbsp;</div>
 								</div>
 								
 						<?php

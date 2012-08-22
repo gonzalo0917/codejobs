@@ -1,6 +1,7 @@
-#polls {
+.polls {
 	width: 180px;
 	text-align: left;
+	font-size: 14px;
 }
 
 .polls-graphic {
@@ -10,7 +11,7 @@
 	line-height: 20px;
     padding: 2px;
 	margin-bottom: 3px;
-	margin-left: 5px;
+	margin-left: 5px;	
 }
 
 .poll-graphic-bar {
@@ -19,7 +20,7 @@
     text-align: left;
     color: #333333;
     height: 20px;
-    line-height: 20px;
+    line-height: 20px;    
 }
 
 .poll-graphic-bar span {

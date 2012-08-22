@@ -129,6 +129,8 @@ class CPanel_Controller extends ZP_Controller {
 		
 		$this->js("add", "polls");	
 		
+		$this->helper("forms");
+
 		$this->CSS("forms", "cpanel");
 				
 		$Model = ucfirst($this->application) ."_Model";

@@ -12,15 +12,13 @@ class Polls_Controller extends ZP_Controller {
 		$this->Templates   = $this->core("Templates");
 		$this->Polls_Model = $this->model("Polls_Model");
 		
-		$this->helpers();
-		
 		$this->application = "polls";
 		
-		$this->Templates->theme(_webTheme);
+		$this->Templates->theme();
 	}
 	
 	public function index() {
-		redirect(_webBase);
+		redirect();
 	}
 	
 	public function last() {	
@@ -41,11 +39,11 @@ class Polls_Controller extends ZP_Controller {
 	
 	public function vote() {
 		if(!POST("answer")) {
-			showAlert("You must select an answer", _webBase);
+			showAlert("You must select an answer", path());
 		}		
 		
 		$this->Polls_Model->vote();
 		
-		showAlert("Thanks for your vote", _webBase);
+		showAlert("Thanks for your vote", path());
 	}
 }

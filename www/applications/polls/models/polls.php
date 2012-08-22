@@ -14,6 +14,8 @@ class Polls_Model extends ZP_Model {
 		$this->table = "polls";
 		
 		$this->Data = $this->core("Data");
+
+		$this->helper("alerts");
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_Poll DESC", $search = NULL, $field = NULL, $trash = FALSE) {
@@ -59,9 +61,9 @@ class Polls_Model extends ZP_Model {
 		}
 		
 		if(count(POST("answers")) === $j) {
-			return getAlert(__(_("You need to write a answers")));
+			return getAlert(__("You need to write a answers"));
 		} elseif($k < 2) {
-			return getAlert(__(_("You need to write more than one answer")));
+			return getAlert(__("You need to write more than one answer"));
 		} else {
 			$this->answers = POST("answers");
 		}
@@ -69,6 +71,8 @@ class Polls_Model extends ZP_Model {
 		$validations = array(
 			"title" => "required"
 		);
+
+		$this->helper("time");
 
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
@@ -131,9 +135,9 @@ class Polls_Model extends ZP_Model {
 	}
 	
 	public function getLastPoll() {		
-		$this->Db->select("ID_Poll, Title, Type, Start_Date, Situation");
+		$language = whichLanguage();
 
-		$data1 = $this->Db->findLast($this->table);
+		$data1 = $this->Db->findBySQL("Language = '$language'", $this->table, "ID_Poll, Title, Type, Start_Date, Situation", NULL, "ID_Poll DESC", 1);
 		
 		if($data1) {
 			$this->Db->select("ID_Answer, Answer");
@@ -150,6 +154,8 @@ class Polls_Model extends ZP_Model {
 	}
 	
 	public function vote() {
+		$this->helper("time");
+
 		$ID_Poll   = POST("ID_Poll");
 		$ID_Answer = POST("answer");
 		$IP		   = getIP();
@@ -161,9 +167,9 @@ class Polls_Model extends ZP_Model {
 		$data = $this->Db->findBySQL("ID_Poll = '$ID_Poll' AND IP = '$IP' AND End_Date > $date", "polls_ips");
 		
 		if($data) {
-			showAlert(__(_("You've previously voted on this poll")), path());
-		} else {					
-			$this->Db->updateBySQL("polls_answers", "Votes = (Votes) + 1", $ID_Answer);								
+			showAlert(__("You've previously voted on this poll"), path());
+		} else {								
+			$this->Db->updateBySQL("polls_answers", "Votes = (Votes) + 1 WHERE ID_Answer = '$ID_Answer'");								
 			
 			$data = array(
 				"ID_Poll" 	 => $ID_Poll,
@@ -174,9 +180,9 @@ class Polls_Model extends ZP_Model {
 
 			$this->Db->insert("polls_ips", $data);
 			
-			createCookie("ZanPoll", $ID_Poll, 3600);
+			COOKIE("ZanPoll", $ID_Poll, 3600);
 			
-			showAlert(__(_("Thank you for your vote!")), path());
+			showAlert(__("Thank you for your vote!"), path());
 		}
 		
 		return TRUE;

@@ -290,13 +290,13 @@ class ZP_Load {
 				} elseif(file_exists("www/helpers/$helper.php")) {
 					include_once "www/helpers/$helper.php";
 				}  else {			
-					getException("$name helper doesn't exists");
+					getException("$helper helper doesn't exists");
 				}
 			} else {
 				if(file_exists("www/applications/$application/helpers/$helper.php")) {
 					include_once "www/applications/$application/helpers/$helper.php";
 				} else {			
-					getException("$name helper doesn't exists");
+					getException("$helper helper doesn't exists");
 				}			
 			}
 		}

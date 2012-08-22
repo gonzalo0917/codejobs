@@ -49,6 +49,10 @@
             </ul>
         </section>
 
+        <section class="polls">
+            <?php $this->execute("Polls_Controller", "last"); ?>
+        </section>
+
         <?php
             if(!SESSION("ZanUser")) {
             ?>
