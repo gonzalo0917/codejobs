@@ -69,11 +69,11 @@
 				</nav>
 
 				<div id="top-box-languages" class="toggle">
-					<a href="<?php echo path("es"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/es.png" alt="Spanish" style="border: none;" /></a>
-					<a href="<?php echo path("en"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/en.png" alt="English" style="border: none;" /></a>
-					<a href="<?php echo path("fr"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/fr.png" alt="French" style="border: none;" /></a>
-					<a href="<?php echo path("pt"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/pt.png" alt="Portuguese" style="border: none;" /></a>
-					<a href="<?php echo path("it"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/it.png" alt="Italian" style="border: none;" /></a>
+					<a href="<?php echo path("es"); ?>" title="<?php echo __("Spanish"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/es.png" alt="Spanish" style="border: none;" /></a>
+					<a href="<?php echo path("en"); ?>" title="<?php echo __("English"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/en.png" alt="English" style="border: none;" /></a>
+					<a href="<?php echo path("fr"); ?>" title="<?php echo __("French"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/fr.png" alt="French" style="border: none;" /></a>
+					<a href="<?php echo path("pt"); ?>" title="<?php echo __("Portuguese"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/pt.png" alt="Portuguese" style="border: none;" /></a>
+					<a href="<?php echo path("it"); ?>" title="<?php echo __("Italian"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/it.png" alt="Italian" style="border: none;" /></a>
 				</div>
 
 				<div id="top-box-register" class="toggle">
@@ -161,22 +161,22 @@
 							if(!SESSION("ZanUser")) {
 						?>
 								<li class="float-right">
-									<a id="display-login" href="#" title="<?php echo __(_("Login")); ?>">
-										<?php echo __(_("Login")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
+									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
+										<?php echo __("Login"); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 									</a>
 								</li>
 								
 								<li class="float-right">
-									<a id="display-register" href="#" title="<?php echo __(_("Register!")); ?>">
-										<?php echo __(_("Register!")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
+									<a id="display-register" href="#" title="<?php echo __("Register!"); ?>">
+										<?php echo __("Register!"); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 									</a>
 								</li>
 						<?php
 							} else {
 						?>
 								<li class="float-right">
-									<a id="display-profile" href="#" title="<?php echo __(_("Hi")); ?>">
-										<?php echo __(_("Hi")) .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
+									<a id="display-profile" href="#" title="<?php echo __("Hi"); ?>">
+										<?php echo __("Hi") .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 									</a>
 								</li>
 						<?php
@@ -184,8 +184,8 @@
 						?>
 						
 						<li class="float-right">
-							<a id="display-languages" href="#" title="<?php echo __(_("Language")); ?>">
-								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __(_("Language")); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
+							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
+								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __("Language"); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" style="border: none;" />
 							</a>
 						</li>
 					</ul>

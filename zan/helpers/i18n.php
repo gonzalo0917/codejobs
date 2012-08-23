@@ -79,15 +79,15 @@ function __($text) {
  */
 function getLanguage($lang, $flags = FALSE) {
 	$languages = getLanguagesFromDir();
-
+	
 	foreach($languages as $language) {
 		if($flags) {
 			if($language["language"] === $lang) {
-				return '<img class="flag no-border" src="'. get("webURL") .'/www/lib/images/icons/flags/'. strtolower($lang) .'.png" alt="'. __(_($lang)) .'" />';	
+				return '<img class="flag no-border" src="'. get("webURL") .'/www/lib/images/icons/flags/'. strtolower($lang) .'.png" alt="'. __($lang) .'" />';	
 			}
 		} else {
 			if($language["language"] === $lang) {
-				return __(_($lang));
+				return __($lang);
 			}
 		}
 	}
@@ -205,7 +205,7 @@ function getLocal($lang = FALSE) {
 	if(!$lang) {
 		$lang = whichLanguage();
 	}
-	
+
 	$languages = array(
 		"Arabic"	 => "ar_AR",
 		"Basque"	 => "eu_ES",
@@ -314,11 +314,8 @@ function getLang($lg, $invert = FALSE) {
 }
 
 function getLanguagesFromDir() {
-	$path = "www/lib/languages/gettext";
+	$path = "www/lib/languages";
 	$dir  = dir($path);
-	
-	$languages[0]["language"] = "English";
-	$languages[0]["lang"]	  = "en";
 
 	$i = 1;
 	
@@ -328,7 +325,7 @@ function getLanguagesFromDir() {
 			$parts = explode(".", $language);
 
 			if(count($parts) > 1) {
-				if($parts[1] === "mo") {
+				if($parts[1] === "php") {
 					$languages[$i]["language"] = ucfirst($parts[0]);			
 					$languages[$i]["lang"]	   = getLang(ucfirst($parts[0]));
 						
