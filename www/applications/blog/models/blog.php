@@ -55,13 +55,6 @@ class Blog_Model extends ZP_Model {
 	private function editOrSave($action) {
 		if($action === "save") {
 			$validations = array(
-				"exists"  => array(
-					"Slug" 	   => slug(POST("title", "clean")), 
-					"Year"	   => date("Y"),
-					"Month"	   => date("m"),
-					"Day"	   => date("d"),
-					"Language" => POST("language")
-				),
 				"title"   => "required",
 				"content" => "required"
 			);
