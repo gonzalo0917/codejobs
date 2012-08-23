@@ -412,31 +412,14 @@ function formTextarea($attributes = FALSE) {
 	}								
 }
 
-function formSave($action = NULL, $events = TRUE, $ID = FALSE) {
-	if(isLang()) {
-		if($action === "save") {
-				$href = path(segment(1) ."/cpanel/add/");
-			} else {
-				$href = path(segment(1) ."/cpanel/edit/". segment(4));
-			} 
+function formSave($action = NULL) {
+	if($action === "save") {
+		$href = path(segment(0, isLang()) ."/cpanel/add/");
 	} else {
-		if($action === "save") {
-			$href = path(segment(0) ."/cpanel/add/");
-		} else {
-			$href = path(segment(0) ."/cpanel/edit/". segment(3));
-		}
-	}
-
-
-	if($ID) {
-		$href.= $ID;
-	}
+		$href = path(segment(0, isLang()) ."/cpanel/edit/". segment(3, isLang()));
+	} 
 	
-	if($events) {
-		$onclick = 'onclick="document.getElementById(\'form-add\').target=\'\'; document.getElementById(\'form-add\').action=\''. $href .'\'"';
-	} else {
-		$onclick = '';
-	}
+	$onclick = 'onclick="document.getElementById(\'form-add\').target=\'\'; document.getElementById(\'form-add\').action=\''. $href .'\'"';
 	
 	$HTML = '	
 		<p class="save-cancel">
