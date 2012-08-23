@@ -1,6 +1,6 @@
 <?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
 <!DOCTYPE html>
-<html>
+<html lang="<?php echo get("webLang"); ?>">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,21 +35,24 @@
 		var URL  = "<?php print get('webURL'); ?>";
 	</script>
 </head>
-
+<?php
+	$locale = getLocal();
+ 
+?>
 <body>	
 	<header>
 		<div id="fb-root"></div> 
 		<script type="text/javascript">
             (function(d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0];
+                var js, fjs = d.getElementsByTagName(s)[0];
 
-                    if(d.getElementById(id)) return;
+                if(d.getElementById(id)) return;
 
-                    js = d.createElement(s); 
-                    js.id = id;
-                    js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=323728064351205";
+                js = d.createElement(s); 
+                js.id = id;
+                js.src = "//connect.facebook.net/<?php echo $locale; ?>/all.js#xfbml=1&appId=323728064351205";
 
-                    fjs.parentNode.insertBefore(js, fjs);
+                fjs.parentNode.insertBefore(js, fjs);
             } (document, 'script', 'facebook-jssdk'));
 		</script>
 		<div id="topbar-wrapper">
@@ -70,6 +73,7 @@
 					<a href="<?php echo path("en"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/en.png" alt="English" style="border: none;" /></a>
 					<a href="<?php echo path("fr"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/fr.png" alt="French" style="border: none;" /></a>
 					<a href="<?php echo path("pt"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/pt.png" alt="Portuguese" style="border: none;" /></a>
+					<a href="<?php echo path("it"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/it.png" alt="Portuguese" style="border: none;" /></a>
 				</div>
 
 				<div id="top-box-register" class="toggle">

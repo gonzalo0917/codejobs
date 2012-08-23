@@ -201,6 +201,60 @@ function getLanguagesInput($lang = NULL, $name = "language", $input = "radio") {
 	return $HTML;
 }
 
+function getLocal($lang = FALSE) {	
+	if(!$lang) {
+		$lang = whichLanguage();
+	}
+	
+	$languages = array(
+		"Arabic"	 => "ar_AR",
+		"Basque"	 => "eu_ES",
+		"Belarusian" => "be_BY",
+		"Bulgarian"  => "bg_BG",
+		"Catalan"	 => "ca_ES",
+		"Chinese"	 => "zh_CN",
+		"Croatian"   => "hr_HR",
+		"Czech"		 => "cs_CZ",
+		"Danish"	 => "da_DK",
+		"Dutch"		 => "nl_NL",
+		"English" 	 => "en_US",
+		"Estonian"   => "et_EE",
+		"Finnish"	 => "fi_FI",
+		"French"  	 => "fr_FR",
+		"Galician"   => "gl_ES",
+		"German"	 => "de_DE",
+		"Greek"		 => "el_GR",
+		"Hebrew"	 => "he_IL",
+		"Hungarian"  => "hu_HU",
+		"Indonesian" => "id_ID",
+		"Italian"	 => "it_IT",
+		"Japanese"	 => "ja_JP",
+		"Kurdish"	 => "ku_TR",
+		"Lithuanian" => "lt_LT",
+		"Macedonian" => "mk_MK",
+		"Persian"	 => "Persian",
+		"Polish"	 => "pl_PL",
+		"Portuguese" => "pt_BR",
+		"Romanian"   => "ro_RO",
+		"Russian"	 => "ru_RU",
+		"Serbian"	 => "sr_RS",
+		"Slovak"	 => "sk_SK",
+		"Slovenian"	 => "sl_SI",
+		"Spanish" 	 => "es_LA",
+		"Swedish"	 => "sv_SE",
+		"Thai"		 => "th_TH",
+		"Turkish"	 => "tr_TR",
+		"Ukrainian"  => "uk_UA",
+		"Vietnamese" => "vi_VN"
+	);	
+
+	foreach($languages as $language => $locale) {
+		if($language === $lang) {
+			return $locale;
+		}
+	}
+}
+
 function getLang($lg, $invert = FALSE) {
 	$languages = array(
 		"Arabic"	 => "ar",
@@ -241,7 +295,6 @@ function getLang($lg, $invert = FALSE) {
 		"Thai"		 => "th",
 		"Turkish"	 => "tk",
 		"Ukrainian"  => "uk",
-		"Urdu"		 => "ur",
 		"Vietnamese" => "vi"
 	);	
 	
