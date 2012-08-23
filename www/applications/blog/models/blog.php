@@ -71,8 +71,10 @@ class Blog_Model extends ZP_Model {
 				"content" => "required"
 			);
 		}
-		 
-		$this->URL        = path("blog/". date("Y")) ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean"));
+		
+		$lang = getLang(POST("language"));
+
+		$this->URL        = path($lang . "/blog/". date("Y") ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean")), TRUE);
 		$this->muralExist = POST("mural_exist");
 		
 		$this->helper(array("alerts", "time", "files"));
