@@ -226,7 +226,7 @@ class Blog_Model extends ZP_Model {
 	}
 	
 	public function getPost($year, $month, $day, $slug) {		
-		$post = $this->Db->findBySQL("Slug = '$slug' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Situation = 'Active'", $this->table, $this->fields);
+		$post = $this->Db->findBySQL("Slug = '$slug' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
 		
 		if($post) {						
 			$this->Db->updateBySQL("blog", "Views = (Views) + 1", $post[0]["ID_Post"]);				
