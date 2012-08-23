@@ -30,7 +30,7 @@
 	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>
 
 	<p class="justify">				
-		<?php echo $bookmark["Description"]; ?> 
+		<?php echo stripslashes($bookmark["Description"]); ?> 
 	</p>
 
 	<h3>
