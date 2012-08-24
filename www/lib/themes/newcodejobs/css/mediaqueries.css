@@ -11,12 +11,12 @@
 		position: relative;
 		z-index: 2;
 		margin-left: 2.5%;
-		width: 350px;
+		width: 320px;
 		font-size: 0.8em;
 	}
 
 	header #topbar nav ul {
-		width: 470px;
+		width: 400px;
 		margin: 0px;
 		padding: 0px;
 	}
