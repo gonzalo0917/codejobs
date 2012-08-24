@@ -32,7 +32,8 @@
 	}
 
 	iframe {
-		width: 300px;
+		width: 250px;
+		height: 160px;
 	}
 
 	header #topbar {
