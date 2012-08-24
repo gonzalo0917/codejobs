@@ -31,6 +31,10 @@
 		font-weight: bold;
 	}
 
+	iframe {
+		width: 40%;
+	}
+
 	header #topbar {
 		width: 1020px;
 	}
