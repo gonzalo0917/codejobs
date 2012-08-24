@@ -13,6 +13,10 @@
 		margin-left: 2.5%;
 	}
 
+	.social, .transmission, .line, .polls, .ads {
+		display: none;
+	}
+
 	header #topbar {
 		width: 1020px;
 	}
