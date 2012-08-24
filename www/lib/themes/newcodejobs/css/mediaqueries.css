@@ -11,7 +11,8 @@
 		position: relative;
 		z-index: 2;
 		margin-left: 2.5%;
-		width: 380px;
+		width: 350px;
+		font-size: 0.8em;
 	}
 
 	header #topbar nav ul {
@@ -33,7 +34,7 @@
 	}
 
 	header #logo {
-		margin-left: 7%;
+		margin-left: 4%;
 	}
 
 	footer p {
