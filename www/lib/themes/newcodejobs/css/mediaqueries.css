@@ -11,6 +11,13 @@
 		position: relative;
 		z-index: 2;
 		margin-left: 2.5%;
+		width: 380px;
+	}
+
+	header #topbar nav ul {
+		width: 470px;
+		margin: 0px;
+		padding: 0px;
 	}
 
 	.social, .transmission, .line, .polls, .ads {
