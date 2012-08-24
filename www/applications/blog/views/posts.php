@@ -50,7 +50,7 @@ if(is_array($posts)) {
 
 				<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>
-								
+				<br />	
 				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>			
 			</div>
 			
