@@ -31,6 +31,10 @@
 		font-weight: bold;
 	}
 
+	.pagination {
+		font-size: 12px;
+	}
+
 	iframe {
 		width: 250px;
 		height: 160px;
