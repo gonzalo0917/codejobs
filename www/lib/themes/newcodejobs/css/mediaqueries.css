@@ -25,6 +25,10 @@
 		display: none;
 	}
 
+	.post-title {
+		font-size: 0.9em;
+	}
+
 	header #topbar {
 		width: 1020px;
 	}
