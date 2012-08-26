@@ -8,10 +8,17 @@ if(!defined("_access")) {
 
 $routes = array(
 	0 => array(
-			"pattern"	  => "/^tv/",
-			"application" => "pages",
-			"controller"  => "pages",
-			"method"	  => "tv",
-			"params"	  => array()
-		),
+		"pattern"	  => "/^tv/",
+		"application" => "pages",
+		"controller"  => "pages",
+		"method"	  => "tv",
+		"params"	  => array()
+	),
+	1 => array(
+		"pattern"	  => "/^publicidad/",
+		"application" => "pages",
+		"controller"  => "pages",
+		"method"	  => "getBySlug",
+		"params"	  => array("publicidad")
+	),
 );
