@@ -19,6 +19,10 @@ body {
 	background-image: url('../images/lines.png');
 }
 
+.pages ul {
+	font-size: 14px;
+}
+
 a {
     color: #CC2A2A;
     outline: medium none;
