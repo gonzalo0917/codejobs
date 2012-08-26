@@ -116,4 +116,4 @@ $j = 2;
 	?>					
 </div>
 
-<?php echo $pagination;?>
+<?php echo $pagination; ?>
