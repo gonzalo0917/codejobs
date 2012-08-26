@@ -82,25 +82,11 @@
 				?>
 					<div id="background">
 						<div id="notifications">
-							<?php 
-								if($commentsNotifications > 0) {
-									print '	<a href="'. path("cpanel/comments") .'" title="'. __(_("Comments")) .'">
-												<img src="'. $this->themePath .'/images/icons/comments.png" alt="'. __(_("Comments")) .'" class="no-border" /> 
-												<sup>'. $commentsNotifications .'</sup>
-											</a> ';									
-								}
-								
+							<?php 								
 								if($feedbackNotifications > 0) {
-									print '	<a href="'. path("cpanel/feedback") .'" title="'. __(_("Messages")) .'">
+									print '	<a href="'. path("cpanel/feedback/results") .'" title="'. __(_("Messages")) .'">
 												<img src="'. $this->themePath .'/images/icons/feedback.png" alt="'. __(_("Feedback")) .'" class="no-border" /> 
 												<sup>'. $feedbackNotifications .'</sup> 
-											</a>';
-								}
-								
-								if($galleryNotifications > 0) {
-									print '	<a href="'. path("cpanel/comments/gallery") .'" title="'. __(_("Gallery Comments")) .'">
-												<img src="'. $this->themePath .'/images/icons/gallery.png" alt="'. __(_("Gallery")) .'" class="no-border" /> 
-												<sup>'. $galleryNotifications .'</sup>
 											</a>';
 								}
 							?>
