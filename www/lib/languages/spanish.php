@@ -211,5 +211,7 @@ $phrase["december"]  = "Diciembre";
 
 $phrase["contact_us_today"] = "¡Póngase en contacto con nosotros hoy mismo!";
 $phrase["your_message_has_been_sent_successfully_we_will_contact_you_as_soon_as_possible_thank_you_very_much"] = "Tu mensaje ha sido enviado con éxito, nos pondremos en contacto contigo lo antes posible, ¡muchas gracias!";
-$phrase["message"] = "Mensaje";
-$phrase["send_my_message"] = "Enviar mi mensaje";
+$phrase["message"] 			= "Mensaje";
+$phrase["send_my_message"]  = "Enviar mi mensaje";
+$phrase["advertising"]		= "Publicidad";
+$phrase["contact_us"]		= "Contacto";
