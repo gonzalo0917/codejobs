@@ -73,7 +73,7 @@ class Pages_Model extends ZP_Model {
 		$data = array(
 			"ID_User"	 => SESSION("ZanUserID"),
 			"Slug"    	 => slug(POST("title", "clean")),
-			"Content" 	 => POST("content", "clean"),
+			"Content" 	 => decode(POST("content", "clean")),
 			"Start_Date" => now(4),
 			"Text_Date"	 => now(2)
 		);
