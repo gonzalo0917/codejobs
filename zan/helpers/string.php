@@ -187,7 +187,7 @@ function exploding($string, $URL = NULL, $separator = ",") {
 					if($i === $count) {
 						$return .= '<a href="'. path($URL . slug($parts[$i])) .'" title="'. $parts[$i] .'">'. $parts[$i] .'</a>';
 					} elseif($i === $count - 1) {
-						$return .= '<a href="'. path($URL . slug($parts[$i])) .'" title="'. $parts[$i] .'">'. $parts[$i] .'</a> '. __(_("and")) .' ';
+						$return .= '<a href="'. path($URL . slug($parts[$i])) .'" title="'. $parts[$i] .'">'. $parts[$i] .'</a> '. __("and") .' ';
 					} else {
 						$return .= '<a href="'. path($URL . slug($parts[$i])) .'" title="'. $parts[$i] .'">'. $parts[$i] .'</a>, ';
 					}
@@ -195,7 +195,7 @@ function exploding($string, $URL = NULL, $separator = ",") {
 					if($i === $count) {
 						$return .= $parts[$i];
 					} elseif($i === $count - 1) {
-						$return .= $parts[$i] .' '. __(_("and")) .' ';
+						$return .= $parts[$i] .' '. __("and") .' ';
 					} else {
 						$return .= $parts[$i] .', ';
 					}
@@ -204,7 +204,7 @@ function exploding($string, $URL = NULL, $separator = ",") {
 
 			return $return;
 		} else {
-			return '<a href="'. path($URL . $string) .'" title="'. $string .'">'. $string .'</a>';
+			return '<a href="'. path($URL . slug($string)) .'" title="'. $string .'">'. $string .'</a>';
 		}
 	}
 
@@ -215,7 +215,7 @@ function like($ID = 0, $application = NULL, $likes = FALSE) {
 	$likes = ($likes) ? " ($likes)" : NULL;
 
 	if($ID > 0 and !is_null($application)) {
-		return  '<a title="'. __(_("I Like")) .'" href="'. path("$application/like/$ID") .'"><img src="'. path("www/lib/images/like.png", TRUE) .'" /> '. __(_("I Like")) . $likes .'</a>';
+		return  '<a title="'. __("I Like") .'" href="'. path("$application/like/$ID") .'"><img src="'. path("www/lib/images/like.png", TRUE) .'" /> '. __("I Like") . $likes .'</a>';
 	}
 
 	return FALSE;

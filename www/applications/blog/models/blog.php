@@ -128,7 +128,7 @@ class Blog_Model extends ZP_Model {
 			$this->Twitter_Model->publish('"'. $this->title .'"', $this->URL);
 		}
 			
-		return getAlert(__(_("The post has been saved correctly")), "success", $this->URL);
+		return getAlert(__("The post has been saved correctly"), "success", $this->URL);
 	}
 	
 	private function edit() {	
@@ -158,7 +158,7 @@ class Blog_Model extends ZP_Model {
 			$this->Db->insert("mural", $values);	
 		}
 		
-		return getAlert(__(_("The post has been edited correctly")), "success", $this->URL);
+		return getAlert(__("The post has been edited correctly"), "success", $this->URL);
 	}
 	
 	private function search($search, $field) {
@@ -259,6 +259,8 @@ class Blog_Model extends ZP_Model {
 	}
 	
 	public function getByTag($tag, $limit = FALSE) {
+		$tag = str_replace("-", " ", $tag);
+		
 		$data = $this->Db->findBySQL("(Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 		
 		return $data;
