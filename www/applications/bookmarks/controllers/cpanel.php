@@ -185,7 +185,7 @@ class CPanel_Controller extends ZP_Controller {
 		}
 	}
 	
-        public function login() {
+    public function login() {
 		$this->title("Login");
 		$this->CSS("login", "users");
 		
@@ -221,7 +221,7 @@ class CPanel_Controller extends ZP_Controller {
 		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
 		
 		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
-		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
+		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash, "ID_Bookmark DESC");
 		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : NULL;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
 		$this->vars["trash"]  	  = $trash;	

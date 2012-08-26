@@ -24,7 +24,7 @@ class Bookmarks_Model extends ZP_Model {
 		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC");
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "ID_Link DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
+	public function cpanel($action, $limit = NULL, $order = "ID_Bookmark DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
 		if($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 			
