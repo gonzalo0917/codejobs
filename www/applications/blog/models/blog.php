@@ -163,7 +163,7 @@ class Blog_Model extends ZP_Model {
 	
 	private function search($search, $field) {
 		if($search and $field) {
-			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);	      
+			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
 		} else {
 			return FALSE;
 		}

@@ -12,11 +12,14 @@ class Pages_Model extends ZP_Model {
 		$this->Db = $this->db();
 		
 		$this->table    = "pages";
+		$this->fields   = "ID_Page, Title, Language, Content, Principal, Views, Start_Date, Situation";
 		$this->language = whichLanguage(); 
 
 		$this->Data = $this->core("Data");
 
 		$this->Data->table($this->table);
+
+		$this->helper("alerts");
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {
@@ -39,14 +42,20 @@ class Pages_Model extends ZP_Model {
 		}
 	}
 	
-	private function all($trash, $order, $limit) {	
-		$this->Db->select("ID_Page, Title, Language, Principal, Start_Date, Situation");
-		
+	private function all($trash, $order, $limit) {			
 		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
 		}	
+	}
+
+	private function search($search, $field) {
+		if($search and $field) {
+			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
+		} else {
+			return FALSE;
+		}
 	}
 	
 	private function editOrSave() {
@@ -58,6 +67,8 @@ class Pages_Model extends ZP_Model {
 			"title"   => "required",
 			"content" => "required"
 		);
+
+		$this->helper("time");
 
 		$data = array(
 			"ID_User"	 => SESSION("ZanUserID"),
@@ -83,60 +94,44 @@ class Pages_Model extends ZP_Model {
 		
 		$this->Db->insert($this->table, $this->data);
 		
-		return getAlert(__(_("The page has been saved correctly")), "success");
+		return getAlert(__("The page has been saved correctly"), "success");
 	}
 	
 	private function edit() {
 		$this->Db->update($this->table, $this->data, POST("ID")); 
 			
-		return getAlert(__(_("The page has been edit correctly")), "success");
+		return getAlert(__("The page has been edit correctly"), "success");
 	}
 	
 	public function getByDefault() {
-		$this->Db->select("Title, Slug, Content, Language, Start_Date");
-
-		$data = $this->Db->findBySQL("Language = '$this->language' AND Principal = 1 AND Situation = 'Active'", $this->table);
-			
-		return $data;
+		return $this->Db->findBySQL("Language = '$this->language' AND Principal = 1 AND Situation = 'Active'", $this->table, $this->fields);
 	}
 		
 	public function getParent($ID, $invert = FALSE) {				
 		if($ID === 0) {
 			return false;
 		}
-
-		$this->Db->select("Title, Slug, Content, Language, Start_Date");
 				
 		if(!$invert) {
-			$data = $this->Db->find($ID, $this->table);
+			$data = $this->Db->find($ID, $this->table, $this->fields);
 		} else {
-			$data = $this->Db->findBy("ID_Translation", $ID, $this->table, NULL, "Language ASC, Title", NULL);
+			$data = $this->Db->findBy("ID_Translation", $ID, $this->table, $this->fields, NULL, "Language ASC, Title", NULL);
 		}
 		
 		return $data;
 	}		
 	
 	public function getBySlug($slug) {		
-		$this->Db->select("Title, Slug, Content, Language, Start_Date");
-
-		$data = $this->Db->findBySQL("Slug = '$slug' AND Language = '$this->language' AND Situation = 'Active'", $this->table);
-
-		return $data;
+		return $this->Db->findBySQL("Slug = '$slug' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
 	}
 	
 	public function getID($slug) {		
-		$this->Db->select("Title, Slug, Content, Language, Start_Date");
-
-		$data = $this->Db->findBy("Slug", $slug);
+		$data = $this->Db->findBy("Slug", $slug, $this->table, $this->fields);
 		
 		return (is_array($data)) ? $data[0][$this->primaryKey] : FALSE;
 	}
 	
 	public function getByID($ID) {		
-		$this->Db->select("Title, Slug, Content, Language, Start_Date");
-
-		$data = $this->Db->find($ID, $this->table);
-		
-		return $data;
+		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 }

@@ -11,8 +11,6 @@ class Pages_Controller extends ZP_Controller {
 	public function __construct() {
 		$this->Templates   = $this->core("Templates");
 		$this->Pages_Model = $this->model("Pages_Model");
-
-		$this->helpers();
 		
 		$this->application = $this->app("pages");
 		
@@ -36,34 +34,14 @@ class Pages_Controller extends ZP_Controller {
 	}
 
 	private function getView($view = NULL) {
-		$view = segment(2);
+		$view = segment(1, isLang());
 		$vars["view"] = $this->view("$view", TRUE);
 		
 		$this->render("content", $vars);			
 	}
 		
 	public function getBySlug($slug = NULL) {		
-		if($slug) {
-			$data = $this->Pages_Model->getBySlug($slug);	
-
-			if($data) {
-				if($data[0]["ID_Translation"] > 0) {
-					$translation = $this->Pages_Model->getTranslation($data["ID_Parent"]);
-				} else {
-					$translation = FALSE;
-				}
-			} else {
-				redirect();
-			}
-		} else {
-			$data = $this->Pages_Model->getByDefault();
-			
-			if($data[0]["ID_Translation"] > 0) {
-				$translation = $this->Pages_Model->getParent($data[0]["ID_Translation"]);
-			} else {
-				$translation = FALSE;
-			}
-		}
+		$data = ($slug) ? $this->Pages_Model->getBySlug($slug) : $this->Pages_Model->getByDefault();			
 		
 		$this->title($data[0]["Title"]);		
 		

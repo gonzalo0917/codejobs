@@ -1,7 +1,5 @@
-<div class="pages">
+<div class="pages" style="width: 90%; margin-left: 87px; margin-top: 45px;">
 	<a name="top"></a>
-	
-	<h2><?php echo $title; ?></h2> <br />
 
 	<?php echo bbCode($content); ?>		
 </div>
