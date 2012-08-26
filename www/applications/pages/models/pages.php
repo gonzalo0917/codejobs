@@ -24,7 +24,7 @@ class Pages_Model extends ZP_Model {
 	
 	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {
 		if($action === "edit" or $action === "save") {
-			$validation = $this->editOrSave();
+			$validation = $this->editOrSave($action);
 		
 			if($validation) {
 				return $validation;
@@ -58,15 +58,22 @@ class Pages_Model extends ZP_Model {
 		}
 	}
 	
-	private function editOrSave() {
-		$validations = array(
-			"exists"  => array(
-				"Slug" 	   => slug(POST("title", "clean")), 
-				"Language" => POST("language")
-			),
-			"title"   => "required",
-			"content" => "required"
-		);
+	private function editOrSave($action) {
+		if($action === "save") {
+			$validations = array(
+				"exists"  => array(
+					"Slug" 	   => slug(POST("title", "clean")), 
+					"Language" => POST("language")
+				),
+				"title"   => "required",
+				"content" => "required"
+			);
+		} else {
+			$validations = array(
+				"title"   => "required",
+				"content" => "required"
+			);
+		}
 
 		$this->helper("time");
 
