@@ -135,6 +135,8 @@ class Bookmarks_Model extends ZP_Model {
 	}
 
 	public function getByTag($tag, $limit) {
+		$tag = str_replace("-", " ", $tag);
+		
 		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 	}
 	
