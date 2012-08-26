@@ -151,12 +151,12 @@ class CPanel_Controller extends ZP_Controller {
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
 		
-		$this->js("checkbox");	
+		$this->js("checkbox");		
 		
 		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
 		
-		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
-		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
+		$this->vars["total"] 	  = $this->CPanel_Model->total($trash); 
+		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash, "ID_Feedback DESC"); 
 		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : NULL;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
 		$this->vars["trash"]  	  = $trash;	

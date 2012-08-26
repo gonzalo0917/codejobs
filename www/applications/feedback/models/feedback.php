@@ -112,7 +112,7 @@ class Feedback_Model extends ZP_Model {
 	}
 	
 	private function sendMail($vars) {
-		$this->Email->email	  = get("webEmailSend");
+		$this->Email->email	  = get("webEmailRecieve");
 		$this->Email->subject = __("New Message") ." - ". get("webName");
 		$this->Email->message = $this->view("send_email", $vars, "feedback", TRUE);
 		

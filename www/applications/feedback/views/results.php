@@ -1,7 +1,7 @@
 <?php 
 if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
-$caption = __(_("Manage Messages"));
+$caption = __("Manage Messages");
 $colspan = 6;
 
 echo $search;
@@ -24,19 +24,19 @@ $j = 2;
 		<tr>
 			<th>&nbsp;</th>
 			<th>ID</th>
-			<th><?php echo __(_("Subject")); ?></th>
-			<th><?php echo __(_("Name")); ?></th>
-			<th><?php echo __(_("Email")); ?></th>
-			<th><?php echo __(_("Date")); ?></th>
-			<th><?php echo __(_("Situation")); ?></th>
-			<th><?php echo __(_("Action")); ?></th>
+			<th><?php echo __("Subject"); ?></th>
+			<th><?php echo __("Name"); ?></th>
+			<th><?php echo __("Email"); ?></th>
+			<th><?php echo __("Date"); ?></th>
+			<th><?php echo __("Situation"); ?></th>
+			<th><?php echo __("Action"); ?></th>
 		</tr>
 	</thead>
 					
 	<tfoot>
 		<tr>
 			<td colspan="<?php echo $colspan; ?>">
-				<span class="bold"><?php echo __(_("Total")); ?>:</span> <?php echo $total; ?>
+				<span class="bold"><?php echo __("Total"); ?>:</span> <?php echo $total; ?>
 			</td>
 		</tr>
 	</tfoot>		  
@@ -78,16 +78,12 @@ $j = 2;
 					</td>
 						 
 					<td class="center">
-						<?php echo __(_($column["Situation"])); ?>
+						<?php echo __($column["Situation"]); ?>
 					</td>
 												 
 					<td class="center">
-					<?php 
-						if($column["Situation"] === "Deleted") {					
-							echo getAction(TRUE, $ID);
-						} else {					
-							echo getAction(FALSE, $ID);
-						}
+					<?php 					
+						echo ($column["Situation"] === "Deleted") ? getAction(TRUE, $ID) : getAction(FALSE, $ID);
 					?>
 					</td>
 	 			</tr>
@@ -117,3 +113,5 @@ $j = 2;
 	}
 	?>					
 </div>
+
+<?php echo $pagination; ?>
