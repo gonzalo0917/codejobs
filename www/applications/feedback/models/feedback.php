@@ -66,12 +66,14 @@ class Feedback_Model extends ZP_Model {
 	
 	public function send() {
 		if(!POST("name")) {
-			return getAlert(__(_("You need to write your name")));
+			return getAlert(__("You need to write your name"));
 		} elseif(!isEmail(POST("email"))) {
-			return getAlert(__(_("Invalid E-Mail")));
+			return getAlert(__("Invalid E-Mail"));
 		} elseif(!POST("message")) {
-			return getAlert(__(_("You need to write a message")));
+			return getAlert(__("You need to write a message"));
 		}
+
+		$this->helper(array("alerts", "time"));
 		
 		$values = array(
 			"Name"   	 => POST("name"),
@@ -90,24 +92,28 @@ class Feedback_Model extends ZP_Model {
 			return getAlert("Insert error");
 		}
 
-		$this->sendMail();
+		$vars["name"] 	 = POST("name");
+		$vars["email"] 	 = POST("email");
+		$vars["message"] = POST("message", "decode", FALSE);
+
+		$this->sendMail($vars);
 		
-		$this->sendResponse();			
+		$this->sendResponse($vars);			
 		
-		return getAlert(__(_("Your message has been sent successfully, we will contact you as soon as possible, thank you very much!")), "success");
+		return getAlert(__("Your message has been sent successfully, we will contact you as soon as possible, thank you very much!"), "success");
 	}
 	
-	private function sendResponse() {
+	private function sendResponse($vars) {
 		$this->Email->email	  = POST("email");
-		$this->Email->subject = __(_("Automatic response")) . " - " . get("webName");
+		$this->Email->subject = __("Automatic response") . " - " . get("webName");
 		$this->Email->message = $this->view("response_email", NULL, "feedback", TRUE);
 		
 		$this->Email->send();
 	}
 	
-	private function sendMail() {
+	private function sendMail($vars) {
 		$this->Email->email	  = get("webEmailSend");
-		$this->Email->subject = __(_("New Message")) ." - ". get("webName");
+		$this->Email->subject = __("New Message") ." - ". get("webName");
 		$this->Email->message = $this->view("send_email", $vars, "feedback", TRUE);
 		
 		$this->Email->send();

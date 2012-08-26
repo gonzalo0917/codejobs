@@ -22,12 +22,13 @@ class Feedback_Controller extends ZP_Controller {
 	}
 	
 	private function feedback() {
-		//Change to feedback.css
 		$this->CSS("new", "users");
-		$this->js("tiny-mce", NULL, "basic");
 		$this->title("Feedback");
+
+		$this->helper(array("forms", "html"));
 		
 		$vars["inserted"] = FALSE;
+
 		$vars["view"] = $this->view("send", TRUE);
 		
 		if(POST("send")) {						

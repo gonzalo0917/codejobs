@@ -1,27 +1,15 @@
 <p>
-	<?php echo __(_("Message")); ?>
+	<?php echo __("Message"); ?>
 </p>									
 
 <p>
-	<strong><?php echo __(_("Name")); ?>:</strong> <br /> <?php echo $name; ?> 
+	<strong><?php echo __("Name"); ?>:</strong> <br /> <?php echo $name; ?> 
 </p>									
 
 <p>
-	<strong><?php echo __(_("Email")); ?>:</strong> <br /> <?php echo $email; ?>
+	<strong><?php echo __("Email"); ?>:</strong> <br /> <?php echo $email; ?>
 </p>									
 
 <p>
-	<strong><?php echo __(_("Company")); ?>:</strong> <br /> <?php echo $company; ?>
-</p>	
-
-<p>
-	<strong><?php echo __(_("Phone")); ?>:</strong> <br /> <?php echo $phone; ?>
-</p>	
-
-<p>
-	<strong><?php echo __(_("Subject")); ?>:</strong> <br /> <?php echo $subject; ?>
-</p>	
-
-<p>
-	<strong><?php echo __(_("Message")); ?>:</strong> <br /> <?php echo $message; ?>
+	<strong><?php echo __("Message"); ?>:</strong> <br /> <?php echo $message; ?>
 </p>

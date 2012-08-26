@@ -71,21 +71,26 @@ class Bookmarks_Model extends ZP_Model {
 				"title" 	  => "required",
 				"description" => "required"
 			);
+
+			$data = array(
+				"ID_User" 	 => SESSION("ZanUserID"),
+				"Author"  	 => SESSION("ZanUser"),
+				"Slug"    	 => slug(POST("title", "clean")),
+				"Start_Date" => now(4)
+			);
 		} else {
 			$validations = array(
 				"title" 	  => "required",
 				"description" => "required"
 			);			
+
+			$data = array(
+				"Slug"    	 => slug(POST("title", "clean")),
+				"Start_Date" => now(4)
+			);
 		}
 
 		$this->helper("time");
-
-		$data = array(
-			"ID_User" 	 => SESSION("ZanUserID"),
-			"Author"  	 => SESSION("ZanUser"),
-			"Slug"    	 => slug(POST("title", "clean")),
-			"Start_Date" => now(4)
-		);
 				
 		$this->data = $this->Data->proccess($data, $validations);
 

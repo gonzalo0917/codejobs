@@ -187,3 +187,29 @@ $phrase["likes"]		  = "Me Gusta";
 $phrase["dislikes"]		  = "No me gusta";
 $phrase["visit_bookmark"] = "Visitar Marcador";
 $phrase["votes"] 		  = "votos";
+
+$phrase["monday"] 	 = "Lunes";
+$phrase["tuesday"] 	 = "Martes";
+$phrase["wednesday"] = "Miércoles";
+$phrase["thursday"]  = "Jueves";
+$phrase["friday"] 	 = "Viernes";
+$phrase["saturday"]  = "Sábado";
+$phrase["sunday"] 	 = "Domingo";
+
+$phrase["january"]   = "Enero";
+$phrase["february"]  = "Febrero";
+$phrase["march"]     = "Marzo";
+$phrase["april"] 	 = "Abril";
+$phrase["may"] 	 	 = "Mayo";
+$phrase["june"] 	 = "Junio";
+$phrase["july"] 	 = "Julio";
+$phrase["august"] 	 = "Agosto";
+$phrase["september"] = "Septiembre";
+$phrase["october"]   = "Octubre";
+$phrase["november"]  = "Noviembre";
+$phrase["december"]  = "Diciembre";
+
+$phrase["contact_us_today"] = "Póngase en contacto con nosotros hoy";
+$phrase["your_message_has_been_sent_successfully_we_will_contact_you_as_soon_as_possible_thank_you_very_much"] = "Tu mensaje ha sido enviado con éxito, nos pondremos en contacto contigo lo antes posible, ¡muchas gracias!";
+$phrase["message"] = "Mensaje";
+$phrase["send_my_message"] = "Enviar mi mensaje";

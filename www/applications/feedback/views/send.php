@@ -3,12 +3,12 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here..."); 
 }
 
-$name  = recoverPOST("name");	
-$email = recoverPOST("email");
+$name  	 = recoverPOST("name");	
+$email 	 = recoverPOST("email");
 $message = recoverPOST("message");
 
 echo div("new-user", "class");
-	echo formOpen(path("users/register/new"), "form-new", "form-new");
+	echo formOpen(path("feedback"), "form", "form");
 		echo p(__(_("Contact us today")), "resalt");
 		
 		echo isset($alert) ? $alert : NULL;
@@ -17,7 +17,7 @@ echo div("new-user", "class");
 			echo formInput(array(
 				"id"	   => "name",
 				"name" 	   => "name",				
-				"field"    => __(_("Name")), 
+				"field"    => __("Name"), 
 				"p" 	   => TRUE, 
 				"value"    => $name,
 				"required" => TRUE
@@ -27,7 +27,7 @@ echo div("new-user", "class");
 				"name" 	   => "email",
 				"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
 				"type"     => "email",
-				"field"    => __(_("Email")), 
+				"field"    => __("Email"), 
 				"p" 	   => TRUE, 
 				"value"    => $email,
 				"required" => TRUE
@@ -36,7 +36,7 @@ echo div("new-user", "class");
 			echo formTextarea(array(
 				"id"	   => "editor",
 				"name" 	   => "message",								
-				"field"    => __(_("Message")), 
+				"field"    => __("Message"), 
 				"p" 	   => TRUE, 
 				"value"    => $message,
 				"required" => TRUE
