@@ -57,7 +57,7 @@
 			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>			
 			<a rel="nofollow" href="http://www.nearsoft.com/" target="_blank" title="Nearsoft"><img src="<?=$path; ?>/images/patrocinadores/nearsoft.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="http://hdgeeks.webs.com" target="_blank" title="HDGeeks"><img src="<?=$path; ?>/images/patrocinadores/HDgeeks.png" width="100" height="31" /></a>
-			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
+			<a rel="nofollow" href="http://www.vangtel.com" target="_blank" title="Vangtel"><img src="<?=$path; ?>/images/patrocinadores/vangtel.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
