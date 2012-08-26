@@ -134,9 +134,6 @@ class CPanel_Controller extends ZP_Controller {
 		$this->title("Add");
 		
 		$this->CSS("forms", "cpanel");
-		
-		$this->js("insert-html");
-		$this->js("show-element");
 
 		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
 		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
