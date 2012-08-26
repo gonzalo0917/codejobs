@@ -84,7 +84,7 @@
 						<div id="notifications">
 							<?php 								
 								if($feedbackNotifications > 0) {
-									print '	<a href="'. path("cpanel/feedback/results") .'" title="'. __(_("Messages")) .'">
+									print '	<a href="'. path("feedback/cpanel/results") .'" title="'. __(_("Messages")) .'">
 												<img src="'. $this->themePath .'/images/icons/feedback.png" alt="'. __(_("Feedback")) .'" class="no-border" /> 
 												<sup>'. $feedbackNotifications .'</sup> 
 											</a>';
