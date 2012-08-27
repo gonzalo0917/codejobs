@@ -63,6 +63,8 @@ class Bookmarks_Model extends ZP_Model {
 	}
 	
 	private function editOrSave($action) {
+		$this->helper("time");
+		
 		if($action == "save") {
 			$validations = array(
 				"exists"  => array(
@@ -89,8 +91,6 @@ class Bookmarks_Model extends ZP_Model {
 				"Start_Date" => now(4)
 			);
 		}
-
-		$this->helper("time");
 				
 		$this->data = $this->Data->proccess($data, $validations);
 
