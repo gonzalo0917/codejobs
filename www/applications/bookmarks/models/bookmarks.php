@@ -64,8 +64,8 @@ class Bookmarks_Model extends ZP_Model {
 	
 	private function editOrSave($action) {
 		$this->helper("time");
-		
-		if($action == "save") {
+
+		if($action === "save") {
 			$validations = array(
 				"exists"  => array(
 					"URL" => POST("URL")
