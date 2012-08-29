@@ -171,7 +171,7 @@ class Forums_Model extends ZP_Model {
 		}
 	}
 	
-	public function getByForum($Slug, $language = "Spanish") {	
+	public function getByForum($slug, $language = "Spanish") {	
 		$forum = $this->Db->findBySQL("Slug = '$slug' AND Language = '$language' AND Situation = 'Active'", $this->table);
 
 		$dataForum["Forum_Title"] = $forum[0]["Title"];	
@@ -444,15 +444,11 @@ class Forums_Model extends ZP_Model {
 		$avatar = $this->Db->find($ID, "users");
 
 		if($avatar) {
-			if($avatar[0]["Type"] === "Normal") {
-				if($avatar[0]["Avatar"] !== "") {
-					return path($avatar[0]["Avatar"], TRUE);
-				} elseif($avatar[0]["Avatar"] === "") {
-					return path("www/lib/files/images/users/default.png", TRUE);
-				} 
-			} elseif($avatar[0]["Type"] === "Twitter") {
-				return $avatar[0]["Avatar"];
-			}
+			if($avatar[0]["Avatar"] !== "") {
+				return path("www/lib/files/images/users/" .$avatar[0]["Avatar"], TRUE);
+			} elseif($avatar[0]["Avatar"] === "") {
+				return path("www/lib/files/images/users/default.png", TRUE);
+			} 
 		} else {
 			return FALSE;
 		}
@@ -481,88 +477,7 @@ class Forums_Model extends ZP_Model {
 			return FALSE;
 		}
 	}
-	
-	public function setRank($ID_User, $rank = FALSE) {
-		$ranks[0]  = "Beginner";
-		$ranks[1]  = "Advanced Beginner";
-		$ranks[2]  = "Member";
-		$ranks[3]  = "Full Member";
-		$ranks[4]  = "Silver Member";
-		$ranks[5]  = "Gold Member";
-		$ranks[6]  = "Platinum Member";
-		$ranks[7]  = "God of the Forum";
-		$ranks[8]  = "Moderator";
-		$ranks[9]  = "Administrator";
-		$ranks[10] = "Super Administrator";
-			
-		if(!$rank) {
-			$user = $this->Db->find($ID_User, "users");
-			
-			$normalPoints = $user[0]["Topics"] + $user[0]["Replies"];
-			$visitPoints  = $user[0]["Visits"] / 50;
-			$points  	  = intval($normalPoints + $visitPoints);
-			$actualRank   = $user[0]["Rank"];
-				
-			if($actualRank !== "Super Administrator" AND $actualRank !== "Administrator" AND $actualRank !== "Moderator") {
-				switch($points) {
-					case ($points < 50): 
-						if($actualRank !== $ranks[0]) {
-							$this->Db->update("users", array("Rank" => $ranks[0]), $ID_User);
-						}
-					break;
-
-					case ($points >= 50 and $points < 100):
-						if($actualRank !== $ranks[1]) {
-							$this->Db->update("users", array("Rank" => $ranks[1]), $ID_User);
-						}
-					break;
-
-					case ($points >= 100 and $points < 200):
-						if($actualRank !== $ranks[2]) {
-							$this->Db->update("users", array("Rank" => $ranks[2]), $ID_User);
-						}
-					break;
-
-					case ($points >= 200 and $points < 350):
-						if($actualRank !== $ranks[3]) {
-							$values = "Rank = '$ranks[3]'";
-							$this->Db->values($values);
-							$this->Db->save($ID_User);
-						}
-					break;
-					
-					case ($points >= 200 and $points < 350):
-						if($actualRank !== $ranks[3]) {
-							$this->Db->update("users", array("Rank" => $ranks[3]), $ID_User);
-						}
-					break;
-					
-					case ($points >= 350 and $points < 550):
-						$this->Db->update("users", array("Rank" => $ranks[4]), $ID_User);
-					break;
-
-					case ($points >= 550 and $points < 800):
-						if($actualRank !== $ranks[5]) {
-							$this->Db->update("users", array("Rank" => $ranks[5]), $ID_User);
-						}
-					break;
-
-					case ($points >= 800 and $points < 1100):
-						if($actualRank !== $ranks[6]) {
-							$this->Db->update("users", array("Rank" => $ranks[6]), $ID_User);
-						}
-					break;
-					
-					case ($points > 1100):
-						$this->Db->update("users", array("Rank" => $ranks[7]), $ID_User);
-					break;
-				}
-			}
-		} else {
-			$this->Db->update("users", array("Rank" => $ranks[$rank]), $ID_User);
-		}		
-	}
-	
+		
 	public function getLastUsers() {
 		return $this->Db->findBySQL("Situation = 'Active' ORDER BY Start_Date DESC LIMIT 10", "users");
 	}

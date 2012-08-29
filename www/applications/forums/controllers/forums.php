@@ -28,10 +28,6 @@ class Forums_Controller extends ZP_Controller {
 	
 	public function index() {
 		$this->title("Forums");
-	
-		if(SESSION("ZanUserID") > 0) {
-			$this->Forums_Model->setRank(SESSION("ZanUserID"));
-		}
 		
 		if(!is_numeric(segment(1, isLang())) and segment(2, isLang()) !== "new" and segment(2, isLang()) > 0 and segment(3, isLang()) === "new") {
 			$this->setReply();
@@ -79,23 +75,20 @@ class Forums_Controller extends ZP_Controller {
 	
 	private function getByForum() {
 		$slug 	  = segment(1, isLang());
-		$language = whichLanguage(segment(0));
+		$language = whichLanguage();
 		$data 	  = $this->Forums_Model->getByForum($slug, $language);
-			
+		
 		if($data) {
-			$visit  = $this->Forums_Model->addUserVisit();
 			$avatar = $this->Forums_Model->getUserAvatar();
 			$stats  = $this->Forums_Model->getStatistics();
-			$users  = $this->Forums_Model->getLastUsers();
-			
-			$vars["users"]  = $users;		
+					
 			$vars["stats"]  = $stats;
 			$vars["avatar"] = $avatar;
 			$vars["forums"] = $data;
 			$vars["forum"]  = $data[0];
 			$vars["topics"] = $data[1];
-			$vars["URL"]	= path("forums" ."/". $slug);
-			$vars["view"]   = $this->view("forum", "forums", TRUE);
+			$vars["URL"]	= path("forums/". $slug);
+			$vars["view"]   = $this->view("forum", TRUE);
 			
 			$this->render("content", $vars);
 		} else {

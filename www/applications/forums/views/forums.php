@@ -149,8 +149,7 @@
 	<div class="privileges">
 		<p class="footerTitle"><?php echo __("Extra information"); ?>.</p>
 		
-		<img src="<?php echo $avatar; ?>" title="<?php echo ((SESSION("ZanUser")) ? SESSION("ZanUser") : __("Sign up, please") . " :)"); ?>" 
-			alt="<?php echo __("A user avatar"); ?>" />
+		<img src="<?php echo $avatar; ?>" title="<?php echo ((SESSION("ZanUser")) ? SESSION("ZanUser") : __("Sign up, please") . " :)"); ?>" alt="<?php echo __("A user avatar"); ?>" />
 		
 		<?php 
 			if(SESSION("ZanUserID")) { 
@@ -165,7 +164,6 @@
 						<ul class="userStatistics">
 							<li><strong><?php echo __("Topics"); ?>:</strong>  <?php echo $stats[0]["Topics"];  ?></li>
 							<li><strong><?php echo __("Replies"); ?>:</strong> <?php echo $stats[0]["Replies"]; ?></li>
-							<li><strong><?php echo __("Visits"); ?>:</strong>  <?php echo $stats[0]["Visits"];  ?></li>
 						</ul>
 					</p>
 				
@@ -211,12 +209,7 @@
 		 	} else { 
 		?> 
 				<p class="noUserInfo">
-					<?php echo __("Hi there!, you should"); ?> 
-					<a class="signIn" href="<?php echo path("users/login/forums"); ?>" title="<?php echo __("Login"); ?>">
-						<?php echo __("login"); ?>
-					</a> 
-
-					<?php echo __("to enjoy full access to the forums"); ?>.
+					<?php echo __("Hi there!, you should login to enjoy full access to the forums"); ?>.
 					<br />
 					<?php echo __("If you don't have an account, you can create it"); ?> 
 					<a class="signUp" href="<?php echo path("users/register/forums"); ?>" title="<?php echo __("Sign up"); ?>"><?php echo __("here"); ?></a>.
@@ -231,24 +224,6 @@
 		<?php 
 			} 
 		?>
-	</div>
-	
-	<div class="lastUsers">
-		<p class="footerTitle"><?php echo __("Last registered users"); ?>.</p>
-
-		<ol>
-		<?php 
-			foreach($users as $user) { 
-		?>
-				<li>
-					<a href="<?php echo path("users/profile/". $user["ID_User"]); ?>" title="<?php echo $user["Username"]; ?>">
-						<?php echo $user["Username"]; ?>
-					</a>
-				</li>
-		<?php 
-			} 
-		?>
-		</ol>
 	</div>
 	
 	<div class="clear"></div>

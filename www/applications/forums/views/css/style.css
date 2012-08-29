@@ -2,7 +2,7 @@
 	width:98%;
 	margin:0 auto;
 	height:100%;
-	font-size:.75em;
+	font-size:.70em;
 }
 
 #forumsInfo {
@@ -487,7 +487,7 @@ li.main {
 
 .privileges {
 	background-color:#439DD3;
-	width:70%;
+	width:100%;
 	border-radius:3px;
 	float:left;
 	height:100%;
@@ -512,9 +512,7 @@ p.footerTitle {
 	margin-left:8px;
 	margin-right:8px;
 	margin-top:0px;
-	font-size:1em;
 	font-weight:bold;
-	border-bottom:2px ridge #fff;
 	color:#FFF;	
 }
 
@@ -543,6 +541,10 @@ p.footerTitle {
 	margin-left:105px;
 	margin-top:-80px;
 	text-align:justify;
+}
+
+.forumsFooter {
+	font-size: 0.8em;
 }
 
 .forumsFooter a {

@@ -17,27 +17,27 @@
 		if(SESSION("ZanUserID") > 0) { 
 	?>
 			<p class="welcome">
-				<?php echo __(_("Welcome to the forum, ")) . $forum["Forum_Title"]; ?>, 
-				<a href="<?php echo path("users/editprofile"; ?>" title="<?php echo SESSION("ZanUser")); ?>"><?php echo SESSION("ZanUser")); ?></a>. 
-				<?php echo __(_("Feel free of generate new topics")); ?>.
+				<?php echo __("Welcome to the forum, ") . $forum["Forum_Title"]; ?>, 
+				<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>. 
+				<?php echo __("Feel free of generate new topics"); ?>.
 			</p>
 		
 			<div class="options">
 				<ul>
-					<li class="main"><?php echo __(_("Options")); ?> <span class="little">&rsaquo;&rsaquo;</span></li>
+					<li class="main"><?php echo __("Options"); ?> <span class="little">&rsaquo;&rsaquo;</span></li>
 					<li>
-						<a href="<?php echo path("forums/". $forum["Forum_Nice"] . "/new"; ?>" title="<?php echo __(_("Post a topic")); ?>">
-							<?php echo __(_("New topic")); ?>
+						<a href="<?php echo path("forums/". $forum["Forum_Nice"] ."/new"); ?>" title="<?php echo __("Post a topic"); ?>">
+							<?php echo __("New topic"); ?>
 						</a>
 					</li>
-					<li><a href="<?php echo path("forums"); ?>" title="<?php echo __(_("Back")); ?>!"><?php echo __(_("Forums")); ?></a></li>
+					<li><a href="<?php echo path("forums"); ?>" title="<?php echo __("Back"); ?>!"><?php echo __("Forums"); ?></a></li>
 					<li>
-						<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo __(_("Edit Profile")); ?>">
-							<?php echo __(_("Edit Profile")); ?>
+						<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo __("Edit Profile"); ?>">
+							<?php echo __("Edit Profile"); ?>
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo path("users/logout/forums"); ?>" title="<?php echo __(_("Logout")); ?>"><?php echo __(_("Logout")); ?></a>
+						<a href="<?php echo path("users/logout/forums"); ?>" title="<?php echo __("Logout"); ?>"><?php echo __("Logout"); ?></a>
 					</li>
 				</ul>
 			</div>
@@ -45,26 +45,9 @@
 		} else { 
 	?>
 			<p class="welcome">
-				<?php echo __(_("Welcome to the forums of")); ?> 
-				<?php echo _webName; ?>, <?php echo __(_("please login to enjoy the forums or register if you don't have an account")); ?>.
+				<?php echo __("Welcome to the forums of"); ?> 
+				<?php echo get("webName"); ?>, <?php echo __("please login to enjoy the forums or register if you don't have an account"); ?>.
 			</p>
-		
-			<div class="options">
-				<ul>
-					<li class="main"><?php echo __(_("Options")); ?> <span class="little">&rsaquo;&rsaquo;</span></li>
-					<li><a href="<?php echo path("forums"); ?>" title="<?php echo __(_("Back")); ?>!"><?php echo __(_("Forums")); ?></a></li>
-					<li>
-						<a class="signIn" href="<?php echo path("users/login/forums"); ?>" title="<?php echo __(_("Login")); ?>">
-							<?php echo __(_("Login")); ?>
-						</a>
-					</li>
-					<li>
-						<a class="signUp" href="<?php echo path("users/register/forums"); ?>" title="<?php echo __(_("Sign up")); ?>">
-							<?php echo __(_("Sign up")); ?>
-						</a>
-					</li>
-				</ul>
-			</div>
 	<?php 
 		} 
 	?>
@@ -78,14 +61,14 @@
 		
 		<thead>
 			<tr>
-				<th class="first"><?php echo __(_("Topic") ."/". __(_("Author")); ?></th>
-				<th class="second"><?php echo __(_("Last Message")); ?></th>
-				<th class="third"><?php echo __(_("Replies")); ?></th>
-				<th class="fourth"><?php echo __(_("Visits")); ?></th>
+				<th class="first"><?php echo __("Topic") ."/". __("Author"); ?></th>
+				<th class="second"><?php echo __("Last Message"); ?></th>
+				<th class="third"><?php echo __("Replies"); ?></th>
+				<th class="fourth"><?php echo __("Visits"); ?></th>
 				<?php 
 					if(SESSION("ZanUserID")) { 
 				?>
-						<th class="fifth"><?php echo __(_("Actions")); ?></th>
+						<th class="fifth"><?php echo __("Actions"); ?></th>
 				<?php 
 					} 
 				?>
@@ -110,7 +93,7 @@
 							<br />
 
 							<div class="forumDesc">
-								<a title="<?php echo $topic["Author"]?>" href="<?php echo path("users/profile/". $topic["Author_ID"]; ?>">
+								<a title="<?php echo $topic["Author"]?>" href="<?php echo path("users/profile/". $topic["Author_ID"]); ?>">
 									<?php echo $topic["Author"]?>
 								</a>
 							</div>
@@ -131,7 +114,7 @@
 								</span>
 								
 								<span class="postAuthor"> 
-									<?php echo __(_("written by")); ?> 
+									<?php echo __("written by"); ?> 
 									
 									<a title="<?php echo $topic["Last_Author"]?>" href="<?php echo path("users/profile/". $topic["Last_Author_ID"]); ?>">
 										<?php echo $topic["Last_Author"]?>
@@ -154,13 +137,13 @@
 						?>
 								<td class="fifth">
 									<div class="actionbutton">
-										<a title="<?php echo __(_("Edit")); ?>" onclick="return confirm('<?php echo __(_("Do you want to edit the topic?")); ?>');" href="<?php echo $topic["editURL"]; ?>" class="ui-icon ui-icon-pencil">
+										<a title="<?php echo __("Edit"); ?>" onclick="return confirm('<?php echo __("Do you want to edit the topic?"); ?>');" href="<?php echo $topic["editURL"]; ?>" class="ui-icon ui-icon-pencil">
 											<span class="hide">Edit</span>
 										</a>
 									</div>
 							
 									<div class="actionbutton">
-										<a title="<?php echo __(_("Delete")); ?>" onclick="return confirm('<?php echo __(_("Do you want to delete the topic?")); ?>');" href="<?php echo $topic["deleteURL"]; ?>" class="ui-icon ui-icon-trash">
+										<a title="<?php echo __("Delete"); ?>" onclick="return confirm('<?php echo __("Do you want to delete the topic?"); ?>');" href="<?php echo $topic["deleteURL"]; ?>" class="ui-icon ui-icon-trash">
 											<span class="hide">Delete</span>
 										</a>
 									</div>
@@ -170,12 +153,12 @@
 						?>
 								<td class="fifth">
 									<div class="actionbutton">
-										<a href="<?php echo $topic["replyURL"]; ?>" title="<?php echo __(_("Reply")); ?>" class="ui-icon ui-icon-arrowreturnthick-1-w"></a>
+										<a href="<?php echo $topic["replyURL"]; ?>" title="<?php echo __("Reply"); ?>" class="ui-icon ui-icon-arrowreturnthick-1-w"></a>
 										<span class="hide">Reply</span>
 									</div>
 									
 									<div class="actionbutton">
-										<a href="<?php echo $topic["topicURL"]; ?>" title="<?php echo __(_("New topic")); ?>" class="ui-icon ui-icon-plusthick"></a>
+										<a href="<?php echo $topic["topicURL"]; ?>" title="<?php echo __("New topic"); ?>" class="ui-icon ui-icon-plusthick"></a>
 										<span class="hide">Topic</span>
 									</div>
 								</td>
@@ -191,10 +174,10 @@
 			?>
 					<tr class="rows odd">
 						<td class="noTopics" colspan="5">
-							<?php echo __(_("There are no topics, be the first!")); ?> 
+							<?php echo __("There are no topics, be the first!"); ?> 
 							
-							<a class="newTopic" href="<?php echo path("forums/". $forum["Forum_Nice"] ."/new"); ?>" title="<?php echo __(_("Post a topic!")); ?>">
-								<?php echo __(_("Post a topic!")); ?>
+							<a class="newTopic" href="<?php echo path("forums/". $forum["Forum_Nice"] ."/new"); ?>" title="<?php echo __("Post a topic!"); ?>">
+								<?php echo __("Post a topic!"); ?>
 							</a>
 						</td>
 					</tr>
@@ -203,14 +186,14 @@
 			?>
 					<tr class="rows odd">
 						<td class="noTopics" colspan="5">
-							<?php echo __(_("There are no topics, be the first! but first")); ?>:  
+							<?php echo __("There are no topics, be the first! but first"); ?>:  
 							
-							<a class="signIn" href="<?php echo path("users/login/forums"); ?>" title="<?php echo __(_("Login")); ?>">
-								<?php echo __(_("Login")); ?>
+							<a href="<?php echo path("users/login/forums"); ?>" title="<?php echo __("Login"); ?>">
+								<?php echo __("Login"); ?>
 							</a> 
 							
-							<a class="signUp" href="<?php echo path("users/register/forums"); ?>" title="<?php echo __(_("Sign up")); ?>">
-								<?php echo __(_("Sign up")); ?>
+							<a href="<?php echo path("users/register/forums"); ?>" title="<?php echo __("Sign up"); ?>">
+								<?php echo __("Sign up"); ?>
 							</a>
 						</td>
 					</tr>
@@ -226,9 +209,9 @@
 
 <div class="forumsFooter">
 	<div class="privileges">
-		<p class="footerTitle"><?php echo __(_("Extra information")); ?>.</p>
+		<p class="footerTitle"><?php echo __("Extra information"); ?>.</p>
 		
-		<img src="<?php echo $avatar; ?>" title="<?php echo ((SESSION("ZanUser")) ? SESSION("ZanUser") : __(_("Sign up, please") ."")); ?>" alt="<?php echo __(_("A user avatar")); ?>" />
+		<img src="<?php echo $avatar; ?>" title="<?php echo ((SESSION("ZanUser")) ? SESSION("ZanUser") : __("Sign up, please") .""); ?>" alt="<?php echo __("A user avatar"); ?>" />
 		
 		<?php 
 			if(SESSION("ZanUserID")) { 
@@ -237,48 +220,48 @@
 				if(SESSION("ZanUserPrivilege") === "Super Admin") { 
 			?>
 					<p class="<?php echo (SESSION("ZanUserMethod")) ? "onlineUserInfo2" : "onlineUserInfo"; ?>">
-						<?php echo __(_("Hi there!, ")); ?> 
+						<?php echo __("Hi there!, "); ?> 
 						
-						<a href="<?php echo path("users" . _sh . "editprofile" . _sh; ?>" title="<?php echo SESSION("ZanUser")); ?>">
-							<?php echo SESSION("ZanUser")); ?>
+						<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>">
+							<?php echo SESSION("ZanUser"); ?>
 						</a>. <br /> 
 
-						<?php echo __(_("Here are your statistics")); ?>: <br />
+						<?php echo __("Here are your statistics"); ?>: <br />
 						
 						<ul class="userStatistics">
-							<li><strong><?php echo __(_("Topics")); ?>:</strong>  <?php echo $stats[0]["Topics"];  ?></li>
-							<li><strong><?php echo __(_("Replies")); ?>:</strong> <?php echo $stats[0]["Replies"]; ?></li>
-							<li><strong><?php echo __(_("Visits")); ?>:</strong>  <?php echo $stats[0]["Visits"];  ?></li>
+							<li><strong><?php echo __("Topics"); ?>:</strong>  <?php echo $stats[0]["Topics"];  ?></li>
+							<li><strong><?php echo __("Replies"); ?>:</strong> <?php echo $stats[0]["Replies"]; ?></li>
+							<li><strong><?php echo __("Visits"); ?>:</strong>  <?php echo $stats[0]["Visits"];  ?></li>
 						</ul>
 					</p>
 				
 					<ul class="lsprivileges2">
 						<li>
-							<?php echo __(_("You can")); ?> 
-							<a href="<?php echo path("cpanel" . _sh . "forums" . _sh . "action" . _sh . "save"); ?>" title="<?php echo __(_("Create Forums")); ?>">
-								<?php echo __(_("create")); ?>
-							</a> <?php echo __(_("new forums")); ?>.
+							<?php echo __("You can"); ?> 
+							<a href="<?php echo path("cpanel/forums/action/save"); ?>" title="<?php echo __("Create Forums"); ?>">
+								<?php echo __("create"); ?>
+							</a> <?php echo __("new forums"); ?>.
 						</li>
-						<li><?php echo __(_("You can create new topics")); ?>.</li>
-						<li><?php echo __(_("You can reply to topics")); ?>.</li>
-						<li><?php echo __(_("You can send private messages")); ?>.</li>
+						<li><?php echo __("You can create new topics"); ?>.</li>
+						<li><?php echo __("You can reply to topics"); ?>.</li>
+						<li><?php echo __("You can send private messages"); ?>.</li>
 					</ul>
 			<?php 
 				} elseif(SESSION("ZanUserPrivilege") === "Member") { 
 			?>
-					<p class="<?php if(SESSION("ZanUserMethod")) { echo "onlineUserInfo2"; } else { echo "onlineUserInfo"; } ?>"><?php echo __(_("Hi there!, ")); ?> <a href="<?php echo path("users" . _sh . "editprofile" . _sh; ?>" title="<?php echo SESSION("ZanUser")); ?>"><?php echo SESSION("ZanUser")); ?></a>. <br /> <?php echo __(_("Here are your statistics")); ?>: <br />
+					<p class="<?php if(SESSION("ZanUserMethod")) { echo "onlineUserInfo2"; } else { echo "onlineUserInfo"; } ?>"><?php echo __("Hi there!, "); ?> <a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>. <br /> <?php echo __("Here are your statistics"); ?>: <br />
 						<ul class="userStatistics">
-							<li><strong><?php echo __(_("Topics")); ?>:</strong>  <?php echo $stats[0]["Topics"];  ?></li>
-							<li><strong><?php echo __(_("Replies")); ?>:</strong> <?php echo $stats[0]["Replies"]; ?></li>
-							<li><strong><?php echo __(_("Visits")); ?>:</strong>  <?php echo $stats[0]["Visits"];  ?></li>
+							<li><strong><?php echo __("Topics"); ?>:</strong>  <?php echo $stats[0]["Topics"];  ?></li>
+							<li><strong><?php echo __("Replies"); ?>:</strong> <?php echo $stats[0]["Replies"]; ?></li>
+							<li><strong><?php echo __("Visits"); ?>:</strong>  <?php echo $stats[0]["Visits"];  ?></li>
 						</ul>
 					</p>
 				
 					<ul class="lsprivileges2">
-						<li class="noprivilege"><?php echo __(_("You can <strong>NOT</strong> create new forums")); ?>.</li>
-						<li><?php echo __(_("You can create new topics")); ?>.</li>
-						<li><?php echo __(_("You can reply to topics")); ?>.</li>
-						<li><?php echo __(_("You can send private messages")); ?>.</li>
+						<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> create new forums"); ?>.</li>
+						<li><?php echo __("You can create new topics"); ?>.</li>
+						<li><?php echo __("You can reply to topics"); ?>.</li>
+						<li><?php echo __("You can send private messages"); ?>.</li>
 					</ul>
 			<?php 
 				} 
@@ -287,41 +270,23 @@
 			} else { 
 		?> 
 				<p class="noUserInfo">
-					<?php echo __(_("Hi there!, you should")); ?> 
-					<a class="signIn" href="<?php echo path("users/login/forums"); ?>" title="<?php echo __(_("Login")); ?>"><?php echo __(_("login")); ?></a> 
-					<?php echo __(_("to enjoy full access to the forums")); ?>.
+					<?php echo __("Hi there!, you should"); ?> 
+					<a class="signIn" href="<?php echo path("users/login/forums"); ?>" title="<?php echo __("Login"); ?>"><?php echo __("login"); ?></a> 
+					<?php echo __("to enjoy full access to the forums"); ?>.
 					<br />
-					<?php echo __(_("If you don't have an account, you can create it")); ?> 
-					<a class="signUp" href="<?php echo path("users/register/forums"); ?>" title="<?php echo __(_("Sign up")); ?>"><?php echo __(_("here")); ?></a>.
+					<?php echo __("If you don't have an account, you can create it"); ?> 
+					<a class="signUp" href="<?php echo path("users/register/forums"); ?>" title="<?php echo __("Sign up"); ?>"><?php echo __("here"); ?></a>.
 				</p>
 			
 				<ul class="lsprivileges">
-					<li class="noprivilege"><?php echo __(_("You can <strong>NOT</strong> create new forums")); ?>.</li>
-					<li class="noprivilege"><?php echo __(_("You can <strong>NOT</strong> create new topics")); ?>.</li>
-					<li class="noprivilege"><?php echo __(_("You can <strong>NOT</strong> reply to topics")); ?>.</li>
-					<li class="noprivilege"><?php echo __(_("You can <strong>NOT</strong> send private messages")); ?>.</li>
+					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> create new forums"); ?>.</li>
+					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> create new topics"); ?>.</li>
+					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> reply to topics"); ?>.</li>
+					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> send private messages"); ?>.</li>
 				</ul>
 		<?php 
 			} 
 		?>
-	</div>
-	
-	<div class="lastUsers">
-		<p class="footerTitle"><?php echo __(_("Last registered users")); ?>.</p>
-		
-		<ol>
-		<?php 
-			foreach($users as $user) { 
-		?>
-				<li>
-					<a href="<?php echo path("users/profile/". $user["ID_User"]); ?>" title="<?php echo $user["Username"]; ?>">
-						<?php echo $user["Username"]; ?>
-					</a>
-				</li>
-		<?php 
-			} 
-		?>
-		</ol>
 	</div>
 	
 	<div class="clear"></div>

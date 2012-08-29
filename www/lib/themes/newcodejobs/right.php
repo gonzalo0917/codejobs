@@ -54,7 +54,7 @@
         </section>
 
         <?php
-            if(!SESSION("ZanUser")) {
+            if(!SESSION("ZanUser") and get("production")) {
             ?>
                 <section class="ads">
                     <script type="text/javascript"><!--
