@@ -9,9 +9,9 @@ if(!defined("_access")) {
 class Forums_Model extends ZP_Model {
 	
 	public function __construct() {
-		$this->Db       = $this->db();	
+		$this->Db = $this->db();	
                 
-                $this->language = whichLanguage();
+        $this->language = whichLanguage();
 		$this->table    = "forums";
 		$this->fields   = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
 
@@ -41,16 +41,11 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	private function all($trash, $order, $limit) {
-                if($trash) {
-                   $data = $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit);
-                } else {
-                    $data = $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
-                }
-		return $data;	
+        return ($trash) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);		
 	}
 	
 	private function editOrSave() {
-                $validations = array(
+        $validations = array(
 			"exists"  => array(
 				"Year"	   => date("Y"),
 				"Month"	   => date("m"),
@@ -61,15 +56,15 @@ class Forums_Model extends ZP_Model {
 			"description" => "required"
 		);
             
-                $this->URL        = path("blog/". date("Y")) ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean"));
+        $this->URL = path("blog/". date("Y")) ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean"));
 				
 		$data = array(
 			"ID_Forum"     => POST("ID"),
-                        "Title"        => POST("title", "clean"),
+            "Title"        => POST("title", "clean"),
 			"Slug"         => slug(POST("title", "clean")),
 			"Description"  => POST("description", "clean"),
 			"Language"     => POST("language"),
-                        "Situation"    => POST("situation")
+            "Situation"    => POST("situation")
 		);
 	
 		$this->data = $this->Data->proccess($data, $validations);
@@ -80,24 +75,27 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	private function save() {
-            if($this->getIDByForum($this->data["Slug"])){
-                return getAlert(__(_("This forum already exists")), "error", $this->URL);
-            } 
-            $this->Db->insert($this->table, $this->data);
-            return getAlert(__(_("The forum has been saved correctly")), "success", $this->URL);
+        if($this->getIDByForum($this->data["Slug"])){
+            return getAlert(__("This forum already exists"), "error", $this->URL);
+        } 
+        
+        $this->Db->insert($this->table, $this->data);
+        
+        return getAlert(__("The forum has been saved correctly"), "success", $this->URL);
 	}
 	
 	private function edit() {
-                $Forum = $this->getIDByForum($this->data["Slug"]);
-                if($Forum){
-                    if($Forum[0]["ID_Forum"] != $this->data["ID_Forum"]){
-                        return getAlert(__(_("This forum already exists")), "error", $this->URL);
-                    }
-                }
-                
-                $this->Db->update($this->table, $this->data, POST("ID"));	
+        $forum = $this->getIDByForum($this->data["Slug"]);
+        
+        if($forum){
+            if($Forum[0]["ID_Forum"] != $this->data["ID_Forum"]){
+                return getAlert(__("This forum already exists"), "error", $this->URL);
+            }
+        }
+        
+        $this->Db->update($this->table, $this->data, POST("ID"));	
 		
-		return getAlert(__(_("The forum has been edited correctly")), "success", $this->URL);
+		return getAlert(__("The forum has been edited correctly"), "success", $this->URL);
 	}
 	
 	public function getByID($ID) {		
@@ -115,15 +113,15 @@ class Forums_Model extends ZP_Model {
 			foreach($forums as $forum) {
 				$data[$i]["ID_Forum"]    = $forum["ID_Forum"];
 				$data[$i]["Title"]       = $forum["Title"];
-				$data[$i]["Nice"]        = $forum["Nice"];
+				$data[$i]["Slug"]        = $forum["Slug"];
 				$data[$i]["Description"] = $forum["Description"];
-				$data[$i]["editURL"]     = path($this->application . _sh . "action" . _sh . "edit"  . _sh . $forum["ID_Forum"]);
-				$data[$i]["deleteURL"]   = path($this->application . _sh . "action" . _sh . "trash" . _sh . $forum["ID_Forum"]);
+				$data[$i]["editURL"]     = path($this->application ."/action/edit/". $forum["ID_Forum"]);
+				$data[$i]["deleteURL"]   = path($this->application ."/action/trash/". $forum["ID_Forum"]);
 				
 				if($forum["Topics"] < 1) {
 					$data[$i]["Topics"]     = 0;
 					$data[$i]["Replies"]    = 0;
-					$data[$i]["Last_Reply"] = __(_("There are not replies"));
+					$data[$i]["Last_Reply"] = __("There are not replies");
 					$data[$i]["Last_Date"]  = NULL;
 					$data[$i]["Situation"]  = $forum["Situation"];
 				} else {
@@ -137,7 +135,7 @@ class Forums_Model extends ZP_Model {
 					if($reply) {
 						$data[$i]["Last_Reply"]           = $forum["Last_Reply"];
 						$data[$i]["Last_Reply_Title"]     = $reply[0]["Title"];
-						$data[$i]["Last_Reply_Nice"]      = $reply[0]["Nice"];
+						$data[$i]["Last_Reply_Slug"]      = $reply[0]["Slug"];
 						$data[$i]["Last_Reply_Author"]    = $reply[0]["Author"];
 						$data[$i]["Last_Reply_Author_ID"] = $reply[0]["ID_User"];
 						$data[$i]["Last_Reply_Content"]   = $reply[0]["Content"];				
@@ -146,7 +144,7 @@ class Forums_Model extends ZP_Model {
 
 						$page = $this->getPage($reply[0]["ID_Parent"]);
 						
-						$data[$i]["Last_URL"] = path("forums/". $data[$i]["Nice"] ."/". $reply[0]["ID_Parent"] ."/page/". $page ."/#bottom");
+						$data[$i]["Last_URL"] = path("forums/". $data[$i]["Slug"] ."/". $reply[0]["ID_Parent"] ."/page/". $page ."/#bottom");
 					} else {
 						$ID_Forum = $forum["ID_Forum"];
 						
@@ -154,13 +152,13 @@ class Forums_Model extends ZP_Model {
 						
 						$data[$i]["Last_Reply"]           = $topic[0]["ID_Post"];
 						$data[$i]["Last_Reply_Title"]     = $topic[0]["Title"];
-						$data[$i]["Last_Reply_Nice"]      = $topic[0]["Nice"];
+						$data[$i]["Last_Reply_Slug"]      = $topic[0]["Slug"];
 						$data[$i]["Last_Reply_Author"]    = $topic[0]["Author"];
 						$data[$i]["Last_Reply_Author_ID"] = $topic[0]["ID_User"];
 						$data[$i]["Last_Reply_Content"]   = $topic[0]["Content"];				
 						$data[$i]["Last_Date"]            = $topic[0]["Text_Date"];
 						$data[$i]["Last_Date2"]           = $topic[0]["Start_Date"];
-						$data[$i]["Last_URL"]             = path("forums" . _sh . $data[$i]["Nice"] . _sh . $topic[0]["ID_Post"] . _sh);
+						$data[$i]["Last_URL"]             = path("forums" . _sh . $data[$i]["Slug"] . _sh . $topic[0]["ID_Post"] . _sh);
 					}
 				}				
 				
@@ -173,11 +171,11 @@ class Forums_Model extends ZP_Model {
 		}
 	}
 	
-	public function getByForum($nice, $language = "Spanish") {	
+	public function getByForum($Slug, $language = "Spanish") {	
 		$forum = $this->Db->findBySQL("Slug = '$slug' AND Language = '$language' AND Situation = 'Active'", $this->table);
 
 		$dataForum["Forum_Title"] = $forum[0]["Title"];	
-		$dataForum["Forum_Nice"]  = $forum[0]["Nice"];
+		$dataForum["Forum_Slug"]  = $forum[0]["Slug"];
 		
 		if($forum) {			
 			$ID_Forum = $forum[0]["ID_Forum"];
@@ -191,16 +189,16 @@ class Forums_Model extends ZP_Model {
 					$dataTopic[$i]["Author"]      = $topic["Author"];
 					$dataTopic[$i]["Author_ID"]   = $topic["ID_User"];
 					$dataTopic[$i]["Title"]       = $topic["Title"];
-					$dataTopic[$i]["Nice"]        = $topic["Nice"];
+					$dataTopic[$i]["Slug"]        = $topic["Slug"];
 					$dataTopic[$i]["Start_Date"]  = $topic["Start_Date"];
 					$dataTopic[$i]["Text_Date"]   = $topic["Text_Date"];
 					$dataTopic[$i]["Hour"]        = $topic["Hour"];
 					$dataTopic[$i]["Visits"]      = $topic["Visits"];
 					$dataTopic[$i]["ID"]          = $topic["ID_Post"];	
-					$dataTopic[$i]["topicURL"]    = path($this->application . _sh . segment(2) . _sh . "new" . _sh);
-					$dataTopic[$i]["replyURL"]    = path($this->application . _sh . segment(2) . _sh . $topic["ID_Post"] . _sh . "new"    . _sh);
-					$dataTopic[$i]["editURL"]     = path($this->application . _sh . segment(2) . _sh . $topic["ID_Post"] . _sh . "edit"   . _sh);
-					$dataTopic[$i]["deleteURL"]   = path($this->application . _sh . segment(2) . _sh . $topic["ID_Post"] . _sh . "delete" . _sh);
+					$dataTopic[$i]["topicURL"]    = path(segment(1, isLang()) ."/new");
+					$dataTopic[$i]["replyURL"]    = path(segment(1, isLang()) . $topic["ID_Post"] ."/new");
+					$dataTopic[$i]["editURL"]     = path(segment(1, isLang()) . $topic["ID_Post"] ."/edit");
+					$dataTopic[$i]["deleteURL"]   = path(segment(1, isLang()) . segment(2, isLang()) ."/". $topic["ID_Post"] ."/delete");
 																		
 					$ID_Topic = $topic["ID_Post"];
 
@@ -214,17 +212,17 @@ class Forums_Model extends ZP_Model {
 						$dataTopic[$i]["Last_Author"]    = $lastReply[0]["Author"];
 						$dataTopic[$i]["Last_Author_ID"] = $lastReply[0]["ID_User"];
 						$dataTopic[$i]["Last_Title"]     = $lastReply[0]["Title"];
-						$dataTopic[$i]["Last_Nice"]      = $lastReply[0]["Nice"];
+						$dataTopic[$i]["Last_Slug"]      = $lastReply[0]["Slug"];
 						$dataTopic[$i]["Last_Start"]     = $lastReply[0]["Start_Date"];
 						$dataTopic[$i]["Last_Text"]      = $lastReply[0]["Text_Date"];
 						$dataTopic[$i]["Last_ID"]        = $lastReply[0]["ID_Post"];
 
 						$page = $this->getPage($dataTopic[$i]["ID"]);
 
-						$dataTopic[$i]["Last_URL"] = path("forums" . _sh . segment(2) . _sh . $dataTopic[$i]["ID"] . _sh . "page" . _sh . $page . _sh . "#bottom");
+						$dataTopic[$i]["Last_URL"] = path("forums/". segment(1, isLang()) ."/". $dataTopic[$i]["ID"] ."/page/". $page ."/#bottom");
 					} else {
 						$dataTopic[$i]["Count"]      = 0;
-						$dataTopic[$i]["Last_Reply"] = __(_("There are not replies"));
+						$dataTopic[$i]["Last_Reply"] = __("There are not replies");
 					}
 
 					$i++;					
@@ -246,7 +244,7 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	public function getIDByForum($slug, $language = "Spanish") {
-		return $this->Db->findBySQL("Slug = '$slug' AND Language = '$language'", $this->table);
+		return $this->Db->findBySQL("Slug = '$slug' AND Language = '$language'", $this->table, $this->fields);
 	}
 	
 	public function setTopic() {
@@ -269,7 +267,7 @@ class Forums_Model extends ZP_Model {
 		}
 		
 		if($time > 25) {
-			$data = $this->Db->call("setTopicForum('$ID', '$ID_User', '$title', '$nice', '$content', '$author', '$date1', '$date2', '$hour')");
+			$data = $this->Db->call("setTopicForum('$ID', '$ID_User', '$title', '$Slug', '$content', '$author', '$date1', '$date2', '$hour')");
 		} else { 
 			$data = 0;
 		}
@@ -279,7 +277,7 @@ class Forums_Model extends ZP_Model {
 				if(SESSION("ZanUserMethod") === "twitter") {
 					$this->Twitter_Model = $this->model("Twitter_Model");
 
-					$tweet = __(_("I posted on")) ." ". '"'. $title .'"';
+					$tweet = __("I posted on") ." ". $title;
 
 					$this->Twitter_Model->publish($tweet, POST("URL") . $data[0]["Last_ID"]);
 				}
@@ -302,7 +300,7 @@ class Forums_Model extends ZP_Model {
 		$date2    = now(2);
 		$hour     = date("H:i:s", $date1);
 		
-		$data = $this->Db->call("updateTopicForum('$ID_Post', '$title', '$nice', '$content', '$date1', '$date2', '$hour')");
+		$data = $this->Db->call("updateTopicForum('$ID_Post', '$title', '$Slug', '$content', '$date1', '$date2', '$hour')");
 		
 		$this->Db->updateBySQL("forums_posts", "Title = 'Re: $title' WHERE ID_Parent = '$ID_Post'");
 		
@@ -344,15 +342,15 @@ class Forums_Model extends ZP_Model {
 	public function getByTopic($ID, $limit) {	
 		$topic = $this->Db->call("getTopicForum('$ID')");
 
-		$replies = $this->Db->query("SELECT * FROM ". _dbPfx ."forums_posts 
-										INNER JOIN ". _dbPfx ."users ON ". _dbPfx ."users.ID_User = ". _dbPfx ."forums_posts.ID_User 
-										INNER JOIN ". _dbPfx ."users_information ON ". _dbPfx ."users_information.ID_User = ". _dbPfx ."users.ID_User 
+		$replies = $this->Db->query("SELECT * FROM ". get("dbPfx") ."forums_posts 
+										INNER JOIN ". get("dbPfx") ."users ON ". get("dbPfx") ."users.ID_User = ". get("dbPfx") ."forums_posts.ID_User 
+										INNER JOIN ". get("dbPfx") ."users_information ON ". get("dbPfx") ."users_information.ID_User = ". get("dbPfx") ."users.ID_User 
 										WHERE ID_Parent = '$ID' AND Situation = 'Active' ORDER BY ID_Post LIMIT $limit");
 		
 		if($topic) {
-			$topic[0]["replyURL"]    = path($this->application . _sh . segment(2) . _sh . $topic[0]["ID_Post"] . _sh . "new"    . _sh);
-			$topic[0]["editURL"]     = path($this->application . _sh . segment(2) . _sh . $topic[0]["ID_Post"] . _sh . "edit"   . _sh);
-			$topic[0]["deleteURL"]   = path($this->application . _sh . segment(2) . _sh . $topic[0]["ID_Post"] . _sh . "delete" . _sh);
+			$topic[0]["replyURL"]  = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/new");
+			$topic[0]["editURL"]   = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/edit");
+			$topic[0]["deleteURL"] = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/delete");
 		}
 		
 		if($replies) {
@@ -406,7 +404,7 @@ class Forums_Model extends ZP_Model {
 		}
 		
 		if($time > 25) {
-			$data = $this->Db->call("setReplyTopic('$ID_Forum', '$ID_Post', '$ID_User', '$title', '$nice', '$content', '$author', '$date1', '$date2', '$hour')");
+			$data = $this->Db->call("setReplyTopic('$ID_Forum', '$ID_Post', '$ID_User', '$title', '$Slug', '$content', '$author', '$date1', '$date2', '$hour')");
 		} else { 
 			$data = 0;
 		}
@@ -424,12 +422,12 @@ class Forums_Model extends ZP_Model {
 		$ID_Post  = POST("ID_Post");
 		$title    = POST("title", "decode", "escape");
 		$content  = cleanTiny(POST("content", "decode", FALSE));
-		$nice     = nice($title);
+		$Slug     = Slug($title);
 		$date1    = now(4);
 		$date2    = now(2);
 		$hour     = date("H:i:s", $date1);
 		
-		$this->Db->call("updateReplyTopic('$ID_Post', '$title', '$nice', '$content', '$date1', '$date2', '$hour')");
+		$this->Db->call("updateReplyTopic('$ID_Post', '$title', '$Slug', '$content', '$date1', '$date2', '$hour')");
 	 	
 		return TRUE;
 	}
@@ -439,7 +437,7 @@ class Forums_Model extends ZP_Model {
 			if(SESSION("ZanUserID")) {
 				$ID = SESSION("ZanUserID");
 			} else {
-				return _webURL ."/lib/files/images/users/default.png";
+				return path("www/lib/files/images/users/default.png", TRUE);
 			}
 		}
 		
@@ -448,9 +446,9 @@ class Forums_Model extends ZP_Model {
 		if($avatar) {
 			if($avatar[0]["Type"] === "Normal") {
 				if($avatar[0]["Avatar"] !== "") {
-					return _webURL . _sh . $avatar[0]["Avatar"];
+					return path($avatar[0]["Avatar"], TRUE);
 				} elseif($avatar[0]["Avatar"] === "") {
-					return _webURL ."lib/files/images/users/default.png";
+					return path("www/lib/files/images/users/default.png", TRUE);
 				} 
 			} elseif($avatar[0]["Type"] === "Twitter") {
 				return $avatar[0]["Avatar"];
@@ -460,23 +458,9 @@ class Forums_Model extends ZP_Model {
 		}
 	}
 	
-	public function addUserVisit() {
-		if(SESSION("ZanUserID")) {
-			$this->Db->table("users");
-
-			$this->Db->values("Visits = (Visits) + 1");
-			$this->Db->save(SESSION("ZanUserID"));
-		} else {
-			return FALSE;
-		}
-	}
-	
 	public function addUserTopic() {
 		if(SESSION("ZanUserID")) {
-			$this->Db->table("users");
-			
-			$this->Db->values("Topics = (Topics) + 1");
-			$this->Db->save(SESSION("ZanUserID"));
+			$this->Db->updateBySQL("users", "Topics = (Topics) + 1 WHERE ID_User = '". SESSION("ZanUserID") ."'");
 		} else {
 			return FALSE;
 		}
@@ -484,10 +468,7 @@ class Forums_Model extends ZP_Model {
 	
 	public function addUserReply() {
 		if(SESSION("ZanUserID")) {
-			$this->Db->table("users");
-			
-			$this->Db->values("Replies = (Replies) + 1");
-			$this->Db->save(SESSION("ZanUserID"));
+			$this->Db->updateBySQL("users", "Replies = (Replies) + 1 WHERE ID_User = '". SESSION("ZanUserID") ."'");
 		} else {
 			return FALSE;
 		}
