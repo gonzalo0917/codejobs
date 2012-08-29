@@ -215,7 +215,7 @@
 					<li><a href="<?php echo path("$application/tag/css3"); ?>">CSS3</a></li>
 					<li><a href="<?php echo path("$application/tag/databases"); ?>">Databases</a></li>
 					<li><a href="<?php echo path("$application/tag/emarketing"); ?>">eMarketing</a></li>
-					<li><a href="<?php echo path("$application/tag/git-and-github"); ?>">Git &amp; Github</a></li>
+					<li><a href="<?php echo path("$application/tag/git"); ?>">Git &amp; Github</a></li>
 					<li><a href="<?php echo path("$application/tag/html5"); ?>">HTML5</a></li>
 					<li><a href="<?php echo path("$application/tag/ios"); ?>">iOS</a></li>
 					<li><a href="<?php echo path("$application/tag/java"); ?>">Java</a></li>
