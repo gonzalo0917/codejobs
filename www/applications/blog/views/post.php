@@ -5,14 +5,14 @@
 ?>
 		<div class="post">
 			<div class="post-title">
-				<a href="<?php echo $URL; ?>" title="<?php echo $post["Title"]; ?>">
-					<?php echo $post["Title"]; ?>
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
+					<?php echo stripslashes($post["Title"]); ?>
 				</a>
 			</div>
 			
 		
 			<div class="post-left">
-				<?php echo __(_("Published")) ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "blog/tag/") ." " . __(_("by")) . ' <a href="'. path("users/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
+				<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "blog/tag/") ." " . __(_("by")) . ' <a href="'. path("users/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 			</div>
 			
 			<div class="post-right">
