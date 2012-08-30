@@ -45,7 +45,7 @@ if(is_array($posts)) {
 					
 			<div class="post-content">
 				<div class="addthis_toolbox addthis_default_style ">
-					<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo $post["Title"]; ?>" tw:url="<?php echo $URL; ?>"></a>
+					<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($post["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>
 				</div>
 
 				<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
