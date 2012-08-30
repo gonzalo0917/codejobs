@@ -215,3 +215,5 @@ $phrase["message"] 			= "Mensaje";
 $phrase["send_my_message"]  = "Enviar mi mensaje";
 $phrase["advertising"]		= "Publicidad";
 $phrase["contact_us"]		= "Contacto";
+$phrase["before_yesterday"] = "antier";
+$phrase["yesterday"]	    = "ayer";
