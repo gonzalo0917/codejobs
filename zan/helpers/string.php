@@ -277,13 +277,9 @@ function filter($text, $filter = FALSE) {
 	if($text === TRUE) {
 		return TRUE;
 	} elseif($filter === TRUE) {
-		$text = cleanHTML($text);
-	} elseif($filter === "escape") {		
-		$text = addslashes($text);
+		$text = cleanHTML($text);		
 	} else {	
-		$text = str_replace("'", "", $text);
-		$text = str_replace('"', "", $text);
-		$text = str_replace("\\", "", $text);
+		$text = addslashes($text);
 	}
 	
 	$text = str_replace("<", "", $text);
