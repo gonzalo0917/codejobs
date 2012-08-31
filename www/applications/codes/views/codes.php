@@ -31,7 +31,7 @@
 			</span>
                         <div class="code-right">
                             <a href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>#comments">
-                                <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
+                                <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
                             </a>
                         </div>
                         <p><textarea name="code" data-syntax="<?php echo $code["File"]["ID_Syntax"];?>"><?php echo linesWrap($code["File"]["Code"]); ?></textarea></p>
@@ -79,6 +79,5 @@
 </script>
 
 <?php
-    echo $this->js("jquery.dataset.js", NULL, TRUE);
     echo $this->js("codes.js", "codes", TRUE);
 ?>

@@ -19,7 +19,7 @@
 				<?php
 					if($post["Enable_Comments"]) {
                     ?>
-                   		<div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
+                   		<div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
                     <?php
 					}
 				?>

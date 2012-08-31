@@ -17,6 +17,7 @@
 		echo $this->getCSS(); 
 	 	
 	 	echo $this->js("jquery", NULL, TRUE); 
+	 	echo $this->js("jquery.dataset.js", NULL, TRUE); 
                 
         if(defined("_codemirror")) {
             print $this->js("codemirror", NULL, TRUE);

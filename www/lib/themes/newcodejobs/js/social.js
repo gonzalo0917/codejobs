@@ -19,11 +19,15 @@ window.___gcfg = {lang: 'es'};
 
 $(document).ready(function() {
     $(".fb-comments-count").each(function (index) {
+        var $next, $target, singular;
         $(this).on("DOMNodeInserted", function (event) {
             $target = $(event.target);
+            $next   = $target.parent().next();
             if (parseInt($target.text()) == 1) {
-                $target.parent().next().css("display", "none");
-                $target.parent().next().next().css("display", "inline");
+                singular = $next.dataset("singular");
+                if (singular) {
+                    $next.text(singular);
+                }
             }
         });
     });
