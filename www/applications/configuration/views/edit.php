@@ -171,7 +171,7 @@
 			echo formTextarea(array(
 				"id" 	=> "editor", 
 				"name" 	=> "message", 
-				"class" => "required span10", 
+				"class" => "required", 
 				"field" => __("Message when the Website is inactive"), 
 				"p" 	=> TRUE, 
 				"value" => $message)
