@@ -79,6 +79,6 @@
 </script>
 
 <?php
-    echo $this->js("jquery.dataset.js", "codes", TRUE);
+    echo $this->js("jquery.dataset.js", NULL, TRUE);
     echo $this->js("codes.js", "codes", TRUE);
 ?>
