@@ -439,8 +439,8 @@ class ZP_Templates extends ZP_Load {
                 $value = preg_replace("/\r\n+/", " ", strip_tags($value));
                 
                 if(strlen($value) > 250) {
-                    $abstract = substr($value, 0, strrpos(substr($value, 0, 100), " "));
-                    $value    = substr($value, 0, strrpos(substr($value, 0, 250), " "));
+                    $abstract = stripslashes(substr($value, 0, strrpos(substr($value, 0, 100), " ")));
+                    $value    = stripslashes(substr($value, 0, strrpos(substr($value, 0, 250), " ")));
                 }
                 
                 $this->meta .= "\t<meta name=\"abstract\" content=\"" . $abstract . "\" />\n";
