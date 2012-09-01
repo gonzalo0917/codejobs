@@ -13,6 +13,7 @@ CREATE TABLE `muu_codes` (
   `ID_Code` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(150) NOT NULL,
+  `Description` text,
   `Slug` varchar(150) NOT NULL,
   `Languages` varchar(100) NOT NULL,
   `Author` varchar(100) NOT NULL,
@@ -53,6 +54,14 @@ CREATE TABLE `muu_codes_syntax` (
   PRIMARY KEY (`ID_Syntax`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
+INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extension`) VALUES
+(1,	'Text plain',	'text/plain',	'',	''),
+(2,	'JSON',	'application/json',	'javascript',	'json'),
+(3,	'C++',	'text/x-c++src',	'clike',	'cpp'),
+(4,	'PHP',	'application/x-httpd-php',	'php',	'php'),
+(5,	'Javascript',	'text/javascript',	'javascript',	'js'),
+(6,	'HTML',	'text/html',	'htmlmixed',	'html'),
+(7,	'CSS',	'text/css',	'css',	'css');
 
 INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `Adding`, `Deleting`, `Editing`, `Viewing`) VALUES
 (1,	17,	1,	1,	1,	1),
