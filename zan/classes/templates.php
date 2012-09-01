@@ -419,29 +419,28 @@ class ZP_Templates extends ZP_Load {
                 $this->setMeta("title", $this->title);
 	}
         
-        /**
+    /**
      * Set header meta tags
      *
      * @return void
      */
-        
-        public function meta($title = NULL, $description = NULL, $keywords = NULL, $language = NULL) {
-            if (!is_null($title)) {
-                $this->setMeta("title", $title);
-            }
-            
-            if (!is_null($description)) {
-                $this->setMeta("description", $description);
-            }
-            
-            if (!is_null($keywords)) {
-                $this->setMeta("keywords", $keywords);
-            }
-            
-            if (!is_null($language)) {
-                $this->setMeta("language", $language);
-            }
+    public function meta($title = NULL, $description = NULL, $keywords = NULL, $language = NULL) {
+        if(!is_null($title)) {
+            $this->setMeta("title", $title);
         }
+        
+        if(!is_null($description)) {
+            $this->setMeta("description", $description);
+        }
+        
+        if(!is_null($keywords)) {
+            $this->setMeta("keywords", $keywords);
+        }
+        
+        if(!is_null($language)) {
+            $this->setMeta("language", $language);
+        }
+    }
         
     /**
      * Set header meta tag
@@ -474,7 +473,6 @@ class ZP_Templates extends ZP_Load {
             break;   
         }
     }
-    
 	
     /**
      * Set vars
