@@ -443,6 +443,8 @@ class ZP_Templates extends ZP_Load {
                 if(strlen($value) > 250) {
                     $abstract = stripslashes(substr($value, 0, strrpos(substr($value, 0, 100), " ")));
                     $value    = stripslashes(substr($value, 0, strrpos(substr($value, 0, 250), " ")));
+                } else {
+                	$abstract = $value;
                 }
                 
                 $this->meta .= "\t<meta name=\"abstract\" content=\"" . $abstract . "\" />\n";
