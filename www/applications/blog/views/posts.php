@@ -18,16 +18,16 @@ if(is_array($posts)) {
 			
 		<div class="post">
 			<div class="post-title">
-				<a href="<?php echo $URL; ?>" title="<?php echo $post["Title"]; ?>">
-					<?php echo $lock . $post["Title"]; ?>
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
+					<?php echo $lock . stripslashes($post["Title"]); ?>
 				</a>
 			</div>
 			
 			<div class="post-left">
 				<?php 
-					echo __(_("Published")) ." ". 
+					echo __("Published") ." ". 
 						 howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "blog/tag/") ." ". 
-					 	 __(_("by")) .' 
+					 	 __("by") .' 
 						 <a href="'. path("users/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 			</div>
 			
@@ -35,7 +35,7 @@ if(is_array($posts)) {
 				<?php
 					if($post["Enable_Comments"]) {
                     ?>
-                    	<div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
+                    	<div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
                     <?php
 					}
 				?>
@@ -45,7 +45,7 @@ if(is_array($posts)) {
 					
 			<div class="post-content">
 				<div class="addthis_toolbox addthis_default_style ">
-					<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo $post["Title"]; ?>" tw:url="<?php echo $URL; ?>"></a>
+					<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($post["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>
 				</div>
 
 				<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>

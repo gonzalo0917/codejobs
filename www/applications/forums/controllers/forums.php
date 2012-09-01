@@ -12,46 +12,38 @@ class Forums_Controller extends ZP_Controller {
 	
 	public function __construct() {
 		$this->config("forums");
+
 		$this->Templates    = $this->core("Templates");
-		$this->Pagination   = $this->core("Pagination");
 		$this->Forums_Model = $this->model("Forums_Model");
 		
-		$this->helpers();
+		$this->CSS("colorbox", "forums");
+		$this->CSS("style", "forums");
 		
-		$this->application = $this->app("forums");
-		
-		$this->CSS("colorbox", $this->application);
-		$this->CSS("style", $this->application);
-		
-		$this->js("jquery.colorbox-min", $this->application);
-		$this->js("users", $this->application);
-		$this->js("actions", $this->application);
+		$this->js("jquery.colorbox-min", "forums");
+		$this->js("users", "forums");
+		$this->js("actions", "forums");
 
-		$this->Templates->theme(_webTheme);
+		$this->Templates->theme();
 	}
 	
 	public function index() {
 		$this->title("Forums");
-	
-		if(SESSION("ZanUserID") > 0) {
-			$this->Forums_Model->setRank(SESSION("ZanUserID"));
-		}
 		
-		if(!is_numeric(segment(2)) and segment(3) !== "new" and segment(3) > 0 and segment(4) === "new") {
+		if(!is_numeric(segment(1, isLang())) and segment(2, isLang()) !== "new" and segment(2, isLang()) > 0 and segment(3, isLang()) === "new") {
 			$this->setReply();
-		} elseif(!is_numeric(segment(2)) and segment(3) !== "new" and segment(3) > 0 and segment(4) === "edit" and segment(5) > 0) {
+		} elseif(!is_numeric(segment(1, isLang())) and segment(2, isLang()) !== "new" and segment(2, isLang()) > 0 and segment(3, isLang()) === "edit" and segment(4, isLang()) > 0) {
 			$this->setReply();
-		} elseif(!is_numeric(segment(2)) and segment(3) !== "new" and segment(3) > 0 and segment(4) === "edit") {
+		} elseif(!is_numeric(segment(1, isLang())) and segment(2, isLang()) !== "new" and segment(2, isLang()) > 0 and segment(3, isLang()) === "edit") {
 			$this->setTopic();
-		} elseif(!is_numeric(segment(2)) and segment(3) !== "new" and segment(3) > 0 and segment(4) === "delete" and segment(5) > 0) {
+		} elseif(!is_numeric(segment(1, isLang())) and segment(2, isLang()) !== "new" and segment(2, isLang()) > 0 and segment(3, isLang()) === "delete" and segment(4, isLang()) > 0) {
 			$this->deleteReply();
-		} elseif(!is_numeric(segment(2)) and segment(3) !== "new" and segment(3) > 0 and segment(4) === "delete") {
+		} elseif(!is_numeric(segment(1, isLang())) and segment(2, isLang()) !== "new" and segment(2, isLang()) > 0 and segment(3, isLang()) === "delete") {
 			$this->deleteTopic();
-		} elseif(!is_numeric(segment(2)) and segment(3) !== "new" and segment(3) > 0) {	
+		} elseif(!is_numeric(segment(1, isLang())) and segment(2, isLang()) !== "new" and segment(2, isLang()) > 0) {	
 			$this->getByTopic();
-		} elseif(segment(3) === "new") {
+		} elseif(segment(2, isLang()) === "new") {
 			$this->setTopic();
-		} elseif(segment(2) !== FALSE) {
+		} elseif(segment(1, isLang()) !== FALSE) {
 			$this->getByForum();			
 		} else {
 			$this->getByDefault();			
@@ -59,12 +51,11 @@ class Forums_Controller extends ZP_Controller {
 	}
 	
 	private function getByDefault() {
-		$language = whichLanguage(segment(0));
+		$language = whichLanguage();
 
 		$data = $this->Forums_Model->getByDefault($language);
-				
+		
 		if($data) {
-			$visit  = $this->Forums_Model->addUserVisit();
 			$avatar = $this->Forums_Model->getUserAvatar();
 			$stats  = $this->Forums_Model->getStatistics();
 			$users  = $this->Forums_Model->getLastUsers();
@@ -73,34 +64,31 @@ class Forums_Controller extends ZP_Controller {
 			$vars["stats"]  = $stats;
 			$vars["avatar"] = $avatar;
 			$vars["forums"] = $data;
-			$vars["URL"]	= path($this->application);
-			$vars["view"]   = $this->view("forums", $this->application, TRUE);
+			$vars["URL"]	= path("forums");
+			$vars["view"]   = $this->view("forums", TRUE);
 			
 			$this->render("content", $vars);			
 		} else {
-			redirect(_webBase);
+			redirect();
 		}	
 	}
 	
 	private function getByForum() {
-		$nice 	  = segment(2);
-		$language = whichLanguage(segment(0));
-		$data 	  = $this->Forums_Model->getByForum($nice, $language);
-			
+		$slug 	  = segment(1, isLang());
+		$language = whichLanguage();
+		$data 	  = $this->Forums_Model->getByForum($slug, $language);
+		
 		if($data) {
-			$visit  = $this->Forums_Model->addUserVisit();
 			$avatar = $this->Forums_Model->getUserAvatar();
 			$stats  = $this->Forums_Model->getStatistics();
-			$users  = $this->Forums_Model->getLastUsers();
-			
-			$vars["users"]  = $users;		
+					
 			$vars["stats"]  = $stats;
 			$vars["avatar"] = $avatar;
 			$vars["forums"] = $data;
 			$vars["forum"]  = $data[0];
 			$vars["topics"] = $data[1];
-			$vars["URL"]	= path($this->application . _sh . $nice);
-			$vars["view"]   = $this->view("forum", $this->application, TRUE);
+			$vars["URL"]	= path("forums/". $slug);
+			$vars["view"]   = $this->view("forum", TRUE);
 			
 			$this->render("content", $vars);
 		} else {
@@ -109,21 +97,14 @@ class Forums_Controller extends ZP_Controller {
 	}
 
 	private function getByTopic() {		
-		$ID = segment(3);
-		$forum = segment(2);
+		$ID = segment(2, isLang());
+		$forum = segment(1, isLang());
 		
-		if(segment(4) === _page and segment(5) > 0) {
-			$page = segment(5);
-		} else {
-			$page = 0;
-		}
+		$page = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? segment(4, isLang()) : 0;
 							
-		$end = _maxLimit;	
-		if($page === 0) {
-			$start = 0; 
-		} else { 
-			$start = ($page * $end) - $end;
-		}
+		$end = _maxLimit;
+
+		$start = ($page === 0) ? 0 : ($page * $end) - $end; 
 		
 		$limit = $start .", ". $end;
 		$URL   = path("forums/$forum/$ID/page/");
@@ -161,41 +142,41 @@ class Forums_Controller extends ZP_Controller {
 			$vars["data"]  = $data;
 
 			if($page > 0) {
-				$vars["URL"] = path($this->application . _sh . $forum . _sh . $ID . _sh . "page" . _sh . $page);
+				$vars["URL"] = path("forums" ."/". $forum ."/". $ID ."/". "page" ."/". $page);
 			} else {
-				$vars["URL"] = path($this->application . _sh . $forum . _sh . $ID);
+				$vars["URL"] = path("forums" ."/". $forum ."/". $ID);
 			}
 
-			$vars["view"]  = $this->view("topic", $this->application, TRUE);
+			$vars["view"]  = $this->view("topic", "forums", TRUE);
 				
 			$this->render("content", $vars);
 		} else {
-			redirect("forums" . _sh . segment(2));
+			redirect("forums" ."/". segment(1, isLang()));
 		}
 	}
 	
 	private function setTopic() {
-		$nice 	  = segment(2);
-		$language = whichLanguage(segment(0));
+		$slug 	  = segment(1, isLang());
+		$language = whichLanguage();
 		
-		if(segment(4)) {
+		if(segment(3, isLang())) {
 			$action = "edit";
-			$ID     = segment(3);
+			$ID     = segment(2, isLang());
 		} else { 
 			$action = "save";
 		}
 		
 		if(SESSION("ZanUserID") > 0) {
 			$this->js("tiny-mce", NULL, "basic");
-			$this->js("validations", $this->application);
+			$this->js("validations", "forums");
 			
 			if(POST("cancel")) {
-				redirect($this->application . _sh . $nice);
+				redirect("forums" ."/". $slug);
 			}
 			
 			if(!POST("doAction")) {
 				if($action === "save") {
-					$forum = $this->Forums_Model->getIDByForum($nice, $language);
+					$forum = $this->Forums_Model->getIDByForum($slug, $language);
 				} elseif($action === "edit") {
 					$forum = $this->Forums_Model->getTopicByID($ID);
 
@@ -207,15 +188,15 @@ class Forums_Controller extends ZP_Controller {
 					$vars["title"]    = (isset($forum[0]["Title"]))   ? $forum[0]["Title"]   : "";
 					$vars["content"]  = (isset($forum[0]["Content"])) ? $forum[0]["Content"] : "";
 					$vars["action"]   = $action;
-					$vars["hrefURL"]  = path($this->application . _sh . $nice . _sh);
+					$vars["hrefURL"]  = path("forums" ."/". $slug . _sh);
 					
 					if($action === "save") {
-						$vars["href"] = path($this->application . _sh . $nice . _sh . "new");
+						$vars["href"] = path("forums" ."/". $slug ."/". "new");
 					} else {
-						$vars["href"] = path($this->application . _sh . $nice . _sh . $ID . _sh . "edit");
+						$vars["href"] = path("forums" ."/". $slug ."/". $ID ."/". "edit");
 					}
 
-					$vars["view"] = $this->view("newtopic", $this->application, TRUE);
+					$vars["view"] = $this->view("newtopic", "forums", TRUE);
 					
 					$this->render("content", $vars);
 				}
@@ -246,15 +227,15 @@ class Forums_Controller extends ZP_Controller {
 					$vars["title"]   = POST("title");
 					$vars["content"] = cleanTiny(POST("content", "decode", FALSE));
 					$vars["action"]  = $action;
-					$vars["hrefURL"] = path($this->application . _sh . $nice . _sh);
+					$vars["hrefURL"] = path("forums" ."/". $slug . _sh);
 					
 					if($action === "save") {
-						$vars["href"] = path($this->application . _sh . $nice . _sh . "new");
+						$vars["href"] = path("forums" ."/". $slug ."/". "new");
 					} else {
-						$vars["href"] = path($this->application . _sh . $nice . _sh . $ID . _sh . "edit");
+						$vars["href"] = path("forums" ."/". $slug ."/". $ID ."/". "edit");
 					}
 
-					$vars["view"] = $this->view("newtopic", $this->application, TRUE);
+					$vars["view"] = $this->view("newtopic", "forums", TRUE);
 					
 					$this->render("content", $vars);
 				} else {
@@ -264,50 +245,46 @@ class Forums_Controller extends ZP_Controller {
 						if($success > 0) {
 							$topic = $this->Forums_Model->addUserTopic();
 							
-							$vars["href"] = path($this->application . _sh . $nice . _sh . $success . _sh);
+							$vars["href"] = path("forums" ."/". $slug ."/". $success . _sh);
 						}
 					} elseif($action === "edit") { 
 						$success = $this->Forums_Model->editTopic();
 
-						$vars["href"] = path($this->application . _sh . $nice . _sh . $ID . _sh);
+						$vars["href"] = path("forums" ."/". $slug ."/". $ID . _sh);
 					}
 									
 					$vars["success"] = $success;
 					$vars["action"]  = $action;
-					$vars["href"]    = path($this->application . _sh . $nice);
-					$vars["view"]    = $this->view("newtopic", $this->application, TRUE);
+					$vars["href"]    = path("forums" ."/". $slug);
+					$vars["view"]    = $this->view("newtopic", "forums", TRUE);
 					
 					$this->render("content", $vars);
 				}
 			}
 		} else {
-			redirect($this->application . _sh . $nice);
+			redirect("forums" ."/". $slug);
 		}
 	}
 	
 	private function setReply() {
-		$ID_Topic = segment(3);
+		$ID_Topic = segment(2, isLang());
 		
-		if(segment(4) === "edit") {
+		if(segment(3, isLang()) === "edit") {
 			$action = "edit";
 			
-			$ID_Reply = segment(5);
-		} elseif(segment(4) === "new") { 
+			$ID_Reply = segment(4, isLang());
+		} elseif(segment(3, isLang()) === "new") { 
 			$action = "save";
 		}
 		
-		if(segment(6) > 0) {
-			$page = segment(6);
-		} else {
-			$page = 1;
-		}
+		$page = (segment(5, isLang()) > 0) ? segment(5, isLang()) : 1;
 			
 		if(SESSION("ZanUserID") > 0) {
 			$this->js("tiny-mce", NULL, "basic");
-			$this->js("validations", $this->application);
+			$this->js("validations", "forums");
 			
 			if(POST("cancel")) {
-				redirect($this->application . _sh . segment(2) . _sh . segment(3) . _sh);
+				redirect("forums" ."/". segment(1, isLang()) ."/". segment(2, isLang()));
 			}
 			
 			if(!POST("doAction")) {
@@ -324,18 +301,18 @@ class Forums_Controller extends ZP_Controller {
 					if($action === "save") {
 						$vars["title"]   = "Re: " . $topic[0]["Title"];
 						$vars["content"] = "";
-						$vars["href"]    = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . "new");
-						$vars["hrefURL"] = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh);
+						$vars["href"]    = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "new");
+						$vars["hrefURL"] = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic);
 					} elseif($action === "edit") {
 						$vars["title"]    = $topic[0]["Title"];
 						$vars["content"]  = $topic[0]["Content"];
 						$vars["ID_Topic"] = $topic[0]["ID_Parent"];
-						$vars["hrefURL"]  = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . "page" . _sh . $page);
-						$vars["href"]     = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . "edit" . _sh . $ID_Reply . _sh . $page);
+						$vars["hrefURL"]  = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "page" ."/". $page);
+						$vars["href"]     = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "edit" ."/". $ID_Reply ."/". $page);
 					}
 					
 					$vars["action"] = $action;					
-					$vars["view"]   = $this->view("reply", $this->application, TRUE);
+					$vars["view"]   = $this->view("reply", "forums", TRUE);
 					
 					$this->render("content", $vars);
 				}
@@ -371,15 +348,15 @@ class Forums_Controller extends ZP_Controller {
 					$vars["action"]   = $action;
 					
 					if($action === "save") {
-						$vars["href"]    = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . "new");
-						$vars["hrefURL"] = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh);
+						$vars["href"]    = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "new");
+						$vars["hrefURL"] = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic);
 					} elseif($action === "edit") {
 						$vars["ID_Topic"] = POST("ID_Topic");
-						$vars["href"]     = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . "edit" . _sh . $ID_Reply . _sh . $page);
-						$vars["hrefURL"]  = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . "page" . _sh . $page);
+						$vars["href"]     = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "edit" ."/". $ID_Reply ."/". $page);
+						$vars["hrefURL"]  = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "page" ."/". $page);
 					}
 
-					$vars["view"] = $this->view("reply", $this->application, TRUE);
+					$vars["view"] = $this->view("reply", "forums", TRUE);
 					
 					$this->render("content", $vars);
 				} else {
@@ -400,39 +377,39 @@ class Forums_Controller extends ZP_Controller {
 					$vars["action"]  = $action;
 					
 					if($action === "save") {
-						$vars["href"] = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . _page . _sh . $page . _sh . "#bottom");
+						$vars["href"] = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "page" ."/". $page ."/". "#bottom");
 					} elseif($action === "edit") {
-						$vars["href"] = path($this->application . _sh . segment(2) . _sh . $ID_Topic . _sh . _page . _sh . $page);
+						$vars["href"] = path("forums" ."/". segment(1, isLang()) ."/". $ID_Topic ."/". "page" ."/". $page);
 					}
 					
-					$vars["view"] = $this->view("reply", $this->application, TRUE);
+					$vars["view"] = $this->view("reply", "forums", TRUE);
 					
 					$this->render("content", $vars);
 				}
 			}
 		} else {
-			redirect($this->application . _sh . segment(2) . _sh . segment(3) . _sh);
+			redirect("forums" ."/". segment(1, isLang()) ."/". segment(2, isLang()) . _sh);
 		}
 	}
 	
 	private function deleteTopic() {
-		$ID = segment(3);
+		$ID = segment(2, isLang());
 		
 		if(SESSION("ZanUserID")) {
 			$delete = $this->Forums_Model->deleteTopic($ID);
 			
 			if($delete) {
-				redirect($this->application . _sh . segment(2) . _sh);
+				redirect("forums" ."/". segment(1, isLang()) . _sh);
 			} else {
-				redirect($this->application . _sh . segment(2) . _sh);
+				redirect("forums" ."/". segment(1, isLang()) . _sh);
 			}	
 		} else {
-			redirect($this->application . _sh . segment(2) . _sh);
+			redirect("forums" ."/". segment(1, isLang()) . _sh);
 		}
 	}
 	
 	private function deleteReply() {
-		$ID = segment(5);
+		$ID = segment(4, isLang());
 
 		if(segment(6) > 0) {
 			$page = segment(6);
@@ -444,12 +421,12 @@ class Forums_Controller extends ZP_Controller {
 			$delete = $this->Forums_Model->deleteReply($ID);
 			
 			if($delete) {
-				redirect($this->application . _sh . segment(2) . _sh . segment(3) . _sh . _page . _sh . $page);
+				redirect("forums" ."/". segment(1, isLang()) ."/". segment(2, isLang()) ."/". "page" ."/". $page);
 			} else {
-				redirect($this->application . _sh . segment(2) . _sh);
+				redirect("forums" ."/". segment(1, isLang()) . _sh);
 			}	
 		} else {
-			redirect($this->application . _sh . segment(2) . _sh);
+			redirect("forums" ."/". segment(1, isLang()) . _sh);
 		}
 	}
 

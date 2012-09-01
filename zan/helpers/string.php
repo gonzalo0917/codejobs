@@ -277,13 +277,9 @@ function filter($text, $filter = FALSE) {
 	if($text === TRUE) {
 		return TRUE;
 	} elseif($filter === TRUE) {
-		$text = cleanHTML($text);
-	} elseif($filter === "escape") {		
-		$text = addslashes($text);
+		$text = cleanHTML($text);		
 	} else {	
-		$text = str_replace("'", "", $text);
-		$text = str_replace('"', "", $text);
-		$text = str_replace("\\", "", $text);
+		$text = addslashes($text);
 	}
 	
 	$text = str_replace("<", "", $text);
@@ -454,7 +450,7 @@ function slug($string) {
 	$characters = array(
 		"Á" => "A", "Ç" => "c", "É" => "e", "Í" => "i", "Ñ" => "n", "Ó" => "o", "Ú" => "u", 
 		"á" => "a", "ç" => "c", "é" => "e", "í" => "i", "ñ" => "n", "ó" => "o", "ú" => "u",
-		"à" => "a", "è" => "e", "ì" => "i", "ò" => "o", "ù" => "u"
+		"à" => "a", "è" => "e", "ì" => "i", "ò" => "o", "ù" => "u", "ã" => "a"
 	);
 	
 	$string = strtr($string, $characters); 

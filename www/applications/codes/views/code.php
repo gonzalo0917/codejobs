@@ -28,7 +28,7 @@
 	</span>
 	<div class="code-right">
         <a href="#comments">
-            <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span><?php echo __("comments"); ?></span><span style="display:none"><?php echo __("comment"); ?></span>
+            <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
         </a>
     </div>	
         <?php
@@ -96,6 +96,5 @@
 </script>
 
 <?php
-    echo $this->js("jquery.dataset.js", "codes", TRUE);
     echo $this->js("codes.js", "codes", TRUE);
 ?>

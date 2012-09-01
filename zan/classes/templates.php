@@ -268,7 +268,9 @@ class ZP_Templates extends ZP_Load {
 			$this->CSS("prettyphoto");
 		} elseif($js === "jquery") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/jquery.js", "zan") .'"></script>';
-		} elseif($js === "redactorjs") {
+		} elseif (preg_match("/^jquery\\..+\\.js$/i", $js)){ # Plugin jQuery
+			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
+                } elseif($js === "redactorjs") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.min.js", "zan") .'"></script>';
 
 			$this->CSS("redactorjs");

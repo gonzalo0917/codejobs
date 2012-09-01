@@ -6,6 +6,8 @@
 	<title><?php print $this->getTitle(); ?></title>
 	
 	<?php
+		$application = segment(0, isLang());
+
     	$this->CSS("bootstrap", NULL, TRUE);
 		$this->CSS("prettyPhoto", "videos"); 
 		$this->CSS("ads", "ads"); 
@@ -26,20 +28,30 @@
 	?>
 
 	<script type="text/javascript" src="<?php echo path("vendors/js/jquery/jquery.js", "zan"); ?>"></script>
+	<?php
+		if ($application !== "codes") {
+	?>
 	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
 	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/html/set.js", "zan"); ?>"></script>
 
 	<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.css", "zan"); ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/html/style.css", "zan"); ?>" />
-	
+	<?php
+		}
+	?>
 	<script type="text/javascript">
 		var PATH = "<?php print path(); ?>";
 		
 		var URL  = "<?php print get('webURL'); ?>";
-
+	<?php
+		if ($application !== "codes") {
+	?>
 		$(document).on("ready", function() {
       		$("textarea").markItUp(mySettings);
    		});
+	<?php
+		}
+	?>
 	</script>			
 </head>
 

@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("_access")) {
+	if(!defined("_access") {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -23,14 +23,14 @@
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication()))), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(
 				"name" 	=> "name", 
 				"class" => "required span10", 
-				"field" => __(_("Name of the Website")), 
+				"field" => __("Name of the Website"), 
 				"p" 	=> TRUE, 
 				"value" => $name)
 			);
@@ -38,7 +38,7 @@
 			echo formInput(array(
 				"name" 	=> "URL", 
 				"class" => "required span10", 
-				"field" => __(_("URL of the Website")), 
+				"field" => __("URL of the Website"), 
 				"p" 	=> TRUE, 
 				"value" => $URL)
 			);
@@ -46,7 +46,7 @@
 			echo formInput(array(
 				"name" 	=> "slogan_spanish", 
 				"class" => "required span10", 
-				"field" => getLanguage("Spanish", TRUE) ." ". __(_("Slogan of the Website")), 
+				"field" => getLanguage("Spanish", TRUE) ." ". __("Slogan of the Website"), 
 				"p" 	=> TRUE, 
 				"value" => $sloganEs)
 			);
@@ -54,7 +54,7 @@
 			echo formInput(array(
 				"name" 	=> "slogan_english", 
 				"class" => "required span10", 
-				"field" => getLanguage("English", TRUE) ." ". __(_("Slogan of the Website")), 
+				"field" => getLanguage("English", TRUE) ." ". __("Slogan of the Website"), 
 				"p" 	=> TRUE, 
 				"value" => $sloganEn)
 			);			
@@ -62,7 +62,7 @@
 			echo formInput(array(
 				"name" 	=> "slogan_french", 
 				"class" => "required span10", 
-				"field" => getLanguage("French", TRUE) ." ". __(_("Slogan of the Website")), 
+				"field" => getLanguage("French", TRUE) ." ". __("Slogan of the Website"), 
 				"p" 	=> TRUE, 
 				"value" => $sloganFr)
 			);	
@@ -70,7 +70,7 @@
 			echo formInput(array(
 				"name" 	=> "slogan_portuguese", 
 				"class" => "required span10", 
-				"field" => getLanguage("Portuguese", TRUE) ." ". __(_("Slogan of the Website")), 
+				"field" => getLanguage("Portuguese", TRUE) ." ". __("Slogan of the Website"), 
 				"p" 	=> TRUE, 
 				"value" => $sloganPt)
 			);
@@ -78,7 +78,7 @@
 			echo formInput(array(
 				"name" 	=> "email_recieve", 
 				"class" => "required span10", 
-				"field" => __(_("E-Mail for recieve notifications")), 
+				"field" => __("E-Mail for recieve notifications"), 
 				"p" 	=> TRUE, 
 				"value" => $emailRecieve)
 			);
@@ -86,7 +86,7 @@
 			echo formInput(array(
 				"name" 	=> "email_send", 
 				"class" => "required span10", 
-				"field" => __(_("Email for send notifications")), 
+				"field" => __("Email for send notifications"), 
 				"p" 	=> TRUE, 
 				"value" => $emailSend)
 			);
@@ -95,26 +95,26 @@
 				"name" 	=> "theme", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Default theme"))), $themes
+				"field" => __("Default theme")), $themes
 			);
 	
 			echo formSelect(array(
 				"name" 	=> "application", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Default application"))), $defaultApplications
+				"field" => __("Default application")), $defaultApplications
 			);	
 
 			$options = array(
 				0 => array(
 					"value"    => "Active",
-					"option"   => __(_("Active")),
+					"option"   => __("Active"),
 					"selected" => ($validation === "Active") ? TRUE : FALSE
 				),
 				
 				1 => array(
 					"value"    => "Inactive",
-					"option"   => __(_("Inactive")),
+					"option"   => __("Inactive"),
 					"selected" => ($validation === "Inactive") ? TRUE : FALSE
 				)
 			);
@@ -123,19 +123,19 @@
 				"name" 	=> "validation", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Comments validations"))), $options
+				"field" => __("Comments validations")), $options
 			);
 			
 			$options = array(
 				0 => array(
 					"value"    => "User",
-					"option"   => __(_("User")),
+					"option"   => __("User"),
 					"selected" => ($activation === "User") ? TRUE : FALSE
 				),
 				
 				1 => array(
 					"value"    => "Admin",
-					"option"   => __(_("Administrator")),
+					"option"   => __("Administrator"),
 					"selected" => ($activation === "Admin") ? TRUE : FALSE
 				)
 			);
@@ -144,19 +144,19 @@
 				"name" 	=> "activation", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Accounts activation"))), $options
+				"field" => __("Accounts activation")), $options
 			);
 			
 			$options = array(
 				0 => array(
 					"value"    => "Active",
-					"option"   => __(_("Active")),
+					"option"   => __("Active"),
 					"selected" => ($situation === "Active") ? TRUE : FALSE
 				),
 				
 				1 => array(
 					"value"    => "Inactive",
-					"option"   => __(_("Inactive")),
+					"option"   => __("Inactive"),
 					"selected" => ($situation === "Inactive") ? TRUE : FALSE
 				)
 			);
@@ -165,19 +165,19 @@
 				"name" 	=> "situation", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Situation"))), $options
+				"field" => __("Situation")), $options
 			);			
 			
 			echo formTextarea(array(
 				"id" 	=> "editor", 
 				"name" 	=> "message", 
-				"class" => "required span10", 
-				"field" => __(_("Message when the Website is inactive")), 
+				"class" => "required", 
+				"field" => __("Message when the Website is inactive"), 
 				"p" 	=> TRUE, 
 				"value" => $message)
 			);
 			
-			echo formField(NULL, __(_("Languages")) ."<br />". getLanguagesInput($language));
+			echo formField(NULL, __("Languages") ."<br />". getLanguagesInput($language));
 			
 			echo formSave("edit");
 
