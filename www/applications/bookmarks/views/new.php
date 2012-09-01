@@ -61,7 +61,7 @@
 			
 			echo formInput(array(	
 				"name" 	=> "save", 
-				"class" => "required", 
+				"class" => "btn required", 
 				"value" => __("Save"), 
 				"type"  => "submit"
 			));
