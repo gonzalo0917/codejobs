@@ -451,11 +451,18 @@ class ZP_Templates extends ZP_Load {
         
         public function setMeta($tag, $value) {
             switch ($tag) {
+                case "title":
+                    $value = encode($value);
+                    $this->meta .= "\t<meta name=\"$tag\" content=\"$value\" />\n";
+                    break;
                 case "language":
                     $this->meta .= "\t<meta http-equiv=\"content-language\" content=\"$value\" />\n";
                     break;
                 case "description":
-                    $value = substr(preg_replace("/\r\n+/", " ", strip_tags($value)), 0, 250);
+                    $value = preg_replace("/\r\n+/", " ", strip_tags($value));
+                    if (strlen($value) > 250) {
+                        $value = substr($value, 0, strrpos(substr($value, 0, 250), " "));
+                    }
                     $this->meta .= "\t<meta name=\"abstract\" content=\"" . substr($value, 0, 100) . "\" />\n";
                 default:
                     $this->meta .= "\t<meta name=\"$tag\" content=\"$value\" />\n";
