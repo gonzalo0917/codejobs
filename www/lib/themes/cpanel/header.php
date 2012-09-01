@@ -1,9 +1,9 @@
 <?php if(!defined("_access")) { die("Error: You don't have permission to access here..."); } ?>
 <!DOCTYPE html>
-<html lang="<?php print get("webLang"); ?>"<?php print defined("_angularjs") ? " ng-app" : "";?>>
+<html lang="<?php echo get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title><?php print $this->getTitle(); ?></title>
+	<title><?php echo $this->getTitle(); ?></title>
 	
 	<?php
 		$application = segment(0, isLang());
@@ -13,42 +13,44 @@
 		$this->CSS("ads", "ads"); 
 		$this->CSS("default"); 
 	
-	 	print $this->getCSS();
-		print $this->themeCSS("cpanel"); 
+	 	echo $this->getCSS();
+		echo $this->themeCSS("cpanel"); 
                 
         if(defined("_angularjs")) {
-            print $this->js("angular", NULL, TRUE);
+            echo $this->js("angular", NULL, TRUE);
         }
         
         if(defined("_codemirror")) {
-            print $this->js("codemirror", NULL, TRUE);
+            echo $this->js("codemirror", NULL, TRUE);
         }
                 
 		$this->js("www/lib/scripts/js/main.js");
 	?>
 
 	<script type="text/javascript" src="<?php echo path("vendors/js/jquery/jquery.js", "zan"); ?>"></script>
-	<?php
-		if ($application !== "codes") {
-	?>
-	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
-	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/html/set.js", "zan"); ?>"></script>
 
-	<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.css", "zan"); ?>" />
-	<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/html/style.css", "zan"); ?>" />
+	<?php
+		if($application !== "codes") {
+	?>
+			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
+			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/html/set.js", "zan"); ?>"></script>
+
+			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.css", "zan"); ?>" />
+			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/html/style.css", "zan"); ?>" />
 	<?php
 		}
 	?>
+	
 	<script type="text/javascript">
-		var PATH = "<?php print path(); ?>";
+		var PATH = "<?php echo path(); ?>";
 		
-		var URL  = "<?php print get('webURL'); ?>";
+		var URL  = "<?php echo get('webURL'); ?>";
 	<?php
 		if ($application !== "codes") {
 	?>
-		$(document).on("ready", function() {
-      		$("textarea").markItUp(mySettings);
-   		});
+			$(document).on("ready", function() {
+	      		$("textarea").markItUp(mySettings);
+	   		});
 	<?php
 		}
 	?>
@@ -61,21 +63,21 @@
 		?>
 			<div id="top-bar">
 				<?php
-					$li[] = a("&lsaquo;&lsaquo;". __(_("Go back")), path());
-					$li[] = " | ". span("bold", __(_("Welcome"))) .": " . SESSION("ZanUser");
-					$li[] = " | ". span("bold", __(_("Online users"))) .": $online";
-					$li[] = " | ". span("bold", __(_("Registered users"))) .": $registered";
-					$li[] = " | ". span("bold", __(_("Last user"))) .": ". a($lastUser["Username"], path("users/$lastUser"));
-					$li[] = " | ". a(__(_("Logout")) ."&rsaquo;&rsaquo;", path("cpanel/logout/")) ."";			
+					$li[] = a("&lsaquo;&lsaquo;". __("Go back"), path());
+					$li[] = " | ". span("bold", __("Welcome")) .": " . SESSION("ZanUser");
+					$li[] = " | ". span("bold", __("Online users")) .": $online";
+					$li[] = " | ". span("bold", __("Registered users")) .": $registered";
+					$li[] = " | ". span("bold", __("Last user")) .": ". a($lastUser["Username"], path("users/". $lastUser["Username"] .""));
+					$li[] = " | ". a(__("Logout") ."&rsaquo;&rsaquo;", path("cpanel/logout/")) ."";			
 					
-					print ul($li);				
+					echo ul($li);				
 				?>
 			</div>
 		<?php
 		} else {
 		?>
 			<div id="top-bar-logout">
-				<a href="<?php print path(); ?>" title="<?php print __(_("Go back")); ?>">&lsaquo;&lsaquo; <?php print __(_("Go back")); ?></a>
+				<a href="<?php echo path(); ?>" title="<?php echo __("Go back"); ?>">&lsaquo;&lsaquo; <?php echo __("Go back"); ?></a>
 			</div>
 		<?php		
 		}
@@ -84,8 +86,8 @@
 	<div id="container">
 		<div id="header">
 			<div id="logo">
-				<a href="<?php print path("cpanel"); ?>" title="">
-					<img src="<?php print $this->themePath; ?>/images/logo.png" alt="MuuCMS" class="no-border" />
+				<a href="<?php echo path("cpanel"); ?>" title="">
+					<img src="<?php echo $this->themePath; ?>/images/logo.png" alt="MuuCMS" class="no-border" />
 				</a>
 			</div>
 						
@@ -96,8 +98,8 @@
 						<div id="notifications">
 							<?php 								
 								if($feedbackNotifications > 0) {
-									print '	<a href="'. path("feedback/cpanel/results") .'" title="'. __(_("Messages")) .'">
-												<img src="'. $this->themePath .'/images/icons/feedback.png" alt="'. __(_("Feedback")) .'" class="no-border" /> 
+									echo '	<a href="'. path("feedback/cpanel/results") .'" title="'. __("Messages") .'">
+												<img src="'. $this->themePath .'/images/icons/feedback.png" alt="'. __("Feedback") .'" class="no-border" /> 
 												<sup>'. $feedbackNotifications .'</sup> 
 											</a>';
 								}
@@ -106,7 +108,7 @@
 					</div>
 					
 					<div id="route">
-						<strong><?php print __(_("You are in")); ?>:</strong> <?php print routePath(); ?>
+						<strong><?php echo __("You are in"); ?>:</strong> <?php echo routePath(); ?>
 					</div>
 				<?php
 				} else {

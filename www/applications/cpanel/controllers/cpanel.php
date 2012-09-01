@@ -41,10 +41,10 @@ class CPanel_Controller extends ZP_Controller {
 		
 		$this->helper("porlets", $this->application);
 		
-		$this->vars["lastPosts"] = porlet(__(_("Last posts")), $this->CPanel_Model->home("blog"));
-		$this->vars["lastPages"] = porlet(__(_("Last pages")), $this->CPanel_Model->home("pages"));
-		$this->vars["lastLinks"] = porlet(__(_("Last bookmarks")), $this->CPanel_Model->home("bookmarks"));
-		$this->vars["lastUsers"] = porlet(__(_("Last users")), $this->CPanel_Model->home("users"));
+		$this->vars["lastPosts"] = porlet(__("Last posts"), $this->CPanel_Model->home("blog"));
+		$this->vars["lastPages"] = porlet(__("Last pages"), $this->CPanel_Model->home("pages"));
+		$this->vars["lastLinks"] = porlet(__("Last bookmarks"), $this->CPanel_Model->home("bookmarks"));
+		$this->vars["lastUsers"] = porlet(__("Last users"), $this->CPanel_Model->home("users"));
 		
 		$this->vars["view"] = $this->view("home", TRUE);
 		
@@ -73,7 +73,7 @@ class CPanel_Controller extends ZP_Controller {
 
 				redirect(POST("URL"));
 			} else { 
-				showAlert(__(_("Incorrect Login")), path());
+				showAlert(__("Incorrect Login"), path());
 			}	
 		} else {
 			$this->vars["URL"]  = getURL();

@@ -100,10 +100,9 @@ a:hover {
 
 #notifications {
 	float: right;
-	font-size: 0.9em;
-	color: #FF0000;
+	font-size: 1em;
+	color: #0000FF;
 	font-weight: bold;
-	text-decoration: blink;
 	margin-top: 10px;
 	margin-right: 10px;
 }
