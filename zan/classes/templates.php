@@ -443,27 +443,27 @@ class ZP_Templates extends ZP_Load {
             }
         }
         
-        /**
+    /**
      * Set header meta tag
      *
      * @return void
-     */
-        
-        public function setMeta($tag, $value) {
-            switch ($tag) {
-                case "language":
-                    $this->meta .= "\t<meta http-equiv=\"content-language\" content=\"$value\" />\n";
-                    break;
-                case "description":
-                    $value = substr(preg_replace("/\r\n+/", " ", strip_tags($value)), 0, 250);
-                    $this->meta .= "\t<meta name=\"abstract\" content=\"" . substr($value, 0, 100) . "\" />\n";
-                default:
-                    $this->meta .= "\t<meta name=\"$tag\" content=\"$value\" />\n";
-                    break;
-                
-                
-            }
+     */    
+   	public function setMeta($tag, $value) {
+        switch ($tag) {
+            case "language":
+                $this->meta .= "\t<meta http-equiv=\"content-language\" content=\"$value\" />\n";
+            break;
+            
+            case "description":
+                $value = substr(preg_replace("/\r\n+/", " ", strip_tags($value)), 0, 250);
+
+                $this->meta .= "\t<meta name=\"abstract\" content=\"" . substr($value, 0, 100) . "\" />\n";
+
+            default:
+                $this->meta .= "\t<meta name=\"$tag\" content=\"$value\" />\n";    
+             break;
         }
+    }
 	
     /**
      * Set vars

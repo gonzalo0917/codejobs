@@ -20,21 +20,8 @@
 ?>
 		<p class="welcome">
 			<?php echo __("Welcome to the forums of"); ?> <?php echo get("webName"); ?>, 
-			<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>!</p>
-			
-			<div class="options">
-				<ul>
-					<li class="main"><?php echo __("Options"); ?> <span class="little">&rsaquo;&rsaquo;</span></li>
-					<li>
-						<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo __("Edit Profile"); ?>">
-							<?php echo __("Edit Profile"); ?>
-						</a>
-					</li>
-					<li>
-						<a href="<?php echo path("users/logout/forums"); ?>" title="<?php echo __("Logout"); ?>"><?php echo __("Logout"); ?></a>
-					</li>
-				</ul>
-			</div>
+			<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>!
+		</p>
 <?php 
 	} else { 
 ?>
