@@ -26,6 +26,8 @@ class Blog_Controller extends ZP_Controller {
 	}
 	
 	public function index($year = NULL, $month = NULL, $day = NULL, $slug = NULL) {
+		$this->setMeta("language", whichLanguage(FALSE));
+                
 		if(isYear($year) and isMonth($month) and isDay($day) and $slug and $slug !== "page") {
 			$this->slug($year, $month, $day, $slug);
 		} elseif(isYear($year) and isMonth($month) and isDay($day)) { 
@@ -100,7 +102,9 @@ class Blog_Controller extends ZP_Controller {
 	
 		if($data) {
 			$this->title("Blog - ". $year ."/". $month ."/". $day);
-			
+			$this->setMeta("keywords", $data[0]["Tags"]);
+			$this->setMeta("description", $data[0]["Content"]);
+                        
 			$vars["posts"] 	    = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]  	    = $this->view("posts", TRUE);
@@ -120,6 +124,10 @@ class Blog_Controller extends ZP_Controller {
 		$data = $this->Cache->data("tag-$tag-$limit-". $this->language, "blog", $this->Blog_Model, "getByTag", array($tag, $limit));
 		
 		if($data) {
+			$this->title("Blog - ". $tag);
+			$this->setMeta("keywords", $data[0]["Tags"]);
+			$this->setMeta("description", $data[0]["Content"]);
+                        
 			$this->helper("time");
 			
 			$vars["posts"] 	    = $data;
@@ -149,6 +157,8 @@ class Blog_Controller extends ZP_Controller {
 		
 		if($data) {	
 			$this->title(decode($data[0]["post"][0]["Title"]));
+                        $this->setMeta("description", $data[0]["post"][0]["Content"]);
+                        $this->setMeta("keywords", $data[0]["post"][0]["Tags"]);
 			
 			if($data[0]["post"][0]["Pwd"] === "") {	 
 				$vars["view"][0] = $this->view("post", TRUE);		
@@ -193,7 +203,10 @@ class Blog_Controller extends ZP_Controller {
 
 		$this->helper(array("html","time"));
 
-		if($data) {						
+		if($data) {
+			$this->setMeta("keywords", $data[0]["Tags"]);
+			$this->setMeta("description", $data[0]["Content"]);
+                        
 			$vars["posts"]      = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("posts", TRUE);

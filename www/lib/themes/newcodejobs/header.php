@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<?php echo $this->getMeta(); ?>
 	<title><?php echo $this->getTitle(); ?></title>
 	<link href="<?php echo path("blog/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __(_("Blog")); ?>" />
 	<link href="<?php echo path("bookmarks/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __(_("Bookmarks")); ?>" >
@@ -23,7 +23,7 @@
         if(defined("_codemirror")) {
             print $this->js("codemirror", NULL, TRUE);
         }
-            
+        
 	 ?>
 
 	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/social.js"></script>

@@ -24,6 +24,8 @@ class Bookmarks_Controller extends ZP_Controller {
 	}
 	
 	public function index($bookmarkID = 0) {
+		$this->setMeta("language", whichLanguage(FALSE));
+                
 		if($bookmarkID !== "add") {
 			if($bookmarkID > 0) {
 				$this->go($bookmarkID);
@@ -50,7 +52,7 @@ class Bookmarks_Controller extends ZP_Controller {
 
 	public function add() {
 		isConnected();
-
+		
 		if(POST("save")) {
 			$vars["alert"] = $this->Bookmarks_Model->add();
 		} 
@@ -81,7 +83,7 @@ class Bookmarks_Controller extends ZP_Controller {
 	}	
 
 	public function tag($tag) {
-		$this->title(__(_("Bookmarks")));
+		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
@@ -90,6 +92,8 @@ class Bookmarks_Controller extends ZP_Controller {
 		$data = $this->Cache->data("tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getByTag", array($tag, $limit));
 
 		if($data) {
+			$this->setMeta("keywords", $data[0]["Tags"]);
+			$this->setMeta("description", $data[0]["Description"]);
 			$this->helper("time");
 
 			$vars["bookmarks"]  = $data;
@@ -112,7 +116,9 @@ class Bookmarks_Controller extends ZP_Controller {
 			$this->helper("time");
 
 			$this->title(__(_("Bookmarks")) ." - ". $data[0]["Title"]);
-			
+			$this->setMeta("keywords", $data[0]["Tags"]);
+			$this->setMeta("description", $data[0]["Description"]);
+                        
 			$this->Bookmarks_Model->updateViews($bookmarkID);
 
 			$vars["bookmark"] = $data[0];
@@ -137,7 +143,7 @@ class Bookmarks_Controller extends ZP_Controller {
 	}
 
 	public function getBookmarks() {
-		$this->title(__(_("Bookmarks")));
+		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
@@ -148,6 +154,9 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->helper("time");
 		
 		if($data) {	
+			$this->setMeta("keywords", $data[0]["Tags"]);
+			$this->setMeta("description", $data[0]["Description"]);
+                        
 			$vars["bookmarks"]  = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("bookmarks", TRUE);

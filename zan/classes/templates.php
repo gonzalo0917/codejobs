@@ -64,6 +64,13 @@ class ZP_Templates extends ZP_Load {
 	 * @var private $title = get("webNam"]e
 	 */
 	private $title;
+        
+        /**
+	 * Contains the meta tags for the header template
+	 * 
+	 * @var private $meta = get("tagsMeta"]
+	 */
+	private $meta;
 	
 	/**
 	 * Contains the array of vars
@@ -242,7 +249,16 @@ class ZP_Templates extends ZP_Load {
 	public function getTitle() {
 		return (is_null($this->title)) ? get("webName") ." - ". get("webSlogan") : encode($this->title);
 	}
-	
+        
+     /**
+     * Get the meta tags
+     *
+     * @return void
+     */
+	public function getMeta() {
+		return (is_null($this->meta) ? "" : $this->meta);
+	}
+        
     /**
      * Verify if a theme exists
      *
@@ -400,7 +416,54 @@ class ZP_Templates extends ZP_Load {
      */
 	public function title($title = NULL) {
 		$this->title = is_null($title) ? get("webName") ." - ". get("webSlogan") : get("webName") ." - ". get("webSlogan") ." - ". $title;
+                $this->setMeta("title", $this->title);
 	}
+        
+        /**
+     * Set header meta tags
+     *
+     * @return void
+     */
+        
+        public function meta($title = NULL, $description = NULL, $keywords = NULL, $language = NULL) {
+            if (!is_null($title)) {
+                $this->setMeta("title", $title);
+            }
+            
+            if (!is_null($description)) {
+                $this->setMeta("description", $description);
+            }
+            
+            if (!is_null($keywords)) {
+                $this->setMeta("keywords", $keywords);
+            }
+            
+            if (!is_null($language)) {
+                $this->setMeta("language", $language);
+            }
+        }
+        
+        /**
+     * Set header meta tag
+     *
+     * @return void
+     */
+        
+        public function setMeta($tag, $value) {
+            switch ($tag) {
+                case "language":
+                    $this->meta .= "\t<meta http-equiv=\"content-language\" content=\"$value\" />\n";
+                    break;
+                case "description":
+                    $value = substr(preg_replace("/\r\n+/", " ", strip_tags($value)), 0, 250);
+                    $this->meta .= "\t<meta name=\"abstract\" content=\"" . substr($value, 0, 100) . "\" />\n";
+                default:
+                    $this->meta .= "\t<meta name=\"$tag\" content=\"$value\" />\n";
+                    break;
+                
+                
+            }
+        }
 	
     /**
      * Set vars

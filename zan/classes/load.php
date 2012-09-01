@@ -575,10 +575,22 @@ class ZP_Load {
 		
 		$this->Templates->title($title);
 	}
-
+        
 	public function vars($vars) {
 		$this->Templates->vars($vars);
 	}
+        
+        public function meta($title = NULL, $description = NULL, $keywords = NULL, $language = NULL) {
+            $this->Templates = $this->core("Templates");
+            
+            $this->Templates->meta($title, $description, $keywords, $language);
+        }
+        
+        public function setMeta($tag, $value) {
+            $this->Templates = $this->core("Templates");
+            
+            $this->Templates->setMeta($tag, $value);
+        }
 	
     /**
      * Loads a view
