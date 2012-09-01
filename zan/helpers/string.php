@@ -37,7 +37,7 @@ function bbCode($HTML) {
    	); 
 
    	$b = array(
-   		"<iframe width=\"560\" height=\"315\" src=\"$1\" frameborder=\"0\" allowfullscreen></iframe>"  
+   		"<iframe width=\"560\" height=\"315\" src=\"$1\" allowfullscreen></iframe>"  
    	);
 
    	$HTML = preg_replace($a, $b, $HTML);
@@ -225,7 +225,7 @@ function dislike($ID = 0, $application = NULL, $dislikes = FALSE) {
 	$dislikes = ($dislikes) ? " ($dislikes)" : NULL;
 
 	if($ID > 0 and !is_null($application)) {
-		return '<a title="'. __(_("I Dislike")) .'" href="'. path("$application/dislike/$ID") .'"><img src="'. path("www/lib/images/dislike.png", TRUE) .'" /> '. __(_("I Dislike")) . $dislikes .'</a>';
+		return '<a title="'. __("I Dislike") .'" href="'. path("$application/dislike/$ID") .'"><img src="'. path("www/lib/images/dislike.png", TRUE) .'" /> '. __("I Dislike") . $dislikes .'</a>';
 	}
 
 	return FALSE;
@@ -233,7 +233,7 @@ function dislike($ID = 0, $application = NULL, $dislikes = FALSE) {
 
 function report($ID = 0, $application = NULL) {
 	if($ID > 0 and !is_null($application)) {
-		return '<a title="'. __(_("Report Link")) .'" href="'. path("$application/report/$ID") .'"><img src="'. path("www/lib/images/report.png", TRUE) .'" /> '. __(_("Report link")) .'</a>';
+		return '<a title="'. __("Report Link") .'" href="'. path("$application/report/$ID") .'"><img src="'. path("www/lib/images/report.png", TRUE) .'" /> '. __("Report link") .'</a>';
 	}
 
 	return FALSE;
@@ -486,7 +486,7 @@ function pageBreak($content, $URL = NULL) {
 	$parts = explode("<!---->", $content);
 
 	if(count($parts) > 1) {
-		return $parts[0] .'<p><a href="'. $URL .'" title="'. __(_("Read more")) .'">&raquo; '. __(_("Read more")) .'...</a></p>';
+		return $parts[0] .'<p><a href="'. $URL .'" title="'. __("Read more") .'">&raquo; '. __("Read more") .'...</a></p>';
 	}
 	
 	return $content;		
