@@ -215,3 +215,5 @@ $phrase["message"] 			= "Mensaje";
 $phrase["send_my_message"]  = "Enviar mi mensaje";
 $phrase["advertising"]		= "Publicidad";
 $phrase["contact_us"]		= "Contacto";
+
+$phrase["you_have_previously_voted_on_this_poll"] = "Ya has votado antes en esta encuesta";

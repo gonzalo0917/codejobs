@@ -96,10 +96,10 @@ class Polls_Model extends ZP_Model {
 			
 			$this->Db->insertBatch("polls_answers", $answers);
 			
-			return getAlert(__(_("The poll has been saved correctly")), "success");
+			return getAlert(__("The poll has been saved correctly"), "success");
 		}
 		
-		return getAlert(__(_("Insert error")));
+		return getAlert(__("Insert error"));
 	}
 	
 	private function edit() {
@@ -113,7 +113,7 @@ class Polls_Model extends ZP_Model {
 			}
 		}
 		
-		return getAlert(__(_("The poll has been edit correctly")), "success");
+		return getAlert(__("The poll has been edit correctly"), "success");
 	}
 	
 	public function getByID($ID) {
@@ -169,7 +169,7 @@ class Polls_Model extends ZP_Model {
 		if($data) {
 			COOKIE("ZanPoll", $ID_Poll, 3600);
 			
-			showAlert(__("You've previously voted on this poll"), path());
+			showAlert(__("You have previously voted on this poll"), path());
 		} else {								
 			$this->Db->updateBySQL("polls_answers", "Votes = (Votes) + 1 WHERE ID_Answer = '$ID_Answer'");								
 			
