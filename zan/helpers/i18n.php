@@ -78,7 +78,7 @@ function __($text) {
 				}
 
 				$file 		= fopen($logfile, "a+");
-				$pos		= strrpos($content, "$today"); # Format: --- dd/mm/yyyy ---
+				$pos		= strrpos($content, "$today");
 
 				if ($pos !== FALSE) {
 					if (! @preg_match("/\\b" . addslashes($position) . "\\b/i", substr($content, $pos + 14))) {
