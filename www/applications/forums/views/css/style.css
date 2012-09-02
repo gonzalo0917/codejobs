@@ -276,8 +276,9 @@ p.welcome {
 }
 
 #wrapper {
-	width: 98%;
+	width: 1000px;
 	margin: 0 auto;
+	margin-top: -10px;
 	height: 100%;
 	font-size: 0.75em;
 }
@@ -289,13 +290,15 @@ p.welcome {
 }
 
 .caption {
-	height: 8px;
-	line-height: 8px;
+	height: 10px;
+	line-height: 10px;
 	text-align: center;
-	font-size: 1.2#439DD3em;
+	font-size: 1.2em;
 	font-weight: bold;
 	background-color: #1677A2;
 	color: #fff;
+	padding-top: 10px;
+	text-indent: 10px;
 }
 
 .space {
@@ -313,9 +316,9 @@ p.welcome {
 
 .userinfo {
 	float: left;
-	font-size: 1.1em;
+	font-size: 1.2em;
 	margin-top: -10px;
-	color: #000;
+	color: #FFF;
 }	
 
 .userinfo a {
@@ -328,6 +331,7 @@ p.welcome {
 }
 
 .userinfo p {
+	font-size: 0.9em;
 	margin-top: 0px;
 	margin-bottom: 3px;
 }
@@ -359,7 +363,7 @@ p.welcome {
 
 .topicInfo2 { 
 	float: right;
-	width: 550px;
+	width: 250px;
 	margin-right: 12px;
 	font-size: 1.1em;
 	margin-top: -10px;
