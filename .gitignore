@@ -6,3 +6,4 @@ www/config/config.php
 www/config/database.php
 /nbproject/private/
 /nbproject/
+www/lib/languages/*.txt
