@@ -63,7 +63,7 @@ $j = 2;
 					</td>
 																				
 					<td>
-                                        <a href="<?php echo __(_(path("codes/{$column["ID_Code"]}/{$column["Slug"]}"))); ?>" target="_blank">
+                                        <a href="<?php echo path("codes/{$column["ID_Code"]}/{$column["Slug"]}"); ?>" target="_blank">
                                             <?php			
                                                     $title = cut($column["Title"], 4, "text");	
 

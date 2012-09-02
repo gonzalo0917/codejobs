@@ -26,7 +26,7 @@ $j = 2;
 			<th>&nbsp;</th>
 			<th>ID</th>
 			<th><?php echo __("Title"); ?></th>
-			<th><?php echo __("URL"); ?></th>
+			<th><?php echo "URL"; ?></th>
 			<th><?php echo __("Author"); ?></th>
 			<th><?php echo __("Views"); ?></th>
 			<th><?php echo __("Reported"); ?></th>
@@ -72,7 +72,7 @@ $j = 2;
 					</td>
 								
 					<td class="center">
-						<a href="<?php echo __(_($column["URL"])); ?>" target="_blank"><?php echo __("View"); ?></a>
+						<a href="<?php echo $column["URL"]; ?>" target="_blank"><?php echo __("View"); ?></a>
 					</td>
 								
 					<td class="center">
