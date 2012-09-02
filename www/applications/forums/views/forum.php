@@ -21,26 +21,6 @@
 				<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>. 
 				<?php echo __("Feel free of generate new topics"); ?>.
 			</p>
-		
-			<div class="options">
-				<ul>
-					<li class="main"><?php echo __("Options"); ?> <span class="little">&rsaquo;&rsaquo;</span></li>
-					<li>
-						<a href="<?php echo path("forums/". $forum["Forum_Nice"] ."/new"); ?>" title="<?php echo __("Post a topic"); ?>">
-							<?php echo __("New topic"); ?>
-						</a>
-					</li>
-					<li><a href="<?php echo path("forums"); ?>" title="<?php echo __("Back"); ?>!"><?php echo __("Forums"); ?></a></li>
-					<li>
-						<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo __("Edit Profile"); ?>">
-							<?php echo __("Edit Profile"); ?>
-						</a>
-					</li>
-					<li>
-						<a href="<?php echo path("users/logout/forums"); ?>" title="<?php echo __("Logout"); ?>"><?php echo __("Logout"); ?></a>
-					</li>
-				</ul>
-			</div>
 	<?php 
 		} else { 
 	?>
@@ -176,7 +156,7 @@
 						<td class="noTopics" colspan="5">
 							<?php echo __("There are no topics, be the first!"); ?> 
 							
-							<a class="newTopic" href="<?php echo path("forums/". $forum["Forum_Nice"] ."/new"); ?>" title="<?php echo __("Post a topic!"); ?>">
+							<a class="newTopic" href="<?php echo path("forums/". $forum["Forum_Slug"] ."/new"); ?>" title="<?php echo __("Post a topic!"); ?>">
 								<?php echo __("Post a topic!"); ?>
 							</a>
 						</td>
@@ -205,89 +185,4 @@
 		?>
 		</tbody>		
 	</table>
-</div>
-
-<div class="forumsFooter">
-	<div class="privileges">
-		<p class="footerTitle"><?php echo __("Extra information"); ?>.</p>
-		
-		<img src="<?php echo $avatar; ?>" title="<?php echo ((SESSION("ZanUser")) ? SESSION("ZanUser") : __("Sign up, please") .""); ?>" alt="<?php echo __("A user avatar"); ?>" />
-		
-		<?php 
-			if(SESSION("ZanUserID")) { 
-		?>
-			<?php 
-				if(SESSION("ZanUserPrivilege") === "Super Admin") { 
-			?>
-					<p class="<?php echo (SESSION("ZanUserMethod")) ? "onlineUserInfo2" : "onlineUserInfo"; ?>">
-						<?php echo __("Hi there!, "); ?> 
-						
-						<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>">
-							<?php echo SESSION("ZanUser"); ?>
-						</a>. <br /> 
-
-						<?php echo __("Here are your statistics"); ?>: <br />
-						
-						<ul class="userStatistics">
-							<li><strong><?php echo __("Topics"); ?>:</strong>  <?php echo $stats[0]["Topics"];  ?></li>
-							<li><strong><?php echo __("Replies"); ?>:</strong> <?php echo $stats[0]["Replies"]; ?></li>
-							<li><strong><?php echo __("Visits"); ?>:</strong>  <?php echo $stats[0]["Visits"];  ?></li>
-						</ul>
-					</p>
-				
-					<ul class="lsprivileges2">
-						<li>
-							<?php echo __("You can"); ?> 
-							<a href="<?php echo path("cpanel/forums/action/save"); ?>" title="<?php echo __("Create Forums"); ?>">
-								<?php echo __("create"); ?>
-							</a> <?php echo __("new forums"); ?>.
-						</li>
-						<li><?php echo __("You can create new topics"); ?>.</li>
-						<li><?php echo __("You can reply to topics"); ?>.</li>
-						<li><?php echo __("You can send private messages"); ?>.</li>
-					</ul>
-			<?php 
-				} elseif(SESSION("ZanUserPrivilege") === "Member") { 
-			?>
-					<p class="<?php if(SESSION("ZanUserMethod")) { echo "onlineUserInfo2"; } else { echo "onlineUserInfo"; } ?>"><?php echo __("Hi there!, "); ?> <a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>. <br /> <?php echo __("Here are your statistics"); ?>: <br />
-						<ul class="userStatistics">
-							<li><strong><?php echo __("Topics"); ?>:</strong>  <?php echo $stats[0]["Topics"];  ?></li>
-							<li><strong><?php echo __("Replies"); ?>:</strong> <?php echo $stats[0]["Replies"]; ?></li>
-							<li><strong><?php echo __("Visits"); ?>:</strong>  <?php echo $stats[0]["Visits"];  ?></li>
-						</ul>
-					</p>
-				
-					<ul class="lsprivileges2">
-						<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> create new forums"); ?>.</li>
-						<li><?php echo __("You can create new topics"); ?>.</li>
-						<li><?php echo __("You can reply to topics"); ?>.</li>
-						<li><?php echo __("You can send private messages"); ?>.</li>
-					</ul>
-			<?php 
-				} 
-			?>
-		<?php 
-			} else { 
-		?> 
-				<p class="noUserInfo">
-					<?php echo __("Hi there!, you should"); ?> 
-					<a class="signIn" href="<?php echo path("users/login/forums"); ?>" title="<?php echo __("Login"); ?>"><?php echo __("login"); ?></a> 
-					<?php echo __("to enjoy full access to the forums"); ?>.
-					<br />
-					<?php echo __("If you don't have an account, you can create it"); ?> 
-					<a class="signUp" href="<?php echo path("users/register/forums"); ?>" title="<?php echo __("Sign up"); ?>"><?php echo __("here"); ?></a>.
-				</p>
-			
-				<ul class="lsprivileges">
-					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> create new forums"); ?>.</li>
-					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> create new topics"); ?>.</li>
-					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> reply to topics"); ?>.</li>
-					<li class="noprivilege"><?php echo __("You can <strong>NOT</strong> send private messages"); ?>.</li>
-				</ul>
-		<?php 
-			} 
-		?>
-	</div>
-	
-	<div class="clear"></div>
 </div>

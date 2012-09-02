@@ -248,31 +248,44 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	public function setTopic() {
-		$ID      = POST("ID_Forum");
-		$title   = POST("title", "decode", "escape");
-		$content = cleanTiny(POST("content", "decode", FALSE));
-		$slug    = slug($title);
-		$ID_User = SESSION("ZanUserID");
-		$author  = SESSION("ZanUser");
-		$date1   = now(4);
-		$date2   = now(2);
-		$hour    = date("H:i:s", $date1);
+		$this->helper("time");
+
+		$ID_Forum = POST("ID_Forum");
+		$title    = POST("title", "decode", "escape");
+		$content  = POST("content", "decode", FALSE);
+		$slug     = slug($title);
+		$ID_User  = SESSION("ZanUserID");
+		$author   = SESSION("ZanUser");
+		$date1    = now(4);
+		$date2    = now(2);
+		$hour     = date("H:i:s", $date1);
 		
 		$lastTopic = $this->Db->findBySQL("ID_User = '$ID_User' AND ID_Parent = 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
 		
-		if($lastTopic) {
-			$time = $date1 - $lastTopic[0]["Start_Date"];
-		} else { 
-			$time = 100;
-		}
+		$time = ($lastTopic) ? $date1 - $lastTopic[0]["Start_Date"] : 100;
 		
 		if($time > 25) {
-			$data = $this->Db->call("setTopicForum('$ID', '$ID_User', '$title', '$Slug', '$content', '$author', '$date1', '$date2', '$hour')");
+			$data = array(
+				"ID_Forum"   => $ID_Forum,
+				"ID_User" 	 => $ID_User, 
+				"Title" 	 => $title,
+				"Slug"		 => $slug,
+				"Content"	 => $content,
+				"Author"	 => $author,
+				"Start_Date" => $date1,
+				"Text_Date"	 => decode($date2),
+				"Hour"       => $hour,
+				"Topic"		 => 1
+			);
+			
+			$lastID = $this->Db->insert("muu_forums_posts", $data);
+
+			$this->Db->updateBySQL("muu_forums", "Topics = (Topics) + 1 WHERE ID_Forum = '$ID_Forum'");
 		} else { 
-			$data = 0;
+			$data = FALSE;
 		}
 		
-		if(is_array($data)) {
+		if($data) {
 			if(POST("tweet") === "Yes") {
 				if(SESSION("ZanUserMethod") === "twitter") {
 					$this->Twitter_Model = $this->model("Twitter_Model");
@@ -283,9 +296,7 @@ class Forums_Model extends ZP_Model {
 				}
 			}
 			
-			return $data[0]["Last_ID"];
-		} elseif($data === 0) {
-			return $data;
+			return $lastID;
 		} else {
 			return FALSE;
 		}
@@ -340,12 +351,13 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	public function getByTopic($ID, $limit) {	
-		$topic = $this->Db->call("getTopicForum('$ID')");
+		$topic = $this->Db->query("SELECT ID_Post, muu_users.ID_User, ID_Forum, ID_Parent, muu_forums_posts.Title, Slug, Content, Author, muu_forums_posts.Start_Date, Username, Website, Avatar, Country, Sign FROM muu_forums_posts
+									  INNER JOIN muu_users ON muu_users.ID_User = ". SESSION("ZanUserID") ."
+									  WHERE ID_Post = $ID AND muu_forums_posts.Situation = 'Active' AND ID_Parent = 0");
 
-		$replies = $this->Db->query("SELECT * FROM ". get("dbPfx") ."forums_posts 
-										INNER JOIN ". get("dbPfx") ."users ON ". get("dbPfx") ."users.ID_User = ". get("dbPfx") ."forums_posts.ID_User 
-										INNER JOIN ". get("dbPfx") ."users_information ON ". get("dbPfx") ."users_information.ID_User = ". get("dbPfx") ."users.ID_User 
-										WHERE ID_Parent = '$ID' AND Situation = 'Active' ORDER BY ID_Post LIMIT $limit");
+		$replies = $this->Db->query("SELECT ID_Post, muu_users.ID_User, ID_Forum, ID_Parent, muu_forums_posts.Title, Slug, Content, Author, muu_forums_posts.Start_Date, Username, Website, Avatar, Country, Sign FROM muu_forums_posts 
+										INNER JOIN muu_users ON muu_users.ID_User = muu_forums_posts.ID_User 
+										WHERE ID_Parent = '$ID' AND muu_forums_posts.Situation = 'Active' ORDER BY ID_Post LIMIT $limit");
 		
 		if($topic) {
 			$topic[0]["replyURL"]  = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/new");
@@ -384,10 +396,12 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	public function setReply() {
+		$this->helper("time");
+
 		$ID_Forum = POST("ID_Forum");
 		$ID_Post  = POST("ID_Post");
 		$title    = POST("title", "decode", "escape");
-		$content  = cleanTiny(POST("content", "decode", FALSE));
+		$content  = POST("content", "decode", FALSE);
 		$slug     = slug($title);
 		$ID_User  = SESSION("ZanUserID");
 		$author   = SESSION("ZanUser");
@@ -397,25 +411,31 @@ class Forums_Model extends ZP_Model {
 		
 		$lastTopic = $this->Db->findBySQL("ID_User = '$ID_User' AND ID_Parent > 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
 		
-		if($lastTopic) {
-			$time = $date1 - $lastTopic[0]["Start_Date"];
-		} else { 
-			$time = 100;
-		}
+		$time = ($lastTopic) ? $date1 - $lastTopic[0]["Start_Date"] : 50;
 		
 		if($time > 25) {
-			$data = $this->Db->call("setReplyTopic('$ID_Forum', '$ID_Post', '$ID_User', '$title', '$Slug', '$content', '$author', '$date1', '$date2', '$hour')");
+			$data = array(
+				"ID_Forum"   => $ID_Forum,
+				"ID_User" 	 => $ID_User, 
+				"ID_Parent"	 => $ID_Forum,
+				"Title" 	 => $title,
+				"Slug"		 => $slug,
+				"Content"	 => $content,
+				"Author"	 => $author,
+				"Start_Date" => $date1,
+				"Text_Date"	 => decode($date2),
+				"Hour"       => $hour,
+				"Topic"		 => 1
+			);
+			
+			$lastID = $this->Db->insert("muu_forums_posts", $data);
+
+			$this->Db->updateBySQL("muu_forums", "Replies = (Replies) + 1, Last_Reply = '$lastID' WHERE ID_Forum = '$ID_Forum'");
 		} else { 
-			$data = 0;
+			$data = FALSE;
 		}
 		
-		if(is_array($data)) {
-			return $data[0]["Last_ID"];
-		} elseif($data === 0) {
-			return $data;
-		} else {
-			return FALSE;
-		}
+		return ($data) ? $lastID : FALSE;
 	}
 	
 	public function editReply() {

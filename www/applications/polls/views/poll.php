@@ -5,7 +5,7 @@
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
 					<p style="text-align: center; width: 250px;">
-						<strong><?php echo $poll["question"]["Title"];?></strong>
+						<strong><?php echo $poll["question"]["Title"]; ?></strong>
 					</p>
 							
 					<?php 
@@ -13,7 +13,7 @@
 						
 						foreach($poll["answers"] as $answer) {
 							echo '	<label for="answer_'. $i .'">
-										<input id="answer_'. $i .'" name="answer" type="radio" value="'. $answer["ID_Answer"] .'"/>'. $answer["Answer"] .'<br />
+										<input id="answer_'. $i .'" name="answer" type="radio" value="'. $answer["ID_Answer"] .'"/> '. $answer["Answer"] .'<br />
 									</label>';
 							$i++;
 						}

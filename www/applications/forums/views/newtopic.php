@@ -1,6 +1,11 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
-
 <?php 
+	if(!defined("_access")) {
+		die("Error: You don't have permission to access here..."); 
+	}
+
+	$title   = recoverPOST("title", $title);
+	$content = recoverpost("content", $content);
+ 
 	if(!isset($success)) { 
 ?> 	
 		<div class="newTopic">
@@ -9,23 +14,23 @@
 			<?php 
 				if($action === "save") { 
 			?>
-					<legend><?php echo __(_("New Topic")); ?>
+					<legend><?php echo __("New Topic"); ?>
 			<?php 
 				} else { 
 			?>
-					<legend><?php echo __(_("Edit Topic")); ?>
+					<legend><?php echo __("Edit Topic"); ?>
 			<?php 
 				} 
 			
 				echo isset($alert) ? $alert : NULL; ?>
 					
 				<p class="field">
-					&raquo; <?php echo __(_("Title")); ?><br />
+					&raquo; <?php echo __("Title"); ?><br />
 					<input class="input" id="title" name="title" type="text" value="<?php echo $title; ?>" />
 				</p>
 							
 				<p class="field">
-					&raquo; <?php echo __(_("Content")); ?><br />
+					&raquo; <?php echo __("Content"); ?><br />
 					<textarea id="editor" name="content" class="textarea"><?php echo $content; ?></textarea>
 				</p>
 					
@@ -33,14 +38,14 @@
 				if(SESSION("ZanUserMethod") and SESSION("ZanUserMethod") === "twitter") { 
 			?>
 					<p class="checkTwitter">
-						<input type="checkbox" value="Yes" name="tweet"  checked="checked" />  <?php echo __(_("Post in Twitter")) ; ?>
+						<input type="checkbox" value="Yes" name="tweet" checked="checked" />  <?php echo __("Post in Twitter") ; ?>
 					</p>
 			<?php 
 				} 
 			?>	
 				<p class="field">
-					<input class="btn" id="<?php echo $action; ?>" name="doAction" value="<?php echo __(_(ucfirst($action))). " ". __(_("Topic")); ?>" type="submit" />
-					<input class="input button" id="cancel" name="cancel" value="<?php echo __(_("Cancel")) ; ?>" type="submit" />
+					<input class="input button" id="<?php echo $action; ?>" name="doAction" value="<?php echo __(ucfirst($action)). " ". __("Topic"); ?>" type="submit" />
+					<input class="input button" id="cancel" name="cancel" value="<?php echo __("Cancel") ; ?>" type="submit" />
 				</p>
 					
 				<input name="ID_Forum" type="hidden" value="<?php echo $ID; ?>" />
