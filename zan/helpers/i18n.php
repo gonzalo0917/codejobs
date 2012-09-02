@@ -70,7 +70,7 @@ function __($text) {
 		} else {
 			if (strtolower($language) !== "english") {
 				$content 	= "";
-				$logfile 	= "www/lib/languages/". strtolower($language) .".txt";
+				$logfile 	= "www/lib/languages/". strtolower($language) . ".txt";
 				$today		= date("d/m/Y");
 
 				if (file_exists($logfile)) {
