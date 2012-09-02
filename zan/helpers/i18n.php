@@ -65,7 +65,33 @@ function __($text) {
 		$position = strtolower(str_replace(":", "", $position));
 		$position = strtolower(str_replace("'", "", $position));
 
-		return isset($phrase[$position]) ? encode($phrase[$position]) : $text; 	
+		if (isset($phrase[$position])) {
+			return encode($phrase[$position]);
+		} else {
+			if (strtolower($language) !== "english") {
+				$content 	= "";
+				$logfile 	= "www/lib/languages/". strtolower($language) .".txt";
+				$today		= date("d/m/Y");
+
+				if (file_exists($logfile)) {
+					$content = file_get_contents($logfile);
+				}
+
+				$file 		= fopen($logfile, "a+");
+				$pos		= strrpos($content, "$today"); # Format: --- dd/mm/yyyy ---
+
+				if ($pos !== FALSE) {
+					if (! @preg_match("/\\b" . addslashes($position) . "\\b/i", substr($content, $pos + 14))) {
+						fwrite($file, "$position\r\n");
+					}
+				} else {
+					fwrite($file, "--- $today ---\r\n");
+					fwrite($file, "$position\r\n");
+				}
+			}
+
+			return $text;
+		}
 	}
 }
 
