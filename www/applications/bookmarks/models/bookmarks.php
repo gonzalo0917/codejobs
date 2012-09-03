@@ -100,7 +100,7 @@ class Bookmarks_Model extends ZP_Model {
 	}
 
 	public function add() {
-		$error = $this->editOrSave();
+		$error = $this->editOrSave("save");
 
 		if($error) {
 			return $error;
