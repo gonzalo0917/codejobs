@@ -3,7 +3,9 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here..."); 
 } 
 
-if(is_array($posts)) {		
+if(is_array($posts)) {
+	$i = 1;
+
 	foreach($posts as $post) {			
 		if(isset($post["post"])) {
 			$post = array_shift($post);
@@ -51,7 +53,27 @@ if(is_array($posts)) {
 				<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>
 				<br />	
-				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>			
+				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>	
+				<br />
+				<?php
+					if(get("production") and ($i === 1 or $i === 7)) {
+						?>
+							<p>
+								<script type="text/javascript"><!--
+									google_ad_client = "ca-pub-4006994369722584";
+									/* CodeJobs.biz */
+									google_ad_slot = "1672839256";
+									google_ad_width = 728;
+									google_ad_height = 90;
+									//-->
+									</script>
+									<script type="text/javascript"
+									src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+								</script>
+							</p>
+						<?php
+					}
+				?>		
 			</div>
 			
 			<div class="clear"></div>
@@ -59,6 +81,7 @@ if(is_array($posts)) {
 				
 		<div class="clear"></div>
 		<?php
+		$i++;
 	}
 }
 	
