@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("_access") {
+	if(!defined("_access")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -23,7 +23,7 @@
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
@@ -78,7 +78,7 @@
 			echo formInput(array(
 				"name" 	=> "email_recieve", 
 				"class" => "required span10", 
-				"field" => __("E-Mail for recieve notifications"), 
+				"field" => __("Email for recieve notifications"), 
 				"p" 	=> TRUE, 
 				"value" => $emailRecieve)
 			);
