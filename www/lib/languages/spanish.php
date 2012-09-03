@@ -191,6 +191,7 @@ $phrase["tags"] 										= "Etiquetas";
 $phrase["terms_of_use"] 				 				= "Condiciones de uso";
 $phrase["text_plain"]									= "Texto plano";
 $phrase["the_account_has_been_created_correctly_we_will_send_you_an_email_so_you_can_activate_your_account"] = "La cuenta ha sido creada correctamente, enviaremos un e-mail con las indicaciones para que pueda activar su cuenta.";
+$prhase["the_bookmark_has_been_saved_correctly"]		= "El marcador fue agregado correctamente";
 $phrase["the_email_already_exists"]			  			= "El Email ya existe";
 $phrase["the_username_already_exists"]		  			= "El nombre de usuario ya existe";
 $phrase["this_site_is_licensed_under_a"] 				= "Este sitio está bajo una licencia";
