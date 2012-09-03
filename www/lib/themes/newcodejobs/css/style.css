@@ -469,3 +469,8 @@ input:required:valid {
     margin-top: 0px;
     text-align: center;
 }
+
+a img {
+	text-decoration: none;
+	border: 0 none;
+}
