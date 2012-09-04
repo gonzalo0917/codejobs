@@ -21,4 +21,11 @@ $routes = array(
 		"method"	  => "getBySlug",
 		"params"	  => array("publicidad")
 	),
+	2 => array(
+		"pattern"	  => "/^links/",
+		"application" => "pages",
+		"controller"  => "pages",
+		"method"	  => "getBySlug",
+		"params"	  => array("links")
+	),
 );
