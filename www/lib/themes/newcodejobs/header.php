@@ -65,6 +65,7 @@
 						<!--<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>-->
 						<li><a href="http://www.youtube.com/codejobs" target="_blank"><?php echo __("Videos"); ?></a></li>
 						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>
+						<li><a href="<?php echo path("links", TRUE); ?>"><?php echo __("Links"); ?></a></li>
 					</ul>
 				</nav>
 

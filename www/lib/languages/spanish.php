@@ -104,6 +104,7 @@ $phrase["last_users"] 									= "Últimos usuarios";
 $prhase["left"]											= "Izquierda";
 $phrase["legal_notice"] 				 				= "Aviso legal";
 $phrase["likes"]		  								= "Me Gusta";
+$phrase["links"]										= "Enlaces";
 $phrase["live_broadcast"] 								= "Transmisión en vivo";
 $phrase["load_time"] 									= "Tiempo de carga";
 $phrase["login"]  										= "Conectar";
