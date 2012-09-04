@@ -61,6 +61,8 @@ class Bookmarks_Controller extends ZP_Controller {
 
 		$this->helper(array("html", "forms"));
 
+		$this->config("user", "bookmarks");
+
 		$vars["view"] = $this->view("new", TRUE);
 
 		$this->render("content", $vars);

@@ -1,6 +1,6 @@
 <?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
 <!DOCTYPE html>
-<html lang="<?php echo get("webLang"); ?>">
+<html lang="<?php echo get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,7 +16,7 @@
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 
 	<?php 
-		if(segment(0, isLang()) === "bookmarks" and segment(1, isLang()) === "add") {
+		if(defined("_bootstrap")) {
 			echo '<link rel="stylesheet" href="'. path("vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", "zan") .'" type="text/css">';
 		}
 		
@@ -26,9 +26,12 @@
 	 	echo $this->js("jquery.dataset.js", NULL, TRUE); 
                 
         if(defined("_codemirror")) {
-            print $this->js("codemirror", NULL, TRUE);
+            echo $this->js("codemirror", NULL, TRUE);
         }
         
+        if(defined("_angularjs")) {
+            echo $this->js("angular", NULL, TRUE);
+        }
 	 ?>
 
 	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/social.js"></script>

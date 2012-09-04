@@ -256,7 +256,7 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getMeta() {
-		return (is_null($this->meta) ? "" : $this->meta);
+		return (is_null($this->meta) ? "" : ltrim($this->meta));
 	}
         
     /**

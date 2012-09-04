@@ -180,6 +180,8 @@ class Codes_Controller extends ZP_Controller {
 
 		$this->helper(array("html", "forms"));
 
+		$this->config("user", "codes");
+
 		$vars["view"] = $this->view("new", TRUE);
 
 		$this->render("content", $vars);
