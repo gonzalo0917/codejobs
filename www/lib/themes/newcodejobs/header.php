@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="<?php echo path("www/lib/css/default.css", TRUE); ?>" type="text/css">
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/style.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.css" type="text/css">
-	
+	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
+
 	<?php 
 		if(segment(0, isLang()) === "bookmarks" and segment(1, isLang()) === "add") {
 			echo '<link rel="stylesheet" href="'. path("vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", "zan") .'" type="text/css">';

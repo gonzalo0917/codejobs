@@ -65,23 +65,23 @@ function __($text) {
 		$position = strtolower(str_replace(":", "", $position));
 		$position = strtolower(str_replace("'", "", $position));
 
-		if (isset($phrase[$position])) {
+		if(isset($phrase[$position])) {
 			return encode($phrase[$position]);
 		} else {
-			if (strtolower($language) !== "english") {
-				$content 	= "";
-				$logfile 	= "www/lib/languages/". strtolower($language) . ".txt"; 
-				$today		= date("d/m/Y");
+			if($language !== "English") {
+				$content = "";
+				$logfile = "www/lib/languages/". strtolower($language) . ".txt"; 
+				$today	 = date("d/m/Y");
 
-				if (file_exists($logfile)) {
+				if(file_exists($logfile)) {
 					$content = file_get_contents($logfile);
 				}
 
-				$file 		= fopen($logfile, "a+");
-				$pos		= strrpos($content, "$today");
+				$file = fopen($logfile, "a+");
+				$pos  = strrpos($content, "$today");
 
-				if ($pos !== FALSE) {
-					if (! @preg_match("/\\b" . addslashes($position) . "\\b/i", substr($content, $pos + 14))) {
+				if($pos !== FALSE) {
+					if(!@preg_match("/\\b" . addslashes($position) . "\\b/i", substr($content, $pos + 14))) {
 						fwrite($file, "$position\r\n");
 					}
 				} else {
