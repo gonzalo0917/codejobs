@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.css" type="text/css">
 	
 	<?php 
-		if(segment(0, isLang()) === "bookmarks" and segment(1, isLang()) === "add") {
+		if((segment(0, isLang()) === "bookmarks" OR segment(0, isLang()) === "codes") and segment(1, isLang()) === "add") {
 			echo '<link rel="stylesheet" href="'. path("vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", "zan") .'" type="text/css">';
 		}
 		
