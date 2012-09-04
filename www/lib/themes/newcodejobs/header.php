@@ -4,17 +4,21 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<?php echo $this->getMeta(); ?>
+	<?php echo $this->getMeta(); ?>
 	<title><?php echo $this->getTitle(); ?></title>
 	<link href="<?php echo path("blog/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Blog"); ?>" />
 	<link href="<?php echo path("bookmarks/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Bookmarks"); ?>" >
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
-	<link rel="stylesheet" href="<?php echo path("vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", "zan"); ?>" type="text/css">
+	
     <link rel="stylesheet" href="<?php echo path("www/lib/css/default.css", TRUE); ?>" type="text/css">
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/style.css" type="text/css">
 	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.css" type="text/css">
 	
 	<?php 
+		if(segment(0, isLang()) === "bookmarks" and segment(1, isLang()) === "add") {
+			echo '<link rel="stylesheet" href="'. path("vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", "zan") .'" type="text/css">';
+		}
+		
 		echo $this->getCSS(); 
 	 	
 	 	echo $this->js("jquery", NULL, TRUE); 
