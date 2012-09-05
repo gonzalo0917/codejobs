@@ -57,7 +57,8 @@ if(is_array($posts)) {
 				<br />
 				<?php
 					$rand1 = rand(1, 5);
-					$rand2 = rand(6, 10)
+					$rand2 = rand(6, 10);
+					
 					if(get("production") and ($i === $rand1 or $i === $rand2)) {
 						?>
 							<p>
