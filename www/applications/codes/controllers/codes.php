@@ -115,7 +115,7 @@ class Codes_Controller extends ZP_Controller {
 	}
 
 	public function getCodes() {
-		$this->title(__("Codes"));
+		$this->title(__("Codes", TRUE));
                 
         $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
