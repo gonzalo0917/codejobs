@@ -6,6 +6,10 @@
 
 <div class="bookmarks">
 	<?php 
+		$i = 1;
+		$rand1 = rand(1, 5);
+		$rand2 = rand(6, 10);
+		
 		foreach($bookmarks as $bookmark) { 
 	?>
 			<h2>
@@ -50,7 +54,26 @@
 				} 
 			?>
 			<br />
-		
+				<?php					
+					if(get("production") and ($i === $rand1 or $i === $rand2)) {
+						?>
+							<p>
+								<script type="text/javascript"><!--
+									google_ad_client = "ca-pub-4006994369722584";
+									/* CodeJobs.biz */
+									google_ad_slot = "1672839256";
+									google_ad_width = 728;
+									google_ad_height = 90;
+									//-->
+									</script>
+									<script type="text/javascript"
+									src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+								</script>
+							</p>
+						<?php
+					}
+				?>		
+			<br />		
 	<?php 
 		} 
 	?>
