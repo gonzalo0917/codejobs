@@ -5,7 +5,9 @@ if(!defined("_access")) {
 
 if(is_array($posts)) {
 	$i = 1;
-
+	$rand1 = rand(1, 5);
+	$rand2 = rand(6, 10);
+	
 	foreach($posts as $post) {			
 		if(isset($post["post"])) {
 			$post = array_shift($post);
@@ -55,10 +57,7 @@ if(is_array($posts)) {
 				<br />	
 				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>	
 				<br />
-				<?php
-					$rand1 = rand(1, 5);
-					$rand2 = rand(6, 10);
-					
+				<?php					
 					if(get("production") and ($i === $rand1 or $i === $rand2)) {
 						?>
 							<p>
