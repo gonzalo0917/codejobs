@@ -1,4 +1,8 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
+<?php 
+	if(!defined("_access")) {
+		die("Error: You don't have permission to access here..."); 
+	}
+?>
 
 <div class="bookmarks">
 	<h2>
@@ -7,18 +11,18 @@
 
 	<span class="small italic grey">
 		<?php 
-			echo __(_("Published")) ." ". howLong($bookmark["Start_Date"]) ." ". __(_("by")) .' <a title="'. $bookmark["Author"] .'" href="'. path("users/". $bookmark["Author"]) .'">'. $bookmark["Author"] .'</a> '; 
+			echo __("Published") ." ". howLong($bookmark["Start_Date"]) ." ". __("by") .' <a title="'. $bookmark["Author"] .'" href="'. path("users/". $bookmark["Author"]) .'">'. $bookmark["Author"] .'</a> '; 
 			 
 			if($bookmark["Tags"] !== "") {
-				echo __(_("in")) ." ". exploding($bookmark["Tags"], "bookmarks/tag/");
+				echo __("in") ." ". exploding($bookmark["Tags"], "bookmarks/tag/");
 			}
 		?>			
 		<br />
 
 		<?php 
-			echo '<span class="bold">'. __(_("Likes")) .":</span> ". (int) $bookmark["Likes"]; 
-			echo ' <span class="bold">'. __(_("Dislikes")) .":</span> ". (int) $bookmark["Dislikes"];
-			echo ' <span class="bold">'. __(_("Views")) .":</span> ". (int) $bookmark["Views"];
+			echo '<span class="bold">'. __("Likes") .":</span> ". (int) $bookmark["Likes"]; 
+			echo ' <span class="bold">'. __("Dislikes") .":</span> ". (int) $bookmark["Dislikes"];
+			echo ' <span class="bold">'. __("Views") .":</span> ". (int) $bookmark["Views"];
 		?>
 	</span>
 		
@@ -34,11 +38,11 @@
 	</p>
 
 	<h3>
-		<a href="<?php echo path("bookmarks/visit/". $bookmark["ID_Bookmark"]); ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo __(_("Visit Bookmark")); ?></a>
+		<a href="<?php echo path("bookmarks/visit/". $bookmark["ID_Bookmark"]); ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo __("Visit Bookmark"); ?></a>
 	</h3>
 
 	<?php
-		if(SESSION("ZanUser")) {
+		if(SESSION("ZanUser") {
 	?>
 			<p class="small italic">
 				<?php  echo like($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Likes"]) ." ". dislike($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Dislikes"]) ." ". report($bookmark["ID_Bookmark"], "bookmarks"); ?>
@@ -62,6 +66,6 @@
 	
 	<p><div class="fb-comments" data-href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]); ?>" data-num-posts="2" data-width="750"></div></p>
 	<p>
-		<a href="<?php echo path("bookmarks"); ?>">&lt;&lt; <?php echo __(_("Go back")); ?></a>
+		<a href="<?php echo path("bookmarks"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
 </div>
