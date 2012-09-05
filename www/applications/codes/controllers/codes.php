@@ -115,7 +115,7 @@ class Codes_Controller extends ZP_Controller {
 	}
 
 	public function getCodes() {
-		$this->title(__("Codes", TRUE));
+		$this->title(__("Codes", FALSE));
                 
         $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
@@ -130,13 +130,14 @@ class Codes_Controller extends ZP_Controller {
 		if($data) {	
            	foreach($data as $pos => $code) {
                	$content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
-                    if($content) {
-                        $data[$pos]["File"] = $content[0];
-                    } else {
-                        redirect();
+                
+                if($content) {
+                    $data[$pos]["File"] = $content[0];
+                } else {
+                    redirect();
                     
-                        exit;
-                    }
+                    exit;
+                }
             }
 			
 			$vars["codes"]  	= $data;
