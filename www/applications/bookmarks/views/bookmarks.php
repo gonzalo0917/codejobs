@@ -41,7 +41,7 @@
 			</p>
 
 			<?php 
-				if(SESSION("ZanUser") { 
+				if(SESSION("ZanUser")) { 
 			?>
 					<p class="small italic">
 						<?php echo like($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Likes"]) ." ". dislike($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Dislikes"]) ." ". report($bookmark["ID_Bookmark"], "bookmarks"); ?>

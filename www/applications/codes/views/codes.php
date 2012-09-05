@@ -48,7 +48,7 @@
             </p>
 
 			<?php 
-				if(SESSION("ZanUser") { 
+				if(SESSION("ZanUser")) { 
 			?>
 					<p class="small italic">
 						<?php
