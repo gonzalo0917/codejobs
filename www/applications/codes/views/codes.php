@@ -1,5 +1,5 @@
 <?php
-    if(!defined("_access")) {
+    if(!defined("_access") {
         die("Error: You don't have permission to access here...");
     }
     
@@ -15,49 +15,50 @@
 
 			<span class="small italic grey">
 				<?php 
-					echo __(_("Published")) ." ". howLong($code["Start_Date"]) ." ". __(_("by")) .' <a title="'. $code["Author"] .'" href="'. path("users/". $code["Author"]) .'">'. $code["Author"] .'</a> '; 
+					echo __("Published") ." ". howLong($code["Start_Date"]) ." ". __("by") .' <a title="'. $code["Author"] .'" href="'. path("users/". $code["Author"]) .'">'. $code["Author"] .'</a> '; 
 					 
 					if($code["Languages"] !== "") {
-						echo __(_("in")) ." ". exploding(implode(", ", array_map("strtolower", explode(", ", $code["Languages"]))), "codes/language/");
+						echo __("in") ." ". exploding(implode(", ", array_map("strtolower", explode(", ", $code["Languages"]))), "codes/language/");
 					}
 				?>			
 				<br />
 
 				<?php 
-					echo '<span class="bold">'. __(_("Likes")) .":</span> ". (int) $code["Likes"]; 
-					echo ' <span class="bold">'. __(_("Dislikes")) .":</span> ". (int) $code["Dislikes"];
-					echo ' <span class="bold">'. __(_("Views")) .":</span> ". (int) $code["Views"];
+					echo '<span class="bold">'. __("Likes") .":</span> ". (int) $code["Likes"]; 
+					echo ' <span class="bold">'. __("Dislikes") .":</span> ". (int) $code["Dislikes"];
+					echo ' <span class="bold">'. __("Views") .":</span> ". (int) $code["Views"];
 				?>
 			</span>
-                        <div class="code-right">
-                            <a href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>#comments">
-                                <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
-                            </a>
-                        </div>
-                        <p><textarea name="code" data-syntax="<?php echo $code["File"]["ID_Syntax"];?>"><?php echo linesWrap($code["File"]["Code"]); ?></textarea></p>
+
+			<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo $code["Title"]; ?>" tw:url="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>"></a>
+			</div>
+
+			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>					
+                       
+	        <div class="code-right">
+	            <a href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>#comments">
+	                <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
+	            </a>
+	        </div>
+
+            <p>
+            	<textarea name="code" data-syntax="<?php echo $code["File"]["ID_Syntax"];?>"><?php echo stripslashes(linesWrap($code["File"]["Code"])); ?></textarea>
+            </p>
 
 			<?php 
-				if(SESSION("ZanUser")) { 
+				if(SESSION("ZanUser") { 
 			?>
 					<p class="small italic">
 						<?php
-                                                    echo like($code["ID_Code"], "codes", $code["Likes"]) . " " . dislike($code["ID_Code"], "codes", $code["Dislikes"]) . " " . report($code["ID_Code"], "codes");
-                                                ?>
+                            echo like($code["ID_Code"], "codes", $code["Likes"]) . " " . dislike($code["ID_Code"], "codes", $code["Dislikes"]) . " " . report($code["ID_Code"], "codes");
+                        ?>
 					</p>
 			<?php 
 				} 
 			?>
 			
-			<div class="codes-social">		
-				<div class="fb-like logo-facebook" data-href="<?php echo path("codes/". $code["ID_Code"]); ?>" data-send="false" data-layout="button_count" data-width="45" data-show-faces="true" data-font="arial"></div>
-			
-				<a href="https://twitter.com/share" data-url="<?php echo path("codes/". $code["ID_Code"]);?>" data-text="<?php echo $code["Title"]; ?>" class="twitter-share-button logo-twitter" data-via="codejobs" data-lang="es" data-related="codejobs.biz" data-count="none" data-hashtags="codejobs.biz">
-					<?php echo __(_("Tweet")); ?>
-				</a>
-
-				<div class="clear"></div>
-			</div>
-			<br />
 		
 	<?php 
 		} 
@@ -70,9 +71,10 @@
     var syntax = [];
     <?php
         $data = getSyntax();
+
         foreach ($data as $language) {
-    ?>
-    syntax[<?php echo $language["ID_Syntax"]; ?>] = <?php echo json($language); ?>;
+    	?>
+    		syntax[<?php echo $language["ID_Syntax"]; ?>] = <?php echo json($language); ?>;
     <?php
         }
     ?>

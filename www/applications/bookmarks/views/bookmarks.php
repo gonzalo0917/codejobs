@@ -1,4 +1,4 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
+<?php if(!defined("_access") die("Error: You don't have permission to access here..."); ?>
 
 <div class="bookmarks">
 	<?php 
@@ -10,18 +10,18 @@
 
 			<span class="small italic grey">
 				<?php 
-					echo __(_("Published")) ." ". howLong($bookmark["Start_Date"]) ." ". __(_("by")) .' <a title="'. $bookmark["Author"] .'" href="'. path("users/". $bookmark["Author"]) .'">'. $bookmark["Author"] .'</a> '; 
+					echo __("Published") ." ". howLong($bookmark["Start_Date"]) ." ". __("by") .' <a title="'. $bookmark["Author"] .'" href="'. path("users/". $bookmark["Author"]) .'">'. $bookmark["Author"] .'</a> '; 
 					 
 					if($bookmark["Tags"] !== "") {
-						echo __(_("in")) ." ". exploding($bookmark["Tags"], "bookmarks/tag/");
+						echo __("in") ." ". exploding($bookmark["Tags"], "bookmarks/tag/");
 					}
 				?>			
 				<br />
 
 				<?php 
-					echo '<span class="bold">'. __(_("Likes")) .":</span> ". (int) $bookmark["Likes"]; 
-					echo ' <span class="bold">'. __(_("Dislikes")) .":</span> ". (int) $bookmark["Dislikes"];
-					echo ' <span class="bold">'. __(_("Views")) .":</span> ". (int) $bookmark["Views"];
+					echo '<span class="bold">'. __("Likes") .":</span> ". (int) $bookmark["Likes"]; 
+					echo ' <span class="bold">'. __("Dislikes") .":</span> ". (int) $bookmark["Dislikes"];
+					echo ' <span class="bold">'. __("Views") .":</span> ". (int) $bookmark["Views"];
 				?>
 			</span>
 
@@ -37,7 +37,7 @@
 			</p>
 
 			<?php 
-				if(SESSION("ZanUser")) { 
+				if(SESSION("ZanUser") { 
 			?>
 					<p class="small italic">
 						<?php echo like($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Likes"]) ." ". dislike($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Dislikes"]) ." ". report($bookmark["ID_Bookmark"], "bookmarks"); ?>
