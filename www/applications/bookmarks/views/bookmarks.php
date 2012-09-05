@@ -7,7 +7,7 @@
 <div class="bookmarks">
 	<?php 
 		$i = 1;
-		
+		$j = 0;
 		foreach($bookmarks as $bookmark) { 
 	?>
 			<h2>
@@ -53,7 +53,8 @@
 			?>
 			
 			<?php					
-				if(get("production") and ($i === 1 or $i === 9)) {
+				if(get("production") and ($i === 1 or $i === 9) and $j < 2) {
+					$j++;
 					?>
 						<p>
 							<script type="text/javascript"><!--
