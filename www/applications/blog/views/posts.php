@@ -56,7 +56,9 @@ if(is_array($posts)) {
 				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>	
 				<br />
 				<?php
-					if(get("production") and ($i === 1 or $i === 7)) {
+					$rand1 = rand(1, 5);
+					$rand2 = rand(6, 10)
+					if(get("production") and ($i === $rand1 or $i === $rand2)) {
 						?>
 							<p>
 								<script type="text/javascript"><!--

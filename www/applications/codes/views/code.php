@@ -28,12 +28,12 @@
 	</span>
 
     <div class="addthis_toolbox addthis_default_style ">
-        <a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo $code["Title"]; ?>" tw:url="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>"></a>
+        <a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Code <?php echo $code["Title"]; ?>" tw:url="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>"></a>
     </div>
 
     <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script> 
-    
+
     <?php
         foreach ($code["Files"] as $file) {
         ?>
