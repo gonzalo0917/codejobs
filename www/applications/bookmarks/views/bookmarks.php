@@ -7,8 +7,6 @@
 <div class="bookmarks">
 	<?php 
 		$i = 1;
-		$rand1 = rand(1, 10);
-		$rand2 = rand(11, 20);
 		
 		foreach($bookmarks as $bookmark) { 
 	?>
@@ -55,7 +53,7 @@
 			?>
 			
 			<?php					
-				if(get("production") and ($i === $rand1 or $i === $rand2)) {
+				if(get("production") and ($i === 1 or $i === 9)) {
 					?>
 						<p>
 							<script type="text/javascript"><!--
