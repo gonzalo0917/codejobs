@@ -35,13 +35,7 @@
 			</div>
 
 			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>					
-                       
-	        <div class="code-right">
-	            <a href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>#comments">
-	                <div class="fb-comments-count" data-href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>">0</div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
-	            </a>
-	        </div>
+			<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>					                     
 
             <p>
             	<textarea name="code" data-syntax="<?php echo $code["File"]["ID_Syntax"];?>"><?php echo stripslashes(linesWrap($code["File"]["Code"])); ?></textarea>

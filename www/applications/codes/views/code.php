@@ -52,7 +52,7 @@
         <?php
         }
 		
-        if(SESSION("ZanUser") {
+        if(SESSION("ZanUser")) {
 	    ?>
 			<p class="small italic">
 				<?php  echo like($code["ID_Code"], "codes", $code["Likes"]) ." ". dislike($code["ID_Code"], "codes", $code["Dislikes"]) ." ". report($code["ID_Code"], "codes"); ?>
