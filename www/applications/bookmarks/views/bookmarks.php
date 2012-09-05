@@ -7,8 +7,8 @@
 <div class="bookmarks">
 	<?php 
 		$i = 1;
-		$rand1 = rand(1, 5);
-		$rand2 = rand(6, 10);
+		$rand1 = rand(1, 10);
+		$rand2 = rand(11, 20);
 		
 		foreach($bookmarks as $bookmark) { 
 	?>
