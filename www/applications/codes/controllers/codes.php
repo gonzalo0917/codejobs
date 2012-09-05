@@ -49,7 +49,7 @@ class Codes_Controller extends ZP_Controller {
 	}	
 
 	public function language($language) {
-		$this->title(__("Codes"));
+		$this->title(__("Codes", FALSE));
 		
         $this->CSS("codes", $this->application);
 		$this->CSS("pagination");

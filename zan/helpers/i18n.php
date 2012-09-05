@@ -67,7 +67,7 @@ function __($text, $encode = TRUE) {
 		$position = strtolower(str_replace("'", "", $position));
 
 		if(isset($phrase[$position])) {
-			return ($encode) ? encode($phrase[$position]) : decode($phrase[$position]);
+			return ($encode) ? encode($phrase[$position]) : $phrase[$position];
 		} else {
 			if($language !== "English") {
 				$content = "";
