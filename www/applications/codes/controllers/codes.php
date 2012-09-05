@@ -98,7 +98,7 @@ class Codes_Controller extends ZP_Controller {
             
             if($files) {
                 $data[0]["Files"] = $files;
-            	$this->title(__("Codes") ." - ". $data[0]["Title"]);
+            	$this->title(__("Codes", FALSE) ." - ". $data[0]["Title"]);
 			
                 $this->Codes_Model->updateViews($codeID);
 

@@ -39,7 +39,7 @@ if(!defined("_access")) {
  * @param string $text
  * @return string value
  */
-function __($text) {
+function __($text, $encode = TRUE) {
 	if(get("translation") === "gettext") {
 		global $Gettext_Reader;
 		
@@ -67,7 +67,7 @@ function __($text) {
 		$position = strtolower(str_replace("'", "", $position));
 
 		if(isset($phrase[$position])) {
-			return encode($phrase[$position]);
+			return ($encode) ? encode($phrase[$position]) : $phrase[$position];
 		} else {
 			if($language !== "English") {
 				$content = "";
