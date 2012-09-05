@@ -18,8 +18,8 @@ class Codes_Controller extends ZP_Controller {
 
 		$this->config("codes");
 		
-		$this->Codes_Model = $this->model("Codes_Model");
-                $this->CodesFiles_Model = $this->model("CodesFiles_Model");
+		$this->Codes_Model 		= $this->model("Codes_Model");
+        $this->CodesFiles_Model = $this->model("CodesFiles_Model");
 
 		$this->helper("pagination");
 	}
@@ -51,26 +51,29 @@ class Codes_Controller extends ZP_Controller {
 	public function language($language) {
 		$this->title(__("Codes"));
 		
-                $this->CSS("codes", $this->application);
+        $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 		
-                $limit = $this->limit($language);
+        $limit = $this->limit($language);
 
 		$data = $this->Cache->data("tag-$language-$limit", "codes", $this->Codes_Model, "getByLanguage", array($language, $limit));
 
 		if($data) {
 			$this->helper("time");
-                        $this->helper("codes", $this->application);
+            $this->helper("codes", $this->application);
                         
-                        foreach ($data as $pos => $code) {
-                            $file = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
-                            if ($file) {
-                                $data[$pos]["File"] = $file[0];
-                            } else {
-                                redirect();
-                                exit;
-                            }
-                        }
+            foreach($data as $pos => $code) {
+                $file = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                
+                if($file) {
+                    $data[$pos]["File"] = $file[0];
+                } else {
+                    redirect();
+                   
+                    exit;
+                }
+            }
+
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -82,38 +85,39 @@ class Codes_Controller extends ZP_Controller {
 	}
 
 	public function go($codeID = 0) {
-                $this->CSS("codes", $this->application);
+        $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 
 		$data = $this->Cache->data("code-$codeID", "codes", $this->Codes_Model, "getByID", array($codeID));
 
 		if($data) {
 			$this->helper("time");
-                        $this->helper("codes", $this->application);
+            $this->helper("codes", $this->application);
                         
-                        $files = $this->CodesFiles_Model->getByCode($data[0]["ID_Code"]);
-                        if ($files) {
-                            $data[0]["Files"] = $files;
-                            $this->title(__(_("Codes")) ." - ". $data[0]["Title"]);
+            $files = $this->CodesFiles_Model->getByCode($data[0]["ID_Code"]);
+            
+            if($files) {
+                $data[0]["Files"] = $files;
+            	$this->title(__("Codes") ." - ". $data[0]["Title"]);
 			
-                            $this->Codes_Model->updateViews($codeID);
+                $this->Codes_Model->updateViews($codeID);
 
-                            $vars["code"] 	= $data[0];
-                            $vars["view"]   = $this->view("code", TRUE);
+                $vars["code"] 	= $data[0];
+                $vars["view"]   = $this->view("code", TRUE);
 
-                            $this->render("content", $vars);
-                        } else {
-                            redirect();
-                        }
+                $this->render("content", $vars);
+            } else {
+                redirect();
+            }
 		} else {
 			redirect();
 		}
 	}
 
 	public function getCodes() {
-		$this->title(__(_("Codes")));
+		$this->title(__("Codes"));
                 
-                $this->CSS("codes", $this->application);
+        $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
                 
 		$limit = $this->limit();
@@ -121,18 +125,20 @@ class Codes_Controller extends ZP_Controller {
 		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAll", array($limit));
 
 		$this->helper("time");
-                $this->helper("codes", $this->application);
+        $this->helper("codes", $this->application);
 		
 		if($data) {	
-                    foreach ($data as $pos => $code) {
-                        $content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
-                        if ($content) {
-                            $data[$pos]["File"] = $content[0];
-                        } else {
-                            redirect();
-                            exit;
-                        }
+           	foreach($data as $pos => $code) {
+               	$content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                    if($content) {
+                        $data[$pos]["File"] = $content[0];
+                    } else {
+                        redirect();
+                    
+                        exit;
                     }
+            }
+			
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -149,27 +155,27 @@ class Codes_Controller extends ZP_Controller {
 		$data = $this->Codes_Model->getRSS();
 		
 		if($data) {
-                        $this->helper("codes", $this->application);
-                        
-                        foreach ($data as $pos => $code) {
-                            $content = $this->CodesFiles_Model->getCodeOnly($code["ID_Code"]);
-                            if ($content) {
-                                $data[$pos]["Code"] = $content;
-                            } else {
-                                redirect();
-                                exit;
-                            }
-                        }
+			$this->helper("codes", $this->application);
+
+			foreach ($data as $pos => $code) {
+			    $content = $this->CodesFiles_Model->getCodeOnly($code["ID_Code"]);
+			    if ($content) {
+			        $data[$pos]["Code"] = $content;
+			    } else {
+			        redirect();
+			        exit;
+			    }
+			}
+			
 			$vars["codes"]= $data;	
 
 			$this->view("rss", $vars, $this->application);
 		} else {
 			redirect();
 		}
-
 	}
         
-        public function add() {
+    public function add() {
 		isConnected();
 
 		if(POST("save")) {

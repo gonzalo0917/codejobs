@@ -17,7 +17,7 @@ class Codes_Model extends ZP_Model {
 		$this->Data = $this->core("Data");
 		$this->Data->table("codes");
                 
-                $this->language = whichLanguage();
+        $this->language = whichLanguage();
                 
 		$this->helper("alerts");
 	}
@@ -66,111 +66,123 @@ class Codes_Model extends ZP_Model {
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"Author"  	 => SESSION("ZanUser"),
 			"Slug"    	 => slug(POST("title", "clean")),
-                        "Languages"      => $this->implode(POST("syntaxname", "clean")),
-			"Start_Date"     => now(4),
-                        "Text_Date"      => now(2)
+            "Languages"  => $this->implode(POST("syntaxname", "clean")),
+			"Start_Date" => now(4),
+            "Text_Date"  => now(2)
 		);
                 
 		$this->Data->ignore(array("file", "programming", "syntax", "syntaxname", "name", "code"));
 		$this->data = $this->Data->proccess($data, $validations);
 		$this->id = POST("ID");
                 
-                if(isset($this->data["error"])) {
+        if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 	}
 	
 	private function save() {
-		if (FALSE !== ($ID = $this->Db->insert($this->table, $this->data))) {
-                        $this->data = $this->proccessFiles($ID);
+		if(FALSE !== ($ID = $this->Db->insert($this->table, $this->data))) {
+            $this->data = $this->proccessFiles($ID);
                         
-                        if (isset($this->data["error"])) {
-                            $this->Db->delete($ID, $this->table);
-                            return $this->data["error"];
-                        }
+            if(isset($this->data["error"])) {
+                $this->Db->delete($ID, $this->table);
+                
+                return $this->data["error"];
+            }
                         
-                        if ($this->Db->insertBatch("codes_files", $this->data)) {
-                            return getAlert(__("The link has been saved correctly"), "success");	
-                        }
+            if($this->Db->insertBatch("codes_files", $this->data)) {
+                return getAlert(__("The code has been saved correctly"), "success");	
+            }
 		}
 		
 		return getAlert(__("Insert error"));
 	}
 	
 	private function edit() {
-		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
-                    $this->data = $this->proccessFiles(POST("ID"));
+		if($this->Db->update($this->table, $this->data, POST("ID"))) {
+            $this->data = $this->proccessFiles(POST("ID"));
                     
-                    if (isset($this->data["error"])) {
-                        return $this->data["error"];
-                    }
-                    
-                    $filesDB = $this->getFilesBy(POST("ID"));
-                    $filesPOST = POST("file");
-                    
-                    foreach ($filesPOST as $iFile => $fileID) {
-                        if ((int)$fileID > 0) {
-                            $this->Db->update("codes_files", $this->data[$iFile], $fileID);
-                            array_splice($filesDB, array_search($fileID, $filesDB), 1);
-                        } else { 
-                            $this->Db->insert("codes_files", $this->data[$iFile]);
-                        }
-                    }
-                    
-                    if (count($filesDB) > 0) {
-                        foreach ($filesDB as $fileDB) {
-                            $this->Db->delete($fileDB, "codes_files");
-                        }
-                    }
-                    
-                    return getAlert(__("The link has been edit correctly"), "success");
-                }
-                
-                return getAlert(__("Update error"));
-	}
-        
-        public function getRSS() {	
-            $language = ($this->language !== "English" ? "(Language = '$this->language' OR Language = 'English')" : "Language = 'English'");
-            return $this->Db->findBySQL("$language AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC");
-	}
-        
-        private function proccessFiles($ID) {
-            $files      = POST("file");
-            $syntax     = POST("syntax");
-            $name       = POST("name");
-            $code       = POST("code");
-            $total      = count($files);
-            
-            if ($total == 0) return array("error" => getAlert("Files are required"));
-            if (count(array_filter($syntax)) != $total) return array("error" => getAlert("Syntax is required"));
-            if (count(array_filter($name)) != $total) return array("error" => getAlert("Filename is required"));
-            if (count(array_filter($code)) != $total) return array("error" => getAlert("Code is required"));
-            
-            $data = array();
-            
-            for ($i = 0; $i < $total; $i++) {
-                $data[] = array(
-                    "ID_Code"   => $ID,
-                    "Name"      => decode(addslashes($name[$i])),
-                    "ID_Syntax" => decode(addslashes($syntax[$i])),
-                    "Code"      => decode(addslashes($code[$i]))
-                );
+            if(isset($this->data["error"])) {
+                return $this->data["error"];
             }
             
-            return $data;
-        }
-        
-        private function getFilesBy($ID) {
-            $this->Db->select("ID_File");
-            $this->Db->from("codes_files");
-            $this->Db->where("ID_Code = '$ID'");
+            $filesDB   = $this->getFilesBy(POST("ID"));
+            $filesPOST = POST("file");
             
-            $IDs = array();
-            foreach ($this->Db->get() as $value) $IDs[] = $value["ID_File"];
-            return $IDs;
+            foreach($filesPOST as $iFile => $fileID) {
+                if((int)$fileID > 0) {
+                    $this->Db->update("codes_files", $this->data[$iFile], $fileID);
+                    
+                    array_splice($filesDB, array_search($fileID, $filesDB), 1);
+                } else { 
+                    $this->Db->insert("codes_files", $this->data[$iFile]);
+                }
+            }
+            
+            if(count($filesDB) > 0) {
+                foreach ($filesDB as $fileDB) {
+                    $this->Db->delete($fileDB, "codes_files");
+                }
+            }
+            
+            return getAlert(__("The code has been edit correctly"), "success");
         }
         
-        private function search($search, $field) {
+        return getAlert(__("Update error"));
+	}
+        
+    public function getRSS() {	
+        $language = ($this->language !== "English" ? "(Language = '$this->language' OR Language = 'English')" : "Language = 'English'");
+        
+        return $this->Db->findBySQL("$language AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC");
+	}
+        
+    private function proccessFiles($ID) {
+        $files  = POST("file");
+        $syntax = POST("syntax");
+        $name   = POST("name");
+        $code   = POST("code");
+        $total  = count($files);
+            
+        if($total == 0) {
+        	return array("error" => getAlert("Files are required"));
+        } elseif(count(array_filter($syntax)) != $total) {
+        	return array("error" => getAlert("Syntax is required"));
+        } elseif(count(array_filter($name)) != $total) {
+        	return array("error" => getAlert("Filename is required"));
+        } elseif(count(array_filter($code)) != $total) {
+        	return array("error" => getAlert("Code is required"));
+        }
+         
+        $data = array();
+            
+        for($i = 0; $i < $total; $i++) {
+            $data[] = array(
+                "ID_Code"   => $ID,
+                "Name"      => decode(addslashes($name[$i])),
+                "ID_Syntax" => decode(addslashes($syntax[$i])),
+                "Code"      => decode(addslashes($code[$i]))
+            );
+        }
+            
+        return $data;
+    }
+        
+    private function getFilesBy($ID) {
+       	$this->Db->select("ID_File");
+        $this->Db->from("codes_files");
+        $this->Db->where("ID_Code = '$ID'");
+            
+        $IDs = array();
+        
+        foreach($this->Db->get() as $value) {
+        	$IDs[] = $value["ID_File"];
+        }
+        
+        return $IDs;
+    }
+        
+    private function search($search, $field) {
 		if($search and $field) {
 			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);	      
 		} else {
@@ -200,20 +212,21 @@ class Codes_Model extends ZP_Model {
 		return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Code = '$codeID'");
 	}
 
-        public function setReport($ID) {
-            if ($this->Db->find($ID, "codes")) {
-                $this->Db->updateBySQL("codes", "Reported = (Reported) + 1 WHERE ID_Code = '$ID'");
+    public function setReport($ID) {
+        if($this->Db->find($ID, "codes")) {
+            $this->Db->updateBySQL("codes", "Reported = (Reported) + 1 WHERE ID_Code = '$ID'");
 
-                showAlert(__(_("Thanks for reporting this code")), path("codes/go/$ID"));
-            } else {
-                redirect();
-            }
+            showAlert(__("Thanks for reporting this code"), path("codes/go/$ID"));
+        } else {
+            redirect();
         }
+    }
         
-        private function implode($array = array(), $glue = ", ") {
-            $array = array_filter(array_unique($array));
-            sort($array);
+    private function implode($array = array(), $glue = ", ") {
+        $array = array_filter(array_unique($array));
+    
+        sort($array);
 
-            return implode($glue, $array);
-        }
+       	return implode($glue, $array);
+    }
 }
