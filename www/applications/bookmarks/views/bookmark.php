@@ -65,6 +65,7 @@
 	</script>
 	
 	<p><div class="fb-comments" data-href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]); ?>" data-num-posts="2" data-width="750"></div></p>
+	
 	<p>
 		<a href="<?php echo path("bookmarks"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
