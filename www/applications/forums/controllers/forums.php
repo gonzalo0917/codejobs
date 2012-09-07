@@ -81,6 +81,8 @@ class Forums_Controller extends ZP_Controller {
 		$data 	  = $this->Forums_Model->getByForum($slug, $language);
 		
 		if($data) {
+			$this->helper("time");
+
 			$avatar = $this->Forums_Model->getUserAvatar();
 			$stats  = $this->Forums_Model->getStatistics();
 					
