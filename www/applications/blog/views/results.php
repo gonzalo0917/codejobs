@@ -2,7 +2,7 @@
 if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
 $caption = __("Manage Blog");
-$colspan = 7;
+$colspan = 8;
 
 echo $search;
 
