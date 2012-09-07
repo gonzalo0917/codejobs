@@ -352,7 +352,7 @@ class Forums_Model extends ZP_Model {
 	
 	public function getByTopic($ID, $limit) {	
 		$topic = $this->Db->query("SELECT ID_Post, muu_users.ID_User, ID_Forum, ID_Parent, muu_forums_posts.Title, Slug, Content, Author, muu_forums_posts.Start_Date, Username, Website, Avatar, Country, Sign FROM muu_forums_posts
-									  INNER JOIN muu_users ON muu_users.ID_User = ". SESSION("ZanUserID") ."
+									  INNER JOIN muu_users ON muu_users.ID_User = muu_forums_posts.ID_User 
 									  WHERE ID_Post = $ID AND muu_forums_posts.Situation = 'Active' AND ID_Parent = 0");
 
 		$replies = $this->Db->query("SELECT ID_Post, muu_users.ID_User, ID_Forum, ID_Parent, muu_forums_posts.Title, Slug, Content, Author, muu_forums_posts.Start_Date, Username, Website, Avatar, Country, Sign FROM muu_forums_posts 
