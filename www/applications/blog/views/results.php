@@ -61,7 +61,7 @@ $j = 2;
 																				
 					<td style="text-align: left;">
 					<?php			
-						$title = cut($column["Title"], 4, "text"); 
+						$title = cut($column["Title"], 6, "text"); 
 
 						echo stripslashes($title);
 					?>
