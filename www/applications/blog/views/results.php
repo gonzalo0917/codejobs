@@ -25,6 +25,7 @@ $j = 2;
 			<th>&nbsp;</th>
 			<th>ID</th>
 			<th style="text-align: left;"><?php echo __("Title"); ?></th>
+			<th><?php echo __("Views"); ?></th>
 			<th><?php echo __("Author"); ?></th>
 			<th><?php echo __("Language"); ?></th>
 			<th><?php echo __("Situation"); ?></th>
@@ -65,6 +66,10 @@ $j = 2;
 
 						echo stripslashes($title);
 					?>
+					</td>
+
+					<td class="center">
+						<?php echo $column["Views"]; ?>
 					</td>
 								
 					<td class="center">
