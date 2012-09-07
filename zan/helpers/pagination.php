@@ -52,15 +52,15 @@ function paginate($count, $end, $start, $URL, $anchor = "#top") {
 			
 			if($start === 0) {
 				$firstPage = 0;
-				$lastPage  = 10;
-			} elseif($currentPage >= 10 and $currentPage <= ($pages - 10)) {					
-				$firstPage = $currentPage - 10;
-				$lastPage  = $currentPage + 10;					
-			} elseif($currentPage < 10) {					
+				$lastPage  = 5;
+			} elseif($currentPage >= 5 and $currentPage <= ($pages - 5)) {					
+				$firstPage = $currentPage - 5;
+				$lastPage  = $currentPage + 5;					
+			} elseif($currentPage < 5) {					
 				$firstPage = 0;
-				$lastPage  = $currentPage + 10 + (10 - $currentPage);					
+				$lastPage  = $currentPage + 5 + (5 - $currentPage);					
 			} else {					
-				$firstPage = $currentPage - 10 - (($currentPage + 10) - $pages);
+				$firstPage = $currentPage - 5 - (($currentPage + 5) - $pages);
 				$lastPage  = $pages;					
 			}								
 		} else {			
