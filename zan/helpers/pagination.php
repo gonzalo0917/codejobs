@@ -37,10 +37,10 @@ function paginate($count, $end, $start, $URL, $anchor = "#top") {
 	$pageFirst    = NULL;
 	$pageLast     = NULL;
 	$pageNext     = NULL;
-	
+
 	if($count > $end) {				
 		$rest = $count % $end;	
-					
+
 		if($rest === 0) {
 			$pages = $count / $end;
 		} else {
@@ -49,10 +49,10 @@ function paginate($count, $end, $start, $URL, $anchor = "#top") {
 
 		if($pages > 10) {	
 			$currentPage = ($start / $end) + 1;
-			
+
 			if($start === 0) {
 				$firstPage = 0;
-				$lastPage  = 5;
+				$lastPage  = 10;
 			} elseif($currentPage >= 5 and $currentPage <= ($pages - 5)) {					
 				$firstPage = $currentPage - 5;
 				$lastPage  = $currentPage + 5;					
@@ -61,38 +61,38 @@ function paginate($count, $end, $start, $URL, $anchor = "#top") {
 				$lastPage  = $currentPage + 5 + (5 - $currentPage);					
 			} else {					
 				$firstPage = $currentPage - 5 - (($currentPage + 5) - $pages);
-				$lastPage  = $pages;					
+				$lastPage	= $pages;					
 			}								
 		} else {			
 			$firstPage = 0;
 			$lastPage  = $pages;			
 		}
-			
+
 		for($i = $firstPage; $i < $lastPage; $i++) {
 			$pge  = $i + 1;
 			$next = $i * $end;		
-					
+
 			if($start == $next) {				
 				$pageNav .= '<span class="current">'. $pge .'</span> ';					
 			} else {				
-				$pageNav .= '<span class="bold"><a href="'. $URL . $pge ."/". $anchor .'" title="'. $pge .'">'. $pge .'</a></span> ';
+				$pageNav .= '<span class="bold"><a href="'. $URL . $pge . "/" . $anchor .'" title="'. $pge .'">'. $pge .'</a></span> ';
 			}
 		}
-	
+
 		if($start == 0) { 			
 			$currentPage = 1; 			
 		} else { 			
 			$currentPage = ($start / $end) + 1; 			
 		}
-	
+
 		if($currentPage < $pages) {			
-			$pageNext = '<a href="'. $URL . ($currentPage + 1) ."/". $anchor .'" title="'. __("Next") .'">'. __("Next") .'</a> ';
+			$pageNext = '<a href="'. $URL . ($currentPage + 1) . "/" . $anchor .'" title="'. __("Next") .'">'. __("Next") .'</a> ';
 		}
-	
+
 		if($start > 0) {
-			$pagePrevious = '<a href="'. $URL . ($currentPage - 1) ."/". $anchor .'" title="'. __("Previous") .'">'. __("Previous") .'</a> ';
+			$pagePrevious = '<a href="'. $URL . ($currentPage - 1) . "/" . $anchor .'" title="'. __("Previous") .'">'. __("Previous") .'</a> ';
 		}			
 	}		
-		
+
 	return '<div id="pagination">'. $pageFirst . $pagePrevious . $pageNav . $pageNext . $pageLast .'</div>';
 }
