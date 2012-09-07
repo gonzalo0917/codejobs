@@ -55,9 +55,9 @@
 		<div class="sponsors" style="text-align: center; margin-top: -70px;">
 			<div style="width: 400px; margin: 0 auto;"><a rel="nofollow" href="http://vincoorbis.com/unete-al-equipo/" target="_blank"><img src="<?=$path; ?>/images/patrocinadores/vacantes.gif" /></a></div>
 			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>			
-			<a rel="nofollow" href="http://www.nearsoft.com/" target="_blank" title="Nearsoft"><img src="<?=$path; ?>/images/patrocinadores/nearsoft.png" width="100" height="31" /></a>
-			<a rel="nofollow" href="http://hdgeeks.webs.com" target="_blank" title="HDGeeks"><img src="<?=$path; ?>/images/patrocinadores/HDgeeks.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="http://www.vangtel.com" target="_blank" title="Vangtel"><img src="<?=$path; ?>/images/patrocinadores/vangtel.png" width="100" height="31" /></a>
+			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
+			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
