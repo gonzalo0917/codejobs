@@ -24,7 +24,7 @@ $j = 2;
 		<tr>
 			<th>&nbsp;</th>
 			<th>ID</th>
-			<th><?php echo __("Title"); ?></th>
+			<th style="text-align: left;"><?php echo __("Title"); ?></th>
 			<th><?php echo __("Author"); ?></th>
 			<th><?php echo __("Language"); ?></th>
 			<th><?php echo __("Situation"); ?></th>
