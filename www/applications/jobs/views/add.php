@@ -3,10 +3,22 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID        = isset($data) ? recoverPOST("ID", $data[0]["ID_Job"]) 			 : 0;
-	$ID_URL    = isset($data) ? recoverPOST("ID_URL", $data[0]["ID_URL"]) 		 : recoverPOST("ID_URL");
-	$title     = isset($data) ? recoverPOST("title", $data[0]["Title"])   		 : recoverPOST("title");		
-	$email     = isset($data) ? recoverPOST("email", $data[0]["Email"])   		 : recoverPOST("email");	
+	$ID          = isset($data) ? recoverPOST("ID", $data[0]["ID_Job"]) 			   : 0;
+	$ID_URL      = isset($data) ? recoverPOST("ID_URL", $data[0]["ID_URL"]) 		   : recoverPOST("ID_URL");
+	$id_company  = isset($data) ? recoverPOST("id_company", $data[0]["ID_Company"])    : recoverPOST("id_company");
+	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"])   		   : recoverPOST("title");		
+	$email       = isset($data) ? recoverPOST("email", $data[0]["Email"])   		   : recoverPOST("email");
+	$company_i   = isset($data) ? recoverPOST("Company_Information", $data[0]["Company_Information"]): recoverPOST("Company_Information");
+	$location    = isset($data) ? recoverPOST("location", $data[0]["Location"])        : recoverPOST("location");	
+	$salary      = isset($data) ? recoverPOST("salary", $data[0]["Salary"])            : recoverPOST("salary");	
+	$allocation  = isset($data) ? recoverPOST("allocation_time", $data[0]["Allocation_Time"]) : recoverPOST("allocation_time");
+	$requirements= isset($data) ? recoverPOST("requirements", $data[0]["Requirements"]): recoverPOST("requirements");
+	$experience  = isset($data) ? recoverPOST("experience", $data[0]["Experience"])    : recoverPOST("experience");
+	$activities  = isset($data) ? recoverPOST("activities", $data[0]["Activities"])    : recoverPOST("activities");
+	$profile     = isset($data) ? recoverPOST("profile", $data[0]["Profile"])          : recoverPOST("profile");
+	$technologies= isset($data) ? recoverPOST("technologies", $data[0]["Technologies"]): recoverPOST("technologies");
+	$additional_i= isset($data) ? recoverPOST("additional_information", $data[0]["Additional_Information"]): recoverPOST("additional_information");
+	$company_contact= isset($data) ? recoverPOST("company_contact", $data[0]["Company_Contact"]): recoverPOST("company_contact");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");				
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$edit      = isset($data) ? TRUE											 : FALSE;
@@ -19,12 +31,10 @@
 			
 			echo isset($alert) ? $alert : NULL;
 
-			
-
 			$options = array(
 				0 => array("value" => 0, "option" => __(_("select"))),
-				1 => array("value" => 1, "option" => __(_("company1"))),
-				2 => array("value" => 2, "option" => __(_("company2")))
+				1 => array("value" => 1, "option" => __(_("company1")), "selected" => ($id_company === "1")   ? TRUE : FALSE),
+				2 => array("value" => 2, "option" => __(_("company2")), "selected" => ($id_company === "2")   ? TRUE : FALSE)
 			);
 
 			echo formSelect(array(
@@ -57,7 +67,7 @@
 				"class"  => "span9", 
 				"field"  => __(_("Company Information")), 
 				"p" 	 => TRUE, 
-				"value"  => ""
+				"value"  => $company_i
 			));
 
 			echo formInput(array(	
@@ -65,7 +75,7 @@
 				"class" => "span10 required", 
 				"field" => __(_("Location")), 
 				"p" 	=> TRUE, 
-				"value" => ""
+				"value" => $location
 			));
 
 			echo formInput(array(	
@@ -73,7 +83,7 @@
 				"class" => "span10 required", 
 				"field" => __(_("salary")), 
 				"p" 	=> TRUE, 
-				"value" => ""
+				"value" => $salary
 			));
 
 			echo formInput(array(	
@@ -81,7 +91,7 @@
 				"class" => "span10 required", 
 				"field" => __(_("Allocation time")), 
 				"p" 	=> TRUE, 
-				"value" => ""
+				"value" => $allocation
 			));
 
 			echo formTextarea(array(	
@@ -90,7 +100,7 @@
 				"class"  => "span9",
 				"field"  => __(_("Requirements")), 
 				"p" 	 => TRUE, 
-				"value"  => ""
+				"value"  => $requirements
 			));
 
 			echo formTextarea(array(	
@@ -99,7 +109,7 @@
 				"class"  => "span9", 
 				"field"  => __(_("Experience")), 
 				"p" 	 => TRUE, 
-				"value"  => ""
+				"value"  => $experience
 			));
 
 			echo formTextarea(array(	
@@ -108,7 +118,7 @@
 				"class"  => "span9",
 				"field"  => __(_("Activities")), 
 				"p" 	 => TRUE, 
-				"value"  => ""
+				"value"  => $activities
 			));
 
 			echo formTextarea(array(	
@@ -117,7 +127,7 @@
 				"class"  => "span9",
 				"field"  => __(_("Profile")), 
 				"p" 	 => TRUE, 
-				"value"  => ""
+				"value"  => $profile
 			));
 
 			echo formInput(array(	
@@ -125,7 +135,7 @@
 				"class" => "span10 required", 
 				"field" => __(_("Technologies")), 
 				"p" 	=> TRUE, 
-				"value" => ""
+				"value" => $technologies
 			));
 
 			echo formTextarea(array(	
@@ -134,7 +144,7 @@
 				"class"  => "span9",
 				"field"  => __(_("Additional Information")), 
 				"p" 	 => TRUE, 
-				"value"  => ""
+				"value"  => $additional_i
 			));
 
 			echo formTextarea(array(	
@@ -143,7 +153,7 @@
 				"class"  => "span9", 
 				"field"  => __(_("Company contact")), 
 				"p" 	 => TRUE, 
-				"value"  => ""
+				"value"  => $company_contact
 			));
 
 			#echo formField(NULL, __(_("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
