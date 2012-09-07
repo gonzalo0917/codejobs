@@ -59,11 +59,11 @@ $j = 2;
 						<?php echo $ID; ?>
 					</td>
 																				
-					<td>
+					<td style="text-align: left;">
 					<?php			
 						$title = cut($column["Title"], 4, "text"); 
 
-						echo $title; 
+						echo stripslashes($title);
 					?>
 					</td>
 								
@@ -76,7 +76,7 @@ $j = 2;
 					</td>
 						 
 					<td class="center">
-						<?php echo __(_($column["Situation"])); ?>
+						<?php echo __($column["Situation"]); ?>
 					</td>
 												 
 					<td class="center">
