@@ -59,6 +59,7 @@ function __($text, $encode = TRUE) {
 
 		$position = strtolower(str_replace(" ", "_", $text)); 
 		$position = strtolower(str_replace("?,", "", $position));
+		$position = strtolower(str_replace("?", "", $position));
 		$position = strtolower(str_replace("!", "", $position));
 		$position = strtolower(str_replace("¡", "", $position));
 		$position = strtolower(str_replace("¿", "", $position));
