@@ -38,17 +38,17 @@
 
 .post-title {
 	font-size: 1.8em;
-	color: #333;
 	font-weight: bold;
+	line-height: 30px;
 }
 
 .post-title a {
 	text-decoration: none;
-	color: #333;
+	color: #252525;
 }
 
 .post-title a:hover {
-	color: #7cbb21;
+	color: #045c98;
 }
 
 .post-left {
@@ -63,9 +63,15 @@
 	color: #666;
 }
 
+.social {
+	margin-bottom: 8px;
+	margin-top: -7px;
+}
+
 .post-content {
 	margin-bottom: 20px;
 	font-size: 14px;
+	color: #252525;
 }
 
 .post-image {
