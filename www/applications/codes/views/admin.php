@@ -20,11 +20,11 @@ $j 				= 2;
 					
 	<thead>
 		<tr>
-			<th>ID</th>
-			<th><?php echo __(_("Title")); ?></th>
-			<th><?php echo __(_("Views")); ?></th>
-			<th><?php echo __(_("Language")); ?></th>
-			<th><?php echo __(_("Situation")); ?></th>
+			<th>Nro.</th>
+			<th><?php echo __("Title"); ?></th>
+			<th><?php echo __("Views"); ?></th>
+			<th><?php echo __("Language"); ?></th>
+			<th><?php echo __("Situation"); ?></th>
 		</tr>
 	</thead>
 					
@@ -39,8 +39,9 @@ $j 				= 2;
 	<tbody>		
 	<?php
 		if($tFoot) {
+			$nro = 0;
 			foreach($tFoot as $column) {
-				$ID = $column["ID_Code"];
+				$nro++;
 				$color = $colors[$i];
 				
 				$i = ($i === 1) ? 0 : 1;
@@ -48,10 +49,13 @@ $j 				= 2;
 				?>
 				<tr style="background-color: <?php echo $color; ?>">
 					<td class="center">
-						<?php echo $ID; ?>
+						<?php echo $nro; ?>
 					</td>
 																				
 					<td class="anchor_title">
+						<?php
+							if($column["Situation"] === "Active") {
+						?>
                         <a href="<?php echo path("codes/{$column["ID_Code"]}/{$column["Slug"]}"); ?>" target="_blank">
                             <?php			
                                 $title = cut($column["Title"], 4, "text");	
@@ -59,6 +63,11 @@ $j 				= 2;
                                 echo $title; 
                             ?>
                         </a>
+                        <?php
+                    		} else {
+								echo cut($column["Title"], 4, "text");
+                    		}
+                        ?>
 					</td>
 	
 					<td class="center">
@@ -70,7 +79,7 @@ $j 				= 2;
 					</td>
 
 					<td class="center">
-						<?php echo __(_($column["Situation"])); ?>
+						<?php echo __($column["Situation"]); ?>
 					</td>
 
 	 			</tr>
