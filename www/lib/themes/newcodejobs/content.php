@@ -1,4 +1,12 @@
-	<?php $style = segment(0, isLang()) === "forums" ? ' style="width: 1000px;"' : NULL; ?>
+	<?php 
+		if(segment(0, isLang()) === "forums") {
+			$style = ' style="width: 1000px;"';
+		} elseif(segment(0, isLang()) === "codes" and segment(1, isLang()) === "add") {
+			$style = ' style="width: 1000px;"';
+		} else {
+			$style = NULL;
+		}
+	?>
 
 	<div id="content"<?php echo $style; ?>>
 		<?php $this->load(isset($view) ? $view : NULL, TRUE); ?>
