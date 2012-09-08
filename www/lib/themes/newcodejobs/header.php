@@ -8,6 +8,7 @@
 	<title><?php echo $this->getTitle(); ?></title>
 	<link href="<?php echo path("blog/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Blog"); ?>" />
 	<link href="<?php echo path("bookmarks/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Bookmarks"); ?>" >
+	<link href="<?php echo path("codes/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Codes"); ?>" >
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
 	
     <link rel="stylesheet" href="<?php echo path("www/lib/css/default.css", TRUE); ?>" type="text/css">
@@ -138,7 +139,7 @@
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="<?php echo path("codes/add"); ?>"><?php echo __("Publish a code"); ?></a></span><br />
+							<span class="small grey bold"><a href="<?php echo path("codes/add"); ?>"><?php echo __("Publish a code"); ?></a></span><br />
 							<span class="small grey"><a href="#"><?php echo __("Publish a job"); ?></a></span><br />
 							<span class="small grey bold"><a href="<?php echo path("bookmarks/add"); ?>"><?php echo __("Publish a bookmark"); ?></a></span><br />
 							<span class="small grey"><a href="#"><?php echo __("Publish a post"); ?></a></span><br />
