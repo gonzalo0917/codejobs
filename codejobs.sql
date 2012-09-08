@@ -1513,6 +1513,7 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Topics` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Replies` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Comments` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Bookmarks` mediumint(8) NOT NULL DEFAULT '0',
   `Codes` mediumint(8) NOT NULL DEFAULT '0',
   `Tutorials` mediumint(8) NOT NULL DEFAULT '0',
   `Jobs` mediumint(8) NOT NULL DEFAULT '0',
@@ -1547,8 +1548,8 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
 -- Dumping data for table `muu_users`
 --
 
-INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Codes`, `Tutorials`, `Jobs`, `Subscribed`, `Start_Date`, `Code`, `CURP`, `RFC`, `Name`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Viadeo`, `Situation`) VALUES
-(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', 50, 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 1, 1337647712, 'BC958D3C97', '', '', 'Carlos Santana Roldán', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', 'Active');
+INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Bookmarks`, `Codes`, `Tutorials`, `Jobs`, `Subscribed`, `Start_Date`, `Code`, `CURP`, `RFC`, `Name`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Viadeo`, `Situation`) VALUES
+(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', 50, 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1337647712, 'BC958D3C97', '', '', 'Carlos Santana Roldán', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', 'Active');
 
 -- --------------------------------------------------------
 

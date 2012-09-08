@@ -253,7 +253,7 @@ class Users_Model extends ZP_Model {
 		}
 
 		$fields  = "ID_User, ID_Privilege, Username, Pwd, Email, Website, Avatar, Recommendation, Credits, Sign, Messages, Recieve_Messages, Topics, Replies, ";
-		$fields .= "Comments, Codes, Bookmarks, Jobs, Suscribed, Start_Date, Code, CURP, RFC, Name, Age, Title, Address, Zip, Phone, Mobile, ";
+		$fields .= "Comments, Bookmarks, Codes, Bookmarks, Jobs, Suscribed, Start_Date, Code, CURP, RFC, Name, Age, Title, Address, Zip, Phone, Mobile, ";
 		$fields .= "Gender, Relationship, Birthday, Country, District, City, Technologies, Twitter, Facebook, Linkedin, Viadeo, Situation";
 
 		$this->Db->select($fields);
@@ -536,9 +536,11 @@ class Users_Model extends ZP_Model {
 		switch($application) {
 			case 9:
 				$additional = ", Bookmarks = (Bookmarks) + 1";
+				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + 1);
 				break;
 			case 17:
 				$additional = ", Codes = (Codes) + 1";
+				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + 1);
 				break;
 			default:
 				$additional = "";
