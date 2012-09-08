@@ -72,8 +72,6 @@
 	    <?php
 		}
 	?>
-
-    <br />
     
     <script type="text/javascript"><!--
         google_ad_client = "ca-pub-4006994369722584";
