@@ -517,7 +517,7 @@ class Users_Model extends ZP_Model {
 		showAlert(__("The record doesn't exists"), path());
 	}
 
-	public function setCredits($credits, $recommendation, $application, $record, $action = "Add") {
+	public function setCredits($credits, $recommendation, $application, $record = NULL, $action = "Add") {
 		/*
 		$this->helper("time");
 
@@ -533,13 +533,15 @@ class Users_Model extends ZP_Model {
 		$this->Db->insert("credits", $data);
 		*/
 
+		$sign = ($credits > 0 ? "+ 1" : "- 1");
+
 		switch($application) {
 			case 9:
-				$additional = ", Bookmarks = (Bookmarks) + 1";
+				$additional = ", Bookmarks = (Bookmarks) $sign";
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + 1);
 				break;
 			case 17:
-				$additional = ", Codes = (Codes) + 1";
+				$additional = ", Codes = (Codes) $sign";
 				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + 1);
 				break;
 			default:

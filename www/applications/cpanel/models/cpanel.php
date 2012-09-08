@@ -233,16 +233,31 @@ class CPanel_Model extends ZP_Model {
 		return FALSE;
 	}
 	
-	public function restore($ID) {		
+	public function restore($ID) {	
+		$credits 			= 0;
+		$recommendations 	= 0;
+
+		switch($this->application) {
+			case "bookmarks":
+				$credits = 1;
+				$recommendations = 1;
+				break;
+			case "codes":
+				$credits = 3;
+				$recommendations = 5;
+		}
+
 		if(!is_array($ID)) {
 			$this->Db->update($this->application, array("Situation" => "Active"), $ID);
-			
+			$this->Users_Model->setCredits($credits, $recommendations, $this->application);
+
 			$count = $this->Db->countBySQL("Situation = 'Deleted'", $this->application);
 			
 			return ($count > 0) ? TRUE : FALSE;
 		} else {
 			for($i = 0; $i <= count($ID) - 1; $i++) {
 				$this->Db->update($this->application, array("Situation" => "Active"), $ID[$i]);
+				$this->Users_Model->setCredits($credits, $recommendations, $this->application);
 			}	
 					
 			$count = $this->Db->countBySQL("Situation = 'Deleted'", $this->application);
@@ -341,17 +356,31 @@ class CPanel_Model extends ZP_Model {
 			return TRUE;	
 		}
 
-		$data = array("Situation" => "Deleted");
-		
+		$data 				= array("Situation" => "Deleted");
+		$credits 			= 0;
+		$recommendations 	= 0;
+
+		switch($this->application) {
+			case "bookmarks":
+				$credits = -1;
+				$recommendations = -1;
+				break;
+			case "codes":
+				$credits = -3;
+				$recommendations = -5;
+		}
+
 		if(!is_array($ID)) {
 			$this->Db->update($this->application, $data, $ID);
-			
+			$this->Users_Model->setCredits($credits, $recommendations, $this->application);
+
 			$count = $this->Db->countBySQL("Situation = 'Active'", $this->application);
 			
 			return ($count > 0) ? TRUE : FALSE;
 		} else {
 			for($i = 0; $i <= count($ID) - 1; $i++) {
 				$this->Db->update($this->application, $data, $ID[$i]);
+				$this->Users_Model->setCredits($credits, $recommendations, $this->application);
 			}
 			
 			$count = $this->Db->countBySQL("Situation = 'Active'", $this->application);
