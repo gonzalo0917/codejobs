@@ -250,30 +250,23 @@ class Forums_Model extends ZP_Model {
 	public function setTopic() {
 		$this->helper("time");
 
-		$ID_Forum = POST("ID_Forum");
-		$title    = POST("title", "decode", "escape");
-		$content  = POST("content", "decode", FALSE);
-		$slug     = slug($title);
-		$ID_User  = SESSION("ZanUserID");
-		$author   = SESSION("ZanUser");
-		$date1    = now(4);
-		$date2    = now(2);
-		$hour     = date("H:i:s", $date1);
+		$date = now(4);
+		$hour = date("H:i:s", $date);
 		
 		$lastTopic = $this->Db->findBySQL("ID_User = '$ID_User' AND ID_Parent = 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
 		
-		$time = ($lastTopic) ? $date1 - $lastTopic[0]["Start_Date"] : 100;
+		$time = ($lastTopic) ? $date - $lastTopic[0]["Start_Date"] : 20;
 		
-		if($time > 25) {
+		if($time > 10) {
 			$data = array(
-				"ID_Forum"   => $ID_Forum,
-				"ID_User" 	 => $ID_User, 
-				"Title" 	 => $title,
-				"Slug"		 => $slug,
-				"Content"	 => $content,
-				"Author"	 => $author,
-				"Start_Date" => $date1,
-				"Text_Date"	 => decode($date2),
+				"ID_Forum"   => POST("ID_Forum"),
+				"ID_User" 	 => SESSION("ZanUserID"), 
+				"Title" 	 => POST("title", "decode", "escape"),
+				"Slug"		 => slug($title),
+				"Content"	 => POST("content", "decode", FALSE),
+				"Author"	 => SESSION("ZanUser"),
+				"Start_Date" => $date,
+				"Text_Date"	 => now(2),
 				"Hour"       => $hour,
 				"Topic"		 => 1
 			);
@@ -297,57 +290,44 @@ class Forums_Model extends ZP_Model {
 			}
 			
 			return $lastID;
-		} else {
-			return FALSE;
-		}
+		} 
+		
+		return FALSE;
 	}
 	
 	public function editTopic() {
-		$ID_Post  = POST("ID_Post");
-		$title    = POST("title", "decode", "escape");
-		$content  = cleanTiny(POST("content", "decode", FALSE));
-		$slug     = slug($title);
-		$date1    = now(4);
-		$date2    = now(2);
-		$hour     = date("H:i:s", $date1);
+		$date  = now(4);
+		$title = POST("title", "decode", "escape");
+
+		$data = array(
+			"Title"   	 => $title,
+			"Content" 	 => POST("content", "decode", FALSE),
+			"Slug"	  	 => slug($title),
+			"Start_Date" => $date,
+			"Text_Date"  => now(2),
+			"Hour"		 => date("H:i:s", $date)
+		);
+
+		$update = $this->Db->update("forums_posts", $data, POST("ID_Post"));
 		
-		$data = $this->Db->call("updateTopicForum('$ID_Post', '$title', '$Slug', '$content', '$date1', '$date2', '$hour')");
+		$this->Db->updateBySQL("forums_posts", "Title = 'Re: $title' WHERE ID_Parent = '". POST("ID_Post") ."'");
 		
-		$this->Db->updateBySQL("forums_posts", "Title = 'Re: $title' WHERE ID_Parent = '$ID_Post'");
-		
-		if($data) {			
-			return TRUE;
-		} else {
-			return FALSE;
-		}
+		return $update;
 	}
 	
 	public function countRepliesByTopic($ID) {
-		$count = $this->Db->countBySQL("ID_Parent = '$ID' AND Situation = 'Active'", "forums_posts");
-		
-		return $count;
+		return $this->Db->countBySQL("ID_Parent = '$ID' AND Situation = 'Active'", "forums_posts");
 	}
 	
 	public function getPage($ID) {
 		$total = $this->countRepliesByTopic($ID);
 		$page  = $total / _maxLimit;
 		
-		if(is_float($page)) {
-			$page = intval($page) + 1;
-			
-			return $page;
-		} else {
-			return $page;
-		}
+		return is_float($page) ? (intval($page) + 1) : $page;
 	}
 	
 	public function addVisit($ID) {
-		$this->Db->table("forums_posts");
-		
-		$values = "Visits = (Visits) + 1";
-		
-		$this->Db->values($values);
-		$this->Db->save($ID);
+		return $this->Db->updateBySQL("forums_posts", "Visits = (Visits) + 1 WHERE ID_Post = '$ID'");
 	}
 	
 	public function getByTopic($ID, $limit) {	
@@ -390,47 +370,36 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	public function getTopicByID($ID) {
-		$data = $this->Db->findBySQL("ID_Post = '$ID'", "forums_posts");
-		
-		return $data;
+		return $this->Db->findBySQL("ID_Post = '$ID'", "forums_posts");
 	}
 	
 	public function setReply() {
 		$this->helper("time");
-
-		$ID_Forum = POST("ID_Forum");
-		$ID_Post  = POST("ID_Post");
-		$title    = POST("title", "decode", "escape");
-		$content  = POST("content", "decode", FALSE);
-		$slug     = slug($title);
-		$ID_User  = SESSION("ZanUserID");
-		$author   = SESSION("ZanUser");
-		$date1    = now(4);
-		$date2    = now(2);
-		$hour     = date("H:i:s", $date1);
 		
-		$lastTopic = $this->Db->findBySQL("ID_User = '$ID_User' AND ID_Parent > 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
+		$date = now(4);
 		
-		$time = ($lastTopic) ? $date1 - $lastTopic[0]["Start_Date"] : 50;
+		$lastTopic = $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Parent > 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
 		
-		if($time > 25) {
+		$time = ($lastTopic) ? $date - $lastTopic[0]["Start_Date"] : 10;
+		
+		if($time > 5) {
 			$data = array(
-				"ID_Forum"   => $ID_Forum,
-				"ID_User" 	 => $ID_User, 
-				"ID_Parent"	 => $ID_Forum,
-				"Title" 	 => $title,
-				"Slug"		 => $slug,
-				"Content"	 => $content,
-				"Author"	 => $author,
-				"Start_Date" => $date1,
-				"Text_Date"	 => decode($date2),
-				"Hour"       => $hour,
+				"ID_Forum"   => POST("ID_Forum"),
+				"ID_User" 	 => SESSION("ZanUserID"), 
+				"ID_Parent"	 => POST("ID_Forum"),
+				"Title" 	 => POST("title", "decode", "escape"),
+				"Slug"		 => slug(POST("title", "decode", "escape")),
+				"Content"	 => POST("content", "decode", FALSE),
+				"Author"	 => SESSION("ZanUser"),
+				"Start_Date" => $date,
+				"Text_Date"	 => decode(now(2)),
+				"Hour"       => date("H:i:s", $date),
 				"Topic"		 => 1
 			);
 			
-			$lastID = $this->Db->insert("muu_forums_posts", $data);
+			$lastID = $this->Db->insert("forums_posts", $data);
 
-			$this->Db->updateBySQL("muu_forums", "Replies = (Replies) + 1, Last_Reply = '$lastID' WHERE ID_Forum = '$ID_Forum'");
+			$this->Db->updateBySQL("forums", "Replies = (Replies) + 1, Last_Reply = '$lastID' WHERE ID_Forum = '". POST("ID_Forum") ."'");
 		} else { 
 			$data = FALSE;
 		}
@@ -439,17 +408,18 @@ class Forums_Model extends ZP_Model {
 	}
 	
 	public function editReply() {
-		$ID_Post  = POST("ID_Post");
-		$title    = POST("title", "decode", "escape");
-		$content  = cleanTiny(POST("content", "decode", FALSE));
-		$Slug     = Slug($title);
-		$date1    = now(4);
-		$date2    = now(2);
-		$hour     = date("H:i:s", $date1);
-		
-		$this->Db->call("updateReplyTopic('$ID_Post', '$title', '$Slug', '$content', '$date1', '$date2', '$hour')");
-	 	
-		return TRUE;
+		$date = now(4);
+
+		$data = array(
+			"Title"   	 => POST("title", "decode", "escape"),
+			"Content" 	 => POST("content", "decode", FALSE),
+			"Slug"	  	 => slug($title),
+			"Start_Date" => $date,
+			"Text_Date"  => now(2),
+			"Hour"		 => date("H:i:s", $date)
+ 		);
+
+ 		return $this->Db->update("forums_posts", $data, POST("ID_Post"));
 	}
 	
 	public function getUserAvatar($ID = 0) {
@@ -469,33 +439,21 @@ class Forums_Model extends ZP_Model {
 			} elseif($avatar[0]["Avatar"] === "") {
 				return path("www/lib/files/images/users/default.png", TRUE);
 			} 
-		} else {
-			return FALSE;
-		}
+		} 
+
+		return FALSE;
 	}
 	
 	public function addUserTopic() {
-		if(SESSION("ZanUserID")) {
-			$this->Db->updateBySQL("users", "Topics = (Topics) + 1 WHERE ID_User = '". SESSION("ZanUserID") ."'");
-		} else {
-			return FALSE;
-		}
+		return (SESSION("ZanUserID")) ? $this->Db->updateBySQL("users", "Topics = (Topics) + 1 WHERE ID_User = '". SESSION("ZanUserID") ."'") : FALSE;
 	}
 	
 	public function addUserReply() {
-		if(SESSION("ZanUserID")) {
-			$this->Db->updateBySQL("users", "Replies = (Replies) + 1 WHERE ID_User = '". SESSION("ZanUserID") ."'");
-		} else {
-			return FALSE;
-		}
+		return (SESSION("ZanUserID")) ? $this->Db->updateBySQL("users", "Replies = (Replies) + 1 WHERE ID_User = '". SESSION("ZanUserID") ."'") : FALSE;
 	}
 	
 	public function getStatistics() { 
-		if(SESSION("ZanUserID")) {
-			return $this->Db->find(SESSION("ZanUserID"), "users");
-		} else { 
-			return FALSE;
-		}
+		return (SESSION("ZanUserID")) ? $this->Db->find(SESSION("ZanUserID"), "users") : FALSE;
 	}
 		
 	public function getLastUsers() {
@@ -516,43 +474,26 @@ class Forums_Model extends ZP_Model {
 						$this->Db->update("forums_posts", array("Situation" => "Inactive"), $reply["ID_Post"]);
 					}
 					
-					$this->Db->table("forums"); 
-					$this->Db->values("Replies = (Replies) - $count");
-					$this->Db->save($delete[0]["ID_Forum"]);
-					
-					$this->Db->table("users");
+					$this->Db->updateBySQL("forums", "Replies = (Replies) - $count WHERE ID_Forum = '". $delete[0]["ID_Forum"] ."'");
 					
 					foreach($replies as $reply) {
-						$this->Db->values("Replies = (Replies) - 1");
-						$this->Db->save($reply["ID_User"]);	
+						$this->Db->updateBySQL("users", "Replies = (Replies) - 1 WHERE ID_User = '". $reply["ID_User"] ."'");
 					}
 				}
 				
 				$this->Db->update("forums_posts", array("Situation" => "Inactive"), $delete[0]["ID_Post"]);
-				
-				$this->Db->table("forums");
-				$this->Db->values("Topics = (Topics) - 1");
-				$this->Db->save($delete[0]["ID_Forum"]);
-				
-				$this->Db->table("users");
-				$this->Db->values("Topics = (Topics) - 1");
-				$this->Db->save($delete[0]["ID_User"]);
+				$this->Db->updateBySQL("forums", "Topics = (Topics) - 1 WHERE ID_Forum = '". $delete[0]["ID_Forum"] ."'");
+				$this->Db->updateBySQL("users", "Topics = (Topics) - 1 WHERE ID_User = '". $delete[0]["ID_User"] ."'");
 			} else {
 				$this->Db->update("forums_posts", array("Situation" => "Inactive"), $delete[0]["ID_Post"]);
-				
-				$this->Db->table("forums");
-				$this->Db->values("Topics = (Topics) - 1");
-				$this->Db->save($delete[0]["ID_Forum"]);
-				
-				$this->Db->table("users");
-				$this->Db->values("Topics = Topics - 1");
-				$this->Db->save($delete[0]["ID_User"]);
+				$this->Db->updateBySQL("forums", "Topics = (Topics) - 1 WHERE ID_Forum = '". $delete[0]["ID_Forum"] ."'");
+				$this->Db->updateBySQL("users", "Topics = (Topics) - 1 WHERE ID_User = '". $delete[0]["ID_User"] ."'");
 			}
 			
 			return TRUE;
-		} else {
-			return FALSE;
-		}
+		} 
+		
+		return FALSE;
 	}
 	
 	public function deleteReply($ID) {
@@ -569,17 +510,12 @@ class Forums_Model extends ZP_Model {
 				$this->Db->update("forums", array("Last_Reply" => 0), $delete[0]["ID_Forum"]);
 			}
 			
-			$this->Db->table("forums");
-			$this->Db->values("Replies = (Replies) - 1");
-			$this->Db->save($delete[0]["ID_Forum"]);
-				
-			$this->Db->table("users");
-			$this->Db->values("Replies = (Replies) - 1");
-			$this->Db->save($delete[0]["ID_User"]);
+			$this->Db->updateBySQL("forums", "Replies = (Replies) - 1 WHERE ID_Forum = '". $delete[0]["ID_Forum"] ."'");
+			$this->Db->updateBySQL("users", "Replies = (Replies) - 1 WHERE ID_User = '". $reply["ID_User"] ."'");
 				
 			return TRUE;
-		} else {
-			return FALSE;
-		}		
+		} 
+
+		return FALSE;	
 	}
 }
