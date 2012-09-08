@@ -12,7 +12,7 @@ class Codes_Model extends ZP_Model {
 		$this->Db = $this->db();
 		
 		$this->table  = "codes";
-		$this->fields = "ID_Code, Title, Slug, Languages, Author, Start_Date, Text_Date, Views, Likes, Dislikes, Language, Situation";
+		$this->fields = "ID_Code, Title, Description, Slug, Languages, Author, Start_Date, Text_Date, Views, Likes, Dislikes, Language, Situation";
 
 		$this->Data = $this->core("Data");
 		$this->Data->table("codes");
@@ -80,6 +80,28 @@ class Codes_Model extends ZP_Model {
 		}
 	}
 	
+    public function add() {
+		$error = $this->editOrSave();
+
+		if($error) {
+			return $error;
+		}
+		
+		$this->data["Situation"] = "Pending";
+
+		$lastID = $this->Db->insert($this->table, $this->data);
+
+		$this->Users_Model = $this->model("Users_Model");
+
+		$this->Users_Model->setCredits(1, 2, 10, $lastID);
+		
+		if($lastID) {
+			return getAlert(__("The bookmark has been saved correctly"), "success");	
+		}
+		
+		return getAlert(__("Insert error"));
+	}
+		
 	private function save() {
 		if(FALSE !== ($ID = $this->Db->insert($this->table, $this->data))) {
             $this->data = $this->proccessFiles($ID);

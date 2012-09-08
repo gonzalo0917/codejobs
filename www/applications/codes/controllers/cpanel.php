@@ -13,7 +13,7 @@ class CPanel_Controller extends ZP_Controller {
 	public function __construct() {		
 		$this->app("cpanel");
                 
-                $this->config("cpanel", "codes");
+        $this->config("cpanel", "codes");
 
 		$this->application = whichApplication();
 		
@@ -146,6 +146,7 @@ class CPanel_Controller extends ZP_Controller {
 			$this->login();
 		}
 		
+		$this->config("cpanel", "codes");
 		$this->title("Add");
 				
 		$this->CSS("forms", "cpanel");
@@ -179,6 +180,7 @@ class CPanel_Controller extends ZP_Controller {
 			redirect($this->application ."/cpanel/results");
 		}
 
+		$this->config("cpanel", "codes");
 		$this->title("Edit");
 		
 		$this->CSS("forms", "cpanel");

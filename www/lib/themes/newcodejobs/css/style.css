@@ -474,3 +474,7 @@ a img {
 	text-decoration: none;
 	border: 0 none;
 }
+
+.field {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}

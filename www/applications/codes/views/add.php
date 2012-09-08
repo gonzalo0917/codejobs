@@ -1,128 +1,142 @@
 <?php 
-        if(!defined("_access")) {
+    if(!defined("_access")) {
 		die("Error: You don't have permission to access here..."); 
 	}
         
-        $this->CSS("add", "codes", TRUE);
+    $this->CSS("add", "codes", TRUE);
         
-        $ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) 				: 0;
+    $ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) 				: 0;
 	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
+    $description = isset($data) ? recoverPOST("description", $data[0]["Description"])   : recoverPOST("description");
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
 	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
 	$edit        = isset($data) ? TRUE 													: FALSE;
 	$action	     = isset($data) ? "edit"												: "save";
 	$href	     = isset($data) ? path(whichApplication() ."/cpanel/edit/") 			: path(whichApplication() ."/cpanel/add/");
 	
-        if (! ($files = isset($data) ? $data[0]["Files"] : FALSE)) {
-            $files = recoverFiles();
-        }
+    if (! ($files = isset($data) ? $data[0]["Files"] : FALSE)) {
+        $files = recoverFiles();
+    }
 	
 	echo tagHTML("div", array(
-            "ng-controller" => "FileCtrl",
-            "class"         => "add-form"
+        "ng-controller" => "FileCtrl",
+        "class"         => "add-form"
+    ));
+
+	echo formOpen($href, "form-add", "form-add");
+
+		echo p(__(ucfirst(whichApplication())), "resalt");
+		
+		echo isset($alert) ? $alert : NULL;
+
+		echo formInput(array(	
+			"name" 	=> "title", 
+			"class" => "span10 required",
+			"field" => __("Title"), 
+			"p" 	=> TRUE, 
+			"value" => $title,
+                            "autofocus" => "autofocus"
+		));
+
+        echo formTextArea(array(
+            "name"      => "description",
+            "class"     => "span10 required",
+            "field"     => __("Description"), 
+            "p"         => TRUE, 
+            "value"     => $description
         ));
-		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
-			
-			echo isset($alert) ? $alert : NULL;
-
-			echo formInput(array(	
-				"name" 	=> "title", 
-				"class" => "span10 required",
-				"field" => __(_("Title")), 
-				"p" 	=> TRUE, 
-				"value" => $title,
-                                "autofocus" => "autofocus"
-			));
+                    
+        echo span("field", "&raquo; " . __("Files") . " ({{files.length}})");
+                    
+        echo tagHTML("div", array(
+            "class"     => "well span10",
+            "ng-repeat" => "file in files"
+        ));
                         
-                        echo span("field", "&raquo; " . __(_("Files")) . " ({{files.length}})");
-                        
-                        echo tagHTML("div", array(
-                            "class"     => "well span10",
-                            "ng-repeat" => "file in files"
-                        ));
-                            
-                            echo formInput(array(	
-                                "name"      => "file[]",
-                                "type"      => "hidden",
-                                "value"     => "{{file.idfile}}"
-                            ));
-                        
-                            echo formSelect(array(
-                                "name"          => "programming[]",
-                                "id"            => "syntax{{\$index}}",
-                                "class"         => "required",
-                                "p"             => TRUE,
-                                "field"         => __(_("Programming language")),
-                                "ng-model"      => "language",
-                                "ng-init"       => "language=languages[getLanguage(file.syntax)]",
-                                "ng-options"    => "language.Name for language in languages",
-                                "ng-change"     => "selectSyntax(\$index)"
-                            ));
-                            
-                            echo formInput(array(	
-                                "name"      => "syntax[]",
-                                "type"      => "hidden",
-                                "value"     => "{{language.ID_Syntax}}"
-                            ));
-                            
-                            echo formInput(array(
-                                "name"      => "syntaxname[]",
-                                "type"      => "hidden",
-                                "value"     => "{{language.Name}}"
-                            ));
-                            
-                            echo formInput(array(	
-                                "name"      => "name[]", 
-                                "id"        => "name{{\$index}}", 
-                                "class"     => "required", 
-                                "field"     => __(_("Filename")), 
-                                "p"         => TRUE,
-                                "ng-model"  => "file.name",
-                                "onBlur"    => "validateExtension({{\$index}}, '{{languages[getLanguage(language.ID_Syntax)].Extension}}')"
-                            ));
+            echo formInput(array(	
+                "name"      => "file[]",
+                "type"      => "hidden",
+                "value"     => "{{file.idfile}}"
+            ));
+        
+            echo formSelect(array(
+                "name"          => "programming[]",
+                "id"            => "syntax{{\$index}}",
+                "class"         => "required",
+                "p"             => TRUE,
+                "field"         => __("Programming language"),
+                "ng-model"      => "language",
+                "ng-init"       => "language=languages[getLanguage(file.syntax)]",
+                "ng-options"    => "language.Name for language in languages",
+                "ng-change"     => "selectSyntax(\$index)"
+            ));
+            
+            echo formInput(array(	
+                "name"      => "syntax[]",
+                "type"      => "hidden",
+                "value"     => "{{language.ID_Syntax}}"
+            ));
+            
+            echo formInput(array(
+                "name"      => "syntaxname[]",
+                "type"      => "hidden",
+                "value"     => "{{language.Name}}"
+            ));
+            
+            echo formInput(array(	
+                "name"      => "name[]", 
+                "id"        => "name{{\$index}}", 
+                "class"     => "required", 
+                "field"     => __("Filename"), 
+                "p"         => TRUE,
+                "ng-model"  => "file.name",
+                "onBlur"    => "validateExtension({{\$index}}, '{{languages[getLanguage(language.ID_Syntax)].Extension}}')"
+            ));
 
-                            echo formTextArea(array(	
-                                "id"        => "code{{\$index}}", 
-                                "name"      => "code[]",
-                                "class"     => "required",
-                                "style"     => "height: 200px;width:100%", 
-                                "field"     => __(_("Code")), 
-                                "p"         => TRUE, 
-                                "value"     => "{{textCode(\$index)}}"
-                            ));
-                            
-                            echo tagHTML("div", array(
-                                "class" => "remove remove-{{\$index > 0}}"
-                            ));
-                            
-                            echo tagHTML("a", array(
-                                "class"     => "btn btn-danger",
-                                "ng-click"  => "removeFile(\$index)"
-                            ), __(_("Remove file")));
-                            
-                            echo tagHTML("div", FALSE);
-                        echo tagHTML("div", FALSE);
-                        
-                        echo tagHTML("div", array(
-                            "id"        => "add",
-                            "class"     => "btn span10",
-                            "ng-click"  => "addFile()"
-                        ), __(_("Add another file")) . "...");
+            echo formTextArea(array(	
+                "id"        => "code{{\$index}}", 
+                "name"      => "code[]",
+                "class"     => "required",
+                "style"     => "height: 200px;width:100%", 
+                "field"     => __("Code"), 
+                "p"         => TRUE, 
+                "value"     => "{{textCode(\$index)}}"
+            ));
+            
+            echo tagHTML("div", array(
+                "class" => "remove remove-{{\$index > 0}}"
+            ));
+            
+            echo tagHTML("a", array(
+                "class"     => "btn btn-danger",
+                "ng-click"  => "removeFile(\$index)"
+            ), __("Remove file"));
+            
+            echo tagHTML("div", FALSE);
 
-			echo formField(NULL, __(_("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
-			
-			$options = array(
-				0 => array("value" => "Active",   "option" => __(_("Active")),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __(_("Inactive")), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
-			);
+        echo tagHTML("div", FALSE);
+        
+        echo tagHTML("div", array(
+            "id"        => "add",
+            "class"     => "btn span10",
+            "ng-click"  => "addFile()"
+        ), __("Add another file") . "...");
 
-			echo formSelect(array("name" => "situation", "class" => "required", "p" => TRUE, "field" => __(_("Situation"))), $options);
-			
-			echo formSave($action);
-			
-			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
-		echo formClose();
+		echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
+		
+		$options = array(
+			0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
+			1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+		);
+
+		echo formSelect(array("name" => "situation", "class" => "required", "p" => TRUE, "field" => __("Situation")), $options);
+		
+		echo formSave($action);
+		
+		echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
+        
+	echo formClose();
+
 	echo tagHTML("div", FALSE);
 ?>
 <script type="text/javascript">
@@ -191,7 +205,7 @@ endfor ;
     
     $scope.removeFile = function (index) {
         if (index > 0) {
-            if (confirm("<?php print __(_("Do you want to remove this file?")); ?>")) {
+            if (confirm("<?php print __("Do you want to remove this file?"); ?>")) {
                 this.files.splice(index, 1);
             }
         }

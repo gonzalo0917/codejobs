@@ -183,9 +183,11 @@ class Codes_Controller extends ZP_Controller {
 			$vars["alert"] = $this->Codes_Model->add();
 		} 
 
+		$this->CSS("new", "codes");
 		$this->CSS("forms", "cpanel");
 
 		$this->helper(array("html", "forms"));
+		$this->helper("codes", $this->application);
 
 		$this->config("user", "codes");
 

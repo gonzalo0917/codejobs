@@ -7,3 +7,4 @@ if(!defined("_access")) {
 }
 
 define("_bootstrap", TRUE);
+define("_angularjs", TRUE);

@@ -187,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
   `ID_Code` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(150) NOT NULL,
+  `Description` text,
   `Slug` varchar(150) NOT NULL,
   `Languages` varchar(100) NOT NULL,
   `Author` varchar(100) NOT NULL,
@@ -205,10 +206,10 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
 -- Dumping data for table `muu_codes`
 --
 
-INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Slug`, `Languages`, `Author`, `Start_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
-(1, 1, 'Mi primera página web', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
-(2, 1, 'Mostrar información en PHP', 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
-(3, 1, 'My first webpage', 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 'Sunday, 29 de July de 2012', 1, 0, 0, 0, 'English', 'Active');
+INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Description`, `Slug`, `Languages`, `Author`, `Start_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
+(1, 1, 'Mi primera página web', 'Probando las descripciones', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
+(2, 1, 'Mostrar información en PHP', NULL, 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
+(3, 1, 'My first webpage', NULL, 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 'Sunday, 29 de July de 2012', 1, 0, 0, 0, 'English', 'Active');
 
 
 -- --------------------------------------------------------
