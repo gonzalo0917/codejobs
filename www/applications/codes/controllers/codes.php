@@ -195,6 +195,28 @@ class Codes_Controller extends ZP_Controller {
 
 		$this->render("content", $vars);
 	}
+
+	public function admin() {
+		isConnected();
+
+		$this->config("user", "codes");
+
+		$data = $this->Codes_Model->getCodesByUser(SESSION("ZanUserID"));
+
+		if($data) {
+
+			$this->CSS("results", "cpanel");
+			$this->CSS("admin", "codes");
+
+			$vars["tFoot"] = $data;
+			$vars["total"] = count($data);
+			$vars["view"] = $this->view("admin", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
+	}
         
 	private function limit($tag = NULL) {
 		$count = $this->Codes_Model->count($tag);	

@@ -141,6 +141,7 @@ $phrase["online_users"] 								= "Usuarios en línea";
 $phrase["order"] 										= "Ordenar";
 $phrase["pages"] 										= "Páginas";
 $phrase["password"]  									= "Contraseña";
+$phrase["pending"]  									= "Pendiente";
 $phrase["permalink_to_this_file"]						= "Enlace a este archivo";
 $phrase["polls"] 										= "Encuestas";
 $phrase["portuguese"] 	 								= "Portugués";

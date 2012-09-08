@@ -236,6 +236,10 @@ class Codes_Model extends ZP_Model {
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 
+	public function getCodesByUser($userID) {
+		return $this->Db->findBySQL("ID_User = '$userID'", $this->table, $this->fields, NULL, "ID_Code ASC");
+	}
+
 	public function updateViews($codeID) {
 		return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Code = '$codeID' AND Situation = 'Active'");
 	}
