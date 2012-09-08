@@ -2,7 +2,7 @@
 if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
 $application 	= ucfirst(whichApplication());
-$caption 		= __(_("My ". $application));
+$caption 		= __("My ". $application);
 $colspan		= 5;
 $colors[0] 		= _color1;
 $colors[1] 		= _color2;
@@ -13,7 +13,7 @@ $i 				= 0;
 $j 				= 2;
 
 ?>
-<table id="results" class="results">
+<table id="results" class="results" style="width: 1000px;">
 	<caption class="caption">
 		<span class="bold"><?php echo $caption; ?></span>
 	</caption>
