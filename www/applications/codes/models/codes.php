@@ -233,9 +233,7 @@ class Codes_Model extends ZP_Model {
 	}
 	
 	public function getAll($limit) {		
-		$data = $this->Db->findAll($this->table, $this->fields, NULL, "ID_Code DESC", $limit);
-		
-		return $data;
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 
 	public function updateViews($codeID) {
