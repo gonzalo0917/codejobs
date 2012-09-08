@@ -48,13 +48,15 @@ if(is_array($posts)) {
 			<div class="clear"></div>
 					
 			<div class="post-content">
-				<div class="addthis_toolbox addthis_default_style ">
-					<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($post["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>
-				</div>
+				<div class="social">
+					<div class="addthis_toolbox addthis_default_style ">
+						<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($post["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>
+					</div>
 
-				<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-				<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>
-				<br />	
+					<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+					<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>
+				</div>
+					
 				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>	
 				<br />
 				<?php					
