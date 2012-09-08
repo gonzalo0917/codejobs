@@ -758,7 +758,8 @@ class ZP_Db extends ZP_Load {
 		}
 		
 		$_where = rtrim($_where, "AND ");
-				
+		$table  = $this->getTable($table);
+
 		$query = ($limit === 0 and $offset === 0) ? "$this->select FROM $table WHERE $_where" : "SELECT $this->fields FROM $table WHERE $_where LIMIT $limit, $offset"; 
 		
 		return $this->data($query);
