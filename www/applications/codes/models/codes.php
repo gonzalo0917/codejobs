@@ -87,7 +87,7 @@ class Codes_Model extends ZP_Model {
 			return $error;
 		}
 		
-		$this->data["Situation"] = "Pending";
+		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 
 		if(FALSE !== ($lastID = $this->Db->insert($this->table, $this->data))) {
             $this->data = $this->proccessFiles($lastID);

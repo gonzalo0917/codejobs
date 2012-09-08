@@ -106,13 +106,13 @@ class Bookmarks_Model extends ZP_Model {
 			return $error;
 		}
 		
-		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1) ? "Active" : "Pending";
+		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 
 		$lastID = $this->Db->insert($this->table, $this->data);
 
 		$this->Users_Model = $this->model("Users_Model");
 
-		$this->Users_Model->setCredits(1, 2, 10, $lastID);
+		$this->Users_Model->setCredits(1, 2, 9, $lastID);
 		
 		if($lastID) {
 			return getAlert(__("The bookmark has been saved correctly"), "success");	
