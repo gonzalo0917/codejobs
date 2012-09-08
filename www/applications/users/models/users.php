@@ -518,6 +518,7 @@ class Users_Model extends ZP_Model {
 	}
 
 	public function setCredits($credits, $recommendation, $application, $record, $action = "Add") {
+		/*
 		$this->helper("time");
 
 		$data = array(
@@ -530,14 +531,21 @@ class Users_Model extends ZP_Model {
 		);
 
 		$this->Db->insert("credits", $data);
+		*/
 
-		if($application === 10) {
-			$bookmarks = ", Bookmarks = (Bookmarks) + 1";
-		} else {
-			$bookmarks = "";
+		switch($application) {
+			case 9:
+				$additional = ", Bookmarks = (Bookmarks) + 1";
+				break;
+			case 17:
+				$additional = ", Codes = (Codes) + 1";
+				break;
+			default:
+				$additional = "";
+				break;
 		}
 
-		$this->Db->updateBySQL("users", "Credits = (Credits) + $credits, Recommendation = (Recommendation) + $recommendation $bookmarks WHERE ID_User = '". SESSION("ZanUserID") ."'");
+		$this->Db->updateBySQL("users", "Credits = (Credits) + $credits, Recommendation = (Recommendation) + $recommendation $additional WHERE ID_User = '". SESSION("ZanUserID") ."'");
 
 		return FALSE;
 	}

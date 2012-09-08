@@ -5,10 +5,11 @@
 
 	$ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) 				: 0;
 	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
+    $description = isset($data) ? recoverPOST("description", $data[0]["Description"])   : recoverPOST("description");
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
 	$edit        = isset($data) ? TRUE 													: FALSE;
 	$action	     = isset($data) ? "edit"												: "save";
-	$href        = isset($data) ? path(whichApplication() ."/edit/")             : path(whichApplication() ."/add/");
+	$href        = isset($data) ? path(whichApplication() ."/edit/")                    : path(whichApplication() ."/add/");
 	
     if (! ($files = isset($data) ? $data[0]["Files"] : FALSE)) {
         $files = recoverFiles();
@@ -26,7 +27,7 @@
 
 			echo formInput(array(	
                 "name" 	=> "title", 
-                "class" => "required field-title",
+                "class" => "field-title",
                 "field" => __("Title"), 
                 "p" 	=> TRUE, 
                 "value" => $title,
@@ -35,7 +36,7 @@
 
             echo formTextArea(array(
                 "name"      => "description",
-                "class"     => "required field-title",
+                "class"     => "field-title",
                 "field"     => __("Description"), 
                 "p"         => TRUE, 
                 "style"     => "resize: none",
@@ -62,7 +63,6 @@
                 echo formSelect(array(
                     "name"          => "programming[]",
                     "id"            => "syntax{{\$index}}",
-                    "class"         => "required",
                     "p"             => TRUE,
                     "field"         => __("Programming language"),
                     "ng-model"      => "language",
@@ -85,8 +85,7 @@
                 
                 echo formInput(array(   
                     "name"      => "name[]", 
-                    "id"        => "name{{\$index}}", 
-                    "class"     => "required", 
+                    "id"        => "name{{\$index}}",  
                     "field"     => __("Filename"), 
                     "p"         => TRUE,
                     "ng-model"  => "file.name",
@@ -96,7 +95,7 @@
                 echo formTextArea(array(    
                     "id"        => "code{{\$index}}", 
                     "name"      => "code[]",
-                    "class"     => "required code",
+                    "class"     => "code",
                     "style"     => "-moz-box-sizing:border-box;height: 200px;width:100%", 
                     "field"     => __("Code"), 
                     "p"         => TRUE, 

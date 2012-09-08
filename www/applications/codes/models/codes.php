@@ -89,14 +89,22 @@ class Codes_Model extends ZP_Model {
 		
 		$this->data["Situation"] = "Pending";
 
-		$lastID = $this->Db->insert($this->table, $this->data);
+		if(FALSE !== ($lastID = $this->Db->insert($this->table, $this->data))) {
+            $this->data = $this->proccessFiles($lastID);
+                        
+            if(isset($this->data["error"])) {
+                $this->Db->delete($lastID, $this->table);
+                
+                return $this->data["error"];
+            }
+                        
+            if($this->Db->insertBatch("codes_files", $this->data)) {
+				$this->Users_Model = $this->model("Users_Model");
 
-		$this->Users_Model = $this->model("Users_Model");
+				$this->Users_Model->setCredits(3, 5, 17, $lastID);
 
-		$this->Users_Model->setCredits(1, 2, 10, $lastID);
-		
-		if($lastID) {
-			return getAlert(__("The bookmark has been saved correctly"), "success");	
+                return getAlert(__("The code has been saved correctly"), "success");	
+            }
 		}
 		
 		return getAlert(__("Insert error"));
