@@ -35,7 +35,7 @@
 			"field" => __("Title"), 
 			"p" 	=> TRUE, 
 			"value" => $title,
-                            "autofocus" => "autofocus"
+            "autofocus" => "autofocus"
 		));
 
         echo formTextArea(array(
@@ -43,6 +43,7 @@
             "class"     => "span10 required",
             "field"     => __("Description"), 
             "p"         => TRUE, 
+            "style"     => "resize: none",
             "value"     => $description
         ));
                     

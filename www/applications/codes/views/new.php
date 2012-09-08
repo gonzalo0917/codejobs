@@ -38,6 +38,7 @@
                 "class"     => "required field-title",
                 "field"     => __("Description"), 
                 "p"         => TRUE, 
+                "style"     => "resize: none",
                 "value"     => ""
             ));
                         

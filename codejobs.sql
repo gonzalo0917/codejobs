@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
 --
 
 INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Description`, `Slug`, `Languages`, `Author`, `Start_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
-(1, 1, 'Mi primera página web', 'Probando las descripciones', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
+(1, 1, 'Mi primera página web', 'Forma de incrustar un archivo CSS.', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
 (2, 1, 'Mostrar información en PHP', NULL, 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
 (3, 1, 'My first webpage', NULL, 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 'Sunday, 29 de July de 2012', 1, 0, 0, 0, 'English', 'Active');
 

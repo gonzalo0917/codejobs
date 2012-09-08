@@ -35,6 +35,10 @@
     <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script> 
 
     <?php
+        if($code["Description"] !== "") {
+            echo tagHTML("p", $code["Description"]);
+        }
+
         foreach ($code["Files"] as $file) {
         ?>
             <p>
