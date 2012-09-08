@@ -56,10 +56,12 @@
                             echo like($code["ID_Code"], "codes", $code["Likes"]) . " " . dislike($code["ID_Code"], "codes", $code["Dislikes"]) . " " . report($code["ID_Code"], "codes");
                         ?>
 					</p>
+					<p>
+						<a href="<?php echo path("codes/download/" . $code['ID_Code'] . "/" . $code['Slug']); ?>" class="btn download"><?php echo __("Download code"); ?></a>
+					</p>
 			<?php 
 				} 
 			?>
-			
 		
 	<?php 
 		} 

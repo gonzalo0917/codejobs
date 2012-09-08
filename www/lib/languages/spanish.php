@@ -57,6 +57,7 @@ $phrase["do_you_want_to_remove_this_file"]				= "¿Desea eliminar este archivo?";
 $phrase["do_you_want_to_restore_the_record"] 			= "¿Desea recuperar el registro?";
 $phrase["do_you_want_to_send_to_the_trash_the_record"] 	= "¿Desea enviar el registro a la papelera?";
 $phrase["do_you_want_to_send_to_trash_the_records"]		= "¿Desea enviar los registros a la papelera?";
+$phrase["download_code"]								= "Descargar código";
 $phrase["edit"]											= "Editar";
 $phrase["email_for_recieve_notifications"] 				= "Email para recibir notificaciones";
 $phrase["email_for_send_notifications"] 				= "Email para enviar notificaciones";

@@ -217,6 +217,38 @@ class Codes_Controller extends ZP_Controller {
 			redirect();
 		}
 	}
+
+	public function download($id = 0, $slug = "code") {
+		isConnected();
+
+		if($id > 0) {
+			
+			$zip 		= new ZipArchive;
+			$filename 	= tempnam(__DIR__, "");
+			$data		= $this->CodesFiles_Model->getByCode($id);
+			
+			$zip->open($filename, ZipArchive::CREATE);
+
+			if($data) {
+				for($i = 0; $i < count($data); $i++) {
+					$zip->addFromString($data[$i]['Name'], decode($data[$i]['Code']));
+				}
+			}
+			
+			$zip->close();
+
+			header('Content-Type: application/zip');
+			header("Content-disposition: attachment; filename=$slug.zip");
+			header("Content-Length: " . filesize($filename));
+
+			readfile($filename);
+			unlink($filename);
+		}
+
+		/*$zip->addFromString('test.txt', 'file content goes here');
+		$zip->close();*/
+
+	}
         
 	private function limit($tag = NULL) {
 		$count = $this->Codes_Model->count($tag);	
