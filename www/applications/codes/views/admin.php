@@ -41,7 +41,7 @@ $j 				= 2;
 		if($tFoot) {
 			foreach($tFoot as $column) {
 				$ID = $column["ID_Code"];
-				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];
+				$color = $colors[$i];
 				
 				$i = ($i === 1) ? 0 : 1;
 				$j = ($j === 3) ? 2 : 3;

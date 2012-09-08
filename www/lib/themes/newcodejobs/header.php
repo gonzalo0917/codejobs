@@ -1,22 +1,5 @@
 <?php
 	if(!defined("_access")) die("Error: You don't have permission to access here...");
-	
-	$totalCodes	= 0;
-
-	if(SESSION("ZanUser")) {
-		global $Load;
-		
-		$userID 	= SESSION("ZanUserID");
-		$Db 		= $Load->core("Db");
-
-		$Db->select("Codes");
-		
-		$data = $Db->getWhere("users", array("ID_User" => $userID));
-
-		if($data) {
-			$totalCodes = (int)$data[0]["Codes"];
-		}
-	}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
@@ -150,7 +133,7 @@
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><strong><?php echo __("My codes"); ?></strong>: <?php echo $totalCodes; ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><strong><?php echo __("My codes"); ?></strong>: <?php echo SESSION("ZanUserCodes"); ?></a></span><br />
 							<span class="small grey"><strong><?php echo __("My jobs"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My posts"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My courses"); ?></strong>: <a href="#">0</a></span><br />

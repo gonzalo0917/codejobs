@@ -71,6 +71,7 @@ class Users_Controller extends ZP_Controller {
 				SESSION("ZanUserAvatar", $data[0]["Avatar"]);
 				SESSION("ZanUserID", $data[0]["ID_User"]);
 				SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
+				SESSION("ZanUserCodes", $data[0]["Codes"]);
 
 				redirect();
 			} else { 
