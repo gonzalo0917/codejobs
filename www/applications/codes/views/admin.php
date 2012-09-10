@@ -20,7 +20,7 @@ $j 				= 2;
 					
 	<thead>
 		<tr>
-			<th>Nro.</th>
+			<th>No.</th>
 			<th><?php echo __("Title"); ?></th>
 			<th><?php echo __("Views"); ?></th>
 			<th><?php echo __("Language"); ?></th>
@@ -38,7 +38,7 @@ $j 				= 2;
 
 	<tbody>		
 	<?php
-		if($tFoot) {
+		if(count($tFoot) > 0) {
 			$nro = 0;
 			foreach($tFoot as $column) {
 				$nro++;
@@ -53,21 +53,11 @@ $j 				= 2;
 					</td>
 																				
 					<td class="anchor_title">
-						<?php
-							if($column["Situation"] === "Active") {
-						?>
                         <a href="<?php echo path("codes/{$column["ID_Code"]}/{$column["Slug"]}"); ?>" target="_blank">
                             <?php			
-                                $title = cut($column["Title"], 4, "text");	
-
-                                echo $title; 
+                                echo cut($column["Title"], 4, "text");
                             ?>
                         </a>
-                        <?php
-                    		} else {
-								echo cut($column["Title"], 4, "text");
-                    		}
-                        ?>
 					</td>
 	
 					<td class="center">
@@ -85,6 +75,14 @@ $j 				= 2;
 	 			</tr>
 	 		<?php
 	 		}
+	 	} else {
+	 		?>
+	 		<tr style="background-color: <?php echo $colors[$i]; ?>">
+				<td colspan="<?php echo $colspan; ?>">
+					<?php echo __("You still have not published a code"); ?>. <a href="<?php echo path("codes/add"); ?>"><?php echo __("Publish a code"); ?></a>
+				</td>
+			</tr>
+			<?php
 	 	}
 	 	?>                     
 	</tbody> 

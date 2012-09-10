@@ -133,7 +133,7 @@
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><strong><?php echo __("My codes"); ?></strong>: <?php echo SESSION("ZanUserCodes"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><strong><?php echo __("My codes"); ?></strong>: <?php echo (int)SESSION("ZanUserCodes"); ?></a></span><br />
 							<span class="small grey"><strong><?php echo __("My jobs"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My posts"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My courses"); ?></strong>: <a href="#">0</a></span><br />

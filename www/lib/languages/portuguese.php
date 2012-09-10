@@ -148,4 +148,5 @@ $phrase["works"] 										= "Empregos";
 $phrase["yes"] 											= "Sim";
 $phrase["you_are_in"] 									= "Você está em";
 $phrase["you_cant_register_many_times_a_day"] 			= "Não pode se registrar varias vezes ao dia";
+$phrase["you_still_have_not_published_a_code"]			= "Você ainda não publicou um código";
 $phrase["your_comment_is_very_vulgar"] 					= "Seu comentário é muito vulgar, Por favor retire os palavrões";

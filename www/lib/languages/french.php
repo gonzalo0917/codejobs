@@ -144,3 +144,4 @@ $phrase["works"] 										= "Travaux";
 $phrase["yes"] 											= "Oui";
 $phrase["you_are_in"] 									= "Vous êtes dans";
 $phrase["you_cant_register_many_times_a_day"] 			= "Impossible d'enregistrer plusieurs fois par jour";
+$phrase["you_still_have_not_published_a_code"]			= "Vous n'avez pas encore posté un code";

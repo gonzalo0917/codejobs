@@ -144,3 +144,4 @@ $phrase["works"] 										= "Posti di lavoro";
 $phrase["yes"] 											= "Si";
 $phrase["you_are_in"] 									= "Ti trovi";
 $phrase["you_cant_register_many_times_a_day"] 			= "Non è possibile registrare più volte al giorno";
+$phrase["you_still_have_not_published_a_code"]	 		= "Ancora non hai pubblicato un codice";

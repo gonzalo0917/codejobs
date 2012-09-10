@@ -203,19 +203,19 @@ class Codes_Controller extends ZP_Controller {
 
 		$data = $this->Codes_Model->getCodesByUser(SESSION("ZanUserID"));
 
+		$this->CSS("results", "cpanel");
+		$this->CSS("admin", "codes");
+
 		if($data) {
-
-			$this->CSS("results", "cpanel");
-			$this->CSS("admin", "codes");
-
 			$vars["tFoot"] = $data;
 			$vars["total"] = count($data);
-			$vars["view"] = $this->view("admin", TRUE);
-
-			$this->render("content", $vars);
 		} else {
-			redirect();
+			$vars["tFoot"] = array();
+			$vars["total"] = 0;
 		}
+		
+		$vars["view"] = $this->view("admin", TRUE);
+		$this->render("content", $vars);
 	}
 
 	public function download($ID = 0, $slug = "code") {

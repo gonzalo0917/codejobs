@@ -229,5 +229,6 @@ $phrase["yesterday"]	    							= "ayer";
 $phrase["you_are_in"] 									= "Usted está en";
 $phrase["you_cant_register_many_times_a_day"] 			= "No se puede registrar varias veces al día";
 $phrase["you_have_previously_voted_on_this_poll"] 		= "Ya has votado antes en esta encuesta";
+$phrase["you_still_have_not_published_a_code"]	 		= "Aún no has publicado ningún código";
 $phrase["your_comment_is_very_vulgar"] 					= "Su comentario es muy vulgar, favor de quitar las malas palabras";
 $phrase["your_message_has_been_sent_successfully_we_will_contact_you_as_soon_as_possible_thank_you_very_much"] = "Tu mensaje ha sido enviado con éxito, nos pondremos en contacto contigo lo antes posible, ¡muchas gracias!";
