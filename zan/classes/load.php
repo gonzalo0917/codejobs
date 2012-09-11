@@ -352,10 +352,10 @@ class ZP_Load {
      * @param bool   $getJs       = FALSE
      * @return void
      */
-	public function js($script, $application = NULL, $extra = NULL, $getJs = FALSE) {
+	public function js($script, $application = NULL, $getJs = FALSE) {
 		$this->Templates = $this->core("Templates");
 		
-		$this->Templates->js($script, $application, $extra, $getJs);
+		$this->Templates->js($script, $application, $getJs);
 	}
 	
     /**
