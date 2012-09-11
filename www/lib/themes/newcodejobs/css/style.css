@@ -23,6 +23,13 @@ body {
 	font-size: 14px;
 }
 
+.sponsors ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-left: 100px;
+}
+
 a {
     color: #CC2A2A;
     outline: medium none;

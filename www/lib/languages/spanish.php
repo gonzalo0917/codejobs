@@ -193,6 +193,7 @@ $phrase["september"] 									= "Septiembre";
 $phrase["situation"]									= "Situación";
 $phrase["slogan_of_the_website"] 						= "Slogan del Sitio Web";
 $phrase["spanish"] 	 									= "Español";
+$phrase["sponsors"]										= "Patrocinadores";
 $phrase["subject"]										= "Asunto";
 $phrase["subscribe_to_our_youtube_channel"] 			= "Suscríbete a nuestro canal de Youtube";
 $phrase["sunday"] 	 									= "Domingo";
