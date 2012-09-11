@@ -250,7 +250,7 @@ class CPanel_Controller extends ZP_Controller {
 			$this->login();
 		}
 
-		$this->check(); #Quizá esto no se debe colocar
+		$this->check();
 
 		$this->helpers("html");
 
