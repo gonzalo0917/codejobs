@@ -29,6 +29,11 @@ class CPanel_Model extends ZP_Model {
 				return FALSE;	
 			} 
 
+			if(segment(2, isLang()) === "languages") {
+				$this->Db->delete($ID, "codes_syntax");
+				return TRUE;
+			}
+
 			$data = $this->Db->find($ID, $this->application);
 			
 			if($data[0]["Situation"] === "Deleted") {
@@ -407,5 +412,19 @@ class CPanel_Model extends ZP_Model {
 			
 			return ($count > 0) ? TRUE : FALSE;
 		}
+	}
+
+	public function totalLanguages($singular = "record", $plural = "records") {
+		$total = $this->Db->countAll("codes_syntax");
+
+		if($total === 0) {
+			$total = "0 " . __($plural);
+		} elseif((int) $total === 1) { 
+			$total = "1 " . __($singular);
+		} else { 
+			$total = $total . " " . __($plural);
+		}
+		
+		return $total;
 	}
 }

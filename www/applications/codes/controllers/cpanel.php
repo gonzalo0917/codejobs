@@ -75,7 +75,11 @@ class CPanel_Controller extends ZP_Controller {
 				$this->delete($record, TRUE); 
 			}
 
-			redirect("$this->application/cpanel/results");
+			if(segment(2, isLang()) === "languages") {
+				redirect("$this->application/cpanel/languages");
+			} else {
+				redirect("$this->application/cpanel/results");
+			}
 		}
 
 		return FALSE;
@@ -241,4 +245,64 @@ class CPanel_Controller extends ZP_Controller {
 		$this->render("content", $this->vars);
 	}
 
+	public function languages() {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+
+		$this->check(); #Quizá esto no se debe colocar
+
+		$this->helpers("html");
+
+		$this->title(__("Manage languages"));
+
+		$this->CSS("results", "cpanel");
+
+		$this->vars["total"]	= $this->CPanel_Model->totalLanguages();
+		$this->vars["tFoot"]	= $this->CPanel_Model->records();
+		$this->vars["message"]	= (!$this->vars["tFoot"]) ? "Error" : NULL;
+		$this->vars["view"]		= $this->view("languages", TRUE, $this->application);
+
+		$this->render("content", $this->vars);
+	}
+
+	public function language() {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+
+		$this->helpers("html");
+
+		$this->CSS("forms", "cpanel");
+
+		$edit = (POST("edit") ? TRUE : FALSE);
+
+		$this->title(__($edit ? "Edit language" : "Add language"));
+
+		$Model = ucfirst($this->application) ."_Model";
+		
+		$this->$Model = $this->model($Model);
+
+		if(POST("save")) {
+			$save = $this->$Model->cpanel("saveLanguage");
+			$this->vars["alert"] = $save;
+		} elseif(POST("cancel")) {
+			redirect("codes/cpanel/languages");
+		} elseif(POST("edit")) {
+			if(POST("records")) {
+				$data = $this->$Model->getLanguage(array_shift(POST("records")));
+			} else {
+				redirect("codes/cpanel/languages");
+			}
+		} elseif(POST("editLanguage")) {
+			$edit = $this->$Model->cpanel("editLanguage");
+			$this->vars["alert"] = $edit;
+		}
+
+		$this->vars["data"] = isset($data) ? $data : NULL;
+		$this->vars["edit"]	= $edit;
+		$this->vars["view"] = $this->view("language", TRUE, $this->application);
+
+		$this->render("content", $this->vars);
+	}
 }

@@ -29,6 +29,12 @@ class Codes_Model extends ZP_Model {
 			if($validation) {
 				return $validation;
 			}
+		} elseif($action === "editLanguage" or $action === "saveLanguage") {
+			$validation = $this->editOrSaveLanguage();
+
+			if($validation) {
+				return $validation;
+			}
 		}
 		
 		if($action === "all") {
@@ -39,17 +45,25 @@ class Codes_Model extends ZP_Model {
 			return $this->save();
 		} elseif($action === "search") {
 			return $this->search($search, $field);
+		} elseif($action === "editLanguage") {
+			return $this->editLanguage();
+		} elseif($action === "saveLanguage") {
+			return $this->saveLanguage();
 		}
 	}
 	
 	private function all($trash, $order, $limit) {
-		$fields = "ID_Code, Title, Slug, Author, Text_Date, Views, Likes, Dislikes, Language, Reported, Situation";
+		if(segment(2, isLang()) !== "languages") {
+			$fields = "ID_Code, Title, Slug, Author, Text_Date, Views, Likes, Dislikes, Language, Reported, Situation";
 
-		if(!$trash) {			
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
-		} else {	
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $fields, NULL, $order, $limit) 	   : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);	
-		}				
+			if(!$trash) {			
+				return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+			} else {	
+				return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $fields, NULL, $order, $limit) 	   : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);	
+			}				
+		} else {
+			return $this->Db->findAll("codes_syntax", "ID_Syntax, Name, MIME, Filename, Extension");
+		}
 	}
 	
 	private function editOrSave() {
@@ -76,6 +90,22 @@ class Codes_Model extends ZP_Model {
 		$this->id = POST("ID");
                 
         if(isset($this->data["error"])) {
+			return $this->data["error"];
+		}
+	}
+
+	public function editOrSaveLanguage() {
+		$validations = array(
+			"name" 			=> "required",
+			"mime" 			=> "required"
+		);
+
+		$data = array();
+
+		$this->Data->ignore(array("editLanguage"));
+		$this->data = $this->Data->proccess($data, $validations);
+
+		if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 	}
@@ -127,6 +157,14 @@ class Codes_Model extends ZP_Model {
 		
 		return getAlert(__("Insert error"));
 	}
+
+	private function saveLanguage() {
+		if($this->Db->insert("codes_syntax", $this->data)) {
+			return getAlert(__("The language has been saved correctly"), "success");	
+		}
+		
+		return getAlert(__("Insert error"));
+	}
 	
 	private function edit() {
 		if($this->Db->update($this->table, $this->data, POST("ID"))) {
@@ -159,6 +197,12 @@ class Codes_Model extends ZP_Model {
         }
         
         return getAlert(__("Update error"));
+	}
+
+	private function editLanguage() {
+		$this->Db->update("codes_syntax", $this->data, POST("ID"));
+		
+		return getAlert(__("The language has been edit correctly"), "success");
 	}
         
     public function getRSS() {	
@@ -238,6 +282,10 @@ class Codes_Model extends ZP_Model {
 
 	public function getCodesByUser($userID) {
 		return $this->Db->findBySQL("ID_User = '$userID' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Code ASC");
+	}
+
+	public function getLanguage($languageID) {
+		return $this->Db->findBySQL("ID_Syntax = $languageID", "codes_syntax", "ID_Syntax, Name, MIME, Filename, Extension", NULL, NULL);	
 	}
 
 	public function updateViews($codeID) {

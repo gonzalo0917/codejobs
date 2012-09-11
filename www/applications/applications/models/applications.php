@@ -46,6 +46,11 @@ class Applications_Model extends ZP_Model {
 								$adding = __(_("Add"));
 								
 								$li[0]["item"] = a($adding, path($application["Slug"] . _sh . "cpanel" . _sh . "add"));
+
+								if($application["ID_Application"] == 17) {
+									$languages = __("Programming languages");
+									$li[]["item"] = a($languages, path($application["Slug"] . _sh . "cpanel" . _sh . "languages"));
+								}
 								
 								$i = count($list);			
 														
@@ -57,7 +62,7 @@ class Applications_Model extends ZP_Model {
 									$span  = span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;");
 									$span .= span("bold italic blue", __(_("Trash")) ." ($count)");
 									
-									$li[$i]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash", FALSE, array("title" => __(_("In trash")) .": ". $count)));
+									$li[]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash", FALSE, array("title" => __(_("In trash")) .": ". $count)));
 									
 									$i = count($list) - 1;
 									
