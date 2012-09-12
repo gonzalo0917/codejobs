@@ -439,8 +439,8 @@ class ZP_Templates extends ZP_Load {
             
             case "description":
                 $value = preg_replace("/\r\n+/", " ", strip_tags($value));
-                $value = str_replace('[Code]function slug($string) {		 	$characters = array( 		"Á" => "A", "Ç" => "c", "É" => "e", "Í" =>', "", $value);
-                	
+                $value = str_replace('"', "", $value);
+
                 if(strlen($value) > 250) {
                     $abstract = stripslashes(substr($value, 0, strrpos(substr($value, 0, 100), " ")));
                     $value    = stripslashes(substr($value, 0, strrpos(substr($value, 0, 250), " ")));
