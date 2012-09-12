@@ -9,7 +9,7 @@
                         <!--<a href="<?php echo path(slug(__(_("Legal notice"))), FALSE, FALSE); ?>"><?php echo __(_("Legal notice")); ?></a>  &nbsp;&nbsp;-->
                         <!--<a href="<?php echo path(slug(__(_("Terms of Use"))), FALSE, FALSE); ?>"><?php echo __(_("Terms of Use")); ?></a>  &nbsp;&nbsp;-->
                         <!--<a href="<?php echo path(slug(__(_("About CodeJobs"))), FALSE, FALSE); ?>"><?php echo __(_("About CodeJobs")); ?></a> &nbsp;&nbsp;-->
-                        <a href="<?php echo path("links", TRUE); ?>"><?php echo __("Links"); ?></a>
+                        <a href="<?php echo path("links", TRUE); ?>"><?php echo __("Links"); ?></a> &nbsp;&nbsp;
                 		<a href="<?php echo path("feedback"); ?>"><?php echo __("Contact us"); ?></a><br />
                     <?php
                     }
