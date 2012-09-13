@@ -21,7 +21,7 @@
 		padding: 0px;
 	}
 
-	.social, .transmission, .line, .polls, .ads .sponsors {
+	.social, .transmission, .line, .polls, .ads, .sponsors {
 		display: none;
 	}
 
