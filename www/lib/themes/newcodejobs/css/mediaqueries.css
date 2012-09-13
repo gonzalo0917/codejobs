@@ -25,9 +25,10 @@
 		display: none;
 	}
 
-	.social, .transmission, .line, .polls, .ads, .sponsors {
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul {
 		display: none;
 	}
+
 
 	.post .post-title {
 		font-size: 16px;

@@ -167,7 +167,7 @@
 				</div>
 
 				<div id="top-box">
-					<ul>
+					<ul class="top-box-ul">
 						<?php
 							if(!SESSION("ZanUser")) {
 						?>
