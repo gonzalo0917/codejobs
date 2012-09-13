@@ -21,7 +21,7 @@
 		padding: 0px;
 	}
 
-	#top-box-languages {
+	header #topbar .toggle {
 		display: none;
 	}
 
