@@ -21,6 +21,10 @@
 		padding: 0px;
 	}
 
+	#top-box-languages {
+		display: none;
+	}
+
 	.social, .transmission, .line, .polls, .ads, .sponsors {
 		display: none;
 	}
