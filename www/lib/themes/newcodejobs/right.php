@@ -84,6 +84,7 @@
 
                     <ul>
                         <li><a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_large.png", TRUE); ?>" alt="Crowd Int" /></a></li>
+                        <li><a rel="nofollow" target="_blank" href="http://www.facebook.com/QubitWorks"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/Qubit.png", TRUE); ?>" alt="Qubit" /></a></li>
                         <li><a rel="nofollow" href="http://www.codejobs.biz/publicidad"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/space.png", TRUE); ?>" /></a></li>
                     </ul>
                 </section>
