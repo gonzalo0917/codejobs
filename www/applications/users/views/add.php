@@ -15,19 +15,38 @@
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
-			echo formInput(array("name" => "username", "class" => "input required", "field" => __(_("Username")), "p" => TRUE, "value" => $username));
+			echo formInput(array(
+				"name" 	=> "username", 
+				"class" => "required", 
+				"field" => __("Username"), 
+				"p" 	=> TRUE, 
+				"value" => $username
+			));
 			
-			echo formInput(array("name" => "pwd", "type" => "password", "class" => "input required", "field" => __(_("Password")), "p" => TRUE, "value" => $pwd));
-
-			echo formInput(array("name" => "pwd2", "type" => "hidden", "value" => $pwd));
+			echo formInput(array(
+				"name" 	=> "pwd", 
+				"type" 	=> "password", 
+				"class" => "required", 
+				"field" => __("Password"),
+				"autocomplete" => "off", 
+				"p" 	=> TRUE, 
+				"value" => NULL
+			));
 	
-			echo formInput(array("name" => "email", "class" => "input required", "field" => __(_("Email")), "p" => TRUE, "value" => $email));
+			echo formInput(array(
+				"name" 	=> "email", 
+				"class" => "required", 
+				"field" => __("Email"), 
+				"p" 	=> TRUE, 
+				"value" => $email
+			));
 			
 			$i = 0;
+			
 			foreach($privileges as $value) { 
 				$options[$i]["value"]    = $value["ID_Privilege"];
 				$options[$i]["option"]   = $value["Privilege"];
@@ -36,29 +55,24 @@
 				$i++;
 			} 
 			
-			//die(var_dump($options));
-			//echo formSelect(array("name" => "privilege", "class" => "select", "p" => TRUE, "field" => __(_("Privilege")), $options));
-			
 			echo formSelect(array(
 				"name" 	=> "privilege", 
-				"class" => "select", 
+				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Privilege"))), 
+				"field" => __("Privilege")), 
 				$options
 			);	
 			
 			$options = array(
-				0 => array("value" => "Active",   "option" => __(_("Active")),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __(_("Inactive")), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
+				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
 			);
 
-			//echo formSelect(array("name" => "situation", "class" => "select", "p" => TRUE, "field" => __(_("Situation")), $options));
-			
 			echo formSelect(array(
 				"name" 	=> "situation", 
-				"class" => "select", 
+				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Situation"))), 
+				"field" => __("Situation")), 
 				$options
 			);	
 			

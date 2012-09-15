@@ -20,12 +20,13 @@ class Users_Model extends ZP_Model {
 		
 		$this->Data->table("users");
 
-		$this->table = "users";
+		$this->table  = "users";
+		$this->fields = "ID_User, Username, Email, Website, Situation";
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {
+	public function cpanel($action, $limit = NULL, $order = "ID_User DESC", $search = NULL, $field = NULL, $trash = FALSE) {
 		if($action === "edit" or $action === "save") {
-			$validation = $this->editOrSave();
+			$validation = $this->editOrSave($action);
 			
 			if($validation) {
 				return $validation;
@@ -33,7 +34,8 @@ class Users_Model extends ZP_Model {
 		}
 		
 		if($action === "all") {
-			
+			$order = (is_null($order)) ? "ID_User DESC" : $order;
+
 			return $this->all($trash, $order, $limit);
 		} elseif($action === "edit") {
 			return $this->edit();															
@@ -45,24 +47,43 @@ class Users_Model extends ZP_Model {
 	}
 	
 	private function all($trash, $order, $limit) {
-		$fields = "ID_User, Username, Email, Website, Situation";
-		$this->Db->select("ID_User, Username, Email, Website, Avatar, Points");
-
 		if(!$trash) {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+		}
+	}
+
+	private function search($search, $field) {
+		if($search and $field) {
+			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
+		} else {
+			return FALSE;
 		}
 	}
 	
-	private function editOrSave() {
+	private function editOrSave($action) {
 		$this->helper(array("alerts", "time", "files"));
 		
-		$validations = array(
-			"username" => "required",
-			"email"	   => "email?",
-			"pwd"	   => "length:6"
-		);
+		if($action === "save") {
+			$validations = array(
+				"username" => "required",
+				"email"	   => "email?",
+				"pwd"	   => "length:6",
+				"exists"   => array(
+					"Username" => POST("username"),
+					"or"       => TRUE,
+					"Email"    => POST("email"),
+				),
+			);
+
+
+		} else {
+			$validations = array(
+				"username" => "required",
+				"email"	   => "email?"
+			);
+		}
 
 		if((int) POST("privilege") === 1) {
 			$privilege = "Super Admin";
@@ -74,15 +95,25 @@ class Users_Model extends ZP_Model {
  			$privilege = "Member";
  		}
 		
-		$data = array(
-			"Username"   => POST("username"),
-			"Pwd"		 => encrypt(POST("pwd")),
-			"Start_Date" => now(4),
-			"Code"		 => code(),
-			"ID_Privilege"  => POST("privilege")
-		);
+		if(!POST("pwd")) {
+			$data = array(
+				"Username"     	=> POST("username"),
+				"Start_Date"   	=> now(4),
+				"Code"		   	=> code(),
+				"ID_Privilege" 	=> POST("privilege")
+			);
+		} else {
+			$data = array(
+				"Username"   	=> POST("username"),
+				"Pwd"		 	=> encrypt(POST("pwd")),
+				"Start_Date" 	=> now(4),
+				"Code"		 	=> code(),
+				"ID_Privilege"  => POST("privilege")
+			);
+
+		}
 		
-		$this->Data->ignore(array("pwd", "pwd2", "privilege"));
+		$this->Data->ignore(array("pwd", "privilege"));
 
 		$this->data = $this->Data->proccess($data, $validations);
 	
@@ -101,13 +132,13 @@ class Users_Model extends ZP_Model {
 
 		$this->Db->insert("re_privileges_users", $data);
 
-		return getAlert("The user has been saved correctly", "success");	
+		return getAlert(__("The user has been saved correctly"), "success");	
 	}
 	
 	private function edit() {
-		//FALTA EDICIÓN
+		$this->Db->update($this->table, $this->data, POST("ID"));
 		
-		return getAlert("The user has been edit correctly", "success");
+		return getAlert(__("The user has been edit correctly"), "success");
 	}
 
 	public function addUser() {
@@ -155,7 +186,7 @@ class Users_Model extends ZP_Model {
 			$message = $this->view("register_email", array("code" => $code), "users", TRUE);
 
 			$this->Email->email   = POST("email");
-			$this->Email->subject = __(_("Account Activation")) ." - ". get("webName");
+			$this->Email->subject = __("Account Activation") ." - ". get("webName");
 			$this->Email->message = $this->view("register_email", array("user" => POST("username"), "code" => $code), "users", TRUE);
 			
 			$this->Email->send();
@@ -164,7 +195,7 @@ class Users_Model extends ZP_Model {
 
 			return array(
 				"inserted" => TRUE,
-				"alert"    => getAlert(__(_("The account has been created correctly, we will send you an email so you can activate your account")), "success")
+				"alert"    => getAlert(__("The account has been created correctly, we will send you an email so you can activate your account"), "success")
 			);
 		} else {
 			return array("inserted" => FALSE, "alert" => getAlert(__(_("Insert error"))));
@@ -192,23 +223,23 @@ class Users_Model extends ZP_Model {
 			$password2 = POST("password2", "decode-encrypt");
 			
 			if(POST("password1") === "" or POST("password2") === "") {
-				return getAlert(__(_("You need to write the two passwords")));
+				return getAlert(__("You need to write the two passwords"));
 			} elseif(strlen(POST("password1")) < 6 or strlen(POST("password2")) < 6) {
-				return getAlert(__(_("Your password must contain at least 6 characters")));
+				return getAlert(__("Your password must contain at least 6 characters"));
 			} elseif($password1 === $password2) {
 				$data = $this->Db->find($tokenID, "tokens");
 				
 				$this->Db->update("tokens", array("Situation" => "Inactive"), $data[0]["ID_Token"]);
 					
 				if(!$data) {
-					showAlert(__(_("Invalid Token")), path());
+					showAlert(__("Invalid Token"), path());
 				} else {			
 					$this->Db->update("users", array("Pwd" => "$password1"), $data[0]["ID_User"]);
 					
-					showAlert(__(_("Your password has been changed successfully!")), path());
+					showAlert(__("Your password has been changed successfully!"), path());
 				}
 			} else {
-				return getAlert(__(_("The two passwords do not match")));
+				return getAlert(__("The two passwords do not match"));
 			}
 		} else {
 			redirect();
@@ -309,9 +340,9 @@ class Users_Model extends ZP_Model {
 			
 			if($this->getPermissions($privilegeID, $applicationID, $permission)) {
 				return TRUE;
-			} else {
-				return FALSE;
-			}
+			} 
+
+			return FALSE;
 		} else {
 			return TRUE;
 		}
@@ -343,7 +374,7 @@ class Users_Model extends ZP_Model {
 					$data = $this->Db->findBy("Username", $username, $this->table, "ID_User");
 				
 					if(!$data) {
-						return getAlert(__(_("There was an error while processing your request, verifies that the information provided is correct")));
+						return getAlert(__("There was an error while processing your request, verifies that the information provided is correct"));
 					} else {
 						$userID    = $data[0]["ID_User"];
 						$token     = encrypt(code());
@@ -364,17 +395,17 @@ class Users_Model extends ZP_Model {
 							$this->Db->insert("tokens", $data);
 							
 							$this->Email->email	  = $email;
-							$this->Email->subject = __(_("Recover Password")) ." - ". get("webName");
+							$this->Email->subject = __("Recover Password") ." - ". get("webName");
 							$this->Email->message = $this->view("recover_email", array(), "users", TRUE);
 							
 							$this->Email->send();							
 
 							return array(
 								"inserted" => TRUE, 
-								"alert"    => getAlert(__(_("We've sent you an email with instructions to retrieve your password")), "success")
+								"alert"    => getAlert(__("We've sent you an email with instructions to retrieve your password"), "success")
 							);
 						} else {
-							return array("alert" => getAlert(__(_("You can't apply for two password resets in less than 24 hours"))));
+							return array("alert" => getAlert(__("You can't apply for two password resets in less than 24 hours")));
 						}
 					}
 				} elseif(isEmail($email)) {
@@ -383,7 +414,7 @@ class Users_Model extends ZP_Model {
 					$data = $this->Db->findBy("Email", $email, $this->table);
 					
 					if(!$data) {
-						return getAlert(__(_("This e-mail does not exists in our database")));
+						return getAlert(__("This e-mail does not exists in our database"));
 					} else {
 						$userID    = $data[0]["ID_User"];
 						$token     = encrypt(code());
@@ -405,19 +436,19 @@ class Users_Model extends ZP_Model {
 							$this->Db->insert("tokens", $data);
 							
 							$this->Email->email	  = $email;
-							$this->Email->subject = __(_("Recover Password")) ." - ". _webName;
+							$this->Email->subject = __(_("Recover Password")) ." - ". get("webName");
 							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
 
 							$this->Email->send();							
 						} else {
-							return getAlert(__(_("You can not apply for two password resets in less than 24 hours")));
+							return getAlert(__("You can not apply for two password resets in less than 24 hours"));
 						}
 					}					
 				}
 				
-				return getAlert(__(_("We will send you an e-mail so you can recover your password")), "Success");
+				return getAlert(__("We will send you an e-mail so you can recover your password"), "Success");
 			} else {
-				return getAlert(__(_("You must enter a username or e-mail at least")));					
+				return getAlert(__("You must enter a username or e-mail at least"));					
 			}					
 		} else {
 			return FALSE;
@@ -425,9 +456,7 @@ class Users_Model extends ZP_Model {
 	}
 	
 	public function last() {
-		$this->Db->select("Username");
-
-		$last = $this->Db->findLast($this->table);
+		$last = $this->Db->findLast($this->table, "Username");
 		
 		return ($last) ? $last[0] : NULL;
 	}
@@ -453,20 +482,17 @@ class Users_Model extends ZP_Model {
 			$data = $this->Db->findBySQL("Token = '$token' AND Action = '$action' AND Situation = 'Active'", "tokens", "ID_Token");
 		
 			if(!$data) {
-				showAlert(__(_("Invalid Token")), path());
+				showAlert(__("Invalid Token"), path());
 			} else {
 				return $data[0]["ID_Token"];
 			}
 		} else {
-			showAlert(__(_("Invalid Token")), path());
+			showAlert(__("Invalid Token"), path());
 		}
 	}
 	
 	public function getByID($ID) {
-		$fields = "ID_User, ID_Privilege, Username, Pwd, Email, Situation";
-		$data   = $this->Db->find($ID, $this->table, $fields);
-		
-		return $data;
+		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 	
 	public function getPrivileges() {
@@ -476,9 +502,9 @@ class Users_Model extends ZP_Model {
 	public function setLike($ID, $table, $application) {
 		if($this->Db->find($ID, $table)) {
 			if($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
-				showAlert(__(_("Already You like this")), path("$table/go/$ID"));
+				showAlert(__("Already You like this"), path("$table/go/$ID"));
 			} elseif($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
-				showAlert(__(_("Already You dislike this")), path("$table/go/$ID"));
+				showAlert(__("Already You dislike this"), path("$table/go/$ID"));
 			}
 
 			$this->helper("time");
@@ -489,18 +515,18 @@ class Users_Model extends ZP_Model {
 
 			$this->Db->updateBySQL($table, "Likes = (Likes) + 1 WHERE $primaryKey = '$ID'");
 			
-			showAlert(__(_("Thanks for your like")), path("$table/go/$ID"));
+			showAlert(__("Thanks for your like"), path("$table/go/$ID"));
 		} 
 
-		showAlert(__(_("The record doesn't exists")), path());
+		showAlert(__("The record doesn't exists"), path());
 	}
 
 	public function setDislike($ID, $table, $application) {
 		if($this->Db->find($ID, $table)) {
 			if($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
-				showAlert(__(_("Already You dislike this")), path("$table/go/$ID"));
+				showAlert(__("Already You dislike this"), path("$table/go/$ID"));
 			} elseif($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
-				showAlert(__(_("Already You like this")), path("$table/go/$ID"));
+				showAlert(__("Already You like this"), path("$table/go/$ID"));
 			}
 
 			$this->helper("time");
