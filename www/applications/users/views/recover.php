@@ -8,18 +8,18 @@ if(!defined("_access")) {
 
 echo div("new-user", "class");
 	echo formOpen(path("users/recover"), "form", "form");
-		echo p(__(_("Recover your password")), "resalt");
+		echo p(__("Recover your password"), "resalt left");
 		
 		echo isset($alert) ? $alert : NULL;
 
 		if(isset($tokenID)) {
-			echo p(__(_("Enter your new password twice to change")));
+			echo p(__("Enter your new password twice to change"));
 				
 			echo formInput(array(	
 				"name" 	   => "password1",
 				"pattern"  => "^.*(?=.{6,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", 
 				"type"     => "password",
-				"field"    => __(_("Password")), 
+				"field"    => __("Password"), 
 				"p" 	   => TRUE, 
 				"required" => TRUE
 			));
@@ -28,7 +28,7 @@ echo div("new-user", "class");
 				"name" 	   => "password2",
 				"pattern"  => "^.*(?=.{6,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", 
 				"type"     => "password",
-				"field"    => __(_("Confirm your Password")), 
+				"field"    => __("Confirm your Password"), 
 				"p" 	   => TRUE, 
 				"required" => TRUE
 			));
@@ -37,7 +37,7 @@ echo div("new-user", "class");
 				"name" 	=> "change",
 				"type"  => "submit",
 				"class" => "submit",
-				"value" => __(_("Change my password"))
+				"value" => __("Change my password")
 			));
 
 			echo formInput(array(	

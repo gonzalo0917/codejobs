@@ -369,7 +369,7 @@ class Users_Model extends ZP_Model {
 			$username = POST("username");
 			$email	  = POST("email");
 			
-			if($username or isEmail($email)) {
+			if($username or isEmail($email)) { 
 				if($username) {
 					$data = $this->Db->findBy("Username", $username, $this->table, "ID_User");
 				
@@ -400,18 +400,13 @@ class Users_Model extends ZP_Model {
 							
 							$this->Email->send();							
 
-							return array(
-								"inserted" => TRUE, 
-								"alert"    => getAlert(__("We've sent you an email with instructions to retrieve your password"), "success")
-							);
+							return getAlert(__("We've sent you an email with instructions to retrieve your password"), "success");							
 						} else {
-							return array("alert" => getAlert(__("You can't apply for two password resets in less than 24 hours")));
+							return getAlert(__("You can't apply for two password resets in less than 24 hours"));
 						}
 					}
 				} elseif(isEmail($email)) {
-					$this->Db->select("ID_User");
-
-					$data = $this->Db->findBy("Email", $email, $this->table);
+					$data = $this->Db->findBy("Email", $email, $this->table, "ID_User");
 					
 					if(!$data) {
 						return getAlert(__("This e-mail does not exists in our database"));
@@ -421,14 +416,13 @@ class Users_Model extends ZP_Model {
 						$startDate = now(4);
 						$endDate   = $startDate + 86400;
 						
-						$this->Db->select("ID_Token");
-
-						$data = $this->Db->findBySQL("ID_User = '$userID' AND Action = 'Recover' AND Situation = 'Active'", "tokens");
+						$data = $this->Db->findBySQL("ID_User = '$userID' AND Action = 'Recover' AND Situation = 'Active'", "tokens", "ID_Token");
 						
-						if(!$data) {
+						if(!$data) { 
 							$data = array(
 								"ID_User" 	 => $userID,
 								"Token"		 => $token,
+								"Action"     => "Recover",
 								"Start_Date" => $startDate,
 								"End_Date"	 => $endDate
 							);
@@ -436,7 +430,7 @@ class Users_Model extends ZP_Model {
 							$this->Db->insert("tokens", $data);
 							
 							$this->Email->email	  = $email;
-							$this->Email->subject = __(_("Recover Password")) ." - ". get("webName");
+							$this->Email->subject = __("Recover Password") ." - ". get("webName");
 							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
 
 							$this->Email->send();							
@@ -446,7 +440,7 @@ class Users_Model extends ZP_Model {
 					}					
 				}
 				
-				return getAlert(__("We will send you an e-mail so you can recover your password"), "Success");
+				return getAlert(__("We will send you an e-mail so you can recover your password"), "success");
 			} else {
 				return getAlert(__("You must enter a username or e-mail at least"));					
 			}					
@@ -544,35 +538,24 @@ class Users_Model extends ZP_Model {
 	}
 
 	public function setCredits($credits, $recommendation, $application, $record = NULL, $action = "Add") {
-		/*
-		$this->helper("time");
-
-		$data = array(
-			"ID_User" 		 => SESSION("ZanUserID"),
-			"ID_Application" => $application,
-			"ID_Record"		 => $record,
-			"Action"		 => $action,
-			"Credits"		 => $credits,
-			"Start_Date"	 => now(4) 
-		);
-
-		$this->Db->insert("credits", $data);
-		*/
-
 		$sign = ($credits > 0 ? "+ 1" : "- 1");
 
 		switch($application) {
 			case 9:
 				$additional = ", Bookmarks = (Bookmarks) $sign";
+				
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + 1);
-				break;
+			break;
+			
 			case 17:
 				$additional = ", Codes = (Codes) $sign";
+				
 				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + 1);
-				break;
+			break;
+			
 			default:
 				$additional = "";
-				break;
+			break;
 		}
 
 		$this->Db->updateBySQL("users", "Credits = (Credits) + $credits, Recommendation = (Recommendation) + $recommendation $additional WHERE ID_User = '". SESSION("ZanUserID") ."'");

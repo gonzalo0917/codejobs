@@ -80,7 +80,7 @@ class Users_Controller extends ZP_Controller {
 
 				redirect();
 			} else { 
-				showAlert(__(_("Incorrect Login")), path());
+				showAlert(__("Incorrect Login"), path());
 			}		
 		} else {
 			redirect();
@@ -95,9 +95,8 @@ class Users_Controller extends ZP_Controller {
 			$vars["tokenID"] = $token;
 		} elseif(POST("recover")) {
 			$status = $this->Users_Model->recover();
-
-			$vars["inserted"] = isset($status["inserted"]) ? $status["inserted"] : FALSE;
-			$vars["alert"]    = $status["alert"];	
+			
+			$vars["alert"] = $status;	
 		} elseif($token) {			
 			$tokenID = $this->Users_Model->isToken($token, "Recover");
 			
@@ -108,6 +107,8 @@ class Users_Controller extends ZP_Controller {
 			}
 		} 
 
+		$this->helper(array("forms", "html"));
+
 		$vars["view"] = $this->view("recover", TRUE);
 		
 		$this->render("content", $vars);
@@ -117,7 +118,7 @@ class Users_Controller extends ZP_Controller {
 		$this->helper("html");
 				
 		if(!SESSION("ZanUser")) {
-			$this->title(__(_("Register")));
+			$this->title(__("Register"));
 
 			if(POST("register")) {
 				$vars["name"]     = POST("name")  	 ? POST("name")     : NULL;
