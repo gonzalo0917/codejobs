@@ -396,7 +396,7 @@ class Users_Model extends ZP_Model {
 							
 							$this->Email->email	  = $email;
 							$this->Email->subject = __("Recover Password") ." - ". get("webName");
-							$this->Email->message = $this->view("recover_email", array(), "users", TRUE);
+							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
 							
 							$this->Email->send();							
 
