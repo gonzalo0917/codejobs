@@ -56,7 +56,7 @@ class Configuration_Model extends ZP_Model {
 		
 		$this->Db->update($this->table, $this->data, 1);
 		
-		return getAlert(__(_("The configuration has been edited correctly")), "success");
+		return getAlert(__("The configuration has been edited correctly"), "success");
 	}
 	
 	public function getByID() { 				

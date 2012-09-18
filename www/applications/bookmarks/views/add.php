@@ -15,14 +15,14 @@
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "span10 required", 
-				"field" => __(_("Title")), 
+				"field" => __("Title"), 
 				"p" 	=> TRUE, 
 				"value" => $title
 			));
@@ -30,7 +30,7 @@
 			echo formInput(array(	
 				"name" 	=> "URL", 
 				"class" => "span10 required", 
-				"field" => __(_("URL")), 
+				"field" => __("URL"), 
 				"p" 	=> TRUE, 
 				"value" => $URL
 			));
@@ -40,7 +40,7 @@
 				"name" 	 => "description", 
 				"class"  => "required",
 				"style"  => "height: 200px;", 
-				"field"  => __(_("Description")), 
+				"field"  => __("Description"), 
 				"p" 	 => TRUE, 
 				"value"  => $description
 			));
@@ -48,19 +48,19 @@
 			echo formInput(array(	
 				"name" 	=> "tags", 
 				"class" => "span10 required", 
-				"field" => __(_("Tags")), 
+				"field" => __("Tags"), 
 				"p" 	=> TRUE, 
 				"value" => $tags
 			));
 
-			echo formField(NULL, __(_("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
+			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 			
 			$options = array(
-				0 => array("value" => "Active",   "option" => __(_("Active")),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __(_("Inactive")), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
+				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
 			);
 
-			echo formSelect(array("name" => "situation", "class" => "select", "p" => TRUE, "field" => __(_("Situation"))), $options);
+			echo formSelect(array("name" => "situation", "class" => "select", "p" => TRUE, "field" => __("Situation")), $options);
 			
 			echo formSave($action);
 			

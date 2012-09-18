@@ -31,7 +31,7 @@ class Applications_Model extends ZP_Model {
 			foreach($data as $application) { 
 				if($application["Situation"] === "Active") {
 					if($application["CPanel"]) {
-						$title = __(_($application["Title"]));
+						$title = __($application["Title"]);
 						
 						if($this->Users_Model->isAllow("view", $application["Title"])) {	
 							if($application["Slug"] === "configuration") {
@@ -43,7 +43,7 @@ class Applications_Model extends ZP_Model {
 							$list[count($list) - 1]["Class"] = FALSE;								
 									
 							if($application["Adding"]) {
-								$adding = __(_("Add"));
+								$adding = __("Add");
 								
 								$li[0]["item"] = a($adding, path($application["Slug"] . _sh . "cpanel" . _sh . "add"));
 
@@ -60,9 +60,9 @@ class Applications_Model extends ZP_Model {
 											
 								if($count > 0) {	
 									$span  = span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;");
-									$span .= span("bold italic blue", __(_("Trash")) ." ($count)");
+									$span .= span("bold italic blue", __("Trash") ." ($count)");
 									
-									$li[]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash", FALSE, array("title" => __(_("In trash")) .": ". $count)));
+									$li[]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash", FALSE, array("title" => __("In trash") .": ". $count)));
 									
 									$i = count($list) - 1;
 									

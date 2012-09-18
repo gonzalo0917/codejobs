@@ -151,21 +151,21 @@ class Videos_Model extends ZP_Model {
 						$insert = $this->Db->insert($this->table, $values);
 						
 						if(!$insert) {
-							return getAlert(__(_("Insert error")));
+							return getAlert(__("Insert error"));
 						}
 					}
 				} else {
-					return getAlert(__(_("At least one of the Videos you choose already exists")));
+					return getAlert(__("At least one of the Videos you choose already exists"));
 				}
 			}
 		}
 		
-		return getAlert(__(_("The videos has been saved correctly")), "success");
+		return getAlert(__("The videos has been saved correctly"), "success");
 	}
 	
 	private function edit() {
 		if(!$this->title or is_null($this->title)) {
-			return getAlert(__(_("You need write a title")));
+			return getAlert(__("You need write a title"));
 		}
 		
 		$values = array(

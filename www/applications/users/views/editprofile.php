@@ -3,12 +3,12 @@
 <div class="editProfile">
 	<form id="editUserProfile" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
 		<fieldset>
-			<p class="center2"><?php echo __(_("Edit Profile"); ?></p>
+			<p class="center2"><?php echo __("Edit Profile"); ?></p>
 		
 			<?php echo isset($alert) ? $alert : NULL; ?>
 			
 			<div id="box" class="set2 important">
-				<p class="title main"><?php echo __(_("Profile")); ?></p>
+				<p class="title main"><?php echo __("Profile"); ?></p>
 				
 				<div class="avatar">
 					<div id="avatar">
@@ -19,11 +19,11 @@
 					<?php 
 						if(SESSION("ZanUserMethod") !== "twitter") { 
 					?>
-							<input class="upAvatar" value="<?php echo __(_("Upload")); ?>" type="button" />
+							<input class="upAvatar" value="<?php echo __("Upload"); ?>" type="button" />
 					<?php 
 						} 
 					?>
-						<input class="editData" name="<?php echo _webLang;?>" value="<?php echo __(_("Edit Profile")); ?>" type="button" />
+						<input class="editData" name="<?php echo _webLang;?>" value="<?php echo __("Edit Profile"); ?>" type="button" />
 					</div>
 				</div>
 
@@ -74,49 +74,49 @@
 				<div class="clear"></div>
 				
 				<div class="wrapper">
-					<div class="blocktitle maintop"><?php echo __(_("Main Information")); ?></div>
+					<div class="blocktitle maintop"><?php echo __("Main Information"); ?></div>
 
 					<div class="information principal">
 						<div id="mainhide">
 							<p>
-								<strong><?php echo __(_("User")); ?>:</strong> <?php echo $user[0][0]["Username"];?>
+								<strong><?php echo __("User"); ?>:</strong> <?php echo $user[0][0]["Username"];?>
 							</p>
 							
 							<p>
 								<strong <?php echo ((!$user[0][0]["Email"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Email")); ?>:
+									<?php echo __("Email"); ?>:
 								</strong> 
 								<?php echo $user[0][0]["Email"];?>
 							</p>
 							
 							<p>
-								<strong><?php echo __(_("Rank")); ?>:</strong> <?php echo __(_($user[0][0]["Rank"]);?>
+								<strong><?php echo __("Rank"); ?>:</strong> <?php echo __($user[0][0]["Rank"]);?>
 							</p>
 							
 							<p>
-								<strong><?php echo __(_("Join Date")); ?>:</strong> <?php echo $joinDate;?>
+								<strong><?php echo __("Join Date"); ?>:</strong> <?php echo $joinDate;?>
 							</p>
 							
 							<p class="website">
 								<strong <?php echo ((!$user[0][0]["Website"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Website")); ?>:
+									<?php echo __("Website"); ?>:
 								</strong> 
 
 								<a <?php echo ((!$user[0][0]["Website"]) ? 'style="display:none;" class="remove"' : null);?> 
 								href="<?php echo $user[0][0]["Website"];?>" id="website">
-									<?php echo __(_("Go")); ?>
+									<?php echo __("Go"); ?>
 								</a>
 							</p>
 						</div>
 					</div>
 					
-					<div class="blocktitle private"><?php echo __(_("Personal Information")); ?></div>
+					<div class="blocktitle private"><?php echo __("Personal Information"); ?></div>
 					
 					<div class="information personal">
 						<div id="personalhide">
 							<p class="name">
 								<strong <?php echo ((!$user[1][0]["Name"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Name")); ?>:
+									<?php echo __("Name"); ?>:
 								</strong> 
 
 								<span id="name"><?php echo $user[1][0]["Name"];?></span>
@@ -124,15 +124,15 @@
 							
 							<p class="gender">
 								<strong <?php echo ((!$user[1][0]["Gender"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Gender")); ?>:
+									<?php echo __("Gender"); ?>:
 								</strong> 
 
-								<span id="gender"><?php echo __(_($user[1][0]["Gender"]);?></span>
+								<span id="gender"><?php echo __($user[1][0]["Gender"]);?></span>
 							</p>
 							
 							<p class="birthday">
 								<strong <?php echo ((!$user[1][0]["Birthday"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Birthday")); ?>:
+									<?php echo __("Birthday"); ?>:
 								</strong> 
 
 								<span id="birthday"><?php echo $user[1][0]["Birthday"];?></span>
@@ -140,7 +140,7 @@
 							
 							<p class="company">
 								<strong <?php echo ((!$user[1][0]["Company"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Company")); ?>:
+									<?php echo __("Company"); ?>:
 								</strong> 
 
 								<span id="company"><?php echo $user[1][0]["Company"];?></span>
@@ -148,7 +148,7 @@
 								
 							<p class="telephone">
 								<strong <?php echo ((!$user[1][0]["Phone"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Telephone")); ?>:
+									<?php echo __("Telephone"); ?>:
 								</strong> 
 								
 								<span id="telephone"><?php echo $user[1][0]["Phone"];?></span>
@@ -156,14 +156,14 @@
 						</div>
 					</div>
 					
-					<div class="blocktitle stats"><?php echo __(_("User Statistics")); ?></div>
+					<div class="blocktitle stats"><?php echo __("User Statistics"); ?></div>
 					
 					<div class="information statistics">
 						<div id="statshide">
-							<p><strong><?php echo __(_("Messages")); ?>:</strong> <?php echo $user[0][0]["Messages"];?></p>
-							<p><strong><?php echo __(_("Receive Messages")); ?>:</strong> <?php echo __(_($user[0][0]["Recieve_Messages"]);?></p>
-							<p><strong><?php echo __(_("Comments")); ?>:</strong> <?php echo $user[0][0]["Comments"];?></p>
-							<p><strong><?php echo __(_("Subscribed")); ?>:</strong> <?php echo $user[0][0]["Subscribed"];?></p>
+							<p><strong><?php echo __("Messages"); ?>:</strong> <?php echo $user[0][0]["Messages"];?></p>
+							<p><strong><?php echo __("Receive Messages"); ?>:</strong> <?php echo __($user[0][0]["Recieve_Messages"]);?></p>
+							<p><strong><?php echo __("Comments"); ?>:</strong> <?php echo $user[0][0]["Comments"];?></p>
+							<p><strong><?php echo __("Subscribed"); ?>:</strong> <?php echo $user[0][0]["Subscribed"];?></p>
 						</div>
 					</div>
 					
@@ -176,21 +176,21 @@
 					?>
 					
 					<div id="location" <?php echo ((!$showLocation) ? 'style="display:none;"' : null);?> class="blocktitle location">
-						<?php echo __(_("User Location")); ?>
+						<?php echo __("User Location"); ?>
 					</div>
 					
 					<div class="information ubication">
 						<div id="ubihide">
 							<p class="country">
 								<strong <?php echo ((!$user[1][0]["Country"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Country")); ?>:
+									<?php echo __("Country"); ?>:
 								</strong> 
 
 								<span id="country"><?php echo $user[1][0]["Country"];?></span></p>
 								
 							<p class="district">
 								<strong <?php echo ((!$user[1][0]["District"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("District")); ?>:
+									<?php echo __("District"); ?>:
 								</strong> 
 
 								<span id="district"><?php echo $user[1][0]["District"];?></span>
@@ -198,7 +198,7 @@
 							
 							<p class="town">
 								<strong <?php echo ((!$user[1][0]["Town"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Town")); ?>:
+									<?php echo __("Town"); ?>:
 								</strong> 
 
 								<span id="town"><?php echo $user[1][0]["Town"];?></span>
@@ -215,13 +215,13 @@
 					?>
 
 					<div id="other" <?php echo ((!$showOther) ? 'style="display:none;"' : null);?> 
-					class="blocktitle other"><?php echo __(_("Social Information")); ?></div>
+					class="blocktitle other"><?php echo __("Social Information"); ?></div>
 					
 					<div class="information socialmedia">
 						<div id="socialhide">
 							<p class="sign">
 								<strong <?php echo ((!$user[0][0]["Sign"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __(_("Sign")); ?>:
+									<?php echo __("Sign"); ?>:
 								</strong>
 							</p>
 							

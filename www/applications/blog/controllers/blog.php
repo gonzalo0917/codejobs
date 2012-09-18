@@ -26,7 +26,7 @@ class Blog_Controller extends ZP_Controller {
 	}
 	
 	public function index($year = NULL, $month = NULL, $day = NULL, $slug = NULL) {
-		$this->setMeta("language", whichLanguage(FALSE));
+		$this->meta("language", whichLanguage(FALSE));
                 
 		if(isYear($year) and isMonth($month) and isDay($day) and $slug and $slug !== "page") {
 			$this->slug($year, $month, $day, $slug);
@@ -102,8 +102,8 @@ class Blog_Controller extends ZP_Controller {
 	
 		if($data) {
 			$this->title("Blog - ". $year ."/". $month ."/". $day);
-			$this->setMeta("keywords", $data[0]["Tags"]);
-			$this->setMeta("description", $data[0]["Content"]);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Content"]);
                         
 			$vars["posts"] 	    = $data;
 			$vars["pagination"] = $this->pagination;
@@ -125,8 +125,8 @@ class Blog_Controller extends ZP_Controller {
 		
 		if($data) {
 			$this->title("Blog - ". $tag);
-			$this->setMeta("keywords", $data[0]["Tags"]);
-			$this->setMeta("description", $data[0]["Content"]);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Content"]);
                         
 			$this->helper("time");
 			
@@ -151,14 +151,14 @@ class Blog_Controller extends ZP_Controller {
 
 		$URL = path("blog/$year/$month/$day/". segment(4, isLang()));
 		
-		$vars["ID_Post"]      = $data[0]["post"][0]["ID_Post"];
-		$vars["post"] 		  = $data[0]["post"][0];
-		$vars["URL"] 	      = $URL;					
+		$vars["ID_Post"] = $data[0]["post"][0]["ID_Post"];
+		$vars["post"]    = $data[0]["post"][0];
+		$vars["URL"]     = $URL;					
 		
 		if($data) {	
 			$this->title(decode($data[0]["post"][0]["Title"]));
-                        $this->setMeta("description", $data[0]["post"][0]["Content"]);
-                        $this->setMeta("keywords", $data[0]["post"][0]["Tags"]);
+            $this->meta("description", $data[0]["post"][0]["Content"]);
+            $this->meta("keywords", $data[0]["post"][0]["Tags"]);
 			
 			if($data[0]["post"][0]["Pwd"] === "") {	 
 				$vars["view"][0] = $this->view("post", TRUE);		
@@ -172,7 +172,7 @@ class Blog_Controller extends ZP_Controller {
 					
 					redirect($URL);
 				} else {
-					showAlert(__(_("Incorrect password")), "blog");
+					showAlert(__("Incorrect password"), "blog");
 				}				
 			} elseif(!SESSION("access-id") and strlen($data[0]["post"][0]["Pwd"]) === 40 and !POST("access")) {
 				$vars["password"] = $data[0]["post"][0]["Pwd"];
@@ -204,8 +204,8 @@ class Blog_Controller extends ZP_Controller {
 		$this->helper(array("html","time"));
 
 		if($data) {
-			$this->setMeta("keywords", $data[0]["Tags"]);
-			$this->setMeta("description", $data[0]["Content"]);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Content"]);
                         
 			$vars["posts"]      = $data;
 			$vars["pagination"] = $this->pagination;
@@ -213,16 +213,16 @@ class Blog_Controller extends ZP_Controller {
 			
 			$this->render("content", $vars);
 		} else {
-			$post  = __(_("Welcome to")) ." ";
+			$post  = __("Welcome to") ." ";
 			$post .= a(get("webName"), get("webBase")) ." ";
-			$post .= __(_("this is your first post, going to your")) ." ";
-			$post .= a(__(_("Control Panel")), path("cpanel")) ." ";
-			$post .= __(_("and when you add a new post this post will be disappear automatically, enjoy it!"));				
+			$post .= __("this is your first post, going to your") ." ";
+			$post .= a(__("Control Panel"), path("cpanel")) ." ";
+			$post .= __("and when you add a new post this post will be disappear automatically, enjoy it!");				
 				
-			$vars["hello"]    =  __(_("Hello World"));
+			$vars["hello"]    =  __("Hello World");
 			$vars["date"]     = now(1);
 			$vars["post"]     = $post;
-			$vars["comments"] = __(_("No Comments"));				
+			$vars["comments"] = __("No Comments");				
 			$vars["view"]  	  = $this->view("zero", TRUE);
 			
 			$this->render("content", $vars);		
@@ -281,22 +281,4 @@ class Blog_Controller extends ZP_Controller {
 		
 		return $limit;
 	}
-        
-        public function uploadImage() {
-            if (isset($_FILES['file'])) {
-                if (preg_match("/^image\\//i", $_FILES['file']['type'])) {	
-                    $dir = "www/lib/files/images/blog/";
-                    $filename = md5(date('YmdHis')) . ".jpg";
-                    $file = $dir . $filename;
-                    
-                    copy($_FILES['file']['tmp_name'], $file);
-
-                    $array = array(
-                        "filelink" => path($file, TRUE)
-                    );
-
-                    echo stripslashes(json_encode($array));
-                }
-            }
-        }
 }

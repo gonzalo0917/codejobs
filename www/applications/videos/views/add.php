@@ -23,28 +23,28 @@
 <div class="add-form">
 	<form id="form-add" class="form-add" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
 		<fieldset>
-			<legend><?php echo __(_("Add Video")); ?></legend>
+			<legend><?php echo __("Add Video"); ?></legend>
 			
 			<p class="resalt">
-				<?php echo __(_(ucfirst(whichApplication()))); ?>
+				<?php echo __(ucfirst(whichApplication())); ?>
 			</p>
 			
 			<?php echo isset($alert) ? $alert : NULL; ?>
 			
 			<?php if($action == "save") { ?>
 				<p class="field">
-					&raquo; <?php echo __(_("URL")); ?>  <?php echo "(http://www.youtube.com/watch?v=N_1KfUDB1zU)"; ?><br />
+					&raquo; <?php echo __("URL"); ?>  <?php echo "(http://www.youtube.com/watch?v=N_1KfUDB1zU)"; ?><br />
 					<input id="URL" name="URL" type="text" value="<?php echo $URL; ?>" tabindex="1" class="span10 required" />
 				</p>
 				
 				<div id="seek">
 					<p class="field">
-						&raquo; <?php echo __(_("Search")); ?> (<?php echo __(_("YouTube"));?>)<br />
+						&raquo; <?php echo __("Search"); ?> (<?php echo __("YouTube");?>)<br />
 						<input name="search" type="text" tabindex="1" class="span10 required" />
 						<input id="hsearch" name="hsearch" type="hidden" />
 						
 						<p>
-							<input type="button" name="inputsearch" id="inputsearch" class="small-submit" value="<?php echo __(_("Search"));?>" />
+							<input type="button" name="inputsearch" id="inputsearch" class="small-submit" value="<?php echo __("Search");?>" />
 						</p>
 					</p>
 				</div>
@@ -67,7 +67,7 @@
 						<?php } ?>
 					<?php } else { ?>
 						<p class="noresults">
-							<?php echo __(_("There were no results for this search"));?>
+							<?php echo __("There were no results for this search");?>
 						</p>
 					<?php } ?>
 				</div>
@@ -78,9 +78,9 @@
 					<div class="controls">
 						<input type="hidden" name="next" value="<?php echo $videos["next"]?>" />
 						<?php if($videos["next"]) { ?>
-							<input type="button" name="nextresults" id="nextresults" value="<?php echo __(_("Next results"));?>" class="small-submit"/>
+							<input type="button" name="nextresults" id="nextresults" value="<?php echo __("Next results");?>" class="small-submit"/>
 						<?php } else { ?>
-							<input type="button" name="nextresults" id="nextresults" value="<?php echo __(_("Next results"));?>" class="no-display small-submit"/>
+							<input type="button" name="nextresults" id="nextresults" value="<?php echo __("Next results");?>" class="no-display small-submit"/>
 						<?php } ?>
 						<img class="loadgif" src="<?php echo $this->themePath; ?>/images/icons/load.gif" alt="loadgif" title="load" />
 					</div>
@@ -90,12 +90,12 @@
 				
 			<?php } else { ?>
 				<p class="field">
-					&raquo; <?php echo __(_("Title")); ?> <br />
+					&raquo; <?php echo __("Title"); ?> <br />
 					<input id="title" name="title" type="text" value="<?php echo $title; ?>" tabindex="1" class="input required" />
 				</p>
 				
 				<p class="field">
-					&raquo; <?php echo __(_("Description")); ?> <br />
+					&raquo; <?php echo __("Description"); ?> <br />
 					<textarea id="description" name="description" class="input required"><?php echo $description; ?></textarea>
 				</p>
 				
@@ -105,21 +105,21 @@
 			<?php } ?>
 			
 			<p class="field">
-				&raquo; <?php echo __(_("State")); ?><br />
+				&raquo; <?php echo __("State"); ?><br />
 				<select id="situation" name="situation" size="1" tabindex="5" class="required">
 					<option value="Active" <?php echo ($situation === "Active") ? $selected : NULL; ?>>
-						<?php echo __(_("Active")); ?>
+						<?php echo __("Active"); ?>
 					</option>
 					
 					<option value="Inactive" <?php echo ($situation === "Inactive") ? $selected : NULL; ?>>
-						<?php echo __(_("Inactive")); ?>
+						<?php echo __("Inactive"); ?>
 					</option>
 				</select>
 			</p>
 			
 			<p class="save-cancel">
-				<input id="<?php echo $action; ?>" name="<?php echo $action; ?>" value="<?php echo __(_(ucfirst($action))); ?>" type="submit" class="btn btn-success" />
-				<input id="cancel" name="cancel" value="<?php echo __(_("Cancel")); ?>" type="submit" class="btn btn-danger" tabindex="6" />
+				<input id="<?php echo $action; ?>" name="<?php echo $action; ?>" value="<?php echo __(ucfirst($action)); ?>" type="submit" class="btn btn-success" />
+				<input id="cancel" name="cancel" value="<?php echo __("Cancel"); ?>" type="submit" class="btn btn-danger" tabindex="6" />
 			</p>
 		</fieldset>
 	</form>

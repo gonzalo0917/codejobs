@@ -16,7 +16,7 @@
 	
 	print div("add-form", "class");
 		print formOpen($href, "form-add", "multimedia");
-			print p(__(_(ucfirst(whichApplication()))), "resalt");
+			print p(__(ucfirst(whichApplication())), "resalt");
 			
 			print isset($alert) ? $alert : NULL;
 
@@ -26,12 +26,12 @@
 				"name" 		=> "fileselect[]",
 				"multiple" 	=> "multiple", 
 				"class" 	=> "required", 
-				"field" 	=> __(_("Upload files")), 
+				"field" 	=> __("Upload files"), 
 				"p" 		=> TRUE
 			));
 
 			print div("filedrag"); 
-				print __(_("Drag & drop your files here"));
+				print __("Drag & drop your files here");
 			print div(FALSE);
 
 			print div("progress") . div(FALSE);

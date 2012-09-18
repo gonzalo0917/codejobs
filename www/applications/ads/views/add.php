@@ -18,20 +18,20 @@
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(
 				"name" 	=> "title", 
 				"class" => "span10 required", 
-				"field" => __(_("Title")), 
+				"field" => __("Title"), 
 				"p" 	=> TRUE, 
 				"value" => $title
 			));
 			
 			if(isset($banner)) {
-				echo __(_("If you change the banner image, this image will be deleted")) . "<br />";
+				echo __("If you change the banner image, this image will be deleted") . "<br />";
 				echo img(path($banner, TRUE), array("alt" => "Banner", "class" => "no-border", "style" => "max-width: 780px;"));
 				echo formInput(array("name" => "banner", "type" => "hidden", "value" => $banner));
 			} 
@@ -40,38 +40,38 @@
 				"type" 	=> "file", 
 				"name" 	=> "image", 
 				"class" => "required", 
-				"field" => __(_("Image")), 
+				"field" => __("Image"), 
 				"p" 	=> TRUE
 			));
 
 			$options = array(
 				0 => array(
 						"value"    => "Top",
-						"option"   => __(_("Top")) ." (960x100px)",
+						"option"   => __("Top") ." (960x100px)",
 						"selected" => ($position === "Top") ? TRUE : FALSE
 					),
 
 				1 => array(
 						"value"    => "Left",
-						"option"   => __(_("Left")) ." (120x600px, 250x250px)",
+						"option"   => __("Left") ." (120x600px, 250x250px)",
 						"selected" => ($position === "Left") ? TRUE : FALSE
 					),
 
 				2 => array(
 						"value"    => "Right",
-						"option"   => __(_("Right")) ." (120x600px, 250x250px)",
+						"option"   => __("Right") ." (120x600px, 250x250px)",
 						"selected" => ($position === "Right") ? TRUE : FALSE
 					),
 
 				3 => array(
 						"value"    => "Bottom",
-						"option"   => __(_("Bottom")) ." (960x100px)",
+						"option"   => __("Bottom") ." (960x100px)",
 						"selected" => ($position === "Bottom") ? TRUE : FALSE
 					),
 
 				4 => array(
 						"value"    => "Center",
-						"option"   => __(_("Center")) ." (600x100px)",
+						"option"   => __("Center") ." (600x100px)",
 						"selected" => ($position === "Center") ? TRUE : FALSE
 					),
 			);
@@ -80,14 +80,14 @@
 				"name" 	=> "position", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Position"))), 
+				"field" => __("Position")), 
 				$options
 			);
 			
 			echo formInput(array(
 				"name" 	=> "URL", 
 				"class" => "span10 required", 
-				"field" => __(_("URL")), 
+				"field" => __("URL"), 
 				"p" 	=> TRUE, 
 				"value" => $URL
 			));
@@ -96,7 +96,7 @@
 				"name" 	=> "code", 
 				"class" => "span10 required", 
 				"style" => "height: 150px;", 
-				"field" => __(_("Code")), 
+				"field" => __("Code"), 
 				"p" 	=> TRUE, 
 				"value" => $code
 			));
@@ -104,13 +104,13 @@
 			$options = array(
 				0 => array(
 						"value"    => 1,
-						"option"   => __(_("Yes")),
+						"option"   => __("Yes"),
 						"selected" => ((int) $principal === 1) ? TRUE : FALSE
 					),
 				
 				1 => array(
 						"value"    => 0,
-						"option"   => __(_("No")),
+						"option"   => __("No"),
 						"selected" => ((int) $principal === 0) ? TRUE : FALSE
 					)
 			);
@@ -119,20 +119,20 @@
 				"name" 	=> "principal", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Principal"))), 
+				"field" => __("Principal")), 
 				$options
 			);			
 			
 			$options = array(
 				0 => array(
 						"value"    => "Active",
-						"option"   => __(_("Active")),
+						"option"   => __("Active"),
 						"selected" => ($situation === "Active") ? TRUE : FALSE
 					),
 				
 				1 => array(
 						"value"    => "Inactive",
-						"option"   => __(_("Inactive")),
+						"option"   => __("Inactive"),
 						"selected" => ($situation === "Inactive") ? TRUE : FALSE
 					)
 			);
@@ -141,7 +141,7 @@
 				"name" 	=> "situation", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Situation"))), 
+				"field" => __("Situation")), 
 				$options
 			);			
 			

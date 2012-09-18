@@ -95,20 +95,20 @@ $j = 2;
 </table>
 		
 <div class="table-options" style="position: relative; z-index: 1; margin-bottom: 25px;">
-	<?php echo __(_("Select")); ?>: <br />
+	<?php echo __("Select"); ?>: <br />
 	
-	<a onclick="javascript:checkAll('records')" class="pointer" title="<?php echo __(_("All")); ?>"><?php echo __(_("All")); ?></a> |
-	<a onclick="javascript:unCheckAll('records')" class="pointer" title="<?php echo __(_("None")); ?>"><?php echo __(_("None")); ?></a><br /><br />
+	<a onclick="javascript:checkAll('records')" class="pointer" title="<?php echo __("All"); ?>"><?php echo __("All"); ?></a> |
+	<a onclick="javascript:unCheckAll('records')" class="pointer" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a><br /><br />
 	
 	<?php				
 	if(segment(3, isLang()) === "trash") { 
 	?>
-		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to restore the records?")); ?>\')" name="restore" value="<?php echo __(_("Restore")); ?>" type="submit" class="small-input" />
-		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to delete the records?")); ?>\')" name="delete" value="<?php echo __(_("Delete")); ?>" type="submit" class="small-input" />
+		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
 	<?php
 	} else { 
 	?>
-		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to send to trash the records?")); ?>\')" name="trash" value="<?php echo __(_("Send to trash")); ?>" type="submit" class="small-input" />
+		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
 	<?php
 	}
 	?>					

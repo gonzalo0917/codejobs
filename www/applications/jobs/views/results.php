@@ -1,7 +1,7 @@
 <?php 
 if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
-$caption = __(_("Manage Jobs"));
+$caption = __("Manage Jobs");
 $colspan = 6;
 
 echo $search;
@@ -24,18 +24,18 @@ $j = 2;
 		<tr>
 			<th>&nbsp;</th>
 			<th>ID</th>
-			<th><?php echo __(_("Title")); ?></th>
-			<th><?php echo __(_("Location")); ?></th>
-			<th><?php# echo __(_("Language")); ?></th>
-			<th><?php echo __(_("Situation")); ?></th>
-			<th><?php echo __(_("Action")); ?></th>
+			<th><?php echo __("Title"); ?></th>
+			<th><?php echo __("Location"); ?></th>
+			<th><?php# echo __("Language"); ?></th>
+			<th><?php echo __("Situation"); ?></th>
+			<th><?php echo __("Action"); ?></th>
 		</tr>
 	</thead>
 					
 	<tfoot>
 		<tr>
 			<td colspan="<?php echo $colspan; ?>">
-				<span class="bold"><?php echo __(_("Total")); ?>:</span> <?php echo $total; ?>
+				<span class="bold"><?php echo __("Total"); ?>:</span> <?php echo $total; ?>
 			</td>
 		</tr>
 	</tfoot>		  
@@ -76,7 +76,7 @@ $j = 2;
 					</td>
 						 
 					<td class="center">
-						<?php echo __(_($column["Situation"])); ?>
+						<?php echo __($column["Situation"]); ?>
 					</td>
 												 
 					<td class="center">
@@ -97,20 +97,20 @@ $j = 2;
 </table>
 		
 <div class="table-options" style="position: relative; z-index: 1; margin-bottom: 25px;">
-	<?php echo __(_("Select")); ?>: <br />
+	<?php echo __("Select"); ?>: <br />
 	
-	<a onclick="javascript:checkAll('records')" class="pointer" title="<?php echo __(_("All")); ?>"><?php echo __(_("All")); ?></a> |
-	<a onclick="javascript:unCheckAll('records')" class="pointer" title="<?php echo __(_("None")); ?>"><?php echo __(_("None")); ?></a><br /><br />
+	<a onclick="javascript:checkAll('records')" class="pointer" title="<?php echo __("All"); ?>"><?php echo __("All"); ?></a> |
+	<a onclick="javascript:unCheckAll('records')" class="pointer" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a><br /><br />
 	
 	<?php				
 	if(segment(3, isLang()) === "trash") { 
 	?>
-		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to restore the records?")); ?>\')" name="restore" value="<?php echo __(_("Restore")); ?>" type="submit" class="small-input" />
-		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to delete the records?")); ?>\')" name="delete" value="<?php echo __(_("Delete")); ?>" type="submit" class="small-input" />
+		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
 	<?php
 	} else { 
 	?>
-		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to send to trash the records?")); ?>\')" name="trash" value="<?php echo __(_("Send to trash")); ?>" type="submit" class="small-input" />
+		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
 	<?php
 	}
 	?>					

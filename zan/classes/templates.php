@@ -415,9 +415,15 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function title($title = NULL) {
-		$this->title = is_null($title) ? get("webName") ." - ". get("webSlogan") : stripslashes($title) ." - ". get("webName");
+		$this->helper("string");
+
+		if(!is_null($title)) {
+			$title = stripslashes($title) ." - ". get("webName");
+		}
+
+		$this->title = is_null($title) ? get("webName") ." - ". get("webSlogan") : $title;
         
-        $this->setMeta("title", $this->title);
+        $this->meta("title", $this->title);
 	}
         
     /**
@@ -425,10 +431,10 @@ class ZP_Templates extends ZP_Load {
      *
      * @return void
      */           
-    public function setMeta($tag, $value) {
-        switch ($tag) {
+    public function meta($tag, $value) {
+        switch($tag) {
             case "title":
-                $value = encode(stripslashes($value));
+                $value = stripslashes($value);
 
                 $this->meta .= "\t<meta name=\"$tag\" content=\"$value\" />\n";
             break;

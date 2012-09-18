@@ -3,15 +3,15 @@
 
 <div class="full-container">
 	<div class="h-link">
-		<a name="image" href="<?php echo $picture["home"];?>/#top" title="<?php echo __(_("Gallery")); ?>"><?php echo __(_("Gallery")); ?></a>
+		<a name="image" href="<?php echo $picture["home"];?>/#top" title="<?php echo __("Gallery"); ?>"><?php echo __("Gallery"); ?></a>
 	</div>
 
 	<?php
 		if($count > 1) { 
 	?>
 			<div class="np-links">
-				<a id="previous" href="<?php echo $picture["prev"];?>" title="<?echo __(_("Previous")); ?>"><?php echo __(_("Previous")); ?></a>
-				<a id="next" href="<?php echo $picture["next"];?>" title="<?echo __(_("Next")); ?>"><?php echo __(_("Next")); ?></a>
+				<a id="previous" href="<?php echo $picture["prev"];?>" title="<?echo __("Previous"); ?>"><?php echo __("Previous"); ?></a>
+				<a id="next" href="<?php echo $picture["next"];?>" title="<?echo __("Next"); ?>"><?php echo __("Next"); ?></a>
 				<br />
 			</div>
 	<?php 
@@ -43,7 +43,7 @@
 	<br/>
 	
 	<div class="info-images">
-		<span class="images-title"><?php echo __(_("Album")); ?>:</span><br />
+		<span class="images-title"><?php echo __("Album"); ?>:</span><br />
 		
 		<div class="general-links">
 		<?php 
@@ -53,7 +53,7 @@
 		<?php 	
 			} else {
 		?>
-			<a href="<?php echo $picture["home"] ."/";?>" title="<?php echo __(_("None")); ?>"><?php echo __(_("None")); ?></a>
+			<a href="<?php echo $picture["home"] ."/";?>" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a>
 		<?php 
 			} 
 		?>	

@@ -1,8 +1,8 @@
 <p>
-	<?php echo __(_("Your account has been created")); ?>
+	<?php echo __("Your account has been created"); ?>
 </p>
 
 <p>
-	<?php echo __(_("You need access to this link to activate your account:")); ?><br /> 
-	<a href="<?php echo path("users/activate/$user/$code"); ?>"><?php echo __(_("Activate account")); ?></a>
+	<?php echo __("You need access to this link to activate your account:"); ?><br /> 
+	<a href="<?php echo path("users/activate/$user/$code"); ?>"><?php echo __("Activate account"); ?></a>
 </p>

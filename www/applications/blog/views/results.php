@@ -1,5 +1,7 @@
 <?php 
-if(!defined("_access")) die("Error: You don't have permission to access here..."); 
+if(!defined("_access")) {
+	die("Error: You don't have permission to access here..."); 
+}
 
 $caption = __("Manage Blog");
 $colspan = 8;
@@ -62,9 +64,7 @@ $j = 2;
 																				
 					<td style="text-align: left;">
 					<?php			
-						$title = cut($column["Title"], 6, "text"); 
-
-						echo stripslashes($title);
+						echo stripslashes(cut($column["Title"], 6, "text")); 
 					?>
 					</td>
 
@@ -85,12 +85,8 @@ $j = 2;
 					</td>
 												 
 					<td class="center">
-					<?php 
-						if($column["Situation"] === "Deleted") {					
-							echo getAction(TRUE, $ID);
-						} else {					
-							echo getAction(FALSE, $ID);
-						}
+					<?php 					
+						echo ($column["Situation"] === "Deleted") ? getAction(TRUE, $ID) : getAction(FALSE, $ID);
 					?>
 					</td>
 	 			</tr>

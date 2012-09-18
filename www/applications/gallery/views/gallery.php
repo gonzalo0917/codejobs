@@ -4,16 +4,16 @@
 	<a name="top"></a>
 
 	<p class="center">
-		<a href="<?php echo path("gallery")); ?>" title="<?php echo __(_("Gallery")); ?>"><?php echo __(_("Gallery")); ?></a>
+		<a href="<?php echo path("gallery")); ?>" title="<?php echo __("Gallery"); ?>"><?php echo __("Gallery"); ?></a>
 	</p>
     
 	<div class="total-pics">
-		<span><?php echo __(_(_("Images")))?>: <?php echo $count;?></span>
+		<span><?php echo __("Images")?>: <?php echo $count;?></span>
 	</div>
 	
 	<?php if(isset($album) and $album) { ?>
 		<div class="h-link">
-			<a id="previous" href="<?php echo path("gallery/#top"));?>" title="<?php echo __(_("Gallery")); ?>"><?php echo __(_("Gallery")); ?></a>
+			<a id="previous" href="<?php echo path("gallery/#top"));?>" title="<?php echo __("Gallery"); ?>"><?php echo __("Gallery"); ?></a>
 		</div>
 	<?php } ?>
 	

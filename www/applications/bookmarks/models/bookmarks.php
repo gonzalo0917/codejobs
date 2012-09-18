@@ -163,7 +163,7 @@ class Bookmarks_Model extends ZP_Model {
 		if($this->Db->find($ID, "bookmarks")) {
 			$this->Db->updateBySQL("bookmarks", "Reported = (Reported) + 1 WHERE ID_Bookmark = '$ID'");
 
-			showAlert(__(_("Thanks for reporting this bookmark")), path("bookmarks/go/$ID"));
+			showAlert(__("Thanks for reporting this bookmark"), path("bookmarks/go/$ID"));
 		} else {
 			redirect();
 		}

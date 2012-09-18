@@ -27,28 +27,28 @@
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
 			$options = array(
-				0 => array("value" => 0, "option" => __(_("select"))),
-				1 => array("value" => 1, "option" => __(_("company1")), "selected" => ($id_company === "1")   ? TRUE : FALSE),
-				2 => array("value" => 2, "option" => __(_("company2")), "selected" => ($id_company === "2")   ? TRUE : FALSE)
+				0 => array("value" => 0, "option" => __("select")),
+				1 => array("value" => 1, "option" => __("company1"), "selected" => ($id_company === "1")   ? TRUE : FALSE),
+				2 => array("value" => 2, "option" => __("company2"), "selected" => ($id_company === "2")   ? TRUE : FALSE)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "id_company", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Company"))), 
+				"field" => __("Company")), 
 				$options
 			);	
 
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "span10 required", 
-				"field" => __(_("Title")), 
+				"field" => __("Title"), 
 				"p" 	=> TRUE, 
 				"value" => $title 
 			));
@@ -56,7 +56,7 @@
 			echo formInput(array(	
 				"name" 	=> "email", 
 				"class" => "span10 required", 
-				"field" => __(_("Email")), 
+				"field" => __("Email"), 
 				"p" 	=> TRUE, 
 				"value" => $email
 			));
@@ -65,7 +65,7 @@
 				"id" 	 => "", 
 				"name" 	 => "Company_Information", 
 				"class"  => "span9", 
-				"field"  => __(_("Company Information")), 
+				"field"  => __("Company Information"), 
 				"p" 	 => TRUE, 
 				"value"  => $company_i
 			));
@@ -73,7 +73,7 @@
 			echo formInput(array(	
 				"name" 	=> "location", 
 				"class" => "span10 required", 
-				"field" => __(_("Location")), 
+				"field" => __("Location"), 
 				"p" 	=> TRUE, 
 				"value" => $location
 			));
@@ -81,7 +81,7 @@
 			echo formInput(array(	
 				"name" 	=> "salary", 
 				"class" => "span10 required", 
-				"field" => __(_("salary")), 
+				"field" => __("salary"), 
 				"p" 	=> TRUE, 
 				"value" => $salary
 			));
@@ -89,7 +89,7 @@
 			echo formInput(array(	
 				"name" 	=> "allocation_time", 
 				"class" => "span10 required", 
-				"field" => __(_("Allocation time")), 
+				"field" => __("Allocation time"), 
 				"p" 	=> TRUE, 
 				"value" => $allocation
 			));
@@ -98,7 +98,7 @@
 				"id" 	 => "", 
 				"name" 	 => "requirements", 
 				"class"  => "span9",
-				"field"  => __(_("Requirements")), 
+				"field"  => __("Requirements"), 
 				"p" 	 => TRUE, 
 				"value"  => $requirements
 			));
@@ -107,7 +107,7 @@
 				"id" 	 => "", 
 				"name" 	 => "experience", 
 				"class"  => "span9", 
-				"field"  => __(_("Experience")), 
+				"field"  => __("Experience"), 
 				"p" 	 => TRUE, 
 				"value"  => $experience
 			));
@@ -116,7 +116,7 @@
 				"id" 	 => "", 
 				"name" 	 => "activities", 
 				"class"  => "span9",
-				"field"  => __(_("Activities")), 
+				"field"  => __("Activities"), 
 				"p" 	 => TRUE, 
 				"value"  => $activities
 			));
@@ -125,7 +125,7 @@
 				"id" 	 => "", 
 				"name" 	 => "profile", 
 				"class"  => "span9",
-				"field"  => __(_("Profile")), 
+				"field"  => __("Profile"), 
 				"p" 	 => TRUE, 
 				"value"  => $profile
 			));
@@ -133,7 +133,7 @@
 			echo formInput(array(	
 				"name" 	=> "technologies", 
 				"class" => "span10 required", 
-				"field" => __(_("Technologies")), 
+				"field" => __("Technologies"), 
 				"p" 	=> TRUE, 
 				"value" => $technologies
 			));
@@ -142,7 +142,7 @@
 				"id" 	 => "", 
 				"name" 	 => "additional_information", 
 				"class"  => "span9",
-				"field"  => __(_("Additional Information")), 
+				"field"  => __("Additional Information"), 
 				"p" 	 => TRUE, 
 				"value"  => $additional_i
 			));
@@ -151,19 +151,19 @@
 				"id" 	 => "", 
 				"name" 	 => "company_contact", 
 				"class"  => "span9", 
-				"field"  => __(_("Company contact")), 
+				"field"  => __("Company contact"), 
 				"p" 	 => TRUE, 
 				"value"  => $company_contact
 			));
 
-			#echo formField(NULL, __(_("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
+			#echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 			
 			$options = array(
-				0 => array("value" => "Active",   "option" => __(_("Active")),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __(_("Inactive")), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
+				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
 			);
 
-			echo formSelect(array("name" => "situation", "p" => TRUE, "field" => __(_("Situation"))), $options);
+			echo formSelect(array("name" => "situation", "p" => TRUE, "field" => __("Situation")), $options);
 
 			
 			echo formSave($action);

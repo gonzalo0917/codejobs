@@ -10,7 +10,7 @@
 
 	<div id="blog-archive">
 		<ul>
-			<p class="center bold"><?php echo __(_("Archive")); ?></p>
+			<p class="center bold"><?php echo __("Archive"); ?></p>
 			<?php
 				for($i = $lastYear; $i >= $firstYear; $i--) {
 					if($i === $lastYear) {

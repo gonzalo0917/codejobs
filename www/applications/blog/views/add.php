@@ -18,14 +18,14 @@
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "span10 required", 
-				"field" => __(_("Title")), 
+				"field" => __("Title"), 
 				"p" 	=> TRUE, 
 				"value" => stripslashes($title)
 			));
@@ -33,7 +33,7 @@
 			echo formInput(array(	
 				"name" 	=> "tags", 
 				"class" => "span10 required", 
-				"field" => __(_("Tags")), 
+				"field" => __("Tags"), 
 				"p" 	=> TRUE, 
 				"value" => $tags
 			));
@@ -41,7 +41,7 @@
 			echo formTextarea(array(	 
 				"name" 	 => "content", 
 				"class"  => "markItUp",
-				"field"  => __(_("Content")), 
+				"field"  => __("Content"), 
 				"p" 	 => TRUE, 
 				"value"  => $content
 			));
@@ -54,31 +54,31 @@
 				</noscript>         
 			</div>
 			<?php
-			echo formField(NULL, __(_("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
+			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 
 			$options = array(
-				0 => array("value" => 1, "option" => __(_("Yes")), "selected" => TRUE),
-				1 => array("value" => 0, "option" => __(_("No")))
+				0 => array("value" => 1, "option" => __("Yes"), "selected" => TRUE),
+				1 => array("value" => 0, "option" => __("No"))
 			);
 
 			echo formSelect(array(
 				"name" 	=> "enable_comments", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Enable Comments"))), 
+				"field" => __("Enable Comments")), 
 				$options
 			);				
 			
 			$options = array(
-				0 => array("value" => "Active",   "option" => __(_("Active")), 	  "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __(_("Inactive")),  "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Active",   "option" => __("Active"), 	  "selected" => ($situation === "Active")   ? TRUE : FALSE),
+				1 => array("value" => "Inactive", "option" => __("Inactive"),  "selected" => ($situation === "Inactive") ? TRUE : FALSE)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "situation", 
 				"p" 	=> TRUE, 
 				"class" => "required", 
-				"field" => __(_("Situation"))), 
+				"field" => __("Situation")), 
 				$options
 			);
 						
@@ -86,12 +86,12 @@
 				echo formInput(array(
 					"name" 	=> "pwd", 
 					"class" => "span10", 
-					"field" => __(_("Password")), 
+					"field" => __("Password"), 
 					"p" 	=> TRUE, 
 					"value" => $pwd)
 				);	
 			} else { 
-				echo formField(NULL, __(_("Password")) ."<br />");
+				echo formField(NULL, __("Password") ."<br />");
 				
 				echo formInput(array(
 					"id" 	=> "lock", 
@@ -110,7 +110,7 @@
 			echo formInput(array(
 				"type" 	=> "file", 
 				"name" 	=> "image", 
-				"field" => __(_("Image for this post")), 
+				"field" => __("Image for this post"), 
 				"p" 	=> TRUE
 			));
 
@@ -122,7 +122,7 @@
 				"type" 	=> "file", 
 				"name" 	=> "mural", 
 				"class" => "required", 
-				"field" => __(_("Mural image")) ." (". _muralSize .")", 
+				"field" => __("Mural image") ." (". _muralSize .")", 
 				"p" 	=> TRUE
 			));
 	
@@ -131,7 +131,7 @@
 					"type" 	=> "hidden", 
 					"name" 	=> "mural_exist", 
 					"class" => "span10", 
-					"field" => __(_("Current mural image")), 
+					"field" => __("Current mural image"), 
 					"p" 	=> TRUE)
 				);
 				
@@ -143,7 +143,7 @@
 					"type" 	=> "submit", 
 					"id" 	=> "delete_mural", 
 					"name" 	=> "delete_mural_image", 
-					"value" => __(_("Delete Mural")), 
+					"value" => __("Delete Mural"), 
 					"class" => "btn error", 
 					"p" 	=> TRUE
 				));

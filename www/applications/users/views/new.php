@@ -12,7 +12,7 @@ $pwd   = isset($pwd)   ? recoverPOST("password", $pwd) : recoverPOST("password")
 
 echo div("new-user", "class");
 	echo formOpen(path("users/register"), "form", "form");
-		echo p(__(_("Join today to")) ." ". get("webName"), "resalt");
+		echo p(__("Join today to") ." ". get("webName"), "resalt");
 		
 		if(!isset($alert) and SESSION("UserRegistered") and !POST("register")) {
 			redirect();
@@ -31,7 +31,7 @@ echo div("new-user", "class");
 					"name" 	   => "username",
 					"pattern"  => "^[A-Za-z0-9_-]{3,15}$", 
 					"class"    => "required", 
-					"field"    => __(_("Username")), 
+					"field"    => __("Username"), 
 					"p" 	   => TRUE, 
 					"value"    => recoverPOST("username"),
 					"required" => TRUE
@@ -39,7 +39,7 @@ echo div("new-user", "class");
 
 				echo formInput(array(					
 					"name" 	   => "name", 
-					"field"    => __(_("Name")), 
+					"field"    => __("Name"), 
 					"p" 	   => TRUE, 
 					"value"    => $name,
 					"required" => TRUE
@@ -48,7 +48,7 @@ echo div("new-user", "class");
 				echo formInput(array(	
 					"name" 	   => "password",
 					"type"     => "password",
-					"field"    => __(_("Password")), 
+					"field"    => __("Password"), 
 					"p" 	   => TRUE, 
 					"value"    => $pwd,
 					"required" => TRUE
@@ -58,7 +58,7 @@ echo div("new-user", "class");
 					"name" 	   => "email",
 					"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
 					"type"     => "email",
-					"field"    => __(_("Email")), 
+					"field"    => __("Email"), 
 					"p" 	   => TRUE, 
 					"value"    => $email,
 					"required" => TRUE
@@ -68,7 +68,7 @@ echo div("new-user", "class");
 					"name" 	=> "register",
 					"type"  => "submit",
 					"class" => "submit",
-					"value" => __(_("Create my account"))
+					"value" => __("Create my account")
 				));
 			}
 		}

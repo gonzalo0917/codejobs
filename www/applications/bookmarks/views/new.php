@@ -24,7 +24,7 @@
 				"name" 	=> "title", 
 				"class" => "required",
 				"style" => "width: 300px;", 
-				"field" => __(_("Title")), 
+				"field" => __("Title"), 
 				"p" 	=> TRUE, 
 				"value" => $title
 			));
@@ -33,7 +33,7 @@
 				"name" 	=> "URL", 
 				"class" => "required",
 				"style" => "width: 300px;", 
-				"field" => __(_("URL")), 
+				"field" => __("URL"), 
 				"p" 	=> TRUE, 
 				"value" => $URL
 			));
@@ -43,7 +43,7 @@
 				"name" 	 => "description", 
 				"class"  => "required",
 				"style"  => "width: 300px; height: 140px;", 
-				"field"  => __(_("Description")), 
+				"field"  => __("Description"), 
 				"p" 	 => TRUE, 
 				"value"  => $description
 			));
@@ -52,12 +52,12 @@
 				"name" 	=> "tags", 
 				"class" => "required",
 				"style" => "width: 300px;", 
-				"field" => __(_("Tags")), 
+				"field" => __("Tags"), 
 				"p" 	=> TRUE, 
 				"value" => $tags
 			));
 
-			echo formField(NULL, __(_("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
+			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 			
 			echo formInput(array(	
 				"name" 	=> "save", 

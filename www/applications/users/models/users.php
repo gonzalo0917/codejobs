@@ -198,7 +198,7 @@ class Users_Model extends ZP_Model {
 				"alert"    => getAlert(__("The account has been created correctly, we will send you an email so you can activate your account"), "success")
 			);
 		} else {
-			return array("inserted" => FALSE, "alert" => getAlert(__(_("Insert error"))));
+			return array("inserted" => FALSE, "alert" => getAlert(__("Insert error")));
 		}
 	}
 	

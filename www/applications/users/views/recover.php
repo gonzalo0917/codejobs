@@ -47,13 +47,13 @@ echo div("new-user", "class");
 			));
 		} else {
 			if(!isset($inserted)) {
-				echo p(__(_("To recover your password, please enter your username or your e-mail")));
+				echo p(__("To recover your password, please enter your username or your e-mail"));
 				
 				echo formInput(array(
 					"id"	   => "username",
 					"name" 	   => "username",
 					"pattern"  => "^[a-z0-9_-]{3,15}$", 
-					"field"    => __(_("Username")), 
+					"field"    => __("Username"), 
 					"p" 	   => TRUE, 
 					"value"    => recoverPOST("username")
 				));			
@@ -62,7 +62,7 @@ echo div("new-user", "class");
 					"name" 	   => "email",
 					"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
 					"type"     => "email",
-					"field"    => __(_("Email")), 
+					"field"    => __("Email"), 
 					"p" 	   => TRUE, 
 					"value"    => recoverPOST("email")
 				));
@@ -71,7 +71,7 @@ echo div("new-user", "class");
 					"name" 	=> "recover",
 					"type"  => "submit",
 					"class" => "submit",
-					"value" => __(_("Recover my password"))
+					"value" => __("Recover my password")
 				));
 			}
 		}
