@@ -20,11 +20,11 @@ if(!defined("_access")) {
 }
 
 function badCharset($text) {
-	if(substr_count($text, 'Ã±') === 1) {
+	if(substr_count($text, 'Ã±') >= 1) {
 		return TRUE;
-	} elseif(substr_count($text, 'Ã³') === 1) {
+	} elseif(substr_count($text, 'Ã³') >= 1) {
 		return TRUE;
-	} elseif(substr_count($text, 'Ã') === 1) {
+	} elseif(substr_count($text, 'Ã') >= 1) {
 		return TRUE;
 	}
 

@@ -419,7 +419,7 @@ class ZP_Templates extends ZP_Load {
 
 		if(!is_null($title)) {
 			if(badCharset($title)) {
-				$title = stripslashes(decode($title)) ." - ". get("webName");
+				$title = stripslashes(encode($title)) ." - ". get("webName");
 			} else {
 				$title = stripslashes($title) ." - ". get("webName");
 			}
