@@ -3,27 +3,17 @@
 		die("Error: You don't have permission to access here..."); 
 	} 
 	
-	if(isset($data)) {
-		$ID  	   = recoverPOST("ID", 	      $data[0]["ID_Page"]);
-		$title     = recoverPOST("title",     $data[0]["Title"]); 
-		$content   = recoverPOST("content",   $data[0]["Content"]);
-		$situation = recoverPOST("situation", $data[0]["Situation"]);
-		$principal = recoverPOST("principal", $data[0]["Principal"]);
-		$language  = recoverPOST("language",  $data[0]["Language"]);
-		$edit      = TRUE;
-		$action    = "edit";
-		$href	   = path(whichApplication() . _sh . "cpanel" . _sh . $action . _sh . $ID . _sh);
-	} else {
-		$ID        = 0;
-		$title     = recoverPOST("title");
-		$content   = recoverPOST("content");
-		$situation = recoverPOST("situation");
-		$principal = recoverPOST("principal");
-		$language  = recoverPOST("language");
-		$edit      = FALSE;
-		$action	   = "save";
-		$href 	   = path(whichApplication() . _sh . "cpanel" . _sh . "add" . _sh);
-	}
+	
+	$ID  	   = isset($data) ? recoverPOST("ID", $data[0]["ID_Page"]) 			: 0;
+	$title     = isset($data) ? recoverPOST("title",     $data[0]["Title"]) 	: recoverPOST("title"); 
+	$content   = isset($data) ? recoverPOST("content",   $data[0]["Content"]) 	: recoverPOST("content");
+	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
+	$principal = isset($data) ? recoverPOST("principal", $data[0]["Principal"]) : recoverPOST("principal");
+	$language  = isset($data) ? recoverPOST("language",  $data[0]["Language"])  : recoverPOST("language");
+	$edit      = isset($data) ? TRUE 											: FALSE;
+	$action    = isset($data) ? "edit" 											: "save";
+	$href	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID") : path(whichApplication() ."/cpanel/add");
+	
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -37,8 +27,8 @@
 				"class" => "span10 required", 
 				"field" => __("Title"), 
 				"p" 	=> TRUE, 
-				"value" => $title)
-			);
+				"value" => stripslashes($title)
+			));
 
 			echo formTextarea(array(
 				"id" 	=> "editor", 
