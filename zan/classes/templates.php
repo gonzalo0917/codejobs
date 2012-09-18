@@ -417,7 +417,7 @@ class ZP_Templates extends ZP_Load {
 	public function title($title = NULL) {
 		$this->title = is_null($title) ? get("webName") ." - ". get("webSlogan") : stripslashes($title) ." - ". get("webName");
         
-        $this->setMeta("title", $this->title);
+        $this->meta("title", $this->title);
 	}
         
     /**
@@ -425,8 +425,8 @@ class ZP_Templates extends ZP_Load {
      *
      * @return void
      */           
-    public function setMeta($tag, $value) {
-        switch ($tag) {
+    public function meta($tag, $value) {
+        switch($tag) {
             case "title":
                 $value = encode(stripslashes($value));
 

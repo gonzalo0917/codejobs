@@ -550,13 +550,7 @@ class ZP_Load {
 		
 		if($name !== "include" and get("autoRender")) {
 			$this->rendering();
-		} elseif($name === "include") {
-			if(is_array($rendering)) {
-				call_user_func_array(array($this, "rendering"), $rendering);
-			} else {
-				$this->rendering();
-			}
-		}
+		} 
 	}
 	
     /**
@@ -585,18 +579,13 @@ class ZP_Load {
 	public function vars($vars) {
 		$this->Templates->vars($vars);
 	}
+
         
-        public function meta($title = NULL, $description = NULL, $keywords = NULL, $language = NULL) {
-            $this->Templates = $this->core("Templates");
+    public function meta($tag, $value) {
+        $this->Templates = $this->core("Templates");
             
-            $this->Templates->meta($title, $description, $keywords, $language);
-        }
-        
-        public function setMeta($tag, $value) {
-            $this->Templates = $this->core("Templates");
-            
-            $this->Templates->setMeta($tag, $value);
-        }
+        $this->Templates->meta($tag, $value);
+    }
 	
     /**
      * Loads a view

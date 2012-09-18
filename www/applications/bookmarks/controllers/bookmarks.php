@@ -24,7 +24,7 @@ class Bookmarks_Controller extends ZP_Controller {
 	}
 	
 	public function index($bookmarkID = 0) {
-		$this->setMeta("language", whichLanguage(FALSE));
+		$this->meta("language", whichLanguage(FALSE));
                 
 		if($bookmarkID !== "add") {
 			if($bookmarkID > 0) {
@@ -94,8 +94,8 @@ class Bookmarks_Controller extends ZP_Controller {
 		$data = $this->Cache->data("tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getByTag", array($tag, $limit));
 
 		if($data) {
-			$this->setMeta("keywords", $data[0]["Tags"]);
-			$this->setMeta("description", $data[0]["Description"]);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
 			$this->helper("time");
 
 			$vars["bookmarks"]  = $data;
@@ -117,9 +117,9 @@ class Bookmarks_Controller extends ZP_Controller {
 		if($data) {
 			$this->helper("time");
 
-			$this->title(__(_("Bookmarks")) ." - ". $data[0]["Title"]);
-			$this->setMeta("keywords", $data[0]["Tags"]);
-			$this->setMeta("description", $data[0]["Description"]);
+			$this->title(__("Bookmarks") ." - ". $data[0]["Title"]);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
                         
 			$this->Bookmarks_Model->updateViews($bookmarkID);
 
@@ -156,8 +156,8 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->helper("time");
 		
 		if($data) {	
-			$this->setMeta("keywords", $data[0]["Tags"]);
-			$this->setMeta("description", $data[0]["Description"]);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
                         
 			$vars["bookmarks"]  = $data;
 			$vars["pagination"] = $this->pagination;

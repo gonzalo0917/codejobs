@@ -22,7 +22,7 @@ class Codes_Model extends ZP_Model {
 		$this->helper("alerts");
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "ID_Link DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
+	public function cpanel($action, $limit = NULL, $order = "ID_Code DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
 		if($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave();
 			
@@ -38,6 +38,8 @@ class Codes_Model extends ZP_Model {
 		}
 		
 		if($action === "all") {
+			$order = "ID_Code DESC";
+
 			return $this->all($trash, $order, $limit);
 		} elseif($action === "edit") {
 			return $this->edit();															
@@ -86,8 +88,9 @@ class Codes_Model extends ZP_Model {
 		);
                 
 		$this->Data->ignore(array("file", "programming", "syntax", "syntaxname", "name", "code"));
+		
 		$this->data = $this->Data->proccess($data, $validations);
-		$this->id = POST("ID");
+		$this->id   = POST("ID");
                 
         if(isset($this->data["error"])) {
 			return $this->data["error"];
@@ -96,8 +99,8 @@ class Codes_Model extends ZP_Model {
 
 	public function editOrSaveLanguage() {
 		$validations = array(
-			"name" 			=> "required",
-			"mime" 			=> "required"
+			"name" => "required",
+			"mime" => "required"
 		);
 
 		$data = array();
@@ -119,7 +122,7 @@ class Codes_Model extends ZP_Model {
 		
 		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 
-		if(FALSE !== ($lastID = $this->Db->insert($this->table, $this->data))) {
+		if(($lastID = $this->Db->insert($this->table, $this->data)) !== FALSE) {
             $this->data = $this->proccessFiles($lastID);
                         
             if(isset($this->data["error"])) {
@@ -141,7 +144,7 @@ class Codes_Model extends ZP_Model {
 	}
 		
 	private function save() {
-		if(FALSE !== ($ID = $this->Db->insert($this->table, $this->data))) {
+		if(($ID = $this->Db->insert($this->table, $this->data)) !== FALSE) {
             $this->data = $this->proccessFiles($ID);
                         
             if(isset($this->data["error"])) {
