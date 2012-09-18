@@ -530,7 +530,7 @@ class ZP_Load {
      * @param string $vars
      * @return string value / void
      */	
-	public function render($name, $vars = NULL, $rendering = NULL) {	
+	public function render($name, $vars = NULL) {	
 		if(is_array($vars)) { 
 			if(count($this->views) === 0) {
 				$this->views[0]["name"] = $name;
