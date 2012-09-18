@@ -117,7 +117,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		if($data) {
 			$this->helper("time");
 
-			$this->title(__("Bookmarks") ." - ". $data[0]["Title"]);
+			$this->title(__("Bookmarks") ." - ". $data[0]["Title"], FALSE);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
                         

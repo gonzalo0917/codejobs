@@ -19,6 +19,18 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
+function badCharset($text) {
+	if(substr_count($text, 'Ã±') === 1) {
+		return TRUE;
+	} elseif(substr_count($text, 'Ã³') === 1) {
+		return TRUE;
+	} elseif(substr_count($text, 'Ã') === 1) {
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 /**
  * String Helper
  *

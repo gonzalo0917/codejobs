@@ -415,7 +415,15 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function title($title = NULL) {
-		$this->title = is_null($title) ? get("webName") ." - ". get("webSlogan") : stripslashes($title) ." - ". get("webName");
+		if(!is_null($title)) {
+			if(badCharset($title)) {
+				$title = stripslashes(decode($title)) ." - ". get("webName")
+			} else {
+				$title = stripslashes($title) ." - ". get("webName")
+			}
+		}
+
+		$this->title = is_null($title) ? get("webName") ." - ". get("webSlogan") : $title;
         
         $this->meta("title", $this->title);
 	}
