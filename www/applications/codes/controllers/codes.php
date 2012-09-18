@@ -98,7 +98,7 @@ class Codes_Controller extends ZP_Controller {
             
             if($files) {
                 $data[0]["Files"] = $files;
-            	$this->title(__("Codes", FALSE) ." - ". $data[0]["Title"]);
+            	$this->title(__("Codes", FALSE) ." - ". stripslashes(decode($data[0]["Title"])));
 			
                 $this->Codes_Model->updateViews($codeID);
 
@@ -208,11 +208,15 @@ class Codes_Controller extends ZP_Controller {
 
 		if($data) {
 			$vars["tFoot"] = $data;
-			$vars["total"] = count($data);
+			$total = count($data);
 		} else {
 			$vars["tFoot"] = array();
-			$vars["total"] = 0;
+			$total = 0;
 		}
+
+		$label = ($total === 1 ? __("record") : __("records"));
+
+		$vars["total"] = (int)$total . " $label";
 		
 		$vars["view"] = $this->view("admin", TRUE);
 		$this->render("content", $vars);
