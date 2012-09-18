@@ -17,35 +17,35 @@ function routePath() {
 				if(segments() === 6) {
 					$flag  = TRUE;
 					
-					$HTML  = a(__(_("Home")), PATH("cpanel"))																			. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(2)))), $path . segment(2)) 															. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(3)))), $path . segment(2) . _sh . segment(3)) 										. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(4)))), $path . segment(2) . _sh . segment(3) . _sh . segment(4))  					. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(5)))), $path . segment(2) . _sh . segment(3) . _sh . segment(4) . _sh . segment(5));	
+					$HTML  = a(__("Home"), PATH("cpanel"))																			. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(2))), $path . segment(2)) 															. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(3))), $path . segment(2) . _sh . segment(3)) 										. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(4))), $path . segment(2) . _sh . segment(3) . _sh . segment(4))  					. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(5))), $path . segment(2) . _sh . segment(3) . _sh . segment(4) . _sh . segment(5));	
 				} elseif(segments() === 5) {
 					$flag  = TRUE;
 					
-					$HTML  = a(__(_("Home"), path("cpanel")))																		    . $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(2)))), $path . segment(2)) 															. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(3)))), $path . segment(2) . _sh . segment(3)) 										. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(4)))), $path . segment(2) . _sh . segment(3) . _sh . segment(4));
+					$HTML  = a(__("Home"), path("cpanel"))																		    . $rsaquo;
+					$HTML .= a(__(ucfirst(segment(2))), $path . segment(2)) 															. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(3))), $path . segment(2) . _sh . segment(3)) 										. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(4))), $path . segment(2) . _sh . segment(3) . _sh . segment(4));
 				} elseif(segments() === 4) {
 					$flag  = TRUE;				
 					
-					$HTML  = a(__(_("Home")), path("cpanel"))	 																		. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(1)))), $path . "cpanel")															. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(3)))), $path . segment(2) . _sh . segment(3));
+					$HTML  = a(__("Home"), path("cpanel"))	 																		. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(1))), $path . "cpanel")															. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(3))), $path . segment(2) . _sh . segment(3));
 				} elseif(segments() === 3) {
 					$flag  = TRUE;						
 					
-					$HTML  = a(__(_("Home")), path("cpanel"))					 														. $rsaquo;
-					$HTML .= a(__(_(ucfirst(segment(1)))), $path . segment(3));
+					$HTML  = a(__("Home"), path("cpanel"))					 														. $rsaquo;
+					$HTML .= a(__(ucfirst(segment(1))), $path . segment(3));
 				} elseif(segments() === 2) {
 					$flag  = TRUE;
 					
-					$HTML  = a(__(_("Home")), path("cpanel"));
+					$HTML  = a(__("Home"), path("cpanel"));
 				} else {
-					$HTML  = a(__(_("Home")), path("cpanel"));
+					$HTML  = a(__("Home"), path("cpanel"));
 				}
 			}
 		}

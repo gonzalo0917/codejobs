@@ -9,7 +9,7 @@ $message = recoverPOST("message");
 
 echo div("new-user", "class");
 	echo formOpen(path("feedback"), "form", "form");
-		echo p(__(_("Contact us today")), "resalt");
+		echo p(__("Contact us today"), "resalt");
 		
 		echo isset($alert) ? $alert : NULL;
 		
@@ -46,7 +46,7 @@ echo div("new-user", "class");
 				"name" 	=> "send",
 				"type"  => "submit",
 				"class" => "submit",
-				"value" => __(_("Send my message"))
+				"value" => __("Send my message")
 			));
 		}
 

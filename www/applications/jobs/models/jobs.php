@@ -95,7 +95,7 @@ class Jobs_Model extends ZP_Model {
 	private function save() {
 		$this->Db->insert($this->table, $this->data);
 	
-		return getAlert(__(_("The post has been saved correctly")), "success");
+		return getAlert(__("The post has been saved correctly"), "success");
 	}
 	
 	private function search($search, $field) {

@@ -19,41 +19,41 @@
 
 <div class="add-form">
 	<p class="field">
-		<strong><?php echo __(_("Name")); ?></strong><br />
+		<strong><?php echo __("Name"); ?></strong><br />
 		<?php echo $name;?>
 	</p>
 	
 	<p class="field">
-		<strong><?php echo __(_("Email")); ?></strong><br />
+		<strong><?php echo __("Email"); ?></strong><br />
 		<?php echo $email;?>
 	</p>
 	
 	<p class="field">
-		<strong><?php echo __(_("Date")); ?></strong><br />
+		<strong><?php echo __("Date"); ?></strong><br />
 		<?php echo $date;?>
 	</p>
 	
 	<p class="field">
-		<strong><?php echo __(_("Subject")); ?></strong><br />
+		<strong><?php echo __("Subject"); ?></strong><br />
 		<?php echo $subject;?>
 	</p>
 	
 	<p class="field">
-		<strong><?php echo __(_("Phone")); ?></strong><br />
+		<strong><?php echo __("Phone"); ?></strong><br />
 		<?php echo $phone;?>
 	</p>
 	
 	<p class="field">
-		<strong><?php echo __(_("Company")); ?></strong><br />
+		<strong><?php echo __("Company"); ?></strong><br />
 		<?php echo $company;?>
 	</p>
 	
 	<p class="field">
-		<strong><?php echo __(_("Message")); ?></strong><br />
+		<strong><?php echo __("Message"); ?></strong><br />
 		<?php echo $message;?>
 	</p>
 	
 	<p>
-		<a href="<?php echo $back;?>" title="<?php echo __(_("Back")); ?>"><?php echo __(_("Back"));?></a>
+		<a href="<?php echo $back;?>" title="<?php echo __("Back"); ?>"><?php echo __("Back");?></a>
 	</p>
 </div>

@@ -46,7 +46,7 @@ if(!defined("_access")) {
 	if(SESSION("ZanUser")) {
 		echo div("new-user", "class");
 			echo formOpen($URL ."/#new", "form", "form");
-				echo p(__(_("Post a comment!")), "resalt");
+				echo p(__("Post a comment!"), "resalt");
 
 				echo ($alert) ? $alert : NULL; 			
 
@@ -54,7 +54,7 @@ if(!defined("_access")) {
 					"id"	   => "editor",
 					"name" 	   => "comment",	
 					"style"    => "width: 400px",							
-					"field"    => __(_("Comment")), 
+					"field"    => __("Comment"), 
 					"p" 	   => TRUE, 
 					"value"    => recoverPOST("comment")
 				));
@@ -63,7 +63,7 @@ if(!defined("_access")) {
 					"name" 	=> "publish",
 					"type"  => "submit",
 					"class" => "submit",
-					"value" => __(_("Post my comment"))
+					"value" => __("Post my comment")
 				));
 
 				echo formInput(array(	

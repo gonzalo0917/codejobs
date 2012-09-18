@@ -317,7 +317,7 @@ function getBetween($content, $start, $end) {
 }
 
 function getTotal($count, $singular, $plural) {
-	return ((int) $count === 0 or (int) $count > 1) ? (int) $count ." ". __(_($plural)) : (int) $count ." ". __(_($singular));
+	return ((int) $count === 0 or (int) $count > 1) ? (int) $count ." ". __($plural) : (int) $count ." ". __($singular);
 }
 
 function gravatar($email) {  

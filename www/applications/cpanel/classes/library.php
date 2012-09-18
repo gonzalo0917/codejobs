@@ -72,11 +72,11 @@ class Library extends ZP_Load {
 		if($type === "images") {
 			$this->px   = "i";
 			$this->path = "www/lib/files/images/uploaded/";
-			$text = __(_("Images library"));
+			$text = __("Images library");
 		} elseif($type === "documents") {
 			$this->px   = "d";
 			$this->path = "www/lib/files/documents/uploaded/";
-			$text = __(_("Documents library"));
+			$text = __("Documents library");
 		}
 				
 		$action = segment(0, isLang()) . _sh . segment(1, isLang()) . _sh . segment(2, isLang());
@@ -86,7 +86,7 @@ class Library extends ZP_Load {
 		
 		$alert  = "onclick=\"document.getElementById('form-add').target='';";
 		$alert .= "document.getElementById('form-add').action='". $URL . $action ."/#". $this->px ."Library';";
-		$alert .= "return confirm('". __(_("Do you want to delete the file?")) ."');\""; 		
+		$alert .= "return confirm('". __("Do you want to delete the file?") ."');\""; 		
 		
 		$event  = "onclick=\"document.getElementById('form-add').target=''; ";
 		$event .= "document.getElementById('form-add').action='". $URL . $action . _sh ."#". $this->px ."Library';\""; 
@@ -101,9 +101,9 @@ class Library extends ZP_Load {
 		$HTML = a($this->px ."Library");
 		
 		if($this->type === "images") {
-			$aEvents = "onclick=\"showElement(document.getElementById('". $this->px ."-library'));\" title=\"". __(_("Click to show or hide")) ."\" class=\"pointer\"";
+			$aEvents = "onclick=\"showElement(document.getElementById('". $this->px ."-library'));\" title=\"". __("Click to show or hide") ."\" class=\"pointer\"";
 		} else {
-			$aEvents = "onclick=\"showElement(document.getElementById('". $this->px ."-library1'));\" title=\"".__(_("Click to show or hide")) ."\" class=\"pointer\"";
+			$aEvents = "onclick=\"showElement(document.getElementById('". $this->px ."-library1'));\" title=\"".__("Click to show or hide") ."\" class=\"pointer\"";
 		}
 		
 		$HTML .= formField($aEvents, $text);		
@@ -211,7 +211,7 @@ class Library extends ZP_Load {
 
 				$attributes = array(
 								"name"   => $this->px ."Make", 
-								"value"  => __(_("Make directory")),
+								"value"  => __("Make directory"),
 								"type"   => "submit",
 								"class"  => "btn btn-info",
 								"events" => $event
@@ -229,7 +229,7 @@ class Library extends ZP_Load {
 					
 					$attributes = array(
 									"name"   => $this->px . "Go", 
-									"value"  => __(_("Go")),
+									"value"  => __("Go"),
 									"type"   => "submit",
 									"class"  => "btn btn-warning",
 									"events" => $event
@@ -242,15 +242,15 @@ class Library extends ZP_Load {
 					$HTML .= br();
 				}
 			
-				$HTML .= small(span("bold", __(_("The new folders will be created and the files will be uploaded in")) .": ") . $part);
+				$HTML .= small(span("bold", __("The new folders will be created and the files will be uploaded in") .": ") . $part);
 				
 				$HTML .= br();
 				
 				if($type === "images") {
-					$HTML .= small(span("bold", __(_("Support files"))) .": jpg, jpeg, png, gif ". __(_("and")) ." bmp.");				
+					$HTML .= small(span("bold", __("Support files")) .": jpg, jpeg, png, gif ". __("and") ." bmp.");				
 				} elseif($type === "documents") {
-					$formats = "csv, doc, docx, exe, pdf, ppt, pptx, rar, xls, xlsx ". __(_("and")) ." zip";
-					$HTML   .= small(span("bold", __(_("Support files"))) .": ". $formats);					
+					$formats = "csv, doc, docx, exe, pdf, ppt, pptx, rar, xls, xlsx ". __("and") ." zip";
+					$HTML   .= small(span("bold", __("Support files")) .": ". $formats);					
 				}
 				
 				$HTML .= "<br />";		
@@ -268,7 +268,7 @@ class Library extends ZP_Load {
 			if(SESSION("ZanUserPrivilegeID") < 3) {
 				$attributes = array(
 								"name"   => $this->px ."Delete", 
-								"value"  => __(_("Delete")),
+								"value"  => __("Delete"),
 								"type"   => "submit",
 								"class"  => "btn btn-danger",
 								"events" => $alert
@@ -429,11 +429,11 @@ class Library extends ZP_Load {
 					$attrs = array(
 						"onclick" => "javascript:insertHTML($img);",
 						"class"   => "pointer",
-						"title"   => __(_("Insert Image"))
+						"title"   => __("Insert Image")
 					);
 					
 					$HTML .= li(formCheckbox($attributes) ." ". small($num) .
-								a(span("tiny-image tiny-search", "&nbsp;&nbsp;&nbsp;&nbsp;"), _webURL . _sh . $path . $files[$i], FALSE, array("title" => __(_("Preview image")))) .														
+								a(span("tiny-image tiny-search", "&nbsp;&nbsp;&nbsp;&nbsp;"), _webURL . _sh . $path . $files[$i], FALSE, array("title" => __("Preview image"))) .														
 								a(span("tiny-image tiny-add", "&nbsp;&nbsp;&nbsp;&nbsp;") . $files[$i], FALSE, FALSE, $attrs));								
 				} elseif($type == "documents") {												
 					$file = $this->Files->getFileInformation($files[$i]);
@@ -454,7 +454,7 @@ class Library extends ZP_Load {
 					unset($attrs);
 					
 					$attrs = array(
-						"title"   => __(_("Insert file")),
+						"title"   => __("Insert file"),
 						"class"   => "pointer",
 						"onclick" => "javascript:insertHTML($img);"
 					);
@@ -462,7 +462,7 @@ class Library extends ZP_Load {
 					$span  = span("tiny-image tiny-file", "&nbsp;&nbsp;&nbsp;&nbsp;");
 
 					$HTML .= li(formCheckbox($attributes) ." ". small($num) .
-								a($span, _webURL . _sh . $path . $files[$i], FALSE, array("title" => __(_("Download file")))).
+								a($span, _webURL . _sh . $path . $files[$i], FALSE, array("title" => __("Download file"))).
 								a(span("tiny-image tiny-add", "&nbsp;&nbsp;&nbsp;&nbsp;") . $files[$i], FALSE, FALSE, $attrs));							
 				}
 			}	

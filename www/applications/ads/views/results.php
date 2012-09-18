@@ -1,7 +1,7 @@
 <?php 
 if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
-$caption = __(_("Manage Ads"));
+$caption = __("Manage Ads");
 $colspan = 8;
 
 echo $search;
@@ -24,19 +24,19 @@ $j = 2;
 		<tr>
 			<th>&nbsp;</th>
 			<th>ID</th>
-			<th><?php echo __(_("Title")); ?></th>
-			<th><?php echo __(_("Position")); ?></th>
-			<th><?php echo __(_("Banner")); ?></th>
-			<th><?php echo __(_("Principal")); ?></th>
-			<th><?php echo __(_("Situation")); ?></th>
-			<th><?php echo __(_("Action")); ?></th>
+			<th><?php echo __("Title"); ?></th>
+			<th><?php echo __("Position"); ?></th>
+			<th><?php echo __("Banner"); ?></th>
+			<th><?php echo __("Principal"); ?></th>
+			<th><?php echo __("Situation"); ?></th>
+			<th><?php echo __("Action"); ?></th>
 		</tr>
 	</thead>
 					
 	<tfoot>
 		<tr>
 			<td colspan="<?php echo $colspan; ?>">
-				<span class="bold"><?php echo __(_("Total")); ?>:</span> <?php echo $total; ?>
+				<span class="bold"><?php echo __("Total"); ?>:</span> <?php echo $total; ?>
 			</td>
 		</tr>
 	</tfoot>		  
@@ -69,7 +69,7 @@ $j = 2;
 					</td>
 								
 					<td class="center">
-						<?php echo __(_($column["Position"])); ?>
+						<?php echo __($column["Position"]); ?>
 					</td>
 								
 					<?php
@@ -77,14 +77,14 @@ $j = 2;
 						?>
 							<td class="center">
 								<a href="<?php echo path($column["Banner"], TRUE); ?>" title="Banner" class="banner-lightbox">
-									<?php echo __(_("Preview")); ?>
+									<?php echo __("Preview"); ?>
 								</a>
 							</td>
 						<?php
 						} else {
 						?>				
 							<td class="center">
-								<?php echo __(_("Preview")); ?>
+								<?php echo __("Preview"); ?>
 							</td>
 						<?php
 						}
@@ -92,20 +92,20 @@ $j = 2;
 						if($column["Principal"]) {
 						?>			
 							<td class="center">
-								<?php echo __(_("Yes")); ?>
+								<?php echo __("Yes"); ?>
 							</td>
 						<?php
 						} else {
 						?>
 							<td class="center">
-								<?php echo __(_("No")); ?>
+								<?php echo __("No"); ?>
 							</td>
 						<?php	
 						}
 					?>		
 						 
 					<td class="center">
-						<?php echo __(_($column["Situation"])); ?>
+						<?php echo __($column["Situation"]); ?>
 					</td>
 												 
 					<td class="center">
@@ -126,20 +126,20 @@ $j = 2;
 </table>
 		
 <div class="table-options" style="position: relative; z-index: 1; margin-bottom: 25px;">
-	<?php echo __(_("Select")); ?>: <br />
+	<?php echo __("Select"); ?>: <br />
 	
-	<a onclick="checkAll('records')" class="pointer" title="<?php echo __(_("All")); ?>"><?php echo __(_("All")); ?></a> |
-	<a onclick="unCheckAll('records')" class="pointer" title="<?php echo __(_("None")); ?>"><?php echo __(_("None")); ?></a><br /><br />
+	<a onclick="checkAll('records')" class="pointer" title="<?php echo __("All"); ?>"><?php echo __("All"); ?></a> |
+	<a onclick="unCheckAll('records')" class="pointer" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a><br /><br />
 	
 	<?php				
 	if(segment(3, isLang()) === "trash") { 
 	?>
-		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to restore the records?")); ?>\')" name="restore" value="<?php echo __(_("Restore")); ?>" type="submit" class="small-input" />
-		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to delete the records?")); ?>\')" name="delete" value="<?php echo __(_("Delete")); ?>" type="submit" class="small-input" />
+		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
 	<?php
 	} else { 
 	?>
-		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __(_("Do you want to send to trash the records?")); ?>\')" name="trash" value="<?php echo __(_("Send to trash")); ?>" type="submit" class="small-input" />
+		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
 	<?php
 	}
 	?>					

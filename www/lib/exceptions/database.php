@@ -8,11 +8,11 @@ if(!defined("_access")) {
 
 function e($exception = NULL) {
 	if(is_null($exception)) {
-		return __(_("An unknown error has occurred"));	
+		return __("An unknown error has occurred");	
 	}
 	
 	switch($exception) {
-		case "Connection Error": return __(_("Connection error"));	
+		case "Connection Error": return __("Connection error");	
 		
 		default: return $exception; 
 	}

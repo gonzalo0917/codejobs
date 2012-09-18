@@ -114,7 +114,7 @@ class CPanel_Model extends ZP_Model {
 				$i++;
 			}
 		} else {
-			$list = "<p>&nbsp&nbsp&nbsp". __(_("There are no new records")) ."</p>";
+			$list = "<p>&nbsp&nbsp&nbsp". __("There are no new records") ."</p>";
 		}
 
 		return $list;
@@ -279,16 +279,16 @@ class CPanel_Model extends ZP_Model {
 			for($i = 0; $i <= count($parts) - 1; $i++) {
 				if($parts[$i] != "checkbox") {					
 					if($parts[$i] === "Action") {
-						$thead[$i] = __(_($parts[$i]));
+						$thead[$i] = __($parts[$i]);
 					} else {
-						$thead[$i] = __(_($parts[$i]));
+						$thead[$i] = __($parts[$i]);
 					}
 				} else {
 					$thead[$i] = NULL;	
 				}
 			}
 		} else {
-			$thead[0] = __(_($positions));	
+			$thead[0] = __($positions);	
 		}
 		
 		$return = $thead;
@@ -317,11 +317,11 @@ class CPanel_Model extends ZP_Model {
 			}
 			
 			if($total === 0) {
-				$total = "0 ". __(_("Records founded"));
+				$total = "0 ". __("Records founded");
 			} elseif($total === 1) {
-				$total = "1 ". __(_("Record found"));
+				$total = "1 ". __("Record found");
 			} else {
-				$total = $total . " " .__(_("Records founded"));	
+				$total = $total . " " .__("Records founded");	
 			}
 			
 			return $total;
@@ -346,11 +346,11 @@ class CPanel_Model extends ZP_Model {
 		}
 		
 		if($total === 0) {
-			$total = "0 " . __(_($plural));
+			$total = "0 " . __($plural);
 		} elseif((int) $total === 1) { 
-			$total = "1 " . __(_($singular));
+			$total = "1 " . __($singular);
 		} else { 
-			$total = $total . " " . __(_($plural));
+			$total = $total . " " . __($plural);
 		}
 		
 		return $total;

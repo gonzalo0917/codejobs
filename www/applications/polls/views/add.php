@@ -14,20 +14,20 @@
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "span10 required", 
-				"field" => __(_("Question")), 
+				"field" => __("Question"), 
 				"p" 	=> TRUE, 
 				"value" => $title
 			));
 						
 			
-			echo formField(NULL, __(_("Answers")) ." (". __(_("Empty answers not be added")) . ")");
+			echo formField(NULL, __("Answers") ." (". __("Empty answers not be added") . ")");
 			
 			if(is_array($answers)) { 
 				foreach($answers as $key => $answer) { 
@@ -46,18 +46,18 @@
 				echo p(FALSE);
 			} 	
 
-			echo formField(NULL, __(_("Language")) ."<br />". getLanguagesInput($language, "language", "select"));		
+			echo formField(NULL, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));		
 			
 			$options = array(
-				0 => array("value" => "Active",   "option" => __(_("Active")),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __(_("Inactive")), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
+				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "situation", 
 				"p" 	=> TRUE, 
 				"class" => "required", 
-				"field" => __(_("Situation"))), 
+				"field" => __("Situation")), 
 				$options
 			);
 			

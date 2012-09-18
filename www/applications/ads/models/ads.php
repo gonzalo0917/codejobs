@@ -85,11 +85,11 @@ class Ads_Model extends ZP_Model {
 			$this->data["Banner"] = $this->Files->uploadImage($dir, "image", "normal");
 			
 			if(!$this->data["Banner"]) {
-				return getAlert(__(_("Upload error"))); 
+				return getAlert(__("Upload error")); 
 			}
 		} else {
 			if(!isset($this->data["Code"])) {
-				return getAlert(__(_("You need to upload an image or write the ad code")));
+				return getAlert(__("You need to upload an image or write the ad code"));
 			}
 		}		
 	}

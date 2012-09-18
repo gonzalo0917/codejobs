@@ -3,15 +3,15 @@
 <div id="blog-access">
 	<form class="blog-access" action="" method="post">
 		<fieldset>
-			<legend><?php echo __(_("Private post")); ?></legend>
+			<legend><?php echo __("Private post"); ?></legend>
 			
 			<p>
-				<strong><?php echo __(_("Post password")); ?></strong><br />
+				<strong><?php echo __("Post password"); ?></strong><br />
 				<input name="password" type="password" class="input" />				
 			</p>
 			
 			<p>
-				<input name="access" type="submit" value="<?php echo __(_("Access")); ?>" class="submit" />
+				<input name="access" type="submit" value="<?php echo __("Access"); ?>" class="submit" />
 			</p>
 			
 			<input name="pwd" type="hidden" value="<?php echo $password; ?>" />

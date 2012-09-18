@@ -35,7 +35,7 @@
 				"type" 	=> "text", 
 				"name" 	=> "title", 
 				"class" => "span10 required", 
-				"field" => __(_("Title")), 
+				"field" => __("Title"), 
 				"p" 	=> TRUE, 
 				"value" => $title)
 			);
@@ -44,7 +44,7 @@
 				"id" 	=> "editor", 
 				"name" 	=> "content", 
 				"style" => "height: 400px;", 
-				"field" => __(_("Content")), 
+				"field" => __("Content"), 
 				"p" 	=> TRUE, 
 				"value" => $content)
 			);
@@ -69,7 +69,7 @@
 				"name" 	=> "principal", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Principal"))), 
+				"field" => __("Principal")), 
 				$options
 			);
 
@@ -91,7 +91,7 @@
 				"name" 	=> "situation", 
 				"class" => "required", 
 				"p" 	=> TRUE, 
-				"field" => __(_("Situation"))), 
+				"field" => __("Situation")), 
 				$options
 			);
 

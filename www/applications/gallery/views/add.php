@@ -17,14 +17,14 @@
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(_(ucfirst(whichApplication()))), "resalt");
+			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 			
 			echo formInput(array(	
 								"name" 	=> "title", 
 								"class" => "span10 required", 
-								"field" => __(_("Title")), 
+								"field" => __("Title"), 
 								"p" 	=> TRUE, 
 								"value" => $title
 			));
@@ -33,7 +33,7 @@
 								"name"  => "description", 
 								"class" => "span10 required", 
 								"style" => "height: 150px;", 
-								"field" => __(_("Description")), 
+								"field" => __("Description"), 
 								"p" 	=> TRUE, 
 								"value" => $description));
 			
@@ -46,7 +46,7 @@
 									"name" 	=> "files[]", 
 									"type"  => "file",
 									"class" => "add-img required", 
-									"field" => __(_("Image")), 
+									"field" => __("Image"), 
 									"p" 	=> TRUE
 				));
 
@@ -56,7 +56,7 @@
 									"name" 	=> "file",
 									"type"	=> "file", 
 									"class" => "required", 
-									"field" => __(_("Image")), 
+									"field" => __("Image"), 
 									"p" 	=> TRUE
 				));
 			} 
@@ -64,14 +64,14 @@
 			echo formInput(array(	
 								"name" 	=> "category", 
 								"class" => "span10 required", 
-								"field" => __(_("Album")) ." (". __(_("Write a album or select")) .")", 
+								"field" => __("Album") ." (". __("Write a album or select") .")", 
 								"p" 	=> TRUE
 			));
 			
 			/*
 			<p class="field">
 				<select id="ID_Category" name="ID_Category" size="1" tabindex="5" class="select">
-					<option value="0"><?php echo __(_("Select Album")); ?></option>
+					<option value="0"><?php echo __("Select Album"); ?></option>
 					<?php if(is_array($categories)) { ?>
 						<?php foreach($categories as $cat) { ?>
 							<?php if($ID_Category === $cat["ID_Category"]) { ?>
@@ -88,18 +88,18 @@
 			$options = array(
 				0 => array(
 						"value"    => "Active",
-						"option"   => __(_("Active")),
+						"option"   => __("Active"),
 						"selected" => ($situation === "Active") ? TRUE : FALSE
 					),
 				
 				1 => array(
 						"value"    => "Inactive",
-						"option"   => __(_("Inactive")),
+						"option"   => __("Inactive"),
 						"selected" => ($situation === "Inactive") ? TRUE : FALSE
 					)
 			);
 
-			echo formSelect(array("name" => "situation", "class" => "required", "p" => TRUE, "field" => __(_("Situation"))), $options);
+			echo formSelect(array("name" => "situation", "class" => "required", "p" => TRUE, "field" => __("Situation")), $options);
 			
 			echo formSave($action);
 			

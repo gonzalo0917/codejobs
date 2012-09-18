@@ -1,5 +1,5 @@
 <p>
-	<?php echo __(_("Your message has been sent successfully, we will contact you as soon as possible, thank you very much!")); ?>
+	<?php echo __("Your message has been sent successfully, we will contact you as soon as possible, thank you very much!"); ?>
 </p>							
 
 <p>

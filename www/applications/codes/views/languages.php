@@ -35,7 +35,7 @@ $i = 0;
 	<tfoot>
 		<tr>
 			<td class="center" colspan="<?php echo $colspan; ?>">
-				<span class="bold"><?php echo __(_("Total")); ?>:</span> <?php echo $total; ?>
+				<span class="bold"><?php echo __("Total"); ?>:</span> <?php echo $total; ?>
 			</td>
 		</tr>
 	</tfoot>		  
