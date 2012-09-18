@@ -530,7 +530,7 @@ class ZP_Load {
      * @param string $vars
      * @return string value / void
      */	
-	public function render($name, $vars = NULL) {	
+	public function render($name, $vars = NULL, $rendering = NULL) {	
 		if(is_array($vars)) { 
 			if(count($this->views) === 0) {
 				$this->views[0]["name"] = $name;
@@ -551,7 +551,11 @@ class ZP_Load {
 		if($name !== "include" and get("autoRender")) {
 			$this->rendering();
 		} elseif($name === "include") {
-			$this->rendering();
+			if(is_array($rendering)) {
+				call_user_func_array(array($this, "rendering"), $rendering);
+			} else {
+				$this->rendering();
+			}
 		}
 	}
 	

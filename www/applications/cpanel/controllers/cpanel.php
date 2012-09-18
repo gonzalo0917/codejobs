@@ -83,9 +83,7 @@ class CPanel_Controller extends ZP_Controller {
 			$this->vars["view"] = $this->view("login", TRUE);
 		}
 		
-		$this->render("include", $this->vars);
-		
-		$this->rendering("header", "footer");
+		$this->render("include", $this->vars, array("header", "footer"));
 	}
 	
 	public function logout() {
