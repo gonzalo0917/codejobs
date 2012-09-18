@@ -415,6 +415,8 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function title($title = NULL) {
+		$this->helper("string");
+		
 		if(!is_null($title)) {
 			if(badCharset($title)) {
 				$title = stripslashes(decode($title)) ." - ". get("webName")
