@@ -27,7 +27,7 @@
 				"class" => "span10 required", 
 				"field" => __(_("Title")), 
 				"p" 	=> TRUE, 
-				"value" => $title
+				"value" => stripslashes($title)
 			));
 
 			echo formInput(array(	
