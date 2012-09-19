@@ -653,7 +653,7 @@ class ZP_Db extends ZP_Load {
 		}
 		
 		$query = "SELECT $this->fields FROM $this->table WHERE $SQL";
-		
+	
 		return $this->data($query);
 	}
 	

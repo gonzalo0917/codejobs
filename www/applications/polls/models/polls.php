@@ -11,7 +11,8 @@ class Polls_Model extends ZP_Model {
 	public function __construct() {
 		$this->Db = $this->db();
 		
-		$this->table = "polls";
+		$this->table  = "polls";
+		$this->fields = "ID_Poll, Title, Text_Date, Language, Situation";
 		
 		$this->Data = $this->core("Data");
 
@@ -39,12 +40,10 @@ class Polls_Model extends ZP_Model {
 	}
 	
 	private function all($trash, $order, $limit) {
-		$this->Db->select("ID_Poll, Title, Type, Start_Date, Situation");
-		
-		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, NULL, $order, $limit);
+		if(!$trash) { 			
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
 		}	
 	}
 	
@@ -77,7 +76,7 @@ class Polls_Model extends ZP_Model {
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"Start_Date" => now(4),
-			"Text_Date"  => now(2),
+			"Text_Date"  => decode(now(2)),
 		);
 
 		$this->Data->ignore("answers");
@@ -90,8 +89,10 @@ class Polls_Model extends ZP_Model {
 		
 		if($lastID) {
 			for($i = 0; $i <= count($this->answers) - 1; $i++) {
-				$answers[$i]["ID_Poll"] = $lastID;
-				$answers[$i]["Answer"]  = $this->answers[$i];
+				if($this->answers[$i] !== "") {
+					$answers[$i]["ID_Poll"] = $lastID;
+					$answers[$i]["Answer"]  = $this->answers[$i];
+				}
 			}
 			
 			$this->Db->insertBatch("polls_answers", $answers);
@@ -103,13 +104,13 @@ class Polls_Model extends ZP_Model {
 	}
 	
 	private function edit() {
-		$this->Db->updateBySQL($this->table, "Title = '$this->title', Type = '$this->type', State = '$this->state'", $this->ID);
+		$this->Db->update($this->table, $this->data, POST("ID"));
 		
-		$this->Db->deleteBySQL("ID_Poll = '$this->ID'", "polls_answers");
+		$this->Db->deleteBySQL("ID_Poll = '". POST("ID") ."'", "polls_answers");
 		
 		foreach($this->answers as $key => $answer) {
 			if($answer !== "") {
-				$this->Db->insert("polls_answers", array("ID_Poll" => $this->ID, "Answer" => $answer));
+				$this->Db->insert("polls_answers", array("ID_Poll" => POST("ID"), "Answer" => $answer));
 			}
 		}
 		
@@ -117,17 +118,12 @@ class Polls_Model extends ZP_Model {
 	}
 	
 	public function getByID($ID) {
-		$this->Db->select("ID_Poll");
-
-		$data = $this->Db->find($ID, $this->table);
-		
-		$this->Db->select("Answer");
-
-		$data2 = $this->Db->findBy("ID_Poll", $ID, "polls_answers");
+		$data  = $this->Db->find($ID, $this->table, "ID_Poll, Title, Language, Situation");
+		$data2 = $this->Db->findBy("ID_Poll", $ID, "polls_answers", "Answer");
 		
 		if($data2) {
 			foreach($data2 as $answer) {
-				$data[0][] = $answer["Answer"];
+				$data[1][] = $answer["Answer"];
 			}
 		}
 		
@@ -137,12 +133,10 @@ class Polls_Model extends ZP_Model {
 	public function getLastPoll() {		
 		$language = whichLanguage();
 
-		$data1 = $this->Db->findBySQL("Language = '$language'", $this->table, "ID_Poll, Title, Type, Start_Date, Situation", NULL, "ID_Poll DESC", 1);
+		$data1 = $this->Db->findBySQL("Language = '$language'", $this->table, $this->fields, NULL, "ID_Poll DESC", 1);
 		
 		if($data1) {
-			$this->Db->select("ID_Answer, Answer");
-
-			$data2 = $this->Db->findBy("ID_Poll", $data1[0]["ID_Poll"], "polls_answers");
+			$data2 = $this->Db->findBy("ID_Poll", $data1[0]["ID_Poll"], "polls_answers", "ID_Answer, Answer, Votes");
 			
 			$data["question"] = $data1[0];
 			$data["answers"]  = $data2;
@@ -161,10 +155,8 @@ class Polls_Model extends ZP_Model {
 		$IP		   = getIP();
 		$date	   = now(4);
 		$end	   = $date + 3600;
-		
-		$this->Db->select("ID_Poll, IP, Start_Date, End_Date");
 
-		$data = $this->Db->findBySQL("ID_Poll = '$ID_Poll' AND IP = '$IP' AND End_Date > $date", "polls_ips");
+		$data = $this->Db->findBySQL("ID_Poll = '$ID_Poll' AND IP = '$IP' AND End_Date > $date", "polls_ips", "ID_Poll, IP, Start_Date, End_Date");
 		
 		if($data) {
 			COOKIE("ZanPoll", $ID_Poll, 3600);

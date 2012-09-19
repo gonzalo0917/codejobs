@@ -28,8 +28,8 @@
 			<?php
 		} else {
 			if(isset($poll)) {
-				$total    = 0;
-				
+				$total = 0;
+		
 				foreach($poll["answers"] as $answers) {
 					$total = (int) ($total + $answers["Votes"]);
 				}

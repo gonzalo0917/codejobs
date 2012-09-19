@@ -6,7 +6,6 @@
 	$ID  	   = isset($data) ? recoverPOST("ID", $data[0]["ID_Poll"])			 : recoverPOST("ID");
 	$title     = isset($data) ? recoverPOST("title", $data[0]["Title"])			 : recoverPOST("title");
 	$answers   = isset($data) ? recoverPOST("answers", $data[1])				 : recoverPOST("answers");
-	$type 	   = isset($data) ? recoverPOST("type", $data[0]["Type"])			 : recoverPOST("type");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])	 : recoverPOST("situation");
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$action	   = isset($data) ? "edit"											 : "save";
@@ -30,9 +29,19 @@
 			echo formField(NULL, __("Answers") ." (". __("Empty answers not be added") . ")");
 			
 			if(is_array($answers)) { 
+				$count = 1;
+
 				foreach($answers as $key => $answer) { 
 					echo p(TRUE, "field panswer");	
 						echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answer));	
+					echo p(FALSE);
+
+					$count++;
+				}
+
+				for($i = $count; $i <= 6; $i++) {
+					echo p(TRUE, "field panswer");	
+						echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => ""));
 					echo p(FALSE);
 				}
 			} else { 

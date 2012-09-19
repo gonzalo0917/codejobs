@@ -31,6 +31,7 @@ class CPanel_Model extends ZP_Model {
 
 			if(segment(2, isLang()) === "languages") {
 				$this->Db->delete($ID, "codes_syntax");
+
 				return TRUE;
 			}
 
@@ -180,7 +181,7 @@ class CPanel_Model extends ZP_Model {
 	
 	public function records($trash = FALSE, $order = NULL) {
 		$application = segment(0, isLang());
-		$Model = ucfirst(segment(0, isLang())) ."_Model";
+		$Model 		 = ucfirst(segment(0, isLang())) ."_Model";
 
 		$this->$Model = $this->model($Model);
 		
