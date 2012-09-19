@@ -13,7 +13,7 @@
 
                 <div class="line"></div>
 
-                <section class="transmission">
+                <!--<section class="transmission">
                     <header>
                         <h3><?php echo __("Live broadcast"); ?></h3>
                     </header>
@@ -51,6 +51,14 @@
                             <span class="schedule4">06:00 pm</span>
                         </li>
                     </ul>
+                </section>-->
+
+                <section class="popular">
+                    <header>
+                        <h3><?php echo __("Most popular posts"); ?></h3>
+                    </header>
+
+                    <?php $this->execute("Blog_Controller", "popular"); ?>
                 </section>
 
                 <section class="polls">

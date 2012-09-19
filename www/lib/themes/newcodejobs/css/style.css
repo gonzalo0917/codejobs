@@ -29,6 +29,26 @@ body {
 	margin-left: 20px;
 }
 
+.popular ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	float: right;
+	margin-right: 20px;
+	width: 310px;
+}
+
+.popular ul li a {
+	color: #333;
+	text-decoration: none;
+	font-size: 0.85em;
+	line-height: 30px;
+}
+
+.popular ul li a:hover {
+	color: #0079CE;
+}
+
 a {
     color: #CC2A2A;
     outline: medium none;

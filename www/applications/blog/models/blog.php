@@ -207,17 +207,17 @@ class Blog_Model extends ZP_Model {
 			return FALSE;
 		}
 	}
+
+	public function getMostPopularPosts($limit = 10) {
+		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "Views DESC", $limit);
+	}
 	
 	public function getMural($limit) {		
-		$data = $this->Db->findAll("mural", "Title, URL, Image", NULL, "ID_Post DESC", $limit);
-		
-		return $data;
+		return $this->Db->findAll("mural", "Title, URL, Image", NULL, "ID_Post DESC", $limit);				
 	}
 	
 	public function getMuralByID($ID_Post) {				
-		$data = $this->Db->findBy("ID_Post", $ID_Post, "mural", "Title, URL, Image");
-	
-		return $data;
+		return $this->Db->findBy("ID_Post", $ID_Post, "mural", "Title, URL, Image");			
 	}
 	
 	

@@ -84,6 +84,16 @@ class Blog_Controller extends ZP_Controller {
 			return FALSE;
 		}
 	}
+
+	public function popular() {
+		$data = $this->Blog_Model->getMostPopularPosts();
+
+		if($data) {
+			$vars["posts"] = $data;
+			
+			$this->view("popular", $vars, $this->application);			
+		}
+	}
 	
 	private function getPosts($year = NULL, $month = NULL, $day = NULL) {
 		$this->CSS("posts", $this->application);
