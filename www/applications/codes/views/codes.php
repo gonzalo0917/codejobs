@@ -43,7 +43,7 @@
 
 			<?php
 				if($code["Description"] !== "") {
-					echo stripslashes(tagHTML("p", $code["Description"]));
+					echo str_replace("\\", "", tagHTML("p", $code["Description"]));
 				}
 
 			?>
