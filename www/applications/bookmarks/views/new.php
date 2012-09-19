@@ -57,11 +57,11 @@
 				"value" => $tags
 			));
 
-			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
-			
+			echo tagHTML("p", span("field", "&raquo; " . __("Language of the post")) . "<br />" . getLanguagesInput($language, "language", "select"));
+
 			echo formInput(array(	
 				"name" 	=> "save", 
-				"class" => "btn required", 
+				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"
 			));
