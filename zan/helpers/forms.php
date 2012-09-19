@@ -149,6 +149,8 @@ function formInput($attributes = FALSE) {
 				$HTML = '<input'. $attrs .' type="image" /> ' . "\n";
 			} elseif($type === "reset") {
 				$HTML = '<input'. $attrs .' type="reset" /> ' . "\n";
+			} elseif($type === "url") {
+				$HTML = '<input'. $attrs .' type="url" /> ' . "\n";
 			} else {
 				$HTML = '<input'. $attrs .' type="text" /> ' . "\n";
 			}

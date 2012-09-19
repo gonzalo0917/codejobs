@@ -35,7 +35,8 @@
 				"style" => "width: 300px;", 
 				"field" => __("URL"), 
 				"p" 	=> TRUE, 
-				"value" => $URL
+				"value" => $URL,
+				"type"  => "url"
 			));
 			
 			echo formTextarea(array(	
