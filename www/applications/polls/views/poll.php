@@ -1,4 +1,4 @@
-<div style="width: 225px; font-size: 12px; margin: 0 auto; border:1px solod #000;">
+<div style="width: 225px; margin: 0 auto; border:1px solod #000;">
 <?php	
 	if(isset($poll["answers"])) {
 		if(!COOKIE("ZanPoll")) {
@@ -12,7 +12,7 @@
 						$i = 1; 
 						
 						foreach($poll["answers"] as $answer) {
-							echo '	<label for="answer_'. $i .'">
+							echo '	<label for="answer_'. $i .'" style="font-size: 12px;">
 										<input id="answer_'. $i .'" name="answer" type="radio" value="'. $answer["ID_Answer"] .'"/> '. $answer["Answer"] .'<br />
 									</label>';
 							$i++;
@@ -64,7 +64,7 @@
 								$style = "width: ". intval($percentage) ."%; background-color: ". $color .";";
 						?>
 								
-								<span style="margin-left:5px;"><?php echo $answers["Answer"]; ?> (<?php echo $percentage; ?>%)</span> <br />
+								<span style="margin-left:5px; font-size: 12px;"><?php echo $answers["Answer"]; ?> (<?php echo $percentage; ?>%)</span> <br />
 								
 								<div class="poll-graphic" style="background-color: #EEE; width: 250px; border: 1px solid <?php echo $color[$i]; ?>; padding: 2px;">
 									<div style="<?php echo $style; ?>">&nbsp;</div>
