@@ -88,7 +88,7 @@ class Users_Controller extends ZP_Controller {
 	}
 	
 	public function recover($token = FALSE) {	
-		$this->title("Recover Password");
+		$this->title(decode(__("Recover Password")));
 		
 		if(POST("change")) {			
 			$vars["alert"] 	 = $this->Users_Model->change();

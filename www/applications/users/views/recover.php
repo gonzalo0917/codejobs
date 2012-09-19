@@ -62,7 +62,7 @@ echo div("new-user", "class");
 					"name" 	   => "email",
 					"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
 					"type"     => "email",
-					"field"    => __("Email"), 
+					"field"    => "E-mail", 
 					"p" 	   => TRUE, 
 					"value"    => recoverPOST("email")
 				));

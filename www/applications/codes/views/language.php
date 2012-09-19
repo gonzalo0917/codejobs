@@ -27,7 +27,7 @@
 			echo formInput(array(	
 				"name" 	=> "mime", 
 				"class" => "span10 required", 
-				"field" => __("MIME"), 
+				"field" => "MIME", 
 				"p" 	=> TRUE, 
 				"value" => $mime
 			));

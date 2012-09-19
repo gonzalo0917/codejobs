@@ -26,7 +26,7 @@ $i = 0;
 			<th>&nbsp;</th>
 			<th>ID</th>
 			<th><?php echo __("Name"); ?></th>
-			<th><?php echo __("MIME"); ?></th>
+			<th><?php echo "MIME"; ?></th>
 			<th><?php echo __("Filename"); ?></th>
 			<th><?php echo __("Extension"); ?></th>
 		</tr>

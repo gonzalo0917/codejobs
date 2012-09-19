@@ -6,7 +6,7 @@
                 <section class="social">
                     <a href="https://twitter.com/#!/codejobs" target="_blank"><img class="no-border" title="<?php echo __("Follow us on Twitter"); ?>" alt="<?php echo __("Follow us on Twitter"); ?>" src="<?php echo $this->themePath; ?>/images/social/twitter.png"></a>
                     
-                    <a href="http://www.youtube.com/codejobs" target="_blank"><img class="no-border" title="<?php echo __("Subscribe to our Youtube channel"); ?>" alt="<?php echo __("Suscribe to our channel"); ?>" src="<?php echo $this->themePath; ?>/images/social/youtube.png"></a>
+                    <a href="http://www.youtube.com/codejobs" target="_blank"><img class="no-border" title="<?php echo __("Subscribe to our Youtube channel"); ?>" alt="<?php echo __("Subscribe to our Youtube channel"); ?>" src="<?php echo $this->themePath; ?>/images/social/youtube.png"></a>
                     
                     <a href="<?php echo path("blog/rss"); ?>" target="_blank"><img class="no-border" title="<?php echo __("Follow us with RSS"); ?>" alt="<?php echo __("Follow us with RSS"); ?>" src="<?php echo $this->themePath; ?>/images/social/rss.png"></a>
                 </section>
