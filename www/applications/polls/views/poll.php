@@ -5,7 +5,7 @@
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
 					<p style="text-align: center; width: 250px;">
-						<strong><?php echo $poll["question"]["Title"]; ?></strong>
+						<h3><?php echo $poll["question"]["Title"]; ?></h3>
 					</p>
 							
 					<?php 
@@ -37,7 +37,7 @@
 				?>
 					<p class="section">					
 						<p style="text-align: center; width: 250px;">
-							<strong><?php echo $poll["question"]["Title"]; ?></strong>
+							<h3><?php echo $poll["question"]["Title"]; ?></h3>
 						</p>
 					
 						<?php 
