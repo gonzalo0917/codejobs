@@ -36,7 +36,7 @@
 
     <?php
         if($code["Description"] !== "") {
-            echo tagHTML("p", $code["Description"]);
+            echo tagHTML("p", stripslashes($code["Description"]));
         }
 
         foreach ($code["Files"] as $file) {
