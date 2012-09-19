@@ -23,7 +23,7 @@
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "required",
-				"style" => "width: 300px;", 
+				"style" => "width: 100%;", 
 				"field" => __("Title"), 
 				"p" 	=> TRUE, 
 				"value" => $title
@@ -32,7 +32,7 @@
 			echo formInput(array(	
 				"name" 	=> "URL", 
 				"class" => "required",
-				"style" => "width: 300px;", 
+				"style" => "width: 100%;", 
 				"field" => __("URL"), 
 				"p" 	=> TRUE, 
 				"value" => $URL,
@@ -43,7 +43,7 @@
 				"id" 	 => "editor", 
 				"name" 	 => "description", 
 				"class"  => "required",
-				"style"  => "width: 300px; height: 140px;", 
+				"style"  => "width: 100%; height: 140px;", 
 				"field"  => __("Description"), 
 				"p" 	 => TRUE, 
 				"value"  => $description
