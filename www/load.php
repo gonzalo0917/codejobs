@@ -24,6 +24,6 @@ if($ZP["benchMark"]) {
 
 execute();
 
-if($ZP["benchMark"]) {
+if($ZP["benchMark"] and SESSION("ZanUserPrivilegeID") === 1) {
 	benchMarkEnd();
 }
