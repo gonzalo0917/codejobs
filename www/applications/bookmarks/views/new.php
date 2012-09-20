@@ -3,15 +3,14 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Link"]) 				: 0;
-	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
-	$description = isset($data) ? recoverPOST("description", $data[0]["Description"]) 	: recoverPOST("description");
-	$URL         = isset($data) ? recoverPOST("URL", $data[0]["URL"]) 					: "http://";
-	$tags    	 = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) 				: recoverPOST("tags");
-	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
-	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
-	$edit        = isset($data) ? TRUE 													: FALSE;
-	$action	     = isset($data) ? "edit"												: "save";
+	$ID  	     = isset($data) ? recoverPOST("ID", 0) 								: 0;
+	$title       = isset($data) ? recoverPOST("title", $data["Title"]) 				: recoverPOST("title");
+	$description = isset($data) ? recoverPOST("description", $data["Description"]) 	: recoverPOST("description");
+	$URL         = isset($data) ? recoverPOST("URL", $data["URL"]) 					: "http://";
+	$tags    	 = isset($data) ? recoverPOST("tags", $data["Tags"]) 				: recoverPOST("tags");
+	$language  	 = isset($data) ? recoverPOST("language", $data["Language"])  	 	: recoverPOST("language");
+	$edit        = isset($data) ? TRUE 												: FALSE;
+	$action	     = isset($data) ? "edit"											: "save";
 	$href	     = path("bookmarks/add/");
 	
 	echo div("add-form", "class");
@@ -64,6 +63,13 @@
 				"name" 	=> "save", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
+				"type"  => "submit"
+			));
+
+			echo formInput(array(	
+				"name" 	=> "preview", 
+				"class" => "btn", 
+				"value" => __("Preview"), 
 				"type"  => "submit"
 			));
 			

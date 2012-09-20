@@ -120,6 +120,22 @@ class Bookmarks_Model extends ZP_Model {
 		
 		return getAlert(__("Insert error"));
 	}
+
+	public function preview() {
+		if(POST("description") AND POST("language") AND POST("title") AND POST("URL")) {
+			return array(
+				"Author"  		=> SESSION("ZanUser"),
+				"Description" 	=> filter(POST("description", "clean"), "escape"),
+				"Language" 		=> POST("language"),
+				"Start_Date"	=> now(4),
+				"Tags" 			=> filter(POST("tags", "clean"), "escape"),
+				"Title" 		=> filter(POST("title", "clean"), "escape"),
+				"URL" 			=> POST("URL")
+			);
+		} else {
+			return FALSE;
+		}
+	}
 	
 	private function save() {
 		if($this->Db->insert($this->table, $this->data)) {

@@ -57,17 +57,42 @@ class Bookmarks_Controller extends ZP_Controller {
 			$vars["alert"] = $this->Bookmarks_Model->add();
 		} 
 
-		$this->CSS("forms", "cpanel");
+		if(POST("preview")) {
+			$this->CSS("bookmarks", $this->application);
 
-		$this->helper(array("html", "forms"));
-		$this->helper("codes", "codes");
+			$this->helper("time");
 
-		$this->config("user", "bookmarks");
+			$this->title(__("Bookmarks") ." - ". POST("title"), FALSE);
 
+			$data = $this->Bookmarks_Model->preview();
 
-		$vars["view"] = $this->view("new", TRUE);
+			if($data) {
+				$this->config("user", "bookmarks");
 
-		$this->render("content", $vars);
+				$vars["bookmark"] = $data;
+				$vars["view"] 	  = $this->view("preview", TRUE);
+			
+				$this->render("content", $vars);
+			} else {
+				redirect();
+			}
+		} else {
+			$this->CSS("forms", "cpanel");
+
+			$this->helper(array("html", "forms"));
+			$this->helper("codes", "codes");
+
+			$this->config("user", "bookmarks");
+
+			if(POST("back")) {
+				$this->helper("time");
+				$vars["data"] = $this->Bookmarks_Model->preview();
+			}
+			$vars["view"] = $this->view("new", TRUE);
+
+			$this->render("content", $vars);
+		}
+
 	}
 
 	public function like($ID) {
@@ -170,7 +195,7 @@ class Bookmarks_Controller extends ZP_Controller {
 			redirect();	
 		} 
 	}
-		
+
 	private function limit($tag = NULL) {
 		$count = $this->Bookmarks_Model->count($tag);	
 		
