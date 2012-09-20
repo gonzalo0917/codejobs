@@ -13,7 +13,7 @@
 
                 <div class="line"></div>
 
-                <!--<section class="transmission">
+                <section class="transmission">
                     <header>
                         <h3><?php echo __("Live broadcast"); ?></h3>
                     </header>
@@ -51,7 +51,7 @@
                             <span class="schedule4">06:00 pm</span>
                         </li>
                     </ul>
-                </section>-->
+                </section>
 
                 <section class="popular">
                     <header>
