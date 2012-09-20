@@ -1,6 +1,6 @@
 <?php
-    if(segment(0, isLang()) !== "forums") {
-        if(segment(0, isLang()) !== "codes" and segment(1, isLang()) !== "add") {
+    if(segment(0, isLang()) !== "forums") { 
+        if(segment(1, isLang()) !== "add") {
 ?>
             <aside>
                 <section class="social">
