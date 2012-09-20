@@ -85,13 +85,13 @@ class Blog_Controller extends ZP_Controller {
 		}
 	}
 
-	public function popular() {
-		$data = $this->Blog_Model->getMostPopularPosts();
+	public function relevant() {
+		$data = $this->Blog_Model->getMostRelevantPosts();
 
 		if($data) {
 			$vars["posts"] = $data;
 			
-			$this->view("popular", $vars, $this->application);			
+			$this->view("relevant", $vars, $this->application);			
 		}
 	}
 	

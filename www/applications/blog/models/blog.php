@@ -208,8 +208,8 @@ class Blog_Model extends ZP_Model {
 		}
 	}
 
-	public function getMostPopularPosts($limit = 10) {
-		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "Views DESC", $limit);
+	public function getMostRelevantPosts($limit = 10) {
+		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "RAND()", $limit);
 	}
 	
 	public function getMural($limit) {		
