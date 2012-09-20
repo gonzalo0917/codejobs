@@ -80,7 +80,7 @@
 						?>
 						
 						<br />
-						<strong style="font-size: 12px;"><?php echo __("Total");?>:</strong> <?php echo $show; ?>
+						<span style="font-size: 12px;"><strong><?php echo __("Total");?>:</strong> <?php echo $show; ?></span>
 					</p>
 					<?php
 			}
