@@ -91,7 +91,7 @@ class Polls_Model extends ZP_Model {
 			for($i = 0; $i <= count($this->answers) - 1; $i++) {
 				if($this->answers[$i] !== "") {
 					$answers[$i]["ID_Poll"] = $lastID;
-					$answers[$i]["Answer"]  = $this->answers[$i];
+					$answers[$i]["Answer"]  = decode($this->answers[$i]);
 				}
 			}
 			
@@ -110,7 +110,7 @@ class Polls_Model extends ZP_Model {
 		
 		foreach($this->answers as $key => $answer) {
 			if($answer !== "") {
-				$this->Db->insert("polls_answers", array("ID_Poll" => POST("ID"), "Answer" => $answer));
+				$this->Db->insert("polls_answers", array("ID_Poll" => POST("ID"), "Answer" => decode($answer)));
 			}
 		}
 		
