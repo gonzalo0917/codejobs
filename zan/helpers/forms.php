@@ -425,7 +425,7 @@ function formSave($action = NULL) {
 	
 	$HTML = '	
 		<p class="save-cancel">
-			<input id="'. $action .'" name="'. $action .'" value="'. __(ucfirst($action)) .'" '. $onclick .' type="submit" class="btn btn-success">
+			<input id="'. $action .'" name="'. $action .'" value="'. __(ucfirst($action)) .'" type="submit" class="btn btn-success">
 			<input id="cancel" name="cancel" value="'. __("Cancel") .'" type="submit" class="btn btn-danger" />
 		</p>';
 	

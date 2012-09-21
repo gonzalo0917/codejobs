@@ -125,7 +125,6 @@ class CPanel_Controller extends ZP_Controller {
 	}
 	
 	public function add() { 
-		POST();
 		if(!$this->isAdmin) {
 			$this->login();
 		}
