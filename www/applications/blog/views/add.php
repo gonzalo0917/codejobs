@@ -7,7 +7,7 @@
 	$ID_URL    = isset($data) ? recoverPOST("ID_URL", $data[0]["ID_URL"]) 		 : recoverPOST("ID_URL");
 	$title     = isset($data) ? recoverPOST("title", $data[0]["Title"])   		 : recoverPOST("title");		
 	$tags      = isset($data) ? recoverPOST("tags", $data[0]["Tags"])   		 : recoverPOST("tags");
-	$content   = isset($data) ? $data[0]["Content"] 	 : recoverPOST("content");	
+	$content   = isset($data) ? $data[0]["Content"] 	 						 : recoverPOST("content");	
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");				
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$pwd   	   = isset($data) ? recoverPOST("pwd", $data[0]["Pwd"])				 : recoverPOST("pwd");
@@ -109,38 +109,7 @@
 				echo img(path($medium, TRUE));
 			}
 			
-			echo formInput(array(
-				"type" 	=> "file", 
-				"name" 	=> "mural", 
-				"class" => "required", 
-				"field" => __("Mural image") ." (". _muralSize .")", 
-				"p" 	=> TRUE
-			));
-	
-			if(isset($muralImage) and is_array($muralImage)) {
-				echo formInput(array(
-					"type" 	=> "hidden", 
-					"name" 	=> "mural_exist", 
-					"class" => "span10", 
-					"field" => __("Current mural image"), 
-					"p" 	=> TRUE)
-				);
-				
-				echo img(path($muralImage[0]["Image"], TRUE), array("style" => "width: 98%; border: 1px solid #000;"));
-                
-                echo $this->js("var URL = '$muralDeleteURL';", TRUE);
- 				
- 				echo formInput(array(
-					"type" 	=> "submit", 
-					"id" 	=> "delete_mural", 
-					"name" 	=> "delete_mural_image", 
-					"value" => __("Delete Mural"), 
-					"class" => "btn error", 
-					"p" 	=> TRUE
-				));
-			}
-			
-			echo formSave($action, TRUE, $ID);
+			echo formSave($action);
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));
 		echo formClose();

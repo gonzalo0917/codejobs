@@ -415,14 +415,6 @@ function formTextarea($attributes = FALSE) {
 }
 
 function formSave($action = NULL) {
-	if($action === "save") {
-		$href = path(segment(0, isLang()) ."/cpanel/add/");
-	} else {
-		$href = path(segment(0, isLang()) ."/cpanel/edit/". segment(3, isLang()));
-	} 
-	
-	$onclick = 'onclick="document.getElementById(\'form-add\').target=\'\'; document.getElementById(\'form-add\').action=\''. $href .'\'"';
-	
 	$HTML = '	
 		<p class="save-cancel">
 			<input id="'. $action .'" name="'. $action .'" value="'. __(ucfirst($action)) .'" type="submit" class="btn btn-success">
