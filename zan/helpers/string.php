@@ -521,6 +521,8 @@ function POST($position = FALSE, $coding = "decode", $filter = "escape") {
 	} elseif($position === TRUE) {		
 		return $_POST;
 	} elseif(!$position) {
+		$this->helper("debugging");
+		
 		____($_POST);
 	} elseif(isset($_POST[$position]) and is_array($_POST[$position])) {
 		$POST = $_POST[$position];
