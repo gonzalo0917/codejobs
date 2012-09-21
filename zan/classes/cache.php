@@ -21,6 +21,18 @@ class ZP_Cache extends ZP_Load {
 	public function data($ID, $group = "default", $Class = FALSE, $method = FALSE, $params = array()) {
 		if(_cacheStatus and $this->get($ID, $group)) {
 			$data = $this->get($ID, $group);
+
+			if(!$data) {
+				if(!$Class or !$method) {
+					return FALSE;
+				}
+				
+				$data = ($Class) ? call_user_func_array(array($Class, $method), is_array($params) ? $params : array()) : FALSE;
+
+				if(_cacheStatus and $data) {
+					$this->save($data, $ID, $group);
+				}
+			}
 		} else {
 			if(!$Class or !$method) {
 				return FALSE;
