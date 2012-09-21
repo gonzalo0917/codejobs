@@ -157,7 +157,7 @@ class CPanel_Controller extends ZP_Controller {
 		if(!$this->isAdmin) {
 			$this->login();
 		}
-		POST();
+	
 		if((int) $ID === 0) { 
 			redirect("$this->application/cpanel/results");
 		}

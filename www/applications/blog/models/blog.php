@@ -118,7 +118,7 @@ class Blog_Model extends ZP_Model {
 	private function save() {	
 		$this->Cache = $this->core("Cache");
 		
-		$this->Cache->removeAll("blog");
+		$this->Cache->remove("blog");
 		
 		$insertID = $this->Db->insert($this->table, $this->data);
 		
@@ -136,6 +136,10 @@ class Blog_Model extends ZP_Model {
 	}
 	
 	private function edit() {	
+		$this->Cache = $this->core("Cache");
+		
+		$this->Cache->remove("blog");
+
 		$this->Db->update($this->table, $this->data, POST("ID"));				
 			
 		if(!is_array($this->mural) and !$this->muralExist) {
