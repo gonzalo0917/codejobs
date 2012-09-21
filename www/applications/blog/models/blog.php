@@ -109,13 +109,14 @@ class Blog_Model extends ZP_Model {
 		$this->Data->ignore(array("categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
 
 		$this->data = $this->Data->proccess($data, $validations);
-		
+
 		if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 	}
 	
-	private function save() {			
+	private function save() {	
+		die(var_dump($this->data));		
 		$insertID = $this->Db->insert($this->table, $this->data);
 		
 		if(isset($this->mural["name"]) and $this->mural["name"] !== "") {			
