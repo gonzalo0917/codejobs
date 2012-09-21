@@ -13,7 +13,7 @@
 	$pwd   	   = isset($data) ? recoverPOST("pwd", $data[0]["Pwd"])				 : recoverPOST("pwd");
 	$edit      = isset($data) ? TRUE											 : FALSE;
 	$action	   = isset($data) ? "edit"											 : "save";
-	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path("data.php", TRUE);
+	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path("blog/data");
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
