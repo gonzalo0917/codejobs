@@ -97,13 +97,6 @@
 					"value" => $pwd
 				));
 			}
-			
-			echo formInput(array(
-				"type" 	=> "file", 
-				"name" 	=> "image", 
-				"field" => __("Image for this post"), 
-				"p" 	=> TRUE
-			));
 
 			if(isset($medium)) {
 				echo img(path($medium, TRUE));
