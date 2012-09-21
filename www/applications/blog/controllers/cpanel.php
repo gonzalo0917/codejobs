@@ -139,6 +139,7 @@ class CPanel_Controller extends ZP_Controller {
 		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
 		
 		if(POST("save")) {
+			die("Si");
 			$save = $this->{"$this->Model"}->cpanel("save");
 			
 			$this->vars["alert"] = $save;
