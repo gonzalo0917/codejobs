@@ -1,5 +1,4 @@
 <?php 
-	/*
 	if(!defined("_access")) {
 		die("Error: You don't have permission to access here..."); 
 	}
@@ -146,65 +145,3 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));
 		echo formClose();
 	echo div(FALSE);
- */
-?>
-<div class="add-form">
-	
-	<form id="form-add" action="http://www.codejobs.biz/es/blog/cpanel/add" method="post" class="form-add" enctype="multipart/form-data">
-	<fieldset>
-		
-
-	
-	<p class="resalt">
-		
-		Blog
-	
-	</p>
-
-	<p>
-							<span class="field">&raquo; Título</span><br />
-							<input name="title" class="span10 required" value="" type="text" /> 
-
-						</p>	<p>
-							<span class="field">&raquo; Etiquetas</span><br />
-							<input name="tags" class="span10 required" value="" type="text" /> 
-
-						</p>	<p>
-							<span class="field">&raquo; Contenido</span><br />
-							<textarea name="content" class="markItUp"></textarea>
-						</p><p class="field">
-	&raquo; Idioma de la publicación<br /><select name="language" size="1"> <option value="Italian">Italiano</option> <option value="French">Francés</option> <option value="English">Inglés</option> <option value="Portuguese">Portugués</option> <option value="Spanish" selected="selected">Español</option></select>
-</p>
-	<p>
-							<span class="field">&raquo; Comentarios Activos</span><br />
-								<select name="enable_comments" class="required" size="1">
-		<option value="1" selected="selected">Si</option>
-		<option value="0">No</option>
-	</select>
-
-						</p>	<p>
-							<span class="field">&raquo; Situación</span><br />
-								<select name="situation" class="required" size="1">
-		<option value="Active">Activo</option>
-		<option value="Inactive">Inactivo</option>
-	</select>
-
-						</p>	<p>
-							<span class="field">&raquo; Contraseña</span><br />
-							<input name="pwd" class="span10" value="" type="text" /> 
-
-						</p>	<p>
-							<span class="field">&raquo; Imágen para la publicación</span><br />
-							<input name="image" type="file" /> 
-
-						</p>	<p>
-							<span class="field">&raquo; Imágen de mural (960x300px)</span><br />
-							<input name="mural" class="required" type="file" /> 
-
-						</p>	
-		<p class="save-cancel">
-			<input id="save" name="save" value="Guardar" type="submit" class="btn btn-success">
-			<input id="cancel" name="cancel" value="Cancelar" type="submit" class="btn btn-danger" />
-		</p><input name="ID" value="0" id="ID_Post" type="hidden" /> 
-	</fieldset>
-</form></div>
