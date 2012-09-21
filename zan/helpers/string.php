@@ -516,13 +516,15 @@ function pageBreak($content, $URL = NULL) {
  * @return mixed
  */ 
 function POST($position = FALSE, $coding = "decode", $filter = "escape") {
+	global $Load;
+
 	if($coding === "clean") {
 		return $_POST[$position];
 	} elseif($position === TRUE) {		
 		return $_POST;
 	} elseif(!$position) {
-		$this->helper("debugging");
-		
+		$Load->helper("debugging");
+
 		____($_POST);
 	} elseif(isset($_POST[$position]) and is_array($_POST[$position])) {
 		$POST = $_POST[$position];
