@@ -39,7 +39,7 @@ class ZP_Cache extends ZP_Load {
 			}
 			
 			$data = ($Class) ? call_user_func_array(array($Class, $method), is_array($params) ? $params : array()) : FALSE;
-			die(var_dump($Class));
+			
 			if(_cacheStatus and $data) {
 				$this->save($data, $ID, $group);
 			}
