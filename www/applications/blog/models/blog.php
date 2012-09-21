@@ -109,7 +109,7 @@ class Blog_Model extends ZP_Model {
 		$this->Data->ignore(array("categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
 
 		$this->data = $this->Data->proccess($data, $validations);
-
+		die(var_dump($this->data));
 		if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}

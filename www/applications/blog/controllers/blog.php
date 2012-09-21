@@ -85,10 +85,6 @@ class Blog_Controller extends ZP_Controller {
 		}
 	}
 
-	public function data() {
-		die(var_dump($_POST));
-	}
-
 	public function relevant() {
 		$data = $this->Blog_Model->getMostRelevantPosts();
 
