@@ -15,9 +15,102 @@
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path("blog/data");
 	
-?>
-<form action="<?=$href;?>" method="post">
-	<input name="nombre" type="text" />
+	echo div("add-form", "class");
+		echo formOpen($href, "form-add", "form-add");
+			echo p(__(ucfirst(whichApplication())), "resalt");
+			
+			echo isset($alert) ? $alert : NULL;
 
-	<input name="enviar" type="submit" />
-</form>
+			echo formInput(array(	
+				"name" 	=> "title", 
+				"class" => "span10 required", 
+				"field" => __("Title"), 
+				"p" 	=> TRUE, 
+				"value" => stripslashes($title)
+			));
+
+			echo formInput(array(	
+				"name" 	=> "tags", 
+				"class" => "span10 required", 
+				"field" => __("Tags"), 
+				"p" 	=> TRUE, 
+				"value" => $tags
+			));
+
+			echo formTextarea(array(	 
+				"name" 	 => "content", 
+				"class"  => "markItUp",
+				"field"  => __("Content"), 
+				"p" 	 => TRUE, 
+				"value"  => $content
+			));
+
+			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
+
+			$options = array(
+				0 => array("value" => 1, "option" => __("Yes"), "selected" => TRUE),
+				1 => array("value" => 0, "option" => __("No"))
+			);
+
+			echo formSelect(array(
+				"name" 	=> "enable_comments", 
+				"class" => "required", 
+				"p" 	=> TRUE, 
+				"field" => __("Enable Comments")), 
+				$options
+			);				
+			
+			$options = array(
+				0 => array("value" => "Active",   "option" => __("Active"), 	  "selected" => ($situation === "Active")   ? TRUE : FALSE),
+				1 => array("value" => "Inactive", "option" => __("Inactive"),  "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+			);
+
+			echo formSelect(array(
+				"name" 	=> "situation", 
+				"p" 	=> TRUE, 
+				"class" => "required", 
+				"field" => __("Situation")), 
+				$options
+			);
+						
+			if(!isset($pwd)) { 
+				echo formInput(array(
+					"name" 	=> "pwd", 
+					"class" => "span10", 
+					"field" => __("Password"), 
+					"p" 	=> TRUE, 
+					"value" => $pwd)
+				);	
+			} else { 
+				echo formField(NULL, __("Password") ."<br />");
+				
+				echo formInput(array(
+					"id" 	=> "lock", 
+					"class" => "lock", 
+					"type" 	=> "button")
+				);
+
+							
+				echo formInput(array(
+					"id" 	=> "password", 
+					"type" 	=> "hidden", 
+					"value" => $pwd
+				));
+			}
+			
+			echo formInput(array(
+				"type" 	=> "file", 
+				"name" 	=> "image", 
+				"field" => __("Image for this post"), 
+				"p" 	=> TRUE
+			));
+
+			if(isset($medium)) {
+				echo img(path($medium, TRUE));
+			}
+			
+			echo formSave($action);
+			
+			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));
+		echo formClose();
+	echo div(FALSE);
