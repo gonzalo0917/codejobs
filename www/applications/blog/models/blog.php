@@ -226,7 +226,7 @@ class Blog_Model extends ZP_Model {
 	
 	
 	public function getPosts($limit) {	
-		die(var_dump("Si"));
+		die(var_dump("Language = '$this->language' AND Situation = 'Active'"));
 		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 	}
 	
