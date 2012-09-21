@@ -8,7 +8,7 @@
 
 			$views = ceil($post["Views"] / 2);
 		?>
-			<li><img src="<?php echo path("www/lib/themes/newcodejobs/images/arrow.png", TRUE); ?>" /> <a href="<?php echo $URL; ?>" title="<?php echo __("Readings") .": ". $views; ?>"><?php echo $post["Title"]; ?></a></li></li>
+			<li><img src="<?php echo path("www/lib/themes/newcodejobs/images/arrow.png", TRUE); ?>" /> <a href="<?php echo $URL; ?>" title="<?php echo __("Readings") .": ". $views; ?>"><?php echo stripslashes($post["Title"]); ?></a></li></li>
 		<?php
 		}
 	?>
