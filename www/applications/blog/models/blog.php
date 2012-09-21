@@ -13,7 +13,7 @@ class Blog_Model extends ZP_Model {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "blog";
-		$this->fields   = "ID_Post, ID_URL, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Small, Image_Medium, Comments, Enable_Comments, Language, Pwd, Situation";
+		$this->fields   = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Small, Image_Medium, Comments, Enable_Comments, Language, Pwd, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -226,7 +226,6 @@ class Blog_Model extends ZP_Model {
 	
 	
 	public function getPosts($limit) {	
-		die(var_dump("Language = '$this->language' AND Situation = 'Active'"));
 		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 	}
 	
