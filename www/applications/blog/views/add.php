@@ -46,14 +46,6 @@
 				"value"  => $content
 			));
 
-			?>
-			<div id="file-uploader">		
-				<noscript>			
-					<p>Please enable JavaScript to use file uploader.</p>
-					<!-- or put a simple form for upload here -->
-				</noscript>         
-			</div>
-			<?php
 			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 
 			$options = array(

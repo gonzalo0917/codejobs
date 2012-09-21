@@ -145,7 +145,7 @@ class CPanel_Controller extends ZP_Controller {
 		} elseif(POST("cancel")) {
 			redirect("cpanel");
 		}
-		die(var_dump($_POST));
+
 		$this->vars["application"] = $this->CPanel->getApplicationID();
 		
 		$this->vars["view"] = $this->view("add", TRUE, $this->application);
