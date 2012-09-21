@@ -212,12 +212,13 @@ function formLabel($for, $text, $br = TRUE) {
  * @param string $enctype = "multipart/form-data"
  * @returns string $HTML
  */	
-function formOpen($action = NULL, $class = "forms", $ID = NULL, $legend = NULL, $method = "post", $enctype = "multipart/form-data") {	
-	$ID     = (isset($ID))     ? ' id="'. $ID .'"' 			  			 : NULL;
-	$legend = (isset($legend)) ? "<legend>$legend</legend>" . "\n" : NULL;
-	$action = (strstr($action, "http://")) ? $action : get("webBase") . "/" . $action;
+function formOpen($action = NULL, $class = "forms", $ID = NULL, $legend = NULL, $method = "post", $enctype = NULL) {	
+	$ID      = (isset($ID))     ? ' id="'. $ID .'"' 			  			 : NULL;
+	$legend  = (isset($legend)) ? "<legend>$legend</legend>" . "\n" : NULL;
+	$action  = (strstr($action, "http://")) ? $action : get("webBase") . "/" . $action;
+	$enctype = (!is_null($enctype)) ? ' enctype="'. $enctype .'"' : NULL;
 	
-	$HTML  = '<form'. $ID .' action="'. $action .'" method="'. $method .'" class="'. $class .'" enctype="'. $enctype .'">' . "\n\t";
+	$HTML  = '<form'. $ID .' action="'. $action .'" method="'. $method .'" class="'. $class .'"'. $enctype .'>' . "\n\t";
 	$HTML .= '<fieldset>' . "\n\t\t";
 	$HTML .= $legend . "\n";			
 
