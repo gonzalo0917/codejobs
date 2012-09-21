@@ -115,8 +115,7 @@ class Blog_Model extends ZP_Model {
 		}
 	}
 	
-	private function save() {	
-		die(var_dump($this->data));		
+	private function save() {			
 		$insertID = $this->Db->insert($this->table, $this->data);
 		
 		if(isset($this->mural["name"]) and $this->mural["name"] !== "") {			
