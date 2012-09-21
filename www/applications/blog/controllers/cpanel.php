@@ -139,14 +139,13 @@ class CPanel_Controller extends ZP_Controller {
 		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
 		
 		if(POST("save")) {
-			POST();
 			$save = $this->{"$this->Model"}->cpanel("save");
 			
 			$this->vars["alert"] = $save;
 		} elseif(POST("cancel")) {
 			redirect("cpanel");
 		}
-		
+		POST();
 		$this->vars["application"] = $this->CPanel->getApplicationID();
 		
 		$this->vars["view"] = $this->view("add", TRUE, $this->application);
