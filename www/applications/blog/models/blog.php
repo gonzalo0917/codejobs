@@ -226,11 +226,11 @@ class Blog_Model extends ZP_Model {
 	
 	
 	public function getPosts($limit) {	
+		die(var_dump("Si"));
 		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 	}
 	
 	public function getPost($year, $month, $day, $slug) {		
-		die("si");
 		$post = $this->Db->findBySQL("Slug = '$slug' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
 		
 		if($post) {						
