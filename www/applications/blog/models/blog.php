@@ -115,7 +115,11 @@ class Blog_Model extends ZP_Model {
 		}
 	}
 	
-	private function save() {			
+	private function save() {	
+		$this->Cache = $this->core("Cache");
+		
+		$this->Cache->removeAll("blog");
+		
 		$insertID = $this->Db->insert($this->table, $this->data);
 		
 		if(isset($this->mural["name"]) and $this->mural["name"] !== "") {			
