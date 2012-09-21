@@ -124,4 +124,8 @@
 	.ads {
 		margin-left: 20%;
 	}	
+
+	.popular ul {		
+		margin-left: 100px;
+	}
 }
