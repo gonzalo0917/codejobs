@@ -139,7 +139,7 @@ class Blog_Model extends ZP_Model {
 		$this->Cache = $this->core("Cache");
 		
 		$this->Cache->remove("blog");
-		die(var_dump($this->data));
+		
 		$this->Db->update($this->table, $this->data, POST("ID"));				
 			
 		if(!is_array($this->mural) and !$this->muralExist) {
