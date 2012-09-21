@@ -11,7 +11,7 @@
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
 	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
 	$action	     = isset($data) ? "edit"												: "save";
-	$href	     = isset($data) ? path($this->application ."/cpanel/edit/$ID") 			: path($this->application ."/cpanel/add/");
+	$href	     = isset($data) ? path(whichApplication() ."/cpanel/edit/$ID") 			: path(whichApplication() ."/cpanel/add/");
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
