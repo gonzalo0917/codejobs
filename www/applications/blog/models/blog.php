@@ -118,7 +118,7 @@ class Blog_Model extends ZP_Model {
 	private function save() {	
 		$this->Cache = $this->core("Cache");
 		
-		$this->Cache->remove("blog");
+		$this->Cache->removeAll("blog");
 		
 		$insertID = $this->Db->insert($this->table, $this->data);
 		
@@ -138,7 +138,7 @@ class Blog_Model extends ZP_Model {
 	private function edit() {	
 		$this->Cache = $this->core("Cache");
 		
-		$this->Cache->remove("blog");
+		$this->Cache->removeAll("blog");
 		
 		$this->Db->update($this->table, $this->data, POST("ID"));				
 			
