@@ -3,12 +3,14 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$title   = recoverPOST("title", $title);
-	$content = recoverpost("content", $content);
- 
+
+	$title 	 = isset($title)   ? recoverPOST("title", $title) 		  : NULL;
+	$content = isset($content) ? recoverpost("description", $content) : NULL;
+ 	
+
 	if(!isset($success)) { 
 ?> 	
-		<div class="newTopic">
+		<div class="newTopic" style="margin-left: 15%;">
 			<form id="formNewTopic" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
 			
 			<?php 
@@ -26,12 +28,12 @@
 					
 				<p class="field">
 					&raquo; <?php echo __("Title"); ?><br />
-					<input class="input" id="title" name="title" type="text" value="<?php echo $title; ?>" />
+					<input class="input" id="title" name="title" type="text" value="<?php echo $title; ?>" style="width: 700px;" />
 				</p>
 							
 				<p class="field">
 					&raquo; <?php echo __("Content"); ?><br />
-					<textarea id="editor" name="content" class="textarea"><?php echo $content; ?></textarea>
+					<textarea id="editor" name="content" class="textarea" style="width: 640px;"><?php echo $content; ?></textarea>
 				</p>
 					
 			<?php 
@@ -44,8 +46,8 @@
 				} 
 			?>	
 				<p class="field">
-					<input class="input button" id="<?php echo $action; ?>" name="doAction" value="<?php echo __(ucfirst($action)). " ". __("Topic"); ?>" type="submit" />
-					<input class="input button" id="cancel" name="cancel" value="<?php echo __("Cancel") ; ?>" type="submit" />
+					<input class="input button" style="width: 700px;" id="<?php echo $action; ?>" name="doAction" value="<?php echo __(ucfirst($action)). " ". __("Topic"); ?>" type="submit" />
+					<input class="input button" style="width: 700px;" id="cancel" name="cancel" value="<?php echo __("Cancel") ; ?>" type="submit" />
 				</p>
 					
 				<input name="ID_Forum" type="hidden" value="<?php echo $ID; ?>" />

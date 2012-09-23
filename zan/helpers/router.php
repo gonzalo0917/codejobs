@@ -358,6 +358,12 @@ function path($path = FALSE, $URL = FALSE, $lang = TRUE) {
 	}
 
 	if($lang) {
+		if($lang !== TRUE) {
+			$lang = getLang($lang);
+
+			return ($URL) ? get("webURL") . _sh . $path : get("webBase") . _sh . $lang . _sh . $path;
+		}
+
 		return ($URL) ? get("webURL") . _sh . $path : get("webBase") . _sh . get("webLang") . _sh . $path;
 	} else {
 		return ($URL) ? get("webURL") . _sh . $path : get("webBase") . _sh . $path;

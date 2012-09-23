@@ -35,6 +35,22 @@
         if(defined("_angularjs")) {
             echo $this->js("angular", NULL, TRUE);
         }
+
+        if(segment(0, isLang()) === "forums") {
+        ?>
+        	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
+			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/bbcode/set.js", "zan"); ?>"></script>
+
+			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.css", "zan"); ?>" />
+			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/bbcode/style.css", "zan"); ?>" />
+
+			<script type="text/javascript">
+				$(document).on("ready", function() {
+		      		$("textarea").markItUp(mySettings);
+		   		});
+			</script>
+        <?php
+        }
 	 ?>
 
 	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/social.js"></script>

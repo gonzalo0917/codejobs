@@ -52,19 +52,19 @@ class Forums_Model extends ZP_Model {
 				"Day"	   => date("d"),
 				"Language" => POST("language")
 			),
-			"title"   => "required",
+			"title"   	  => "required",
 			"description" => "required"
 		);
             
-        $this->URL = path("blog/". date("Y")) ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean"));
+        $this->URL = path("forums/". slug(POST("title", "clean")), FALSE, POST("language"));
 				
 		$data = array(
-			"ID_Forum"     => POST("ID"),
-            "Title"        => POST("title", "clean"),
-			"Slug"         => slug(POST("title", "clean")),
-			"Description"  => POST("description", "clean"),
-			"Language"     => POST("language"),
-            "Situation"    => POST("situation")
+			"ID_Forum"    => POST("ID"),
+            "Title"       => POST("title"),
+			"Slug"        => slug(POST("title", "clean")),
+			"Description" => POST("description"),
+			"Language"    => POST("language"),
+            "Situation"   => POST("situation")
 		);
 	
 		$this->data = $this->Data->proccess($data, $validations);
@@ -253,7 +253,7 @@ class Forums_Model extends ZP_Model {
 		$date = now(4);
 		$hour = date("H:i:s", $date);
 		
-		$lastTopic = $this->Db->findBySQL("ID_User = '$ID_User' AND ID_Parent = 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
+		$lastTopic = $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Parent = 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
 		
 		$time = ($lastTopic) ? $date - $lastTopic[0]["Start_Date"] : 20;
 		
@@ -262,7 +262,7 @@ class Forums_Model extends ZP_Model {
 				"ID_Forum"   => POST("ID_Forum"),
 				"ID_User" 	 => SESSION("ZanUserID"), 
 				"Title" 	 => POST("title", "decode", "escape"),
-				"Slug"		 => slug($title),
+				"Slug"		 => slug(POST("title", "clean")),
 				"Content"	 => POST("content", "decode", FALSE),
 				"Author"	 => SESSION("ZanUser"),
 				"Start_Date" => $date,
@@ -273,7 +273,7 @@ class Forums_Model extends ZP_Model {
 			
 			$lastID = $this->Db->insert("muu_forums_posts", $data);
 
-			$this->Db->updateBySQL("muu_forums", "Topics = (Topics) + 1 WHERE ID_Forum = '$ID_Forum'");
+			$this->Db->updateBySQL("muu_forums", "Topics = (Topics) + 1 WHERE ID_Forum = '$lastID'");
 		} else { 
 			$data = FALSE;
 		}
@@ -332,13 +332,13 @@ class Forums_Model extends ZP_Model {
 	
 	public function getByTopic($ID, $limit) {	
 		$topic = $this->Db->query("SELECT ID_Post, muu_users.ID_User, ID_Forum, ID_Parent, muu_forums_posts.Title, Slug, Content, Author, muu_forums_posts.Start_Date, Username, Website, Avatar, Country, Sign FROM muu_forums_posts
-									  INNER JOIN muu_users ON muu_users.ID_User = muu_forums_posts.ID_User 
-									  WHERE ID_Post = $ID AND muu_forums_posts.Situation = 'Active' AND ID_Parent = 0");
+								   INNER JOIN muu_users ON muu_users.ID_User = muu_forums_posts.ID_User 
+								   WHERE ID_Post = $ID AND muu_forums_posts.Situation = 'Active' AND ID_Parent = 0");
 
 		$replies = $this->Db->query("SELECT ID_Post, muu_users.ID_User, ID_Forum, ID_Parent, muu_forums_posts.Title, Slug, Content, Author, muu_forums_posts.Start_Date, Username, Website, Avatar, Country, Sign FROM muu_forums_posts 
-										INNER JOIN muu_users ON muu_users.ID_User = muu_forums_posts.ID_User 
-										WHERE ID_Parent = '$ID' AND muu_forums_posts.Situation = 'Active' ORDER BY ID_Post LIMIT $limit");
-		
+									 INNER JOIN muu_users ON muu_users.ID_User = muu_forums_posts.ID_User 
+									 WHERE ID_Parent = '$ID' AND muu_forums_posts.Situation = 'Active' ORDER BY ID_Post LIMIT $limit");
+
 		if($topic) {
 			$topic[0]["replyURL"]  = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/new");
 			$topic[0]["editURL"]   = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/edit");
@@ -386,7 +386,7 @@ class Forums_Model extends ZP_Model {
 			$data = array(
 				"ID_Forum"   => POST("ID_Forum"),
 				"ID_User" 	 => SESSION("ZanUserID"), 
-				"ID_Parent"	 => POST("ID_Forum"),
+				"ID_Parent"	 => POST("ID_Post"),
 				"Title" 	 => POST("title", "decode", "escape"),
 				"Slug"		 => slug(POST("title", "decode", "escape")),
 				"Content"	 => POST("content", "decode", FALSE),
