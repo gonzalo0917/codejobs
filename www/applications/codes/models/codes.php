@@ -312,4 +312,8 @@ class Codes_Model extends ZP_Model {
 
        	return implode($glue, $array);
     }
+
+    public function activate($ID) {
+		return $this->Db->update($this->table, array("Situation" => "Active"), $ID);
+	}
 }

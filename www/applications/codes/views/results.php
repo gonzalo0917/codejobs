@@ -89,7 +89,9 @@ $j = 2;
 					</td>
 
 					<td class="center">
-						<?php echo __($column["Situation"]); ?>
+						<?php
+							echo getSituation($column["Situation"], $ID);
+						?>
 					</td>
 
 					<td class="center">
