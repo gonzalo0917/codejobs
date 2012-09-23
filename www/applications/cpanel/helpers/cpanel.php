@@ -182,3 +182,20 @@ function getSearch() {
 	
 	return $HTML;
 }
+
+function getSituation($situation, $id) {
+	global $Load;
+
+	$edit 		 = $Load->execute("Users_Model", "isAllow", array("edit"), "model");
+	$application = whichApplication();
+
+	if($edit) {
+		if($situation === "Pending") {
+			return "<a href=\"#\" onclick=\"if(confirm('". htmlentities(__("Do you want to activate this publication?")) ."')) { parent = $(this).parent(); link = $(this).detach(); parent.html('". htmlentities(__("Processing")) ."'); $.get('". path("$application/cpanel/activate/$id") ."', function(data) { if(data.return == 1) parent.html('". htmlentities(__("Active")) ."'); else { alert('". htmlentities(__("An error has occurred")) ."'); parent.append(link); } }, 'json') } return false; \">". __($situation) ."</a>";
+		} else {
+			return __($situation);
+		}
+	} else {
+		return __($situation);
+	}
+}

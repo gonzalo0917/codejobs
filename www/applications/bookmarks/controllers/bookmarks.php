@@ -87,7 +87,7 @@ class Bookmarks_Controller extends ZP_Controller {
 			if(POST("back")) {
 				$this->helper("time");
 				$vars["data"] = $this->Bookmarks_Model->preview();
-			}
+				}
 			$vars["view"] = $this->view("new", TRUE);
 
 			$this->render("content", $vars);

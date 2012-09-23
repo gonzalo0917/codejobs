@@ -185,4 +185,7 @@ class Bookmarks_Model extends ZP_Model {
 		}
 	}
 
+	public function activate($ID) {
+		return $this->Db->update($this->table, array("Situation" => "Active"), $ID);
+	}
 }
