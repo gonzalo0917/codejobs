@@ -1,4 +1,3 @@
-//Gplus, facebook & twitter
 window.___gcfg = {lang: 'es'};
 
 (function() {

@@ -389,24 +389,10 @@ class ZP_Templates extends ZP_Load {
      *
      * 
      */
-	public function themeCSS($theme = NULL) {
-		$this->helper("browser");
-
-		$theme 	 = is_null($theme) ? get("webTheme") : $theme; 
-		$file    = "www/lib/themes/". $theme ."/css/style.css";
-		$browser = browser();
+	public function themeCSS($theme = NULL, $min = TRUE) {
+		$style = ($min) ? "style.min.css" : "style.css";
 		
-		if($browser === "Internet Explorer") {
-			$style = "www/lib/themes/". $theme ."/css/ie.style.css";
-
-			if(file_exists($style)) {
-				return '<link rel="stylesheet" href="'. $this->themePath .'/css/ie.style.css" type="text/css">';
-			} 
-			
-			return '<link rel="stylesheet" href="'. $this->themePath .'/css/style.css" type="text/css">';	
-		} else {			
-			return '<link rel="stylesheet" href="'. $this->themePath .'/css/style.css" type="text/css">';			
-		}
+		return '<link rel="stylesheet" href="'. $this->themePath .'/css/'. $style .'" type="text/css">';					
 	}
 	
     /**
