@@ -1,4 +1,4 @@
-<?php 
+<?php  
 	if(!defined("_access")) { 
 		die("Error: You don't have permission to access here..."); 
 	} 
@@ -139,7 +139,7 @@
 			<tr>
 				<td class="topicContent">
 					<div class="topicData">
-						<p><?php echo nl2br(stripslashes($data["topic"][0]["Content"])); ?></p>
+						<p><?php echo nl2br(stripslashes(BBCode($data["topic"][0]["Content"]))); ?></p>
 						
 <?php 
 						if($data["topic"][0]["Sign"] !== "") { 
@@ -244,7 +244,7 @@
 				<tr>
 					<td class="topicContent">
 						<div class="topicData">
-							<p><?php echo nl2br(stripslashes($reply["Content"])); ?></p>
+							<p><?php echo nl2br(stripslashes(BBCode($reply["Content"]))); ?></p>
 <?php 						
 							if($data["topic"][0]["Sign"] !== "") { 
 ?>

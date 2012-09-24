@@ -216,7 +216,7 @@ class CPanel_Controller extends ZP_Controller {
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
 		
-		$this->js("checkbox");		
+		$this->js("checkbox");
 		
 		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
 		
@@ -231,4 +231,24 @@ class CPanel_Controller extends ZP_Controller {
 		$this->render("content", $this->vars);
 	}
 
+
+	public function activate($id = 0) {
+		if($id > 0) {
+			$this->Users_Model  = $this->model("Users_Model");
+			$edit 				= $this->Users_Model->isAllow("edit");
+
+			if($edit) {
+				$Model 			= ucfirst($this->application) ."_Model";
+				$this->$Model 	= $this->model($Model);
+
+				if($this->$Model->activate($id)) {
+					$vars["data"] = 1;
+				} else {
+					$vars["data"] = 0;
+				}
+
+				$this->view("activate", $vars, $this->application);
+			}
+		}
+	}
 }

@@ -5,7 +5,7 @@
 		$title   = recoverPOST("title", $title);
 		$content = recoverpost("content", $content);
 ?> 
-		<div class="newTopic">
+		<div class="newTopic" style="margin-left: 15%;">
 			<form id="formNewTopic" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
 			<?php 
 				if($action === "save") { 
@@ -23,12 +23,12 @@
 				
 			<p class="field">
 				&raquo; <?php echo __("Title"); ?><br />
-				<input class="input" id="title" name="title" type="text" value="<?php echo $title; ?>" />
+				<input class="input" id="title" name="title" type="text" value="<?php echo $title; ?>" style="width: 700px;" />
 			</p>
 						
 			<p class="field">
 				&raquo; <?php echo __("Content"); ?><br />
-				<textarea  id="editor" name="content" class="textarea"><?php echo $content; ?></textarea>
+				<textarea  id="editor" name="content" class="textarea" style="width: 640px;"><?php echo $content; ?></textarea>
 			</p>
 					
 			<?php 
@@ -42,8 +42,8 @@
 			?>	
 				
 			<p class="field">
-				<input id="<?php echo $action; ?>" name="doAction" value="<?php echo __(ucfirst($action)). " ". __("reply"); ?>"  type="submit" class="input button" />
-				<input id="cancel" name="cancel" value="<?php echo __("Cancel"); ?>" type="submit" class="input button" />
+				<input style="width: 700px;" id="<?php echo $action; ?>" name="doAction" value="<?php echo __(ucfirst($action)). " ". __("reply"); ?>" type="submit" class="input button" />
+				<input style="width: 700px;" id="cancel" name="cancel" value="<?php echo __("Cancel"); ?>" type="submit" class="input button" />
 			</p>
 				
 			<input name="ID_Post" type="hidden" value="<?php echo $ID_Post; ?>" />

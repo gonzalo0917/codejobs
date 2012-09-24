@@ -100,7 +100,7 @@ class Forums_Controller extends ZP_Controller {
 		}
 	}
 
-	private function getByTopic() {		
+	private function getByTopic() { 		
 		$ID = segment(2, isLang());
 		$forum = segment(1, isLang());
 		
@@ -120,11 +120,11 @@ class Forums_Controller extends ZP_Controller {
 		}
 		
 		$count = $this->Forums_Model->countRepliesByTopic($ID);
-		
+	
 		if($count > $end) {
 			 $pagination = paginate($count, _maxLimit, $start, $URL);
 		}
-		
+
 		if($data["topic"]) {	
 			$this->helper("time");
 
@@ -188,11 +188,9 @@ class Forums_Controller extends ZP_Controller {
 				}
 				
 				if($forum) {
-					$vars["ID"]       = $forum[0]["ID_Forum"];
-					$vars["title"]	  = $forum[0]["Title"];
-					$vars["content"]  = $forum[0]["Content"];
-					$vars["action"]   = $action;
-					$vars["hrefURL"]  = path("forums/$slug");
+					$vars["ID"]       	 = $forum[0]["ID_Forum"];
+					$vars["action"]   	 = $action;
+					$vars["hrefURL"]  	 = path("forums/$slug");
 					
 					if($action === "save") {
 						$vars["href"] = path("forums/$slug/new");
@@ -221,7 +219,7 @@ class Forums_Controller extends ZP_Controller {
 					$alert = getAlert("The title is vulgar");
 				} elseif(isVulgar(strtolower(POST("content")))) {
 					$alert = getAlert("The content is vulgar");
-				} elseif(isSPAM(POST("content"))) {
+				} elseif(isSPAM(POST("content"), 3)) {
 					$alert = getAlert("The content has spam");
 				} 
 				

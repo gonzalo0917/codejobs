@@ -19,18 +19,6 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-function badCharset($text) {
-	if(substr_count($text, 'Ã±') >= 1) {
-		return TRUE;
-	} elseif(substr_count($text, 'Ã³') >= 1) {
-		return TRUE;
-	} elseif(substr_count($text, 'Ã') >= 1) {
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
 /**
  * String Helper
  *
@@ -42,34 +30,91 @@ function badCharset($text) {
  * @author		MilkZoft Developer Team
  * @link		http://www.zanphp.com/documentation/en/helpers/string_helper
  */
+function BBCode($text) {
+	$text = trim($text);
 
-function bbCode($HTML) {
-   	$a = array( 
-		"/\[Video: (.*?)\]/is"
-   	); 
+	if(!function_exists("escape")) {
+		function escape($s) {
+			global $text;
 
-   	$b = array(
-   		"<iframe width=\"560\" height=\"315\" src=\"$1\" allowfullscreen></iframe>"  
-   	);
+			$code = $s[1];
+			$code = str_replace("[", "&#91;", $code);
+			$code = str_replace("]", "&#93;", $code);
+			
+			return getCode($code);
+		}	
+	}
 
-   	$HTML = preg_replace($a, $b, $HTML);
-	$HTML = str_replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/embed/", $HTML);
-	$HTML = str_replace("&amp;list=UUWDzmLpJP-z4qopWVA4qfTQ", "", $HTML);
-	$HTML = str_replace("&amp;index=1", "", $HTML);
-	$HTML = str_replace("&amp;index=2", "", $HTML);
-	$HTML = str_replace("&amp;index=3", "", $HTML);
-	$HTML = str_replace("&amp;index=4", "", $HTML);
-	$HTML = str_replace("&amp;index=5", "", $HTML);
-	$HTML = str_replace("&amp;index=6", "", $HTML);
-	$HTML = str_replace("&amp;index=7", "", $HTML);
-	$HTML = str_replace("&amp;index=8", "", $HTML);
-	$HTML = str_replace("&amp;index=9", "", $HTML);
-	$HTML = str_replace("&amp;feature=plcp", "", $HTML);
-	$HTML = str_replace("&amp;feature=related", "", $HTML);
-	$HTML = str_replace("&amp;feature=player_embedded", "", $HTML);
-	$HTML = str_replace("&amp;feature=fvwrel", "", $HTML);
+	$text = preg_replace_callback('/\[code\](.*?)\[\/code\]/ms', "escape", $text);
+	
+	$in = array(
+		'/\[b\](.*?)\[\/b\]/ms',	
+		'/\[i\](.*?)\[\/i\]/ms',
+		'/\[u\](.*?)\[\/u\]/ms',
+		'/\[img\](.*?)\[\/img\]/ms',
+		'/\[video\](.*?)\[\/video\]/ms',
+		'/\[email\](.*?)\[\/email\]/ms',
+		'/\[url\="?(.*?)"?\](.*?)\[\/url\]/ms',
+		'/\[size\="?(.*?)"?\](.*?)\[\/size\]/ms',
+		'/\[color\="?(.*?)"?\](.*?)\[\/color\]/ms',
+		'/\[quote](.*?)\[\/quote\]/ms',
+		'/\[list\=(.*?)\](.*?)\[\/list\]/ms',
+		'/\[list\](.*?)\[\/list\]/ms',
+		'/\[\*\]\s?(.*?)\n/ms'
+	);
+	
+	$out = array(	 
+		'<strong>\1</strong>',
+		'<em>\1</em>',
+		'<u>\1</u>',
+		'<img src="\1" alt="\1" />',
+		'<iframe width="560" height="315" src="$1" allowfullscreen></iframe>',
+		'<a href="mailto:\1">\1</a>',
+		'<a href="\1">\2</a>',
+		'<span style="font-size:\1%">\2</span>',
+		'<span style="color:\1">\2</span>',
+		'<blockquote>\1</blockquote>',
+		'<ol start="\1">\2</ol>',
+		'<ul>\1</ul>',
+		'<li>\1</li>'
+	);
 
-	return $HTML;
+	$text = preg_replace($in, $out, $text);
+
+	$text = str_replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/embed/", $text);
+	$text = str_replace("&amp;list=UUWDzmLpJP-z4qopWVA4qfTQ", "", $text);
+	$text = str_replace("&amp;index=1", "", $text);
+	$text = str_replace("&amp;index=2", "", $text);
+	$text = str_replace("&amp;index=3", "", $text);
+	$text = str_replace("&amp;index=4", "", $text);
+	$text = str_replace("&amp;index=5", "", $text);
+	$text = str_replace("&amp;index=6", "", $text);
+	$text = str_replace("&amp;index=7", "", $text);
+	$text = str_replace("&amp;index=8", "", $text);
+	$text = str_replace("&amp;index=9", "", $text);
+	$text = str_replace("&amp;feature=plcp", "", $text);
+	$text = str_replace("&amp;feature=related", "", $text);
+	$text = str_replace("&amp;feature=player_embedded", "", $text);
+	$text = str_replace("&amp;feature=fvwrel", "", $text);
+		
+	$text = str_replace("\r", "", $text);
+	$text = "<p>". preg_replace("/(\n){2,}/", "</p><p>", $text) ."</p>";
+	$text = nl2br($text);
+	
+
+	if(!function_exists('removeBr')) {
+		function removeBr($s) {
+			return str_replace("<br />", "", $s[0]);
+		}
+	}
+
+	$text = preg_replace_callback('/<div class="code">(.*?)<\/div>/ms', "removeBr", $text);
+	$text = preg_replace('/<p><pre>(.*?)<\/pre><\/p>/ms', "<pre>\\1</pre>", $text);
+	
+	$text = preg_replace_callback('/<ul>(.*?)<\/ul>/ms', "removeBr", $text);
+	$text = preg_replace('/<p><ul>(.*?)<\/ul><\/p>/ms', "<ul>\\1</ul>", $text);
+	
+	return $text;
 }
 
 /**
