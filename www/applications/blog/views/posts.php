@@ -57,7 +57,7 @@ if(is_array($posts)) {
 					<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>
 				</div>
 					
-				<?php echo showContent(bbCode(pagebreak($post["Content"], $URL)), TRUE); ?>	
+				<?php echo showContent(pagebreak($post["Content"], $URL), TRUE); ?>	
 				<br />
 				<?php					
 					if(get("production") and ($i === $rand1 or $i === $rand2)) {
