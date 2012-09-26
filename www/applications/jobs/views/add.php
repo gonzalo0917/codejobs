@@ -4,7 +4,7 @@
 	}
 
 	$ID          = isset($data) ? recoverPOST("ID", $data[0]["ID_Job"]) 			   : 0;
-	$ID_URL      = isset($data) ? recoverPOST("ID_URL", $data[0]["ID_URL"]) 		   : recoverPOST("ID_URL");
+	//$ID_URL      = isset($data) ? recoverPOST("ID_URL", $data[0]["ID_URL"]) 		   : recoverPOST("ID_URL");
 	$id_company  = isset($data) ? recoverPOST("id_company", $data[0]["ID_Company"])    : recoverPOST("id_company");
 	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"])   		   : recoverPOST("title");		
 	$email       = isset($data) ? recoverPOST("email", $data[0]["Email"])   		   : recoverPOST("email");
@@ -20,7 +20,7 @@
 	$additional_i= isset($data) ? recoverPOST("additional_information", $data[0]["Additional_Information"]): recoverPOST("additional_information");
 	$company_contact= isset($data) ? recoverPOST("company_contact", $data[0]["Company_Contact"]): recoverPOST("company_contact");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");				
-	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
+	//$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$edit      = isset($data) ? TRUE											 : FALSE;
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");

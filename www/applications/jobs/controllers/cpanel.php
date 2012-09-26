@@ -217,5 +217,55 @@ class CPanel_Controller extends ZP_Controller {
 		$this->render("content", $this->vars);
 	}
 	
-	
+	public function edit($ID = 0) {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+		
+		if((int) $ID === 0) { 
+			redirect("$this->application/cpanel/results");
+		}
+
+		$this->title("Edit");
+		
+		$this->helper("forms");
+		
+		$this->title("Add");
+		
+		$this->CSS("forms", "cpanel");
+		
+		$this->js("redactorjs");
+		$this->js("insert-html");
+		$this->js("show-element");
+
+		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
+		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
+		
+		if(POST("edit")) {
+			$this->vars["alert"] = $this->{"$this->Model"}->cpanel("edit");
+		} elseif(POST("cancel")) {
+			redirect("cpanel");
+		} 
+		
+		$data = $this->{"$this->Model"}->getByID($ID);
+		
+		if($data) {
+			//$this->Library 	  = $this->classes("Library", "cpanel");
+			//$this->Categories = $this->classes("Categories", "categories");		
+			
+			$this->vars["data"]				= $data;
+			//$this->vars["muralImage"] 		= $this->{"$this->Model"}->getMuralByID(segment(3, isLang()));
+			//$this->vars["muralDeleteURL"] 	= ($this->vars["muralImage"]) ? path("$this->application/cpanel/delete-mural/$ID")  : NULL;
+			$this->vars["application"]		= $this->CPanel->getApplicationID($this->application);
+			
+			$this->js("www/lib/scripts/ajax/password.js", TRUE);
+			$this->js("jquery-ui.min", "cpanel");
+					
+			$this->vars["view"] = $this->view("add", TRUE, $this->application);
+			
+			$this->render("content", $this->vars);
+		} else {
+			redirect("$this->application/cpanel/results");
+		}
+	}
 }

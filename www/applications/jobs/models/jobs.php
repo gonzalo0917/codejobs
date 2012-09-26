@@ -50,7 +50,7 @@ class Jobs_Model extends ZP_Model {
 			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit);
 		} else {
 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "D_Job, Title, Location, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "D_Job, Title, Location, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "D_Job, Title, Location, Situation", NULL, $order, $limit);
 		}
 	}
 	
@@ -90,6 +90,10 @@ class Jobs_Model extends ZP_Model {
 		if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}
+	}
+
+	public function getByID($ID) {			
+		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 	
 	private function save() {
@@ -136,6 +140,15 @@ class Jobs_Model extends ZP_Model {
 	
 	public function removePassword($ID) {
 		$this->Db->update($this->table, array("Pwd" => ""), $ID);		
+	}
+
+	private function edit() {
+		if($this->Db->update($this->table, $this->data, POST("ID"))) {
+            
+            return getAlert(__("The code has been edit correctly"), "success");
+        }
+        
+        return getAlert(__("Update error"));
 	}
 	
 }
