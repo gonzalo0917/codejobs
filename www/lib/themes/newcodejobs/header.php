@@ -13,9 +13,9 @@
 	<link href="<?php echo path("codes/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Codes"); ?>" >
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
 	
-    <link rel="stylesheet" href="<?php echo path("www/lib/css/default.css", TRUE); ?>" type="text/css">
-	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/style.css" type="text/css">
-	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo path("www/lib/css/default.min.css", TRUE); ?>" type="text/css">
+	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/style.min.css" type="text/css">
+	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.min.css" type="text/css">
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 
 	<?php 
@@ -41,8 +41,8 @@
         	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
 			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/bbcode/set.js", "zan"); ?>"></script>
 
-			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.css", "zan"); ?>" />
-			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/bbcode/style.css", "zan"); ?>" />
+			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan"); ?>" />
+			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/bbcode/style.min.css", "zan"); ?>" />
 
 			<script type="text/javascript">
 				$(document).on("ready", function() {
@@ -53,9 +53,9 @@
         }
 	 ?>
 
-	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/social.js"></script>
+	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/social.min.js"></script>
 
-	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/porlets.js"></script>
+	<script type="text/javascript" src="<?php echo $this->themePath; ?>/js/porlets.min.js"></script>
         
     <script type="text/javascript">
 		var PATH = "<?php print path(); ?>";
