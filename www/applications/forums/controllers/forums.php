@@ -175,7 +175,7 @@ class Forums_Controller extends ZP_Controller {
 			$this->js("validations", "forums");
 			
 			if(POST("cancel")) {
-				redirect("forums" ."/". $slug);
+				redirect("forums/$slug/$ID");
 			}
 			
 			if(!POST("doAction")) {
@@ -188,17 +188,11 @@ class Forums_Controller extends ZP_Controller {
 				}
 				
 				if($forum) {
-					$vars["ID"]       	 = $forum[0]["ID_Forum"];
-					$vars["action"]   	 = $action;
-					$vars["hrefURL"]  	 = path("forums/$slug");
-					
-					if($action === "save") {
-						$vars["href"] = path("forums/$slug/new");
-					} else {
-						$vars["href"] = path("forums/$slug/$ID/edit");
-					}
-
-					$vars["view"] = $this->view("newtopic", TRUE);
+					$vars["ID"]      = $forum[0]["ID_Forum"];
+					$vars["action"]  = $action;
+					$vars["hrefURL"] = path("forums/$slug");	
+					$vars["href"] 	 = ($action === "save") ? path("forums/$slug/new") : path("forums/$slug/$ID/edit");
+					$vars["view"] 	 = $this->view("newtopic", TRUE);
 					
 					$this->render("content", $vars);
 				}
@@ -227,17 +221,11 @@ class Forums_Controller extends ZP_Controller {
 					$vars["alert"]   = $alert;
 					$vars["ID"]      = POST("ID_Forum");
 					$vars["title"]   = POST("title");
-					$vars["content"] = POST("content", "decode", FALSE);
+					$vars["content"] = POST("content", "clean");
 					$vars["action"]  = $action;
-					$vars["hrefURL"] = path("forums/$slug");
-					
-					if($action === "save") {
-						$vars["href"] = path("forums/$slug/new");
-					} else {
-						$vars["href"] = path("forums/$slug/$ID/edit");
-					}
-
-					$vars["view"] = $this->view("newtopic", TRUE);
+					$vars["hrefURL"] = path("forums/$slug/". $vars["ID"] ."");
+					$vars["href"] 	 = ($action === "save") ? path("forums/$slug/new") : path("forums/$slug/". $vars["ID"] ."/edit");
+					$vars["view"] 	 = $this->view("newtopic", TRUE);
 					
 					$this->render("content", $vars);
 				} else {
@@ -252,19 +240,19 @@ class Forums_Controller extends ZP_Controller {
 					} elseif($action === "edit") { 
 						$success = $this->Forums_Model->editTopic();
 
-						$vars["href"] = path("forums/$slug/$ID");
+						$vars["href"] = path("forums/$slug/");
 					}
 									
 					$vars["success"] = $success;
 					$vars["action"]  = $action;
-					$vars["href"]    = path("forums/$slug");
+					$vars["href"]    = path("forums/$slug/");
 					$vars["view"]    = $this->view("newtopic", TRUE);
 					
 					$this->render("content", $vars);
 				}
 			}
 		} else {
-			redirect("forums" ."/". $slug);
+			redirect("forums/$slug/$ID");
 		}
 	}
 	

@@ -96,11 +96,17 @@ function BBCode($text) {
 	$text = str_replace("&amp;feature=related", "", $text);
 	$text = str_replace("&amp;feature=player_embedded", "", $text);
 	$text = str_replace("&amp;feature=fvwrel", "", $text);
-		
-	$text = str_replace("\r", "", $text);
-	$text = "<p>". preg_replace("/(\n){2,}/", "</p><p>", $text) ."</p>";
 	$text = nl2br($text);
-	
+	$text = str_replace("</span><br />", "</span>", $text);
+	$text = str_replace("</span>\r\n<br />", "</span>", $text);
+	$text = str_replace("</blockquote>\r\n<br />", "</blockquote>", $text);
+	$text = str_replace("<ul><br />", "<ul>", $text); 
+	$text = str_replace("</ul><br />", "</ul>", $text);
+	$text = str_replace("</ol><br />", "</ol>", $text);
+	$text = str_replace("<br />\n</li>", "</li>", $text);
+	$text = str_replace("</blockquote><br />", "</blockquote>", $text);
+	$text = str_replace("<span style=\"color: #000000\"><br />", "<span style=\"color: #000000\">", $text);
+	$text = str_replace("</code><br />", "</code>", $text);
 
 	if(!function_exists('removeBr')) {
 		function removeBr($s) {
@@ -108,7 +114,7 @@ function BBCode($text) {
 		}
 	}
 
-	$text = preg_replace_callback('/<div class="code">(.*?)<\/div>/ms', "removeBr", $text);
+	$text = preg_replace_callback('/<pre class="code">(.*?)<\/pre>/ms', "removeBr", $text);
 	$text = preg_replace('/<p><pre>(.*?)<\/pre><\/p>/ms', "<pre>\\1</pre>", $text);
 	
 	$text = preg_replace_callback('/<ul>(.*?)<\/ul>/ms', "removeBr", $text);
@@ -441,31 +447,26 @@ function showContent($content) {
 }
 
 function setCode($HTML, $return = FALSE) {
-   	$codes = explode("[Code]", $HTML);
+	$HTML  = str_replace("[Code]", "[code]", $HTML);
+	$HTML  = str_replace("[/Code]", "[/code]", $HTML);
+
+   	$codes = explode("[code]", $HTML);
 
    	if(count($codes) > 1) {
    		for($i = 1; $i <= count($codes) - 1; $i++) {
    			if(isset($codes[$i])) {
-				$code = explode("[/Code]", $codes[$i]);
+				$code = explode("[/code]", $codes[$i]);
 
 		   		if(isset($code[0])) {
-		   	 		if($return) {
-		   				$code[0] = getCode($code[0]);
-		   			} else {
-			   			$code[0] = addslashes($code[0]);
-			   		}
+		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);
 		   		}
 
-		   		if($return) {
-		   			$codes[$i] = implode("", $code);
-		   		} else {
-		   			$codes[$i] = implode("[/Code]", $code);
-		   		}
+		   		$codes[$i] = ($return) ? implode("", $code) : implode("[/code]", $code);		   		
 		   	}	
 	   	}
    	} 	
 
-   	return ($return) ? implode("", $codes) : implode("[Code]", $codes);
+   	return ($return) ? implode("", $codes) : implode("[code]", $codes);
 }
 
 function randomString($length = 6) {  

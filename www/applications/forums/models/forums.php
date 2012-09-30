@@ -195,10 +195,10 @@ class Forums_Model extends ZP_Model {
 					$dataTopic[$i]["Hour"]        = $topic["Hour"];
 					$dataTopic[$i]["Visits"]      = $topic["Visits"];
 					$dataTopic[$i]["ID"]          = $topic["ID_Post"];	
-					$dataTopic[$i]["topicURL"]    = path(segment(1, isLang()) ."/new");
-					$dataTopic[$i]["replyURL"]    = path(segment(1, isLang()) . $topic["ID_Post"] ."/new");
-					$dataTopic[$i]["editURL"]     = path(segment(1, isLang()) . $topic["ID_Post"] ."/edit");
-					$dataTopic[$i]["deleteURL"]   = path(segment(1, isLang()) . segment(2, isLang()) ."/". $topic["ID_Post"] ."/delete");
+					$dataTopic[$i]["topicURL"]    = path("forums/". $dataForum["Forum_Slug"] ."/new");
+					$dataTopic[$i]["replyURL"]    = path("forums/" . $topic["Slug"] ."/". $topic["ID_Post"] ."/new");
+					$dataTopic[$i]["editURL"]     = path("forums/" . $topic["Slug"] ."/". $topic["ID_Post"] ."/edit");
+					$dataTopic[$i]["deleteURL"]   = path("forums/". $topic["Slug"] ."/". $topic["ID_Post"] ."/delete");
 																		
 					$ID_Topic = $topic["ID_Post"];
 
@@ -255,9 +255,13 @@ class Forums_Model extends ZP_Model {
 		
 		$lastTopic = $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Parent = 0 AND Situation = 'Active' ORDER BY Start_Date DESC LIMIT 1", "forums_posts");
 		
-		$time = ($lastTopic) ? $date - $lastTopic[0]["Start_Date"] : 20;
-		
-		if($time > 10) {
+		if($lastTopic) {
+			$time = ($lastTopic) ? $date - $lastTopic[0]["Start_Date"] : 20;
+		} else {
+			$time = 20;
+		}
+
+		if($time > 5) { 
 			$data = array(
 				"ID_Forum"   => POST("ID_Forum"),
 				"ID_User" 	 => SESSION("ZanUserID"), 
@@ -271,9 +275,9 @@ class Forums_Model extends ZP_Model {
 				"Topic"		 => 1
 			);
 			
-			$lastID = $this->Db->insert("muu_forums_posts", $data);
-
-			$this->Db->updateBySQL("muu_forums", "Topics = (Topics) + 1 WHERE ID_Forum = '$lastID'");
+			$lastID = $this->Db->insert("forums_posts", $data);
+			
+			$this->Db->updateBySQL("forums", "Topics = (Topics) + 1 WHERE ID_Forum = '$lastID'");
 		} else { 
 			$data = FALSE;
 		}

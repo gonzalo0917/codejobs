@@ -20,6 +20,7 @@
 				<?php echo __("Welcome to the forum, ") . $forum["Forum_Title"]; ?>, 
 				<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>. 
 				<?php echo __("Feel free of generate new topics"); ?>.
+				<span style="float: right; margin-right: 10px;"><a href="<?php echo path("forums/". segment(1, isLang()) ."/new"); ?>">+<?php echo __("New topic"); ?></a></span>
 			</p>
 	<?php 
 		} else { 
@@ -65,7 +66,7 @@
 					<tr class="rows <?php echo ($j % 2 === 0) ? "odd" : "even"; ?>">
 						<td class="first">
 							<span class="forumTitle">
-								<a title="<?php echo $topic["Title"]; ?>" href="<?php echo path("forums/". segment(2) ."/". $topic["ID"]); ?>">
+								<a title="<?php echo $topic["Title"]; ?>" href="<?php echo path("forums/". $topic["Slug"] ."/". $topic["ID"]); ?>">
 									<?php echo $topic["Title"]; ?>
 								</a>
 							</span>
@@ -129,7 +130,7 @@
 									</div>
 								</td>
 						<?php 
-							} elseif(SESSION("ZanUserID")) { 
+							} elseif(SESSION("ZanUserID")) {								
 						?>
 								<td class="fifth">
 									<div class="actionbutton">

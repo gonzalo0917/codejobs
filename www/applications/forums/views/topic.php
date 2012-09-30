@@ -139,7 +139,7 @@
 			<tr>
 				<td class="topicContent">
 					<div class="topicData">
-						<p><?php echo nl2br(stripslashes(BBCode($data["topic"][0]["Content"]))); ?></p>
+						<?php echo BBCode($data["topic"][0]["Content"]); ?>
 						
 <?php 
 						if($data["topic"][0]["Sign"] !== "") { 
@@ -244,7 +244,7 @@
 				<tr>
 					<td class="topicContent">
 						<div class="topicData">
-							<p><?php echo nl2br(stripslashes(BBCode($reply["Content"]))); ?></p>
+							<p><?php echo BBCode($reply["Content"]); ?></p>
 <?php 						
 							if($data["topic"][0]["Sign"] !== "") { 
 ?>

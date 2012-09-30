@@ -3,11 +3,9 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-
 	$title 	 = isset($title)   ? recoverPOST("title", $title) 		  : NULL;
 	$content = isset($content) ? recoverpost("description", $content) : NULL;
  	
-
 	if(!isset($success)) { 
 ?> 	
 		<div class="newTopic" style="margin-left: 15%;">

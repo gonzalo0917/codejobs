@@ -32,6 +32,8 @@
 <?php 
 	} 
 ?>
+
+
 </div>
 
 <div id="forums">
@@ -47,7 +49,7 @@
 				<th class="third"><?php echo __("Topics"); ?></th>
 				<th class="fourth"><?php echo __("Messages"); ?></th>
 				<?php 
-					if(SESSION("ZanUserID") and SESSION("ZanUserPrivilege") === "Super Admin") { 
+					if(SESSION("ZanUserPrivilegeID") === 1) { 
 				?>
 						<th class="fifth"><?php echo __("Actions"); ?></th>
 				<?php 
@@ -104,7 +106,7 @@
 					<td class="third"><span class="forumNumbers"><?php echo $forum["Topics"]; ?></span></td>
 					<td class="fourth"><span class="forumNumbers"><?php echo $forum["Replies"]; ?></span></td>
 					<?php 
-						if(SESSION("ZanUserID") and SESSION("ZanUserPrivilege") === "Super Admin") { 
+						if(SESSION("ZanUserPrivilegeID") === 1) { 
 					?>
 							<td class="fifth">
 								<div class="actionbutton">
