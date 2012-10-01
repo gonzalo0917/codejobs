@@ -4,7 +4,6 @@
 	font-size: 70%;
 	text-align: center;
 	padding:4px 6px 4px 0;
-	background-color: #fff;
 	color: #313031;
 }
 
@@ -20,6 +19,10 @@
 	color: #0066a7;
 	border: 1px solid #b7d8ee;
 	background-color: #d2eaf6;
+}
+
+#pagination a {
+	background-color: #fff;
 }
 
 #pagination span.current {
