@@ -6,7 +6,7 @@
 
 <div class="bookmarks">
 	<h2>
-		<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo $bookmark["URL"]; ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
+		<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo $bookmark["URL"]; ?>" target="_blank" title="<?php echo htmlentities($bookmark["Title"], ENT_QUOTES, "UTF-8"); ?>"><?php echo $bookmark["Title"]; ?></a>
 	</h2>
 
 	<span class="small italic grey">
@@ -27,26 +27,51 @@
 	</span>
 	
 	<p class="justify">				
-		<?php echo stripslashes($bookmark["Description"]); ?> 
+		<?php echo $bookmark["Description"]; ?> 
 	</p>
 
 	<h3>
-		<a href="<?php echo $bookmark["URL"]; ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo __("Visit Bookmark"); ?></a>
+		<a href="<?php echo $bookmark["URL"]; ?>" target="_blank" title="<?php echo htmlentities($bookmark["Title"], ENT_QUOTES, "UTF-8"); ?>"><?php echo __("Visit Bookmark"); ?></a>
 	</h3>
 
 	<br />
 	
-		<form action="<?php echo path("bookmarks/add/"); ?>" method="post">
-			<fieldset>
-				<input type="hidden" name="title" value="<?php echo $bookmark["Title"]; ?>" />
-				<input type="hidden" name="URL" value="<?php echo $bookmark["URL"]; ?>" />
-				<input type="hidden" name="description" value="<?php echo $bookmark["Description"]; ?>" />
-				<input type="hidden" name="tags" value="<?php echo $bookmark["Tags"]; ?>" />
-				<input type="hidden" name="language" value="<?php echo $bookmark["Language"]; ?>" />
-				<input type="hidden" name="ID" value="" />
-				<input type="submit" name="save" class="btn btn-success" value="<?php echo __("Save"); ?>" />
-				<input type="submit" name="back" class="btn" value="<?php echo __("Edit"); ?>" />
-			</fieldset>
-		</form>
-	</p>
+	<form action="<?php echo path("bookmarks/add/"); ?>" method="post" style="display: inline">
+		<fieldset style="display:inline">
+			<input type="hidden" name="title" value="<?php echo htmlentities($bookmark["Title"], ENT_QUOTES, "UTF-8"); ?>" />
+			<input type="hidden" name="URL" value="<?php echo htmlentities($bookmark["URL"], ENT_QUOTES, "UTF-8"); ?>" />
+			<input type="hidden" name="description" value="<?php echo htmlentities($bookmark["Description"], ENT_QUOTES, "UTF-8"); ?>" />
+			<input type="hidden" name="tags" value="<?php echo htmlentities($bookmark["Tags"], ENT_QUOTES, "UTF-8"); ?>" />
+			<input type="hidden" name="language" value="<?php htmlentities($bookmark["Language"], ENT_QUOTES, "UTF-8"); ?>" />
+			<input type="hidden" name="ID" value="" />
+			<input type="submit" name="save" onclick="needToConfirm = false" class="btn btn-success" value="<?php echo __("Save"); ?>" />
+			<input type="submit" onclick="needToConfirm = false" class="btn" value="<?php echo __("Go back"); ?>" />
+	</fieldset>
+	</form>
+
 </div>
+
+<div class="preview"><?php echo __("Preview"); ?></div>
+
+<script type="text/javascript">
+	var needToConfirm = true;
+
+	$(".preview").fadeIn("fast").delay(400).fadeOut("slow");
+
+	$(window).on("beforeunload", function () {
+		if (needToConfirm) {
+		    if (/Firefox[\/\s](\d+)/.test(navigator.userAgent) && new Number(RegExp.$1) >= 4) {
+		        if (confirm("<?php echo __("The changes you have made have not been saved yet"); ?>. <?php echo __("Are you sure you want to leave?"); ?>")) {
+		            history.go();
+		        } else {
+		            window.setTimeout(function () {
+		                window.stop();
+		            }, 1);
+		        }
+		    } else {
+		        return "The changes you have made have not been saved yet.";
+		    }
+		}
+	});
+
+</script>

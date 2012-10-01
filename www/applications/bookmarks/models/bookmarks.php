@@ -78,7 +78,8 @@ class Bookmarks_Model extends ZP_Model {
 				"ID_User" 	 => SESSION("ZanUserID"),
 				"Author"  	 => SESSION("ZanUser"),
 				"Slug"    	 => slug(POST("title", "clean")),
-				"Start_Date" => now(4)
+				"Start_Date" => now(4),
+				"Title"		 => stripslashes(POST("title"))
 			);
 		} else {
 			$validations = array(
@@ -88,7 +89,8 @@ class Bookmarks_Model extends ZP_Model {
 
 			$data = array(
 				"Slug"    	 => slug(POST("title", "clean")),
-				"Start_Date" => now(4)
+				"Start_Date" => now(4),
+				"Title"		 => stripslashes(POST("title"))
 			);
 		}
 				
@@ -125,12 +127,12 @@ class Bookmarks_Model extends ZP_Model {
 		if(POST("description") AND POST("language") AND POST("title") AND POST("URL")) {
 			return array(
 				"Author"  		=> SESSION("ZanUser"),
-				"Description" 	=> filter(POST("description", "clean"), "escape"),
-				"Language" 		=> POST("language"),
+				"Description" 	=> stripslashes(encode(POST("description", "decode", NULL))),
+				"Language" 		=> stripslashes(encode(POST("language", "decode", NULL))),
 				"Start_Date"	=> now(4),
-				"Tags" 			=> filter(POST("tags", "clean"), "escape"),
-				"Title" 		=> filter(POST("title", "clean"), "escape"),
-				"URL" 			=> POST("URL")
+				"Tags" 			=> stripslashes(encode(POST("tags", "decode", NULL))),
+				"Title" 		=> stripslashes(encode(POST("title", "decode", NULL))),
+				"URL" 			=> stripslashes(encode(POST("URL", "decode", NULL)))
 			);
 		} else {
 			return FALSE;

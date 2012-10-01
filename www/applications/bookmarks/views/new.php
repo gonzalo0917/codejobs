@@ -6,7 +6,7 @@
 	$ID  	     = isset($data) ? recoverPOST("ID", 0) 								: 0;
 	$title       = isset($data) ? recoverPOST("title", $data["Title"]) 				: recoverPOST("title");
 	$description = isset($data) ? recoverPOST("description", $data["Description"]) 	: recoverPOST("description");
-	$URL         = isset($data) ? recoverPOST("URL", $data["URL"]) 					: "http://";
+	$URL         = isset($data) ? recoverPOST("URL", $data["URL"]) 					: recoverPOST("URL", "http://");
 	$tags    	 = isset($data) ? recoverPOST("tags", $data["Tags"]) 				: recoverPOST("tags");
 	$language  	 = isset($data) ? recoverPOST("language", $data["Language"])  	 	: recoverPOST("language");
 	$edit        = isset($data) ? TRUE 												: FALSE;
@@ -25,7 +25,7 @@
 				"style" => "width: 100%;", 
 				"field" => __("Title"), 
 				"p" 	=> TRUE, 
-				"value" => $title
+				"value" => stripslashes($title)
 			));
 
 			echo formInput(array(	
@@ -45,7 +45,7 @@
 				"style"  => "width: 100%; height: 140px;", 
 				"field"  => __("Description"), 
 				"p" 	 => TRUE, 
-				"value"  => $description
+				"value"  => stripslashes($description)
 			));
 
 			echo formInput(array(	
