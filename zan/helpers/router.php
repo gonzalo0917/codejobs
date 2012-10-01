@@ -348,25 +348,25 @@ function whichApplication() {
 
 function path($path = FALSE, $URL = FALSE, $lang = TRUE) {
 	if(!$path) {
-		return isLang() ? get("webBase") . _sh . get("webLang") : get("webBase");
+		return isLang() ? get("webBase") ."/". get("webLang") : get("webBase");
 	} 
 
 	if($URL === "zan") {
-		return getDomain(_corePath) . _sh . "zan" . _sh . $path;
+		return getDomain(_corePath) ."/zan/". $path;
 	} elseif(isLang($path)) {
-		return get("webBase") . _sh . $path;
+		return get("webBase") ."/". $path;
 	}
 
 	if($lang) {
 		if($lang !== TRUE) {
 			$lang = getLang($lang);
 
-			return ($URL) ? get("webURL") . _sh . $path : get("webBase") . _sh . $lang . _sh . $path;
+			return ($URL) ? get("webURL") ."/". $path : get("webBase") ."/". $lang ."/". $path;
 		}
 
-		return ($URL) ? get("webURL") . _sh . $path : get("webBase") . _sh . get("webLang") . _sh . $path;
+		return ($URL) ? get("webURL") ."/". $path : get("webBase") ."/". get("webLang") ."/". $path;
 	} else {
-		return ($URL) ? get("webURL") . _sh . $path : get("webBase") . _sh . $path;
+		return ($URL) ? get("webURL") ."/". $path : get("webBase") ."/". $path;
 	}
 }
 

@@ -94,17 +94,17 @@ class CPanel_Model extends ZP_Model {
 			foreach($data as $record) {
 				switch($application) {
 					case "pages":
-						$list[] = li(a(getLanguage($record["Language"], TRUE) ." $i. ". stripslashes($record["Title"]), path("pages/". $record["Slug"]), stripslashes($record["Title"]), TRUE));
+						$list[] = li(a(getLanguage($record["Language"], TRUE) ." $i. ". stripslashes($record["Title"]), path("pages/". $record["Slug"], FALSE, $record["Language"]), stripslashes($record["Title"]), TRUE));
 					break;
 
-					case "blog":
-						$URL = path("blog/". $record["Year"] ."/". $record["Month"] ."/". $record["Day"] ."/". $record["Slug"]);
+					case "blog":						
+						$URL = path("blog/". $record["Year"] ."/". $record["Month"] ."/". $record["Day"] ."/". $record["Slug"], FALSE, $record["Language"]);
 
 						$list[] = li(a(getLanguage($record["Language"], TRUE) .' '. $i .'. '. stripslashes($record["Title"]), $URL , stripslashes($record["Title"]), TRUE));	
 					break;
 					
 					case "bookmarks":
-						$list[] = li(a(getLanguage($record["Language"], TRUE) .' '. $i .". ". stripslashes($record["Title"]), path("bookmarks/go/". $record["ID_Bookmark"] ."/". $record["Slug"]), stripslashes($record["Title"]), TRUE));
+						$list[] = li(a(getLanguage($record["Language"], TRUE) .' '. $i .". ". stripslashes($record["Title"]), path("bookmarks/go/". $record["ID_Bookmark"] ."/". $record["Slug"], FALSE, $record["Language"]), stripslashes($record["Title"]), TRUE));
 					break;
 
 					case "users":
