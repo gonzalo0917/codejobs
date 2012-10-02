@@ -1513,6 +1513,7 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Topics` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Replies` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Comments` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Posts` mediumint(8) NOT NULL DEFAULT '0',
   `Bookmarks` mediumint(8) NOT NULL DEFAULT '0',
   `Codes` mediumint(8) NOT NULL DEFAULT '0',
   `Tutorials` mediumint(8) NOT NULL DEFAULT '0',
