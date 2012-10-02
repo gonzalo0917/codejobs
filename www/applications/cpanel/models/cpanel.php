@@ -250,10 +250,11 @@ class CPanel_Model extends ZP_Model {
 			
 			return ($count > 0) ? TRUE : FALSE;
 		} else {
-			for($i = 0; $i <= count($ID) - 1; $i++) {
+			for($i = 0; $i < count($ID); $i++) {
 				$this->Db->update($this->application, array("Situation" => "Active"), $ID[$i]);
-				$this->Users_Model->setCredits(1, $this->Applications_Model->getID($this->application));
 			}	
+			
+			$this->Users_Model->setCredits(count($ID), $this->Applications_Model->getID($this->application));
 					
 			$count = $this->Db->countBySQL("Situation = 'Deleted'", $this->application);
 			
@@ -363,10 +364,11 @@ class CPanel_Model extends ZP_Model {
 			
 			return ($count > 0) ? TRUE : FALSE;
 		} else {
-			for($i = 0; $i <= count($ID) - 1; $i++) {
+			for($i = 0; $i < count($ID); $i++) {
 				$this->Db->update($this->application, $data, $ID[$i]);
-				$this->Users_Model->setCredits(-1, $this->Applications_Model->getID($this->application));
 			}
+			
+			$this->Users_Model->setCredits(-count($ID), $this->Applications_Model->getID($this->application));
 			
 			$count = $this->Db->countBySQL("Situation = 'Active'", $this->application);
 			
