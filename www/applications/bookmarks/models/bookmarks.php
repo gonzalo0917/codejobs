@@ -114,7 +114,7 @@ class Bookmarks_Model extends ZP_Model {
 
 		$this->Users_Model = $this->model("Users_Model");
 
-		$this->Users_Model->setCredits(1, 3, 9, $lastID);
+		$this->Users_Model->setCredits(1, 9);
 		
 		if($lastID) {
 			return getAlert(__("The bookmark has been saved correctly"), "success");	

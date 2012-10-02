@@ -537,28 +537,44 @@ class Users_Model extends ZP_Model {
 		showAlert(__("The record doesn't exists"), path());
 	}
 
-	public function setCredits($credits, $recommendation, $application, $record = NULL, $action = "Add") {
-		$sign = ($credits > 0 ? "+ 1" : "- 1");
+	public function setCredits($factor, $application, $record = NULL, $action = "Add") {
+		$this->config("scores", "users");
+
+		$prefix = $factor > 0 ? "+" : "";
+		$sign 	= $prefix . $factor;
 
 		switch($application) {
 			case 9:
-				$additional = ", Bookmarks = (Bookmarks) $sign";
-				
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + 1);
+				
+				$additional 	= ", Bookmarks = (Bookmarks) $sign";
+				$credits 		= $prefix . (_bookmarksCredits * $factor);
+				$recommendation = $prefix . (_bookmarksRecommendations * $factor);
 			break;
 			
 			case 17:
-				$additional = ", Codes = (Codes) $sign";
-				
 				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + 1);
+
+				$additional 	= ", Codes = (Codes) $sign";
+				$credits 		= $prefix . (_codesCredits * $factor);
+				$recommendation = $prefix . (_codesRecommendations * $factor);
+			break;
+			
+			case 3:
+				SESSION("ZanUserCodes", SESSION("ZanUserPosts") + 1);
+
+				$additional 	= ", Posts = (Posts) $sign";
+				$credits 		= $prefix . (_blogCredits * $factor);
+				$recommendation = $prefix . (_blogRecommendations * $factor);
 			break;
 			
 			default:
-				$additional = "";
-			break;
+				$additional 	= "";
+				$credits 		= "";
+				$recommendation = "";
 		}
 
-		$this->Db->updateBySQL("users", "Credits = (Credits) + $credits, Recommendation = (Recommendation) + $recommendation $additional WHERE ID_User = '". SESSION("ZanUserID") ."'");
+		$this->Db->updateBySQL("users", "Credits = (Credits) $credits, Recommendation = (Recommendation) $recommendation $additional WHERE ID_User = '". SESSION("ZanUserID") ."'");
 
 		return FALSE;
 	}

@@ -134,7 +134,7 @@ class Codes_Model extends ZP_Model {
             if($this->Db->insertBatch("codes_files", $this->data)) {
 				$this->Users_Model = $this->model("Users_Model");
 
-				$this->Users_Model->setCredits(3, 5, 17, $lastID);
+				$this->Users_Model->setCredits(1, 17);
 
                 return getAlert(__("The code has been saved correctly"), "success");	
             }
