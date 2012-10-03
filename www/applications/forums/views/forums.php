@@ -103,23 +103,29 @@
 					?>
 					</td>
 					
-					<td class="third"><span class="forumNumbers"><?php echo $forum["Topics"]; ?></span></td>
-					<td class="fourth"><span class="forumNumbers"><?php echo $forum["Replies"]; ?></span></td>
+					<td class="third">
+						<span class="forumNumbers"><?php echo $forum["Topics"]; ?></span>
+					</td>
+					
+					<td class="fourth">
+						<span class="forumNumbers"><?php echo $forum["Replies"]; ?></span>
+					</td>
+
 					<?php 
 						if(SESSION("ZanUserPrivilegeID") === 1) { 
 					?>
 							<td class="fifth">
 								<div class="actionbutton">
 									<a title="<?php echo __("Edit"); ?>" onclick="return confirm('<?php echo __("Do you want to edit the forum?"); ?>');" 
-									href="<?php echo $forum["editURL"]; ?>" class="ui-icon ui-icon-pencil">
-										<span class="hide">Edit</span>
+									href="<?php echo $forum["editURL"]; ?>">
+										<img src="<?php echo path("www/lib/images/icons/edit.png", TRUE); ?>" alt="<?php echo __("Edit"); ?>" />
 									</a>
 								</div>
 								
 								<div class="actionbutton">
 									<a title="<?php echo __("Delete"); ?>" onclick="return confirm('<?php echo __("Do you want to delete the forum?"); ?>');" 
-									href="<?php echo $forum["deleteURL"]; ?>" class="ui-icon ui-icon-trash"></a>
-									<span class="hide">Delete</span>
+									href="<?php echo $forum["deleteURL"]; ?>"></a>
+									<img src="<?php echo path("www/lib/images/icons/delete.png", TRUE); ?>" alt="<?php echo __("Edit"); ?>" />
 								</div>
 							</td>
 					<?php 

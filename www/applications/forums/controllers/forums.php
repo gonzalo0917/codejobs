@@ -55,9 +55,9 @@ class Forums_Controller extends ZP_Controller {
 
 		$data = $this->Forums_Model->getByDefault($language);
 		
-		if($data) {
+		if($data) { 
 			$this->helper("time");
-
+			
 			$avatar = $this->Forums_Model->getUserAvatar();
 			$stats  = $this->Forums_Model->getStatistics();
 			$users  = $this->Forums_Model->getLastUsers();

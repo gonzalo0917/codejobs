@@ -115,8 +115,8 @@ class Forums_Model extends ZP_Model {
 				$data[$i]["Title"]       = $forum["Title"];
 				$data[$i]["Slug"]        = $forum["Slug"];
 				$data[$i]["Description"] = $forum["Description"];
-				$data[$i]["editURL"]     = path($this->application ."/action/edit/". $forum["ID_Forum"]);
-				$data[$i]["deleteURL"]   = path($this->application ."/action/trash/". $forum["ID_Forum"]);
+				$data[$i]["editURL"]     = path("forums/cpanel/edit/". $forum["ID_Forum"]);
+				$data[$i]["deleteURL"]   = path("forums/cpanel/trash/". $forum["ID_Forum"]);
 				
 				if($forum["Topics"] < 1) {
 					$data[$i]["Topics"]     = 0;
