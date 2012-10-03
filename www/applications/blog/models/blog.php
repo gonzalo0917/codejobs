@@ -131,6 +131,9 @@ class Blog_Model extends ZP_Model {
 				
 			$this->Twitter_Model->publish('"'. $this->title .'"', $this->URL);
 		}
+
+		$this->Users_Model = $this->model("Users_Model");
+		$this->Users_Model->setCredits(1, 3);
 			
 		return getAlert(__("The post has been saved correctly"), "success", $this->URL);
 	}
