@@ -240,11 +240,13 @@ class CPanel_Model extends ZP_Model {
 	}
 	
 	public function restore($ID) {
-		$this->Applications_Model = $this->model("Applications_Model");
-
 		if(!is_array($ID)) {
 			$this->Db->update($this->application, array("Situation" => "Active"), $ID);
-			$this->Users_Model->setCredits(1, $this->Applications_Model->getID($this->application));
+			
+			if($this->application === "blog" or $this->application === "codes" or $this->application === "bookmarks") {
+				$this->Applications_Model = $this->model("Applications_Model");
+				$this->Users_Model->setCredits(1, $this->Applications_Model->getID($this->application));
+			}
 
 			$count = $this->Db->countBySQL("Situation = 'Deleted'", $this->application);
 			
@@ -254,8 +256,11 @@ class CPanel_Model extends ZP_Model {
 				$this->Db->update($this->application, array("Situation" => "Active"), $ID[$i]);
 			}	
 			
-			$this->Users_Model->setCredits(count($ID), $this->Applications_Model->getID($this->application));
-					
+			if($this->application === "blog" or $this->application === "codes" or $this->application === "bookmarks") {
+				$this->Applications_Model = $this->model("Applications_Model");
+				$this->Users_Model->setCredits(count($ID), $this->Applications_Model->getID($this->application));
+			}
+
 			$count = $this->Db->countBySQL("Situation = 'Deleted'", $this->application);
 			
 			return ($count > 0) ? TRUE : FALSE;		
@@ -354,11 +359,13 @@ class CPanel_Model extends ZP_Model {
 
 		$data = array("Situation" => "Deleted");
 		
-		$this->Applications_Model = $this->model("Applications_Model");
-
 		if(!is_array($ID)) {
 			$this->Db->update($this->application, $data, $ID);
-			$this->Users_Model->setCredits(-1, $this->Applications_Model->getID($this->application));
+
+			if($this->application === "blog" or $this->application === "codes" or $this->application === "bookmarks") {
+				$this->Applications_Model = $this->model("Applications_Model");
+				$this->Users_Model->setCredits(-1, $this->Applications_Model->getID($this->application));
+			}
 
 			$count = $this->Db->countBySQL("Situation = 'Active'", $this->application);
 			
@@ -368,7 +375,10 @@ class CPanel_Model extends ZP_Model {
 				$this->Db->update($this->application, $data, $ID[$i]);
 			}
 			
-			$this->Users_Model->setCredits(-count($ID), $this->Applications_Model->getID($this->application));
+			if($this->application === "blog" or $this->application === "codes" or $this->application === "bookmarks") {
+				$this->Applications_Model = $this->model("Applications_Model");
+				$this->Users_Model->setCredits(-count($ID), $this->Applications_Model->getID($this->application));
+			}
 			
 			$count = $this->Db->countBySQL("Situation = 'Active'", $this->application);
 			
