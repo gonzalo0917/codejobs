@@ -6,4 +6,4 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_maxLimit", 50);
+define("_maxLimit", 25);
