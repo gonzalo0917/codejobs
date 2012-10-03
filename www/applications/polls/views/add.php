@@ -9,7 +9,7 @@
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])	 : recoverPOST("situation");
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$action	   = isset($data) ? "edit"											 : "save";
-	$href	   = isset($data) ? path($this->application ."/cpanel/$action/$ID/") : path($this->application ."/cpanel/add/");
+	$href	   = isset($data) ? path("polls/cpanel/$action/$ID/") : path("polls/cpanel/add/");
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
