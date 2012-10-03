@@ -55,6 +55,22 @@ class Blog_Controller extends ZP_Controller {
 		}
 
 	}
+
+	public function add() {
+		isConnected();
+		
+		$this->CSS("forms", "cpanel");
+
+		$this->helper(array("html", "forms"));
+		$this->helper("codes", "codes");
+
+		$this->config("user", "blog");
+
+		$vars["view"] = $this->view("new", TRUE);
+
+		$this->render("content", $vars);
+
+	}
 	
 	public function archive() {		
 		$this->CSS("archive", TRUE);
