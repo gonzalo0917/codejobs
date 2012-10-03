@@ -13,7 +13,7 @@
 		foreach($bookmarks as $bookmark) { 
 	?>
 			<h2>
-				<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]); ?>" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
+				<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
 			</h2>
 
 			<span class="small italic grey">
@@ -34,7 +34,7 @@
 			</span>
 
 			<div class="addthis_toolbox addthis_default_style ">
-				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Bookmark <?php echo $bookmark["Title"]; ?>" tw:url="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]); ?>"></a>
+				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Bookmark <?php echo $bookmark["Title"]; ?>" tw:url="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>"></a>
 			</div>
 
 			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>

@@ -6,7 +6,7 @@
 
 <div class="bookmarks">
 	<h2>
-		<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/visit/". $bookmark["ID_Bookmark"]); ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
+		<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/visit/". $bookmark["ID_Bookmark"], FALSE, $bookmark["Language"]); ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
 	</h2>
 
 	<span class="small italic grey">
@@ -64,7 +64,7 @@
 		src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 	</script>
 	
-	<p><div class="fb-comments" data-href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]); ?>" data-num-posts="2" data-width="750"></div></p>
+	<p><div class="fb-comments" data-href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>" data-num-posts="2" data-width="750"></div></p>
 	
 	<p>
 		<a href="<?php echo path("bookmarks"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
