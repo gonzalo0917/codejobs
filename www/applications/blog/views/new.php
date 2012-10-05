@@ -36,7 +36,7 @@
 				"name" 		=> "editor", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("Editor"), 
-				"onchange" 	=> 'CambiarEditor($(this).val())'),
+				"onchange" 	=> 'switchEditor($(this).val())'),
 				$options
 			);
 			
@@ -85,8 +85,8 @@ $(document).ready(function() {
 	$("textarea[name='content']").redactor();
 });
 
-function CambiarEditor(id) {
-	var $textarea, content = "";
+function switchEditor(id) {
+	var $textarea;
 
 	if (id == 0) {
 		$("textarea[name='content']").destroyEditor();
