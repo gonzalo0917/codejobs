@@ -150,6 +150,18 @@ class ZP_Templates extends ZP_Load {
                     $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/redactorjs/css/redactor.css", "zan") .'" type="text/css" />' . "\n";
                 }
             }			
+		} elseif($CSS === "markitup") {
+            if ($print) {
+                print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />' . "\n";
+                print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/bbcode/style.min.css", "zan") .'" type="text/css" />' . "\n";
+            } else {
+                if (is_null($this->CSS)) {
+                    $this->CSS = '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />' . "\n";
+                } else {
+                    $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />' . "\n";
+                }
+                $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/bbcode/style.min.css", "zan") .'" type="text/css" />' . "\n";
+            }			
 		}
 
 		$file = is_null($application) ? "www/lib/css/$CSS.css" : "www/applications/$application/views/css/$CSS.css";
@@ -286,10 +298,13 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/jquery.js", "zan") .'"></script>';
 		} elseif (preg_match("/^jquery\\..+\\.js$/i", $js)){ # Plugin jQuery
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
-                } elseif($js === "redactorjs") {
+        } elseif($js === "redactorjs") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.min.js", "zan") .'"></script>';
-
 			$this->CSS("redactorjs");
+		} elseif($js === "markitup") {
+			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/jquery.markitup.js", "zan") .'"></script>';
+			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/bbcode/set.js", "zan") .'"></script>';
+			$this->CSS("markitup");
 		} elseif($js === "lesscss") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
 		} elseif($js === "angular") {
