@@ -33,9 +33,10 @@
 			);
 
 			echo formSelect(array(
-				"name" 	=> "editor", 
-				"p" 	=> TRUE, 
-				"field" => __("Editor")), 
+				"name" 		=> "editor", 
+				"p" 		=> TRUE, 
+				"field" 	=> __("Editor"), 
+				"onchange" 	=> 'CambiarEditor($(this).val())'),
 				$options
 			);
 			
@@ -56,19 +57,6 @@
 				"p" 	=> TRUE, 
 				"value" => $tags
 			));
-
-			$options = array(
-				0 => array("value" => 1, "option" => __("Yes"), "selected" => TRUE),
-				1 => array("value" => 0, "option" => __("No"))
-			);
-
-			echo formSelect(array(
-				"name" 	=> "enable_comments", 
-				"class" => "required", 
-				"p" 	=> TRUE, 
-				"field" => __("Enable Comments")), 
-				$options
-			);
 
 			echo tagHTML("p", span("field", "&raquo; " . __("Language of the post")) . "<br />" . getLanguagesInput($language, "language", "select"));
 
@@ -91,7 +79,25 @@
 	echo div(FALSE);
 ?>
 <script>
+var $parentEditor = null;
+
 $(document).ready(function() {
 	$("textarea[name='content']").redactor();
 });
+
+function CambiarEditor(id) {
+	var $textarea, content = "";
+
+	if (id == 0) {
+		$("textarea[name='content']").destroyEditor();
+		$parentEditor = $("textarea[name='content']").parent();
+		$("textarea[name='content']").markItUp(mySettings);
+	} else {
+		$textarea = $parentEditor.find("textarea").detach();
+		$parentEditor.find(".markItUp").parent().remove();
+		$textarea.attr("className", "required");
+		$parentEditor.append($textarea);
+		$("textarea[name='content']").redactor();
+	}
+}
 </script>
