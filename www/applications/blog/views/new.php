@@ -19,16 +19,16 @@
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(	
-				"name" 	=> "title", 
-				"class" => "required",
-				"style" => "width: 100%;", 
-				"field" => __("Title"), 
-				"p" 	=> TRUE, 
-				"value" => stripslashes($title)
+				"name" 		=> "title", 
+				"style" 	=> "width: 100%;", 
+				"field" 	=> __("Title"), 
+				"p" 		=> TRUE, 
+				"autofocus" => "autofocus", 
+				"value" 	=> stripslashes($title)
 			));
 
 			$options = array(
-				0 => array("value" => 1, "option" => "RedactorJS", "selected" => TRUE),
+				0 => array("value" => 1, "option" => "Redactor", "selected" => TRUE),
 				1 => array("value" => 0, "option" => "markItUp!")
 			);
 
@@ -42,7 +42,6 @@
 			
 			echo formTextarea(array(
 				"name" 	 => "content", 
-				"class"  => "required",
 				"style"  => "width: 100%; height: 240px;", 
 				"field"  => __("Content"), 
 				"p" 	 => TRUE, 
@@ -51,7 +50,6 @@
 
 			echo formInput(array(	
 				"name" 	=> "tags", 
-				"class" => "required",
 				"style" => "width: 300px;", 
 				"field" => __("Tags"), 
 				"p" 	=> TRUE, 

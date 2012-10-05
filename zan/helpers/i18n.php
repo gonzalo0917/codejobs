@@ -191,7 +191,7 @@ function getLanguagesInput($lang = NULL, $name = "language", $input = "radio") {
 	$HTML = NULL;
 
 	if($input === "select") {
-		$HTML = '<select class="required" name="'. $name .'" size="1">';
+		$HTML = '<select name="'. $name .'" size="1">';
 	}
 
 	foreach($languages as $language) {
