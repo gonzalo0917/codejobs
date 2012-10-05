@@ -35,6 +35,7 @@ if(is_array($data)) {
 	set("webEmailRecieve", $data[0]["Email_Recieve"]);
 	set("webEmailSend",    $data[0]["Email_Send"]);
 	set("defaultApplication", $data[0]["Application"]);
+	set("defaultEditor",   $data[0]["Editor"]);
 
 	if(!get("modRewrite")) {
 		set("webBase", get("webURL") . _sh . _index);
