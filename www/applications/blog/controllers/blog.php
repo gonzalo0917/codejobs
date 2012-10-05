@@ -62,6 +62,8 @@ class Blog_Controller extends ZP_Controller {
 		$this->CSS("forms", "cpanel");
 		$this->CSS("new", "blog");
 
+		$this->js("redactorjs");
+
 		$this->helper(array("html", "forms"));
 		$this->helper("codes", "codes");
 

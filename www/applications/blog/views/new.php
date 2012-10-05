@@ -26,9 +26,20 @@
 				"p" 	=> TRUE, 
 				"value" => stripslashes($title)
 			));
+
+			$options = array(
+				0 => array("value" => 1, "option" => "RedactorJS", "selected" => TRUE),
+				1 => array("value" => 0, "option" => "markItUp!")
+			);
+
+			echo formSelect(array(
+				"name" 	=> "editor", 
+				"p" 	=> TRUE, 
+				"field" => __("Editor")), 
+				$options
+			);
 			
-			echo formTextarea(array(	
-				"id" 	 => "editor", 
+			echo formTextarea(array(
 				"name" 	 => "content", 
 				"class"  => "required",
 				"style"  => "width: 100%; height: 240px;", 
@@ -45,6 +56,19 @@
 				"p" 	=> TRUE, 
 				"value" => $tags
 			));
+
+			$options = array(
+				0 => array("value" => 1, "option" => __("Yes"), "selected" => TRUE),
+				1 => array("value" => 0, "option" => __("No"))
+			);
+
+			echo formSelect(array(
+				"name" 	=> "enable_comments", 
+				"class" => "required", 
+				"p" 	=> TRUE, 
+				"field" => __("Enable Comments")), 
+				$options
+			);
 
 			echo tagHTML("p", span("field", "&raquo; " . __("Language of the post")) . "<br />" . getLanguagesInput($language, "language", "select"));
 
@@ -65,3 +89,9 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
 	echo div(FALSE);
+?>
+<script>
+$(document).ready(function() {
+	$("textarea[name='content']").redactor();
+});
+</script>
