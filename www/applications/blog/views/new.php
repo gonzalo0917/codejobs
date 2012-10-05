@@ -5,8 +5,7 @@
 
 	$ID  	     = isset($data) ? recoverPOST("ID", 0) 								: 0;
 	$title       = isset($data) ? recoverPOST("title", $data["Title"]) 				: recoverPOST("title");
-	$description = isset($data) ? recoverPOST("description", $data["Description"]) 	: recoverPOST("description");
-	$URL         = isset($data) ? recoverPOST("URL", $data["URL"]) 					: recoverPOST("URL", "http://");
+	$content 	 = isset($data) ? recoverPOST("content", $data["Content"])		 	: recoverPOST("content");
 	$tags    	 = isset($data) ? recoverPOST("tags", $data["Tags"]) 				: recoverPOST("tags");
 	$language  	 = isset($data) ? recoverPOST("language", $data["Language"])  	 	: recoverPOST("language");
 	$edit        = isset($data) ? TRUE 												: FALSE;
@@ -27,25 +26,15 @@
 				"p" 	=> TRUE, 
 				"value" => stripslashes($title)
 			));
-
-			echo formInput(array(	
-				"name" 	=> "URL", 
-				"class" => "required",
-				"style" => "width: 100%;", 
-				"field" => __("URL"), 
-				"p" 	=> TRUE, 
-				"value" => $URL,
-				"type"  => "url"
-			));
 			
 			echo formTextarea(array(	
 				"id" 	 => "editor", 
-				"name" 	 => "description", 
+				"name" 	 => "content", 
 				"class"  => "required",
-				"style"  => "width: 100%; height: 140px;", 
-				"field"  => __("Description"), 
+				"style"  => "width: 100%; height: 240px;", 
+				"field"  => __("Content"), 
 				"p" 	 => TRUE, 
-				"value"  => stripslashes($description)
+				"value"  => stripslashes($content)
 			));
 
 			echo formInput(array(	

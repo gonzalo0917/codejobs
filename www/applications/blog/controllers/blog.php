@@ -60,6 +60,7 @@ class Blog_Controller extends ZP_Controller {
 		isConnected();
 		
 		$this->CSS("forms", "cpanel");
+		$this->CSS("new", "blog");
 
 		$this->helper(array("html", "forms"));
 		$this->helper("codes", "codes");

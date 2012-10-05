@@ -9,6 +9,7 @@ $phrase["add_another_file"]								= "Agregar otro archivo";
 $phrase["add_language"]									= "Agregar lenguaje";
 $phrase["add_new_bookmark"]								= "Agregar nuevo marcador";
 $phrase["add_new_code"]									= "Agregar nuevo código";
+$phrase["add_new_post"]									= "Agregar nueva entrada";
 $prhase["add_work"]										= "Agregar trabajo";
 $phrase["administrator"]								= "Administrador";
 $phrase["ads"] 											= "Anuncios";
