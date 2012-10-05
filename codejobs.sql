@@ -348,6 +348,7 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
   `Theme` varchar(25) NOT NULL DEFAULT 'ZanPHP',
   `Validation` varchar(15) NOT NULL DEFAULT 'Super Admin',
   `Application` varchar(30) NOT NULL DEFAULT 'Blog',
+  `Editor` varchar(15) NOT NULL DEFAULT 'Redactor',
   `Message` text NOT NULL,
   `Activation` varchar(10) NOT NULL DEFAULT 'Nobody',
   `Email_Recieve` varchar(50) NOT NULL,
