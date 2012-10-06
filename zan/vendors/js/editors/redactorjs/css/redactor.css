@@ -151,6 +151,12 @@ body .redactor_toolbar li a.redactor_btn_normalscreen span		  { background-posit
 
 body .redactor_toolbar li a.redactor_btn_button1 span		 	  { background-position: -575px; }		
 
+/*
+	BUTTONS ADDED
+*/
+body .redactor_toolbar li a.redactor_btn_button1 {
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QAVQBVAFV4xrLkAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AoGABsQcnLqdwAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABg0lEQVRIx+3UzYsNUBgG8N8wysdmlraK8XFKiZ2NiNKQ0BuxsrHwUSJ/gA1FbEZjNmxEmdeGuWIxm1E0pUbIxcqGUrKRxVhwbY6apiv3TtnoPrv3ec85z3nep3PooYd/hb5OFkXEFuzDqcz82a3IgjYHnphTb8UETuLRfJwsnEuUUsZLKe+bzeabiFiOx1iKr1hXShkspdxrNputeTvBItyNiIt4gQFcwFp8xyE8/MNYb7Xj+9twZ3ADZ2t9EyPYiBV4je0R0cCeumYn7lTHhztx8rLOH57hPN7iPg5iPWYwhElMY7wKPOjUyQRWo4XrVXRZra/gAzbUC2yue77gXGYOd5rJAN7hKZ5jFRo4Uvtj2FWFfuAqBjNzOCKOdeqkUQ+ZrvVUZu6uwS7BNVzCx8zsr/zKiBjDtprfX0X24wk24TN2/G5k5mhEtDCK2xGxpjrdi8X41NWLj4hJDGXmtza907g8i5qp4R/IzFY3In3tNszqH695TOFoZr7q/dI9/Kf4BU0Ec+piWfAFAAAAAElFTkSuQmCC") no-repeat;
+}
 
 /*
 	Toolbar classes

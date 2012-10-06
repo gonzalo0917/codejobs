@@ -105,6 +105,7 @@ $phrase["image_for_this_post"] 							= "Imágen para la publicación";
 $phrase["in"] 											= "en";
 $phrase["in_trash"]										= "En papelera";
 $phrase["inactive"] 									= "Inactivo";
+$phrase["insert_break_line"]							= "Salto de Línea";
 $phrase["italian"]										= "Italiano";
 $phrase["january"]   									= "Enero";
 $phrase["jobs"] 	 									= "Empleos";

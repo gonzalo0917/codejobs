@@ -80,7 +80,7 @@
 var $parentEditor = null;
 
 $(document).ready(function() {
-	$("textarea[name='content']").redactor();
+	switchEditor(1)
 });
 
 function switchEditor(id) {
@@ -91,11 +91,23 @@ function switchEditor(id) {
 		$parentEditor = $("textarea[name='content']").parent();
 		$("textarea[name='content']").markItUp(mySettings);
 	} else {
-		$textarea = $parentEditor.find("textarea").detach();
-		$parentEditor.find(".markItUp").parent().remove();
-		$textarea.attr("className", "required");
-		$parentEditor.append($textarea);
-		$("textarea[name='content']").redactor();
+		if ($parentEditor !== null) {
+			$textarea = $parentEditor.find("textarea").detach();
+			$parentEditor.find(".markItUp").parent().remove();
+			$textarea.attr("className", "required");
+			$parentEditor.append($textarea);
+		}
+		$("textarea[name='content']").redactor({
+			focus: true,
+			lang: "es",
+			buttonsAdd: ["|", "button1"],
+			buttonsCustom: {
+				button1: {
+					title: "<?php echo __("Insert Break Line"); ?>",
+					callback: function(obj, event, key) { void(0); }
+				}
+			}
+		});
 	}
 }
 </script>
