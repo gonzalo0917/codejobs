@@ -79,7 +79,7 @@
 <script>
 var $parentEditor = null;
 
-$(document).ready(function() {
+$(window).on("load", function() {
 	switchEditor(1)
 });
 
@@ -99,7 +99,12 @@ function switchEditor(id) {
 		}
 		$("textarea[name='content']").redactor({
 			focus: true,
-			lang: "es",
+	<?php
+		if(get("webLang") !== "en")	{
+			echo 'lang: "'. get("webLang") .'",';
+		}
+	?>
+			
 			buttonsAdd: ["|", "button1"],
 			buttonsCustom: {
 				button1: {

@@ -300,7 +300,9 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
         } elseif($js === "redactorjs") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.min.js", "zan") .'"></script>';
-			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/es.js", "zan") .'"></script>';
+			if(get("webLang") !== "en") {
+				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/". get("webLang") .".js", "zan") .'"></script>';
+			}
 			$this->CSS("redactorjs");
 		} elseif($js === "markitup") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/jquery.markitup.js", "zan") .'"></script>';
