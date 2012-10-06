@@ -149,13 +149,13 @@ body .redactor_toolbar li a.redactor_btn_horizontalrule span 	  { background-pos
 body .redactor_toolbar li a.redactor_btn_fullscreen span		  { background-position: -500px; }							
 body .redactor_toolbar li a.redactor_btn_normalscreen span		  { background-position: -525px !important; }	
 
-body .redactor_toolbar li a.redactor_btn_button1 span		 	  { background-position: -575px; }		
+/*body .redactor_toolbar li a.redactor_btn_button1 span		 	  { background-position: -575px; }		*/
 
 /*
 	BUTTONS ADDED
 */
-body .redactor_toolbar li a.redactor_btn_button1 {
-	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3AoGAiQm5pKBvAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAABMElEQVRIx+3SsUvWYRTF8Y851CRJLg6ukgS5BS012FCii3DRocGGhgpsKmhosEWhXCRsb3E4bYGYU1DkP+CbS5tbRBDVqDn0EyJe8HVz+H23ey/Pc57znEtLS8tx9P3fqKqRJHv/1BewhFE8SNI5qciZLr1OVS02AnfwBXdxCTtV9a6qhrpdVlXnenXyFlM4aB7xAZNJflXVEu5jAPewjrMYwwJmkvQd6yTJNK6gg6kk1/C7qoaTPMFFvMYr7GAX73EeN3p1MvdXK/tNfQsbzXgRL5N8q6qbTVabWE7y4yTB/8FnPMYjXMcWPuIZvuJFkuddzi4kWe1FpLCCEXzH0yRrR5uHN8137mIe/XiIWfxMMtBLJsE4buPykUAz28NVTGAQ2/iEIUw3a97S0nJaOQTHWWXfuGqRTAAAAABJRU5ErkJggg%3D%3D") no-repeat;
+body .redactor_toolbar li a.redactor_btn_button1 span {
+	background-position: -475px center;
 }
 
 /*

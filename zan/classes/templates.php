@@ -153,14 +153,14 @@ class ZP_Templates extends ZP_Load {
 		} elseif($CSS === "markitup") {
             if ($print) {
                 print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />' . "\n";
-                print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/bbcode/style.min.css", "zan") .'" type="text/css" />' . "\n";
+                print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/html/style.css", "zan") .'" type="text/css" />' . "\n";
             } else {
                 if (is_null($this->CSS)) {
                     $this->CSS = '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />' . "\n";
                 } else {
                     $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />' . "\n";
                 }
-                $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/bbcode/style.min.css", "zan") .'" type="text/css" />' . "\n";
+                $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/html/style.css", "zan") .'" type="text/css" />' . "\n";
             }			
 		}
 
@@ -306,7 +306,7 @@ class ZP_Templates extends ZP_Load {
 			$this->CSS("redactorjs");
 		} elseif($js === "markitup") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/jquery.markitup.js", "zan") .'"></script>';
-			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/bbcode/set.js", "zan") .'"></script>';
+			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/html/set.js", "zan") .'"></script>';
 			$this->CSS("markitup");
 		} elseif($js === "lesscss") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';

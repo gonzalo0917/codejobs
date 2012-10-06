@@ -104,13 +104,23 @@ function switchEditor(id) {
 			echo 'lang: "'. get("webLang") .'",';
 		}
 	?>
-			
-			buttonsAdd: ["|", "button1"],
+			buttons:['formatting', '|', 'bold', 'italic', 'deleted', '|',
+				    'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
+				    'image', 'video', 'file', 'table', 'link', '|',
+				    'fontcolor', 'backcolor', '|',
+				    'alignleft', 'aligncenter', 'alignright', 'justify'],
+			buttonsAdd: ["|", "button1", "button2"],
 			buttonsCustom: {
 				button1: {
 					title: "<?php echo __("Insert Break Line"); ?>",
 					callback: function(obj, event, key) {
 						$("textarea[name='content']").insertHtml("<hr /><p></p>");
+					}
+				},
+				button2: {
+					title: "Insert Code",
+					callback: function(obj, event, key) {
+						$("textarea[name='content']").execCommand("formatblock", "<pre>");
 					}
 				}
 			}
