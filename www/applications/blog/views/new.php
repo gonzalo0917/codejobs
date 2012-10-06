@@ -79,7 +79,7 @@
 <script>
 var $parentEditor = null;
 
-$(window).on("load", function() {
+$(document).ready(function() {
 	switchEditor(1)
 });
 
@@ -109,7 +109,9 @@ function switchEditor(id) {
 			buttonsCustom: {
 				button1: {
 					title: "<?php echo __("Insert Break Line"); ?>",
-					callback: function(obj, event, key) { void(0); }
+					callback: function(obj, event, key) {
+						$("textarea[name='content']").insertHtml("<hr /><p></p>");
+					}
 				}
 			}
 		});
