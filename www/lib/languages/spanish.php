@@ -106,6 +106,7 @@ $phrase["in"] 											= "en";
 $phrase["in_trash"]										= "En papelera";
 $phrase["inactive"] 									= "Inactivo";
 $phrase["insert_break_line"]							= "Salto de Línea";
+$phrase["insert_code"]									= "Insertar Código";
 $phrase["italian"]										= "Italiano";
 $phrase["january"]   									= "Enero";
 $phrase["jobs"] 	 									= "Empleos";

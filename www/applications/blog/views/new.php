@@ -118,7 +118,7 @@ function switchEditor(id) {
 					}
 				},
 				button2: {
-					title: "Insert Code",
+					title: "<?php echo __("Insert Code"); ?>",
 					callback: function(obj, event, key) {
 						$("textarea[name='content']").execCommand("formatblock", "<pre>");
 					}
