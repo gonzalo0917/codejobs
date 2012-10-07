@@ -103,10 +103,27 @@ function switchEditor(id) {
 		} else {
 			$textarea = $("textarea[name='content']");
 		}
+		
 		$textarea.val($textarea.val().replace(/(\[code\])/img, "<pre>"));
 		$textarea.val($textarea.val().replace(/(\[\/code\])/img, "</pre>"));
 		$textarea.val($textarea.val().replace(/\-{6}/img, "<hr />"));
 		$textarea.val($textarea.val().replace(/<\!\-{4}>/img, "<hr />"));
+		$textarea.val($textarea.val().replace("<p><!-- pagebreak --></p>", "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: center;"><!-- pagebreak --></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: left;"><!-- pagebreak --></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: right;"><!-- pagebreak --></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: justify;"><!-- pagebreak --></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: center;"><span style="color: #ff0000;"><!----></span></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: center;"><em><!-- pagebreak --></em></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: center;"><strong><!-- pagebreak --></strong></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: center;"><span style="text-decoration: underline;"><!-- pagebreak --></span></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p style="text-align: justify;"><!-- pagebreak --></p>', "<hr />"));
+		$textarea.val($textarea.val().replace('<p><!-- pagebreak -->', "<hr />"));
+		$textarea.val($textarea.val().replace("<p><!-- pagebreak --></p>", "<hr />"));
+		$textarea.val($textarea.val().replace('<!-- pagebreak -->', "<hr />"));
+		$textarea.val($textarea.val().replace('<!-- Pagebreak -->', "<hr />"));
+		$textarea.val($textarea.val().replace('<!--Pagebreak-->', "<hr />"));
+
 		$("textarea[name='content']").redactor({
 			focus: true,
 	<?php
