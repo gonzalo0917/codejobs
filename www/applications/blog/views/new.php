@@ -87,16 +87,23 @@ function switchEditor(id) {
 	var $textarea;
 
 	if (id == 0) {
-		$("textarea[name='content']").destroyEditor();
-		$parentEditor = $("textarea[name='content']").parent();
-		$("textarea[name='content']").markItUp(mySettings);
+		$textarea = $("textarea[name='content']");
+		$textarea.destroyEditor();
+		$parentEditor = $textarea.parent();
+		$textarea.val($textarea.val().replace(/(<pre>)/img, "[code]"));
+		$textarea.val($textarea.val().replace(/(<\/pre>)/img, "[/code]"));
+		$textarea.markItUp(mySettings);
 	} else {
 		if ($parentEditor !== null) {
 			$textarea = $parentEditor.find("textarea").detach();
 			$parentEditor.find(".markItUp").parent().remove();
 			$textarea.attr("className", "required");
 			$parentEditor.append($textarea);
+		} else {
+			$textarea = $("textarea[name='content']");
 		}
+		$textarea.val($textarea.val().replace(/(\[code\])/img, "<pre>"));
+		$textarea.val($textarea.val().replace(/(\[\/code\])/img, "</pre>"));
 		$("textarea[name='content']").redactor({
 			focus: true,
 	<?php
@@ -114,13 +121,13 @@ function switchEditor(id) {
 				button1: {
 					title: "<?php echo __("Insert Break Line"); ?>",
 					callback: function(obj, event, key) {
-						$("textarea[name='content']").insertHtml("<hr /><p></p>");
+						$("textarea[name='content']").insertHtml('<hr class="break" /><p></p>');
 					}
 				},
 				button2: {
 					title: "<?php echo __("Insert Code"); ?>",
 					callback: function(obj, event, key) {
-						$("textarea[name='content']").execCommand("formatblock", "<pre>");
+						$("textarea[name='content']").execCommand("formatblock", '<pre>');
 					}
 				}
 			}
