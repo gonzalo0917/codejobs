@@ -92,6 +92,7 @@ function switchEditor(id) {
 		$parentEditor = $textarea.parent();
 		$textarea.val($textarea.val().replace(/(<pre>)/img, "[code]"));
 		$textarea.val($textarea.val().replace(/(<\/pre>)/img, "[/code]"));
+		$textarea.val($textarea.val().replace(/(<hr\s*\/?>)/img, "------"));
 		$textarea.markItUp(mySettings);
 	} else {
 		if ($parentEditor !== null) {
@@ -104,6 +105,8 @@ function switchEditor(id) {
 		}
 		$textarea.val($textarea.val().replace(/(\[code\])/img, "<pre>"));
 		$textarea.val($textarea.val().replace(/(\[\/code\])/img, "</pre>"));
+		$textarea.val($textarea.val().replace(/\-{6}/img, "<hr />"));
+		$textarea.val($textarea.val().replace(/<\!\-{4}>/img, "<hr />"));
 		$("textarea[name='content']").redactor({
 			focus: true,
 	<?php
@@ -121,7 +124,7 @@ function switchEditor(id) {
 				button1: {
 					title: "<?php echo __("Insert Break Line"); ?>",
 					callback: function(obj, event, key) {
-						$("textarea[name='content']").insertHtml('<hr class="break" /><p></p>');
+						$("textarea[name='content']").insertHtml('<hr /><p></p>');
 					}
 				},
 				button2: {
