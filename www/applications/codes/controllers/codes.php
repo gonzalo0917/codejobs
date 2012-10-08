@@ -59,7 +59,7 @@ class Codes_Controller extends ZP_Controller {
 		$data = $this->Cache->data("tag-$language-$limit", "codes", $this->Codes_Model, "getByLanguage", array($language, $limit));
 
 		if($data) {
-			$this->helper("time");
+			$this->helper(array("time", "tags"));
             $this->helper("codes", $this->application);
                         
             foreach($data as $pos => $code) {
@@ -91,7 +91,7 @@ class Codes_Controller extends ZP_Controller {
 		$data = $this->Cache->data("code-$codeID", "codes", $this->Codes_Model, "getByID", array($codeID));
 
 		if($data) {
-			$this->helper("time");
+			$this->helper(array("time", "tags"));
             $this->helper("codes", $this->application);
                         
             $files = $this->CodesFiles_Model->getByCode($data[0]["ID_Code"]);
@@ -124,7 +124,7 @@ class Codes_Controller extends ZP_Controller {
 		
 		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAll", array($limit));
 
-		$this->helper("time");
+		$this->helper(array("time", "tags"));
         $this->helper("codes", $this->application);
 		
 		if($data) {	
@@ -186,7 +186,7 @@ class Codes_Controller extends ZP_Controller {
 		$this->CSS("new", "codes");
 		$this->CSS("forms", "cpanel");
 
-		$this->helper(array("html", "forms"));
+		$this->helper(array("html", "forms", "tags"));
 		$this->helper("codes", $this->application);
 
 		$this->config("user", "codes");

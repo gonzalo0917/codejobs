@@ -121,7 +121,6 @@
                 "ng-click"  => "addFile()"
             ), __("Add another file") . "...");
 
-			#echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 			echo tagHTML("p", span("field", "&raquo; " . __("Language of the post")) . "<br />" . getLanguagesInput($language, "language", "select"));
                         
 			echo formInput(array(	

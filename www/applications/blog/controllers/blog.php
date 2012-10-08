@@ -66,8 +66,7 @@ class Blog_Controller extends ZP_Controller {
 		$this->js("markitup");
 		$this->js("new", "blog");
 
-		$this->helper(array("html", "forms"));
-		$this->helper("codes", "codes");
+		$this->helper(array("html", "forms", "tags"));
 
 		$this->config("user", "blog");
 
