@@ -11,6 +11,7 @@
 	$edit        = isset($data) ? TRUE 												: FALSE;
 	$action	     = isset($data) ? "edit"											: "save";
 	$href	     = path("blog/add/");
+	$editor 	 = get("defaultEditor") === "Redactor" ? 1 : 2;
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -28,15 +29,15 @@
 			));
 
 			$options = array(
-				0 => array("value" => 1, "option" => "Redactor", "selected" => TRUE),
-				1 => array("value" => 0, "option" => "markItUp!")
+				array("value" => 1, "option" => "Redactor", "selected" => ($editor === 1 ? TRUE : FALSE)),
+				array("value" => 2, "option" => "markItUp!", "selected" => ($editor === 2 ? TRUE : FALSE))
 			);
 
 			echo formSelect(array(
 				"name" 		=> "editor", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("Editor"), 
-				"onchange" 	=> 'switchEditor($(this).val())'),
+				"onchange" 	=> 'console.log($(this).val()); switchEditor($(this).val())'),
 				$options
 			);
 			
@@ -75,3 +76,9 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
 	echo div(FALSE);
+?>
+<script>
+	$(window).on("load", function(event) {
+		switchEditor(<?php echo $editor; ?>);
+	});
+</script>

@@ -12,15 +12,16 @@ var $parentEditor = null;
 function switchEditor(id) {
 	var $textarea, selector = "textarea[name='content']";
 
-	if (id == 0) {
+	if (id == 2) {
 		$textarea = $(selector);
-		$textarea.destroyEditor();
+		if ($textarea.data("redactor")) $textarea.destroyEditor();
+		
 		$parentEditor = $textarea.parent();
 		$textarea.val($textarea.val().replace(/(<pre>)/img, "[code]"));
 		$textarea.val($textarea.val().replace(/(<\/pre>)/img, "[/code]"));
 		$textarea.val($textarea.val().replace(/(<hr\s*\/?>)/img, "<!---->"));
 		$textarea.markItUp(mySettings);
-	} else {
+	} else if (id == 1) {
 		if ($parentEditor !== null) {
 			$textarea = $parentEditor.find("textarea").detach();
 			$parentEditor.find(".markItUp").parent().remove();
