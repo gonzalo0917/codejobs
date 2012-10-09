@@ -24,6 +24,8 @@
 			<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>. 
 			
 			<?php echo __("Feel free of reply to the topic"); ?>.
+
+			<span style="float: right; margin-right: 10px;"><a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("_Reply"); ?>">+ <?php echo __("_Reply"); ?></a></span>
 		</p>
 <?php 
 	} else { 
@@ -110,7 +112,7 @@
 <?php 
 					if(SESSION("ZanUserID") and (SESSION("ZanUserPrivilege") === "Super Admin" or SESSION("ZanUserID") === $data["topic"][0]["ID_User"])) { 
 ?>
-						<li><a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("Reply"); ?>"><?php echo __("Reply"); ?></a></li>
+						<li><a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("_Reply"); ?>"><?php echo __("_Reply"); ?></a></li>
 						<li>
 							<a title="<?php echo __("Edit"); ?>" onclick="return confirm('<?php echo __("Do you want to edit the topic?"); ?>');" 
 							href="<?php echo $data["topic"][0]["editURL"]; ?>">
