@@ -30,7 +30,7 @@
 	<script type="text/javascript" src="<?php echo path("vendors/js/jquery/jquery.js", "zan"); ?>"></script>
 
 	<?php
-		if($application !== "codes") {
+		if($application !== "codes" and $application !== "blog") {
 	?>
 			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
 			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/html/set.js", "zan"); ?>"></script>
@@ -46,7 +46,7 @@
 		
 		var URL  = "<?php echo get('webURL'); ?>";
 	<?php
-		if ($application !== "codes") {
+		if ($application !== "codes" and $application !== "blog") {
 	?>
 			$(document).on("ready", function() {
 	      		$("textarea").markItUp(mySettings);
