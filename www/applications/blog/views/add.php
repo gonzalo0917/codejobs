@@ -37,6 +37,18 @@
 				"value" => $tags
 			));
 
+			$options = array(
+				0 => array("value" => 1, "option" => "Redactor", "selected" => TRUE),
+				1 => array("value" => 0, "option" => "markItUp!")
+			);
+
+			echo formSelect(array(
+				"name" 		=> "editor", 
+				"p" 		=> TRUE, 
+				"field" 	=> __("Editor")),
+				$options
+			);
+
 			echo formTextarea(array(	 
 				"name" 	 => "content", 
 				"class"  => "markItUp",
