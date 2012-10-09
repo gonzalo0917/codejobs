@@ -75,12 +75,3 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
 	echo div(FALSE);
-?>
-<script>
-	var $parentEditor, label1, label2, language;
-
-	$parentEditor = null;
-	label1 = "<?php echo __("Insert Break Line"); ?>";
-	label2 = "<?php echo __("Insert Code"); ?>";
-	language = "<?php echo get("webLang"); ?>";
-</script>

@@ -308,6 +308,8 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/jquery.markitup.js", "zan") .'"></script>';
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/html/set.js", "zan") .'"></script>';
 			$this->CSS("markitup");
+		} elseif($js === "switch-editor") {
+			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js.php?lang=". get("webLang") ."&label1=". urlencode(__("Insert Break Line")) ."&label2=". urlencode(__("Insert Code")), "zan") .'"></script>';
 		} elseif($js === "lesscss") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
 		} elseif($js === "angular") {
