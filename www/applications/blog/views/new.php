@@ -37,7 +37,7 @@
 				"name" 		=> "editor", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("Editor"), 
-				"onchange" 	=> 'console.log($(this).val()); switchEditor($(this).val())'),
+				"onchange" 	=> 'switchEditor($(this).val())'),
 				$options
 			);
 			
