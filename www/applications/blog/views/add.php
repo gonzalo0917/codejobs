@@ -14,6 +14,7 @@
 	$edit      = isset($data) ? TRUE											 : FALSE;
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
+	$editor    = get("defaultEditor") === "Redactor" ? 1 : 2;
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -38,20 +39,22 @@
 			));
 
 			$options = array(
-				0 => array("value" => 1, "option" => "Redactor", "selected" => TRUE),
-				1 => array("value" => 0, "option" => "markItUp!")
+				array("value" => 1, "option" => "Redactor", "selected" => ($editor === 1 ? TRUE : FALSE)),
+				array("value" => 2, "option" => "markItUp!", "selected" => ($editor === 2 ? TRUE : FALSE))
 			);
 
 			echo formSelect(array(
 				"name" 		=> "editor", 
 				"p" 		=> TRUE, 
-				"field" 	=> __("Editor")),
+				"field" 	=> __("Editor"), 
+				"onchange" 	=> 'switchEditor($(this).val())'),
 				$options
 			);
 
 			echo formTextarea(array(	 
 				"name" 	 => "content", 
-				"class"  => "markItUp",
+				"class"  => "markItUp", 
+				"style"  => "height: 240px;", 
 				"field"  => __("Content"), 
 				"p" 	 => TRUE, 
 				"value"  => $content
@@ -119,3 +122,4 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));
 		echo formClose();
 	echo div(FALSE);
+?>

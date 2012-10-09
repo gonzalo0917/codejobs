@@ -130,10 +130,16 @@ class CPanel_Controller extends ZP_Controller {
 		}
 
 		$this->helper("forms");
+
+		$this->js("redactorjs");
+		$this->js("markitup");
+		$this->js("switch-editor");
+		$this->js("new", "blog");
 		
 		$this->title("Add");
 		
 		$this->CSS("forms", "cpanel");
+		$this->CSS("add", "blog");
 
 		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
 		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
