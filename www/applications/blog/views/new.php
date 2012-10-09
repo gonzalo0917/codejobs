@@ -76,9 +76,3 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
 	echo div(FALSE);
-?>
-<script>
-	$(window).on("load", function(event) {
-		switchEditor(<?php echo $editor; ?>);
-	});
-</script>
