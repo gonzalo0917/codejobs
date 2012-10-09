@@ -43,7 +43,7 @@
 			
 			echo formTextarea(array(
 				"name" 	 => "content", 
-				"style"  => "width: 100%; height: 240px;", 
+				"style"  => "height: 240px;", 
 				"field"  => __("Content"), 
 				"p" 	 => TRUE, 
 				"value"  => stripslashes($content)
