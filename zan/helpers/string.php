@@ -446,7 +446,7 @@ function showContent($content) {
 	return setCode($content, TRUE);
 }
 
-function setCode($HTML, $return = FALSE) {
+function setCode($HTML, $return = FALSE, $decode = FALSE) {
 	$HTML  = str_replace("[Code]", "[code]", $HTML);
 	$HTML  = str_replace("[/Code]", "[/code]", $HTML);
 	$HTML  = str_replace("<code>", "[code]", $HTML);
@@ -458,6 +458,10 @@ function setCode($HTML, $return = FALSE) {
    		for($i = 1; $i <= count($codes) - 1; $i++) {
    			if(isset($codes[$i])) {
 				$code = explode("[/code]", $codes[$i]);
+
+				if($decode) {
+					$code[0] = html_entity_decode($code[0]);
+				}
 
 		   		if(isset($code[0])) {
 		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);

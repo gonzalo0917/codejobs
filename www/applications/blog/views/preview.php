@@ -3,7 +3,7 @@
 ?>
 		<div class="post">
 			<div class="post-title">
-				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
+				<a href="#" title="<?php echo stripslashes($post["Title"]); ?>">
 					<?php echo stripslashes($post["Title"]); ?>
 				</a>
 			</div>
