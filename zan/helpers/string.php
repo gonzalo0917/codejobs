@@ -460,7 +460,7 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
 				$code = explode("[/code]", $codes[$i]);
 
 				if($decode) {
-					$code[0] = html_entity_decode($code[0]);
+					$code[0] = html_entity_decode(strip_tags($code[0]));
 				}
 
 		   		if(isset($code[0])) {
