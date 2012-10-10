@@ -6,3 +6,6 @@ textarea[name='content'] {
 	box-sizing: border-box;
 	width: 100%;
 }
+.redactor_box {
+	width: 770px;
+}
