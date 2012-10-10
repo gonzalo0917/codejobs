@@ -86,16 +86,21 @@ table thead td {
 	border-bottom: 2px solid #000 !important;
 	font-weight: bold;
 }
-code {
-	background-color: #d8d7d7;
-	font-family: monospace sans-serif; 
-}
-pre { 
-	padding: 1em; 
+pre {
 	border: 1px dashed #ccc; 
 	background: #f5f5f5; 
-	font-family: 'Courier New', monospace sans-serif;
+	font-family: monospace sans-serif; 
+	padding: 1em; 
 	overflow: auto;  
+}
+code {
+	background: #f5f5f5;
+	border: 1px dashed #ccc;
+	display: block;
+	font-family: 'Courier New', monospace sans-serif; 
+	font-size: 14px;
+	padding: 1em;
+	overflow: auto;
 }
 hr {
   display: block;
