@@ -62,7 +62,7 @@ class Bookmarks_Controller extends ZP_Controller {
 
 			$this->helper("time");
 
-			$this->title(__("Bookmarks") ." - ". htmlentities(encode(POST("title", "decode", NULL)), ENT_QUOTES, "UTF-8"), FALSE);
+			$this->title(__("Bookmarks") ." - ". htmlentities(encode(POST("title", "decode", NULL)), ENT_QUOTES, "UTF-8"));
 
 			$data = $this->Bookmarks_Model->preview();
 

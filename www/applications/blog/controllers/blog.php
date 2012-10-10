@@ -59,23 +59,42 @@ class Blog_Controller extends ZP_Controller {
 	public function add() {
 		isConnected();
 		
-		$this->CSS("forms", "cpanel");
+		if(POST("preview")) {
+			$this->CSS("posts", $this->application);
+			$this->CSS("forms");
 
-		$this->js("redactorjs");
-		$this->js("markitup");
-		$this->js("switch-editor");
-		$this->js("new", "blog");
+			$this->helper(array("forms","html"));
+			
+			$this->title(htmlentities(encode(POST("title", "decode", NULL)), ENT_QUOTES, "UTF-8"));
 
-		$this->CSS("new", "blog");
+			$data = $this->Blog_Model->preview();
+
+			if($data) {				
+				$vars["ID_Post"] = $data["ID_Post"];
+				$vars["post"]    = $data;
+				$vars["URL"]     = path("blog/$year/$month/$day/". segment(4, isLang()));					
+				//$vars["view"] 	 = $this->view("preview", TRUE);
+			} else {
+				redirect();
+			}
+		} else {
+			$this->CSS("forms", "cpanel");
+
+			$this->js("redactorjs");
+			$this->js("markitup");
+			$this->js("switch-editor");
+			$this->js("new", "blog");
+
+			$this->CSS("new", "blog");
+			
+			$this->helper(array("html", "forms", "tags"));
+
+			$this->config("user", "blog");
+
+			$vars["view"] = $this->view("new", TRUE);
+		}
 		
-		$this->helper(array("html", "forms", "tags"));
-
-		$this->config("user", "blog");
-
-		$vars["view"] = $this->view("new", TRUE);
-
 		$this->render("content", $vars);
-
 	}
 	
 	public function archive() {		
