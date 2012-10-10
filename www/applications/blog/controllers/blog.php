@@ -69,11 +69,10 @@ class Blog_Controller extends ZP_Controller {
 
 			$data = $this->Blog_Model->preview();
 
-			if($data) {				
-				$vars["ID_Post"] = $data["ID_Post"];
+			if($data) {
 				$vars["post"]    = $data;
-				$vars["URL"]     = path("blog/$year/$month/$day/". segment(4, isLang()));					
-				//$vars["view"] 	 = $this->view("preview", TRUE);
+				$vars["URL"]     = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
+				$vars["view"] 	 = $this->view("preview", TRUE);
 			} else {
 				redirect();
 			}

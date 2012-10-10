@@ -171,6 +171,28 @@ class Blog_Model extends ZP_Model {
 		
 		return getAlert(__("The post has been edited correctly"), "success", $this->URL);
 	}
+
+	public function preview() {
+		if(POST("title") AND POST("content")) {
+			$this->helper("time");
+			
+			return array(
+				"Author"  		=> SESSION("ZanUser"),
+				"Content"		=> setCode(decode(POST("content", "clean"))),
+				"Day"	        => date("d"),
+				"Enable_Comments" => TRUE,
+				"Language" 		=> stripslashes(encode(POST("language", "decode", NULL))),
+				"Month"	        => date("m"),
+				"Start_Date"	=> now(4),
+				"Slug"          => slug(POST("title", "clean")),
+				"Tags" 			=> stripslashes(encode(POST("tags", "decode", NULL))),
+				"Title" 		=> stripslashes(encode(POST("title", "decode", NULL))),
+				"Year"	        => date("Y")
+			);
+		} else {
+			return FALSE;
+		}
+	}
 	
 	private function search($search, $field) {
 		if($search and $field) {
