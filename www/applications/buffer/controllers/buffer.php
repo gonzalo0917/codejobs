@@ -36,7 +36,7 @@ class Buffer_Controller extends ZP_Controller {
 				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
 
 				$data = array(
-					"text" 			=> decode($post["Title"]) ." ". $URL ." ". decode(_bufferVia),
+					"text" 			=> $post["Title"] ." ". $URL ." ". _bufferVia,
 					"profile_ids[]" => _bufferProfile
 				);					
 
