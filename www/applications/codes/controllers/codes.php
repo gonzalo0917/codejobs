@@ -266,5 +266,9 @@ class Codes_Controller extends ZP_Controller {
 
 		return $limit;
 	}
+
+	public function tiny() {
+		echo $this->js("tinymce", FALSE, true);
+	}
         
 }
