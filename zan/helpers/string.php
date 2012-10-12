@@ -652,65 +652,65 @@ function _GET($position = FALSE, $coding = "decode", $filter = "escape") {
 
 		____($_GET);
 	} elseif(isset($_GET[$position]) and is_array($_GET[$position])) {
-		$POST = $_GET[$position];
+		$GET = $_GET[$position];
 	} elseif(isset($_GET[$position]) and $_GET[$position] === "") {
 		return NULL;
 	} elseif(isset($_GET[$position])) {
 		if($coding === "b64") {
-			$POST = base64_decode($_GET[$position]);
+			$GET = base64_decode($_GET[$position]);
 		} elseif($coding === "unserialize") {
-			$POST = unserialize(base64_decode($_GET[$position]));
+			$GET = unserialize(base64_decode($_GET[$position]));
 		} elseif($coding === "encrypt") {
 			if($filter === TRUE) {
-				$POST = encrypt(encode($_GET[$position]));
+				$GET = encrypt(encode($_GET[$position]));
 			} elseif($filter === "escape") {
-				$POST = encrypt(filter(encode($_GET[$position]), "escape"));
+				$GET = encrypt(filter(encode($_GET[$position]), "escape"));
 			} else {
-				$POST = encrypt(filter(encode($_GET[$position]), TRUE));
+				$GET = encrypt(filter(encode($_GET[$position]), TRUE));
 			}
 		} elseif($coding === "encode") {
 			if($filter === TRUE) {
-				$POST = encode($_GET[$position]);
+				$GET = encode($_GET[$position]);
 			} elseif($filter === "escape") {
-				$POST = filter(encode($_GET[$position]), "escape");
+				$GET = filter(encode($_GET[$position]), "escape");
 			}  else {
-				$POST = filter(encode($_GET[$position]), TRUE);
+				$GET = filter(encode($_GET[$position]), TRUE);
 			}
 		} elseif($coding === "decode-encrypt") {
 			if($filter === TRUE) {
-				$POST = encrypt(filter($_GET[$position], TRUE));
+				$GET = encrypt(filter($_GET[$position], TRUE));
 			} elseif($filter === "escape") {
-				$POST = encrypt(filter($_GET[$position], "escape"));
+				$GET = encrypt(filter($_GET[$position], "escape"));
 			}  else {
-				$POST = encrypt($_GET[$position]);
+				$GET = encrypt($_GET[$position]);
 			}		
 		} elseif($coding === "decode") {	
 			if($filter === TRUE) {
-				$POST = filter(decode($_GET[$position]), TRUE);
+				$GET = filter(decode($_GET[$position]), TRUE);
 			} elseif($filter === "escape") {
-				$POST = filter(decode($_GET[$position]), "escape");
+				$GET = filter(decode($_GET[$position]), "escape");
 			} elseif($filter === NULL) {
-				$POST = decode($_GET[$position]);
+				$GET = decode($_GET[$position]);
 			} else { 
 				$data = decode($_GET[$position]);
 				$data = str_replace("'", "\'", $data);
 				
-				$POST = $data;
+				$GET = $data;
 			}
 		} else {
 			if($filter === TRUE) {
-				$POST = filter($_GET[$position], TRUE);
+				$GET = filter($_GET[$position], TRUE);
 			} elseif($filter === "escape") {
-				$POST = filter($_GET[$position], "escape");
+				$GET = filter($_GET[$position], "escape");
 			}  else {
-				$POST = $_GET[$position];
+				$GET = $_GET[$position];
 			}		
 		}	
 	} else {
 		return FALSE;
 	}
 
-	return $POST;
+	return $GET;
 }
 
 /**

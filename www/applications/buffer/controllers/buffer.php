@@ -24,4 +24,18 @@ class Buffer_Controller extends ZP_Controller {
 		die(var_dump($data));
 	}
 
+	public function create() {
+		$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+		$data = array(
+			"text" => "Cómo posicionar tu marca en Internet http://www.codejobs.biz/es/blog/2012/08/24/como-posicionar-tu-marca-en-internet#.UHhfIqq13mc.twitter vía @codejobs",
+			"profile_ids[]" => "504fea9d6ffb363e53000031",
+			"shorten" => TRUE
+		);
+
+		$this->RESTClient->POST($data);
+
+		echo "Posteado";
+	}
+
 }
