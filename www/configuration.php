@@ -15,9 +15,9 @@ if(is_array($data)) {
 
 	$Load->helper(array("i18n", "sessions"));
 
-	if(whichLanguage() === get("webLanguage")) { 
+	if(whichLanguage() === _get("webLanguage")) { 
 		set("webLang", $data[0]["Lang"]);
-		set("webSlogan", $data[0]["Slogan_". get("webLanguage")]);
+		set("webSlogan", $data[0]["Slogan_". _get("webLanguage")]);
 	} else {
 		set("webLang", getLang(whichLanguage(), FALSE));
 		set("webSlogan", $data[0]["Slogan_". whichLanguage()]);
@@ -38,9 +38,9 @@ if(is_array($data)) {
 	set("defaultEditor",   $data[0]["Editor"]);
 
 	if(!get("modRewrite")) {
-		set("webBase", get("webURL") . _sh . _index);
+		set("webBase", _get("webURL") . _sh . _index);
 	} else {
-		set("webBase", get("webURL"));
+		set("webBase", _get("webURL"));
 	}
 }
 

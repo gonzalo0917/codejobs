@@ -61,14 +61,14 @@ class ZP_Templates extends ZP_Load {
 	/**
 	 * Contains the title for the header template
 	 * 
-	 * @var private $title = get("webNam"]e
+	 * @var private $title = _get("webNam"]e
 	 */
 	private $title;
         
         /**
 	 * Contains the meta tags for the header template
 	 * 
-	 * @var private $meta = get("tagsMeta"]
+	 * @var private $meta = _get("tagsMeta"]
 	 */
 	private $meta;
 	
@@ -96,24 +96,24 @@ class ZP_Templates extends ZP_Load {
 	public function CSS($CSS = NULL, $application = NULL, $print = FALSE) {
 		if(file_exists($CSS)) { 
 			if($print) {
-				print '<link rel="stylesheet" href="'. get("webURL") . _sh . $CSS .'" type="text/css" />' . "\n";
+				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $CSS .'" type="text/css" />' . "\n";
 			} else { 
-				$this->CSS .= '<link rel="stylesheet" href="'. get("webURL") . _sh . $CSS .'" type="text/css" />' . "\n";
+				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $CSS .'" type="text/css" />' . "\n";
 			}
 		} 
 
 		if($CSS === "bootstrap") {
 			if(is_null($this->CSS)) {
 				if($print) {
-					print '<link rel="stylesheet" href="'. get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
 				} else {
-					$this->CSS = '<link rel="stylesheet" href="'. get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					$this->CSS = '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
 				}
 			} else {
 				if($print) {
-					print '<link rel="stylesheet" href="'. get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
 				} else {
-					$this->CSS .= '<link rel="stylesheet" href="'. get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
 				}	
 			}
 		} elseif($CSS === "prettyphoto") {
@@ -168,17 +168,17 @@ class ZP_Templates extends ZP_Load {
 				
 		if(is_null($this->CSS)) {
 			if($print) {
-				print '<link rel="stylesheet" href="'. get("webURL") .'/www/lib/css/default.css" type="text/css" />' . "\n";
+				print '<link rel="stylesheet" href="'. _get("webURL") .'/www/lib/css/default.css" type="text/css" />' . "\n";
 			} else {
-				$this->CSS = '<link rel="stylesheet" href="'. get("webURL") .'/www/lib/css/default.css" type="text/css" />' . "\n";
+				$this->CSS = '<link rel="stylesheet" href="'. _get("webURL") .'/www/lib/css/default.css" type="text/css" />' . "\n";
 			}			
 		}
 		
 		if(file_exists($file)) {
 			if($print) {
-				print '<link rel="stylesheet" href="'. get("webURL") .'/'. $file .'" type="text/css" />' . "\n";
+				print '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />' . "\n";
 			} else {
-				$this->CSS .= '<link rel="stylesheet" href="'. get("webURL") .'/'. $file .'" type="text/css" />' . "\n";
+				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />' . "\n";
 			}
 		}
 	}
@@ -259,7 +259,7 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getTitle() {
-		return (is_null($this->title)) ? get("webName") ." - ". get("webSlogan") : encode($this->title);
+		return (is_null($this->title)) ? _get("webName") ." - ". _get("webSlogan") : encode($this->title);
 	}
         
      /**
@@ -300,8 +300,8 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
         } elseif($js === "redactorjs") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.min.js", "zan") .'"></script>';
-			if(get("webLang") !== "en") {
-				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/". get("webLang") .".js", "zan") .'"></script>';
+			if(_get("webLang") !== "en") {
+				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/". _get("webLang") .".js", "zan") .'"></script>';
 			}
 			$this->CSS("redactorjs");
 		} elseif($js === "markitup") {
@@ -309,7 +309,7 @@ class ZP_Templates extends ZP_Load {
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/html/set.js", "zan") .'"></script>';
 			$this->CSS("markitup");
 		} elseif($js === "switch-editor") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js.php?lang=". get("webLang") ."&label1=". urlencode(__("Insert Break Line")) ."&label2=". urlencode(__("Insert Code")), "zan") .'"></script>';
+			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js.php?lang=". _get("webLang") ."&label1=". urlencode(__("Insert Break Line")) ."&label2=". urlencode(__("Insert Code")), "zan") .'"></script>';
 		} elseif($js === "lesscss") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
 		} elseif($js === "angular") {
@@ -323,9 +323,9 @@ class ZP_Templates extends ZP_Load {
 		} elseif(file_exists(path($js, "zan"))) {
 			$js = '<script type="text/javascript" src="'. path($js, "zan") .'"></script>';
 		} elseif(file_exists("www/applications/$application/views/js/$js")) {
-			$js = '<script type="text/javascript" src="'. get("webURL") .'/www/applications/' . $application . '/views/js/' . $js . '"></script>';
+			$js = '<script type="text/javascript" src="'. _get("webURL") .'/www/applications/' . $application . '/views/js/' . $js . '"></script>';
 		} elseif(file_exists("www/applications/$application/views/js/$js.js")) {
-			$js = '<script type="text/javascript" src="'. get("webURL") .'/www/applications/' . $application . '/views/js/' . $js . '.js"></script>';
+			$js = '<script type="text/javascript" src="'. _get("webURL") .'/www/applications/' . $application . '/views/js/' . $js . '.js"></script>';
 		} else {
 			return FALSE;
 		}
@@ -342,7 +342,7 @@ class ZP_Templates extends ZP_Load {
      *
      * @return void
      */
-	public function load($template, $direct = FALSE) {			
+	public function load($template, $direct = FALSE) {	
 		if(is_array($this->vars)) {
 			$key  = array_keys($this->vars);
 			$size = sizeof($key);			
@@ -395,9 +395,9 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function theme($theme = NULL) {
-		$this->theme = (is_null($theme)) ? get("webTheme") : $theme;
+		$this->theme = (is_null($theme)) ? _get("webTheme") : $theme;
 		
-		$this->themePath = get("webURL") ."/www/lib/themes/$this->theme";
+		$this->themePath = _get("webURL") ."/www/lib/themes/$this->theme";
 		
 		if(!$this->isTheme()) {
 			die("You need to create a valid theme");
@@ -424,10 +424,10 @@ class ZP_Templates extends ZP_Load {
 		$this->helper("string");
 
 		if(!is_null($title)) {
-			$title = stripslashes($title) ." - ". get("webName");
+			$title = stripslashes($title) ." - ". _get("webName");
 		}
 
-		$this->title = is_null($title) ? get("webName") ." - ". get("webSlogan") : $title;
+		$this->title = is_null($title) ? _get("webName") ." - ". _get("webSlogan") : $title;
         
         $this->meta("title", $this->title);
 	}

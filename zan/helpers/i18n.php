@@ -40,7 +40,7 @@ if(!defined("_access")) {
  * @return string value
  */
 function __($text, $encode = TRUE) {
-	if(get("translation") === "gettext") {
+	if(_get("translation") === "gettext") {
 		global $Gettext_Reader;
 		
 		if(is_null($Gettext_Reader)) {
@@ -111,7 +111,7 @@ function getLanguage($lang, $flags = FALSE) {
 	foreach($languages as $language) {
 		if($flags) {
 			if($language["language"] === $lang) {
-				return '<img class="flag no-border" src="'. get("webURL") .'/www/lib/images/icons/flags/'. strtolower($lang) .'.png" alt="'. __($lang) .'" />';	
+				return '<img class="flag no-border" src="'. _get("webURL") .'/www/lib/images/icons/flags/'. strtolower($lang) .'.png" alt="'. __($lang) .'" />';	
 			}
 		} else {
 			if($language["language"] === $lang) {
@@ -159,15 +159,15 @@ function whichLanguage($invert = TRUE, $lower = FALSE) {
 		} elseif(segment(0) and getLang(segment(0), TRUE)) { 
 			return ($lower) ? strtolower(getLang(segment(0), TRUE)) : getLang(segment(0), TRUE);
 		} elseif(!$invert) {
-			return getLang(get("webLanguage"));
+			return getLang(_get("webLanguage"));
 		} else {
-			return ($lower) ? strtolower(get("webLanguage")) : get("webLanguage");
+			return ($lower) ? strtolower(_get("webLanguage")) : _get("webLanguage");
 		}	
 	} else {
 		if(!$invert) {
-			return getLang(get("webLanguage"));
+			return getLang(_get("webLanguage"));
 		} else {
-			return ($lower) ? strtolower(get("webLanguage")) : get("webLanguage");
+			return ($lower) ? strtolower(_get("webLanguage")) : _get("webLanguage");
 		}	
 	}
 }

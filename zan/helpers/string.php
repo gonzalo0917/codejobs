@@ -440,6 +440,8 @@ function getCode($code) {
 }
 
 function showContent($content) {
+	$content = str_replace('<hr />', "", $content);
+	$content = str_replace('<hr>', "", $content);
 	$content = str_replace("------", "", $content);
 	$content = str_replace("\\", "", $content);
 	
@@ -548,6 +550,8 @@ function pageBreak($content, $URL = NULL) {
 	$content = str_replace('<!-- Pagebreak -->', "<!---->", $content);
 	$content = str_replace('<!--Pagebreak-->', "<!---->", $content);
 	$content = str_replace('------', "<!---->", $content);
+	$content = str_replace('<hr />', "<!---->", $content);
+	$content = str_replace('<hr>', "<!---->", $content);
 			
 	$parts = explode("<!---->", $content);
 
@@ -640,7 +644,7 @@ function POST($position = FALSE, $coding = "decode", $filter = "escape") {
 	return $POST;
 }
 
-function _GET($position = FALSE, $coding = "decode", $filter = "escape") {
+function GET($position = FALSE, $coding = "decode", $filter = "escape") {
 	global $Load;
 
 	if($coding === "clean") {

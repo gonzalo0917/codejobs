@@ -25,7 +25,7 @@ class Blog_Controller extends ZP_Controller {
 		$this->helper("router");
 	}
 	
-	public function index($year = NULL, $month = NULL, $day = NULL, $slug = NULL) {
+	public function index($year = NULL, $month = NULL, $day = NULL, $slug = NULL) { 
 		$this->meta("language", whichLanguage(FALSE));
                 
 		if(isYear($year) and isMonth($month) and isDay($day) and $slug and $slug !== "page") {

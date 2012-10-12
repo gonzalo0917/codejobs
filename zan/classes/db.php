@@ -220,7 +220,7 @@ class ZP_Db extends ZP_Load {
      * @return void
      */
 	public function connect() {
-		$this->db = get("db");
+		$this->db = _get("db");
 		
 		if(!file_exists("www/config/database.php")) {
 			getException("You must rename and configure your 'config/database.php'");
@@ -388,9 +388,9 @@ class ZP_Db extends ZP_Load {
 		}
 		
 		if($ZP["db"]["dbDriver"] === "odbc_mssql") {
-			$query = "DELETE TOP ($limit) FROM $this->table WHERE $field = $value";
+			$query = "DELETE TOP ($limit) FROM $this->table WHERE $field = '$value'";
 		} else {
-			$query = "DELETE FROM $this->table WHERE $field = $value";
+			$query = "DELETE FROM $this->table WHERE $field = '$value'";
 			
 			if($limit !== NULL) {
 				$query .= " LIMIT $limit";
@@ -808,7 +808,7 @@ class ZP_Db extends ZP_Load {
 		} else {
 			return FALSE;
 		}	
-	
+		
 		$this->Rs = $this->Database->query($query);
 
 		if($this->Rs) {

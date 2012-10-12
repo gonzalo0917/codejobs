@@ -443,7 +443,7 @@ class ZP_Load {
      *
      * @return void
      */
-	public function rendering() {
+	public function rendering() { 
 		$numArgs = func_num_args();
 		$args    = func_get_args();
 		
@@ -548,7 +548,7 @@ class ZP_Load {
 			$this->views[$i]["vars"] = FALSE;		
 		}
 		
-		if($name !== "include" and get("autoRender")) {
+		if($name !== "include" and _get("autoRender")) {
 			$this->rendering();
 		} 
 	}

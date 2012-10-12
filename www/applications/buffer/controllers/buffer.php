@@ -43,8 +43,6 @@ class Buffer_Controller extends ZP_Controller {
 				$this->RESTClient->POST($data);
 			}			
 
-			
-
 			echo "Buffer complete";
 		}
 	}

@@ -106,7 +106,7 @@ class Blog_Model extends ZP_Model {
 			"Tags"		   => POST("tags")
 		);
 
-		$this->Data->ignore(array("categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
+		$this->Data->ignore(array("editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
 
 		$this->data = $this->Data->proccess($data, $validations);
 

@@ -171,12 +171,8 @@ function isController($controller, $application = NULL, $principal = FALSE) {
 
 		$file = "www/applications/$application/controllers/$controller.php";
 
-		if(file_exists($file)) {
-			return TRUE;	
-		}
+		return file_exists($file) ? TRUE : FALSE;		
 	}
-
-	return FALSE;
 }
 
 function isLeapYear($year) {

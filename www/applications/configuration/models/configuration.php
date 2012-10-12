@@ -60,11 +60,7 @@ class Configuration_Model extends ZP_Model {
 	}
 	
 	public function getByID() { 				
-		$this->Db->select("Name, Slogan_English, Slogan_Spanish, Slogan_French, Slogan_Portuguese, URL, Lang, Language, Theme, Validation, Application, Editor, Message, Activation, Email_Recieve, Email_Send, Situation");
-
-		$data = $this->Db->find(1, $this->table);
-		
-		return $data;
+		return $this->Db->find(1, $this->table, "Name, Slogan_English, Slogan_Spanish, Slogan_French, Slogan_Portuguese, URL, Lang, Language, Theme, Validation, Application, Editor, Message, Activation, Email_Recieve, Email_Send, Situation");
 	}
 
 	public function getConfig() {
