@@ -15,8 +15,8 @@ class Buffer_Controller extends ZP_Controller {
 	}
 	
 	public function index() {
-		$token = GET("code");
-		die(var_dump($token));
+		$token = _GET("code");
+
 		$this->RESTClient->setURL("https://api.bufferapp.com/1/profiles.json?access_token=$token");
 
 		$data = $this->RESTClient->GET();
