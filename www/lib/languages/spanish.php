@@ -275,5 +275,6 @@ $phrase["you_cant_register_many_times_a_day"] 			= "No se puede registrar varias
 $phrase["you_have_previously_voted_on_this_poll"] 		= "Ya has votado antes en esta encuesta";
 $phrase["you_need_access_to_this_link"] 				= "Necesitas acceder a este enlace";
 $phrase["you_still_have_not_published_a_code"]	 		= "Aún no has publicado ningún código";
+$phrase["you_still_have_not_published_a_bookmark"]	 	= "Aún no has publicado ningún marcador";
 $phrase["your_comment_is_very_vulgar"] 					= "Su comentario es muy vulgar, favor de quitar las malas palabras";
 $phrase["your_message_has_been_sent_successfully_we_will_contact_you_as_soon_as_possible_thank_you_very_much"] = "Tu mensaje ha sido enviado con éxito, nos pondremos en contacto contigo lo antes posible, ¡muchas gracias!";

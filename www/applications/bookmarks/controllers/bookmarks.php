@@ -90,6 +90,32 @@ class Bookmarks_Controller extends ZP_Controller {
 
 	}
 
+	public function admin() {
+		isConnected();
+
+		$this->config("user", "bookmarks");
+
+		$data = $this->Bookmarks_Model->getAllByUser();
+
+		$this->CSS("results", "cpanel");
+		$this->CSS("admin", "bookmarks");
+
+		if($data) {
+			$vars["tFoot"] = $data;
+			$total = count($data);
+		} else {
+			$vars["tFoot"] = array();
+			$total = 0;
+		}
+
+		$label = ($total === 1 ? __("record") : __("records"));
+
+		$vars["total"] = (int)$total . " $label";
+		
+		$vars["view"] = $this->view("admin", TRUE);
+		$this->render("content", $vars);
+	}
+
 	public function like($ID) {
 		$this->Users_Model = $this->model("Users_Model");
 
