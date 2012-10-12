@@ -40,12 +40,9 @@ class Buffer_Controller extends ZP_Controller {
 				$data[$i]["shorten"] = TRUE;
 
 				$i++;
-			}
-
-			die(var_dump($data));
+			}			
 
 			$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
-
 
 			$this->RESTClient->POST($data);
 
