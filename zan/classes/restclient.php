@@ -197,11 +197,7 @@ class ZP_RESTClient extends ZP_Load {
 	}
 	
 	public function setURL($URL) {
-		if(substr($URL, 0, 7) !== "http://") {
-			$this->URL = "http://" . $URL;
-		} else {
-			$this->URL = $URL;
-		}
+		$this->URL = $URL;
 	}
 		
 }
