@@ -5,7 +5,7 @@
 if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
-die("SI");
+
 $Configuration_Model = $Load->model("Configuration_Model");
 
 $data = $Configuration_Model->getConfig();
