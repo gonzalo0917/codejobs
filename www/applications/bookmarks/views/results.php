@@ -64,11 +64,11 @@ $j = 2;
 					</td>
 																				
 					<td>
-					<?php			
-						$title = cut($column["Title"], 4, "text");	
-					
-						echo $title; 
-					?>
+						<a href="<?php echo path("bookmarks/{$column["ID_Bookmark"]}/{$column["Slug"]}"); ?>" target="_blank">
+							<?php
+								echo cut($column["Title"], 4, "text");
+							?>
+						</a>
 					</td>
 								
 					<td class="center">

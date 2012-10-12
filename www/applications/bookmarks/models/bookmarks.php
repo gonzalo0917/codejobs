@@ -53,7 +53,7 @@ class Bookmarks_Model extends ZP_Model {
 	}
 	
 	private function all($trash, $order, $limit) {
-		$fields = "ID_Bookmark, ID_User, Title, URL, Author, Views, Reported, Language, Start_Date, Situation";
+		$fields = "ID_Bookmark, ID_User, Title, Slug, URL, Author, Views, Reported, Language, Start_Date, Situation";
 
 		if(!$trash) {			
 			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
