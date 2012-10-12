@@ -13,7 +13,7 @@ class Buffer_Controller extends ZP_Controller {
 	}
 	
 	public function index() {
-		die(var_dump($_GET);
+		die(var_dump($_GET));
 	}
 
 }
