@@ -105,12 +105,8 @@ class ZP_RESTClient extends ZP_Load {
 				if($return) {
 					return $response;
 				}
-				____($response);
-				if(strstr($response, "xml")) {
-					return new SimpleXMLElement($response);
-				} else {
-					return json_decode($response);
-				}
+				
+				return (strstr($response, "xml")) ? new SimpleXMLElement($response) : json_decode($response);				
 			}
 		} 
 		
@@ -143,11 +139,7 @@ class ZP_RESTClient extends ZP_Load {
 					return $response;
 				}
 				
-				if(strstr($response, "xml")) {
-					return new SimpleXMLElement($response);
-				} else { 
-					return json_decode($response);
-				}
+				return (strstr($response, "xml")) ? new SimpleXMLElement($response) : json_decode($response);
 			}
 		} 
 		
@@ -183,11 +175,7 @@ class ZP_RESTClient extends ZP_Load {
 					return $response;
 				}
 				
-				if(strstr($response, "xml")) {
-					return new SimpleXMLElement($response);
-				} else {
-					return json_decode($response);
-				}
+				return (strstr($response, "xml")) ? new SimpleXMLElement($response) : json_decode($response);
 			}
 		} 
 		
