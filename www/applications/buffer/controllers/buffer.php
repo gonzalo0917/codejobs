@@ -11,13 +11,13 @@ class Buffer_Controller extends ZP_Controller {
 	public function __construct() {		
 		$this->application = $this->app("buffer");	
 
+		$this->config($this->application);
+
 		$this->RESTClient = $this->core("RESTClient");
 	}
 	
-	public function index() {
-		$token = _GET("code");
-
-		$this->RESTClient->setURL("https://api.bufferapp.com/1/profiles.json?access_token=$token");
+	public function index() {	
+		$this->RESTClient->setURL("https://api.bufferapp.com/1/profiles.json?access_token=". _bufferToken);
 
 		$data = $this->RESTClient->GET();
 
