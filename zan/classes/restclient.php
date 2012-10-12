@@ -82,9 +82,12 @@ class ZP_RESTClient extends ZP_Load {
 	}
 
 	public function GET($return = FALSE) {
-		if(is_null($this->URL)) {
+		if(is_null($this->URL)) { die("Si");
 			return FALSE;
 		}
+
+		$ch = curl_init($this->URL);
+		die(var_dump($ch));
 		
 		if($ch = curl_init($this->URL)) {
 			curl_setopt($ch, CURLOPT_URL, $this->URL);
