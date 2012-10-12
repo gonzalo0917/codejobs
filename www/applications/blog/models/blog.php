@@ -195,7 +195,7 @@ class Blog_Model extends ZP_Model {
 	}
 
 	public function getAllByUser() {
-		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Post ASC");
+		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Post DESC");
 	}
 	
 	private function search($search, $field) {

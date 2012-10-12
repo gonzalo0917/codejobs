@@ -178,7 +178,7 @@ class Bookmarks_Model extends ZP_Model {
 	}
 
 	public function getAllByUser() {
-		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Bookmark ASC");
+		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Bookmark DESC");
 	}
 
 	public function updateViews($bookmarkID) {

@@ -288,7 +288,7 @@ class Codes_Model extends ZP_Model {
 	}
 
 	public function getCodesByUser($userID) {
-		return $this->Db->findBySQL("ID_User = '$userID' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Code ASC");
+		return $this->Db->findBySQL("ID_User = '$userID' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Code DESC");
 	}
 
 	public function getLanguage($languageID) {
