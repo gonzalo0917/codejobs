@@ -145,6 +145,7 @@ $phrase["message_when_the_website_is_inactive"] 		= "Mensaje cuando el sitio Web
 $phrase["messages"]										= "Mensajes";
 $phrase["monday"] 	 									= "Lunes";
 $phrase["mural_image"] 									= "Imágen de mural";
+$phrase["my_bookmarks"]  								= "Mis marcadores";
 $phrase["my_codes"]  									= "Mis códigos";
 $phrase["my_courses"]  									= "Mis cursos";
 $phrase["my_jobs"]  									= "Mis empleos";
