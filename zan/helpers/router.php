@@ -347,7 +347,6 @@ function whichApplication() {
 }
 
 function path($path = FALSE, $URL = FALSE, $lang = TRUE) {
-	die(_get("webBase"));
 	if(!$path) {
 		return isLang() ? _get("webBase") ."/". _get("webLang") : _get("webBase");
 	} 
