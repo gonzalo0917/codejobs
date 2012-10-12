@@ -98,7 +98,7 @@ class ZP_RESTClient extends ZP_Load {
 			}
 			
 			$response = curl_exec($ch);
-			die(var_dump($this->URL));
+			
 			$status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
 			
 			curl_close($ch);
