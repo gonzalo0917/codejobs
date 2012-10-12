@@ -35,18 +35,19 @@ class Buffer_Controller extends ZP_Controller {
 			foreach($posts as $post) {
 				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
 
-				$data[$i]["text"] = decode($post["Title"]) ." ". $URL ." ". decode(_bufferVia);
-				$data[$i]["profile_ids[]"] = _bufferProfile;
-				$data[$i]["shorten"] = TRUE;
+				$data = array(
+					"text" 			=> decode($post["Title"]) ." ". $URL ." ". decode(_bufferVia),
+					"profile_ids[]" => _bufferProfile
+				);					
 
-				$i++;
+				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+				$this->RESTClient->POST($data);
 			}			
 
-			$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+			
 
-			$this->RESTClient->POST($data);
-
-			echo "Posteado";
+			echo "Buffer complete";
 		}
 	}
 
