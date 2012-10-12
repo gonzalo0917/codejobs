@@ -52,7 +52,7 @@ $j 				= 2;
 					</td>
 																				
 					<td class="anchor_title">
-                        <a href="<?php echo path("blog/{$column["ID_Post"]}/{$column["Slug"]}"); ?>" target="_blank">
+                        <a href="<?php echo path("blog/{$column["Year"]}/{$column["Month"]}/{$column["Day"]}/{$column["Slug"]}"); ?>" target="_blank">
                             <?php			
                                 echo cut($column["Title"], 4, "text");
                             ?>
