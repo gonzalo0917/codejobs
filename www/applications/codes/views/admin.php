@@ -13,7 +13,7 @@ $i 				= 0;
 $j 				= 2;
 
 ?>
-<table id="results" class="results" style="width: 1000px;">
+<table id="results" class="results">
 	<caption class="caption">
 		<span class="bold"><?php echo $caption; ?></span>
 	</caption>
