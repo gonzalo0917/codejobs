@@ -355,7 +355,7 @@ class ZP_Load {
 	public function js($script, $application = NULL, $getJs = FALSE) {
 		$this->Templates = $this->core("Templates");
 		
-		$this->Templates->js($script, $application, $getJs);
+		return $this->Templates->js($script, $application, $getJs);
 	}
 	
     /**
