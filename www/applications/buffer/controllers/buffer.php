@@ -30,12 +30,16 @@ class Buffer_Controller extends ZP_Controller {
 
 			$posts = $this->Blog_Model->getBufferPosts();
 
+			$i = 0;
+
 			foreach($posts as $post) {
 				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
 
-				$data[]["text"] = $post["Title"] ." ". $URL ." ". _bufferVia;
-				$data[]["profile_ids[]"] = _bufferProfile;
-				$data[]["shorten"] = TRUE;
+				$data[$i]["text"] = $post["Title"] ." ". $URL ." ". _bufferVia;
+				$data[$i]["profile_ids[]"] = _bufferProfile;
+				$data[$i]["shorten"] = TRUE;
+
+				$i++;
 			}
 
 			die(var_dump($data));
