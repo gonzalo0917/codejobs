@@ -28,8 +28,8 @@ class Buffer_Controller extends ZP_Controller {
 		if($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
-			$posts = $this->Blog_Model->getBufferPosts();
-
+			$posts = $this->Blog_Model->getBufferPosts("Spanish");
+			die(var_dump($posts));
 			$i = 0;
 
 			foreach($posts as $post) {

@@ -200,9 +200,9 @@ class Blog_Model extends ZP_Model {
 
 	public function getBufferPosts($language = "all") {
 		if($language === "all") {
-			return $this->Db->findBy("Buffer", 1, $this->table, "Title, Slug, Year, Month, Day, Language", NULL, NULL, 2);
+			return $this->Db->findBy("Buffer", 1, $this->table, "Title, Slug, Year, Month, Day, Language", NULL, "rand()");
 		} else {
-			return $this->Db->findBySQL("Buffer = 1 AND Language = '$language'", $this->table, "Title, Slug, Year, Month, Day, Language");
+			return $this->Db->findBySQL("Buffer = 1 AND Language = '$language'", $this->table, "Title, Slug, Year, Month, Day, Language", NULL, "rand()");
 		}
 	}
 	
