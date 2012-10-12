@@ -197,6 +197,14 @@ class Blog_Model extends ZP_Model {
 	public function getAllByUser() {
 		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Post DESC");
 	}
+
+	public function getBufferPosts($language = "all") {
+		if($language === "all") {
+			return $this->Db->findBy("Buffer", 1, $this->table, "Title, Slug, Year, Month, Day");
+		} else {
+			return $this->Db->findBySQL("Buffer = 1 AND Language = '$language'", $this->table, "Title, Slug, Year, Month, Day, ");
+		}
+	}
 	
 	private function search($search, $field) {
 		if($search and $field) {
