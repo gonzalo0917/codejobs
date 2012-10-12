@@ -44,6 +44,7 @@ class Users_Controller extends ZP_Controller {
 				SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
 				SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
 				SESSION("ZanUserCodes", $data[0]["Codes"]);
+				SESSION("ZanUserPosts", $data[0]["Posts"]);
 				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
 					 
 				showAlert("Your account has been activated correctly!", path());
@@ -76,6 +77,7 @@ class Users_Controller extends ZP_Controller {
 				SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
 				SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
 				SESSION("ZanUserCodes", $data[0]["Codes"]);
+				SESSION("ZanUserPosts", $data[0]["Posts"]);
 				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
 
 				redirect();
