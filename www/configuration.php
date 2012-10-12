@@ -37,7 +37,7 @@ if(is_array($data)) {
 	set("defaultApplication", $data[0]["Application"]);
 	set("defaultEditor",   $data[0]["Editor"]);
 
-	if(!get("modRewrite")) {
+	if(!_get("modRewrite")) {
 		set("webBase", _get("webURL") . _sh . _index);
 	} else {
 		set("webBase", _get("webURL"));
