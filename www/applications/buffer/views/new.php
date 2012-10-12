@@ -11,7 +11,7 @@
 	$edit        = isset($data) ? TRUE 												: FALSE;
 	$action	     = isset($data) ? "edit"											: "save";
 	$href	     = path("blog/add/");
-	$editor 	 = get("defaultEditor") === "Redactor" ? 1 : 2;
+	$editor 	 = _get("defaultEditor") === "Redactor" ? 1 : 2;
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");

@@ -14,7 +14,7 @@
 	$edit      = isset($data) ? TRUE											 : FALSE;
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
-	$editor    = get("defaultEditor") === "Redactor" ? 1 : 2;
+	$editor    = _get("defaultEditor") === "Redactor" ? 1 : 2;
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
