@@ -28,17 +28,20 @@ class Buffer_Controller extends ZP_Controller {
 		if($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
-			$data = $this->Blog_Model->getBufferPosts();
+			$posts = $this->Blog_Model->getBufferPosts();
+
+			foreach($posts as $post) {
+				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
+
+				$data[]["text"] = $post["Title"] ." ". $URL ." ". _bufferVia;
+				$data[]["profile_ids[]"] = _bufferProfile;
+				$data[]["shorten"] = TRUE;
+			}
 
 			die(var_dump($data));
 
 			$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
-			$data = array(
-				"text" => "Cómo posicionar tu marca en Internet http://www.codejobs.biz/es/blog/2012/08/24/como-posicionar-tu-marca-en-internet#.UHhfIqq13mc.twitter vía @codejobs",
-				"profile_ids[]" => "504fea9d6ffb363e53000031",
-				"shorten" => TRUE
-			);
 
 			$this->RESTClient->POST($data);
 
