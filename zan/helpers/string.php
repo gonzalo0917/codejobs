@@ -451,8 +451,8 @@ function showContent($content) {
 function setCode($HTML, $return = FALSE, $decode = FALSE) {
 	$HTML  = str_replace("[Code]", "[code]", $HTML);
 	$HTML  = str_replace("[/Code]", "[/code]", $HTML);
-	$HTML  = str_replace("<pre>", "[code]", $HTML);
-	$HTML  = str_replace("</pre>", "[/code]", $HTML);
+	$HTML  = str_replace("<code>", "[code]", $HTML);
+	$HTML  = str_replace("</code>", "[/code]", $HTML);
 
    	$codes = explode("[code]", $HTML);
 
