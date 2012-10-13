@@ -300,6 +300,7 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
         } elseif($js === "redactorjs") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.min.js", "zan") .'"></script>';
+			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/scripts/set.php?lang=". _get("webLang") ."&label1=". urlencode(__("Insert Break Line")) ."&label2=". urlencode(__("Insert Code")), "zan") .'"></script>';
 			if(_get("webLang") !== "en") {
 				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/". _get("webLang") .".js", "zan") .'"></script>';
 			}
@@ -311,7 +312,7 @@ class ZP_Templates extends ZP_Load {
 		} elseif($js === "tinymce") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/tinymce/tiny_mce.js", "zan") .'"></script>';
 		} elseif($js === "switch-editor") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js.php?lang=". _get("webLang") ."&label1=". urlencode(__("Insert Break Line")) ."&label2=". urlencode(__("Insert Code")), "zan") .'"></script>';
+			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js", "zan") .'"></script>';
 		} elseif($js === "lesscss") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
 		} elseif($js === "angular") {
