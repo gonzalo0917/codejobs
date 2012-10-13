@@ -23,7 +23,7 @@ $(document).ready(function() {
             $target = $(event.target);
             $next   = $target.parent().next();
             if (parseInt($target.text()) == 1) {
-                singular = $next.dataset("singular");
+                singular = $next.data("singular");
                 if (singular) {
                     $next.text(singular);
                 }

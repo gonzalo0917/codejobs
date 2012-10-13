@@ -7,8 +7,8 @@ $('textarea[name="code"]').each(function() {
         readOnly: "nocursor"
     });
 
-    if (syntax[$(this).dataset("syntax")].Filename.length > 0) {
-        CodeMirror.autoLoadMode(editor, syntax[$(this).dataset("syntax")].Filename);
+    if (syntax[$(this).data("syntax")].Filename.length > 0) {
+        CodeMirror.autoLoadMode(editor, syntax[$(this).data("syntax")].Filename);
     }
-    editor.setOption("mode", syntax[$(this).dataset("syntax")].MIME);
+    editor.setOption("mode", syntax[$(this).data("syntax")].MIME);
 });
