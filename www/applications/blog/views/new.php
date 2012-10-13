@@ -62,6 +62,7 @@
 			echo formInput(array(	
 				"name" 	=> "save", 
 				"class" => "btn btn-success", 
+				"disabled" => "disabled",
 				"value" => __("Save"), 
 				"type"  => "submit"
 			));
