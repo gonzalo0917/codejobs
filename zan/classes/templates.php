@@ -301,6 +301,7 @@ class ZP_Templates extends ZP_Load {
         } elseif($js === "redactorjs") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.min.js", "zan") .'"></script>';
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/scripts/set.php?lang=". _get("webLang") ."&label1=". urlencode(__("Insert Break Line")) ."&label2=". urlencode(__("Insert Code")), "zan") .'"></script>';
+			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/scripts/plugins.js", "zan") .'"></script>';
 			if(_get("webLang") !== "en") {
 				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/". _get("webLang") .".js", "zan") .'"></script>';
 			}

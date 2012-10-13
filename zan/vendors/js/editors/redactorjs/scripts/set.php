@@ -7,7 +7,7 @@
 	$label1 = strip_tags(urldecode($_GET['label1']));
 	$label2 = strip_tags(urldecode($_GET['label2']));
 ?>
-var redactorSettings = {
+redactorSettings = {
 	focus: true,
 	<?php
 		if($lang !== "en") {
@@ -30,8 +30,43 @@ var redactorSettings = {
 		button2: {
 			title: "<?php echo $label2; ?>",
 			callback: function(obj, event, key) {
-				obj.$el.execCommand("formatblock", '<pre>');
+				obj.$el.insertHtml('<code>' + obj.$el.getSelectedHtml() + '</code>');
 			}
 		}
+	}
+};
+
+redactorPlugins = {
+	getSelectedHtml: function() {
+		if ($(this).data("redactor")) {
+			var sel;
+
+			if (typeof window.getSelection === 'function') {
+				sel = $(this).data("redactor").$frame.get(0).contentWindow.getSelection();
+
+				if (sel.rangeCount) {
+					var container = document.createElement("div");
+					for (var i = 0; i < sel.rangeCount; i++) container.appendChild(sel.getRangeAt(i).cloneContents());
+					return container.innerHTML;
+				}
+			} else if(typeof document.selection !== 'undefined') {
+				sel = $(this).getDoc().selection;
+
+				if (sel.type === "Text") {
+					return sel.createRange().htmlText;
+				}
+			}
+		}
+		return '';
+	},
+	getSelectedText: function() {
+		if ($(this).data("redactor")) {
+			if (typeof window.getSelection === 'function') {
+				return $(this).data("redactor").$frame.get(0).contentWindow.getSelection();
+			} else if(typeof document.selection !== 'undefined') {
+				return $(this).getDoc().selection.createRange();
+			}
+		}
+		return '';
 	}
 };
