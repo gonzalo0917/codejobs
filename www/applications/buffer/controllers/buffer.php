@@ -41,10 +41,27 @@ class Buffer_Controller extends ZP_Controller {
 				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
 				$this->RESTClient->POST($data);
-			}			
+			}					
+		} elseif($app === "bookmarks") {
+			$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 
-			echo "Buffer complete";
+			$bookmarks = $this->Bookmarks_Model->getBufferBookmarks();			
+
+			foreach($bookmarks as $bookmark) {
+				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
+
+				$data = array(
+					"text" 			=> $post["Title"] ." ". $URL ." ". _bufferVia,
+					"profile_ids[]" => _bufferProfile
+				);					
+
+				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+				$this->RESTClient->POST($data);
+			}			
 		}
+
+		echo "Buffer complete";
 	}
 
 }
