@@ -3,6 +3,8 @@ var $parentEditor = null;
 function switchEditor(id, selector) {
 	var $textarea;
 
+	if (!selector) selector = "textarea";
+
 	if (id == 2) {
 		$textarea = $(selector);
 		if ($textarea.data("redactor")) $textarea.destroyEditor();

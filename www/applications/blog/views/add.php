@@ -47,7 +47,7 @@
 				"name" 		=> "editor", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("Editor"), 
-				"onchange" 	=> 'switchEditor($(this).val(), \'textarea[name=&quot;content&quot;]\')'),
+				"onchange" 	=> 'switchEditor($(this).val())'),
 				$options
 			);
 
