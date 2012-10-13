@@ -308,6 +308,8 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/jquery.markitup.js", "zan") .'"></script>';
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/html/set.js", "zan") .'"></script>';
 			$this->CSS("markitup");
+		} elseif($js === "tinymce") {
+			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/tinymce/tiny_mce.js", "zan") .'"></script>';
 		} elseif($js === "switch-editor") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js.php?lang=". _get("webLang") ."&label1=". urlencode(__("Insert Break Line")) ."&label2=". urlencode(__("Insert Code")), "zan") .'"></script>';
 		} elseif($js === "lesscss") {
@@ -317,7 +319,7 @@ class ZP_Templates extends ZP_Load {
 		} elseif($js === "codemirror") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/codemirror/codemirror.js", "zan") .'"></script>';
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/codemirror/util/loadmode.js", "zan") .'"></script>';
-                        $this->CSS("codemirror", NULL, TRUE);
+            $this->CSS("codemirror", NULL, TRUE);
 		} elseif(file_exists($js)) {
 			$js = '<script type="text/javascript" src="'. path($js, TRUE) .'"></script>';
 		} elseif(file_exists(path($js, "zan"))) {
