@@ -1,8 +1,10 @@
 <?php
-	if(!defined("_access")) die("Error: You don't have permission to access here...");
+	if(!defined("_access")) {
+		die("Error: You don't have permission to access here...");
+	}
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
+<html lang="<?php echo _get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />

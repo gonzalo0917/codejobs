@@ -23,7 +23,7 @@
         <?php echo $this->getJs(); ?>
 
         <?php
-            if(get("production")) {
+            if(_get("production")) {
         ?>
                 <script type="text/javascript">
                     var sc_project = 7655788; 

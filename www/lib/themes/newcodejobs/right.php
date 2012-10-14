@@ -66,7 +66,7 @@
                 </section>
 
                 <?php
-                    if(get("production")) {
+                    if(_get("production")) {
                     ?>
                         <section class="ads">
                             <script type="text/javascript"><!--
