@@ -219,7 +219,7 @@ class Forums_Model extends ZP_Model {
 
 						$page = $this->getPage($dataTopic[$i]["ID"]);
 
-						$dataTopic[$i]["Last_URL"] = path("forums/". segment(1, isLang()) ."/". $dataTopic[$i]["ID"] ."/page/". $page ."/#bottom");
+						$dataTopic[$i]["Last_URL"] = path("forums/". $topic["Slug"] ."/". $dataTopic[$i]["ID"] ."/page/". $page ."/#bottom");
 					} else {
 						$dataTopic[$i]["Count"]      = 0;
 						$dataTopic[$i]["Last_Reply"] = __("There are not replies");
@@ -344,23 +344,23 @@ class Forums_Model extends ZP_Model {
 									 WHERE ID_Parent = '$ID' AND muu_forums_posts.Situation = 'Active' ORDER BY ID_Post LIMIT $limit");
 
 		if($topic) {
-			$topic[0]["replyURL"]  = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/new");
-			$topic[0]["editURL"]   = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/edit");
-			$topic[0]["deleteURL"] = path("forums/". segment(1, isLang()) ."/". $topic[0]["ID_Post"] ."/delete");
+			$topic[0]["replyURL"]  = path("forums/". $topic[0]["Slug"] ."/". $topic[0]["ID_Post"] ."/new");
+			$topic[0]["editURL"]   = path("forums/". $topic[0]["Slug"] ."/". $topic[0]["ID_Post"] ."/edit");
+			$topic[0]["deleteURL"] = path("forums/". $topic[0]["Slug"] ."/". $topic[0]["ID_Post"] ."/delete");
 		}
 		
 		if($replies) {
 			$i = 0;
 
 			foreach($replies as $reply) {
-				if(segment(4) === "page" and segment(5) > 0) {
-					$page = segment(5);
+				if(segment(3, isLang()) === "page" and segment(4, isLang()) > 0) {
+					$page = segment(4, isLang());
 
-					$replies[$i]["deleteURL"] = path($this->application ."/". segment(2) ."/". $topic[0]["ID_Post"] ."/delete/". $reply["ID_Post"] ."/". $page);
-					$replies[$i]["editURL"]   = path($this->application ."/". segment(2) ."/". $topic[0]["ID_Post"] ."/edit/". $reply["ID_Post"] ."/". $page);
+					$replies[$i]["deleteURL"] = path("forums/". $topic[0]["Slug"] ."/". $topic[0]["ID_Post"] ."/delete/". $reply["ID_Post"] ."/". $page);
+					$replies[$i]["editURL"]   = path("forums/". $topic[0]["Slug"] ."/". $topic[0]["ID_Post"] ."/edit/". $reply["ID_Post"] ."/". $page);
 				} else {
-					$replies[$i]["deleteURL"] = path($this->application ."/". segment(2) ."/". $topic[0]["ID_Post"] ."/delete/". $reply["ID_Post"]);
-					$replies[$i]["editURL"]   = path($this->application ."/". segment(2) ."/". $topic[0]["ID_Post"] ."/edit/". $reply["ID_Post"]);
+					$replies[$i]["deleteURL"] = path("forums/". $topic[0]["Slug"] ."/". $topic[0]["ID_Post"] ."/delete/". $reply["ID_Post"]);
+					$replies[$i]["editURL"]   = path("forums/". $topic[0]["Slug"] ."/". $topic[0]["ID_Post"] ."/edit/". $reply["ID_Post"]);
 				}
 				
 				$i++;
