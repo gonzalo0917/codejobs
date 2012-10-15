@@ -70,7 +70,7 @@ function __($text, $encode = TRUE) {
 		if(isset($phrase[$position])) {
 			return ($encode) ? encode($phrase[$position]) : $phrase[$position];
 		} else {
-			if($language !== "English") {
+			if($language !== "English" and !_get("production")) {
 				$content = "";
 				$logfile = "www/lib/languages/". strtolower($language) . ".txt"; 
 				$today	 = date("d/m/Y");
