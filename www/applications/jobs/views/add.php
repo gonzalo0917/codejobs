@@ -4,7 +4,6 @@
 	}
 
 	$ID          = isset($data) ? recoverPOST("ID", $data[0]["ID_Job"]) 			   : 0;
-	//$ID_URL      = isset($data) ? recoverPOST("ID_URL", $data[0]["ID_URL"]) 		   : recoverPOST("ID_URL");
 	$id_company  = isset($data) ? recoverPOST("id_company", $data[0]["ID_Company"])    : recoverPOST("id_company");
 	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"])   		   : recoverPOST("title");		
 	$email       = isset($data) ? recoverPOST("email", $data[0]["Email"])   		   : recoverPOST("email");

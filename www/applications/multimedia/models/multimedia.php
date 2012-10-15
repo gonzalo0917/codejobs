@@ -95,7 +95,6 @@ class Multimedia_Model extends ZP_Model {
 
 		$data = array(
 			"ID_User"      => SESSION("ZanUserID"),
-			"ID_URL"       => 1,
 			"Slug"         => slug(POST("title", "clean")),
 			"Content"      => POST("content", "clean"),
 			"Author"       => SESSION("ZanUser"),
