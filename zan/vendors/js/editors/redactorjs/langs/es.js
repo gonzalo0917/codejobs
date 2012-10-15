@@ -61,6 +61,9 @@ RELANG['es'] = {
 	align_justify: 'Justificar',
 	horizontalrule: 'Trazo horizontal',
 	fullscreen: 'Pantalla completa',
+	pagebreak: 'Salto de página',
+	code: 'Insertar código',
+	code_content: 'Contenido del código',
 	deleted: 'Borrado',
 	anchor: 'Anclaje o anchor'
 };

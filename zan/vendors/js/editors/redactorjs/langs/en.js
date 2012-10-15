@@ -61,6 +61,9 @@ RELANG['en'] = {
 	align_justify: 'Justify',
 	horizontalrule: 'Insert Horizontal Rule',
 	fullscreen: 'Fullscreen',
+	pagebreak: 'Insert Page Break',
+	code: 'Insert Code',
+	code_content: 'Code Content',
 	deleted: 'Deleted',
 	anchor: 'Anchor'
 };

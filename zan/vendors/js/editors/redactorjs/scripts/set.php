@@ -7,7 +7,30 @@
 	$label1 = strip_tags(urldecode($_GET['label1']));
 	$label2 = strip_tags(urldecode($_GET['label2']));
 ?>
-redactorSettings = {
+if (typeof redactorSettings === 'undefined') {
+	redactorSettings = {
+		buttonsCustom: {
+			button1: {
+				title: "<?php echo $label1; ?>",
+				callback: function(obj, event, key) {
+					obj.$el.insertHtml('<hr /><p></p>');
+				}
+			},
+			button2: {
+				title: "<?php echo $label2; ?>",
+				callback: function(obj, event, key) {
+					if ($.browser.msie) {
+						alert("Your browser is not compatible with this feature. Trying using MarkItUp editor or another browser.");
+					} else {
+						obj.$el.execCommand('formatblock', '<pre>');
+					}
+				}
+			}
+		}
+	};
+}
+
+redactorSettings = $.extend(redactorSettings, {
 	focus: true,
 	<?php
 		if($lang !== "en") {
@@ -18,23 +41,10 @@ redactorSettings = {
 		    'unorderedlist', 'orderedlist', 'outdent', 'indent', '|',
 		    'image', 'video', 'file', 'table', 'link', '|',
 		    'fontcolor', 'backcolor', '|',
-		    'alignleft', 'aligncenter', 'alignright', 'justify'],
-	buttonsAdd: ["|", "button1", "button2"],
-	buttonsCustom: {
-		button1: {
-			title: "<?php echo $label1; ?>",
-			callback: function(obj, event, key) {
-				obj.$el.insertHtml('<hr /><p></p>');
-			}
-		},
-		button2: {
-			title: "<?php echo $label2; ?>",
-			callback: function(obj, event, key) {
-				obj.$el.insertHtml('<code>' + obj.$el.getSelectedHtml() + '</code>');
-			}
-		}
-	}
-};
+		    'alignleft', 'aligncenter', 'alignright', 'justify', '|',
+		    'pagebreak', 'code'],
+	buttonsAdd: ["|", "button1", "button2"]
+});
 
 redactorPlugins = {
 	getSelectedHtml: function() {
@@ -58,6 +68,20 @@ redactorPlugins = {
 			}
 		}
 		return '';
+	},
+	getSelectedTagName: function() {
+		if ($(this).data("redactor")) {
+			var sel;
+
+			if (typeof window.getSelection === 'function') {
+				sel = $(this).data("redactor").$frame.get(0).contentWindow.getSelection();
+				return sel.getRangeAt(0).commonAncestorContainer.parentNode.tagName;
+			} else if(typeof document.selection !== 'undefined') {
+				sel = $(this).getDoc().selection;
+				return sel.createRange().parentElement().nodeName;
+			}
+			return '';
+		}
 	},
 	getSelectedText: function() {
 		if ($(this).data("redactor")) {

@@ -148,6 +148,8 @@ body .redactor_toolbar li a.redactor_btn_justify span		 	  { background-position
 body .redactor_toolbar li a.redactor_btn_horizontalrule span 	  { background-position: -475px; }
 body .redactor_toolbar li a.redactor_btn_fullscreen span		  { background-position: -500px; }							
 body .redactor_toolbar li a.redactor_btn_normalscreen span		  { background-position: -525px !important; }	
+body .redactor_toolbar li a.redactor_btn_pagebreak span		  	  { background-position: -475px; }	
+body .redactor_toolbar li a.redactor_btn_code span		  		  { background-position: 0; }	
 
 /*body .redactor_toolbar li a.redactor_btn_button1 span		 	  { background-position: -575px; }		*/
 
