@@ -168,17 +168,17 @@ class CPanel_Controller extends ZP_Controller {
 			redirect("$this->application/cpanel/results");
 		}
 
+		$this->js("redactorjs");
+		$this->js("markitup");
+		$this->js("switch-editor");
+		$this->js("new", "blog");
+
 		$this->title("Edit");
 		
 		$this->helper("forms");
 		
-		$this->title("Add");
-		
 		$this->CSS("forms", "cpanel");
-		
-		$this->js("redactorjs");
-		$this->js("insert-html");
-		$this->js("show-element");
+		$this->CSS("add", "blog");
 
 		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
 		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
