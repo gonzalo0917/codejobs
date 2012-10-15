@@ -12,7 +12,7 @@ $pwd   = isset($pwd)   ? recoverPOST("password", $pwd) : recoverPOST("password")
 
 echo div("new-user", "class");
 	echo formOpen(path("users/register"), "form", "form");
-		echo p(__("Join today to") ." ". get("webName"), "resalt");
+		echo p(__("Join today to") ." ". _get("webName"), "resalt");
 		
 		if(!isset($alert) and SESSION("UserRegistered") and !POST("register")) {
 			redirect();

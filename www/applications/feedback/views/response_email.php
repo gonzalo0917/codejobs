@@ -3,5 +3,5 @@
 </p>							
 
 <p>
-	<a href="<?php echo path(); ?>" title="<?php echo get("webName"); ?>"><?php echo get("webName"); ?></a>
+	<a href="<?php echo path(); ?>" title="<?php echo _get("webName"); ?>"><?php echo _get("webName"); ?></a>
 </p>

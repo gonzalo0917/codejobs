@@ -290,7 +290,7 @@ class Blog_Controller extends ZP_Controller {
 			$this->render("content", $vars);
 		} else {
 			$post  = __("Welcome to") ." ";
-			$post .= a(get("webName"), get("webBase")) ." ";
+			$post .= a(_get("webName"), _get("webBase")) ." ";
 			$post .= __("this is your first post, going to your") ." ";
 			$post .= a(__("Control Panel"), path("cpanel")) ." ";
 			$post .= __("and when you add a new post this post will be disappear automatically, enjoy it!");				

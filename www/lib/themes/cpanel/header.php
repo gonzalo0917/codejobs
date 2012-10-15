@@ -1,6 +1,6 @@
 <?php if(!defined("_access")) { die("Error: You don't have permission to access here..."); } ?>
 <!DOCTYPE html>
-<html lang="<?php echo get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
+<html lang="<?php echo _get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?php echo $this->getTitle(); ?></title>
@@ -44,7 +44,7 @@
 	<script type="text/javascript">
 		var PATH = "<?php echo path(); ?>";
 		
-		var URL  = "<?php echo get('webURL'); ?>";
+		var URL  = "<?php echo _get('webURL'); ?>";
 	<?php
 		if ($application !== "codes" and $application !== "blog") {
 	?>

@@ -29,7 +29,7 @@
 				<?php echo showContent($post["Content"], $URL); ?>
 				<br />
 				<?php 
-					if(get("production")) {
+					if(_get("production")) {
 					?>
 						<p>
 							<script type="text/javascript"><!--

@@ -17,8 +17,8 @@ class CPanel_Model extends ZP_Model {
 		
 		$this->Email->setLibrary("PHPMailer");
 		
-		$this->Email->fromName  = get("webName");
-		$this->Email->fromEmail = get("webEmailSend");
+		$this->Email->fromName  = _get("webName");
+		$this->Email->fromEmail = _get("webEmailSend");
 						
 		$this->application = whichApplication();
 	}

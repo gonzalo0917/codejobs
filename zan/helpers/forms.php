@@ -215,7 +215,7 @@ function formLabel($for, $text, $br = TRUE) {
 function formOpen($action = NULL, $class = "forms", $ID = NULL, $legend = NULL, $method = "post", $enctype = NULL) {	
 	$ID      = (isset($ID))     ? ' id="'. $ID .'"' 			  			 : NULL;
 	$legend  = (isset($legend)) ? "<legend>$legend</legend>" . "\n" : NULL;
-	$action  = (strstr($action, "http://")) ? $action : get("webBase") . "/" . $action;
+	$action  = (strstr($action, "http://")) ? $action : _get("webBase") . "/" . $action;
 	$enctype = (!is_null($enctype)) ? ' enctype="'. $enctype .'"' : NULL;
 	
 	$HTML  = '<form'. $ID .' action="'. $action .'" method="'. $method .'" class="'. $class .'"'. $enctype .'>' . "\n\t";

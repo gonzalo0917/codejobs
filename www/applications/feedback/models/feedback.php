@@ -15,8 +15,8 @@ class Feedback_Model extends ZP_Model {
 		
 		$this->Email->setLibrary("PHPMailer");
 		
-		$this->Email->fromName  = get("webName");
-		$this->Email->fromEmail = get("webEmailSend");
+		$this->Email->fromName  = _get("webName");
+		$this->Email->fromEmail = _get("webEmailSend");
 		
 		$this->table  = "feedback";
 		$this->fields = "ID_Feedback, Name, Email, Company, Phone, City, Subject, Message, Text_Date, Situation";
@@ -105,15 +105,15 @@ class Feedback_Model extends ZP_Model {
 	
 	private function sendResponse($vars) {
 		$this->Email->email	  = POST("email");
-		$this->Email->subject = __("Automatic response") . " - " . get("webName");
+		$this->Email->subject = __("Automatic response") . " - " . _get("webName");
 		$this->Email->message = $this->view("response_email", NULL, "feedback", TRUE);
 		
 		$this->Email->send();
 	}
 	
 	private function sendMail($vars) {
-		$this->Email->email	  = get("webEmailRecieve");
-		$this->Email->subject = __("New Message") ." - ". get("webName");
+		$this->Email->email	  = _get("webEmailRecieve");
+		$this->Email->subject = __("New Message") ." - ". _get("webName");
 		$this->Email->message = $this->view("send_email", $vars, "feedback", TRUE);
 		
 		$this->Email->send();

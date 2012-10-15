@@ -17,7 +17,7 @@ if(is_array($posts)) {
 
 		$in = ($post["Tags"] !== "") ? __("in") : NULL;	
 
-		$lock = (strlen($post["Pwd"]) === 40) ? img(get("webURL") . _sh . _lock, array("alt" => __("Private"), "class" => "no-border")) : NULL;
+		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . _sh . _lock, array("alt" => __("Private"), "class" => "no-border")) : NULL;
 ?>		
 			
 		<div class="post">
@@ -60,7 +60,7 @@ if(is_array($posts)) {
 				<?php echo showContent(pagebreak($post["Content"], $URL), TRUE); ?>	
 				<br />
 				<?php					
-					if(get("production") and ($i === $rand1 or $i === $rand2)) {
+					if(_get("production") and ($i === $rand1 or $i === $rand2)) {
 						?>
 							<p>
 								<script type="text/javascript"><!--

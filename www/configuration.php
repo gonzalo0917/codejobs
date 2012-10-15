@@ -44,7 +44,7 @@ if(is_array($data)) {
 	}
 }
 
-if(get("translation") === "gettext") {
+if(_get("translation") === "gettext") {
 	$languageFile = _dir ."/lib/languages/gettext/". whichLanguage(TRUE, TRUE) .".mo";
 	
 	if(file_exists($languageFile)) { 			

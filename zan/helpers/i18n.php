@@ -178,7 +178,7 @@ function getLanguages($flags = FALSE) {
 	$languages = getLanguagesFromDir();
 
 	foreach($languages as $language) {
-		$default = ($language["language"] === get("webLanguage")) ? TRUE : FALSE;
+		$default = ($language["language"] === _get("webLanguage")) ? TRUE : FALSE;
 
 		$data[] = array("default" => $default, "name" => $language["language"], "value" => getLanguage($language["language"], $flags));
 	}

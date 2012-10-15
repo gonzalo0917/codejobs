@@ -13,8 +13,8 @@ class Users_Model extends ZP_Model {
 				
 		$this->Email = $this->core("Email");
 		
-		$this->Email->fromName  = get("webName");
-		$this->Email->fromEmail = get("webEmailSend");
+		$this->Email->fromName  = _get("webName");
+		$this->Email->fromEmail = _get("webEmailSend");
 		
 		$this->Data = $this->core("Data");
 		
@@ -186,7 +186,7 @@ class Users_Model extends ZP_Model {
 			$message = $this->view("register_email", array("code" => $code), "users", TRUE);
 
 			$this->Email->email   = POST("email");
-			$this->Email->subject = __("Account Activation") ." - ". get("webName");
+			$this->Email->subject = __("Account Activation") ." - ". _get("webName");
 			$this->Email->message = $this->view("register_email", array("user" => POST("username"), "code" => $code), "users", TRUE);
 			
 			$this->Email->send();
@@ -395,7 +395,7 @@ class Users_Model extends ZP_Model {
 							$this->Db->insert("tokens", $data);
 							
 							$this->Email->email	  = $email;
-							$this->Email->subject = __("Recover Password") ." - ". get("webName");
+							$this->Email->subject = __("Recover Password") ." - ". _get("webName");
 							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
 							
 							$this->Email->send();							
@@ -430,7 +430,7 @@ class Users_Model extends ZP_Model {
 							$this->Db->insert("tokens", $data);
 							
 							$this->Email->email	  = $email;
-							$this->Email->subject = __("Recover Password") ." - ". get("webName");
+							$this->Email->subject = __("Recover Password") ." - ". _get("webName");
 							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
 
 							$this->Email->send();							

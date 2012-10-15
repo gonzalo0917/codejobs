@@ -27,7 +27,7 @@
 	?>
 			<p class="welcome">
 				<?php echo __("Welcome to the forums of"); ?> 
-				<?php echo get("webName"); ?>, <?php echo __("please login to enjoy the forums or register if you don't have an account"); ?>.
+				<?php echo _get("webName"); ?>, <?php echo __("please login to enjoy the forums or register if you don't have an account"); ?>.
 			</p>
 	<?php 
 		} 
