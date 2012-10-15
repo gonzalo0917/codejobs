@@ -161,6 +161,10 @@ class Bookmarks_Model extends ZP_Model {
 		return (is_null($tag)) ? $this->Db->countBySQL("Situation = 'Active'", $this->table) : $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
 	}
 
+	public function getBufferBookmarks($language = "all") {
+		return ($language === "all") ? $this->Db->findBy("Buffer", 1, $this->table, "ID_Bookmark, Title, Slug, Language", NULL, "rand()") : $this->Db->findBySQL("Buffer = 1 AND Language = '$language'", $this->table, "ID_Bookmark, Title, Slug, Language", NULL, "rand()");
+	}
+
 	public function getByTag($tag, $limit) {
 		$tag = str_replace("-", " ", $tag);
 		

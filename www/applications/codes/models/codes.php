@@ -217,6 +217,10 @@ class Codes_Model extends ZP_Model {
         
         return $this->Db->findBySQL("$language AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC");
 	}
+
+	public function getBufferCodes($language = "all") {
+		return ($language === "all") ? $this->Db->findBy("Buffer", 1, $this->table, "ID_Code, Title, Slug, Language", NULL, "rand()") : $this->Db->findBySQL("Buffer = 1 AND Language = '$language'", $this->table, "ID_Code, Title, Slug, Language", NULL, "rand()");
+	}
         
     private function proccessFiles($ID) {
         $files  = POST("file");
