@@ -154,13 +154,6 @@ body .redactor_toolbar li a.redactor_btn_code span		  		  { background-position:
 /*body .redactor_toolbar li a.redactor_btn_button1 span		 	  { background-position: -575px; }		*/
 
 /*
-	BUTTONS ADDED
-*/
-body .redactor_toolbar li a.redactor_btn_button1 span {
-	background-position: -475px center;
-}
-
-/*
 	Toolbar classes
 */
 .redactor_format_blockquote {	

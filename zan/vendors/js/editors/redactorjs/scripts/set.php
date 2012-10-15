@@ -7,30 +7,8 @@
 	$label1 = strip_tags(urldecode($_GET['label1']));
 	$label2 = strip_tags(urldecode($_GET['label2']));
 ?>
-if (typeof redactorSettings === 'undefined') {
-	redactorSettings = {
-		buttonsCustom: {
-			button1: {
-				title: "<?php echo $label1; ?>",
-				callback: function(obj, event, key) {
-					obj.$el.insertHtml('<hr /><p></p>');
-				}
-			},
-			button2: {
-				title: "<?php echo $label2; ?>",
-				callback: function(obj, event, key) {
-					if ($.browser.msie) {
-						alert("Your browser is not compatible with this feature. Trying using MarkItUp editor or another browser.");
-					} else {
-						obj.$el.execCommand('formatblock', '<pre>');
-					}
-				}
-			}
-		}
-	};
-}
 
-redactorSettings = $.extend(redactorSettings, {
+redactorSettings = {
 	focus: true,
 	<?php
 		if($lang !== "en") {
@@ -42,9 +20,8 @@ redactorSettings = $.extend(redactorSettings, {
 		    'image', 'video', 'file', 'table', 'link', '|',
 		    'fontcolor', 'backcolor', '|',
 		    'alignleft', 'aligncenter', 'alignright', 'justify', '|',
-		    'pagebreak', 'code'],
-	buttonsAdd: ["|", "button1", "button2"]
-});
+		    'pagebreak', 'code']
+};
 
 redactorPlugins = {
 	getSelectedHtml: function() {
