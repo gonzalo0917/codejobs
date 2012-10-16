@@ -70,6 +70,8 @@ class Blog_Controller extends ZP_Controller {
 			$data = $this->Blog_Model->preview();
 
 			if($data) {
+				$this->config("user", $this->application);
+
 				$vars["post"]    = $data;
 				$vars["URL"]     = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
 				$vars["view"] 	 = $this->view("preview", TRUE);

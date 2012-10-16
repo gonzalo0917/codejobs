@@ -178,7 +178,7 @@ class Blog_Model extends ZP_Model {
 
 			return array(
 				"Author"  		=> SESSION("ZanUser"),
-				"Content"		=> setCode(decode(POST("content", "clean")), FALSE, POST("editor") == 1),
+				"Content"		=> setCode(stripslashes(encode(POST("content", "decode", NULL))), FALSE, POST("editor") == 1),
 				"Day"	        => date("d"),
 				"Enable_Comments" => TRUE,
 				"Language" 		=> stripslashes(encode(POST("language", "decode", NULL))),

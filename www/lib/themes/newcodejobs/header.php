@@ -140,34 +140,34 @@
 
 						<div style="float: left; width: 170px; line-height: 15px;">
 							<span class="bold"><?php echo SESSION("ZanUserName"); ?></span> <br />
-							<span class="small grey"><a href="#"><?php echo __("See my profile page"); ?></a></span><br />
+							<!--span class="small grey"><a href="#"><?php echo __("See my profile page"); ?></a></span><br />
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 							
 							<span class="small grey"><a href="#"><?php echo __("Direct Messages"); ?></a></span><br />
-							<span class="small grey"><a href="#"><?php echo __("Help"); ?></a></span><br />
+							<span class="small grey"><a href="#"><?php echo __("Help"); ?></a></span><br /-->
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="<?php echo path("blog/admin"); ?>"><strong><?php echo __("My posts"); ?></strong>: <?php echo (int)SESSION("ZanUserPosts"); ?></a></span><br />
-							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><strong><?php echo __("My codes"); ?></strong>: <?php echo (int)SESSION("ZanUserCodes"); ?></a></span><br />
-							<span class="small grey"><a href="<?php echo path("bookmarks/admin"); ?>"><strong><?php echo __("My bookmarks"); ?></strong>: <?php echo (int)SESSION("ZanUserBookmarks"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("blog/admin"); ?>"><?php echo __("My posts"); ?>: <?php echo (int)SESSION("ZanUserPosts"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><?php echo __("My codes"); ?>: <?php echo (int)SESSION("ZanUserCodes"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("bookmarks/admin"); ?>"><?php echo __("My bookmarks"); ?>: <?php echo (int)SESSION("ZanUserBookmarks"); ?></a></span><br />
 							<!--span class="small grey"><strong><?php echo __("My jobs"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My courses"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My points"); ?></strong>: 0</span><br /-->
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey bold"><a href="<?php echo path("codes/add"); ?>"><?php echo __("Publish a code"); ?></a></span><br />
-							<span class="small grey"><a href="#"><?php echo __("Publish a job"); ?></a></span><br />
-							<span class="small grey bold"><a href="<?php echo path("bookmarks/add"); ?>"><?php echo __("Publish a bookmark"); ?></a></span><br />
-							<span class="small grey"><a href="#"><?php echo __("Publish a post"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("blog/add"); ?>"><?php echo __("Publish a post"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("codes/add"); ?>"><?php echo __("Publish a code"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("bookmarks/add"); ?>"><?php echo __("Publish a bookmark"); ?></a></span><br />
+							<!--span class="small grey"><a href="#"><?php echo __("Publish a job"); ?></a></span><br /-->
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="#"><?php echo __("Update my Resume"); ?></a></span><br />
+							<!--span class="small grey"><a href="#"><?php echo __("Update my Resume"); ?></a></span><br />
 
-							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
+							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div-->
 
 							<?php
 								if(SESSION("ZanUserPrivilegeID") <= 2) {

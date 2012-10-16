@@ -749,25 +749,55 @@ var RLANG = {
 				}
 
 				if (this.$el.getSelectedTagName() !== 'PRE') {
-					if (!e.shiftKey && key === 9)
-					{
-						this._shortcuts(e, 'indent'); // Tab
-					}
-					else if (e.shiftKey && key === 9 )
-					{
-						this._shortcuts(e, 'outdent'); // Shift + tab
+					if (($.browser.mozilla || $.browser.opera) && this.$el.getSelectedText().getRangeAt(0).commonAncestorContainer.tagName === 'PRE') {
+						switch (key) {
+							case 9:
+								this.$el.insertHtml('\t');
+								e.preventDefault();
+							break;
+
+							case 13:
+								if (e.metaKey || e.ctrlKey) {
+									var range = this.$el.getSelectedText().getRangeAt(0);
+									if ($(this.doc.body).children(':first').children().last().get(0) === range.commonAncestorContainer) {
+										this.$el.insertHtml('<p></p>');
+										e.preventDefault();
+									}
+								}
+							break;
+						}
+					} else {
+						if (!e.shiftKey && key === 9)
+						{
+							this._shortcuts(e, 'indent'); // Tab
+						}
+						else if (e.shiftKey && key === 9 )
+						{
+							this._shortcuts(e, 'outdent'); // Shift + tab
+						}
 					}
 				} else {
-					if (key === 9) {
+					if (key === 13 && (e.metaKey || e.ctrlKey)) {
+						var range = this.$el.getSelectedText().getRangeAt(0);
+						if ($(this.doc.body).children(':first').children().last().get(0) === range.commonAncestorContainer.parentNode) {
+							if ($.browser.mozilla ) {
+								this.$el.insertHtml('<p></p>');
+							} else {
+								$(this.doc.body).children(':first').append('<p>' + ($.browser.webkit ? '<br />' : '') + '</p>');
+								this.setFocusNode($(this.doc.body).children(':first').children().last().get(0));
+							}
+							e.preventDefault();
+						}
+					} else if (key === 9) {
 						this.$el.insertHtml('\t');
 						e.preventDefault();
-					} else if (key === 13 && $.browser.webkit) {
+					} else if (key === 13 && $.browser.webkit && !e.metaKey && !e.ctrlKey) {
 						e.preventDefault();
 						this.$el.insertHtml('\n');
 
 						var range = this.$el.getSelectedText().getRangeAt(0);
 						
-						if (range.commonAncestorContainer.parentNode.firstChild.nodeValue.substring(range.endOffset-1, range.endOffset) != '\n') {
+						if (range.commonAncestorContainer.parentNode.firstChild.nodeValue.substring(range.endOffset - 1, range.endOffset) != '\n') {
 							this.$el.insertHtml('\n');
 						}
 					}
@@ -1520,7 +1550,7 @@ var RLANG = {
 			html = html.replace(/<\/ol><\/p>/g, '</ol>');
 			html = html.replace( /<p(.*?)>&nbsp;<\/p>/gi, '');
 
-			$.each(html.split('<pre>'), $.proxy(function(i, v) {
+			$.each(html.split($.browser.msie ? '<pre contenteditable="false">' : '<pre>'), $.proxy(function(i, v) {
 				var parts, text, code;
 
 				if (i > 0) {
@@ -1556,7 +1586,7 @@ var RLANG = {
 
 				code = this.formattingRemoveBr(code);
 
-				html += (code.length > 0 ? '<pre>' + code + '</pre>' : '') + text;
+				html += (code.length > 0 ? ($.browser.msie ? '<pre contenteditable="false">' : '<pre>') + code + '</pre>' : '') + text;
 			}, this));
 
 
@@ -2445,7 +2475,7 @@ var RLANG = {
 			var data = $('#redactor_insert_code_area').val();
 			data = this.htmlTags(data);
 
-			$(this.doc.getElementById('span' + this.spanid)).after('<pre>' + data + '</pre>').remove();
+			$(this.doc.getElementById('span' + this.spanid)).after('<pre contenteditable="false">' + data + '</pre>').remove();
 			this.syncCode();
 
 			this.modalClose();
@@ -3308,6 +3338,58 @@ var RLANG = {
 	{
 		this.data('redactor').execCommand(cmd, param);
 	};
+
+	$.fn.getSelectedHtml = function()
+	{
+		if ($(this).data("redactor")) {
+			var sel;
+
+			if (typeof window.getSelection === 'function') {
+				sel = $(this).data("redactor").$frame.get(0).contentWindow.getSelection();
+
+				if (sel.rangeCount) {
+					var container = document.createElement("div");
+					for (var i = 0; i < sel.rangeCount; i++) container.appendChild(sel.getRangeAt(i).cloneContents());
+					return container.innerHTML;
+				}
+			} else if(typeof document.selection !== 'undefined') {
+				sel = $(this).getDoc().selection;
+
+				if (sel.type === "Text") {
+					return sel.createRange().htmlText;
+				}
+			}
+		}
+		return '';
+	};
+
+	$.fn.getSelectedTagName = function()
+	{
+		if ($(this).data("redactor")) {
+			var sel;
+
+			if (typeof window.getSelection === 'function') {
+				sel = $(this).data("redactor").$frame.get(0).contentWindow.getSelection();
+				return sel.getRangeAt(0).commonAncestorContainer.parentNode.tagName;
+			} else if(typeof document.selection !== 'undefined') {
+				sel = $(this).getDoc().selection;
+				return sel.createRange().parentElement().nodeName;
+			}
+			return '';
+		}
+	};
+
+	$.fn.getSelectedText = function()
+	{
+		if ($(this).data("redactor")) {
+			if (typeof window.getSelection === 'function') {
+				return $(this).data("redactor").$frame.get(0).contentWindow.getSelection();
+			} else if(typeof document.selection !== 'undefined') {
+				return $(this).getDoc().selection.createRange();
+			}
+		}
+		return '';
+	}
 
 })(jQuery);
 

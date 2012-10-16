@@ -1,5 +1,8 @@
 <?php 
-		$in  = ($post["Tags"] !== "") ? __("in") : NULL;
+	if(!defined("_access")) {
+		die("Error: You don't have permission to access here..."); 
+	}
+	$in  = ($post["Tags"] !== "") ? __("in") : NULL;
 ?>
 		<div class="post">
 			<div class="post-title">
@@ -27,31 +30,17 @@
 				
 			<div class="post-content">
 				<?php echo showContent($post["Content"], $URL); ?>
-				<br />
-				<?php 
-					if(_get("production")) {
-					?>
-						<p>
-							<script type="text/javascript"><!--
-								google_ad_client = "ca-pub-4006994369722584";
-								/* CodeJobs.biz */
-								google_ad_slot = "1672839256";
-								google_ad_width = 728;
-								google_ad_height = 90;
-								//-->
-								</script>
-								<script type="text/javascript"
-								src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-							</script>
-						</p>
-					<?php
-					}
-				?>
 			</div>
 		</div>
-		<br /></br />
-		<?php
-			if($post["Enable_Comments"]) {
-				?><div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="2" data-width="750"></div><?php
-			}
-		?>
+	
+		<form action="<?php echo path("blog/add/"); ?>" method="post" style="display: inline">
+			<fieldset style="display:inline">
+				<input type="hidden" name="title" value="<?php echo htmlentities($post["Title"], ENT_QUOTES, "UTF-8"); ?>" />
+				<input type="hidden" name="description" value="<?php echo htmlentities($post["Content"], ENT_QUOTES, "UTF-8"); ?>" />
+				<input type="hidden" name="tags" value="<?php echo htmlentities($post["Tags"], ENT_QUOTES, "UTF-8"); ?>" />
+				<input type="hidden" name="language" value="<?php htmlentities($post["Language"], ENT_QUOTES, "UTF-8"); ?>" />
+				<input type="hidden" name="ID" value="" />
+				<input type="submit" disabled name="save" onclick="needToConfirm = false" class="btn btn-success" value="<?php echo __("Save"); ?>" />
+				<input type="submit" onclick="needToConfirm = false" class="btn" value="<?php echo __("Go back"); ?>" />
+		</fieldset>
+		</form>
