@@ -179,7 +179,8 @@ class Blog_Model extends ZP_Model {
 			return $error;
 		}
 		
-		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
+		$this->data["Situation"] 		= (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
+		$this->data["Enable_Comments"]  = TRUE;
 
 		$lastID = $this->Db->insert($this->table, $this->data);
 
