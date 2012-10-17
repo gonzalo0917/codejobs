@@ -60,9 +60,6 @@ class Blog_Controller extends ZP_Controller {
 		isConnected();
 		
 		if(POST("preview")) {
-			$this->CSS("posts", $this->application);
-			$this->CSS("forms");
-
 			$this->helper(array("forms","html"));
 			
 			$this->title(htmlentities(encode(POST("title", "decode", NULL)), ENT_QUOTES, "UTF-8"));
@@ -70,6 +67,10 @@ class Blog_Controller extends ZP_Controller {
 			$data = $this->Blog_Model->preview();
 
 			if($data) {
+				$this->CSS("posts", $this->application);
+				$this->CSS("forms");
+				$this->js("preview", $this->application);
+
 				$this->config("user", $this->application);
 
 				$vars["post"]    = $data;
