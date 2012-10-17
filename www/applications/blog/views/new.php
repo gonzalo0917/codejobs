@@ -5,14 +5,14 @@
 
 	$ID  	     = isset($data) ? recoverPOST("ID", 0) 								: 0;
 	$title       = isset($data) ? recoverPOST("title", $data["Title"]) 				: recoverPOST("title");
-	$content 	 = isset($data) ? recoverPOST("content", $data["Content"])		 	: recoverPOST("content");
+	$content 	 = isset($data) ? recoverPOST("content", $data["Content"])		 	: stripslashes(recoverPOST("content"));
 	$tags    	 = isset($data) ? recoverPOST("tags", $data["Tags"]) 				: recoverPOST("tags");
 	$language  	 = isset($data) ? recoverPOST("language", $data["Language"])  	 	: recoverPOST("language");
 	$edit        = isset($data) ? TRUE 												: FALSE;
 	$action	     = isset($data) ? "edit"											: "save";
 	$href	     = path("blog/add/");
 	$editor 	 = _get("defaultEditor") === "Redactor" ? 1 : 2;
-	//exit(var_dump(recoverPOST("content")));
+	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__("Add new post"), "resalt");
