@@ -172,6 +172,28 @@ class Blog_Model extends ZP_Model {
 		return getAlert(__("The post has been edited correctly"), "success", $this->URL);
 	}
 
+	public function add() {
+		$error = $this->editOrSave("save");
+
+		if($error) {
+			return $error;
+		}
+		
+		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
+
+		$lastID = $this->Db->insert($this->table, $this->data);
+
+		$this->Users_Model = $this->model("Users_Model");
+
+		$this->Users_Model->setCredits(1, 9);
+		
+		if($lastID) {
+			return getAlert(__("The post has been saved correctly"), "success");	
+		}
+		
+		return getAlert(__("Insert error"));
+	}
+
 	public function preview() {
 		if(POST("title") AND POST("content")) {
 			$this->helper("time");

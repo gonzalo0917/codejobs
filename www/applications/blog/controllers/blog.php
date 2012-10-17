@@ -58,6 +58,10 @@ class Blog_Controller extends ZP_Controller {
 
 	public function add() {
 		isConnected();
+
+		if(POST("save")) {
+			$vars["alert"] = $this->Blog_Model->add();
+		} 
 		
 		if(POST("preview")) {
 			$this->helper(array("forms","html"));
