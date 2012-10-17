@@ -56,7 +56,7 @@
 				"style"  => "height: 240px;", 
 				"field"  => __("Content"), 
 				"p" 	 => TRUE, 
-				"value"  => $content
+				"value"  => stripslashes($content)
 			));
 
 			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));

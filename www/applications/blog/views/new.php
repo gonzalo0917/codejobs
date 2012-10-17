@@ -12,7 +12,7 @@
 	$action	     = isset($data) ? "edit"											: "save";
 	$href	     = path("blog/add/");
 	$editor 	 = _get("defaultEditor") === "Redactor" ? 1 : 2;
-	
+	//exit(var_dump(recoverPOST("content")));
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__("Add new post"), "resalt");

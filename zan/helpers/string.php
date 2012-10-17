@@ -445,7 +445,7 @@ function showContent($content) {
 	$content = str_replace("------", "", $content);
 	$content = stripslashes($content);
 	
-	return setCode($content, TRUE);
+	return setCode($content, TRUE, TRUE);
 }
 
 function setCode($HTML, $return = FALSE, $decode = FALSE) {

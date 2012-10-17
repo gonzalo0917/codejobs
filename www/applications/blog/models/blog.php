@@ -93,7 +93,7 @@ class Blog_Model extends ZP_Model {
 		$data = array(
 			"ID_User"      => SESSION("ZanUserID"),
 			"Slug"         => slug(POST("title", "clean")),
-			"Content"      => setCode(decode(POST("content", "clean")), FALSE, POST("editor") == 1),
+			"Content"      => setCode(decode(POST("content", "clean")), FALSE),
 			"Author"       => SESSION("ZanUser"),
 			"Year"	       => date("Y"),
 			"Month"	       => date("m"),
@@ -178,7 +178,7 @@ class Blog_Model extends ZP_Model {
 
 			return array(
 				"Author"  		=> SESSION("ZanUser"),
-				"Content"		=> setCode(stripslashes(encode(POST("content", "decode", NULL))), FALSE, POST("editor") == 1),
+				"Content"		=> setCode(stripslashes(encode(POST("content", "decode", NULL))), FALSE),
 				"Day"	        => date("d"),
 				"Enable_Comments" => TRUE,
 				"Language" 		=> stripslashes(encode(POST("language", "decode", NULL))),
