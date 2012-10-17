@@ -39,7 +39,7 @@
 			<input type="hidden" name="tags" value="<?php echo htmlentities($post["Tags"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="language" value="<?php htmlentities($post["Language"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="ID" value="" />
-			<input type="submit" disabled name="save" onclick="needToConfirm = false" class="btn btn-success" value="<?php echo __("Save"); ?>" />
+			<input type="submit" name="save" onclick="needToConfirm = false" class="btn btn-success" value="<?php echo __("Save"); ?>" />
 			<input type="submit" onclick="needToConfirm = false" class="btn" value="<?php echo __("Go back"); ?>" />
 	</fieldset>
 	</form>
