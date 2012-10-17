@@ -36,7 +36,7 @@
 		<form action="<?php echo path("blog/add/"); ?>" method="post" style="display: inline">
 			<fieldset style="display:inline">
 				<input type="hidden" name="title" value="<?php echo htmlentities($post["Title"], ENT_QUOTES, "UTF-8"); ?>" />
-				<input type="hidden" name="description" value="<?php echo htmlentities($post["Content"], ENT_QUOTES, "UTF-8"); ?>" />
+				<input type="hidden" name="content" value="<?php echo htmlentities($post["Content"], ENT_QUOTES, "UTF-8"); ?>" />
 				<input type="hidden" name="tags" value="<?php echo htmlentities($post["Tags"], ENT_QUOTES, "UTF-8"); ?>" />
 				<input type="hidden" name="language" value="<?php htmlentities($post["Language"], ENT_QUOTES, "UTF-8"); ?>" />
 				<input type="hidden" name="ID" value="" />
