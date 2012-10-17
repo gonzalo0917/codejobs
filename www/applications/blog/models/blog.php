@@ -185,7 +185,7 @@ class Blog_Model extends ZP_Model {
 
 		$this->Users_Model = $this->model("Users_Model");
 
-		$this->Users_Model->setCredits(1, 9);
+		$this->Users_Model->setCredits(1, 3);
 		
 		if($lastID) {
 			return getAlert(__("The post has been saved correctly"), "success");	
