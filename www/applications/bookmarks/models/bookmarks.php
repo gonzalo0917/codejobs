@@ -128,7 +128,7 @@ class Bookmarks_Model extends ZP_Model {
 			return array(
 				"Author"  		=> SESSION("ZanUser"),
 				"Description" 	=> stripslashes(encode(POST("description", "decode", NULL))),
-				"Language" 		=> stripslashes(encode(POST("language", "decode", NULL))),
+				"Language" 		=> POST("language"),
 				"Start_Date"	=> now(4),
 				"Tags" 			=> stripslashes(encode(POST("tags", "decode", NULL))),
 				"Title" 		=> stripslashes(encode(POST("title", "decode", NULL))),

@@ -203,7 +203,7 @@ class Blog_Model extends ZP_Model {
 				"Content"		=> setCode(stripslashes(encode(POST("content", "decode", NULL))), FALSE),
 				"Day"	        => date("d"),
 				"Enable_Comments" => TRUE,
-				"Language" 		=> stripslashes(encode(POST("language", "decode", NULL))),
+				"Language" 		=> POST("language"),
 				"Month"	        => date("m"),
 				"Start_Date"	=> now(4),
 				"Slug"          => slug(POST("title", "clean")),

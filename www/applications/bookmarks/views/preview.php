@@ -42,7 +42,7 @@
 			<input type="hidden" name="URL" value="<?php echo htmlentities($bookmark["URL"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="description" value="<?php echo htmlentities($bookmark["Description"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="tags" value="<?php echo htmlentities($bookmark["Tags"], ENT_QUOTES, "UTF-8"); ?>" />
-			<input type="hidden" name="language" value="<?php htmlentities($bookmark["Language"], ENT_QUOTES, "UTF-8"); ?>" />
+			<input type="hidden" name="language" value="<?php echo htmlentities($bookmark["Language"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="ID" value="" />
 			<input type="submit" name="save" onclick="needToConfirm = false" class="btn btn-success" value="<?php echo __("Save"); ?>" />
 			<input type="submit" onclick="needToConfirm = false" class="btn" value="<?php echo __("Go back"); ?>" />
