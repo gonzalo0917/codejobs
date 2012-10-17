@@ -52,26 +52,3 @@
 </div>
 
 <div class="preview"><?php echo __("Preview"); ?></div>
-
-<script type="text/javascript">
-	var needToConfirm = true;
-
-	$(".preview").fadeIn("fast").delay(400).fadeOut("slow");
-
-	$(window).on("beforeunload", function () {
-		if (needToConfirm) {
-		    if (/Firefox[\/\s](\d+)/.test(navigator.userAgent) && new Number(RegExp.$1) >= 4) {
-		        if (confirm("<?php echo __("The changes you have made have not been saved yet"); ?>. <?php echo __("Are you sure you want to leave?"); ?>")) {
-		            history.go();
-		        } else {
-		            window.setTimeout(function () {
-		                window.stop();
-		            }, 1);
-		        }
-		    } else {
-		        return "The changes you have made have not been saved yet.";
-		    }
-		}
-	});
-
-</script>
