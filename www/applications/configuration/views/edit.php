@@ -17,9 +17,10 @@
 	$activation   = recoverPOST("activation", $data[0]["Activation"]);
 	$emailRecieve = recoverPOST("email1", $data[0]["Email_Recieve"]);
 	$emailSend    = recoverPOST("email2", $data[0]["Email_Send"]);
+	$editor    	  = recoverPOST("editor", $data[0]["Editor"]);	
 	$situation    = recoverPOST("situation", $data[0]["Situation"]);	
 	$action	      = "edit";
-	$href		  = path($this->application ."/cpanel/edit");
+	$href		  = path(whichApplication() ."/cpanel/edit");
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -166,6 +167,27 @@
 				"class" => "required", 
 				"p" 	=> TRUE, 
 				"field" => __("Situation")), $options
+			);
+			
+			$options = array(
+				0 => array(
+					"value"    => "Redactor",
+					"option"   => "Redactor",
+					"selected" => ($editor === "Redactor") ? TRUE : FALSE
+				),
+				
+				1 => array(
+					"value"    => "MarkItUp",
+					"option"   => "MarkItUp",
+					"selected" => ($editor === "MarkItUp") ? TRUE : FALSE
+				)
+			);
+
+			echo formSelect(array(
+				"name" 	=> "editor", 
+				"class" => "required", 
+				"p" 	=> TRUE, 
+				"field" => __("Default editor")), $options
 			);			
 			
 			echo formTextarea(array(
