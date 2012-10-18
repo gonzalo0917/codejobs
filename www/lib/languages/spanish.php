@@ -49,6 +49,7 @@ $phrase["create_my_account"]				  			= "Crear mi cuenta";
 $prhase["date"]											= "Fecha";
 $phrase["december"]  									= "Diciembre";
 $phrase["default_application"] 							= "Aplicación por defecto";
+$phrase["default_editor"]	 							= "Editor por defecto";
 $phrase["default_theme"] 								= "Diseño por defecto";
 $phrase["delete"] 										= "Eliminar";
 $phrase["descending"] 									= "Descendentemente";
