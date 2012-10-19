@@ -118,26 +118,12 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Enable_Comments` tinyint(1) NOT NULL DEFAULT '0',
   `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
   `Pwd` varchar(40) NOT NULL,
+  `Buffer` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `Code` varchar(10) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
-
---
--- Dumping data for table `muu_blog`
---
-
-INSERT INTO `muu_blog` (`ID_Post`, `ID_User`, `Title`, `Slug`, `Content`, `Tags`, `Author`, `Start_Date`, `Text_Date`, `Year`, `Month`, `Day`, `Views`, `Image_Small`, `Image_Medium`, `Comments`, `Enable_Comments`, `Language`, `Pwd`, `Situation`) VALUES
-(1, 1, 'Post 1', 'post-1', '<p>Post 1</p>', '', 'codejobs', 1337738072, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 28, '', '', 0, 1, 'Spanish', '', 'Active'),
-(2, 1, 'Post 2', 'post-2', '<p>asdasdasd</p>', '', 'codejobs', 1337738210, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 26, '', '', 0, 1, 'Spanish', '', 'Active'),
-(3, 1, 'Post 3', 'post-3', '<p>asdasdasdsad</p>', '', 'codejobs', 1337738232, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 27, '', '', 0, 1, 'Spanish', '', 'Active'),
-(4, 1, 'Ajax', 'ajax', '<p>Ajax</p>\r\n<p>[Video: http://www.youtube.com/watch?v=dDuClRKEx5A]</p>', '', 'codejobs', 1337738320, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 26, '', '', 0, 1, 'Spanish', '', 'Active'),
-(5, 1, 'Android', 'android', '<p>sdasdasdad</p>', '', 'codejobs', 1337739153, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 26, '', '', 0, 1, 'Spanish', '', 'Active'),
-(7, 1, 'CodeIgniter', 'codeigniter', '<p>aasdsdasdsd</p>', '', 'codejobs', 1337740342, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 26, '', '', 0, 1, 'Spanish', '', 'Active'),
-(8, 1, 'CSS3', 'css3', '<p>ASDSADASD</p>', '', 'codejobs', 1337740383, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 26, '', '', 0, 1, 'Spanish', '', 'Active'),
-(9, 1, 'Databases', 'databases', '<p>asdsadasdasdsadsadsad</p>\r\n<p>sadsadsadsadsadasd</p>\r\n<p><!-- pagebreak -->sadsadsadsad</p>\r\n<p>sadasdasdasdsa</p>', '', 'codejobs', 1337740432, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 28, '', '', 0, 1, 'Spanish', '', 'Active'),
-(10, 1, 'eMarketing', 'emarketing', '<p>asdasdasdasdsad</p>\r\n<p><img src="https://si0.twimg.com/profile_images/2213925750/Candi_Mini.png" alt="" width="300" height="234" /></p>', '', 'codejobs', 1337740491, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 45, '', '', 0, 1, 'Spanish', '', 'Active'),
-(11, 1, 'Git & Github', 'git-github', '<p>sdasdsad</p>', 'git, github, php', 'codejobs', 1337741954, 'Wednesday, 23 de Mayo de 2012', '2012', '05', '23', 141, '', '', 0, 1, 'Spanish', '', 'Active');
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 -- --------------------------------------------------------
 
@@ -346,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
   `Theme` varchar(25) NOT NULL DEFAULT 'ZanPHP',
   `Validation` varchar(15) NOT NULL DEFAULT 'Super Admin',
   `Application` varchar(30) NOT NULL DEFAULT 'Blog',
-  `Editor` varchar(15) NOT NULL DEFAULT 'MarkItUp',
+  `Editor` varchar(15) NOT NULL DEFAULT 'MarkitUp',
   `Message` text NOT NULL,
   `Activation` varchar(10) NOT NULL DEFAULT 'Nobody',
   `Email_Recieve` varchar(50) NOT NULL,
@@ -359,8 +345,9 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 -- Dumping data for table `muu_configuration`
 --
 
-INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'http://localhost/codejobs', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz', 'Active');
+INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
+(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'http://localhost/codejobs',  'es', 'Spanish',  'newcodejobs',  'Active', 'blog', 'MarkitUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz',  'Active');
+
 
 -- --------------------------------------------------------
 
