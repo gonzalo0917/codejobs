@@ -181,6 +181,8 @@ class CPanel_Controller extends ZP_Controller {
 		$data = $this->$Model->getByID($ID);
 		
 		if($data) {
+			$this->helper("forms");
+			
 			$this->$Model->read($ID);
 			
 			$this->vars["alert"] = FALSE;

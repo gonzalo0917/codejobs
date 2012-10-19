@@ -57,3 +57,37 @@
 		<a href="<?php echo $back;?>" title="<?php echo __("Back"); ?>"><?php echo __("Back");?></a>
 	</p>
 </div>
+<?php
+	echo div("add-form", "class");
+		echo formOpen(path("feedback/cpanel/respond"), "form-add", "form-add");
+			echo p(__("Respond"), "resalt");			
+
+			echo formInput(array(	
+				"id"    => "email",
+				"name" 	=> "to", 
+				"class" => "required", 
+				"field" => __("To"), 
+				"p" 	=> TRUE, 
+				"value" => $email
+			));
+
+			echo formInput(array(	
+				"id"    => "email",
+				"name" 	=> "from", 
+				"class" => "required", 
+				"field" => __("From"), 
+				"p" 	=> TRUE, 
+				"value" => _get("webEmailSend")
+			));
+
+			echo formTextarea(array(	 
+				"id"     => "redactor",
+				"name" 	 => "content", 
+				"class"  => "markItUp", 
+				"style"  => "height: 240px;", 
+				"field"  => __("Content"), 
+				"p" 	 => TRUE				
+			));
+
+		echo formClose();
+	echo div(FALSE);
