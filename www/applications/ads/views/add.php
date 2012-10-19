@@ -94,7 +94,7 @@
 			
 			echo formTextarea(array(
 				"name" 	=> "code", 
-				"class" => "span10 required", 
+				"class" => "required", 
 				"style" => "height: 150px;", 
 				"field" => __("Code"), 
 				"p" 	=> TRUE, 
