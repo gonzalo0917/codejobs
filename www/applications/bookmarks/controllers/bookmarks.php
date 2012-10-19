@@ -117,6 +117,14 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 
+	public function author($user = NULL, $bookmarkID = NULL, $slug = NULL) {
+		if($user === NULL) {
+			$this->index();
+		} elseif($bookmarkID !== "tag") {
+			$this->index($bookmarkID, $slug);
+		}
+	}
+
 	public function like($ID) {
 		$this->Users_Model = $this->model("Users_Model");
 
