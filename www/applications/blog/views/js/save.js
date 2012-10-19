@@ -38,4 +38,4 @@ function saveDraft() {
 
 setInterval(function() {
     saveDraft();
-}, 50000);
+}, 5 * 60 * 1000);
