@@ -103,10 +103,11 @@ class Blog_Model extends ZP_Model {
 			"Start_Date"   => now(4),
 			"Text_Date"    => decode(now(2)),
 			"Tags"		   => POST("tags"),
-			"Buffer"	   => POST("code")
+			"Buffer"	   => POST("buffer"),
+			"Code"	       => POST("code"),
 		);
 
-		$this->Data->ignore(array("editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
+		$this->Data->ignore(array("temp_title", "temp_tags", "temp_content", "editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
 
 		$this->data = $this->Data->proccess($data, $validations);
 
@@ -116,20 +117,17 @@ class Blog_Model extends ZP_Model {
 	}
 	
 	private function save() {	
-		$this->Cache = $this->core("Cache");
+		$data = $this->Db->findBySQL("Code = '". POST("code") ."' AND Situation = 'Draft'", $this->table);
 		
+		$insertID = (!$data) ? $this->Db->insert($this->table, $this->data) : $this->Db->update($this->table, $this->data, $data[0]["ID_Post"]);
+
+		$this->Cache = $this->core("Cache");	
 		$this->Cache->removeAll("blog");
-		
-		$insertID = $this->Db->insert($this->table, $this->data);
-		
-		if(isset($this->mural["name"]) and $this->mural["name"] !== "") {			
-			$this->Db->insert("mural", array("ID_Post" => $insertID2, "Title" => POST("title"), "URL" => $this->URL, "Image" => $this->mural));
-		}
 
 		$this->Users_Model = $this->model("Users_Model");
 		$this->Users_Model->setCredits(1, 3);
 			
-		return getAlert(__("The post has been saved correctly"), "success", $this->URL);
+		return getAlert(__("The post has been saved correctly"), "success");
 	}
 
 	public function saveDraft() {
@@ -156,7 +154,7 @@ class Blog_Model extends ZP_Model {
 			
 			$this->Db->update($this->table, $data, $postID);			
 
-			echo "Last updated on ". now(6);
+			echo __("Last update on") ." ". now(6);
 		} else {
 			$data = array(
 				"ID_User"    => SESSION("ZanUserID"),
@@ -179,7 +177,7 @@ class Blog_Model extends ZP_Model {
 			
 			$insertID = $this->Db->insert($this->table, $data);
 
-			echo "Saved on ". now(6);
+			echo __("Saved draft on") ." ". now(6);
 		}
 
 	}
@@ -189,33 +187,9 @@ class Blog_Model extends ZP_Model {
 		
 		$this->Cache->removeAll("blog");
 		
-		$this->Db->update($this->table, $this->data, POST("ID"));				
-			
-		if(!is_array($this->mural) and !$this->muralExist) {
-			$values = array(
-				"ID_Post" => POST("ID"),
-				"Title"	  => $this->data["Title"],
-				"URL"	  => $this->URL, 
-				"Image"	  => $this->mural
-			);
+		$this->Db->update($this->table, $this->data, POST("ID"));
 		
-			$this->Db->insert("mural", $values);	
-		} elseif(!is_array($this->mural) and $this->muralExist) {
-			unlink($this->muralExist);
-						
-			$this->Db->deleteBy("ID_Post", POST("ID"), "mural");
-			
-			$values = array(
-				"ID_Post" => POST("ID"),
-				"Title"	  => $this->title,
-				"URL"	  => $this->URL, 
-				"Image"	  => $this->mural
-			);
-			
-			$this->Db->insert("mural", $values);	
-		}
-		
-		return getAlert(__("The post has been edited correctly"), "success", $this->URL);
+		return getAlert(__("The post has been edited correctly"), "success");
 	}
 
 	public function add() {

@@ -76,7 +76,7 @@
 								$percentage = 0;
 							}
 							
-							$show = ($total === 1) ? '1 ' . __("vote") : $total .' '. __("votes");
+							$show = ($total === 1) ? '1 ' . __("_vote") : $total .' '. __("votes");
 						?>
 						
 						<br />
