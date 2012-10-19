@@ -13,7 +13,7 @@ class Blog_Model extends ZP_Model {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "blog";
-		$this->fields   = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Small, Image_Medium, Comments, Enable_Comments, Language, Pwd, Situation";
+		$this->fields   = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Small, Image_Medium, Comments, Enable_Comments, Language, Pwd, Buffer, Code, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -66,8 +66,7 @@ class Blog_Model extends ZP_Model {
 		}
 		
 		$lang = getLang(POST("language"));
-
-		$this->URL        = path($lang . "/blog/". date("Y") ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean")), TRUE);
+		
 		$this->muralExist = POST("mural_exist");
 		
 		$this->helper(array("alerts", "time", "files"));
@@ -102,8 +101,9 @@ class Blog_Model extends ZP_Model {
 			"Image_Medium" => isset($this->image["medium"]) ? $this->image["medium"] : NULL,
 			"Pwd"	       => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,
 			"Start_Date"   => now(4),
-			"Text_Date"    => now(2),
-			"Tags"		   => POST("tags")
+			"Text_Date"    => decode(now(2)),
+			"Tags"		   => POST("tags"),
+			"Buffer"	   => POST("code")
 		);
 
 		$this->Data->ignore(array("editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
@@ -125,17 +125,63 @@ class Blog_Model extends ZP_Model {
 		if(isset($this->mural["name"]) and $this->mural["name"] !== "") {			
 			$this->Db->insert("mural", array("ID_Post" => $insertID2, "Title" => POST("title"), "URL" => $this->URL, "Image" => $this->mural));
 		}
-	
-		if(SESSION("ZanUserMethod") === "twitter") {
-			$this->Twitter_Model = $this->model("Twitter_Model");
-				
-			$this->Twitter_Model->publish('"'. $this->title .'"', $this->URL);
-		}
 
 		$this->Users_Model = $this->model("Users_Model");
 		$this->Users_Model->setCredits(1, 3);
 			
 		return getAlert(__("The post has been saved correctly"), "success", $this->URL);
+	}
+
+	public function saveDraft() {
+		$this->helper("time");
+		
+		$postID	= POST("postID");
+
+		$data = ($postID > 0) ? $this->Db->find($postID, $this->table) : $this->Db->findBySQL("Code = '". POST("code") ."' AND Situation = 'Draft'", $this->table);		
+
+		if($data) {						
+			$postID = $data[0]["ID_Post"];
+
+			$data = array(				
+				"Title"		=> POST("title"),				
+				"Slug"      => slug(POST("title", "clean")),
+				"Content"   => setCode(decode(POST("content", "clean")), FALSE),				
+				"Pwd"	    => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,				
+				"Tags"		=> POST("tags"),
+				"Language"  => POST("language"),
+				"Buffer"	=> (int) POST("buffer"),
+				"Code"		=> POST("code"),
+				"Situation" => POST("situation")
+			);			
+			
+			$this->Db->update($this->table, $data, $postID);			
+
+			echo "Last updated on ". now(6);
+		} else {
+			$data = array(
+				"ID_User"    => SESSION("ZanUserID"),
+				"Title"		 => POST("title"),				
+				"Slug"       => slug(POST("title", "clean")),
+				"Content"    => setCode(decode(POST("content", "clean")), FALSE),
+				"Author"     => SESSION("ZanUser"),
+				"Year"	     => date("Y"),
+				"Month"	     => date("m"),
+				"Day"	     => date("d"),
+				"Language"   => POST("language"),
+				"Pwd"	     => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,
+				"Start_Date" => now(4),
+				"Text_Date"  => decode(now(2)),
+				"Tags"		 => POST("tags"),
+				"Buffer"	 => (int) POST("buffer"),
+				"Code"		 => POST("code"),
+				"Situation"  => POST("situation")
+			);			
+			
+			$insertID = $this->Db->insert($this->table, $data);
+
+			echo "Saved on ". now(6);
+		}
+
 	}
 	
 	private function edit() {	

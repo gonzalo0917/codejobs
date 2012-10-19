@@ -316,11 +316,13 @@ function month($month) {
 }
 
 function now($format, $hour = FALSE, $language = NULL) {
+	date_default_timezone_set(_defaultTimezone);
+
 	if(is_null($language)) {
 		$language = whichLanguage();
 	}
 	
-	if($hour) {	
+	if($hour === TRUE) {	
 		$time	 = time() + 7200;
 		$hours 	 = (int) date("H", $time);
 		$minutes = date("i", $time);
@@ -368,10 +370,10 @@ function now($format, $hour = FALSE, $language = NULL) {
 	} elseif($format === 5) {
 		return strtotime($hour);
 	} elseif($format === 6) {
-		return date("d/m/Y H:i:s", $hour);
+		return date("m/d/Y H:i:s", time());
 	} elseif($format === 7) {
-		return date("Y-m-d H:i:s");
+		return date("Y-m-d H:i:s", time());
 	} else {
-		return date("d/m/Y", $format);				  
+		return date("d/m/Y", time());				  
 	}
 }

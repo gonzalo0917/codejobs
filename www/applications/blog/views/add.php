@@ -9,19 +9,22 @@
 	$content   = isset($data) ? $data[0]["Content"] 	 						 : recoverPOST("content");	
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");				
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
-	$pwd   	   = isset($data) ? recoverPOST("pwd", $data[0]["Pwd"])				 : recoverPOST("pwd");
+	$buffer    = isset($data) ? recoverPOST("buffer", $data[0]["Buffer"])		 : 1;
+	$code      = isset($data) ? recoverPOST("code", $data[0]["Code"])		 	 : recoverPOST("code");
 	$edit      = isset($data) ? TRUE											 : FALSE;
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
+
 	$editor    = _get("defaultEditor") === "Redactor" ? 1 : 2;
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : '<div id="alert-message" class="alert alert-success no-display"></div>';
 
 			echo formInput(array(	
+				"id"    => "title",
 				"name" 	=> "title", 
 				"class" => "span10 required", 
 				"field" => __("Title"), 
@@ -30,6 +33,7 @@
 			));
 
 			echo formInput(array(	
+				"id"    => "tags",
 				"name" 	=> "tags", 
 				"class" => "span10 required", 
 				"field" => __("Tags"), 
@@ -43,6 +47,7 @@
 			);
 
 			echo formSelect(array(
+				"id"		=> "editor",
 				"name" 		=> "editor", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("Editor"), 
@@ -51,6 +56,7 @@
 			);
 
 			echo formTextarea(array(	 
+				"id"     => "redactor",
 				"name" 	 => "content", 
 				"class"  => "markItUp", 
 				"style"  => "height: 240px;", 
@@ -72,45 +78,36 @@
 				"p" 	=> TRUE, 
 				"field" => __("Enable Comments")), 
 				$options
-			);				
-			
+			);		
+
 			$options = array(
-				0 => array("value" => "Active",   "option" => __("Active"), 	  "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __("Inactive"),  "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => 1, "option" => __("Active"), 	  "selected" => ($buffer === 1) ? TRUE : FALSE),
+				1 => array("value" => 0, "option" => __("Inactive"),  "selected" => ($buffer === 0) ? TRUE : FALSE)
 			);
 
 			echo formSelect(array(
+				"id"    => "buffer",
+				"name" 	=> "buffer", 
+				"p" 	=> TRUE, 
+				"class" => "required", 
+				"field" => __("Buffer")), 
+				$options
+			);
+			
+			$options = array(
+				0 => array("value" => "Draft",   "option" => __("Draft"),     "selected" => ($situation === "Draft")    ? TRUE : FALSE),
+				1 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
+				2 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+			);
+
+			echo formSelect(array(
+				"id"    => "situation",
 				"name" 	=> "situation", 
 				"p" 	=> TRUE, 
 				"class" => "required", 
 				"field" => __("Situation")), 
 				$options
-			);
-						
-			if(!isset($pwd)) { 
-				echo formInput(array(
-					"name" 	=> "pwd", 
-					"class" => "span10", 
-					"field" => __("Password"), 
-					"p" 	=> TRUE, 
-					"value" => $pwd)
-				);	
-			} else { 
-				echo formField(NULL, __("Password") ."<br />");
-				
-				echo formInput(array(
-					"id" 	=> "lock", 
-					"class" => "lock", 
-					"type" 	=> "button")
-				);
-
-							
-				echo formInput(array(
-					"id" 	=> "password", 
-					"type" 	=> "hidden", 
-					"value" => $pwd
-				));
-			}
+			);			
 
 			if(isset($medium)) {
 				echo img(path($medium, TRUE));
@@ -119,6 +116,7 @@
 			echo formSave($action, TRUE, $ID);
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));
+			echo formInput(array("id"   => "code", "name" => "code", "type" => "hidden", "value" => code(10)));
 		echo formClose();
 	echo div(FALSE);
 ?>

@@ -42,6 +42,7 @@ define("_sh", "/");
 define("_corePath", "zan");
 define("_index", "index.php");
 define("_secretKey", "_eh{Ll&}`<6Y\mg1Qw(;;|C3N9/7*HTpd7SK8t/[}R[vW2)vsPgBLRP2u(C|4]%m_");
+define("_defaultTimezone", "America/Mexico_City");
 
 /**
  * Cache

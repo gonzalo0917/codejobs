@@ -637,6 +637,8 @@ function POST($position = FALSE, $coding = "decode", $filter = "escape") {
 				$POST = $_POST[$position];
 			}		
 		}	
+	} elseif(isset($_POST[$position]) and $_POST[$position] === 0) {
+		return 0;
 	} else {
 		return FALSE;
 	}
@@ -710,6 +712,8 @@ function GET($position = FALSE, $coding = "decode", $filter = "escape") {
 				$GET = $_GET[$position];
 			}		
 		}	
+	} elseif(isset($_GET[$position]) and $_GET[$position] === 0) {
+		return 0;
 	} else {
 		return FALSE;
 	}

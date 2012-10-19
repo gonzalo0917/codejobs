@@ -40,6 +40,10 @@ class CPanel_Controller extends ZP_Controller {
 		}
 	}
 
+	public function draft() {
+		$this->{"$this->Model"}->saveDraft();
+	}
+
 	public function check() {
 		if(POST("trash") and is_array(POST("records"))) { 
 			foreach(POST("records") as $record) {
@@ -135,6 +139,7 @@ class CPanel_Controller extends ZP_Controller {
 		$this->js("markitup");
 		$this->js("switch-editor");
 		$this->js("new", "blog");
+		$this->js("save", "blog");
 		
 		$this->title("Add");
 		
@@ -172,6 +177,7 @@ class CPanel_Controller extends ZP_Controller {
 		$this->js("markitup");
 		$this->js("switch-editor");
 		$this->js("new", "blog");
+		$this->js("save", "blog");
 
 		$this->title("Edit");
 		
