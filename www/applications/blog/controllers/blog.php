@@ -129,6 +129,14 @@ class Blog_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 	
+	public function author($user = NULL, $year = NULL, $month = NULL, $day = NULL, $slug = NULL) {
+		if($user === NULL) {
+			$this->index();
+		} elseif($year !== "tag") {
+			$this->index($year, $month, $day, $slug);
+		}
+	}
+
 	public function archive() {		
 		$this->CSS("archive", TRUE);
 		

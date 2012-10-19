@@ -222,6 +222,14 @@ class Codes_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 
+	public function author($user = NULL, $codeID = NULL, $slug = NULL) {
+		if($user === NULL) {
+			$this->index();
+		} elseif($codeID !== "tag") {
+			$this->index($codeID, $slug);
+		}
+	}
+
 	public function download($ID = 0, $slug = "code") {
 		isConnected();
 
