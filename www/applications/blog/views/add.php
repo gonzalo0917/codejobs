@@ -115,8 +115,12 @@
 			
 			echo formSave($action, TRUE, $ID);
 			
-			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));
-			echo formInput(array("id"   => "code", "name" => "code", "type" => "hidden", "value" => code(10)));
+			echo formInput(array("id" => "ID_Post", 	 "name" => "ID", 			"type" => "hidden", "value" => $ID));
+			echo formInput(array("id" => "code", 		 "name" => "code", 			"type" => "hidden", "value" => code(10)));
+			echo formInput(array("id" => "temp_title", 	 "name" => "temp_title", 	"type" => "hidden", "value" => $title));
+			echo formInput(array("id" => "temp_tags", 	 "name" => "temp_tags", 	"type" => "hidden", "value" => $tags));
+			echo formInput(array("id" => "temp_content", "name" => "temp_content",  "type" => "hidden", "value" => $content));
+
 		echo formClose();
 	echo div(FALSE);
 ?>
