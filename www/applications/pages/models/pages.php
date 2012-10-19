@@ -82,7 +82,7 @@ class Pages_Model extends ZP_Model {
 			"Slug"    	 => slug(POST("title", "clean")),
 			"Content" 	 => decode(POST("content", "clean")),
 			"Start_Date" => now(4),
-			"Text_Date"	 => now(2)
+			"Text_Date"	 => decode(now(2))
 		);
 		
 		$this->data = $this->Data->proccess($data, $validations);
@@ -113,23 +113,16 @@ class Pages_Model extends ZP_Model {
 	public function getByDefault() {
 		return $this->Db->findBySQL("Language = '$this->language' AND Principal = 1 AND Situation = 'Active'", $this->table, $this->fields);
 	}
-		
-	public function getParent($ID, $invert = FALSE) {				
-		if($ID === 0) {
-			return false;
-		}
-				
-		if(!$invert) {
-			$data = $this->Db->find($ID, $this->table, $this->fields);
-		} else {
-			$data = $this->Db->findBy("ID_Translation", $ID, $this->table, $this->fields, NULL, "Language ASC, Title", NULL);
-		}
-		
-		return $data;
-	}		
+			
 	
 	public function getBySlug($slug) {		
-		return $this->Db->findBySQL("Slug = '$slug' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
+		$data = $this->Db->findBySQL("Slug = '$slug' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
+
+		if($data) {
+			$this->Db->updateBySQL("pages", "Views = (Views) + 1 WHERE ID_Page = '". $data[0]["ID_Page"] ."'");
+		}
+
+		return $data;
 	}
 	
 	public function getID($slug) {		

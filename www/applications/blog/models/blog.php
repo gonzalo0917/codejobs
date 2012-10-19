@@ -313,7 +313,7 @@ class Blog_Model extends ZP_Model {
 		$post = $this->Db->findBySQL("Slug = '$slug' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
 		
 		if($post) {						
-			$this->Db->updateBySQL("blog", "Views = (Views) + 1", $post[0]["ID_Post"]);				
+			$this->Db->updateBySQL("blog", "Views = (Views) + 1 WHERE ID_Post = '". $post[0]["ID_Post"] ."'");				
 			
 			$this->Comments_Model = $this->model("Comments_Model");
 			
