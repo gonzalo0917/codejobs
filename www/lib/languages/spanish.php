@@ -30,6 +30,7 @@ $phrase["author"] 										= "Autor";
 $phrase["before_yesterday"] 							= "antier";
 $phrase["blog"] 										= "Blog";
 $phrase["bookmarks"] 									= "Marcadores";
+$phrase["bookmarks_of"] 								= "Marcadores de ";
 $phrase["bottom"]										= "Abajo";
 $phrase["buffer"]										= "Buffer";
 $phrase["by"] 											= "por";

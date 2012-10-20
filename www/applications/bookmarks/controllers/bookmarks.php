@@ -124,6 +124,10 @@ class Bookmarks_Controller extends ZP_Controller {
 			$this->getBookmarksByAuthor($user);
 		} elseif($bookmarkID !== "tag") {
 			$this->index($bookmarkID, $slug);
+		} elseif($slug !== NULL) {
+			$this->getBookmarksByTag($user, $slug);
+		} else {
+			$this->getBookmarksByAuthor($user);
 		}
 	}
 
@@ -229,13 +233,38 @@ class Bookmarks_Controller extends ZP_Controller {
 	}
 
 	public function getBookmarksByAuthor($author) {
-		$this->title(__("$author Bookmarks"));
+		$this->title(__("Bookmarks of") ." ". $author);
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
 		$limit = $this->limit();
 		
 		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByAuthor", array($author, $limit));
+	
+		$this->helper("time");
+		
+		if($data) {	
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
+                        
+			$vars["bookmarks"]  = $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("bookmarks", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect();	
+		} 
+	}
+
+	public function getBookmarksByTag($author, $tag) {
+		$this->title(__("Bookmarks of") ." ". $author);
+		$this->CSS("bookmarks", $this->application);
+		$this->CSS("pagination");
+		
+		$limit = $this->limit();
+		
+		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByTag", array($author, $tag, $limit));
 	
 		$this->helper("time");
 		
