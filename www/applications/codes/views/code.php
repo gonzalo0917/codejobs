@@ -4,10 +4,16 @@
     }
     
     $this->CSS("code", "codes", TRUE);
+
+    if($code["Situation"] === "Active") {
+        $URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);              
+    } else {
+        $URL = path("codes/author/". $code["Author"] ."/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);             
+    }
 ?>
 <div class="codes">
 	<h2>
-		<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo path("codes/". $code["ID_Code"] . "/" . $code["Slug"], FALSE, $code["Language"]); ?>" title="<?php echo $code["Title"]; ?>"><?php echo $code["Title"]; ?></a>
+		<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo $code["Title"]; ?>"><?php echo $code["Title"]; ?></a>
 	</h2>
 
 	<span class="small italic grey">
