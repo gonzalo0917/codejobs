@@ -181,6 +181,39 @@ class Codes_Controller extends ZP_Controller {
 		} 
 	}
 
+	public function getCodesByLanguage($author, $language) {
+		$this->title(decode(__("Codes of") ." ". $author));
+		$this->CSS("codes", $this->application);
+		$this->CSS("pagination");
+		
+		$limit = $this->limit();
+		
+		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAllByLanguage", array($author, $language, $limit));
+	
+		$this->helper(array("time", "tags"));
+		$this->helper("codes", $this->application);
+		
+		if($data) {	
+			foreach($data as $pos => $code) {
+               	$content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                
+                if($content) {
+                    $data[$pos]["File"] = $content[0];
+                } else {
+                    redirect($this->application);
+                }
+            }
+			
+			$vars["codes"]  	= $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("codes", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect($this->application);	
+		} 
+	}
+
 	public function rss() {
 		$this->helper("time");
 
