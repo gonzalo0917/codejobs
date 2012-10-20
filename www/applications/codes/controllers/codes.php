@@ -149,7 +149,7 @@ class Codes_Controller extends ZP_Controller {
 	}
 
 	public function getCodesByAuthor($author) {
-		$this->title(__("Codes of") ." ". $author);
+		$this->title(decode(__("Codes of") ." ". $author));
 		$this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 		
