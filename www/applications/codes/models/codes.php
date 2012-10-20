@@ -291,6 +291,10 @@ class Codes_Model extends ZP_Model {
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 
+	public function getAllByAuthor($author, $limit) {		
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
+	}
+
 	public function getCodesByUser($userID) {
 		return $this->Db->findBySQL("ID_User = '$userID' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Code DESC");
 	}

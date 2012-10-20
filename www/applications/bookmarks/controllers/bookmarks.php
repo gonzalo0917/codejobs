@@ -253,7 +253,7 @@ class Bookmarks_Controller extends ZP_Controller {
 			
 			$this->render("content", $vars);
 		} else {
-			redirect();	
+			redirect($this->application);	
 		} 
 	}
 

@@ -135,8 +135,6 @@ class Codes_Controller extends ZP_Controller {
                     $data[$pos]["File"] = $content[0];
                 } else {
                     redirect();
-                    
-                    exit;
                 }
             }
 			
@@ -147,6 +145,39 @@ class Codes_Controller extends ZP_Controller {
 			$this->render("content", $vars);
 		} else {
 			redirect();	
+		} 
+	}
+
+	public function getCodesByAuthor($author) {
+		$this->title(__("Codes of") ." ". $author);
+		$this->CSS("codes", $this->application);
+		$this->CSS("pagination");
+		
+		$limit = $this->limit();
+		
+		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAllByAuthor", array($author, $limit));
+	
+		$this->helper(array("time", "tags"));
+		$this->helper("codes", $this->application);
+		
+		if($data) {	
+			foreach($data as $pos => $code) {
+               	$content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                
+                if($content) {
+                    $data[$pos]["File"] = $content[0];
+                } else {
+                    redirect($this->application);
+                }
+            }
+			
+			$vars["codes"]  	= $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("codes", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect($this->application);	
 		} 
 	}
 
@@ -224,9 +255,15 @@ class Codes_Controller extends ZP_Controller {
 
 	public function author($user = NULL, $codeID = NULL, $slug = NULL) {
 		if($user === NULL) {
-			$this->index();
-		} elseif($codeID !== "tag") {
+			redirect($this->application);
+		} elseif($codeID === NULL and $slug === NULL) {
+			$this->getCodesByAuthor($user);
+		} elseif($codeID !== "language") {
 			$this->index($codeID, $slug);
+		} elseif($slug !== NULL) {
+			$this->getCodesByLanguage($user, $slug);
+		} else {
+			redirect("$this->application/author/$user");
 		}
 	}
 
