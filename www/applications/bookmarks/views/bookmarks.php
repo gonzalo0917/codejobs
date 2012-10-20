@@ -11,9 +11,14 @@
 		$rand2 = rand(11, 20);
 		
 		foreach($bookmarks as $bookmark) { 
+			if($bookmark["Situation"] !== "Pending") {
+				$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+			} else {
+				$URL = path("bookmarks/author/". $bookmark["Author"] ."/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+			}
 	?>
 			<h2>
-				<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
+				<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
 			</h2>
 
 			<span class="small italic grey">
@@ -34,7 +39,7 @@
 			</span>
 
 			<div class="addthis_toolbox addthis_default_style ">
-				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Bookmark <?php echo $bookmark["Title"]; ?>" tw:url="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>"></a>
+				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Bookmark <?php echo $bookmark["Title"]; ?>" tw:url="<?php echo $URL; ?>"></a>
 			</div>
 
 			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
