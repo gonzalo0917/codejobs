@@ -211,6 +211,38 @@ class Blog_Controller extends ZP_Controller {
 			redirect();
 		}
 	}
+
+
+	
+	private function getPostsByAuthor($author) {
+		$this->CSS("posts", $this->application);
+		$this->CSS("pagination");
+		$this->helper("time");
+		
+		if($day) {
+			$limit = $this->limit("day");		
+		} elseif($month) {
+			$limit = $this->limit("day");
+		} else {
+			$limit = $this->limit("year");
+		}
+
+		$data = $this->Cache->data("$limit-$year-$month-$day-". $this->language, "blog", $this->Blog_Model, "getByDate", array($limit, $year, $month, $day));
+	
+		if($data) {
+			$this->title("Blog - ". $year ."/". $month ."/". $day);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Content"]);
+                        
+			$vars["posts"] 	    = $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]  	    = $this->view("posts", TRUE);
+			
+			$this->render("content", $vars);			
+		} else {
+			redirect();
+		}
+	}
 	
 	public function tag($tag) {
 		$this->CSS("posts", $this->application);
@@ -348,19 +380,19 @@ class Blog_Controller extends ZP_Controller {
 				$start = (segment(5) * _maxLimit) - _maxLimit;
 			}
 				
-			$URL = path("blog/". segment(2, isLang()) ."/". segment(3, isLang()) ."/". segment(4, isLang()) ."/page/");			
+			$URL = path("blog/". segment(1, isLang()) ."/". segment(2, isLang()) ."/". segment(3, isLang()) ."/page/");			
 		} elseif($type === "month") {
 			if(isYear(segment(1, isLang())) and isMonth(segment(2, isLang())) and segment(3, isLang()) === "page" and segment(4, isLang()) > 0) {
 				$start = (segment(4) * _maxLimit) - _maxLimit;
 			}
 			
-			$URL = path("blog/". segment(2, isLang()) ."/". segment(3, isLang()) ."/page/");		
+			$URL = path("blog/". segment(1, isLang()) ."/". segment(2, isLang()) ."/page/");		
 		} elseif($type === "year") {
 			if(isYear(segment(1, isLang())) and segment(2, isLang()) === "page" and segment(3, isLang()) > 0) {
 				$start = (segment(3, isLang()) * _maxLimit) - _maxLimit;
 			}
 			
-			$URL = path("blog/". segment(2) ."/page/");			
+			$URL = path("blog/". segment(1, isLang()) ."/page/");			
 		} elseif($type === "tag") {	
 			if(segment(1, isLang()) === "tag" and segment(2, isLang()) and segment(3, isLang()) === "page" and segment(4, isLang()) > 0) {
 				$start = (segment(4, isLang()) * _maxLimit) - _maxLimit;
