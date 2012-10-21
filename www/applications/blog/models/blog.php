@@ -274,6 +274,9 @@ class Blog_Model extends ZP_Model {
 			$data = $this->getByTag(segment(2, isLang()));
 			
 			$count = count($data);
+		} elseif($type === "author") {
+			$author = segment(2, isLang());
+			$count  = $this->Db->countBySQL("Author = '$author' AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		}
 		
 		return isset($count) ? $count : 0;
