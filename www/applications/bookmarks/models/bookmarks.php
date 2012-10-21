@@ -166,6 +166,10 @@ class Bookmarks_Model extends ZP_Model {
 		} elseif($type === "author") {
 			$user = segment(2, isLang());
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		} elseif($type === "author-tag") {
+			$user = segment(2, isLang());
+			$tag  = segment(4, isLang());
+			return $this->Db->countBySQL("Author LIKE '$user' AND Tags LIKE '%$tag%' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		}
 	}
 
