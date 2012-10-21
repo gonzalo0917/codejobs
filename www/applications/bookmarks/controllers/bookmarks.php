@@ -292,7 +292,11 @@ class Bookmarks_Controller extends ZP_Controller {
 			$tag   = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/tag/$tag/page/");
-		}	
+		} elseif($type === "author") {
+			$user  = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("bookmarks/author/$user/page/");
+		}
 
 		$limit = $start .", ". _maxLimit;
 		
