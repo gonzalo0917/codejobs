@@ -190,7 +190,7 @@ class Blog_Controller extends ZP_Controller {
 		if($day) {
 			$limit = $this->limit("day");		
 		} elseif($month) {
-			$limit = $this->limit("day");
+			$limit = $this->limit("month");
 		} else {
 			$limit = $this->limit("year");
 		}
