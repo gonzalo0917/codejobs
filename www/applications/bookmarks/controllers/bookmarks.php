@@ -239,7 +239,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		
 		$limit = $this->limit("author");
 		
-		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByAuthor", array($author, $limit));
+		$data = $this->Cache->data("author-$author-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByAuthor", array($author, $limit));
 	
 		$this->helper("time");
 		
@@ -264,7 +264,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		
 		$limit = $this->limit("author-tag");
 		
-		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByTag", array($author, $tag, $limit));
+		$data = $this->Cache->data("author-$author-tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByTag", array($author, $tag, $limit));
 	
 		$this->helper("time");
 		
