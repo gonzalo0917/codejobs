@@ -211,8 +211,6 @@ class Blog_Controller extends ZP_Controller {
 			redirect();
 		}
 	}
-
-
 	
 	private function getPostsByAuthor($author) {
 		$this->CSS("posts", $this->application);
