@@ -54,7 +54,7 @@ class Codes_Controller extends ZP_Controller {
         $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 		
-        $limit = $this->limit($language);
+        $limit = $this->limit("language");
 
 		$data = $this->Cache->data("tag-$language-$limit", "codes", $this->Codes_Model, "getByLanguage", array($language, $limit));
 
@@ -153,7 +153,7 @@ class Codes_Controller extends ZP_Controller {
 		$this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 		
-		$limit = $this->limit();
+		$limit = $this->limit("author");
 		
 		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAllByAuthor", array($author, $limit));
 	
@@ -186,7 +186,7 @@ class Codes_Controller extends ZP_Controller {
 		$this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 		
-		$limit = $this->limit();
+		$limit = $this->limit("author-language");
 		
 		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAllByLanguage", array($author, $language, $limit));
 	
@@ -327,15 +327,16 @@ class Codes_Controller extends ZP_Controller {
 		}
 	}
         
-	private function limit($tag = NULL) {
-		$count = $this->Codes_Model->count($tag);	
+	private function limit($type = NULL) {
+		$count = $this->Codes_Model->count($type);	
 		
-		if(is_null($tag)) {
+		if(is_null($type)) {
 			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("codes/page/");
-		} else {
+		} elseif($type === "language") {
+			$language = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
-			$URL   = path("codes/tag/$tag/page/");
+			$URL   = path("codes/language/$language/page/");
 		}	
 
 		$limit = $start .", ". _maxLimit;
