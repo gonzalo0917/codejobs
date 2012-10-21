@@ -13,7 +13,8 @@ if(is_array($posts)) {
 			$post = array_shift($post);
 		}
 			
-		$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);	
+		$URL  = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);	
+		$URL_ = $post["Situation"] === "Pending" ? "blog/author/". $post["Author"] ."/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"] : $URL;	
 
 		$in = ($post["Tags"] !== "") ? __("in") : NULL;	
 
@@ -22,7 +23,7 @@ if(is_array($posts)) {
 			
 		<div class="post">
 			<div class="post-title">
-				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
+				<a href="<?php echo $URL_; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
 					<?php echo $lock . stripslashes($post["Title"]); ?>
 				</a>
 			</div>
@@ -57,7 +58,7 @@ if(is_array($posts)) {
 					<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script>
 				</div>
 					
-				<?php echo showContent(pagebreak($post["Content"], $URL), TRUE); ?>	
+				<?php echo showContent(pagebreak($post["Content"], $URL_), TRUE); ?>	
 				<br />
 				<?php					
 					if(_get("production") and ($i === $rand1 or $i === $rand2)) {
