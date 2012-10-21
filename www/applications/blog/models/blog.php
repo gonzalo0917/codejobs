@@ -348,6 +348,10 @@ class Blog_Model extends ZP_Model {
 	public function getAllByAuthor($author, $limit) {
 		return $this->Db->findBySQL("Author = '$author' AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 	}
+
+	public function getAllByTag($author, $tag, $limit) {
+		return $this->Db->findBySQL("Author = '$author' AND (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
+	}
 	
 	public function getByID($ID) {			
 		return $this->Db->find($ID, $this->table, $this->fields);
