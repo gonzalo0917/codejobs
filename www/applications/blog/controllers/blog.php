@@ -131,9 +131,15 @@ class Blog_Controller extends ZP_Controller {
 	
 	public function author($user = NULL, $year = NULL, $month = NULL, $day = NULL, $slug = NULL) {
 		if($user === NULL) {
-			$this->index();
+			redirect($this->application);
+		} elseif($year === NULL) {
+			$this->getPostsByAuthor($user);
 		} elseif($year !== "tag") {
 			$this->index($year, $month, $day, $slug);
+		} elseif($month !== NULL) {
+			$this->getPostsByTag($user, $month);
+		} else {
+			redirect("$this->application/author/$user");
 		}
 	}
 
