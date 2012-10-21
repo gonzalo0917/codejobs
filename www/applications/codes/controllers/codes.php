@@ -337,7 +337,16 @@ class Codes_Controller extends ZP_Controller {
 			$language = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("codes/language/$language/page/");
-		}	
+		} elseif($type === "author") {
+			$user  = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("codes/author/$user/page/");
+		} elseif($type === "author-language") {
+			$user  = segment(2, isLang());
+			$language = segment(4, isLang());
+			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("codes/author/$user/language/$language/page/");
+		}
 
 		$limit = $start .", ". _maxLimit;
 		
