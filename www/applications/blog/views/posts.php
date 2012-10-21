@@ -14,7 +14,7 @@ if(is_array($posts)) {
 		}
 			
 		$URL  = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);	
-		$URL_ = $post["Situation"] === "Pending" ? "blog/author/". $post["Author"] ."/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"] : $URL;	
+		$URL_ = $post["Situation"] === "Pending" ? path("blog/author/". $post["Author"] ."/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]) : $URL;	
 
 		$in = ($post["Tags"] !== "") ? __("in") : NULL;	
 
