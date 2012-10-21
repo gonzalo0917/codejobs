@@ -275,12 +275,17 @@ class Codes_Model extends ZP_Model {
 		}
 	}
         
-	public function count($tag = NULL) {
-		return (is_null($tag)) ? $this->Db->countBySQL("Situation = 'Active'", $this->table) : $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+	public function count($type = NULL) {
+		if(is_null($type)) {
+			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
+		} elseif($type === "language") {
+			$language = segment(2, isLang());
+			return $this->Db->countBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table);
+		}
 	}
 
-	public function getByLanguage($tag, $limit) {
-		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Languages LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
+	public function getByLanguage($language, $limit) {
+		return $this->Db->findBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 	
 	public function getByID($ID) {
@@ -296,7 +301,7 @@ class Codes_Model extends ZP_Model {
 	}
 	
 	public function getAllByLanguage($author, $language, $limit) {		
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND Languages LIKE '%$language%'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%')", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 
 	public function getCodesByUser($userID) {
