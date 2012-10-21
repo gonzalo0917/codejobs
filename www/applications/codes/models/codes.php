@@ -279,12 +279,13 @@ class Codes_Model extends ZP_Model {
 		if(is_null($type)) {
 			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
 		} elseif($type === "language") {
-			$language = segment(2, isLang());
+			$language = str_replace("-", " ", segment(2, isLang()));
 			return $this->Db->countBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table);
 		}
 	}
 
 	public function getByLanguage($language, $limit) {
+		$language = str_replace("-", " ", $language);
 		return $this->Db->findBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 	
@@ -300,7 +301,9 @@ class Codes_Model extends ZP_Model {
 		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 	
-	public function getAllByLanguage($author, $language, $limit) {		
+	public function getAllByLanguage($author, $language, $limit) {
+		$language = str_replace("-", " ", $language);
+		
 		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%')", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 
