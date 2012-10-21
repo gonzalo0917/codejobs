@@ -280,7 +280,7 @@ class Codes_Model extends ZP_Model {
 			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
 		} elseif($type === "language") {
 			$language = str_replace("-", " ", segment(2, isLang()));
-			
+
 			return $this->Db->countBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table);
 		} elseif($type === "author") {
 			$user = segment(2, isLang());
@@ -290,7 +290,7 @@ class Codes_Model extends ZP_Model {
 			$user = segment(2, isLang());
 			$language = str_replace("-", " ", segment(4, isLang()));
 
-			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$language%' OR Description LIKE '%$language%' OR Tags LIKE '%$language%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		}
 	}
 
