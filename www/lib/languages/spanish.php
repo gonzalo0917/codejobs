@@ -181,6 +181,7 @@ $phrase["portuguese"] 	 								= "Portugués";
 $phrase["position"] 									= "Posición";
 $phrase["post_a_comment"] 								= "Publica un comentario";
 $phrase["post_my_comment"] 								= "Publicar mi comentario";
+$phrase["posts_of"]		 								= "Publicaciones de";
 $phrase["powered_by"] 					 				= "Desarrollado por";
 $phrase["preview"]										= "Vista Previa";
 $phrase["previous"] 									= "Anterior";
