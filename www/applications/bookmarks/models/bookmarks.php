@@ -157,8 +157,13 @@ class Bookmarks_Model extends ZP_Model {
 		return getAlert(__("The bookmark has been edit correctly"), "success");
 	}
 
-	public function count($tag = NULL) {
-		return (is_null($tag)) ? $this->Db->countBySQL("Situation = 'Active'", $this->table) : $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+	public function count($type = NULL) {
+		if(is_null($type)) {
+			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
+		} elseif($type === "tag") {
+			$tag = segment(2, isLang());
+			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+		}
 	}
 
 	public function getBufferBookmarks($language = "all") {

@@ -152,7 +152,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
-		$limit = $this->limit($tag);
+		$limit = $this->limit("tag");
 
 		$data = $this->Cache->data("tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getByTag", array($tag, $limit));
 
@@ -237,7 +237,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
-		$limit = $this->limit();
+		$limit = $this->limit("author");
 		
 		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByAuthor", array($author, $limit));
 	
@@ -262,7 +262,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
-		$limit = $this->limit();
+		$limit = $this->limit("author-tag");
 		
 		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByTag", array($author, $tag, $limit));
 	
@@ -282,13 +282,14 @@ class Bookmarks_Controller extends ZP_Controller {
 		} 
 	}
 
-	private function limit($tag = NULL) {
-		$count = $this->Bookmarks_Model->count($tag);	
+	private function limit($type = NULL) {
+		$count = $this->Bookmarks_Model->count($type);	
 		
-		if(is_null($tag)) {
+		if(is_null($type)) {
 			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/page/");
-		} else {
+		} elseif($type === "tag") {
+			$tag   = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/tag/$tag/page/");
 		}	
