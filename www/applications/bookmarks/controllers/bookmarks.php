@@ -207,7 +207,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		}
 	}
 
-	public function getBookmarks() {
+	private function getBookmarks() {
 		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
@@ -232,7 +232,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		} 
 	}
 
-	public function getBookmarksByAuthor($author) {
+	private function getBookmarksByAuthor($author) {
 		$this->title(__("Bookmarks of") ." ". $author);
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
@@ -257,7 +257,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		} 
 	}
 
-	public function getBookmarksByTag($author, $tag) {
+	private function getBookmarksByTag($author, $tag) {
 		$this->title(__("Bookmarks of") ." ". $author);
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");

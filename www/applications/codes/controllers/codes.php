@@ -114,7 +114,7 @@ class Codes_Controller extends ZP_Controller {
 		}
 	}
 
-	public function getCodes() {
+	private function getCodes() {
 		$this->title(__("Codes", FALSE));
                 
         $this->CSS("codes", $this->application);
@@ -148,7 +148,7 @@ class Codes_Controller extends ZP_Controller {
 		} 
 	}
 
-	public function getCodesByAuthor($author) {
+	private function getCodesByAuthor($author) {
 		$this->title(decode(__("Codes of") ." ". $author));
 		$this->CSS("codes", $this->application);
 		$this->CSS("pagination");
@@ -181,7 +181,7 @@ class Codes_Controller extends ZP_Controller {
 		} 
 	}
 
-	public function getCodesByLanguage($author, $language) {
+	private function getCodesByLanguage($author, $language) {
 		$this->title(decode(__("Codes of") ." ". $author));
 		$this->CSS("codes", $this->application);
 		$this->CSS("pagination");
