@@ -219,18 +219,12 @@ class Blog_Controller extends ZP_Controller {
 		$this->CSS("pagination");
 		$this->helper("time");
 		
-		if($day) {
-			$limit = $this->limit("day");		
-		} elseif($month) {
-			$limit = $this->limit("day");
-		} else {
-			$limit = $this->limit("year");
-		}
+		$limit = $this->limit("author");
 
-		$data = $this->Cache->data("$limit-$year-$month-$day-". $this->language, "blog", $this->Blog_Model, "getByDate", array($limit, $year, $month, $day));
+		$data = $this->Cache->data("$limit-author-$author-". $this->language, "blog", $this->Blog_Model, "getAllByAuthor", array($author, $limit));
 	
 		if($data) {
-			$this->title("Blog - ". $year ."/". $month ."/". $day);
+			$this->title(__("Posts of") ." ". $author);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Content"]);
                         
