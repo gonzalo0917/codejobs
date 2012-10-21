@@ -168,8 +168,8 @@ class Bookmarks_Model extends ZP_Model {
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		} elseif($type === "author-tag") {
 			$user = segment(2, isLang());
-			$tag  = segment(4, isLang());
-			return $this->Db->countBySQL("Author LIKE '$user' AND Tags LIKE '%$tag%' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+			$tag  = str_replace("-", " ", segment(4, isLang()));
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		}
 	}
 
@@ -197,8 +197,10 @@ class Bookmarks_Model extends ZP_Model {
 		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 	}
 	
-	public function getAllByTag($author, $tag, $limit) {		
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND Tags LIKE '%$tag%'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
+	public function getAllByTag($author, $tag, $limit) {
+		$tag = str_replace("-", " ", $tag);
+
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%')", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 	}
 
 	public function getAllByUser() {
