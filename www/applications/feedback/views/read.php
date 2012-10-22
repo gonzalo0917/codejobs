@@ -59,7 +59,7 @@
 </div>
 <?php
 	echo div("add-form", "class");
-		echo formOpen(path("feedback/cpanel/respond"), "form-add", "form-add");
+		echo formOpen(path("feedback/cpanel/read"), "form-add", "form-add");
 			echo p(__("Respond"), "resalt");			
 
 			echo formInput(array(	
@@ -80,13 +80,28 @@
 				"value" => _get("webEmailSend")
 			));
 
+			echo formInput(array(					
+				"name" 	=> "subject", 
+				"class" => "required", 
+				"field" => __("Subject"), 
+				"p" 	=> TRUE, 
+				"value" => __("Respons about your CodeJobs's message")
+			));
+
 			echo formTextarea(array(	 
 				"id"     => "redactor",
-				"name" 	 => "content", 
+				"name" 	 => "message", 
 				"class"  => "markItUp", 
 				"style"  => "height: 240px;", 
 				"field"  => __("Content"), 
 				"p" 	 => TRUE				
+			));
+
+			echo formInput(array(					
+				"name" 	=> "send", 
+				"class" => "btn btn-success", 								
+				"value" => __("Send"),
+				"type"  => "submit"
 			));
 
 		echo formClose();

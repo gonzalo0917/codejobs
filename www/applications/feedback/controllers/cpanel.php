@@ -177,6 +177,10 @@ class CPanel_Controller extends ZP_Controller {
 		$Model = ucfirst($this->application) ."_Model";
 
 		$this->$Model = $this->model($Model);
+
+		if(POST("send")) {
+			$this->vars["alert"] = $this->Feedback_Model->respond();
+		}
 		
 		$data = $this->$Model->getByID($ID);
 		

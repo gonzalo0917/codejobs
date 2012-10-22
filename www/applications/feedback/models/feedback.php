@@ -102,6 +102,24 @@ class Feedback_Model extends ZP_Model {
 		
 		return getAlert(__("Your message has been sent successfully, we will contact you as soon as possible, thank you very much!"), "success");
 	}
+
+	public function respond() {
+		if(!isEmail(POST("to")) {
+			return getAlert(__("Invalid (To) E-Mail"));
+		} elseif(!isEmail(POST("from"))) {
+			return getAlert(__("Invalid (From) E-Mail"));
+		} elseif(!POST("message")) {
+			return getAlert(__("You need to write a message"));
+		} elseif(!POST("subject")) {
+			return getAlert(__("You need to write a subject"));
+		}
+
+		$this->Email->email	  = POST("to");
+		$this->Email->subject = POST("subject"):
+		$this->Email->message = POST("message", "decode", FALSE);
+		
+		$this->Email->send();
+	}
 	
 	private function sendResponse($vars) {
 		$this->Email->email	  = POST("email");
