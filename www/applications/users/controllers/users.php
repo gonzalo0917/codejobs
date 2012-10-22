@@ -120,7 +120,7 @@ class Users_Controller extends ZP_Controller {
 		$this->helper("html");
 				
 		if(!SESSION("ZanUser")) {
-			$this->title(__("Register"));
+			$this->title(decode(__("Register")));
 
 			if(POST("register")) {
 				$vars["name"]     = POST("name")  	 ? POST("name")     : NULL;
