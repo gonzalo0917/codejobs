@@ -104,7 +104,7 @@ class Feedback_Model extends ZP_Model {
 	}
 
 	public function respond() {
-		if(!isEmail(POST("to")) {
+		if(!isEmail(POST("to"))) {
 			return getAlert(__("Invalid (To) E-Mail"));
 		} elseif(!isEmail(POST("from"))) {
 			return getAlert(__("Invalid (From) E-Mail"));
