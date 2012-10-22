@@ -275,12 +275,28 @@ class Codes_Model extends ZP_Model {
 		}
 	}
         
-	public function count($tag = NULL) {
-		return (is_null($tag)) ? $this->Db->countBySQL("Situation = 'Active'", $this->table) : $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+	public function count($type = NULL) {
+		if(is_null($type)) {
+			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
+		} elseif($type === "language") {
+			$language = str_replace("-", " ", segment(2, isLang()));
+
+			return $this->Db->countBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table);
+		} elseif($type === "author") {
+			$user = segment(2, isLang());
+
+			return $this->Db->countBySQL("Author = '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		} elseif($type === "author-language") {
+			$user = segment(2, isLang());
+			$language = str_replace("-", " ", segment(4, isLang()));
+
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		}
 	}
 
-	public function getByLanguage($tag, $limit) {
-		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Languages LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
+	public function getByLanguage($language, $limit) {
+		$language = str_replace("-", " ", $language);
+		return $this->Db->findBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 	
 	public function getByID($ID) {
@@ -289,6 +305,16 @@ class Codes_Model extends ZP_Model {
 	
 	public function getAll($limit) {		
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
+	}
+
+	public function getAllByAuthor($author, $limit) {		
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
+	}
+	
+	public function getAllByLanguage($author, $language, $limit) {
+		$language = str_replace("-", " ", $language);
+
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%')", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 
 	public function getCodesByUser($userID) {

@@ -11,9 +11,14 @@
 		$rand2 = rand(11, 20);
 		
 		foreach($bookmarks as $bookmark) { 
+			if($bookmark["Situation"] !== "Pending") {
+				$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+			} else {
+				$URL = path("bookmarks/author/". $bookmark["Author"] ."/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+			}
 	?>
 			<h2>
-				<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
+				<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
 			</h2>
 
 			<span class="small italic grey">

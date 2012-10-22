@@ -12,9 +12,14 @@
 		$rand2 = rand(6, 10);
 
 		foreach($codes as $code) { 
+			if($code["Situation"] === "Active") {
+				$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);				
+			} else {
+				$URL = path("codes/author/". $code["Author"] ."/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);				
+			}
 	?>
 			<h2>
-				<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]); ?>" title="<?php echo $code["Title"]; ?>"><?php echo $code["Title"]; ?></a>
+				<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo $code["Title"]; ?>"><?php echo $code["Title"]; ?></a>
 			</h2>
 
 			<span class="small italic grey">
@@ -35,7 +40,7 @@
 			</span>
 
 			<div class="addthis_toolbox addthis_default_style ">
-				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Code <?php echo $code["Title"]; ?>" tw:url="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"]); ?>"></a>
+				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Code <?php echo $code["Title"]; ?>" tw:url="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]); ?>"></a>
 			</div>
 
 			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>

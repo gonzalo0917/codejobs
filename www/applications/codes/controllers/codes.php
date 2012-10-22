@@ -54,9 +54,9 @@ class Codes_Controller extends ZP_Controller {
         $this->CSS("codes", $this->application);
 		$this->CSS("pagination");
 		
-        $limit = $this->limit($language);
+        $limit = $this->limit("language");
 
-		$data = $this->Cache->data("tag-$language-$limit", "codes", $this->Codes_Model, "getByLanguage", array($language, $limit));
+		$data = $this->Cache->data("language-$language-$limit", "codes", $this->Codes_Model, "getByLanguage", array($language, $limit));
 
 		if($data) {
 			$this->helper(array("time", "tags"));
@@ -114,7 +114,7 @@ class Codes_Controller extends ZP_Controller {
 		}
 	}
 
-	public function getCodes() {
+	private function getCodes() {
 		$this->title(__("Codes", FALSE));
                 
         $this->CSS("codes", $this->application);
@@ -135,8 +135,6 @@ class Codes_Controller extends ZP_Controller {
                     $data[$pos]["File"] = $content[0];
                 } else {
                     redirect();
-                    
-                    exit;
                 }
             }
 			
@@ -147,6 +145,72 @@ class Codes_Controller extends ZP_Controller {
 			$this->render("content", $vars);
 		} else {
 			redirect();	
+		} 
+	}
+
+	private function getCodesByAuthor($author) {
+		$this->title(decode(__("Codes of") ." ". $author));
+		$this->CSS("codes", $this->application);
+		$this->CSS("pagination");
+		
+		$limit = $this->limit("author");
+		
+		$data = $this->Cache->data("author-$author-$limit", "codes", $this->Codes_Model, "getAllByAuthor", array($author, $limit));
+	
+		$this->helper(array("time", "tags"));
+		$this->helper("codes", $this->application);
+		
+		if($data) {	
+			foreach($data as $pos => $code) {
+               	$content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                
+                if($content) {
+                    $data[$pos]["File"] = $content[0];
+                } else {
+                    redirect($this->application);
+                }
+            }
+			
+			$vars["codes"]  	= $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("codes", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect($this->application);	
+		} 
+	}
+
+	private function getCodesByLanguage($author, $language) {
+		$this->title(decode(__("Codes of") ." ". $author));
+		$this->CSS("codes", $this->application);
+		$this->CSS("pagination");
+		
+		$limit = $this->limit("author-language");
+		
+		$data = $this->Cache->data("author-$author-language-$language-$limit", "codes", $this->Codes_Model, "getAllByLanguage", array($author, $language, $limit));
+	
+		$this->helper(array("time", "tags"));
+		$this->helper("codes", $this->application);
+		
+		if($data) {	
+			foreach($data as $pos => $code) {
+               	$content = $this->CodesFiles_Model->getByCode($code["ID_Code"], 1);
+                
+                if($content) {
+                    $data[$pos]["File"] = $content[0];
+                } else {
+                    redirect($this->application);
+                }
+            }
+			
+			$vars["codes"]  	= $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("codes", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect($this->application);	
 		} 
 	}
 
@@ -224,9 +288,15 @@ class Codes_Controller extends ZP_Controller {
 
 	public function author($user = NULL, $codeID = NULL, $slug = NULL) {
 		if($user === NULL) {
-			$this->index();
-		} elseif($codeID !== "tag") {
+			redirect($this->application);
+		} elseif($codeID === NULL and $slug === NULL) {
+			$this->getCodesByAuthor($user);
+		} elseif($codeID !== "language") {
 			$this->index($codeID, $slug);
+		} elseif($slug !== NULL) {
+			$this->getCodesByLanguage($user, $slug);
+		} else {
+			redirect("$this->application/author/$user");
 		}
 	}
 
@@ -257,16 +327,26 @@ class Codes_Controller extends ZP_Controller {
 		}
 	}
         
-	private function limit($tag = NULL) {
-		$count = $this->Codes_Model->count($tag);	
+	private function limit($type = NULL) {
+		$count = $this->Codes_Model->count($type);	
 		
-		if(is_null($tag)) {
+		if(is_null($type)) {
 			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("codes/page/");
-		} else {
+		} elseif($type === "language") {
+			$language = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
-			$URL   = path("codes/tag/$tag/page/");
-		}	
+			$URL   = path("codes/language/$language/page/");
+		} elseif($type === "author") {
+			$user  = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("codes/author/$user/page/");
+		} elseif($type === "author-language") {
+			$user  = segment(2, isLang());
+			$language = segment(4, isLang());
+			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("codes/author/$user/language/$language/page/");
+		}
 
 		$limit = $start .", ". _maxLimit;
 		

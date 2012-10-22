@@ -119,9 +119,15 @@ class Bookmarks_Controller extends ZP_Controller {
 
 	public function author($user = NULL, $bookmarkID = NULL, $slug = NULL) {
 		if($user === NULL) {
-			$this->index();
+			redirect($this->application);
+		} elseif($bookmarkID === NULL and $slug === NULL) {
+			$this->getBookmarksByAuthor($user);
 		} elseif($bookmarkID !== "tag") {
 			$this->index($bookmarkID, $slug);
+		} elseif($slug !== NULL) {
+			$this->getBookmarksByTag($user, $slug);
+		} else {
+			redirect("$this->application/author/$user");
 		}
 	}
 
@@ -146,7 +152,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
-		$limit = $this->limit($tag);
+		$limit = $this->limit("tag");
 
 		$data = $this->Cache->data("tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getByTag", array($tag, $limit));
 
@@ -201,7 +207,7 @@ class Bookmarks_Controller extends ZP_Controller {
 		}
 	}
 
-	public function getBookmarks() {
+	private function getBookmarks() {
 		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
@@ -226,16 +232,76 @@ class Bookmarks_Controller extends ZP_Controller {
 		} 
 	}
 
-	private function limit($tag = NULL) {
-		$count = $this->Bookmarks_Model->count($tag);	
+	private function getBookmarksByAuthor($author) {
+		$this->title(__("Bookmarks of") ." ". $author);
+		$this->CSS("bookmarks", $this->application);
+		$this->CSS("pagination");
 		
-		if(is_null($tag)) {
+		$limit = $this->limit("author");
+		
+		$data = $this->Cache->data("author-$author-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByAuthor", array($author, $limit));
+	
+		$this->helper("time");
+		
+		if($data) {	
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
+                        
+			$vars["bookmarks"]  = $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("bookmarks", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect($this->application);	
+		} 
+	}
+
+	private function getBookmarksByTag($author, $tag) {
+		$this->title(__("Bookmarks of") ." ". $author);
+		$this->CSS("bookmarks", $this->application);
+		$this->CSS("pagination");
+		
+		$limit = $this->limit("author-tag");
+		
+		$data = $this->Cache->data("author-$author-tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByTag", array($author, $tag, $limit));
+	
+		$this->helper("time");
+		
+		if($data) {	
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
+                        
+			$vars["bookmarks"]  = $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("bookmarks", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect();	
+		} 
+	}
+
+	private function limit($type = NULL) {
+		$count = $this->Bookmarks_Model->count($type);	
+		
+		if(is_null($type)) {
 			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/page/");
-		} else {
+		} elseif($type === "tag") {
+			$tag   = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/tag/$tag/page/");
-		}	
+		} elseif($type === "author") {
+			$user  = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("bookmarks/author/$user/page/");
+		} elseif($type === "author-tag") {
+			$user  = segment(2, isLang());
+			$tag   = segment(4, isLang());
+			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("bookmarks/author/$user/tag/$tag/page/");
+		}
 
 		$limit = $start .", ". _maxLimit;
 		

@@ -157,8 +157,20 @@ class Bookmarks_Model extends ZP_Model {
 		return getAlert(__("The bookmark has been edit correctly"), "success");
 	}
 
-	public function count($tag = NULL) {
-		return (is_null($tag)) ? $this->Db->countBySQL("Situation = 'Active'", $this->table) : $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+	public function count($type = NULL) {
+		if(is_null($type)) {
+			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
+		} elseif($type === "tag") {
+			$tag = str_replace("-", " ", segment(2, isLang()));
+			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+		} elseif($type === "author") {
+			$user = segment(2, isLang());
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		} elseif($type === "author-tag") {
+			$user = segment(2, isLang());
+			$tag  = str_replace("-", " ", segment(4, isLang()));
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		}
 	}
 
 	public function getBufferBookmarks($language = "all") {
@@ -179,6 +191,16 @@ class Bookmarks_Model extends ZP_Model {
 		$data = $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 		
 		return $data;
+	}
+	
+	public function getAllByAuthor($author, $limit) {		
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
+	}
+	
+	public function getAllByTag($author, $tag, $limit) {
+		$tag = str_replace("-", " ", $tag);
+
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%')", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 	}
 
 	public function getAllByUser() {

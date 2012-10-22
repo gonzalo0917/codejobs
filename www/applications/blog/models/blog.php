@@ -274,6 +274,13 @@ class Blog_Model extends ZP_Model {
 			$data = $this->getByTag(segment(2, isLang()));
 			
 			$count = count($data);
+		} elseif($type === "author") {
+			$author = segment(2, isLang());
+			$count  = $this->Db->countBySQL("Author = '$author' AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		} elseif($type === "author-tag") {
+			$author = segment(2, isLang());
+			$tag    = segment(4, isLang());
+			$count  = $this->Db->countBySQL("Author = '$author' AND (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		}
 		
 		return isset($count) ? $count : 0;
@@ -336,6 +343,14 @@ class Blog_Model extends ZP_Model {
 		} elseif($year) {
 			return $this->Db->findBySQL("Language = '$this->language' AND Year = '$year' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 		}	
+	}
+
+	public function getAllByAuthor($author, $limit) {
+		return $this->Db->findBySQL("Author = '$author' AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
+	}
+
+	public function getAllByTag($author, $tag, $limit) {
+		return $this->Db->findBySQL("Author = '$author' AND (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 	}
 	
 	public function getByID($ID) {			

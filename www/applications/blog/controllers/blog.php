@@ -131,9 +131,15 @@ class Blog_Controller extends ZP_Controller {
 	
 	public function author($user = NULL, $year = NULL, $month = NULL, $day = NULL, $slug = NULL) {
 		if($user === NULL) {
-			$this->index();
+			redirect($this->application);
+		} elseif($year === NULL) {
+			$this->getPostsByAuthor($user);
 		} elseif($year !== "tag") {
 			$this->index($year, $month, $day, $slug);
+		} elseif($month !== NULL) {
+			$this->getPostsByTag($user, $month);
+		} else {
+			redirect("$this->application/author/$user");
 		}
 	}
 
@@ -184,7 +190,7 @@ class Blog_Controller extends ZP_Controller {
 		if($day) {
 			$limit = $this->limit("day");		
 		} elseif($month) {
-			$limit = $this->limit("day");
+			$limit = $this->limit("month");
 		} else {
 			$limit = $this->limit("year");
 		}
@@ -193,6 +199,54 @@ class Blog_Controller extends ZP_Controller {
 	
 		if($data) {
 			$this->title("Blog - ". $year ."/". $month ."/". $day);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Content"]);
+                        
+			$vars["posts"] 	    = $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]  	    = $this->view("posts", TRUE);
+			
+			$this->render("content", $vars);			
+		} else {
+			redirect();
+		}
+	}
+	
+	private function getPostsByAuthor($author) {
+		$this->CSS("posts", $this->application);
+		$this->CSS("pagination");
+		$this->helper("time");
+		
+		$limit = $this->limit("author");
+
+		$data = $this->Cache->data("$limit-author-$author-". $this->language, "blog", $this->Blog_Model, "getAllByAuthor", array($author, $limit));
+	
+		if($data) {
+			$this->title(__("Posts of") ." ". $author);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Content"]);
+                        
+			$vars["posts"] 	    = $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]  	    = $this->view("posts", TRUE);
+			
+			$this->render("content", $vars);			
+		} else {
+			redirect();
+		}
+	}
+	
+	private function getPostsByTag($author, $tag) {
+		$this->CSS("posts", $this->application);
+		$this->CSS("pagination");
+		$this->helper("time");
+		
+		$limit = $this->limit("author-tag");
+
+		$data = $this->Cache->data("$limit-author-$author-tag-$tag-". $this->language, "blog", $this->Blog_Model, "getAllByTag", array($author, $tag, $limit));
+	
+		if($data) {
+			$this->title(__("Posts of") ." ". $author);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Content"]);
                         
@@ -342,19 +396,19 @@ class Blog_Controller extends ZP_Controller {
 				$start = (segment(5) * _maxLimit) - _maxLimit;
 			}
 				
-			$URL = path("blog/". segment(2, isLang()) ."/". segment(3, isLang()) ."/". segment(4, isLang()) ."/page/");			
+			$URL = path("blog/". segment(1, isLang()) ."/". segment(2, isLang()) ."/". segment(3, isLang()) ."/page/");			
 		} elseif($type === "month") {
 			if(isYear(segment(1, isLang())) and isMonth(segment(2, isLang())) and segment(3, isLang()) === "page" and segment(4, isLang()) > 0) {
 				$start = (segment(4) * _maxLimit) - _maxLimit;
 			}
 			
-			$URL = path("blog/". segment(2, isLang()) ."/". segment(3, isLang()) ."/page/");		
+			$URL = path("blog/". segment(1, isLang()) ."/". segment(2, isLang()) ."/page/");		
 		} elseif($type === "year") {
 			if(isYear(segment(1, isLang())) and segment(2, isLang()) === "page" and segment(3, isLang()) > 0) {
 				$start = (segment(3, isLang()) * _maxLimit) - _maxLimit;
 			}
 			
-			$URL = path("blog/". segment(2) ."/page/");			
+			$URL = path("blog/". segment(1, isLang()) ."/page/");			
 		} elseif($type === "tag") {	
 			if(segment(1, isLang()) === "tag" and segment(2, isLang()) and segment(3, isLang()) === "page" and segment(4, isLang()) > 0) {
 				$start = (segment(4, isLang()) * _maxLimit) - _maxLimit;
@@ -362,6 +416,20 @@ class Blog_Controller extends ZP_Controller {
 			
 			$count = $this->Blog_Model->count("tag");
 			$URL   = path("blog/tag/". segment(2, isLang()) ."/page/");
+		} elseif($type === "author") {	
+			if(segment(1, isLang()) === "author" and segment(2, isLang()) and segment(3, isLang()) === "page" and segment(4, isLang()) > 0) {
+				$start = (segment(4, isLang()) * _maxLimit) - _maxLimit;
+			}
+			
+			$count = $this->Blog_Model->count("author");
+			$URL   = path("blog/author/". segment(2, isLang()) ."/page/");
+		} elseif($type === "author-tag") {	
+			if(segment(1, isLang()) === "author" and segment(2, isLang()) and segment(3, isLang()) === "tag" and segment(4, isLang()) and segment(5, isLang()) === "page" and segment(6, isLang()) > 0) {
+				$start = (segment(6, isLang()) * _maxLimit) - _maxLimit;
+			}
+			
+			$count = $this->Blog_Model->count("author-tag");
+			$URL   = path("blog/author/". segment(2, isLang()) ."/tag/". segment(4, isLang()) ."/page/");
 		}
 
 		$limit = $start .", ". _maxLimit;
