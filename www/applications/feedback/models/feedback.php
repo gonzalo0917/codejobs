@@ -115,7 +115,7 @@ class Feedback_Model extends ZP_Model {
 		}
 
 		$this->Email->email	  = POST("to");
-		$this->Email->subject = POST("subject"):
+		$this->Email->subject = POST("subject");
 		$this->Email->message = POST("message", "decode", FALSE);
 		
 		$this->Email->send();
