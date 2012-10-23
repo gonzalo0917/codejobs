@@ -186,6 +186,7 @@ class Users_Controller extends ZP_Controller {
 				} */
 			}
 
+			$this->js("editprofile", $this->application);
 			$this->css("profile", $this->application);
 
 			$vars["user"] 	  = $data[0];

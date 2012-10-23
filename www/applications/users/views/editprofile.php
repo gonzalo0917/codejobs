@@ -133,15 +133,7 @@
 
 								<span id="birthday"><?php echo $user["Birthday"];?></span>
 							</p>
-							
-							<p class="company">
-								<strong <?php echo ((!$user["Company"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __("Company"); ?>:
-								</strong> 
-
-								<span id="company"><?php echo $user["Company"];?></span>
-							</p>
-								
+															
 							<p class="telephone">
 								<strong <?php echo ((!$user["Phone"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Telephone"); ?>:
@@ -164,7 +156,7 @@
 					</div>
 					
 					<?php 
-						if($user["Country"] === "" and $user["District"] === "" and $user["Town"] === "") {
+						if($user["Country"] === "" and $user["District"] === "") {
 							$showLocation = FALSE;
 						} else {
 							$showLocation = TRUE;
@@ -190,14 +182,6 @@
 								</strong> 
 
 								<span id="district"><?php echo $user["District"];?></span>
-							</p>
-							
-							<p class="town">
-								<strong <?php echo ((!$user["Town"]) ? 'style="display:none;" class="remove"' : null);?>>
-									<?php echo __("Town"); ?>:
-								</strong> 
-
-								<span id="town"><?php echo $user["Town"];?></span>
 							</p>
 						</div>					
 					</div>
