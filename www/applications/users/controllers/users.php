@@ -143,4 +143,23 @@ class Users_Controller extends ZP_Controller {
 			redirect();
 		}
 	}
+
+	public function edit($scope = "profile") {
+		if(!isConnected()) {
+			redirect();
+		}
+
+		if($scope === "profile") {
+			$data = $this->Users_Model->getUserData(TRUE);
+		}
+		
+		if($data) {
+			$vars["user"] = $data[0];
+			$vars["view"] = $this->view($scope, TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			exit("No se encontró datos");
+		}
+	}
 }
