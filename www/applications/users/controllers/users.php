@@ -155,39 +155,40 @@ class Users_Controller extends ZP_Controller {
 			if($data[0]["Twitter"] === "") {
 				$twitter = FALSE;
 			} else {
-				$twitter = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "twitter.png";
+				$twitter = _get("webURL") ."/www/applications/users/views/images/twitter.png";
 			}
 			
 			if($data[0]["Facebook"] === "") {
 				$facebook = FALSE;
 			} else {
-				$facebook = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "facebook.png";
+				$facebook = _get("webURL") ."/www/applications/users/views/images/facebook.png";
 			}
 			
 			if($data[0]["Google"] === "") {
 				$google = FALSE;
 			} else {
-				$google = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "google.png";
+				$google = _get("webURL") ."/www/applications/users/views/images/google.png";
 			}
 			
 			if($data[0]["Linkedin"] === "") {
 				$linkedin = FALSE;
 			} else {
-				$linkedin = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "linkedin.png";
+				$linkedin = _get("webURL") ."/www/applications/users/views/images/linkedin.png";
 			}
 			
 			if($data[0]["Avatar"] === "") {
-				$avatar = _get("webURL") . _sh . "www" . _sh . "lib" . _sh . "files" . _sh . "images" . _sh . "users" . _sh . "default.png";
+				$avatar = _get("webURL") ."/www/lib/files/images/users/default.png";
 			} else {
+				$avatar = _get("webURL") ."/www/lib/files/images/users/". $data[0]["Avatar"];
 				/*if($data[0]["Type"] === "Twitter") {
 					$avatar = $data[0]["Avatar"];
 				} else {
-					$avatar = _get("webURL") . _sh . $data[0]["Avatar"];
 				} */
 			}
 
 			$vars["user"] 	  = $data[0];
 			$vars["twitter"]  = $twitter;
+			$vars["avatar"]   = $avatar;
 			$vars["facebook"] = $facebook;
 			$vars["linkedin"] = $linkedin;
 			$vars["google"]   = $google;
