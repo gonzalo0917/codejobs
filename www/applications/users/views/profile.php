@@ -32,6 +32,11 @@
 					Linkedin
 				</a>
 			<?php } ?>
+			<?php if($user["Google"]) { ?>
+				<a class="sn" id="google" href="http://plus.google.com/<?php echo $user["Google"];?>/about" rel="external" title="<?php echo $user["Google"];?>">
+					Google+
+				</a>
+			<?php } ?>
 		</div>
 		
 		<div class="clear"></div>
