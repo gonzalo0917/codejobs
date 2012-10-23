@@ -43,28 +43,28 @@
 				<?php 
 					if($twitter) { 
 				?>
-						<a class="sn" id="twitter" rel="external" href="http://twitter.com/<?php echo $user["Twitter"];?>" 
+						<a class="sn" id="twitter" target="_blank" href="http://twitter.com/<?php echo $user["Twitter"];?>" 
 						title="<?php echo $user["Twitter"];?>"><img src="<?php print $twitter;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
  					
  					if($facebook) { 
 	 			?>
-						<a class="sn" id="facebook" rel="external" href="http://facebook.com/<?php echo $user["Facebook"];?>" 
+						<a class="sn" id="facebook" target="_blank" href="http://facebook.com/<?php echo $user["Facebook"];?>" 
 						title="<?php echo $user["Facebook"];?>"><img src="<?php print $facebook;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
 					
 					if($linkedin) { 
 				?>
-						<a class="sn" id="linkedin" rel="external" href="http://linkedin.com/<?php echo $user["Linkedin"];?>" 
+						<a class="sn" id="linkedin" target="_blank" href="http://linkedin.com/<?php echo $user["Linkedin"];?>" 
 						title="<?php echo $user["Linkedin"];?>"><img src="<?php print $linkedin;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
 					
 					if($google) { 
 				?>
-						<a class="sn" id="google" href="http://plus.google.com/<?php echo $user["Google"];?>/about" rel="external" 
+						<a class="sn" id="google" href="http://plus.google.com/<?php echo $user["Google"];?>/about" target="_blank" 
 						title="<?php echo $user["Google"];?>"><img src="<?php print $google;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
