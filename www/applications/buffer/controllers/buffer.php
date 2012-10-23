@@ -34,7 +34,7 @@ class Buffer_Controller extends ZP_Controller {
 				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
 
 				$data = array(
-					"text" 			=> $post["Title"] ." ". $URL ." ". _bufferVia,
+					"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
 					"profile_ids[]" => _bufferProfile
 				);					
 
@@ -51,7 +51,7 @@ class Buffer_Controller extends ZP_Controller {
 				$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
 
 				$data = array(
-					"text" 			=> $bookmark["Title"] ." ". $URL ." ". _bufferVia,
+					"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
 					"profile_ids[]" => _bufferProfile
 				);				
 
@@ -68,7 +68,7 @@ class Buffer_Controller extends ZP_Controller {
 				$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 
 				$data = array(
-					"text" 			=> $code["Title"] ." ". $URL ." ". _bufferVia,
+					"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
 					"profile_ids[]" => _bufferProfile
 				);				
 
@@ -95,21 +95,21 @@ class Buffer_Controller extends ZP_Controller {
 					$URL = path("blog/". $record["Year"] ."/". $record["Month"] ."/". $record["Day"] ."/". $record["Slug"], FALSE, $record["Language"]);
 
 					$data = array(
-						"text" 			=> $record["Title"] ." ". $URL ." ". _bufferVia,
+						"text" 			=> stripslashes($record["Title"]) ." ". $URL ." ". _bufferVia,
 						"profile_ids[]" => _bufferProfile
 					);					
 				} elseif(isset($record["ID_Bookmark"])) {
 					$URL = path("bookmarks/". $record["ID_Bookmark"] ."/". $record["Slug"], FALSE, $record["Language"]);
 
 					$data = array(
-						"text" 			=> $record["Title"] ." ". $URL ." ". _bufferVia,
+						"text" 			=> stripslashes($record["Title"]) ." ". $URL ." ". _bufferVia,
 						"profile_ids[]" => _bufferProfile
 					);				
 				} elseif(isset($record["ID_Code"])) {
 					$URL = path("codes/". $record["ID_Code"] ."/". $record["Slug"], FALSE, $record["Language"]);
 
 					$data = array(
-						"text" 			=> $record["Title"] ." ". $URL ." ". _bufferVia,
+						"text" 			=> stripslashes($record["Title"]) ." ". $URL ." ". _bufferVia,
 						"profile_ids[]" => _bufferProfile
 					);				
 				}

@@ -174,7 +174,7 @@ class Bookmarks_Model extends ZP_Model {
 	}
 
 	public function getBufferBookmarks($language = "all") {
-		return ($language === "all") ? $this->Db->findBy("Buffer", 1, $this->table, "ID_Bookmark, Title, Slug, Language", NULL, "rand()") : $this->Db->findBySQL("Buffer = 1 AND Language = '$language'", $this->table, "ID_Bookmark, Title, Slug, Language", NULL, "rand()");
+		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Bookmark, Title, Slug, Language", NULL, "rand()") : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Bookmark, Title, Slug, Language", NULL, "rand()");
 	}
 
 	public function getByTag($tag, $limit) {
