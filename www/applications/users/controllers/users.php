@@ -186,7 +186,10 @@ class Users_Controller extends ZP_Controller {
 				} */
 			}
 
+			$this->css("profile", $this->application);
+
 			$vars["user"] 	  = $data[0];
+			$vars["joinDate"] = date("d/m/Y", $data[0]["Start_Date"]);
 			$vars["twitter"]  = $twitter;
 			$vars["avatar"]   = $avatar;
 			$vars["facebook"] = $facebook;
