@@ -114,6 +114,8 @@ class Feedback_Model extends ZP_Model {
 			return getAlert(__("You need to write a subject"));
 		}
 
+		$this->helper("alerts");
+
 		$this->Email->email	  = POST("to");
 		$this->Email->subject = POST("subject");
 		$this->Email->message = POST("message", "decode", FALSE);
