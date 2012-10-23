@@ -41,31 +41,31 @@
 				
 				<div class="social">
 				<?php 
-					if($user["Twitter"]) { 
+					if($twitter) { 
 				?>
 						<a class="sn" id="twitter" rel="external" href="http://twitter.com/<?php echo $user["Twitter"];?>" 
-						title="<?php echo $user["Twitter"];?>">Twitter</a>
+						title="<?php echo $user["Twitter"];?>"><img src="<?php print $twitter;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
  					
- 					if($user["Facebook"]) { 
+ 					if($facebook) { 
 	 			?>
 						<a class="sn" id="facebook" rel="external" href="http://facebook.com/<?php echo $user["Facebook"];?>" 
-						title="<?php echo $user["Facebook"];?>">Facebook</a>
+						title="<?php echo $user["Facebook"];?>"><img src="<?php print $facebook;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
 					
-					if($user["Linkedin"]) { 
+					if($linkedin) { 
 				?>
 						<a class="sn" id="linkedin" rel="external" href="http://linkedin.com/<?php echo $user["Linkedin"];?>" 
-						title="<?php echo $user["Linkedin"];?>">Linkedin</a>
+						title="<?php echo $user["Linkedin"];?>"><img src="<?php print $linkedin;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
 					
-					if($user["Google"]) { 
+					if($google) { 
 				?>
 						<a class="sn" id="google" href="http://plus.google.com/<?php echo $user["Google"];?>/about" rel="external" 
-						title="<?php echo $user["Google"];?>">Google+</a>
+						title="<?php echo $user["Google"];?>"><img src="<?php print $google;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
 				?>
@@ -87,10 +87,6 @@
 									<?php echo __("Email"); ?>:
 								</strong> 
 								<?php echo $user["Email"];?>
-							</p>
-							
-							<p>
-								<strong><?php echo __("Rank"); ?>:</strong> <?php echo __($user["Rank"]);?>
 							</p>
 							
 							<p>

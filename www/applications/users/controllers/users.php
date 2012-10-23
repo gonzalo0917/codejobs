@@ -151,8 +151,47 @@ class Users_Controller extends ZP_Controller {
 
 		if($scope === "profile") {
 			$data = $this->Users_Model->getUserData(TRUE);
-			$vars["user"] = $data[0];
-			$vars["view"] = $this->view("editprofile", TRUE);
+
+			if($data[0]["Twitter"] === "") {
+				$twitter = FALSE;
+			} else {
+				$twitter = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "twitter.png";
+			}
+			
+			if($data[0]["Facebook"] === "") {
+				$facebook = FALSE;
+			} else {
+				$facebook = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "facebook.png";
+			}
+			
+			if($data[0]["Google"] === "") {
+				$google = FALSE;
+			} else {
+				$google = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "google.png";
+			}
+			
+			if($data[0]["Linkedin"] === "") {
+				$linkedin = FALSE;
+			} else {
+				$linkedin = _get("webURL") . _sh . "www" . _sh . "applications" . _sh . "users" . _sh . "views" . _sh . "images" . _sh . "linkedin.png";
+			}
+			
+			if($data[0]["Avatar"] === "") {
+				$avatar = _get("webURL") . _sh . "www" . _sh . "lib" . _sh . "files" . _sh . "images" . _sh . "users" . _sh . "default.png";
+			} else {
+				/*if($data[0]["Type"] === "Twitter") {
+					$avatar = $data[0]["Avatar"];
+				} else {
+					$avatar = _get("webURL") . _sh . $data[0]["Avatar"];
+				} */
+			}
+
+			$vars["user"] 	  = $data[0];
+			$vars["twitter"]  = $twitter;
+			$vars["facebook"] = $facebook;
+			$vars["linkedin"] = $linkedin;
+			$vars["google"]   = $google;
+			$vars["view"] 	  = $this->view("editprofile", TRUE);
 
 			$this->render("content", $vars);
 		}
