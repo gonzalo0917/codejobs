@@ -145,7 +145,7 @@ class Users_Controller extends ZP_Controller {
 	}
 
 	public function edit($scope = "profile") {
-		if(!isConnected()) {
+		if(!isConnected() || get("production")) {
 			redirect();
 		}
 
