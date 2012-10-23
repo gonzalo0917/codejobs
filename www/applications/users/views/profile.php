@@ -1,9 +1,9 @@
 <?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
 
 <div class="editProfile">
-	<?php if(_webLang === "en") { ?>
+	<?php if(_get("webLang") === "en") { ?>
 		<p class="center"><?php echo $user[0][0]["Username"] . "'s Profile";?></p>
-	<?php } elseif(_webLang === "es") { ?>
+	<?php } elseif(_get("webLang") === "es") { ?>
 		<p class="center"><?php echo "Perfil de " . $user[0][0]["Username"];?></p>
 	<?php } ?>
 	
