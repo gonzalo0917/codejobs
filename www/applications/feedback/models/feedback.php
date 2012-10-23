@@ -119,6 +119,8 @@ class Feedback_Model extends ZP_Model {
 		$this->Email->message = POST("message", "decode", FALSE);
 		
 		$this->Email->send();
+
+		return getAlert(__("Your message has been sent"), "success");
 	}
 	
 	private function sendResponse($vars) {

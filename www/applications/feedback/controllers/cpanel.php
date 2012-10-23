@@ -189,7 +189,7 @@ class CPanel_Controller extends ZP_Controller {
 			
 			$this->$Model->read($ID);
 			
-			$this->vars["alert"] = FALSE;
+			$this->vars["ID"]	 = $ID;
 			$this->vars["data"]	 = $data;
 			$this->vars["view"]  = $this->view("read", TRUE, $this->application);
 			

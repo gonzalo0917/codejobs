@@ -59,8 +59,10 @@
 </div>
 <?php
 	echo div("add-form", "class");
-		echo formOpen(path("feedback/cpanel/read"), "form-add", "form-add");
+		echo formOpen(path("feedback/cpanel/read/$ID"), "form-add", "form-add");
 			echo p(__("Respond"), "resalt");			
+
+			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(	
 				"id"    => "email",
