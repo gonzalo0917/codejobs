@@ -12,7 +12,7 @@
 				
 				<div class="avatar">
 					<div id="avatar">
-						<img src="<?php echo $avatar;?>" title="<?php echo $user[0][0]["Username"];?>" alt="<?php echo $user[0][0]["Username"];?>" />
+						<img src="<?php echo $avatar;?>" title="<?php echo $user["Username"];?>" alt="<?php echo $user["Username"];?>" />
 					</div> <br />
 					
 					<div class="buttons">
@@ -23,7 +23,7 @@
 					<?php 
 						} 
 					?>
-						<input class="editData" name="<?php echo _webLang;?>" value="<?php echo __("Edit Profile"); ?>" type="button" />
+						<input class="editData" name="<?php echo _get("webLang");?>" value="<?php echo __("Edit Profile"); ?>" type="button" />
 					</div>
 				</div>
 
@@ -41,31 +41,31 @@
 				
 				<div class="social">
 				<?php 
-					if($twitter) { 
+					if($user["Twitter"]) { 
 				?>
-						<a class="sn" id="twitter" rel="external" href="http://twitter.com/<?php echo $user[1][0]["Twitter"];?>" 
-						title="<?php echo $user[1][0]["Twitter"];?>"><img src="<?php echo $twitter;?>" alt="twitter.com"/></a>
+						<a class="sn" id="twitter" rel="external" href="http://twitter.com/<?php echo $user["Twitter"];?>" 
+						title="<?php echo $user["Twitter"];?>">Twitter</a>
 				<?php 
 					} 
  					
- 					if($facebook) { 
+ 					if($user["Facebook"]) { 
 	 			?>
-						<a class="sn" id="facebook" rel="external" href="http://facebook.com/<?php echo $user[1][0]["Facebook"];?>" 
-						title="<?php echo $user[1][0]["Facebook"];?>"><img src="<?php echo $facebook;?>" alt="facebook.com"/></a>
+						<a class="sn" id="facebook" rel="external" href="http://facebook.com/<?php echo $user["Facebook"];?>" 
+						title="<?php echo $user["Facebook"];?>">Facebook</a>
 				<?php 
 					} 
 					
-					if($linkedin) { 
+					if($user["Linkedin"]) { 
 				?>
-						<a class="sn" id="linkedin" rel="external" href="http://linkedin.com/<?php echo $user[1][0]["Linkedin"];?>" 
-						title="<?php echo $user[1][0]["Linkedin"];?>"><img src="<?php echo $linkedin;?>" alt="linkedin.com"/></a>
+						<a class="sn" id="linkedin" rel="external" href="http://linkedin.com/<?php echo $user["Linkedin"];?>" 
+						title="<?php echo $user["Linkedin"];?>">Linkedin</a>
 				<?php 
 					} 
 					
-					if($google) { 
+					if($user["Google"]) { 
 				?>
-						<a class="sn" id="google" href="http://plus.google.com/<?php echo $user[1][0]["Google"];?>/about" rel="external" 
-						title="<?php echo $user[1][0]["Google"];?>"><img src="<?php echo $google;?>" alt="plus.google.com"/></a>
+						<a class="sn" id="google" href="http://plus.google.com/<?php echo $user["Google"];?>/about" rel="external" 
+						title="<?php echo $user["Google"];?>">Google+</a>
 				<?php 
 					} 
 				?>
@@ -79,18 +79,18 @@
 					<div class="information principal">
 						<div id="mainhide">
 							<p>
-								<strong><?php echo __("User"); ?>:</strong> <?php echo $user[0][0]["Username"];?>
+								<strong><?php echo __("User"); ?>:</strong> <?php echo $user["Username"];?>
 							</p>
 							
 							<p>
-								<strong <?php echo ((!$user[0][0]["Email"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Email"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Email"); ?>:
 								</strong> 
-								<?php echo $user[0][0]["Email"];?>
+								<?php echo $user["Email"];?>
 							</p>
 							
 							<p>
-								<strong><?php echo __("Rank"); ?>:</strong> <?php echo __($user[0][0]["Rank"]);?>
+								<strong><?php echo __("Rank"); ?>:</strong> <?php echo __($user["Rank"]);?>
 							</p>
 							
 							<p>
@@ -98,12 +98,12 @@
 							</p>
 							
 							<p class="website">
-								<strong <?php echo ((!$user[0][0]["Website"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Website"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Website"); ?>:
 								</strong> 
 
-								<a <?php echo ((!$user[0][0]["Website"]) ? 'style="display:none;" class="remove"' : null);?> 
-								href="<?php echo $user[0][0]["Website"];?>" id="website">
+								<a <?php echo ((!$user["Website"]) ? 'style="display:none;" class="remove"' : null);?> 
+								href="<?php echo $user["Website"];?>" id="website">
 									<?php echo __("Go"); ?>
 								</a>
 							</p>
@@ -115,43 +115,43 @@
 					<div class="information personal">
 						<div id="personalhide">
 							<p class="name">
-								<strong <?php echo ((!$user[1][0]["Name"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Name"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Name"); ?>:
 								</strong> 
 
-								<span id="name"><?php echo $user[1][0]["Name"];?></span>
+								<span id="name"><?php echo $user["Name"];?></span>
 							</p>
 							
 							<p class="gender">
-								<strong <?php echo ((!$user[1][0]["Gender"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Gender"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Gender"); ?>:
 								</strong> 
 
-								<span id="gender"><?php echo __($user[1][0]["Gender"]);?></span>
+								<span id="gender"><?php echo __($user["Gender"]);?></span>
 							</p>
 							
 							<p class="birthday">
-								<strong <?php echo ((!$user[1][0]["Birthday"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Birthday"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Birthday"); ?>:
 								</strong> 
 
-								<span id="birthday"><?php echo $user[1][0]["Birthday"];?></span>
+								<span id="birthday"><?php echo $user["Birthday"];?></span>
 							</p>
 							
 							<p class="company">
-								<strong <?php echo ((!$user[1][0]["Company"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Company"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Company"); ?>:
 								</strong> 
 
-								<span id="company"><?php echo $user[1][0]["Company"];?></span>
+								<span id="company"><?php echo $user["Company"];?></span>
 							</p>
 								
 							<p class="telephone">
-								<strong <?php echo ((!$user[1][0]["Phone"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Phone"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Telephone"); ?>:
 								</strong> 
 								
-								<span id="telephone"><?php echo $user[1][0]["Phone"];?></span>
+								<span id="telephone"><?php echo $user["Phone"];?></span>
 							</p>
 						</div>
 					</div>
@@ -160,15 +160,15 @@
 					
 					<div class="information statistics">
 						<div id="statshide">
-							<p><strong><?php echo __("Messages"); ?>:</strong> <?php echo $user[0][0]["Messages"];?></p>
-							<p><strong><?php echo __("Receive Messages"); ?>:</strong> <?php echo __($user[0][0]["Recieve_Messages"]);?></p>
-							<p><strong><?php echo __("Comments"); ?>:</strong> <?php echo $user[0][0]["Comments"];?></p>
-							<p><strong><?php echo __("Subscribed"); ?>:</strong> <?php echo $user[0][0]["Subscribed"];?></p>
+							<p><strong><?php echo __("Messages"); ?>:</strong> <?php echo $user["Messages"];?></p>
+							<p><strong><?php echo __("Receive Messages"); ?>:</strong> <?php echo __($user["Recieve_Messages"]);?></p>
+							<p><strong><?php echo __("Comments"); ?>:</strong> <?php echo $user["Comments"];?></p>
+							<p><strong><?php echo __("Subscribed"); ?>:</strong> <?php echo $user["Subscribed"];?></p>
 						</div>
 					</div>
 					
 					<?php 
-						if($user[1][0]["Country"] === "" and $user[1][0]["District"] === "" and $user[1][0]["Town"] === "") {
+						if($user["Country"] === "" and $user["District"] === "" and $user["Town"] === "") {
 							$showLocation = FALSE;
 						} else {
 							$showLocation = TRUE;
@@ -182,32 +182,32 @@
 					<div class="information ubication">
 						<div id="ubihide">
 							<p class="country">
-								<strong <?php echo ((!$user[1][0]["Country"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Country"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Country"); ?>:
 								</strong> 
 
-								<span id="country"><?php echo $user[1][0]["Country"];?></span></p>
+								<span id="country"><?php echo $user["Country"];?></span></p>
 								
 							<p class="district">
-								<strong <?php echo ((!$user[1][0]["District"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["District"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("District"); ?>:
 								</strong> 
 
-								<span id="district"><?php echo $user[1][0]["District"];?></span>
+								<span id="district"><?php echo $user["District"];?></span>
 							</p>
 							
 							<p class="town">
-								<strong <?php echo ((!$user[1][0]["Town"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Town"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Town"); ?>:
 								</strong> 
 
-								<span id="town"><?php echo $user[1][0]["Town"];?></span>
+								<span id="town"><?php echo $user["Town"];?></span>
 							</p>
 						</div>					
 					</div>
 					
 					<?php 
-						if($user[0][0]["Sign"] === "") {
+						if($user["Sign"] === "") {
 							$showOther = FALSE;
 						} else {
 							$showOther = TRUE;
@@ -220,12 +220,12 @@
 					<div class="information socialmedia">
 						<div id="socialhide">
 							<p class="sign">
-								<strong <?php echo ((!$user[0][0]["Sign"]) ? 'style="display:none;" class="remove"' : null);?>>
+								<strong <?php echo ((!$user["Sign"]) ? 'style="display:none;" class="remove"' : null);?>>
 									<?php echo __("Sign"); ?>:
 								</strong>
 							</p>
 							
-							<div id="sign"><?php echo $user[0][0]["Sign"];?></div>
+							<div id="sign"><?php echo $user["Sign"];?></div>
 							
 							<div id="sclntw">
 								<p class="twitter"><strong>Twitter:</strong></p>
@@ -239,20 +239,20 @@
 				</div>
 			</div>
 						
-			<input class="removable" name="website" type="hidden" value="<?php echo $user[0][0]["Website"];?>" />
-			<input class="removable" name="twitter" type="hidden" value="<?php echo $user[1][0]["Twitter"];?>" />
-			<input class="removable" name="facebook" type="hidden" value="<?php echo $user[1][0]["Facebook"];?>" />
-			<input class="removable" name="linkedin" type="hidden" value="<?php echo $user[1][0]["Linkedin"];?>" />
-			<input class="removable" name="google" type="hidden" value="<?php echo $user[1][0]["Google"];?>" />
-			<input class="removable" name="name" type="hidden" value="<?php echo $user[1][0]["Name"];?>" />
-			<input class="removable" name="gender" type="hidden" value="<?php echo $user[1][0]["Gender"];?>" />
-			<input class="removable" name="birthday" type="hidden" value="<?php echo $user[1][0]["Birthday"];?>" />
-			<input class="removable" name="company" type="hidden" value="<?php echo $user[1][0]["Company"];?>" />
-			<input class="removable" name="country" type="hidden" value="<?php echo $user[1][0]["Country"];?>" />
-			<input class="removable" name="district" type="hidden" value="<?php echo $user[1][0]["District"];?>" />
-			<input class="removable" name="town" type="hidden" value="<?php echo $user[1][0]["Town"];?>" />
-			<input class="removable" name="telephone" type="hidden" value="<?php echo $user[1][0]["Phone"];?>" />
-			<input class="removable" name="sign" type="hidden" value="<?php echo $user[0][0]["Sign"];?>" />
+			<input class="removable" name="website" type="hidden" value="<?php echo $user["Website"];?>" />
+			<input class="removable" name="twitter" type="hidden" value="<?php echo $user["Twitter"];?>" />
+			<input class="removable" name="facebook" type="hidden" value="<?php echo $user["Facebook"];?>" />
+			<input class="removable" name="linkedin" type="hidden" value="<?php echo $user["Linkedin"];?>" />
+			<input class="removable" name="google" type="hidden" value="<?php echo $user["Google"];?>" />
+			<input class="removable" name="name" type="hidden" value="<?php echo $user["Name"];?>" />
+			<input class="removable" name="gender" type="hidden" value="<?php echo $user["Gender"];?>" />
+			<input class="removable" name="birthday" type="hidden" value="<?php echo $user["Birthday"];?>" />
+			<input class="removable" name="company" type="hidden" value="<?php echo $user["Company"];?>" />
+			<input class="removable" name="country" type="hidden" value="<?php echo $user["Country"];?>" />
+			<input class="removable" name="district" type="hidden" value="<?php echo $user["District"];?>" />
+			<input class="removable" name="town" type="hidden" value="<?php echo $user["Town"];?>" />
+			<input class="removable" name="telephone" type="hidden" value="<?php echo $user["Phone"];?>" />
+			<input class="removable" name="sign" type="hidden" value="<?php echo $user["Sign"];?>" />
 			<input name="ID_User" type="hidden" value="<?php echo $ID;?>" />
 		</fieldset>
 	</form>

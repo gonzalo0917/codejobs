@@ -151,15 +151,10 @@ class Users_Controller extends ZP_Controller {
 
 		if($scope === "profile") {
 			$data = $this->Users_Model->getUserData(TRUE);
-		}
-		
-		if($data) {
 			$vars["user"] = $data[0];
-			$vars["view"] = $this->view($scope, TRUE);
+			$vars["view"] = $this->view("editprofile", TRUE);
 
 			$this->render("content", $vars);
-		} else {
-			exit("No se encontró datos");
 		}
 	}
 }
