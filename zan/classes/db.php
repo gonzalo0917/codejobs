@@ -297,7 +297,7 @@ class ZP_Db extends ZP_Load {
 	public function countAll($table = NULL) {
 		$this->table($table);
 		
-		$query = "SELECT COUNT(*) AS Total FROM $this->table";	
+		$query = "SELECT COUNT(1) AS Total FROM $this->table";	
 		
 		$data = $this->data($query);
 		
@@ -316,7 +316,7 @@ class ZP_Db extends ZP_Load {
 
 		$this->table($table);
 		
-		$query = "SELECT COUNT(*) AS Total FROM $this->table WHERE $SQL";
+		$query = "SELECT COUNT(1) AS Total FROM $this->table WHERE $SQL";
 			
 		$data = $this->data($query);
 		
