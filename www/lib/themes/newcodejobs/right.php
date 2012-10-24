@@ -1,5 +1,5 @@
 <?php
-    if(segment(0, isLang()) !== "forums" and segment(1, isLang()) !== "add") { 
+    if((segment(0, isLang()) !== "forums" and segment(1, isLang()) !== "add") or defined("_hideRight")) { 
 ?>
         <aside>
             <section class="social">

@@ -103,8 +103,8 @@ class Blog_Model extends ZP_Model {
 			"Start_Date"   => now(4),
 			"Text_Date"    => decode(now(2)),
 			"Tags"		   => POST("tags"),
-			"Buffer"	   => POST("buffer"),
-			"Code"	       => POST("code"),
+			"Buffer"	   => POST("buffer") === FALSE ? 0 : POST("buffer"),
+			"Code"	       => POST("code") === FALSE ? code(10) : POST("code"),
 		);
 
 		$this->Data->ignore(array("temp_title", "temp_tags", "temp_content", "editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
