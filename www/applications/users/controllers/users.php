@@ -195,8 +195,8 @@ class Users_Controller extends ZP_Controller {
 			$vars["view"] 	  = $this->view("editprofile", TRUE);*/
 
 			$this->helper("html");
-			$this->config("users");
-			
+			$this->config("users", $this->application);
+
 			$vars["view"] = $this->view("edit_profile", TRUE);
 			$vars["href"] = path("users/edit/profile");
 
