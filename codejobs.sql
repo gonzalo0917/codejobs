@@ -19,6 +19,24 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Database: `codejobs`
 --
 
+
+CREATE TABLE muu_multimedia (
+ID_File mediumint(8) unsigned default null auto_increment,
+ID_User mediumint(8) unsigned default '0' not null,
+Filename varchar(255) default null,
+URL varchar(255) default null,
+Original varchar(255) default null,
+Medium varchar(255) default null,
+Small varchar(255) default null,
+Display varchar(255) default null,
+Thumbnail varchar(255) default null,
+Category varchar(20) not null default 'Images',
+Size int(11) unsigned default '0' not null,
+Start_Date int(11) unsigned default '0' not null,
+Downloads mediumint(8) unsigned default '0' not null,
+PRIMARY KEY (ID_File)
+);
+
 -- --------------------------------------------------------
 
 --
