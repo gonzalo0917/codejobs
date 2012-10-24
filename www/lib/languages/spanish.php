@@ -77,6 +77,7 @@ $phrase["do_you_want_to_send_to_trash_the_records"]		= "¿Desea enviar los regist
 $phrase["download_code"]								= "Descargar código";
 $phrase["draft"]										= "Borrador";
 $phrase["edit"]											= "Editar";
+$phrase["edit_profile"]									= "Editar perfil";
 $phrase["email_for_recieve_notifications"] 				= "Email para recibir notificaciones";
 $phrase["email_for_send_notifications"] 				= "Email para enviar notificaciones";
 $phrase["enable_comments"] 								= "Comentarios Activos";

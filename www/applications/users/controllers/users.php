@@ -150,7 +150,7 @@ class Users_Controller extends ZP_Controller {
 		}
 
 		if($scope === "profile") {
-			$data = $this->Users_Model->getUserData(TRUE);
+			/*$data = $this->Users_Model->getUserData(TRUE);
 
 			if($data[0]["Twitter"] === "") {
 				$twitter = FALSE;
@@ -180,10 +180,6 @@ class Users_Controller extends ZP_Controller {
 				$avatar = _get("webURL") ."/www/lib/files/images/users/default.png";
 			} else {
 				$avatar = _get("webURL") ."/www/lib/files/images/users/". $data[0]["Avatar"];
-				/*if($data[0]["Type"] === "Twitter") {
-					$avatar = $data[0]["Avatar"];
-				} else {
-				} */
 			}
 
 			$this->js("editprofile", $this->application);
@@ -196,7 +192,13 @@ class Users_Controller extends ZP_Controller {
 			$vars["facebook"] = $facebook;
 			$vars["linkedin"] = $linkedin;
 			$vars["google"]   = $google;
-			$vars["view"] 	  = $this->view("editprofile", TRUE);
+			$vars["view"] 	  = $this->view("editprofile", TRUE);*/
+
+			$this->helper("html");
+			$this->config("users");
+			
+			$vars["view"] = $this->view("edit_profile", TRUE);
+			$vars["href"] = path("users/edit/profile");
 
 			$this->render("content", $vars);
 		}
