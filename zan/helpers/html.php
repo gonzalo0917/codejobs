@@ -266,3 +266,41 @@ function ul($list, $ID = NULL, $class = NULL) {
 	
 	return $HTML;
 }
+
+/**
+ * htmlTag
+ *
+ * Creates a html tag to the document
+ * 
+ * @author 	Jhon Klever (@elfoxero)
+ * @param 	string $tag
+ * @param 	(boolean|array|string) $attributes
+ * @param 	string $content
+ * @return 	string $html
+ */ 
+
+function htmlTag($tag = NULL, $attributes = TRUE, $content = NULL) {
+    if(is_null($tag)) return "";
+    
+    if($attributes === TRUE) {
+        return "<$tag>";
+    } elseif($attributes === FALSE) {
+        return "</$tag>";
+    } elseif(is_array($attributes)) {
+        $html = "<$tag";
+        
+        foreach ($attributes as $attribute => $value) {
+            $html .= " $attribute = \"$value\"";
+        }
+        
+        $html .= ">";
+        
+        if (! is_null($content)) {
+            $html .= "\n\t$content\n</$tag>";
+        }
+        
+        return $html;
+    } else {
+        return "<$tag>\n\t$attributes\n</$tag>";
+    }
+}
