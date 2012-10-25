@@ -184,7 +184,7 @@ class Bookmarks_Model extends ZP_Model {
 	}
 	
 	public function getByID($ID) {
-		return $this->Db->find($ID, $this->table, $this->fields);
+		return $this->Db->findBySQL("ID_Bookmark = '$ID' AND Situation = 'Active'", $this->table, $this->fields);
 	}
 	
 	public function getAll($limit) {		
