@@ -204,12 +204,12 @@ class CPanel_Controller extends ZP_Controller {
                 $data = $this->$Model->getByID(isset($this->$Model->id) ? $this->$Model->id : $ID);
                 
 		if($data) {
-                        $data[0]["Files"] = $this->$Model_Files->getByCode(isset($this->$Model->id) ? $this->$Model->id : $ID);
-                        
-                        $this->helper("forms");
-                        $this->helper("codes", $this->application);
-                        
-                        $this->vars["data"] = $data;
+            $data[0]["Files"] = $this->$Model_Files->getByCode(isset($this->$Model->id) ? $this->$Model->id : $ID);
+            
+            $this->helper(array("forms", "tags"));
+            $this->helper("codes", $this->application);
+            
+            $this->vars["data"] = $data;
 			$this->vars["view"] = $this->view("add", TRUE, $this->application);
 			
 			$this->render("content", $this->vars);
