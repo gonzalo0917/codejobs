@@ -42,7 +42,7 @@
 
     <?php
         if($code["Description"] !== "") {
-            echo str_replace("\\", "", htmlTag("p", $code["Description"]));
+            echo str_replace("\\", "", htmlTag("p", showLinks($code["Description"])));
         }
 
         foreach ($code["Files"] as $file) {

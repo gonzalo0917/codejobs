@@ -764,3 +764,18 @@ function removeSpaces($text, $trim = FALSE) {
 	
 	return $text;
 }
+
+/**
+ * showLinks
+ *
+ * Matches all URLs
+ * 
+ * @author Tyler Hall (@tylerhall)
+ * @link http://snipplr.com/view/2371/
+ * @param string $content
+ * @return string $text
+ */ 
+function showLinks($content) {
+	$text = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $content);
+	return $text;
+}
