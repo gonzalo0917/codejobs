@@ -59,7 +59,7 @@ class Codes_Controller extends ZP_Controller {
 		$data = $this->Cache->data("language-$language-$limit", "codes", $this->Codes_Model, "getByLanguage", array($language, $limit));
 
 		if($data) {
-			$this->helper(array("time", "tags"));
+			$this->helper(array("time", "html"));
             $this->helper("codes", $this->application);
                         
             foreach($data as $pos => $code) {
@@ -91,7 +91,7 @@ class Codes_Controller extends ZP_Controller {
 		$data = $this->Cache->data("code-$codeID", "codes", $this->Codes_Model, "getByID", array($codeID));
 
 		if($data) {
-			$this->helper(array("time", "tags"));
+			$this->helper(array("time", "html"));
             $this->helper("codes", $this->application);
                         
             $files = $this->CodesFiles_Model->getByCode($data[0]["ID_Code"]);
@@ -124,7 +124,7 @@ class Codes_Controller extends ZP_Controller {
 		
 		$data = $this->Cache->data("codes-$limit", "codes", $this->Codes_Model, "getAll", array($limit));
 
-		$this->helper(array("time", "tags"));
+		$this->helper(array("time", "html"));
         $this->helper("codes", $this->application);
 		
 		if($data) {	
@@ -157,7 +157,7 @@ class Codes_Controller extends ZP_Controller {
 		
 		$data = $this->Cache->data("author-$author-$limit", "codes", $this->Codes_Model, "getAllByAuthor", array($author, $limit));
 	
-		$this->helper(array("time", "tags"));
+		$this->helper(array("time", "html"));
 		$this->helper("codes", $this->application);
 		
 		if($data) {	
@@ -190,7 +190,7 @@ class Codes_Controller extends ZP_Controller {
 		
 		$data = $this->Cache->data("author-$author-language-$language-$limit", "codes", $this->Codes_Model, "getAllByLanguage", array($author, $language, $limit));
 	
-		$this->helper(array("time", "tags"));
+		$this->helper(array("time", "html"));
 		$this->helper("codes", $this->application);
 		
 		if($data) {	
@@ -250,7 +250,7 @@ class Codes_Controller extends ZP_Controller {
 		$this->CSS("new", "codes");
 		$this->CSS("forms", "cpanel");
 
-		$this->helper(array("html", "forms", "tags"));
+		$this->helper(array("html", "forms"));
 		$this->helper("codes", $this->application);
 
 		$this->config("user", "codes");

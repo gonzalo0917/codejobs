@@ -42,7 +42,7 @@
 
     <?php
         if($code["Description"] !== "") {
-            echo str_replace("\\", "", tagHTML("p", $code["Description"]));
+            echo str_replace("\\", "", htmlTag("p", $code["Description"]));
         }
 
         foreach ($code["Files"] as $file) {
@@ -50,9 +50,9 @@
             <p>
                 <div class="title-file">
                     <?php
-                        echo tagHTML("div", array("class" => "filename"), $file["Name"]);
+                        echo htmlTag("div", array("class" => "filename"), $file["Name"]);
                         
-                        echo tagHTML("a", array(
+                        echo htmlTag("a", array(
                             "name"  => slug($file["Name"]),
                             "class" => "permalink",
                             "title" => __("Permalink to this file"),

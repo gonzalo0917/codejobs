@@ -18,7 +18,7 @@
         $files = recoverFiles();
     }
 	
-	echo tagHTML("div", array(
+	echo htmlTag("div", array(
         "ng-controller" => "FileCtrl",
         "class"         => "add-form"
     ));
@@ -49,7 +49,7 @@
                     
         echo span("field", "&raquo; " . __("Files") . " ({{files.length}})");
                     
-        echo tagHTML("div", array(
+        echo htmlTag("div", array(
             "class"     => "well span10",
             "ng-repeat" => "file in files"
         ));
@@ -104,20 +104,20 @@
                 "value"     => "{{textCode(\$index)}}"
             ));
             
-            echo tagHTML("div", array(
+            echo htmlTag("div", array(
                 "class" => "remove remove-{{\$index > 0}}"
             ));
             
-            echo tagHTML("a", array(
+            echo htmlTag("a", array(
                 "class"     => "btn btn-danger",
                 "ng-click"  => "removeFile(\$index)"
             ), __("Remove file"));
             
-            echo tagHTML("div", FALSE);
+            echo htmlTag("div", FALSE);
 
-        echo tagHTML("div", FALSE);
+        echo htmlTag("div", FALSE);
         
-        echo tagHTML("div", array(
+        echo htmlTag("div", array(
             "id"        => "add",
             "class"     => "btn span10",
             "ng-click"  => "addFile()"
@@ -138,7 +138,7 @@
         
 	echo formClose();
 
-	echo tagHTML("div", FALSE);
+	echo htmlTag("div", FALSE);
 ?>
 <script type="text/javascript">
 CodeMirror.modeURL = URL + "/zan/vendors/js/codemirror/mode/%N.js";

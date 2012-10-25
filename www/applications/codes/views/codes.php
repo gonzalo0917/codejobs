@@ -48,7 +48,7 @@
 
 			<?php
 				if($code["Description"] !== "") {
-					echo str_replace("\\", "", tagHTML("p", $code["Description"]));
+					echo str_replace("\\", "", htmlTag("p", $code["Description"]));
 				}
 
 			?>

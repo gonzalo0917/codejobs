@@ -93,7 +93,7 @@ class Blog_Controller extends ZP_Controller {
 
 			$this->CSS("new", "blog");
 			
-			$this->helper(array("html", "forms", "tags"));
+			$this->helper(array("html", "forms"));
 
 			$this->config("user", "blog");
 

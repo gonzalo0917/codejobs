@@ -15,7 +15,7 @@
         $files = recoverFiles();
     }
 
-	echo tagHTML("div", array(
+	echo htmlTag("div", array(
         "ng-controller" => "FileCtrl",
         "class"         => "add-form"
     ));
@@ -43,14 +43,14 @@
                 "value"     => ""
             ));
                         
-            echo tagHTML("p", array("class" => "field-p"), span("field", "&raquo; " . __("Files") . " ({{files.length}})"));
+            echo htmlTag("p", array("class" => "field-p"), span("field", "&raquo; " . __("Files") . " ({{files.length}})"));
                         
-            echo tagHTML("div", array(
+            echo htmlTag("div", array(
                 "class"     => "well",
                 "ng-repeat" => "file in files"
             ));
                             
-                echo tagHTML("span", array(
+                echo htmlTag("span", array(
                     "class" => "field field-right",
                 ), "#{{\$index + 1}}");
 
@@ -102,26 +102,26 @@
                     "value"     => "{{textCode(\$index)}}"
                 ));
 
-                echo tagHTML("div", array(
+                echo htmlTag("div", array(
                     "class" => "remove remove-{{\$index > 0}}"
                 ));
                 
-                echo tagHTML("a", array(
+                echo htmlTag("a", array(
                     "class"     => "btn btn-danger",
                     "ng-click"  => "removeFile(\$index)"
                 ), __("Remove file"));
                 
-                echo tagHTML("div", FALSE);
+                echo htmlTag("div", FALSE);
 
-			echo tagHTML("div", FALSE);
+			echo htmlTag("div", FALSE);
 
-            echo tagHTML("div", array(
+            echo htmlTag("div", array(
                 "id"        => "add",
                 "class"     => "btn",
                 "ng-click"  => "addFile()"
             ), __("Add another file") . "...");
 
-			echo tagHTML("p", span("field", "&raquo; " . __("Language of the post")) . "<br />" . getLanguagesInput($language, "language", "select"));
+			echo htmlTag("p", span("field", "&raquo; " . __("Language of the post")) . "<br />" . getLanguagesInput($language, "language", "select"));
                         
 			echo formInput(array(	
 				"name" 	=> "save", 
@@ -132,7 +132,7 @@
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
-	echo tagHTML("div", FALSE);
+	echo htmlTag("div", FALSE);
 ?>
 <script type="text/javascript">
 CodeMirror.modeURL = URL + "/zan/vendors/js/codemirror/mode/%N.js";

@@ -155,7 +155,7 @@ class CPanel_Controller extends ZP_Controller {
 				
 		$this->CSS("forms", "cpanel");
                 
-        $this->helper(array("forms", "tags"));
+        $this->helper(array("forms", "html"));
         $this->helper("codes", $this->application);
                 
 		$Model = ucfirst($this->application) ."_Model";
@@ -206,7 +206,7 @@ class CPanel_Controller extends ZP_Controller {
 		if($data) {
             $data[0]["Files"] = $this->$Model_Files->getByCode(isset($this->$Model->id) ? $this->$Model->id : $ID);
             
-            $this->helper(array("forms", "tags"));
+            $this->helper(array("forms", "html"));
             $this->helper("codes", $this->application);
             
             $this->vars["data"] = $data;
