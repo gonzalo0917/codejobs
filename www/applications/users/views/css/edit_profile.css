@@ -1,20 +1,15 @@
 #content {
-	background-color: lightyellow;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	display: block;
 	float: none;
-	margin-right: 20px;
 	width: auto;
 }
 
 #content, .left {
 	margin-left: 20px;
-	margin-top: 50px;
-}
-
-.form-add > fieldset {
-	background: lightgreen;
+	margin-right: 20px;
+	margin-top: 40px;
 }
 
 .left a {
@@ -24,4 +19,7 @@
 .left a:hover {
   color: #005580;
   text-decoration: underline;
+}
+.resalt {
+	line-height: 1em;
 }
