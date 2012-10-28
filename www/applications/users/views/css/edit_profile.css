@@ -1,14 +1,27 @@
-div#content {
+#content {
 	background-color: lightyellow;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	display: block;
 	float: none;
-	margin-left: 20px;
 	margin-right: 20px;
-	margin-top: 50px;
 	width: auto;
 }
+
+#content, .left {
+	margin-left: 20px;
+	margin-top: 50px;
+}
+
 .form-add > fieldset {
 	background: lightgreen;
+}
+
+.left a {
+  color: #0088cc;
+  text-decoration: none;
+}
+.left a:hover {
+  color: #005580;
+  text-decoration: underline;
 }
