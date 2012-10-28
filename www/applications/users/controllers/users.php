@@ -196,6 +196,7 @@ class Users_Controller extends ZP_Controller {
 
 			$this->helper("html");
 			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
 			$this->css("edit_profile", $this->application);
 
 			$vars["view"] = $this->view("edit_profile", TRUE);

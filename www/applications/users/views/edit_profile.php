@@ -9,10 +9,11 @@
 
 			echo formInput(array(	
                 "name" 	=> "name", 
-                "class" => "field-title",
+                "class" => "field-title field-full-size",
                 "field" => __("Full name"), 
                 "p" 	=> TRUE, 
                 "value" => "",
+                "maxlength" => "150",
                 "autofocus" => "autofocus"
 			));
 		echo formClose();
