@@ -9,3 +9,6 @@ div#content {
 	margin-top: 50px;
 	width: auto;
 }
+.form-add > fieldset {
+	background: lightgreen;
+}
