@@ -13,22 +13,22 @@
 			<div class="well" style="padding: 8px 0px">
 			    <ul class="nav nav-list">
 				    <li<?php echo $active === "profile" ? ' class="active"' : ''; ?>>
-				    	<a href="#"><?php echo __("Edit profile"); ?></a>
+				    	<a href="<?php echo path("users/edit/profile"); ?>"><?php echo __("Edit profile"); ?></a>
 				    </li>
 				    <li<?php echo $active === "avatar" ? ' class="active"' : ''; ?>>
-				    	<a href="#"><?php echo __("Change avatar");?></a>
+				    	<a href="<?php echo path("users/edit/avatar"); ?>"><?php echo __("Change avatar");?></a>
 				    </li>
 				    <li<?php echo $active === "password" ? ' class="active"' : ''; ?>>
-				    	<a href="#"><?php echo __("Change password");?></a>
+				    	<a href="<?php echo path("users/edit/password"); ?>"><?php echo __("Change password");?></a>
 				    </li>
 				    <li<?php echo $active === "options" ? ' class="active"' : ''; ?>>
-				    	<a href="#"><?php echo __("Options");?></a>
+				    	<a href="<?php echo path("users/edit/options"); ?>"><?php echo __("Options");?></a>
 				    </li>
 				    <li<?php echo $active === "privacity" ? ' class="active"' : ''; ?>>
-				    	<a href="#"><?php echo __("Privacity");?></a>
+				    	<a href="<?php echo path("users/edit/privacity"); ?>"><?php echo __("Privacity");?></a>
 				    </li>
 				    <li<?php echo $active === "social" ? ' class="active"' : ''; ?>>
-				    	<a href="#"><?php echo __("Social networks");?></a>
+				    	<a href="<?php echo path("users/edit/social"); ?>"><?php echo __("Social networks");?></a>
 				    </li>
 			    </ul>
 			</div>
