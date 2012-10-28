@@ -16,6 +16,24 @@
                 "maxlength" => "150",
                 "autofocus" => "autofocus"
 			));
+
+			echo formInput(array(	
+                "name" 	=> "email", 
+                "class" => "field-title span4",
+                "field" => __("Email"), 
+                "p" 	=> TRUE, 
+                "value" => "",
+                "maxlength" => "45"
+			));
+
+			echo formInput(array(	
+                "name" 	=> "website", 
+                "class" => "field-title field-full-size",
+                "field" => __("Website"), 
+                "p" 	=> TRUE, 
+                "value" => "http://",
+                "maxlength" => "100"
+			));
 		echo formClose();
 	echo div(FALSE);
 ?>
