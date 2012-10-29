@@ -462,7 +462,7 @@ function setCode($HTML, $return = FALSE) {
 				$code = explode("[/code]", $codes[$i]);
 
 		   		if(isset($code[0])) {
-		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);		   		
+		   			$code[0] = ($return) ? stripslashes(getCode($code[0])) : $code[0];	
 		   		}
 
 		   		$codes[$i] = ($return) ? implode("", $code) : implode("[/code]", $code);		   		
