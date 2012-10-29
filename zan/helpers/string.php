@@ -445,7 +445,7 @@ function showContent($content) {
 	$content = str_replace("------", "", $content);
 	$content = stripslashes($content);
 	
-	return setCode($content, TRUE, TRUE);
+	return setCode($content, TRUE, FALSE);
 }
 
 function setCode($HTML, $return = FALSE, $decode = FALSE) {
@@ -469,7 +469,7 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
 		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);
 		   		}
 
-		   		$codes[$i] = ($return) ? implode("", htmlentities($code)) : implode("[/code]", htmlentities($code));		   		
+		   		$codes[$i] = ($return) ? implode("", $code) : implode("[/code]", $code);		   		
 		   	}	
 	   	}
    	} 	
