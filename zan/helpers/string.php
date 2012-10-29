@@ -430,9 +430,9 @@ function getCode($code) {
 
     foreach($code as $line => $codeLine) {
         if(preg_match("/<\?(php)?[^[:graph:]]/", $codeLine)) {
-            $result .= highlight_string(htmlspecialchars($codeLine), TRUE) ."<br />";
+            $result .= highlight_string($codeLine, TRUE) ."<br />";
         } else {
-            $result .= preg_replace("/(&lt;\?php&nbsp;)+/", "", highlight_string("<?php ". htmlspecialchars($codeLine), TRUE)) ."<br />";
+            $result .= preg_replace("/(&lt;\?php&nbsp;)+/", "", highlight_string("<?php ". $codeLine, TRUE)) ."<br />";
         }
     }
 
@@ -462,29 +462,16 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
    			if(isset($codes[$i])) {
 				$code = explode("[/code]", $codes[$i]);
 
-				if($decode) {
-					$code[0] = html_entity_decode(strip_tags($code[0]));
-
-					$code[0] = str_replace("<", "&lt;", $code[0]);
-					$code[0] = str_replace(">", "&gt;", $code[0]);
-				}
-
 		   		if(isset($code[0])) {
-		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);
+		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);		   		
 		   		}
 
 		   		$codes[$i] = ($return) ? implode("", $code) : implode("[/code]", $code);		   		
 		   	}	
 	   	}
    	} 	
-
-   	if($return) {
-   		$return = implode("", $codes);
-   	} else {
-   		$return = implode("[code]", $codes);
-   	}
-
-   	return $return;
+   	
+   	return ($return) ? implode("", $codes) : implode("[code]", $codes);
 }
 
 function randomString($length = 6) {  
