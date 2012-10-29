@@ -58,5 +58,30 @@
 				"maxlength" => "100"
 			));
 
+			echo formInput(array(
+				"name" 	=> "phone", 
+				"class" => "field-title span3",
+				"field" => __("Phone"), 
+				"p" 	=> TRUE, 
+				"maxlength" => "15"
+			));
+
+			echo formInput(array(
+				"name" 	=> "mobile", 
+				"class" => "field-title span3",
+				"field" => __("Mobile phone"), 
+				"p" 	=> TRUE, 
+				"maxlength" => "15"
+			));
+
+			echo formInput(array(
+				"name" 	=> "website", 
+				"class" => "field-title field-full-size",
+				"field" => __("Website"),
+				"value" => "http://", 
+				"p" 	=> TRUE,
+				"maxlength" => "100"
+			));
+
 		echo formClose();
 	echo div(FALSE);
