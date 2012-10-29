@@ -8,13 +8,12 @@
 }
 
 #content, .left {
-	margin-left: 5%;
+	margin-left: 10%;
 	margin-top: 40px;
 }
 
 .left {
-	margin-right: 50px;
-	width: 25%;
+	margin-right: 5%;
 }
 
 .left a {
@@ -30,5 +29,5 @@
 	margin-bottom: 25px;
 }
 .field-full-size {
-	width: 90%;
+	width: 80%;
 }

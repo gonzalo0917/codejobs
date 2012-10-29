@@ -65,6 +65,7 @@ $phrase["descending"] 									= "Descendentemente";
 $phrase["description"] 									= "Descripción";
 $phrase["direct_messages"]  							= "Mensajes Directos";
 $phrase["dislikes"]		  								= "No me gusta";
+$phrase["district"]		  								= "Distrito";
 $phrase["do_you_have_an_account_login"]  				= "¿Tienes una cuenta?, Conéctate!";
 $phrase["do_you_want_to activate_this_publication"]		= "¿Desea activar esta publicación?";
 $phrase["do_you_want_to_delete_the_forum"]				= "¿Deseas eliminar el foro?";
