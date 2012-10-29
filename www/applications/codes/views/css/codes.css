@@ -16,6 +16,10 @@
 	color: #045c98;
 }
 
+.codes p a[target] {
+	color: rgb(0,102,204);
+}
+
 .CodeMirror {
     border: 1px solid #eee;
 }
