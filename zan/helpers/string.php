@@ -466,6 +466,7 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
 					$code[0] = html_entity_decode(strip_tags($code[0]));
 
 					$code[0] = str_replace("<", "&lt;", $code[0]);
+					$code[0] = str_replace(">", "&gt;", $code[0]);
 				}
 
 		   		if(isset($code[0])) {
