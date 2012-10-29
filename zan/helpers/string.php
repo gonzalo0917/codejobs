@@ -436,7 +436,7 @@ function getCode($code) {
         }
     }
 
-    return '<div class="code">'. $result .'</div>';
+    return '<div class="code">'. htmlspecialchars($result) .'</div>';
 }
 
 function showContent($content) {
