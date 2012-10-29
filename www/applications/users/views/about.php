@@ -8,7 +8,7 @@
 			echo formInput(array(
 				"name" 	=> "name", 
 				"class" => "field-title field-full-size",
-				"field" => __("Full name"), 
+				"field" => __("Full name") ."*", 
 				"p" 	=> TRUE,
 				"maxlength" => "150",
 				"autofocus" => "autofocus"
@@ -22,22 +22,24 @@
 			echo formSelect(array(
 				"name" 		=> "gender", 
 				"p" 		=> TRUE, 
-				"field" 	=> __("Gender")),
+				"field" 	=> __("Gender") ."*"),
 				$options
 			);
 
 			echo formInput(array(
 				"name" 	=> "birthday", 
 				"class" => "field-title span3",
-				"field" => __("Date of birth"), 
+				"field" => __("Date of birth") ."*", 
 				"p" 	=> TRUE, 
+				"style" => "text-align:center",
+				"value" => "01 / 01 / 1900",
 				"maxlength" => "10"
 			));
 
 			echo formInput(array(
 				"name" 	=> "country", 
 				"class" => "field-title span3",
-				"field" => __("Country"), 
+				"field" => __("Country") ."*", 
 				"p" 	=> TRUE, 
 				"maxlength" => "100"
 			));
@@ -45,7 +47,7 @@
 			echo formInput(array(
 				"name" 	=> "city", 
 				"class" => "field-title span3",
-				"field" => __("City"), 
+				"field" => __("City") ."*", 
 				"p" 	=> TRUE, 
 				"maxlength" => "100"
 			));
