@@ -154,6 +154,7 @@ class Users_Controller extends ZP_Controller {
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");
 			$this->css("about", $this->application);
+			$this->js("jquery.jdpicker.js");
 
 			$vars["view"] = $this->view("about", TRUE);
 			$vars["href"] = path("users/edit/about/");
