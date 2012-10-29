@@ -144,63 +144,19 @@ class Users_Controller extends ZP_Controller {
 		}
 	}
 
-	public function edit($scope = "profile") {
+	public function edit($scope = "about") {
 		if(!isConnected() || get("production")) {
 			redirect();
 		}
 
-		if($scope === "profile") {
-			/*$data = $this->Users_Model->getUserData(TRUE);
-
-			if($data[0]["Twitter"] === "") {
-				$twitter = FALSE;
-			} else {
-				$twitter = _get("webURL") ."/www/applications/users/views/images/twitter.png";
-			}
-			
-			if($data[0]["Facebook"] === "") {
-				$facebook = FALSE;
-			} else {
-				$facebook = _get("webURL") ."/www/applications/users/views/images/facebook.png";
-			}
-			
-			if($data[0]["Google"] === "") {
-				$google = FALSE;
-			} else {
-				$google = _get("webURL") ."/www/applications/users/views/images/google.png";
-			}
-			
-			if($data[0]["Linkedin"] === "") {
-				$linkedin = FALSE;
-			} else {
-				$linkedin = _get("webURL") ."/www/applications/users/views/images/linkedin.png";
-			}
-			
-			if($data[0]["Avatar"] === "") {
-				$avatar = _get("webURL") ."/www/lib/files/images/users/default.png";
-			} else {
-				$avatar = _get("webURL") ."/www/lib/files/images/users/". $data[0]["Avatar"];
-			}
-
-			$this->js("editprofile", $this->application);
-			$this->css("profile", $this->application);
-
-			$vars["user"] 	  = $data[0];
-			$vars["joinDate"] = date("d/m/Y", $data[0]["Start_Date"]);
-			$vars["twitter"]  = $twitter;
-			$vars["avatar"]   = $avatar;
-			$vars["facebook"] = $facebook;
-			$vars["linkedin"] = $linkedin;
-			$vars["google"]   = $google;
-			$vars["view"] 	  = $this->view("editprofile", TRUE);*/
-
+		if($scope === "about") {
 			$this->helper("html");
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");
-			$this->css("edit_profile", $this->application);
+			$this->css("about", $this->application);
 
-			$vars["view"] = $this->view("edit_profile", TRUE);
-			$vars["href"] = path("users/edit/profile");
+			$vars["view"] = $this->view("about", TRUE);
+			$vars["href"] = path("users/edit/about/");
 
 			$this->render("content", $vars);
 		}
