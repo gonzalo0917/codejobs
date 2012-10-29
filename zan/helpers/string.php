@@ -475,7 +475,13 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
 	   	}
    	} 	
 
-   	return ($return) ? implode("", $codes) : implode("[code]", $codes);
+   	if($return) {
+   		$return = htmlspecialchars(implode("", $codes));
+   	} else {
+   		$return = htmlspecialchars(implode("[code]", $codes));
+   	}
+
+   	return $return;
 }
 
 function randomString($length = 6) {  
