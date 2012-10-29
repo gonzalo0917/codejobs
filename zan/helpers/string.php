@@ -444,8 +444,10 @@ function showContent($content) {
 	$content = str_replace('<hr>', "", $content);
 	$content = str_replace("------", "", $content);
 	$content = stripslashes($content);
-	
-	return setCode($content, TRUE, FALSE);
+	$content = setCode($content, TRUE, FALSE);
+	$content = str_replace('<span style="color: #007700">&amp;</span><span style="color: #0000BB">lt</span><span style="color: #007700">;</span>', '&lt;', $content);
+
+	return $content;
 }
 
 function setCode($HTML, $return = FALSE, $decode = FALSE) {
