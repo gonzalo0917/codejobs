@@ -444,12 +444,11 @@ function showContent($content) {
 	$content = str_replace('<hr>', "", $content);
 	$content = str_replace("------", "", $content);
 	$content = stripslashes($content);
-	$content = setCode($content, TRUE, TRUE);	
-
-	return $content;
+	
+	return setCode($content, TRUE, TRUE);		
 }
 
-function setCode($HTML, $return = FALSE, $decode = FALSE) {
+function setCode($HTML, $return = FALSE) {
 	$HTML  = str_replace("[Code]", "[code]", $HTML);
 	$HTML  = str_replace("[/Code]", "[/code]", $HTML);
 	$HTML  = preg_replace('/<pre[^>]*>/ms', "[code]", $HTML);
