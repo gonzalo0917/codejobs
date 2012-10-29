@@ -469,7 +469,7 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
 		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);
 		   		}
 
-		   		$codes[$i] = ($return) ? implode("", $code) : implode("[/code]", $code);		   		
+		   		$codes[$i] = ($return) ? implode("", htmlentities($code)) : implode("[/code]", htmlentities($code));		   		
 		   	}	
 	   	}
    	} 	
