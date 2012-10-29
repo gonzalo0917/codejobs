@@ -165,15 +165,30 @@
 }
 .jdpicker_w .date_selector td.selectable_day, .jdpicker_w .date_selector tr.selectable_week td {
 	cursor: pointer;
-	background:url('images/bg_selectable.png');
+	background-color: rgb(220,220,220);
+	background-image: linear-gradient(bottom, rgb(236,236,236) 50%, rgb(220,220,220) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(236,236,236) 50%, rgb(220,220,220) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(236,236,236) 50%, rgb(220,220,220) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(236,236,236) 50%, rgb(220,220,220) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(236,236,236) 50%, rgb(220,220,220) 100%);
 	border:1px solid #aaa;
 	color:#333
 }
 .jdpicker_w .date_selector td.selected, .jdpicker_w .date_selector tr.selected  td{
-	background: url('images/bg_selected.png');
+	background-color: rgb(132,151,192);
+	background-image: linear-gradient(bottom, rgb(156,180,226) 50%, rgb(132,151,192) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(156,180,226) 50%, rgb(132,151,192) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(156,180,226) 50%, rgb(132,151,192) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(156,180,226) 50%, rgb(132,151,192) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(156,180,226) 50%, rgb(132,151,192) 100%);
 	font-weight: bold;
 }
 .jdpicker_w .date_selector tr.selectable_week.hover td, .jdpicker_w .date_selector td.selectable_day.hover {
-	background: url('images/bg_hover.png');
+	background-color: rgb(140,160,202);
+	background-image: linear-gradient(bottom, rgb(166,189,240) 50%, rgb(140,160,202) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(166,189,240) 50%, rgb(140,160,202) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(166,189,240) 50%, rgb(140,160,202) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(166,189,240) 50%, rgb(140,160,202) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(166,189,240) 50%, rgb(140,160,202) 100%);
 	color: white;
 }

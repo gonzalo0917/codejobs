@@ -32,7 +32,7 @@
 				"field" => __("Date of birth") ."*", 
 				"p" 	=> TRUE, 
 				"style" => "text-align:center",
-				"value" => "01 / 01 / 1900",
+				"value" => "01/01/1900",
 				"maxlength" => "10"
 			));
 
