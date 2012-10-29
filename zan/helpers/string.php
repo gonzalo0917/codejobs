@@ -444,8 +444,9 @@ function showContent($content) {
 	$content = str_replace('<hr>', "", $content);
 	$content = str_replace("------", "", $content);
 	$content = stripslashes($content);
-	$content = setCode($content, TRUE, FALSE);
-
+	$content = setCode($content, TRUE, TRUE);
+	$content = htmlspecialchars($content);
+	
 	return $content;
 }
 
