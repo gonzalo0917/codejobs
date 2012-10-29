@@ -3,8 +3,6 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__("About me"), "resalt");
-
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(
@@ -31,7 +29,7 @@
 			echo formInput(array(
 				"name" 	=> "birthday", 
 				"class" => "field-title span3",
-				"field" => __("Birthday"), 
+				"field" => __("Date of birth"), 
 				"p" 	=> TRUE, 
 				"maxlength" => "10"
 			));
@@ -41,7 +39,23 @@
 				"class" => "field-title span3",
 				"field" => __("Country"), 
 				"p" 	=> TRUE, 
-				"maxlength" => "10"
+				"maxlength" => "100"
+			));
+
+			echo formInput(array(
+				"name" 	=> "city", 
+				"class" => "field-title span3",
+				"field" => __("City"), 
+				"p" 	=> TRUE, 
+				"maxlength" => "100"
+			));
+
+			echo formInput(array(
+				"name" 	=> "district", 
+				"class" => "field-title span3",
+				"field" => __("District"), 
+				"p" 	=> TRUE, 
+				"maxlength" => "100"
 			));
 
 		echo formClose();

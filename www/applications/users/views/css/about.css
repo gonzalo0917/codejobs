@@ -8,12 +8,13 @@
 }
 
 #content, .left {
-	margin-left: 20px;
+	margin-left: 5%;
 	margin-top: 40px;
 }
 
 .left {
 	margin-right: 50px;
+	width: 25%;
 }
 
 .left a {
@@ -29,7 +30,5 @@
 	margin-bottom: 25px;
 }
 .field-full-size {
-	width: 95%;
-	width: calc(100% - 20px);
-	width: -webkit-calc(100% - 20px);
+	width: 90%;
 }
