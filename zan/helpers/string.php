@@ -476,9 +476,9 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
    	} 	
 
    	if($return) {
-   		$return = htmlspecialchars(implode("", $codes));
+   		$return = implode("", $codes));
    	} else {
-   		$return = htmlspecialchars(implode("[code]", $codes));
+   		$return = implode("[code]", $codes);
    	}
 
    	return $return;
