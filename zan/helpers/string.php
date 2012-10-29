@@ -445,7 +445,13 @@ function showContent($content) {
 	$content = str_replace("------", "", $content);
 	$content = stripslashes($content);
 	$content = setCode($content, TRUE, FALSE);
-	$content = str_replace('<span style="color: #007700">&amp;</span><span style="color: #0000BB">lt</span><span style="color: #007700">;</span>', '&lt;', $content);
+	$content = str_replace('<span style="color: #007700">&amp;</span><span style="color: #0000BB">lt</span><span style="color: #007700">;</span>', '<span style="color: #007700">&lt;</span>', $content);
+	$content = str_replace('<span style="color: #007700">=&amp;</span><span style="color: #0000BB">quot</span><span style="color: #007700">;</span>', '<span style="color: #007700">=&quot;</span>', $content);
+	$content = str_replace('&amp;</span><span style="color: #0000BB">gt</span><span style="color: #007700">;&nbsp;</span>', '</span><span style="color: #0000BB">&gt;</span>&nbsp;', $content);
+	$content = str_replace('&amp;quot;', '&quot;', $content);
+	$content = str_replace('&amp;gt;', '&gt;', $content);
+
+
 
 	return $content;
 }
