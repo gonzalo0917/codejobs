@@ -462,6 +462,12 @@ function setCode($HTML, $return = FALSE, $decode = FALSE) {
    			if(isset($codes[$i])) {
 				$code = explode("[/code]", $codes[$i]);
 
+				if($decode) {
+					$code[0] = html_entity_decode(strip_tags($code[0]));
+
+					$code[0] = str_replace("<", "&lt;", $code[0]);
+				}
+
 		   		if(isset($code[0])) {
 		   			$code[0] = ($return) ? getCode($code[0]) : addslashes($code[0]);
 		   		}
