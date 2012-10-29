@@ -430,13 +430,13 @@ function getCode($code) {
 
     foreach($code as $line => $codeLine) {
         if(preg_match("/<\?(php)?[^[:graph:]]/", $codeLine)) {
-            $result .= highlight_string($codeLine, TRUE) ."<br />";
+            $result .= highlight_string(htmlspecialchars($codeLine), TRUE) ."<br />";
         } else {
-            $result .= preg_replace("/(&lt;\?php&nbsp;)+/", "", highlight_string("<?php ". $codeLine, TRUE)) ."<br />";
+            $result .= preg_replace("/(&lt;\?php&nbsp;)+/", "", highlight_string("<?php ". htmlspecialchars($codeLine), TRUE)) ."<br />";
         }
     }
 
-    return '<div class="code">'. htmlspecialchars($result) .'</div>';
+    return '<div class="code">'. $result .'</div>';
 }
 
 function showContent($content) {
