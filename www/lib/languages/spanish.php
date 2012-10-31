@@ -231,6 +231,7 @@ $phrase["reported"] 									= "Reportado";
 $phrase["restore"] 										= "Recuperar";
 $phrase["results"] 										= "Resultados";
 $phrase["right"]										= "Derecha";
+$phrase["s_m_t_w_t_f_s"]  								= '"D", "L", "M", "M", "J", "V", "S"';
 $phrase["saturday"]  									= "Sábado";
 $phrase["save"] 										= "Guardar";
 $phrase["saved_draft_on"]								= "Borrador guardado";
