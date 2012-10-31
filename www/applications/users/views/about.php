@@ -26,14 +26,17 @@
 				$options
 			);
 
+			$months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
+
 			echo formInput(array(
 				"name" 	=> "birthday", 
-				"class" => "field-title span3",
+				"class" => "field-title span3 jdpicker",
 				"field" => __("Date of birth") ."*", 
-				"p" 	=> TRUE, 
-				"style" => "text-align:center",
-				"value" => "01/01/1900",
-				"maxlength" => "10"
+				"p" 	=> TRUE,
+				"value" => "01/01/1980",
+				"type"  => "hidden",
+				"maxlength" => "10",
+				"data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
 			));
 
 			echo formInput(array(
