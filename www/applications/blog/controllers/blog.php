@@ -129,15 +129,13 @@ class Blog_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 	
-	public function author($user = NULL, $year = NULL, $month = NULL, $day = NULL, $slug = NULL) {
+	public function author($user = NULL, $tagLabel = NULL, $tag = NULL) {
 		if($user === NULL) {
 			redirect($this->application);
-		} elseif($year === NULL || $year === "page") {
+		} elseif($tagLabel === NULL || $tagLabel === "page") {
 			$this->getPostsByAuthor($user);
-		} elseif($year !== "tag") {
-			$this->index($year, $month, $day, $slug);
-		} elseif($month !== NULL) {
-			$this->getPostsByTag($user, $month);
+		} elseif($tagLabel === "tag" and $tag !== NULL) {
+			$this->getPostsByTag($user, $tag);
 		} else {
 			redirect("$this->application/author/$user");
 		}
