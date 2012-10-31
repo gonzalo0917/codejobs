@@ -12,11 +12,7 @@
 		$rand2 = rand(6, 10);
 
 		foreach($codes as $code) { 
-			if($code["Situation"] === "Active") {
-				$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);				
-			} else {
-				$URL = path("codes/author/". $code["Author"] ."/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);				
-			}
+			$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 	?>
 			<h2>
 				<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo $code["Title"]; ?>"><?php echo $code["Title"]; ?></a>

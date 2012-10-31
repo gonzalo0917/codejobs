@@ -132,7 +132,7 @@ class Blog_Controller extends ZP_Controller {
 	public function author($user = NULL, $tagLabel = NULL, $tag = NULL) {
 		if($user === NULL) {
 			redirect($this->application);
-		} elseif($tagLabel === NULL || $tagLabel === "page") {
+		} elseif($tagLabel === NULL or $tagLabel === "page") {
 			$this->getPostsByAuthor($user);
 		} elseif($tagLabel === "tag" and $tag !== NULL) {
 			$this->getPostsByTag($user, $tag);

@@ -286,15 +286,13 @@ class Codes_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 
-	public function author($user = NULL, $codeID = NULL, $slug = NULL) {
+	public function author($user = NULL, $languageLabel = NULL, $language = NULL) {
 		if($user === NULL) {
 			redirect($this->application);
-		} elseif($codeID === NULL and $slug === NULL) {
+		} elseif($languageLabel === NULL or $languageLabel === "page") {
 			$this->getCodesByAuthor($user);
-		} elseif($codeID !== "language") {
-			$this->index($codeID, $slug);
-		} elseif($slug !== NULL) {
-			$this->getCodesByLanguage($user, $slug);
+		} elseif($languageLabel === "language" and $language !== NULL) {
+			$this->getCodesByLanguage($user, $language);
 		} else {
 			redirect("$this->application/author/$user");
 		}
