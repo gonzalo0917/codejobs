@@ -298,9 +298,10 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/jquery.js", "zan") .'"></script>';
 		} elseif (preg_match('/^jquery\.(.+)\.js$/i', $js, $matches)){ # Plugin jQuery
 			$plugin_name = trim($matches[1]);
-			//exit(var_dump(path("vendors/js/jquery/$plugin_name/jquery.$plugin_name.js", "zan")));
-			if(is_file(path("vendors/js/jquery/$plugin_name/jquery.$plugin_name.js", "zan"))) {
-				exit("Se agregara");
+			
+			if(file_exists(_corePath . "/vendors/js/jquery/$plugin_name/")) {
+				$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$plugin_name/$js", "zan") .'"></script>';
+				$this->css(_corePath . "/vendors/js/jquery/$plugin_name/$plugin_name.css");
 			} else {
 				$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
 			}
