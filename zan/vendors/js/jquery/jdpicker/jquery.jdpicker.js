@@ -549,7 +549,6 @@ $.jdPicker = { initialize: function(opts) {
   		$(this).jdPicker(opts);
   	}
   });
-  //$("input.jdpicker").jdPicker(opts);
 } };
 
 return jdPicker;
