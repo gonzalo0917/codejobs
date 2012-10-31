@@ -117,15 +117,13 @@ class Bookmarks_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 
-	public function author($user = NULL, $bookmarkID = NULL, $slug = NULL) {
+	public function author($user = NULL, $tagLabel = NULL, $tag = NULL) {
 		if($user === NULL) {
 			redirect($this->application);
-		} elseif($bookmarkID === NULL and $slug === NULL) {
+		} elseif($tagLabel === NULL or $tagLabel === "page") {
 			$this->getBookmarksByAuthor($user);
-		} elseif($bookmarkID !== "tag") {
-			$this->index($bookmarkID, $slug);
-		} elseif($slug !== NULL) {
-			$this->getBookmarksByTag($user, $slug);
+		} elseif($tagLabel === "tag" and $tag !== NULL) {
+			$this->getBookmarksByTag($user, $tag);
 		} else {
 			redirect("$this->application/author/$user");
 		}
