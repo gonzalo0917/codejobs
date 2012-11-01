@@ -155,6 +155,9 @@ class Bookmarks_Model extends ZP_Model {
 	
 	private function edit() {
 		$this->Db->update($this->table, $this->data, POST("ID"));
+
+		$this->Cache = $this->core("Cache");	
+		$this->Cache->removeAll("bookmarks");
 		
 		return getAlert(__("The bookmark has been edit correctly"), "success");
 	}
