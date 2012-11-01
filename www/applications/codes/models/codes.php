@@ -202,6 +202,9 @@ class Codes_Model extends ZP_Model {
                 }
             }
             
+            $this->Cache = $this->core("Cache");	
+			$this->Cache->removeAll("codes");
+
             return getAlert(__("The code has been edit correctly"), "success");
         }
         
