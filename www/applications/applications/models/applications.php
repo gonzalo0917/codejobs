@@ -31,7 +31,9 @@ class Applications_Model extends ZP_Model {
 			foreach($data as $application) { 
 				if($application["Situation"] === "Active") {
 					if($application["CPanel"]) {
-						$title = __($application["Title"]);
+						$count = $this->CPanel_Model->pendingRecords($application["Slug"]);	
+
+						$title = __($application["Title"]) . ($count > 0 ? htmlTag("span", array("style" => "color: #f00"), " ($count)") : "");
 						
 						if($this->Users_Model->isAllow("view", $application["Title"])) {	
 							if($application["Slug"] === "configuration") {
