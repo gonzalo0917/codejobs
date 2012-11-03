@@ -35,7 +35,7 @@
 		</header>
 		
 		<div id="content">
-			<iframe width="924" height="520" src="http://www.youtube.com/embed/VfpvhxNKYqs" frameborder="0" allowfullscreen></iframe>
+			<iframe width="924" height="520" src="http://www.youtube.com/embed/u9_JvcmSjMM" frameborder="0" allowfullscreen></iframe>
 			
 			<div class="ads">
 				<script type="text/javascript"><!--
