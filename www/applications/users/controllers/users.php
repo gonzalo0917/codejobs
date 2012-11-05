@@ -157,7 +157,8 @@ class Users_Controller extends ZP_Controller {
 			$this->js("jquery.jdpicker.js");
 
 			$this->Configuration_Model  = $this->model("Configuration_Model");
-			$list_of_countries			= $this->Configuration_Model->getCountries();
+			$this->Cache   				= $this->core("Cache");
+			$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries");
 
 			foreach ($list_of_countries as $country) {
 				$countries[] = array(

@@ -39,7 +39,7 @@
 				"data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
 			));
 
-			array_unshift($countries, array("option" => "[". __("Select one") ."...]", "value" => "None"));
+			array_unshift($countries, array("option" => "[". __("Select one") ."...]", "value" => ""));
 
 			echo formSelect(array(
 				"name" 		=> "country", 
