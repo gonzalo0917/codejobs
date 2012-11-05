@@ -39,13 +39,12 @@
 				"data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
 			));
 
-			echo formInput(array(
-				"name" 	=> "country", 
-				"class" => "field-title span3",
-				"field" => __("Country") ."*", 
-				"p" 	=> TRUE, 
-				"maxlength" => "100"
-			));
+			echo formSelect(array(
+				"name" 		=> "country", 
+				"p" 		=> TRUE, 
+				"field" 	=> __("Country") ."*"),
+				$countries
+			);
 
 			echo formInput(array(
 				"name" 	=> "city", 

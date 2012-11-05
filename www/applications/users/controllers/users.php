@@ -156,10 +156,19 @@ class Users_Controller extends ZP_Controller {
 			$this->css("about", $this->application);
 			$this->js("jquery.jdpicker.js");
 
-			$this->Configuration_Model = $this->model("Configuration_Model");
+			$this->Configuration_Model  = $this->model("Configuration_Model");
+			$list_of_countries			= $this->Configuration_Model->getCountries();
 
-			$vars["view"] = $this->view("about", TRUE);
-			$vars["href"] = path("users/edit/about/");
+			foreach ($list_of_countries as $country) {
+				$countries[] = array(
+					"option" => $country["Country"],
+					"value"  => $country["Country"]
+				);
+			}
+
+			$vars["countries"]  = $countries;
+			$vars["view"] 		= $this->view("about", TRUE);
+			$vars["href"]  		= path("users/edit/about/");
 
 			$this->render("content", $vars);
 		}
