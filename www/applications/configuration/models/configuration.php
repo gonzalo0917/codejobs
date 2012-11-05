@@ -66,4 +66,8 @@ class Configuration_Model extends ZP_Model {
 	public function getConfig() {
 		return $this->getByID();
 	}	
+
+	public function getCountries() {
+		return $this->Db->findAll("world", "DISTINCT Country", NULL, "Country ASC");
+	}
 }
