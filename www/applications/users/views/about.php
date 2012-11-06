@@ -90,5 +90,12 @@
 				"maxlength" => "100"
 			));
 
+			echo formInput(array(	
+				"name" 	=> "save", 
+				"class" => "btn btn-success", 
+				"value" => __("Save"), 
+				"type"  => "submit"
+			));
+
 		echo formClose();
 	echo div(FALSE);
