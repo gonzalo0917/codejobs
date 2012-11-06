@@ -579,4 +579,8 @@ class Users_Model extends ZP_Model {
 		return FALSE;
 	}
 
+	public function getInformation() {
+		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Website");
+	}
+
 }

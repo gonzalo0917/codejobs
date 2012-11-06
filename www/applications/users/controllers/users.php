@@ -171,7 +171,8 @@ class Users_Controller extends ZP_Controller {
 			$vars["countries"]  = $countries;
 			$vars["view"] 		= $this->view("about", TRUE);
 			$vars["href"]  		= path("users/edit/about/");
-
+			$vars["data"]  		= $this->Users_Model->getInformation();
+			
 			$this->render("content", $vars);
 		}
 	}
