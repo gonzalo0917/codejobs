@@ -237,6 +237,15 @@ function cut($text, $length = 12, $type = "text", $slug = FALSE, $file = FALSE, 
 	}
 }
 
+function createURLs($text)  {     
+    $result = ' '. $text; 
+    $result = preg_replace("#([\t\r\n ])([a-z0-9]+?){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\n\r\t<]*)?)#i", '\1<a href="\2://\3" target="_blank">\2://\3</a>', $result); 
+    $result = preg_replace("#([\t\r\n ])(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\n\r\t<]*)?)#i", '\1<a href="http://\2.\3" target="_blank">\2.\3</a>', $result); 
+    $result = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $result); 
+
+    return substr($result, 1); 
+}  
+
 function exploding($string, $URL = NULL, $separator = ",") {
 	if(strlen($string) > 0) {
 		$string = str_replace(", ", ",", $string);

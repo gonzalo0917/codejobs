@@ -316,8 +316,6 @@ function month($month) {
 }
 
 function now($format, $hour = FALSE, $language = NULL) {
-	date_default_timezone_set(_defaultTimezone);
-
 	if(is_null($language)) {
 		$language = whichLanguage();
 	}

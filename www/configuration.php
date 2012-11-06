@@ -55,3 +55,5 @@ if(_get("translation") === "gettext") {
 		$Gettext_Reader->load_tables();
 	}
 }
+
+date_default_timezone_set(_defaultTimezone);
