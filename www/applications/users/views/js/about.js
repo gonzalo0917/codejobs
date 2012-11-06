@@ -22,7 +22,7 @@ function changeCountry(obj) {
 				$(obj).attr('disabled', false);
 			},
 			error: function () {
-				alert("Ocurrio un error");
+				alert("An error has occurred");
 			}
 		});
 	}
