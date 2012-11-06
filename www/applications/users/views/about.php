@@ -44,17 +44,18 @@
 			echo formSelect(array(
 				"name" 		=> "country", 
 				"p" 		=> TRUE, 
-				"field" 	=> __("Country") ."*"),
+				"field" 	=> __("Country") ."*",
+				"onchange"  => 'changeCountry(this)'),
 				$countries
 			);
 
-			echo formInput(array(
-				"name" 	=> "city", 
-				"class" => "field-title span3",
-				"field" => __("City") ."*", 
-				"p" 	=> TRUE, 
-				"maxlength" => "100"
-			));
+			echo formSelect(array(
+				"name" 		=> "city", 
+				"p" 		=> TRUE, 
+				"field" 	=> __("City") ."*",
+				"disabled"  => TRUE
+				), array()
+			);
 
 			echo formInput(array(
 				"name" 	=> "district", 

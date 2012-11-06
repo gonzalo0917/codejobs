@@ -70,4 +70,8 @@ class Configuration_Model extends ZP_Model {
 	public function getCountries() {
 		return $this->Db->findAll("world", "DISTINCT Country", NULL, "Country ASC");
 	}
+
+	public function getCities($country) {
+		return $this->Db->findBy("Country", $country, "world", "District", NULL, "District ASC");
+	}
 }

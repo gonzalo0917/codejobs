@@ -154,6 +154,7 @@ class Users_Controller extends ZP_Controller {
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");
 			$this->css("about", $this->application);
+			$this->js("about", $this->application);
 			$this->js("jquery.jdpicker.js");
 
 			$this->Configuration_Model  = $this->model("Configuration_Model");
