@@ -60,10 +60,18 @@ class Configuration_Model extends ZP_Model {
 	}
 	
 	public function getByID() { 				
-		return $this->Db->find(1, $this->table, "Name, Slogan_English, Slogan_Spanish, Slogan_French, Slogan_Portuguese, URL, Lang, Language, Theme, Validation, Application, Editor, Message, Activation, Email_Recieve, Email_Send, Situation");
+		return $this->Db->find(1, $this->table, "Name, Slogan_English, Slogan_Spanish, Slogan_French, Slogan_Portuguese, Slogan_Italian, URL, Lang, Language, Theme, Validation, Application, Editor, Message, Activation, Email_Recieve, Email_Send, Situation");
 	}
 
 	public function getConfig() {
 		return $this->getByID();
 	}	
+
+	public function getCountries() {
+		return $this->Db->findAll("world", "DISTINCT Country", NULL, "Country ASC");
+	}
+
+	public function getCities($country) {
+		return $this->Db->findBy("Country", $country, "world", "District", NULL, "District ASC");
+	}
 }

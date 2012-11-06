@@ -7,7 +7,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<title>Codejobs - El conocimiento nos hace libres! - Blog</title>
+		<title>Codejobs TV!</title>
 		
 		<link rel="stylesheet" href="http://www.codejobs.biz/web/www/lib/css/default.css" type="text/css">
 		<link rel="stylesheet" href="<?php echo path("www/applications/pages/views/css/style.css", TRUE); ?>" type="text/css">
@@ -35,7 +35,7 @@
 		</header>
 		
 		<div id="content">
-			<iframe width="924" height="520" src="http://www.youtube.com/embed/iw0NqZdS0gw" frameborder="0" allowfullscreen></iframe>
+			<iframe width="924" height="520" src="http://www.youtube.com/embed/u9_JvcmSjMM" frameborder="0" allowfullscreen></iframe>
 			
 			<div class="ads">
 				<script type="text/javascript"><!--

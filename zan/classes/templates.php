@@ -296,8 +296,15 @@ class ZP_Templates extends ZP_Load {
 			$this->CSS("prettyphoto");
 		} elseif($js === "jquery") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/jquery.js", "zan") .'"></script>';
-		} elseif (preg_match("/^jquery\\..+\\.js$/i", $js)){ # Plugin jQuery
-			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
+		} elseif (preg_match('/^jquery\.(.+)\.js$/i', $js, $matches)){ # Plugin jQuery
+			$plugin_name = trim($matches[1]);
+			
+			if(file_exists(_corePath . "/vendors/js/jquery/$plugin_name/")) {
+				$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$plugin_name/$js", "zan") .'"></script>';
+				$this->css(_corePath . "/vendors/js/jquery/$plugin_name/$plugin_name.css");
+			} else {
+				$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
+			}
         } elseif($js === "redactorjs") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.js", "zan") .'"></script>';
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/scripts/set.js", "zan") .'"></script>';

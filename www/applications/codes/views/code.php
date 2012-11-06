@@ -5,11 +5,7 @@
     
     $this->CSS("code", "codes", TRUE);
 
-    if($code["Situation"] === "Active") {
-        $URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);              
-    } else {
-        $URL = path("codes/author/". $code["Author"] ."/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);             
-    }
+    $URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 ?>
 <div class="codes">
 	<h2>

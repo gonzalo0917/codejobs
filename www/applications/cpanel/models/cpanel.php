@@ -74,6 +74,14 @@ class CPanel_Model extends ZP_Model {
 			return	$this->Db->countBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $table);	
 		}
 	}
+
+	public function pendingRecords($table) {
+		if(SESSION("ZanUserPrivilegeID") === 1) {
+			return $this->Db->countBySQL("Situation = 'Pending'", $table);
+		} else {
+			return	$this->Db->countBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Pending'", $table);	
+		}
+	}
 	
 	public function home($application) {
 		if($application === "users") {

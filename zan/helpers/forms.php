@@ -122,7 +122,11 @@ function formInput($attributes = FALSE) {
 			} elseif($attribute === "events") {
 				$attrs .= ' '. $value .' ';
 			} elseif($attribute !== "type" and $attribute !== "p" and $attribute !== "field") {
-				$attrs .= ' '. strtolower($attribute) .'="'. $value .'"';
+				if(!preg_match('/"/', $value)) {
+					$attrs .= ' '. strtolower($attribute) .'="'. $value .'"';
+				} else {
+					$attrs .= ' '. strtolower($attribute) ."='". $value ."'";
+				}
 			} else {
 				$$attribute = $value;
 			}

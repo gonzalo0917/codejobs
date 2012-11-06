@@ -141,8 +141,10 @@ class Bookmarks_Model extends ZP_Model {
 	
 	private function save() {
 		if($this->Db->insert($this->table, $this->data)) {
+			$this->Cache = $this->core("Cache");	
+			$this->Cache->removeAll("bookmarks");
+
 			$this->Users_Model = $this->model("Users_Model");
-			
 			$this->Users_Model->setCredits(1, 9);
 
 			return getAlert(__("The bookmark has been saved correctly"), "success");	
@@ -153,6 +155,9 @@ class Bookmarks_Model extends ZP_Model {
 	
 	private function edit() {
 		$this->Db->update($this->table, $this->data, POST("ID"));
+
+		$this->Cache = $this->core("Cache");	
+		$this->Cache->removeAll("bookmarks");
 		
 		return getAlert(__("The bookmark has been edit correctly"), "success");
 	}
@@ -184,7 +189,7 @@ class Bookmarks_Model extends ZP_Model {
 	}
 	
 	public function getByID($ID) {
-		return $this->Db->findBySQL("ID_Bookmark = '$ID' AND Situation = 'Active'", $this->table, $this->fields);
+		return $this->Db->findBySQL("ID_Bookmark = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
 	}
 	
 	public function getAll($limit) {		

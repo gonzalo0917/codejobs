@@ -25,6 +25,8 @@ class Codes_Controller extends ZP_Controller {
 	}
 	
 	public function index($codeID = 0) {
+		$this->meta("language", whichLanguage(FALSE));
+
 		if($codeID > 0) {
 			$this->go($codeID);
 		} else {
@@ -74,6 +76,12 @@ class Codes_Controller extends ZP_Controller {
                 }
             }
 
+            $this->meta("keywords", $data[0]["Languages"]);
+
+            if($data[0]["Description"] !== "") {
+				$this->meta("description", $data[0]["Description"]);
+            }
+
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -101,6 +109,12 @@ class Codes_Controller extends ZP_Controller {
             	$this->title(__("Codes", FALSE) ." - ". stripslashes(decode($data[0]["Title"])));
 			
                 $this->Codes_Model->updateViews($codeID);
+
+                $this->meta("keywords", $data[0]["Languages"]);
+
+	            if($data[0]["Description"] !== "") {
+					$this->meta("description", $data[0]["Description"]);
+	            }
 
                 $vars["code"] 	= $data[0];
                 $vars["view"]   = $this->view("code", TRUE);
@@ -138,6 +152,12 @@ class Codes_Controller extends ZP_Controller {
                 }
             }
 			
+            $this->meta("keywords", $data[0]["Languages"]);
+
+            if($data[0]["Description"] !== "") {
+				$this->meta("description", $data[0]["Description"]);
+            }
+
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -171,6 +191,12 @@ class Codes_Controller extends ZP_Controller {
                 }
             }
 			
+			$this->meta("keywords", $data[0]["Languages"]);
+
+            if($data[0]["Description"] !== "") {
+				$this->meta("description", $data[0]["Description"]);
+            }
+
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -202,6 +228,12 @@ class Codes_Controller extends ZP_Controller {
                 } else {
                     redirect($this->application);
                 }
+            }
+			
+            $this->meta("keywords", $data[0]["Languages"]);
+
+            if($data[0]["Description"] !== "") {
+				$this->meta("description", $data[0]["Description"]);
             }
 			
 			$vars["codes"]  	= $data;
@@ -286,15 +318,13 @@ class Codes_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 
-	public function author($user = NULL, $codeID = NULL, $slug = NULL) {
+	public function author($user = NULL, $languageLabel = NULL, $language = NULL) {
 		if($user === NULL) {
 			redirect($this->application);
-		} elseif($codeID === NULL and $slug === NULL) {
+		} elseif($languageLabel === NULL or $languageLabel === "page") {
 			$this->getCodesByAuthor($user);
-		} elseif($codeID !== "language") {
-			$this->index($codeID, $slug);
-		} elseif($slug !== NULL) {
-			$this->getCodesByLanguage($user, $slug);
+		} elseif($languageLabel === "language" and $language !== NULL) {
+			$this->getCodesByLanguage($user, $language);
 		} else {
 			redirect("$this->application/author/$user");
 		}

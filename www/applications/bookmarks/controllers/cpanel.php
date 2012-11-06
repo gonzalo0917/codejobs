@@ -243,6 +243,9 @@ class CPanel_Controller extends ZP_Controller {
 
 				if($this->$Model->activate($id)) {
 					$vars["data"] = 1;
+					
+					$this->Cache = $this->core("Cache");	
+					$this->Cache->removeAll("bookmarks");
 				} else {
 					$vars["data"] = 0;
 				}
