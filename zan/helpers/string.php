@@ -364,6 +364,15 @@ function filter($text, $filter = FALSE) {
 	return $text;
 }
 
+function quotes($text) {
+	$text = str_replace("?s", "'s", $text);
+	$text = str_replace("?m", "'m", $text);
+	$text = str_replace("?t", "'t", $text);
+	$text = str_replace("s?", "s", $text); 
+
+	return $text;
+}
+
 function getBetween($content, $start, $end) {
     $array = explode($start, $content);
 

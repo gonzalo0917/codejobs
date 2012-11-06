@@ -6,7 +6,7 @@
 
 <div class="bookmarks">
 	<h2>
-		<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/visit/". $bookmark["ID_Bookmark"], FALSE, $bookmark["Language"]); ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo $bookmark["Title"]; ?></a>
+		<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo path("bookmarks/visit/". $bookmark["ID_Bookmark"], FALSE, $bookmark["Language"]); ?>" target="_blank" title="<?php echo quotes($bookmark["Title"]); ?>"><?php echo quotes($bookmark["Title"]); ?></a>
 	</h2>
 
 	<span class="small italic grey">
