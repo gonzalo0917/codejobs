@@ -146,6 +146,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." mois";
 			} elseif($language === "Portuguese") {
 				$date = "há ". $rTime ." meses";
+			} elseif($language === "Italian") {
+				$date = $rTime ." mesi";
 			}
 		} else {	
 			if($language === "English") {
@@ -156,6 +158,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." mois";		
 			} elseif($language === "Portuguese") {
 				$date = $rTime ." m&ecirc;s atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." mese fa";
 			}
 		}
 	}
@@ -172,6 +176,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." semaines";		
 			} elseif($language === "Portuguese") {
 				$date = $rTime ." semanas atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." settimane fa";
 			}
 		} else {
 			if($language === "English") {
@@ -182,6 +188,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." semaine";
 			} elseif($language === "Portuguese") {
 				$date = $rTime ." semana atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." settimana fa";
 			}
 		}
 	}
@@ -206,6 +214,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." jours";
 			} elseif($language === "Portuguese") {
 				$date = $rTime ." dias atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." giorni fa";
 			}
 		}
 	}
@@ -221,7 +231,9 @@ function howLong($value) {
 			} elseif($language === "French") {
 				$date = "il ya ". $rTime ." heures";
 			} elseif($language === "Portuguese") {
-				$date =  $rTime ." horas atr&aacute;s";
+				$date = $rTime ." horas atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." ore fa";
 			}
 		} else {
 			if($language === "English") {
@@ -232,6 +244,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." heures";
 			} elseif($language === "Portuguese") {
 				$date = $rTime ." hora atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." ora fa";
 			}
 		}
 		
@@ -252,6 +266,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." minutes";
 			} elseif($language === "Portuguese") {
 				$date = $rTime ." minutos atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." minuti fa";
 			}
 		} else {
 			if($language === "English") {
@@ -262,6 +278,8 @@ function howLong($value) {
 				$date = "il ya ". $rTime ." minute";
 			} elseif($language === "Portuguese") {
 				$date = $rTime ." minuto atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $rTime ." minuto fa";
 			}
 		}
 		
@@ -274,6 +292,8 @@ function howLong($value) {
 				$date = "il ya ". $time ." secondes";
 			} elseif($language === "Portuguese") {
 				$date = $time ." segundos atr&aacute;s";
+			} elseif($language === "Italian") {
+				$date = $time ." secondi fa";
 			}
 		}
 		
