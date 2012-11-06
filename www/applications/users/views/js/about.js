@@ -1,8 +1,8 @@
-function changeCountry(obj) {
+function changeCountry() {
 	var $city, $obj;
 
 	$city = $("select[name='city']");
-	$obj = obj ? $(obj) : $("select[name='country']");
+	$obj  = $("select[name='country']");
 
 	$city.attr('disabled', true);
 	$city.empty();

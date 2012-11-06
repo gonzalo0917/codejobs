@@ -45,7 +45,7 @@
 				"name" 		=> "country", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("Country") ."*",
-				"onchange"  => 'changeCountry(this)'),
+				"onchange"  => 'changeCountry()'),
 				$countries
 			);
 
