@@ -11,9 +11,7 @@ class Users_Controller extends ZP_Load {
 	public function __construct() {		
 		$this->Templates   = $this->core("Templates");
 		$this->Users_Model = $this->model("Users_Model");
-		
-		$this->helpers();
-		
+				
 		$this->application = $this->app("users");
 		$this->language = whichLanguage();
 		$this->Templates->theme();
