@@ -11,9 +11,7 @@ $Configuration_Model = $Load->model("Configuration_Model");
 $data = $Configuration_Model->getConfig();
 
 if(is_array($data)) {
-	set("webLanguage", $data[0]["Language"]);
-
-	$Load->helper(array("i18n", "sessions"));
+	set("webLanguage", $data[0]["Language"]);	
 
 	if(whichLanguage() === _get("webLanguage")) { 
 		set("webLang", $data[0]["Lang"]);

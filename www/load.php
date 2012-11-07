@@ -11,6 +11,7 @@ include "requirements.php";
 $Load = new ZP_Load(); 
 
 $Load->helper("users", "users");
+$Load->helper(array("i18n", "sessions"));
 
 include "configuration.php";
 
