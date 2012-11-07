@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Blog_Model extends ZP_Model {
+class Blog_Model extends ZP_Load {
 	
 	public function __construct() {
 		$this->Db = $this->db();
@@ -321,13 +321,8 @@ class Blog_Model extends ZP_Model {
 		
 		if($post) {						
 			$this->Db->updateBySQL("blog", "Views = (Views) + 1 WHERE ID_Post = '". $post[0]["ID_Post"] ."'");				
-			
-			$this->Comments_Model = $this->model("Comments_Model");
-			
-			$comments = $this->Comments_Model->getCommentsByRecord(3, $post[0]["ID_Post"]);
 		
-			$data[0]["post"]     = $post;
-			$data[0]["comments"] = $comments;
+			$data[0]["post"] = $post;
 									
 			return $data;
 		}		

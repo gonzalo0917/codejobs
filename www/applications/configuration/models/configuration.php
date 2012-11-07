@@ -6,11 +6,11 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Configuration_Model extends ZP_Model {
+class Configuration_Model extends ZP_Load {
 		
 	public function __construct() {
 		$this->Db = $this->db();
-				
+		
 		$this->table = "configuration";
 
 		$this->Data = $this->core("Data");

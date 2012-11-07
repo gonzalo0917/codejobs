@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Configuration_Controller extends ZP_Controller {
+class Configuration_Controller {
 		
 	public function __construct() {		
 		$this->application = $this->app("configuration");

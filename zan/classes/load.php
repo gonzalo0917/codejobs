@@ -198,6 +198,18 @@ class ZP_Load {
 			getException("$driver driver does not exists");
 		}	
 	}
+
+	public function db($type = "db") { 
+		if(strtolower($type) === "db") {
+			return $this->core("Db");			
+		} elseif(strtolower($type) === "mongodb" or strtolower($type) === "mongo") {
+			return $this->core("MongoDB");
+		} elseif(strtolower($type) === "couchdb" or strtolower($type) === "couch") {
+			return $this->core("CouchDB");
+		} elseif(strtolower($type) === "cassandra") {
+			return $this->core("Cassandra");
+		}
+	}
 	
 	public function exception($exception) {
 		$exception = strtolower($exception);

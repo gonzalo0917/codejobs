@@ -38,5 +38,3 @@ if($ZP["production"]) {
 }
 
 include _corePath ."/classes/load.php"; 
-include _corePath ."/classes/controller.php"; 
-include _corePath ."/classes/model.php";
