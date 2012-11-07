@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Forums_Controller extends ZP_Controller {
+class Forums_Controller extends ZP_Load {
 	
 	private $pagination = NULL;
 	

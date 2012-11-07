@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Feedback_Controller extends ZP_Controller {
+class Feedback_Controller extends ZP_Load {
 	
 	public function __construct() {		
 		$this->Feedback_Model = $this->model("Feedback_Model");

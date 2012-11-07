@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Twitter_Controller extends ZP_Controller {
+class Twitter_Controller extends ZP_Load {
 	
 	public function __construct() {
 		$this->Twitter_Model = $this->model("Twitter_Model");

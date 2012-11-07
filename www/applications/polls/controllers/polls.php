@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Polls_Controller extends ZP_Controller {
+class Polls_Controller extends ZP_Load {
 	
 	public function __construct() {
 		$this->Templates   = $this->core("Templates");

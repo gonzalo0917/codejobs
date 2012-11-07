@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Ads_Controller extends ZP_Controller {
+class Ads_Controller extends ZP_Load {
 	
 	public function __construct() {		
 		$this->Ads_Model = $this->model("Ads_Model");

@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Comments_Controller extends ZP_Controller {
+class Comments_Controller extends ZP_Load {
 	
 	private $pagination = NULL;
 	

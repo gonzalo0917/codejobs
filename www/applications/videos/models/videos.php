@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Videos_Model extends ZP_Model {
+class Videos_Model extends ZP_Load {
 	
 	public function __construct() {
 		$this->Db = $this->db();
