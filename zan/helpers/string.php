@@ -639,6 +639,8 @@ function POST($position = FALSE, $coding = "decode", $filter = "escape") {
 			} else { 
 				$data = decode($_POST[$position]);
 				$data = str_replace("'", "\'", $data);
+				$data = str_replace("“", '"', $data);
+				$data = str_replace("”", '"', $data);
 				
 				$POST = $data;
 			}
