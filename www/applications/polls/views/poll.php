@@ -1,5 +1,14 @@
-<div style="width: 225px; margin: 0 auto; border:1px solod #000;">
-<?php	
+<?php
+	if(isset($special)) {
+	?>
+		<div style="width: 225px; margin-top: -50px; border:1px solod #000;">
+	<?php
+	} else {
+	?>
+		<div style="width: 225px; margin: 0 auto; border:1px solod #000;">
+	<?php
+	}	
+
 	if(isset($poll["answers"])) {
 		if(!COOKIE("ZanPoll")) {
 			?>
@@ -29,7 +38,8 @@
 		} else {
 			if(isset($poll)) {
 				$total = 0;
-		
+				$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
+
 				foreach($poll["answers"] as $answers) {
 					$total = (int) ($total + $answers["Votes"]);
 				}
@@ -37,7 +47,7 @@
 				?>
 					<p class="section">					
 						<p style="text-align: center; width: 250px;">
-							<h3><?php echo $poll["question"]["Title"]; ?></h3>
+							<h3><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
 						</p>
 					
 						<?php 
@@ -89,3 +99,10 @@
 ?>
 </div>
 <br />
+
+<?php
+	if(isset($special)) {
+	?>
+		<div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="2" data-width="750"></div>
+	<?php
+	}

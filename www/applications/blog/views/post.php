@@ -39,7 +39,7 @@
 				<?php echo showContent($post["Content"], $URL); ?>
 				<br />
 				<?php 
-					if(_get("production")) {
+					if(_get("domain")) {
 					?>
 						<p>
 							<script type="text/javascript"><!--
@@ -62,6 +62,6 @@
 		<br /></br />
 		<?php
 			if($post["Enable_Comments"]) {
-				?><div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="2" data-width="750"></div><?php
+				?><div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="50" data-width="750"></div><?php
 			}
 		?>

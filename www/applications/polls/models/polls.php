@@ -118,16 +118,18 @@ class Polls_Model extends ZP_Load {
 	}
 	
 	public function getByID($ID) {
-		$data  = $this->Db->find($ID, $this->table, "ID_Poll, Title, Language, Situation");
-		$data2 = $this->Db->findBy("ID_Poll", $ID, "polls_answers", "Answer");
+		$data1 = $this->Db->find($ID, $this->table, "ID_Poll, Title, Language, Situation");		
 		
-		if($data2) {
-			foreach($data2 as $answer) {
-				$data[1][] = $answer["Answer"];
-			}
+		if($data1) {
+			$data2 = $this->Db->findBy("ID_Poll", $data1[0]["ID_Poll"], "polls_answers", "ID_Answer, Answer, Votes");
+			
+			$data["question"] = $data1[0];
+			$data["answers"]  = $data2;
+			
+			return $data;
+		} else {
+			return FALSE;
 		}
-		
-		return $data;
 	}
 	
 	public function getLastPoll() {		

@@ -793,3 +793,36 @@ function showLinks($content) {
 	$text = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $content);
 	return $text;
 }
+
+
+function loadMinCSS($files = array(), $dir) {	
+	if(is_array($files)) {
+		foreach($files as $file) {			
+        	$min = $dir . str_replace('.css', 'min.css', $file);
+
+			$file = (_get("domain") and file_exists($min)) ? $min : $dir . $file;
+			
+			return '<link rel="stylesheet" href="'. path($file, TRUE) .'" />';
+		}
+	}
+}
+
+function minified($all = TRUE, $dir) {		
+	$files = directory_map($css_folder);
+	$files_updated = array();
+
+	foreach($files as $file) {			
+		if(!is_array($file) and substr($file, -3, 3) === "css" and strpos($file, ".min") === FALSE) {
+			$minified = file_get_contents($dir .'min.css.php?f=' . $file);
+			$new = $dir .  str_replace('.css', '.min.css', $file);
+
+			file_put_contents($new_file, $minified);
+			
+			$updated[] = $file . ' -> ' . $new_file;
+		}
+	}
+
+		return $updated;
+	}
+
+}

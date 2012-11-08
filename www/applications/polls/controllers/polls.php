@@ -17,8 +17,30 @@ class Polls_Controller extends ZP_Load {
 		$this->Templates->theme();
 	}
 	
-	public function index() {
-		redirect();
+	public function index($pollID = FALSE) {
+		if(!$pollID) {
+			redirect();
+		} else {
+			$this->get($pollID);
+		}
+	}
+
+	public function get($pollID) {
+		$this->config("polls");
+
+		$this->Polls_Model = $this->model("Polls_Model");
+
+		$data = $this->Polls_Model->getByID($pollID);
+
+		if($data) {			
+			$vars["poll"] 	 = $data;
+			$vars["special"] = TRUE;
+			$vars["view"] 	 = $this->view("poll", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
 	}
 	
 	public function last() {	

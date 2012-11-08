@@ -56,7 +56,7 @@
 			?>
 			
 			<?php					
-				if(_get("production") and ($i === $rand1 or $i === $rand2)) {
+				if(_get("domain") and ($i === $rand1 or $i === $rand2)) {
 					?>
 						<p>
 							<script type="text/javascript"><!--
