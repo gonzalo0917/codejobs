@@ -6,6 +6,8 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
+date_default_timezone_set(_defaultTimezone);
+
 $Configuration_Model = $Load->model("Configuration_Model");
 
 $data = $Configuration_Model->getConfig();
@@ -53,5 +55,3 @@ if(_get("translation") === "gettext") {
 		$Gettext_Reader->load_tables();
 	}
 }
-
-date_default_timezone_set(_defaultTimezone);
