@@ -35,7 +35,6 @@ class Polls_Controller extends ZP_Load {
 		if($data) {		
 			$this->title(decode($data["question"]["Title"]));
 
-			$vars["lastURL"] = getURL();
 			$vars["poll"] 	 = $data;
 			$vars["special"] = TRUE;
 			$vars["view"] 	 = $this->view("poll", TRUE);
@@ -54,10 +53,7 @@ class Polls_Controller extends ZP_Load {
 		$data = $this->Polls_Model->getLastPoll();
 		
 		if($data) {
-			$url = getURL();
-
-			$vars["lastURL"] = getURL();
-			$vars["poll"]    = $data;			
+			$vars["poll"] = $data;			
 			
 			$this->view("poll", $vars, "polls");
 		} else {
