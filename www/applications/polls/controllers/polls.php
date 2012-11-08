@@ -67,7 +67,7 @@ class Polls_Controller extends ZP_Load {
 	
 	public function vote() {
 		if(!POST("answer")) {
-			showAlert("You must select an answer", path());
+			showAlert("You must select an answer", POST("URL"));
 		}		
 		
 		$this->Polls_Model->vote();

@@ -163,7 +163,7 @@ class Polls_Model extends ZP_Load {
 		if($data) {
 			COOKIE("ZanPoll", $ID_Poll, 3600);
 			
-			showAlert(__("You have previously voted on this poll"), path());
+			showAlert(__("You have previously voted on this poll"), POST("URL"));
 		} else {								
 			$this->Db->updateBySQL("polls_answers", "Votes = (Votes) + 1 WHERE ID_Answer = '$ID_Answer'");								
 			
