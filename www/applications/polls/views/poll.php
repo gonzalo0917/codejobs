@@ -32,10 +32,11 @@
 					?>
 					
 					<input name="ID_Poll" type="hidden" value="<?php echo $poll["question"]["ID_Poll"]; ?>" /><br />
-					<input name="URL" type="hidden" value="<?php echo $URL; ?>" /><br />
+					<input name="URL" type="hidden" value="<?php echo $URL; ?>" />			
 				  
 					<label for="send-vote">
 						<input id="send-vote" name="send" type="submit" value="<?php echo __("Vote");?>" class="poll-submit" />
+						<input id="send-vote" name="results" type="submit" value="<?php echo __("Results");?>" class="poll-submit" />
 					</label>
 				</form>
 			<?php

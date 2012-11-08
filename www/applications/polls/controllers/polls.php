@@ -64,12 +64,16 @@ class Polls_Controller extends ZP_Load {
 	}
 	
 	public function vote() {
-		if(!POST("answer")) {
-			showAlert("You must select an answer", POST("URL"));
-		}		
-		
-		$this->Polls_Model->vote();
-		
-		showAlert("Thanks for your vote", POST("URL"));
+		if(POST("results")) {
+			redirect(POST("URL") ."/results");
+		} else {
+			if(!POST("answer")) {
+				showAlert("You must select an answer", POST("URL"));
+			}		
+			
+			$this->Polls_Model->vote();
+			
+			showAlert("Thanks for your vote", POST("URL"));
+		}
 	}
 }
