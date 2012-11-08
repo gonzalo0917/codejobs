@@ -36,7 +36,7 @@
 				  
 					<label for="send-vote">
 						<input id="send-vote" name="send" type="submit" value="<?php echo __("Vote");?>" class="poll-submit" />
-						<input id="send-vote" name="results" type="submit" value="<?php echo __("Results");?>" class="poll-submit" />
+						<input id="results" name="results" type="submit" value="<?php echo __("Results");?>" class="poll-submit" />
 					</label>
 				</form>
 			<?php
