@@ -8,6 +8,10 @@ body {
    	overflow-x: hidden;
 }
 
+.polls h3 a {
+	color: #000;
+}
+
 .code {
 	margin: 10px;
 	max-height: 500px;

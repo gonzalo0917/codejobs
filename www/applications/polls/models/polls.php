@@ -177,8 +177,6 @@ class Polls_Model extends ZP_Load {
 			$this->Db->insert("polls_ips", $data);
 			
 			COOKIE("ZanPoll", $ID_Poll, 3600);
-			
-			showAlert(__("Thank you for your vote!"), path());
 		}
 		
 		return TRUE;

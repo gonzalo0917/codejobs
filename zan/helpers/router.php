@@ -290,17 +290,11 @@ function currentPath($path = NULL) {
  * 
  * @return array		
  */
-function getURL() {		
-	global $ZP;
-
+function getURL() {
 	$URL = NULL;
 
-	for($i = 0; $i <= segments() - 1; $i++) {
-		if($i === (segments() - 1)) {
-			$URL .= segment($i); 	
-		} else {
-			$URL .= segment($i) ."/";
-		}
+	for($i = 0; $i <= segments() - 1; $i++) {		
+		$URL .= ($i === (segments() - 1)) ? segment($i) : segment($i) ."/";
 	}
 	
 	$URL = _get("webBase") ."/$URL";

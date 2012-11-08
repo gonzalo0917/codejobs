@@ -1,20 +1,21 @@
 <?php
 	if(isset($special)) {
 	?>
-		<div style="width: 225px; margin-top: -50px; border:1px solod #000;">
+		<div class="polls" style="width: 225px; margin-top: -50px; border:1px solod #000;">
 	<?php
 	} else {
 	?>
-		<div style="width: 225px; margin: 0 auto; border:1px solod #000;">
+		<div class="polls" style="width: 225px; margin: 0 auto; border:1px solod #000;">
 	<?php
 	}	
 
 	if(isset($poll["answers"])) {
 		if(!COOKIE("ZanPoll")) {
+			$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
 					<p style="text-align: center; width: 250px;">
-						<h3><?php echo $poll["question"]["Title"]; ?></h3>
+						<h3><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
 					</p>
 							
 					<?php 
@@ -29,6 +30,7 @@
 					?>
 					
 					<input name="ID_Poll" type="hidden" value="<?php echo $poll["question"]["ID_Poll"]; ?>" /><br />
+					<input name="URL" type="hidden" value="<?php echo $lastURL; ?>" /><br />
 				  
 					<label for="send-vote">
 						<input id="send-vote" name="send" type="submit" value="<?php echo __("Vote");?>" class="poll-submit" />
