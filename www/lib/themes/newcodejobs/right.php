@@ -65,7 +65,7 @@
             </section>
 
             <?php
-                if(_get("production")) {
+                if(_get("domain")) {
                 ?>
                     <section class="ads">
                         <script type="text/javascript"><!--
