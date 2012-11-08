@@ -1,9 +1,11 @@
 <?php
 	if(isset($special)) {
+		$width = "500px;";
 	?>
 		<div class="polls" style="width: 225px; margin-top: -50px; border:1px solod #000;">
 	<?php
 	} else {
+		$width = "250px;";
 	?>
 		<div class="polls" style="width: 225px; margin: 0 auto; border:1px solod #000;">
 	<?php
@@ -14,7 +16,7 @@
 			$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
-					<p style="text-align: center; width: 250px;">
+					<p style="text-align: center; width: <?php echo $width; ?>">
 						<h3><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
 					</p>
 							
@@ -48,7 +50,7 @@
 				
 				?>
 					<p class="section">					
-						<p style="text-align: center; width: 250px;">
+						<p style="text-align: center; width: <?php echo $width; ?>">
 							<h3><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
 						</p>
 					
