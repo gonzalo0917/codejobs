@@ -12,7 +12,7 @@
 	}	
 
 	if(isset($poll["answers"])) {
-		if(!COOKIE("ZanPoll")) {
+		if(!COOKIE("ZanPoll") and !$results) {
 			$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
