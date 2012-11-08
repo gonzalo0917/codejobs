@@ -106,8 +106,9 @@
 <br />
 
 <?php 
-	if(_get("domain")) {
-	?>
+	if(isset($special)) {
+		if(_get("domain")) {
+		?>
 		<p>
 			<script type="text/javascript"><!--
 				google_ad_client = "ca-pub-4006994369722584";
@@ -121,11 +122,9 @@
 				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 			</script>
 		</p>
-	<?php
-	}
-					
-	if(isset($special)) {
-	?>
+		<?php
+		}
+		?>
 		<div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="2" data-width="750"></div>
 	<?php
 	}
