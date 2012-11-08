@@ -17,7 +17,7 @@
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
 					<p style="text-align: center; width: <?php echo $width; ?>">
-						<h3><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
+						<h3 style="width: <?php echo $width; ?>"><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
 					</p>
 							
 					<?php 
@@ -51,7 +51,7 @@
 				?>
 					<p class="section">					
 						<p style="text-align: center; width: <?php echo $width; ?>">
-							<h3><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
+							<h3 style="width: <?php echo $width; ?>"><a href="<?php echo $URL; ?>"><?php echo $poll["question"]["Title"]; ?></a></h3>
 						</p>
 					
 						<?php 
