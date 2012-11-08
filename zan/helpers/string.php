@@ -824,7 +824,5 @@ function minified($all = TRUE, $dir) {
 		}
 	}
 
-		return $updated;
-	}
-
+	return $updated;
 }
