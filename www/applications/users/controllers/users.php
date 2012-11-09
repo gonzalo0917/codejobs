@@ -15,6 +15,7 @@ class Users_Controller extends ZP_Load {
 		$this->application = $this->app("users");
 		$this->language = whichLanguage();
 		$this->Templates->theme();
+
 		$this->helper("router");
 		$this->CSS("forms");
 	}
@@ -121,6 +122,8 @@ class Users_Controller extends ZP_Load {
 			$this->title(decode(__("Register")));
 
 			if(POST("register")) {
+				$this->helper("forms");
+				
 				$vars["name"]     = POST("name")  	 ? POST("name")     : NULL;
 				$vars["email"]    = POST("email") 	 ? POST("email")    : NULL;
 				$vars["pwd"]      = POST("password") ? POST("password") : NULL;
