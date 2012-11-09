@@ -121,9 +121,9 @@ class Users_Controller extends ZP_Load {
 		if(!SESSION("ZanUser")) {
 			$this->title(decode(__("Register")));
 
+			$this->helper("forms");
+
 			if(POST("register")) {
-				$this->helper("forms");
-				
 				$vars["name"]     = POST("name")  	 ? POST("name")     : NULL;
 				$vars["email"]    = POST("email") 	 ? POST("email")    : NULL;
 				$vars["pwd"]      = POST("password") ? POST("password") : NULL;
