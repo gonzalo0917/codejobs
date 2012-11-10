@@ -146,11 +146,16 @@ class Users_Controller extends ZP_Load {
 	}
 
 	public function edit($scope = "about") {
-		if(!isConnected() || get("production") || !$this->Users_Model->isAdmin(TRUE)) {
+		if(!$this->Users_Model->isAdmin(TRUE)) {
 			redirect();
 		}
 
 		if($scope === "about") {
+			if(POST("save")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->setInformation();
+			}
+
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");

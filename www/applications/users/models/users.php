@@ -583,4 +583,26 @@ class Users_Model extends ZP_Load {
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Website");
 	}
 
+	public function setInformation() {
+		$validations = array(
+			"name" 	  	=> "required",
+			"gender" 	=> "required",
+			"birthday" 	=> "required",
+			"country" 	=> "required",
+			"city"	 	=> "required"
+		);
+
+		$this->data = $this->Data->proccess(NULL, $validations);
+
+		if(isset($this->data["error"])) {
+			return $this->data["error"];
+		}
+
+		if($this->Db->insert($this->table, $this->data)) {
+			return getAlert(__("The information has been saved correctly"), "success");	
+		}
+		
+		return getAlert(__("Insert error"));
+	}
+
 }
