@@ -344,6 +344,7 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
   `Slogan_Spanish` varchar(100) NOT NULL,
   `Slogan_French` varchar(100) NOT NULL,
   `Slogan_Portuguese` varchar(100) NOT NULL,
+  `Slogan_Italian` varchar(100) NOT NULL,
   `URL` varchar(60) NOT NULL,
   `Lang` varchar(2) NOT NULL DEFAULT 'en',
   `Language` varchar(25) NOT NULL DEFAULT 'English',
@@ -363,8 +364,8 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 -- Dumping data for table `muu_configuration`
 --
 
-INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'http://localhost/codejobs',  'es', 'Spanish',  'newcodejobs',  'Active', 'blog', 'MarkitUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz',  'Active');
+INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
+(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs',  'es', 'Spanish',  'newcodejobs',  'Active', 'blog', 'MarkitUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz',  'Active');
 
 
 -- --------------------------------------------------------
