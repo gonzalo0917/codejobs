@@ -18,7 +18,7 @@ class ZP_Cache extends ZP_Load {
 		return ($readHash === $hash) ? TRUE : FALSE;
 	}
 
-	public function data($ID, $group = "default", $Class = FALSE, $method = FALSE, $params = array()) {
+	public function data($ID, $group = "default", $Class = FALSE, $method = FALSE, $params = array(), $time = _cacheTime) {
 		if(_cacheStatus and $this->get($ID, $group)) {
 			$data = $this->get($ID, $group);
 
@@ -30,7 +30,7 @@ class ZP_Cache extends ZP_Load {
 				$data = ($Class) ? call_user_func_array(array($Class, $method), is_array($params) ? $params : array()) : FALSE;
 
 				if(_cacheStatus and $data) {
-					$this->save($data, $ID, $group);
+					$this->save($data, $ID, $group, $time);
 				}
 			}
 		} else {
@@ -41,7 +41,7 @@ class ZP_Cache extends ZP_Load {
 			$data = ($Class) ? call_user_func_array(array($Class, $method), is_array($params) ? $params : array()) : FALSE;
 			
 			if(_cacheStatus and $data) {
-				$this->save($data, $ID, $group);
+				$this->save($data, $ID, $group, $time);
 			}
 		}
 
