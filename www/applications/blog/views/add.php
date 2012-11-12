@@ -9,6 +9,8 @@
 	$content   = isset($data) ? str_replace('"', "'", $data[0]["Content"])		 : recoverPOST("content");	
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");				
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
+	$author    = isset($data) ? recoverPOST("author", $data[0]["Author"])        : SESSION("ZanUser");
+	$userID    = isset($data) ? recoverPOST("ID_User", $data[0]["ID_User"])      : SESSION("ZanUserID");
 	$buffer    = isset($data) ? recoverPOST("buffer", $data[0]["Buffer"])		 : 1;
 	$code      = isset($data) ? recoverPOST("code", $data[0]["Code"])		 	 : recoverPOST("code");
 	$edit      = isset($data) ? TRUE											 : FALSE;
@@ -65,6 +67,15 @@
 				"value"  => stripslashes($content)
 			));
 
+			echo formInput(array(	
+				"id"    => "author",
+				"name" 	=> "author", 
+				"class" => "span2 required", 
+				"field" => __("Author"), 
+				"p" 	=> TRUE, 
+				"value" => stripslashes($author)
+			));
+
 			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 
 			$options = array(
@@ -116,6 +127,7 @@
 			echo formSave($action, TRUE, $ID);
 			
 			echo formInput(array("id" => "ID_Post", 	 "name" => "ID", 			"type" => "hidden", "value" => $ID));
+			echo formInput(array("id" => "ID_User", 	 "name" => "ID_User",		"type" => "hidden", "value" => $userID));
 			echo formInput(array("id" => "code", 		 "name" => "code", 			"type" => "hidden", "value" => code(10)));
 			echo formInput(array("id" => "temp_title", 	 "name" => "temp_title", 	"type" => "hidden", "value" => addslashes($title)));
 			echo formInput(array("id" => "temp_tags", 	 "name" => "temp_tags", 	"type" => "hidden", "value" => $tags));
