@@ -249,13 +249,13 @@ class Codes_Controller extends ZP_Load {
 	public function rss() {
 		$this->helper("time");
 
-		$data = $this->Codes_Model->getRSS();
+		$data = $this->Cache->data("rss", "codes", $this->Codes_Model, "getRSS", array(), 86400);
 		
 		if($data) {
 			$this->helper("codes", $this->application);
 
 			foreach ($data as $pos => $code) {
-			    $content = $this->CodesFiles_Model->getCodeOnly($code["ID_Code"]);
+				$content = $this->Cache->data("rss-code-{$code["ID_Code"]}", "codes", $this->CodesFiles_Model, "getCodeOnly", array($code["ID_Code"]), 86400);
 			    if ($content) {
 			        $data[$pos]["Code"] = $content;
 			    } else {

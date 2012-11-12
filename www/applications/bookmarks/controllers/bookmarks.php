@@ -38,7 +38,7 @@ class Bookmarks_Controller extends ZP_Load {
 	public function rss() {
 		$this->helper("time");
 
-		$data = $this->Cache->data("cache", "bookmarks", $this->Bookmarks_Model, "getRSS", array(), 86400);
+		$data = $this->Cache->data("rss", "bookmarks", $this->Bookmarks_Model, "getRSS", array(), 86400);
 		
 		if($data) {
 			$vars["bookmarks"]= $data;	

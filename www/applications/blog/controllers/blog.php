@@ -44,7 +44,7 @@ class Blog_Controller extends ZP_Load {
 	public function rss() {
 		$this->helper("time");
 
-		$data = $this->Cache->data("cache-$this->language", "blog", $this->Blog_Model, "getRSS", array(), 86400);
+		$data = $this->Cache->data("rss-$this->language", "blog", $this->Blog_Model, "getRSS", array(), 86400);
 		
 		if($data) {
 			$vars["posts"]= $data;	
