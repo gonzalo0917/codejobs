@@ -348,7 +348,7 @@ class ZP_Templates extends ZP_Load {
 		}
 
 		if($getJs) {
-			return $js;
+			return $js . "\n";
 		} else {
 			$this->js .= $js;
 		}
