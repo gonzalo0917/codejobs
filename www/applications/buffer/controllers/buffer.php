@@ -35,7 +35,7 @@ class Buffer_Controller extends ZP_Load {
 
 				$data = array(
 					"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => array(_bufferProfile1, _bufferProfile2)
+					"profile_ids[]" => _bufferProfile
 				);					
 
 				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
@@ -52,7 +52,7 @@ class Buffer_Controller extends ZP_Load {
 
 				$data = array(
 					"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => array(_bufferProfile1, _bufferProfile2)
+					"profile_ids[]" => _bufferProfile
 				);				
 
 				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
@@ -69,7 +69,7 @@ class Buffer_Controller extends ZP_Load {
 
 				$data[] = array(
 					"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => array(_bufferProfile1, _bufferProfile2)
+					"profile_ids[]" => _bufferProfile
 				);				
 
 				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
