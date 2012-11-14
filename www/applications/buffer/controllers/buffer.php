@@ -24,11 +24,11 @@ class Buffer_Controller extends ZP_Load {
 		die(var_dump($data));
 	}
 
-	public function create($app = "all") {
+	public function create($app = "all", $language = "Spanish") {
 		if($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
-			$posts = $this->Blog_Model->getBufferPosts();			
+			$posts = $this->Blog_Model->getBufferPosts($language);			
 
 			foreach($posts as $post) {
 				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
@@ -67,15 +67,17 @@ class Buffer_Controller extends ZP_Load {
 			foreach($codes as $code) {
 				$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 
-				$data = array(
+				$data[] = array(
 					"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
 					"profile_ids[]" => _bufferProfile
 				);				
 
-				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+				#$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
-				$this->RESTClient->POST($data);
-			}			
+				#$this->RESTClient->POST($data);
+			}	
+			echo "<pre>";
+			die(var_dump($data));		
 		} else {
 			$this->Blog_Model 	   = $this->model("Blog_Model");
 			$this->Bookmarks_Model = $this->model("Bookmarks_Model");
