@@ -33,14 +33,18 @@ class Buffer_Controller extends ZP_Load {
 			foreach($posts as $post) {
 				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
 
-				$data = array(
-					"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
-				);					
+				$count = count($bufferProfiles) - 1;
 
-				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+				for($i = 0; $i <= $count; $i++) {
+					$data = array(
+						"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
+						"profile_ids[]" => $bufferProfiles[$i]
+					);					
 
-				$this->RESTClient->POST($data);
+					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+					$this->RESTClient->POST($data);
+				}				
 			}					
 		} elseif($app === "bookmarks") {
 			$this->Bookmarks_Model = $this->model("Bookmarks_Model");
@@ -50,14 +54,18 @@ class Buffer_Controller extends ZP_Load {
 			foreach($bookmarks as $bookmark) {
 				$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
 
-				$data = array(
-					"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
-				);				
+				$count = count($bufferProfiles) - 1;
 
-				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+				for($i = 0; $i <= $count; $i++) {
+					$data = array(
+						"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
+						"profile_ids[]" => $bufferProfiles[$i]
+					);				
 
-				$this->RESTClient->POST($data);
+					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+					$this->RESTClient->POST($data);
+				}
 			}			
 		} elseif($app === "codes") {
 			$this->Codes_Model = $this->model("Codes_Model");
@@ -67,14 +75,18 @@ class Buffer_Controller extends ZP_Load {
 			foreach($codes as $code) {
 				$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 
-				$data[] = array(
-					"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
-				);				
+				$count = count($bufferProfiles) - 1;
 
-				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+				for($i = 0; $i <= $count; $i++) {	
+					$data[] = array(
+						"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
+						"profile_ids[]" => $bufferProfiles[$i]
+					);				
 
-				$this->RESTClient->POST($data);
+					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+					$this->RESTClient->POST($data);
+				}
 			}	
 
 		} else {
