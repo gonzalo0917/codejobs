@@ -402,7 +402,7 @@ class ZP_Load {
 		if(file_exists(_corePath ."/libraries/$application/$name.php")) {
 			include_once _corePath ."/libraries/$application/$name.php";	
 		} elseif(file_exists(_corePath ."/libraries/$className/$name.php")) {
-			include_once _corePath ."/libraries/$lib/$name.php";	
+			include_once _corePath ."/libraries/$className/$name.php";	
 		} elseif(file_exists("www/applications/$application/libraries/$name.php")) {
 			include_once "www/applications/$application/libraries/$name.php";				
 		} else {
