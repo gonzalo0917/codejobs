@@ -1,0 +1,8 @@
+#content {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	display: block;
+	float: none;
+	margin-right: 20px;
+	width: auto;
+}
