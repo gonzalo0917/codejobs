@@ -1,0 +1,1 @@
+Así que quieres desactivar tu cuenta >:(
