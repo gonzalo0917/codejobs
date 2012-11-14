@@ -142,6 +142,8 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function addUser() {
+		$this->helper(array("alerts", "time"));
+		
 		if(SESSION("UserRegistered")) {
 			return array("inserted" => FALSE, "alert" => getAlert(__("You can't register many times a day")));
 		}
@@ -158,7 +160,7 @@ class Users_Model extends ZP_Load {
 			"email"    => "email?"
 		);
 
-		$code = code(10);
+		$code = code(10);		
 
 		$data = array(
 			"Pwd"	     => POST("password", "encrypt"),
