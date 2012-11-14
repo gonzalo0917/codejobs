@@ -22,7 +22,7 @@
 
 	<?php 
 		if(defined("_bootstrap")) {
-			$this->CSS("zan/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, TRUE);
+			$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, TRUE);
 		}
 		
 		echo $this->getCSS(); 
@@ -43,8 +43,8 @@
 			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/bbcode/set.js", "zan"); ?>"></script>
 
 		<?php
-			$this->CSS("zan/vendors/js/editors/markitup/skins/markitup/style.min.css", NULL, TRUE);
-			$this->CSS("zan/vendors/js/editors/markitup/sets/bbcode/style.min.css", NULL, TRUE);
+			$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.min.css", NULL, TRUE);
+			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/bbcode/style.min.css", NULL, TRUE);
 		?>
 
 			<script type="text/javascript">
