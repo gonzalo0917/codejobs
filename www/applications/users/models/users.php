@@ -143,7 +143,7 @@ class Users_Model extends ZP_Load {
 
 	public function addUser() {
 		$this->helper(array("alerts", "time"));
-		
+
 		if(SESSION("UserRegistered")) {
 			return array("inserted" => FALSE, "alert" => getAlert(__("You can't register many times a day")));
 		}
@@ -205,9 +205,7 @@ class Users_Model extends ZP_Load {
 	}
 	
 	public function activate($user, $code) {
-		$this->Db->select("ID_User, Username, Email, Pwd, Privilege");
-
-		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table);
+		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, Username, Email, Pwd, Privilege");
 		
 		if($data) {
 			$this->Db->update($this->table, array("Situation" => "Active"), $data[0]["ID_User"]);
@@ -355,9 +353,7 @@ class Users_Model extends ZP_Load {
 	}
 	
 	public function getPermissions($ID_Privilege, $ID_Application, $permission) {		
-		$this->Db->select("ID_Privilege, ID_Application, Adding, Deleting, Editing, Viewing");
-
-		$data = $this->Db->findBySQL("ID_Privilege = '$ID_Privilege' AND ID_Application = '$ID_Application'", "re_permissions_privileges");
+		$data = $this->Db->findBySQL("ID_Privilege = '$ID_Privilege' AND ID_Application = '$ID_Application'", "re_permissions_privileges", "ID_Privilege, ID_Application, Adding, Deleting, Editing, Viewing");
 
 		if($permission === "add") { 
 			return ($data[0]["Adding"])   ? TRUE : FALSE;
@@ -372,6 +368,8 @@ class Users_Model extends ZP_Load {
 	
 	public function recover() {		
 		if(POST("recover")) {
+			$this->helper(array("alerts", "time"));
+
 			$username = POST("username");
 			$email	  = POST("email");
 			
@@ -523,6 +521,8 @@ class Users_Model extends ZP_Load {
 
 	public function setDislike($ID, $table, $application) {
 		if($this->Db->find($ID, $table)) {
+			$this->helper(array("alerts", "time"));
+
 			if($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
 				showAlert(__("Already You dislike this"), path("$table/go/$ID"));
 			} elseif($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
