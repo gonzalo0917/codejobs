@@ -67,6 +67,7 @@ function __($text, $encode = TRUE) {
 		$position = strtolower(str_replace(":", "", $position));
 		$position = strtolower(str_replace("'", "", $position));
 		$position = strtolower(str_replace('"', "", $position));
+		$position = strtolower(str_replace('.', "", $position));
 		
 		if(isset($phrase[$position])) {
 			return ($encode) ? encode($phrase[$position]) : $phrase[$position];

@@ -59,6 +59,13 @@ class ZP_Templates extends ZP_Load {
 	public $themePath;
 	
 	/**
+	 * Contains the route of the theme
+	 * 
+	 * @var public $themeRoute
+	 */
+	public $themeRoute;
+	
+	/**
 	 * Contains the title for the header template
 	 * 
 	 * @var private $title = _get("webNam"]e
@@ -341,7 +348,7 @@ class ZP_Templates extends ZP_Load {
 		}
 
 		if($getJs) {
-			return $js;
+			return $js . "\n";
 		} else {
 			$this->js .= $js;
 		}
@@ -406,8 +413,10 @@ class ZP_Templates extends ZP_Load {
      */
 	public function theme($theme = NULL) {
 		$this->theme = (is_null($theme)) ? _get("webTheme") : $theme;
+
+		$this->themeRoute = "www/lib/themes/$this->theme";
 		
-		$this->themePath = _get("webURL") ."/www/lib/themes/$this->theme";
+		$this->themePath = _get("webURL") . "/$this->themeRoute";
 		
 		if(!$this->isTheme()) {
 			die("You need to create a valid theme");

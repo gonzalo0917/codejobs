@@ -57,6 +57,7 @@ class Users_Controller extends ZP_Load {
 		isConnected();
 
 		$this->title(__("Deactivate my account"));
+		$this->CSS("deactivate", $this->application);
 		$this->config("deactivate", $this->application);
 
 		$vars["view"] = $this->view("deactivate", TRUE);
