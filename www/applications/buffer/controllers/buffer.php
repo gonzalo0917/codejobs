@@ -9,9 +9,7 @@ if(!defined("_access")) {
 class Buffer_Controller extends ZP_Load {
 	
 	public function __construct() {		
-		$this->application = $this->app("buffer");	
-
-		$this->config($this->application);
+		$this->application = $this->app("buffer");			
 
 		$this->RESTClient = $this->core("RESTClient");
 	}
@@ -25,6 +23,8 @@ class Buffer_Controller extends ZP_Load {
 	}
 
 	public function create($app = "all", $language = "Spanish") {
+		$this->config($this->application);
+		
 		if($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
