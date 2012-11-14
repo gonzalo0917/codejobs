@@ -190,6 +190,32 @@ class ZP_Templates extends ZP_Load {
 		}
 	}
 	
+	/**
+	* minCSS
+	* Optimize the contents of a css file
+	* based on Drupal 7 CSS Core aggregator
+	*
+	* @param string $filename
+	* @return string
+	*/
+
+	private function minCSS($filename)
+	{
+		$contents 	 = @file_get_contents($filename);
+
+		if ($contents === FALSE) {
+			return '';
+		}
+
+		$comment 	 = '/\*[^*]*\*+(?:[^/*][^*]*\*+)*/';
+		$double_quot = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"';
+		$single_quot = "'[^'\\\\]*(?:\\\\.[^'\\\\]*)*'";
+		$contents 	 = preg_replace("<($double_quot|$single_quot)|$comment>Ss", "$1", $contents);
+		$contents 	 = preg_replace_callback('<\s*([@{};,])\s*| \s+([\)])| ([\(:])\s+>xS', create_function('$matches', 'unset($matches[0]); return current(array_filter($matches));'), $contents);
+
+		return trim($contents);
+	}
+
     /**
      * Verify if a template exists
      *
