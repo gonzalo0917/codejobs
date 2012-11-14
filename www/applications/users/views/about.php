@@ -1,12 +1,12 @@
 <?php
 	if(!defined("_access")) die("Error: You don't have permission to access here...");
 
-	$name        = recoverPOST("name", $data[0]["Name"]);
+	$name        = recoverPOST("name", encode($data[0]["Name"]));
 	$gender      = recoverPOST("gender", $data[0]["Gender"]);
 	$birthday    = recoverPOST("birthday", $data[0]["Birthday"] !== "" ? $data[0]["Birthday"] : "01/01/1980");
-	$country     = recoverPOST("country", $data[0]["Country"]);
-	$city        = recoverPOST("city", $data[0]["City"]);
-	$district    = recoverPOST("district", $data[0]["District"]);
+	$country     = recoverPOST("country", encode($data[0]["Country"]));
+	$city        = recoverPOST("city", encode($data[0]["City"]));
+	$district    = recoverPOST("district", encode($data[0]["District"]));
 	$phone       = recoverPOST("phone", $data[0]["Phone"]);
 	$mobile      = recoverPOST("mobile", $data[0]["Mobile"]);
 	$website     = recoverPOST("website", $data[0]["Website"] !== "" ? $data[0]["Website"] : "http://");
@@ -26,15 +26,14 @@
 			));
 
 			$options = array(
-				array("value" => 'M', "option" => __("Male"), "selected" => TRUE),
-				array("value" => 'F', "option" => __("Female"))
+				array("value" => 'M', "option" => __("Male"), "selected" => $gender === 'M' ? TRUE : FALSE),
+				array("value" => 'F', "option" => __("Female"), "selected" => $gender === 'F' ? TRUE : FALSE)
 			);
 
 			echo formSelect(array(
 				"name" 		=> "gender", 
 				"p" 		=> TRUE, 
-				"field" 	=> __("Gender") ."*",
-				"value" 	=> $gender),
+				"field" 	=> __("Gender") ."*"),
 				$options
 			);
 
@@ -53,12 +52,17 @@
 
 			array_unshift($countries, array("option" => "[". __("Select one") ."...]", "value" => ""));
 
+			$country_selected = array_search(array("option" => $country, "value" => $country), $countries);
+
+			if ($country_selected !== FALSE) {
+				$countries[$country_selected]["selected"] = TRUE;
+			}
+
 			echo formSelect(array(
 				"name" 		=> "country", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("Country") ."*",
-				"onchange"  => 'changeCountry()',
-				"value" 	=> $country),
+				"onchange"  => 'changeCountry()'),
 				$countries
 			);
 
@@ -66,8 +70,7 @@
 				"name" 		=> "city", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("City") ."*",
-				"disabled"  => TRUE,
-				"value" 	=> $city
+				"disabled"  => TRUE
 				), array()
 			);
 

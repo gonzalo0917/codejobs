@@ -598,7 +598,7 @@ class Users_Model extends ZP_Load {
 			return $this->data["error"];
 		}
 
-		if($this->Db->insert($this->table, $this->data)) {
+		if($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
 			return getAlert(__("The information has been saved correctly"), "success");	
 		}
 		
