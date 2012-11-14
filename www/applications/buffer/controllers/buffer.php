@@ -9,11 +9,11 @@ if(!defined("_access")) {
 class Buffer_Controller extends ZP_Load {
 	
 	public function __construct() {		
-		$this->application = $this->app("buffer");	
-
-		$this->config($this->application);
+		$this->application = $this->app("buffer");			
 
 		$this->RESTClient = $this->core("RESTClient");
+
+		$this->bufferProfiles = array("504fea9d6ffb363e53000031", "5099d9e4d9320d273a000039");
 	}
 	
 	public function index() {	
@@ -25,59 +25,72 @@ class Buffer_Controller extends ZP_Load {
 	}
 
 	public function create($app = "all", $language = "Spanish") {
+		$this->config($this->application);
+		
+		$count = count($this->bufferProfiles) - 1;
+
 		if($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
 			$posts = $this->Blog_Model->getBufferPosts($language);			
 
-			foreach($posts as $post) {
-				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
+			for($i = 0; $i <= $count; $i++) {
+				foreach($posts as $post) {
+					$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);					
+	
+					$data = array(
+						"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
+						"profile_ids[]" => $this->bufferProfiles[$i]
+					);					
 
-				$data = array(
-					"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
-				);					
+					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
-				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
-
-				$this->RESTClient->POST($data);
-			}					
+					$this->RESTClient->POST($data);
+					
+				}	
+			}				
 		} elseif($app === "bookmarks") {
 			$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 
 			$bookmarks = $this->Bookmarks_Model->getBufferBookmarks();			
 			
-			foreach($bookmarks as $bookmark) {
-				$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+			for($i = 0; $i <= $count; $i++) {
+				foreach($bookmarks as $bookmark) {
+					$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
 
-				$data = array(
-					"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
-				);				
+					$count = count($this->bufferProfiles) - 1;
 
-				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+					$data = array(
+						"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
+						"profile_ids[]" => $this->bufferProfiles[$i]
+					);				
 
-				$this->RESTClient->POST($data);
+					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+					$this->RESTClient->POST($data);					
+				}
 			}			
 		} elseif($app === "codes") {
 			$this->Codes_Model = $this->model("Codes_Model");
 
 			$codes = $this->Codes_Model->getBufferCodes();			
 			
-			foreach($codes as $code) {
-				$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
+			for($i = 0; $i <= $count; $i++) {
+				foreach($codes as $code) {
+					$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 
-				$data[] = array(
-					"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
-				);				
+					$count = count($this->bufferProfiles) - 1;
 
-				#$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+					$data = array(
+						"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
+						"profile_ids[]" => $this->bufferProfiles[$i]
+					);				
 
-				#$this->RESTClient->POST($data);
+					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+					$this->RESTClient->POST($data);
+				}
 			}	
-			echo "<pre>";
-			die(var_dump($data));		
 		} else {
 			$this->Blog_Model 	   = $this->model("Blog_Model");
 			$this->Bookmarks_Model = $this->model("Bookmarks_Model");
