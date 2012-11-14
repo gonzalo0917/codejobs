@@ -12,6 +12,8 @@ class Buffer_Controller extends ZP_Load {
 		$this->application = $this->app("buffer");			
 
 		$this->RESTClient = $this->core("RESTClient");
+
+		$this->bufferProfiles = array("504fea9d6ffb363e53000031", "5099d9e4d9320d273a000039");
 	}
 	
 	public function index() {	
@@ -24,7 +26,7 @@ class Buffer_Controller extends ZP_Load {
 
 	public function create($app = "all", $language = "Spanish") {
 		$this->config($this->application);
-		
+
 		if($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
@@ -33,12 +35,12 @@ class Buffer_Controller extends ZP_Load {
 			foreach($posts as $post) {
 				$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);
 
-				$count = count($bufferProfiles) - 1;
+				$count = count($this->bufferProfiles) - 1;
 
 				for($i = 0; $i <= $count; $i++) {
 					$data = array(
 						"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
-						"profile_ids[]" => $bufferProfiles[$i]
+						"profile_ids[]" => $this->bufferProfiles[$i]
 					);					
 
 					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
@@ -54,12 +56,12 @@ class Buffer_Controller extends ZP_Load {
 			foreach($bookmarks as $bookmark) {
 				$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
 
-				$count = count($bufferProfiles) - 1;
+				$count = count($this->bufferProfiles) - 1;
 
 				for($i = 0; $i <= $count; $i++) {
 					$data = array(
 						"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
-						"profile_ids[]" => $bufferProfiles[$i]
+						"profile_ids[]" => $this->bufferProfiles[$i]
 					);				
 
 					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
@@ -75,12 +77,12 @@ class Buffer_Controller extends ZP_Load {
 			foreach($codes as $code) {
 				$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 
-				$count = count($bufferProfiles) - 1;
+				$count = count($this->bufferProfiles) - 1;
 
 				for($i = 0; $i <= $count; $i++) {	
 					$data[] = array(
 						"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
-						"profile_ids[]" => $bufferProfiles[$i]
+						"profile_ids[]" => $this->bufferProfiles[$i]
 					);				
 
 					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
