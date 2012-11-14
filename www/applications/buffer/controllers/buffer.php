@@ -80,7 +80,7 @@ class Buffer_Controller extends ZP_Load {
 				$count = count($this->bufferProfiles) - 1;
 
 				for($i = 0; $i <= $count; $i++) {	
-					$data[] = array(
+					$data = array(
 						"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
 						"profile_ids[]" => $this->bufferProfiles[$i]
 					);				
