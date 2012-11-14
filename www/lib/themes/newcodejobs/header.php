@@ -15,14 +15,14 @@
 	<link href="<?php echo path("codes/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Codes"); ?>" >
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
 	
-    <link rel="stylesheet" href="<?php echo path("www/lib/css/default.min.css", TRUE); ?>" type="text/css">
-	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/style.min.css" type="text/css">
-	<link rel="stylesheet" href="<?php echo $this->themePath; ?>/css/mediaqueries.min.css" type="text/css">
+    <?php $this->CSS("www/lib/css/default.min.css", NULL, TRUE); ?>
+    <?php $this->CSS("$this->themeRoute/css/style.min.css", NULL, TRUE); ?>
+    <?php $this->CSS("$this->themeRoute/css/mediaqueries.min.css", NULL, TRUE); ?>
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 
 	<?php 
 		if(defined("_bootstrap")) {
-			echo '<link rel="stylesheet" href="'. path("vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", "zan") .'" type="text/css">';
+			$this->CSS("zan/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, TRUE);
 		}
 		
 		echo $this->getCSS(); 
@@ -42,8 +42,10 @@
         	<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
 			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/bbcode/set.js", "zan"); ?>"></script>
 
-			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan"); ?>" />
-			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/bbcode/style.min.css", "zan"); ?>" />
+		<?php
+			$this->CSS("zan/vendors/js/editors/markitup/skins/markitup/style.min.css", NULL, TRUE);
+			$this->CSS("zan/vendors/js/editors/markitup/sets/bbcode/style.min.css", NULL, TRUE);
+		?>
 
 			<script type="text/javascript">
 				$(document).on("ready", function() {
