@@ -14,7 +14,7 @@
 				<input type="radio" name="option" value="delete">
 				<dl>
 				  <dt><?php echo __("Delete my account"); ?></dt>
-				  <dd><?php echo __("It will permanently delete your account and all your publications. No turning back!"); ?></dd>
+				  <dd><?php echo __("It will permanently delete your account. No turning back!"); ?></dd>
 				</dl>
 			</label>
 			<input type="submit" value="<?php echo __("Confirm"); ?>" name="confirm" class="btn btn-danger" />
