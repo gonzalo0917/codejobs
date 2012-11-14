@@ -246,6 +246,10 @@ class Users_Model extends ZP_Load {
 		}
 	}
 	
+	public function deactivate() {
+		
+	}
+
 	public function isAdmin($sessions = FALSE) {
 		if($sessions) {		
 			$username = SESSION("ZanUser");

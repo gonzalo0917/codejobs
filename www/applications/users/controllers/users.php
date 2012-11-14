@@ -52,6 +52,17 @@ class Users_Controller extends ZP_Load {
 			}
 		}
 	}
+
+	public function deactivate() {
+		isConnected();
+
+		$this->title(__("Deactivate my account"));
+		$this->config("deactivate", $this->application);
+
+		$vars["view"] = $this->view("deactivate", TRUE);
+			
+		$this->render("content", $vars);
+	}
 	
 	public function login() {
 		$this->CSS("login", $this->application);
