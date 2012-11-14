@@ -35,7 +35,7 @@ class Buffer_Controller extends ZP_Load {
 
 				$data = array(
 					"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
+					"profile_ids[]" => array(_bufferProfile1, _bufferProfile2)
 				);					
 
 				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
@@ -52,7 +52,7 @@ class Buffer_Controller extends ZP_Load {
 
 				$data = array(
 					"text" 			=> stripslashes($bookmark["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
+					"profile_ids[]" => array(_bufferProfile1, _bufferProfile2)
 				);				
 
 				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
@@ -69,15 +69,14 @@ class Buffer_Controller extends ZP_Load {
 
 				$data[] = array(
 					"text" 			=> stripslashes($code["Title"]) ." ". $URL ." ". _bufferVia,
-					"profile_ids[]" => _bufferProfile
+					"profile_ids[]" => array(_bufferProfile1, _bufferProfile2)
 				);				
 
-				#$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+				$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
-				#$this->RESTClient->POST($data);
+				$this->RESTClient->POST($data);
 			}	
-			echo "<pre>";
-			die(var_dump($data));		
+
 		} else {
 			$this->Blog_Model 	   = $this->model("Blog_Model");
 			$this->Bookmarks_Model = $this->model("Bookmarks_Model");
