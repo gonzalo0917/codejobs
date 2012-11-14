@@ -5,8 +5,12 @@
 	
 	header("Content-type: application/json");
 
-	foreach ($data as $district) {
-		$cities[$district['District']] = $district['District'];
+	if ($data) {
+		foreach ($data as $district) {
+			$cities[$district['District']] = $district['District'];
+		}
+	} else {
+		$cities = array();
 	}
 
 	echo json($cities);
