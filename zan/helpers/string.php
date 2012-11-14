@@ -176,9 +176,7 @@ function cleanHTML($HTML) {
  * @return string $text
  */ 
 function compress($string) {
-    $string = str_replace(array("\r\n", "\r", "\n", "\t", "  ", "    ", "    "), "", $string);
-        
-	return $string;	
+    return str_replace(array("\r\n", "\r", "\n", "\t", "  ", "    ", "    "), "", $string);      
 }
 
 /**
