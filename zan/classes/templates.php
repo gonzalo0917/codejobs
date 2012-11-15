@@ -190,28 +190,6 @@ class ZP_Templates extends ZP_Load {
 		}
 	}
 	
-	/**
-	* minCSS
-	* Optimize the contents of a css file
-	* based on Drupal 7 CSS Core aggregator
-	*
-	* @param string $filename
-	* @return string
-	*/
-
-	private function cssMin($filename) {
-		if(($contents = @file_get_contents($filename)) === FALSE) {
-			return '';
-		}
-
-		$comment 	 = '/\*[^*]*\*+(?:[^/*][^*]*\*+)*/';
-		$double_quot = '"[^"\\\\]*(?:\\\\.[^"\\\\]*)*"';
-		$single_quot = "'[^'\\\\]*(?:\\\\.[^'\\\\]*)*'";
-		$contents 	 = preg_replace("<($double_quot|$single_quot)|$comment>Ss", "$1", $contents);
-		$contents 	 = preg_replace_callback('<\s*([@{};,])\s*| \s+([\)])| ([\(:])\s+>xS', create_function('$matches', 'unset($matches[0]); return current(array_filter($matches));'), $contents);
-
-		return trim($contents);
-	}
 	/*
 	* Gets the filename according to current environment
 	*/
@@ -223,7 +201,7 @@ class ZP_Templates extends ZP_Load {
 				if(is_file($filename)) {
 					return $filename;
 				} else {
-					file_put_contents($filename, $this->cssMin(current($name) .'.css'), LOCK_EX);
+					file_put_contents($filename, $this->minify(current($name) .'.css'), LOCK_EX);
 				}
 			} else { # Está en un entorno de desarrollo, no se debe minificar
 				if(is_file(current($name) . '.css')) {
@@ -401,15 +379,13 @@ class ZP_Templates extends ZP_Load {
 		}
 	}
 	
-	private function jsMin($filename)
+	private function minify($filename)
 	{
 		if (($contents = @file_get_contents($filename)) === FALSE) {
 			return '';
+		} else {
+			return compress($filename);
 		}
-
-		$this->library('minJS', NULL, NULL, 'minJS');
-
-		return trim(JSMin::minify($contents));
 	}
 
     /**
