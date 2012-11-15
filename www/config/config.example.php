@@ -18,11 +18,17 @@ $ZP["benchMark"]	= FALSE;
 
 /**
  * Server
+ *
+ * Environment: 
+ *  1. Development 
+ *  2. Demo 
+ *  3. Stage  
+ *  4. Production
  */
-$ZP["production"] = FALSE;
-$ZP["domain"] 	  = FALSE;
-$ZP["modRewrite"] = FALSE;
-$ZP["autoRender"] = TRUE;
+$ZP["environment"] = 1;
+$ZP["domain"] 	   = FALSE;
+$ZP["modRewrite"]  = FALSE;
+$ZP["autoRender"]  = TRUE;
 
 /**
  * Applications
