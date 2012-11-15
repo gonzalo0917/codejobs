@@ -23,7 +23,7 @@ if(file_exists(_dir ."/config/config.php")) {
 	die("Error: config.php doesn't exists");
 }
 
-if($ZP["production"]) { 
+if($ZP["environment"] > 2) { 
 	error_reporting(FALSE);
 
 	ini_set("display_errors", FALSE); 
