@@ -103,9 +103,9 @@ class ZP_Templates extends ZP_Load {
 	public function CSS($CSS = NULL, $application = NULL, $print = FALSE) {
 		if(file_exists($CSS)) { 
 			if($print) {
-				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->cssFilename($CSS) .'" type="text/css" />' . "\n";
+				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->get_script($CSS, 'css') .'" type="text/css" />' . "\n";
 			} else { 
-				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $CSS .'" type="text/css" />' . "\n";
+				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->get_script($CSS, 'css') .'" type="text/css" />' . "\n";
 			}
 		} 
 
@@ -182,6 +182,8 @@ class ZP_Templates extends ZP_Load {
 		}
 		
 		if(file_exists($file)) {
+			$file = $this->get_script($file, 'css');
+
 			if($print) {
 				print '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />' . "\n";
 			} else {
@@ -193,30 +195,30 @@ class ZP_Templates extends ZP_Load {
 	/*
 	* Gets the filename according to current environment
 	*/
-	private function cssFilename($filename) {
-		if(preg_match('/(.+)\.min\.css$/', $filename, $name)) {
+	private function get_script($filename, $ext) {
+		if(preg_match("/(.+)\.min\.$ext$/", $filename, $name)) {
 			unset($name[0]);
 
 			if(_get('production') or _get('domain')) { # No está en un entorno local o de desarrollo, se debe minificar
 				if(!is_file($filename)) {
-					file_put_contents($filename, $this->minify(current($name) .'.css'), LOCK_EX);
+					file_put_contents($filename, $this->minify(current($name) .".$ext"), LOCK_EX);
 				}
 				return $filename;
 			} else { # Está en un entorno de desarrollo, no se debe minificar
-				if(is_file(current($name) .'.css')) {
-					return current($name) .'.css';
+				if(is_file(current($name) .".$ext")) {
+					return current($name) .".$ext";
 				} else {
 					return $filename;
 				}
 			}
-		} elseif(preg_match('/(.+)\.css$/', $filename, $name)) {
+		} elseif(preg_match("/(.+)\.$ext$/", $filename, $name)) {
 			unset($name[0]);
 
 			if(_get('production') or _get('domain')) { # No está en un entorno local o de desarrollo, se debe minificar
-				if(!is_file(current($name) .'.min.css')) {
-					file_put_contents(current($name) .'.min.css', $this->minify($filename), LOCK_EX);
+				if(!is_file(current($name) .".min.$ext")) {
+					file_put_contents(current($name) .".min.$ext", $this->minify($filename), LOCK_EX);
 				}
-				return current($name) .'.min.css';
+				return current($name) .".min.$ext";
 			} else {
 				return $filename;
 			}
