@@ -103,9 +103,9 @@ class ZP_Templates extends ZP_Load {
 	public function CSS($CSS = NULL, $application = NULL, $print = FALSE) {
 		if(file_exists($CSS)) { 
 			if($print) {
-				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->get_script($CSS, 'css') .'" type="text/css" />' . "\n";
+				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->getScript($CSS, 'css') .'" type="text/css" />' . "\n";
 			} else { 
-				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->get_script($CSS, 'css') .'" type="text/css" />' . "\n";
+				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->getScript($CSS, 'css') .'" type="text/css" />' . "\n";
 			}
 		} 
 
@@ -182,7 +182,7 @@ class ZP_Templates extends ZP_Load {
 		}
 		
 		if(file_exists($file)) {
-			$file = $this->get_script($file, 'css');
+			$file = $this->getScript($file, 'css');
 
 			if($print) {
 				print '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />' . "\n";
@@ -195,7 +195,7 @@ class ZP_Templates extends ZP_Load {
 	/*
 	* Gets the filename according to current environment
 	*/
-	private function get_script($filename, $ext) {
+	private function getScript($filename, $ext) {
 		if(preg_match("/(.+)\.min\.$ext$/", $filename, $name)) {
 			unset($name[0]);
 
@@ -371,13 +371,15 @@ class ZP_Templates extends ZP_Load {
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/codemirror/util/loadmode.js", "zan") .'"></script>';
             $this->CSS("codemirror", NULL, TRUE);
 		} elseif(file_exists($js)) {
-			$js = '<script type="text/javascript" src="'. path($js, TRUE) .'"></script>';
+			$js = '<script type="text/javascript" src="'. _get("webURL") .'/'. $this->getScript($js, 'js') .'"></script>';
 		} elseif(file_exists(path($js, "zan"))) {
 			$js = '<script type="text/javascript" src="'. path($js, "zan") .'"></script>';
 		} elseif(file_exists("www/applications/$application/views/js/$js")) {
-			$js = '<script type="text/javascript" src="'. _get("webURL") .'/www/applications/' . $application . '/views/js/' . $js . '"></script>';
+			$filename = $this->getScript("www/applications/$application/views/js/$js", 'js');
+			$js = '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
 		} elseif(file_exists("www/applications/$application/views/js/$js.js")) {
-			$js = '<script type="text/javascript" src="'. _get("webURL") .'/www/applications/' . $application . '/views/js/' . $js . '.js"></script>';
+			$filename = $this->getScript("www/applications/$application/views/js/$js.js", 'js');
+			$js = '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
 		} else {
 			return FALSE;
 		}
