@@ -46,7 +46,6 @@
 				if($code["Description"] !== "") {
 					echo str_replace("\\", "", htmlTag("p", showLinks($code["Description"])));
 				}
-
 			?>
 
             <p>
@@ -64,22 +63,20 @@
 			<?php 
 				} 
 							
-				if(_get("domain") and ($i === $rand1 or $i === $rand2)) {
-					?>
-						<p>
-							<script type="text/javascript"><!--
-								google_ad_client = "ca-pub-4006994369722584";
-								/* CodeJobs.biz */
-								google_ad_slot = "1672839256";
-								google_ad_width = 728;
-								google_ad_height = 90;
-								//-->
-								</script>
-								<script type="text/javascript"
-								src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-							</script>
-						</p>
-					<?php
+				if($i === $rand1 or $i === $rand2) {
+					echo display('<p>
+									<script type="text/javascript"><!--
+										google_ad_client = "ca-pub-4006994369722584";
+										/* CodeJobs.biz */
+										google_ad_slot = "1672839256";
+										google_ad_width = 728;
+										google_ad_height = 90;
+										//-->
+										</script>
+										<script type="text/javascript"
+										src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+									</script>
+								</p>', 4);
 				}
 
 				$i++;
