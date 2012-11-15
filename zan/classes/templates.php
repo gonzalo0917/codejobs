@@ -394,7 +394,7 @@ class ZP_Templates extends ZP_Load {
 		if (($contents = @file_get_contents($filename)) === FALSE) {
 			return '';
 		} else {
-			return compress($filename);
+			return compress($contents);
 		}
 	}
 
