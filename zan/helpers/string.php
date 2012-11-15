@@ -235,14 +235,24 @@ function cut($text, $length = 12, $type = "text", $slug = FALSE, $file = FALSE, 
 	}
 }
 
-function createURLs($text)  {     
+function createURL($text)  {     
     $result = ' '. $text; 
     $result = preg_replace("#([\t\r\n ])([a-z0-9]+?){1}://([\w\-]+\.([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\n\r\t<]*)?)#i", '\1<a href="\2://\3" target="_blank">\2://\3</a>', $result); 
     $result = preg_replace("#([\t\r\n ])(www|ftp)\.(([\w\-]+\.)*[\w]+(:[0-9]+)?(/[^ \"\n\r\t<]*)?)#i", '\1<a href="http://\2.\3" target="_blank">\2.\3</a>', $result); 
     $result = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i", "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", $result); 
 
     return substr($result, 1); 
-}  
+}
+
+function display($content = NULL, $environment = TRUE, $language = TRUE) {
+	if($content and ($environment === TRUE or _get("environment") === $environment) and $language === TRUE) {
+		return $content;
+	} elseif($content and ($environment === TRUE or _get("environment") === $environment) and $language === whichLanguage()) {
+		return $content;
+	}
+
+	return NULL;
+}
 
 function exploding($string, $URL = NULL, $separator = ",") {
 	if(strlen($string) > 0) {
@@ -779,48 +789,6 @@ function removeSpaces($text, $trim = FALSE) {
 	return $text;
 }
 
-/**
- * showLinks
- *
- * Matches all URLs
- * 
- * @author Tyler Hall (@tylerhall)
- * @link http://snipplr.com/view/2371/
- * @param string $content
- * @return string $text
- */ 
 function showLinks($content) {
-	$text = preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $content);
-	return $text;
-}
-
-
-function loadMinCSS($files = array(), $dir) {	
-	if(is_array($files)) {
-		foreach($files as $file) {			
-        	$min = $dir . str_replace('.css', 'min.css', $file);
-
-			$file = (_get("domain") and file_exists($min)) ? $min : $dir . $file;
-			
-			return '<link rel="stylesheet" href="'. path($file, TRUE) .'" />';
-		}
-	}
-}
-
-function minified($all = TRUE, $dir) {		
-	$files = directory_map($css_folder);
-	$files_updated = array();
-
-	foreach($files as $file) {			
-		if(!is_array($file) and substr($file, -3, 3) === "css" and strpos($file, ".min") === FALSE) {
-			$minified = file_get_contents($dir .'min.css.php?f=' . $file);
-			$new = $dir .  str_replace('.css', '.min.css', $file);
-
-			file_put_contents($new_file, $minified);
-			
-			$updated[] = $file . ' -> ' . $new_file;
-		}
-	}
-
-	return $updated;
+	return preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', $content);
 }
