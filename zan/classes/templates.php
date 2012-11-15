@@ -103,7 +103,7 @@ class ZP_Templates extends ZP_Load {
 	public function CSS($CSS = NULL, $application = NULL, $print = FALSE) {
 		if(file_exists($CSS)) { 
 			if($print) {
-				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $CSS .'" type="text/css" />' . "\n";
+				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->cssFilename($CSS) .'" type="text/css" />' . "\n";
 			} else { 
 				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $CSS .'" type="text/css" />' . "\n";
 			}
@@ -199,11 +199,8 @@ class ZP_Templates extends ZP_Load {
 	* @return string
 	*/
 
-	private function cssMin($filename)
-	{
-		$contents = @file_get_contents($filename);
-
-		if ($contents === FALSE) {
+	private function cssMin($filename) {
+		if(($contents = @file_get_contents($filename)) === FALSE) {
 			return '';
 		}
 
@@ -214,6 +211,30 @@ class ZP_Templates extends ZP_Load {
 		$contents 	 = preg_replace_callback('<\s*([@{};,])\s*| \s+([\)])| ([\(:])\s+>xS', create_function('$matches', 'unset($matches[0]); return current(array_filter($matches));'), $contents);
 
 		return trim($contents);
+	}
+	/*
+	* Gets the filename according to current environment
+	*/
+	private function cssFilename($filename) {
+		if(preg_match('/(.+)\.min\.css$/', $filename, $name)) {
+			unset($name[0]);
+
+			if(_get("production") or _get("domain")) { # No está en un entorno local o de desarrollo, se debe minificar
+				if(is_file($filename)) {
+					return $filename;
+				} else {
+					file_put_contents($filename, $this->cssMin(current($name) .'.css'), LOCK_EX);
+				}
+			} else { # Está en un entorno de desarrollo, no se debe minificar
+				if(is_file(current($name) . '.css')) {
+					return current($name) . '.css';
+				} else {
+					return $filename;
+				}
+			}
+		} else {
+
+		}
 	}
 
     /**
