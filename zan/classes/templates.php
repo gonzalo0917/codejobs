@@ -199,9 +199,9 @@ class ZP_Templates extends ZP_Load {
 	* @return string
 	*/
 
-	private function minCSS($filename)
+	private function cssMin($filename)
 	{
-		$contents 	 = @file_get_contents($filename);
+		$contents = @file_get_contents($filename);
 
 		if ($contents === FALSE) {
 			return '';
@@ -380,6 +380,17 @@ class ZP_Templates extends ZP_Load {
 		}
 	}
 	
+	private function jsMin($filename)
+	{
+		if (($contents = @file_get_contents($filename)) === FALSE) {
+			return '';
+		}
+
+		$this->library('minJS', NULL, NULL, 'minJS');
+
+		return trim(JSMin::minify($contents));
+	}
+
     /**
      * Load template
      *
