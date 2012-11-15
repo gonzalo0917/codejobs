@@ -128,7 +128,7 @@ class Users_Controller extends ZP_Load {
 	}
 	
 	public function register() {	
-		$this->helper("html");
+		$this->helper(array("html", "alerts"));
 				
 		if(!SESSION("ZanUser")) {
 			$this->title(decode(__("Register")));
