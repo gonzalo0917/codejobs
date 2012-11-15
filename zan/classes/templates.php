@@ -197,21 +197,29 @@ class ZP_Templates extends ZP_Load {
 		if(preg_match('/(.+)\.min\.css$/', $filename, $name)) {
 			unset($name[0]);
 
-			if(_get("production") or _get("domain")) { # No está en un entorno local o de desarrollo, se debe minificar
-				if(is_file($filename)) {
-					return $filename;
-				} else {
+			if(_get('production') or _get('domain')) { # No está en un entorno local o de desarrollo, se debe minificar
+				if(!is_file($filename)) {
 					file_put_contents($filename, $this->minify(current($name) .'.css'), LOCK_EX);
 				}
+				return $filename;
 			} else { # Está en un entorno de desarrollo, no se debe minificar
-				if(is_file(current($name) . '.css')) {
-					return current($name) . '.css';
+				if(is_file(current($name) .'.css')) {
+					return current($name) .'.css';
 				} else {
 					return $filename;
 				}
 			}
-		} else {
+		} elseif(preg_match('/(.+)\.css$/', $filename, $name)) {
+			unset($name[0]);
 
+			if(_get('production') or _get('domain')) { # No está en un entorno local o de desarrollo, se debe minificar
+				if(!is_file(current($name) .'.min.css')) {
+					file_put_contents(current($name) .'.min.css', $this->minify($filename), LOCK_EX);
+				}
+				return current($name) .'.min.css';
+			} else {
+				return $filename;
+			}
 		}
 	}
 
