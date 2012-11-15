@@ -199,12 +199,12 @@ class ZP_Templates extends ZP_Load {
 		if(preg_match("/(.+)\.min\.$ext$/", $filename, $name)) {
 			unset($name[0]);
 
-			if(_get('production') or _get('domain')) { # No está en un entorno local o de desarrollo, se debe minificar
+			if(_get('environment') > 2) {
 				if(!is_file($filename)) {
 					file_put_contents($filename, $this->minify(current($name) .".$ext"), LOCK_EX);
 				}
 				return $filename;
-			} else { # Está en un entorno de desarrollo, no se debe minificar
+			} else {
 				if(is_file(current($name) .".$ext")) {
 					return current($name) .".$ext";
 				} else {
@@ -214,7 +214,7 @@ class ZP_Templates extends ZP_Load {
 		} elseif(preg_match("/(.+)\.$ext$/", $filename, $name)) {
 			unset($name[0]);
 
-			if(_get('production') or _get('domain')) { # No está en un entorno local o de desarrollo, se debe minificar
+			if(_get('environment') > 2) {
 				if(!is_file(current($name) .".min.$ext")) {
 					file_put_contents(current($name) .".min.$ext", $this->minify($filename), LOCK_EX);
 				}
