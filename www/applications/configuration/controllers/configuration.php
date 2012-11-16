@@ -21,7 +21,7 @@ class Configuration_Controller extends ZP_Load {
 		if(POST("country")) {
 			$country = POST("country");
 
-			$vars["data"] = $this->Cache->data("cities-$country", "world", $this->Configuration_Model, "getCities", array($country));
+			$vars["data"] = $this->Cache->data("cities-$country", "world", $this->Configuration_Model, "getCities", array($country), 86400);
 
 			$this->view("cities", $vars, $this->application);
 		}

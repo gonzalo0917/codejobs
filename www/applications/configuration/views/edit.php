@@ -192,6 +192,34 @@
 
 			echo formField(NULL, __("Minify Files") ."<br />" . formInput(array("type" => "submit", "value" => __("Execute"), "name" => "minify", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")));
 			
+			echo formField(NULL, __("Cache") . "<br />" . formSelect(array(
+				"name" 	=> "cache", 
+				"class" => "required", 
+				"p" 	=> FALSE
+			), array(
+				array(
+					"value"  => "blog",
+					"option" => __("Blog"),
+					"selected" => TRUE
+				),
+				array(
+					"value"  => "bookmarks",
+					"option" => __("Bookmarks")
+				),
+				array(
+					"value"  => "codes",
+					"option" => __("Codes")
+				),
+				array(
+					"value"  => "pages",
+					"option" => __("Pages")
+				),
+				array(
+					"value"  => "world",
+					"option" => __("World")
+				)
+			)) . formInput(array("type" => "submit", "value" => __("Delete"), "name" => "delete_cache", "class" => "btn btn-danger", "style" => "margin-bottom: 9px")));
+
 			echo formTextarea(array(
 				"id" 	=> "editor", 
 				"name" 	=> "message", 

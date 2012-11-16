@@ -177,7 +177,7 @@ class Users_Controller extends ZP_Load {
 
 			$this->Configuration_Model  = $this->model("Configuration_Model");
 			$this->Cache   				= $this->core("Cache");
-			$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries");
+			$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
 
 			foreach ($list_of_countries as $country) {
 				$countries[] = array(

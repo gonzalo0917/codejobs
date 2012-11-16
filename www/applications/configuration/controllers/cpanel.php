@@ -57,6 +57,18 @@ class CPanel_Controller extends ZP_Load {
 			$this->helper("alerts");
 			
 			$this->vars["alert"] = getAlert(minify() . __(" files were minified."), "success");
+		} elseif(POST("delete_cache")) {
+			$this->Cache = $this->core("Cache");
+			$this->helper("alerts");
+
+			switch(POST("cache")) {
+				case "blog": case "bookmarks": case "codes": case "pages": case "world":
+					$this->Cache->removeAll(POST("cache"));
+					$this->vars["alert"] = getAlert("The cache files were removed", "success");
+				break;
+				default:
+					$this->vars["alert"] = getAlert("Does not exist cache group specified");
+			}
 		}
 		
 		$data = $this->$Model->getByID(1);
