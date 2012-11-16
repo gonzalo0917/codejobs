@@ -72,9 +72,6 @@ class CPanel_Controller extends ZP_Load {
 	}
 	
 	public function login() {
-		if(!$this->isAdmin) {
-			$this->login();
-		}
 		
 		$this->title("Login");
 		$this->CSS("login", "users");
@@ -95,6 +92,10 @@ class CPanel_Controller extends ZP_Load {
 	}
 
 	public function minify() {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+
 		$this->helper("forms");		
 		$this->title("Minify");
 		
