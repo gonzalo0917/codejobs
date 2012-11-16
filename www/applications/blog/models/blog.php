@@ -93,19 +93,24 @@ class Blog_Model extends ZP_Load {
 			"ID_User"      => SESSION("ZanUserID"),
 			"Slug"         => slug(POST("title", "clean")),
 			"Content"      => setCode(decode(POST("content", "clean")), FALSE),
-			"Author"       => SESSION("ZanUser"),
+			"Author"       => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Year"	       => date("Y"),
 			"Month"	       => date("m"),
 			"Day"	       => date("d"),
 			"Image_Small"  => isset($this->image["small"])  ? $this->image["small"]  : NULL,
 			"Image_Medium" => isset($this->image["medium"]) ? $this->image["medium"] : NULL,
-			"Pwd"	       => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,
-			"Start_Date"   => now(4),
-			"Text_Date"    => decode(now(2)),
+			"Pwd"	       => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,			
 			"Tags"		   => POST("tags"),
 			"Buffer"	   => POST("buffer") === FALSE ? 0 : POST("buffer"),
 			"Code"	       => POST("code") === FALSE ? code(10) : POST("code"),
 		);
+
+		if($action === "save") {
+			$data["Start_Date"] = now(4);
+			$data["Text_Date"]  = decode(now(2));
+		} else {
+			$data["Edit_Date"]  = now(4);
+		}
 
 		$this->Data->ignore(array("temp_title", "temp_tags", "temp_content", "editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
 
