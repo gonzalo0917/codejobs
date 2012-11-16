@@ -109,7 +109,7 @@ class Blog_Model extends ZP_Load {
 			$data["Start_Date"] = now(4);
 			$data["Text_Date"]  = decode(now(2));
 		} else {
-			$data["Edit_Date"]  = now(4);
+			$data["Modified_Date"] = now(4);
 		}
 
 		$this->Data->ignore(array("temp_title", "temp_tags", "temp_content", "editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
