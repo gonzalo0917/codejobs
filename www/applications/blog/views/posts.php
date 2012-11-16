@@ -57,7 +57,7 @@ if(is_array($posts)) {
 				<?php echo showContent(pagebreak($post["Content"], $URL), TRUE); ?>	
 				<br />
 				<?php					
-					if($i === $rand1 or $i === $rand2) {
+					if($i === $rand2) {
 						echo display('<p>
 				                        <script type="text/javascript"><!--
 				                            google_ad_client = "ca-pub-4006994369722584";
