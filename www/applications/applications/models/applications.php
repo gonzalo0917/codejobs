@@ -80,17 +80,6 @@ class Applications_Model extends ZP_Load {
 									
 								unset($li);								
 							}
-
-							if($application["Slug"] === "configuration") {
-								$li[0]["item"] = a(__("Minify"), path($application["Slug"] . _sh . "cpanel" . _sh . "minify"));
-
-								$i = count($list);			
-														
-								$list[$i]["item"]  = openUl() . li($li) . closeUl();
-								$list[$i]["class"] = "no-list-style";	
-									
-								unset($li);
-							}
 						}
 					}							
 				}
