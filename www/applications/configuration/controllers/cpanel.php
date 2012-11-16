@@ -90,28 +90,4 @@ class CPanel_Controller extends ZP_Load {
 		
 		exit;
 	}
-
-	public function minify() {
-		if(!$this->isAdmin) {
-			$this->login();
-		}
-
-		$this->helper("forms");		
-		$this->title("Minify");
-		
-		$this->CSS("forms", "cpanel");
-
-		$Model = ucfirst($this->application) ."_Model";
-		$this->$Model = $this->model($Model);
-		
-		$data = $this->$Model->getByID(1);
-
-		$this->Applications_Model = $this->model("Applications_Model");
-		
-		$this->vars["defaultApplications"] = $this->Applications_Model->getDefaultApplications($data[0]["Application"]);
-	
-		$this->vars["view"] = $this->view("minify", TRUE, $this->application);
-		
-		$this->render("content", $this->vars);
-	}
 }

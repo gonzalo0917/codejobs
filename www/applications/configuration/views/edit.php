@@ -189,6 +189,8 @@
 				"p" 	=> TRUE, 
 				"field" => __("Default editor")), $options
 			);			
+
+			echo formField(NULL, __("Minify Files") ."<br />" . formInput(array("type" => "submit", "value" => __("Execute"), "name" => "minify", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")));
 			
 			echo formTextarea(array(
 				"id" 	=> "editor", 
