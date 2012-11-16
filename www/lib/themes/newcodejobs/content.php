@@ -23,6 +23,6 @@
 								src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 							</script>
 						</p>', 4);
-			
-		<?php $this->load(isset($view) ? $view : NULL, TRUE); ?>
+
+		$this->load(isset($view) ? $view : NULL, TRUE); ?>
 	</div>
