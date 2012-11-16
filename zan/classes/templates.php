@@ -196,29 +196,16 @@ class ZP_Templates extends ZP_Load {
 	* Gets the filename according to current environment
 	*/
 	private function getScript($filename, $ext) {
-		if(preg_match("/(.+)\.min\.$ext$/", $filename, $name)) {
-			unset($name[0]);
-
-			if(_get('environment') > 2) {
-				if(!is_file($filename)) {
-					file_put_contents($filename, $this->minify(current($name) .".$ext"), LOCK_EX);
-				}
-				return $filename;
+		if(_get('environment') > 2) {
+			if(!preg_match("/(.+)\.min\.$ext$/", $filename)) {
+				return preg_replace("/.$ext$/", ".min.$ext", $filename);
 			} else {
-				if(is_file(current($name) .".$ext")) {
-					return current($name) .".$ext";
-				} else {
-					return $filename;
-				}
+				return $filename;
 			}
-		} elseif(preg_match("/(.+)\.$ext$/", $filename, $name)) {
-			unset($name[0]);
-
-			if(_get('environment') > 2) {
-				if(!is_file(current($name) .".min.$ext")) {
-					file_put_contents(current($name) .".min.$ext", $this->minify($filename), LOCK_EX);
-				}
-				return current($name) .".min.$ext";
+		} else {
+			if(preg_match("/(.+)\.min\.$ext$/", $filename, $name)) {
+				unset($name[0]);
+				return current($name) . ".$ext";
 			} else {
 				return $filename;
 			}
@@ -388,15 +375,6 @@ class ZP_Templates extends ZP_Load {
 			return $js . "\n";
 		} else {
 			$this->js .= $js;
-		}
-	}
-	
-	private function minify($filename)
-	{
-		if (($contents = @file_get_contents($filename)) === FALSE) {
-			return '';
-		} else {
-			return compress($contents);
 		}
 	}
 

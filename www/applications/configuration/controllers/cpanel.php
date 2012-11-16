@@ -52,7 +52,12 @@ class CPanel_Controller extends ZP_Load {
 			$this->vars["alert"] = $this->$Model->cpanel("edit");
 		} elseif(POST("cancel")) {
 			redirect("cpanel");
-		} 
+		} elseif(POST("minify")) {
+			$this->helper("minify", $this->application);
+			$this->helper("alerts");
+			
+			$this->vars["alert"] = getAlert(minify() . __(" files were minified."), "success");
+		}
 		
 		$data = $this->$Model->getByID(1);
 	

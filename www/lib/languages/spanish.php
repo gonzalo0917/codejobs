@@ -103,6 +103,7 @@ $phrase["female"]										= "Femenino";
 $phrase["field"] 										= "Campo";
 $phrase["filename"]										= "Nombre de archivo";
 $phrase["files"]										= "Archivos";
+$phrase["_files_were_minified"]							= " archivos fueron minificados.";
 $phrase["follow_us_on_twitter"] 						= "Síguenos en Twitter";
 $phrase["follow_us_with_rss"] 							= "Síguenos con RSS";
 $phrase["forgot_your_password"]  						= "¿Olvidaste tu contraseña?";
