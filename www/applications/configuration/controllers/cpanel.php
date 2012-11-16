@@ -35,6 +35,10 @@ class CPanel_Controller extends ZP_Load {
 	}
 	
 	public function edit() {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+
 		$this->helper("forms");		
 		$this->title("Edit");
 		
@@ -68,6 +72,10 @@ class CPanel_Controller extends ZP_Load {
 	}
 	
 	public function login() {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+		
 		$this->title("Login");
 		$this->CSS("login", "users");
 		
@@ -84,5 +92,25 @@ class CPanel_Controller extends ZP_Load {
 		$this->rendering("header", "footer");
 		
 		exit;
-	}	
+	}
+
+	public function minify() {
+		$this->helper("forms");		
+		$this->title("Minify");
+		
+		$this->CSS("forms", "cpanel");
+
+		$Model = ucfirst($this->application) ."_Model";
+		$this->$Model = $this->model($Model);
+		
+		$data = $this->$Model->getByID(1);
+
+		$this->Applications_Model = $this->model("Applications_Model");
+		
+		$this->vars["defaultApplications"] = $this->Applications_Model->getDefaultApplications($data[0]["Application"]);
+	
+		$this->vars["view"] = $this->view("minify", TRUE, $this->application);
+		
+		$this->render("content", $this->vars);
+	}
 }

@@ -49,7 +49,7 @@ class Applications_Model extends ZP_Load {
 								
 								$li[0]["item"] = a($adding, path($application["Slug"] . _sh . "cpanel" . _sh . "add"));
 
-								if($application["ID_Application"] == 17) {
+								if($application["Slug"] == "codes") {
 									$languages = __("Programming languages");
 									$li[]["item"] = a($languages, path($application["Slug"] . _sh . "cpanel" . _sh . "languages"));
 								}
@@ -79,7 +79,18 @@ class Applications_Model extends ZP_Load {
 								$list[$i]["class"] = "no-list-style";	
 									
 								unset($li);								
-							}																																		
+							}
+
+							if($application["Slug"] === "configuration") {
+								$li[0]["item"] = a(__("Minify"), path($application["Slug"] . _sh . "cpanel" . _sh . "minify"));
+
+								$i = count($list);			
+														
+								$list[$i]["item"]  = openUl() . li($li) . closeUl();
+								$list[$i]["class"] = "no-list-style";	
+									
+								unset($li);
+							}
 						}
 					}							
 				}
