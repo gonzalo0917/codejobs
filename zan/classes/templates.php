@@ -112,15 +112,15 @@ class ZP_Templates extends ZP_Load {
 		if($CSS === "bootstrap") {
 			if(is_null($this->CSS)) {
 				if($print) {
-					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />' . "\n";
 				} else {
-					$this->CSS = '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					$this->CSS = '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />' . "\n";
 				}
 			} else {
 				if($print) {
-					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />' . "\n";
 				} else {
-					$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/css/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
 				}	
 			}
 		} elseif($CSS === "prettyphoto") {
