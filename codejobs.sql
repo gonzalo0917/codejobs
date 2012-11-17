@@ -125,6 +125,7 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Tags` varchar(250) NOT NULL,
   `Author` varchar(50) NOT NULL,
   `Start_Date` int(11) NOT NULL DEFAULT '0',
+  `Modified_Date` int(11) NOT NULL DEFAULT '0',
   `Text_Date` varchar(40) NOT NULL,
   `Year` varchar(4) NOT NULL,
   `Month` varchar(2) NOT NULL,
@@ -164,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `muu_bookmarks` (
   `Reported` tinyint(1) NOT NULL DEFAULT '0',
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   `Start_Date` int(11) NOT NULL DEFAULT '0',
+  `Modified_Date` int(11) NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Bookmark`),
   KEY `ID_User` (`ID_User`)
@@ -194,6 +196,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
   `Languages` varchar(100) NOT NULL,
   `Author` varchar(100) NOT NULL,
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
+  `Modified_Date` int(11) NOT NULL DEFAULT '0',
   `Text_Date` varchar(50) NOT NULL,
   `Views` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Likes` mediumint(8) unsigned NOT NULL DEFAULT '0',
