@@ -76,7 +76,7 @@ class Bookmarks_Model extends ZP_Load {
 
 			$data = array(
 				"ID_User" 	 => SESSION("ZanUserID"),
-				"Author"  	 => SESSION("ZanUser"),
+				"Author"  	 => POST("author") ? POST("author") : SESSION("ZanUser"),
 				"Slug"    	 => slug(POST("title", "clean")),
 				"Start_Date" => now(4),
 				"Title"		 => stripslashes(POST("title"))
@@ -88,9 +88,9 @@ class Bookmarks_Model extends ZP_Load {
 			);			
 
 			$data = array(
-				"Slug"    	 => slug(POST("title", "clean")),
-				"Start_Date" => now(4),
-				"Title"		 => stripslashes(POST("title"))
+				"Slug"    	 	=> slug(POST("title", "clean")),
+				"Modified_Date" => now(4),
+				"Title"		 	=> stripslashes(POST("title"))
 			);
 		}
 				

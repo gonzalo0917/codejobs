@@ -24,7 +24,7 @@ class Codes_Model extends ZP_Load {
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_Code DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
 		if($action === "edit" or $action === "save") {
-			$validation = $this->editOrSave();
+			$validation = $this->editOrSave($action);
 			
 			if($validation) {
 				return $validation;
@@ -68,7 +68,7 @@ class Codes_Model extends ZP_Load {
 		}
 	}
 	
-	private function editOrSave() {
+	private function editOrSave($action) {
 		$validations = array(
 			"exists"  => array(
 				"URL" => POST("URL")
@@ -82,10 +82,15 @@ class Codes_Model extends ZP_Load {
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"Author"  	 => SESSION("ZanUser"),
 			"Slug"    	 => slug(POST("title", "clean")),
-            "Languages"  => $this->implode(POST("syntaxname", "clean")),
-			"Start_Date" => now(4),
-            "Text_Date"  => now(2)
+            "Languages"  => $this->implode(POST("syntaxname", "clean"))
 		);
+
+		if($action === "save") {
+			$data["Start_Date"] = now(4);
+            $data["Text_Date"]  = decode(now(2));
+		} else {
+			$data["Modified_Date"] = now(4);
+		}
                 
 		$this->Data->ignore(array("file", "programming", "syntax", "syntaxname", "name", "code"));
 		
