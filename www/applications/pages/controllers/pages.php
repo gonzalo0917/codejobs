@@ -9,10 +9,12 @@ if(!defined("_access")) {
 class Pages_Controller extends ZP_Load {
 	
 	public function __construct() {
+		$this->Cache 	   = $this->core("Cache");
 		$this->Templates   = $this->core("Templates");
 		$this->Pages_Model = $this->model("Pages_Model");
 		
 		$this->application = $this->app("pages");
+		$this->language    = whichApplication();
 		
 		$this->Templates->theme();
 	}
@@ -32,20 +34,17 @@ class Pages_Controller extends ZP_Load {
 		
 		$this->view("tv", NULL, "pages");
 	}
-
-	private function getView($view = NULL) {
-		$view = segment(1, isLang());
-		$vars["view"] = $this->view("$view", TRUE);
 		
-		$this->render("content", $vars);			
-	}
-		
-	public function getBySlug($slug = NULL) {		
-		$data = ($slug) ? $this->Pages_Model->getBySlug($slug) : $this->Pages_Model->getByDefault();			
-		
+	public function getBySlug($slug = NULL) {	
+		if($slug) {
+			$data = $this->Cache->data("$slug". $this->language, "pages", $this->Pages_Model, "getBySlug", array($slug));	
+		} else {
+			$data = $this->Cache->data("default". $this->language, "pages", $this->Pages_Model, "getByDefault", array());
+		}
+	
 		$this->title($data[0]["Title"]);		
 		
-		if(is_array($data)) {
+		if($data) {
 			$vars["title"]	 = $data[0]["Title"];
 			$vars["content"] = $data[0]["Content"];
 			$vars["view"]    = $this->view("page", TRUE, "pages");
@@ -57,11 +56,11 @@ class Pages_Controller extends ZP_Load {
 	}
 	
 	private function getByDefault() {		
-		$data = $this->Pages_Model->getByDefault();		
+		$data = $this->Cache->data("default". $this->language, "pages", $this->Pages_Model, "getByDefault", array());
 		
 		$this->title($data[0]["Title"]);
 		
-		if(is_array($data)) {
+		if($data) {
 			$vars["title"]	 = $data[0]["Title"];
 			$vars["content"] = $data[0]["Content"];
 			$vars["view"]    = $this->view("page", TRUE);

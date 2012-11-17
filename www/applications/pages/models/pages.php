@@ -99,12 +99,20 @@ class Pages_Model extends ZP_Load {
 			$this->Db->update($this->table, array("Principal" => 0), "Language = '". POST("language") ."'");
 		}
 		
+		$this->Cache = $this->core("Cache");
+			
+		$this->Cache->removeAll("pages");
+
 		$this->Db->insert($this->table, $this->data);
 		
 		return getAlert(__("The page has been saved correctly"), "success");
 	}
 	
 	private function edit() {
+		$this->Cache = $this->core("Cache");
+			
+		$this->Cache->removeAll("pages");
+
 		$this->Db->update($this->table, $this->data, POST("ID")); 
 			
 		return getAlert(__("The page has been edit correctly"), "success");

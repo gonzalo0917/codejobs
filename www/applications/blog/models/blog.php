@@ -126,10 +126,12 @@ class Blog_Model extends ZP_Load {
 		
 		$insertID = (!$data) ? $this->Db->insert($this->table, $this->data) : $this->Db->update($this->table, $this->data, $data[0]["ID_Post"]);
 
-		$this->Cache = $this->core("Cache");	
+		$this->Cache = $this->core("Cache");
+
 		$this->Cache->removeAll("blog");
 
 		$this->Users_Model = $this->model("Users_Model");
+		
 		$this->Users_Model->setCredits(1, 3);
 			
 		return getAlert(__("The post has been saved correctly"), "success");

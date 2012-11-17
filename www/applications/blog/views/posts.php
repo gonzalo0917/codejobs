@@ -5,7 +5,6 @@ if(!defined("_access")) {
 
 if(is_array($posts)) {
 	$i = 1;
-	$rand1 = rand(1, 5);
 	$rand2 = rand(6, 10);
 	
 	foreach($posts as $post) {			
