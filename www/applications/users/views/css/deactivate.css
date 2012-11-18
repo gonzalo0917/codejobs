@@ -19,3 +19,7 @@ label {
 label dt, label dd {
 	line-height: 1.5em;
 }
+
+#getPassword {
+	margin-top: -100px;
+}
