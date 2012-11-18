@@ -223,9 +223,7 @@ class Codes_Model extends ZP_Load {
 	}
         
     public function getRSS() {	
-        $language = ($this->language !== "English" ? "(Language = '$this->language' OR Language = 'English')" : "Language = 'English'");
-        
-        return $this->Db->findBySQL("$language AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", _maxLimit);
+        return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", _maxLimit);
 	}
 
 	public function getBufferCodes($language = "all") {
