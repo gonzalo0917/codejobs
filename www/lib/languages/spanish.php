@@ -1,6 +1,7 @@
 <?php
 $phrase["about_codejobs"] 				 				= "Acerca de CodeJobs";
 $phrase["about_me"]		 				 				= "Acerca de mi";
+$phrase["accept"]			 							= "Aceptar";
 $phrase["accounts_activation"] 							= "Activación de cuentas";
 $phrase["action"] 										= "Acción";
 $phrase["actions"]										= "Acciones";
@@ -129,6 +130,7 @@ $phrase["image_for_this_post"] 							= "Imagen para la publicación";
 $phrase["in"] 											= "en";
 $phrase["in_trash"]										= "En papelera";
 $phrase["inactive"] 									= "Inactivo";
+$phrase["input_your_password"] 							= "Ingresa tu contraseña";
 $phrase["insert_break_line"]							= "Salto de Línea";
 $phrase["insert_code"]									= "Insertar Código";
 $phrase["it_will_no_delete_your_account_but_your_profile_will_not_be_accessible_your_publications_will_be_still_available"]	= "Esto no eliminará tu cuenta, pero tu perfil no será accesible a nadie. Tus publicaciones aún estarán disponibles.";

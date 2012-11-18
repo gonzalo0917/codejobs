@@ -22,15 +22,15 @@
 	</form>
 
 	<div id="getPassword" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	<h3 id="myModalLabel">Modal header</h3>
-	</div>
-	<div class="modal-body">
-	<p>One fine body…</p>
-	</div>
-	<div class="modal-footer">
-	<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	<button class="btn btn-primary">Save changes</button>
-	</div>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel"><?php echo __("Input your password"); ?></h3>
+		</div>
+		<div class="modal-body">
+			<p><input type="password" /></p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo __("Cancel"); ?></button>
+			<button class="btn btn-primary" onclick="acceptedPass()"><?php echo __("Accept"); ?></button>
+		</div>
 	</div>
