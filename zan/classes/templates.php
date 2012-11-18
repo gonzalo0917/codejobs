@@ -120,9 +120,11 @@ class ZP_Templates extends ZP_Load {
 				if($print) {
 					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />' . "\n";
 				} else {
-					$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/css/bootstrap/bootstrap.min.css" type="text/css" />' . "\n";
+					$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />' . "\n";
 				}	
 			}
+
+			$this->js("bootstrap");
 		} elseif($CSS === "prettyphoto") {
 			if(is_null($this->CSS)) {
 				if($print) {
@@ -353,6 +355,8 @@ class ZP_Templates extends ZP_Load {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
 		} elseif($js === "angular") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/angular/angular-1.0.1.min.js", "zan") .'"></script>';
+		} elseif($js === "bootstrap") {
+			$js = '<script type="text/javascript" src="'. path("vendors/css/frameworks/bootstrap/js/bootstrap.min.js", "zan") .'"></script>';
 		} elseif($js === "codemirror") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/codemirror/codemirror.js", "zan") .'"></script>';
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/codemirror/util/loadmode.js", "zan") .'"></script>';
