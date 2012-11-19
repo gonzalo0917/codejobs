@@ -21,7 +21,7 @@ class Users_Model extends ZP_Load {
 		$this->Data->table("users");
 
 		$this->table  = "users";
-		$this->fields = "ID_User, Username, Email, Website, Situation";
+		$this->fields = "ID_User, ID_Privilege, Username, Email, Website, Situation";
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_User DESC", $search = NULL, $field = NULL, $trash = FALSE) {

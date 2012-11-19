@@ -3,15 +3,15 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 	
-	$ID        = isset($data) ? recoverPOST("ID", $data[0]["ID_User"]) 			 : 0;
-	$username  = isset($data) ? recoverPOST("username", $data[0]["Username"]) 	 : recoverPOST("username");
-	$privilege = isset($data) ? recoverPOST("privilege", $data[0]["ID_Privilege"])  : recoverPOST("privilege"); 
-	$email     = isset($data) ? recoverPOST("email", $data[0]["Email"]) 		 : recoverPOST("email");
-	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");				
-	$pwd   	   = isset($data) ? recoverPOST("pwd", $data[0]["Pwd"])				 : recoverPOST("pwd");
-	$edit      = isset($data) ? TRUE											 : FALSE;
-	$action	   = isset($data) ? "edit"											 : "save";
-	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
+	$ID        = isset($data) ? recoverPOST("ID", $data[0]["ID_User"]) 			 	: 0;
+	$username  = isset($data) ? recoverPOST("username", $data[0]["Username"]) 	 	: recoverPOST("username");
+	$privilege = isset($data) ? recoverPOST("privilege", $data[0]["ID_Privilege"]) 	: recoverPOST("privilege"); 
+	$email     = isset($data) ? recoverPOST("email", $data[0]["Email"]) 		 	: recoverPOST("email");
+	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  	: recoverPOST("situation");				
+	$pwd   	   = isset($data) ? NULL				 								: recoverPOST("pwd");
+	$edit      = isset($data) ? TRUE											 	: FALSE;
+	$action	   = isset($data) ? "edit"											 	: "save";
+	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") 	: path(whichApplication() ."/cpanel/add");
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
