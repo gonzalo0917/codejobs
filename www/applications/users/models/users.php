@@ -205,7 +205,7 @@ class Users_Model extends ZP_Load {
 	}
 	
 	public function activate($user, $code) {
-		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, Username, Email, Pwd, Privilege");
+		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
 		
 		if($data) {
 			$this->Db->update($this->table, array("Situation" => "Active"), $data[0]["ID_User"]);
