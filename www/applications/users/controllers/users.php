@@ -29,12 +29,14 @@ class Users_Controller extends ZP_Load {
 	}
 	
 	public function activate($user = NULL, $code = FALSE) {
+		$this->helper("alerts");
+		
 		if(!$user or !$code) {
 			redirect();
 		} else {
 			$data = $this->Users_Model->activate($user, $code);
 			
-			if(is_array($data)) {
+			if($data) {
 				SESSION("ZanUser", $data[0]["Username"]);
 				SESSION("ZanUserName", $data[0]["Name"]);
 				SESSION("ZanUserPwd", $data[0]["Pwd"]);
