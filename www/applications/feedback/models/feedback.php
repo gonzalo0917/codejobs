@@ -83,7 +83,7 @@ class Feedback_Model extends ZP_Load {
 			"Subject"  	 => "",
 			"Message" 	 => POST("message", "decode", FALSE),
 			"Start_Date" => now(4),
-			"Text_Date"  => now(2)
+			"Text_Date"  => decode(now(2))
 		);
 		
 		$insert = $this->Db->insert($this->table, $values);
