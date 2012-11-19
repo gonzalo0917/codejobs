@@ -246,8 +246,19 @@ class Users_Model extends ZP_Load {
 		}
 	}
 	
-	public function deactivate() {
+	public function deactivateOrDelete($action, $username = NULL) {
+		$username = $username ? $username : POST("username");
+		$data 	  = $this->Db->findBySQL("Username = '$username' AND Situation = 'Active'", $this->table, "ID_User");
 		
+		if($data) {
+			$situation = $action === "deactivate" ? "Inactive" : "Deleted";
+
+			$this->Db->update($this->table, array("Situation" => $situation), $data[0]["ID_User"]);
+
+			return $data;
+		}
+
+		return FALSE;
 	}
 
 	public function isAdmin($sessions = FALSE) {

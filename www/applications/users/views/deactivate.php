@@ -3,6 +3,7 @@
 ?>
 	<form method="post" class="deleteForm">
 		<fieldset>
+			<input type="hidden" name="username" value="<?php echo $username; ?>" />
 			<label class="radio">
 				<input type="radio" name="option" value="deactivate" checked>
 				<dl>
