@@ -171,7 +171,7 @@ class Blog_Controller extends ZP_Load {
 	}
 
 	public function relevant() {
-		$data = $this->Blog_Model->getMostRelevantPosts();
+		$data = $this->Cache->data("relevant-". $this->language, "blog", $this->Blog_Model, "getMostRelevantPosts");
 
 		if($data) {
 			$vars["posts"] = $data;
