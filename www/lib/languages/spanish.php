@@ -49,6 +49,7 @@ $phrase["codes_of"] 	 								= "Códigos de";
 $phrase["comment"] 										= "Comentario";
 $phrase["comments"] 									= "Comentarios";
 $phrase["comments_validations"] 						= "Validación de comentarios";
+$phrase["community"]									= "Comunidad";
 $phrase["configuration"] 								= "Configuración";
 $phrase["connect"] 										= "Conectar";
 $phrase["contact_us"]									= "Contacto";
