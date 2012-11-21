@@ -11,7 +11,7 @@
 	<div id="content"<?php echo $style; ?>>
 		<?php
 			if(segment(0, isLang()) === "live") {
-				echo display('<p style="width: 728px; margin-left: 200px;">
+				echo display('<div style="width: 728px; margin-left: 150px;">
 								<script type="text/javascript"><!--
 									google_ad_client = "ca-pub-4006994369722584";
 									/* CodeJobs.biz */
@@ -23,7 +23,7 @@
 									<script type="text/javascript"
 									src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 								</script>
-							</p>', 4);
+							</div>', 4);
 			} else {
 				echo display('<p>
 								<script type="text/javascript"><!--
