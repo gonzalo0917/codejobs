@@ -11,7 +11,7 @@
 	<div id="content"<?php echo $style; ?>>
 		<?php
 			if(segment(0, isLang()) === "live") {
-				echo display('<p style="width: 728px; margin: 0 auto;">
+				echo display('<p style="width: 728px; margin-left: 200px;">
 								<script type="text/javascript"><!--
 									google_ad_client = "ca-pub-4006994369722584";
 									/* CodeJobs.biz */
