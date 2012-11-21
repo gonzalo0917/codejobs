@@ -128,4 +128,8 @@
 	.popular ul {		
 		margin-left: 100px;
 	}
+
+	#tweet-container {
+    	margin-left: 15%;
+	}
 }
