@@ -34,19 +34,25 @@
                         <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);
         ?>
 
-        <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/handlebars.js", TRUE); ?>"></script>
-        <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/moment.js", TRUE); ?>"></script>
-        <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.masonry.js", TRUE); ?>"></script>
-        <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.hoverIntent.js", TRUE); ?>"></script>
-        <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.tweetscroller.js", TRUE); ?>"></script>
-        <script>
-            (function(){
-                $('#tweets').tweetscroller({
-                    autoplay: true,
-                    speed: 65,
-                    username: 'codejobs'
-                });
-            })(jQuery);
-        </script>
+        <?php 
+            if(segment(0, isLang()) === "live") {
+            ?>
+                <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/handlebars.js", TRUE); ?>"></script>
+                <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/moment.js", TRUE); ?>"></script>
+                <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.masonry.js", TRUE); ?>"></script>
+                <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.hoverIntent.js", TRUE); ?>"></script>
+                <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.tweetscroller.js", TRUE); ?>"></script>
+                <script>
+                    (function(){
+                        $('#tweets').tweetscroller({
+                            autoplay: true,
+                            speed: 65,
+                            username: 'codejobs'
+                        });
+                    })(jQuery);
+                </script>
+            <?php
+            }
+            ?>
     </body>
 </html>
