@@ -43,14 +43,13 @@
             
             var text = tweet.text;            
 
-            var match = text.match(exp);
-            
-            text = text.replace(/:/g, ""); 
-            text = text.replace(/(^|[\n ])@([^ \"\t\n\r<]*)/g, "$1@<a rel=\"nofollow\" target=\"_blank\" href=\"http://www.twitter.com/$2\">$2</a>");
+            var match = text.match(exp);                  
 
             if(match != null) {
               text = text.replace(exp, " <a rel=\"nofollow\" target=\"_blank\" href=\"" + match[0].replace(/^\s+/,'') + "\">" + match[0].replace(/^\s+/,'') + "</a>");                           
             }
+
+            text = text.replace(/(^|[\n ])@([^ \"\t\n\r<]*)/g, "$1@<a rel=\"nofollow\" target=\"_blank\" href=\"http://www.twitter.com/$2\">$2</a>");
 
             tweet.text = text;
 
