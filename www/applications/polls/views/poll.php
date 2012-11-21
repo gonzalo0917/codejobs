@@ -2,7 +2,7 @@
 	if(isset($special)) {
 		$width = "500px;";
 	?>
-		<div class="polls" style="width: 225px; margin-top: -50px; border:1px solod #000;">
+		<div class="polls" style="width: 225px; margin-top: 0px; border:1px solod #000;">
 	<?php
 	} else {
 		$width = "250px;";
