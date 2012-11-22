@@ -174,14 +174,6 @@ class ZP_Templates extends ZP_Load {
 		}
 
 		$file = is_null($application) ? "www/lib/css/$CSS.css" : "www/applications/$application/views/css/$CSS.css";
-				
-		if(is_null($this->CSS)) {
-			if($print) {
-				print '<link rel="stylesheet" href="'. _get("webURL") .'/www/lib/css/default.css" type="text/css" />' . "\n";
-			} else {
-				$this->CSS = '<link rel="stylesheet" href="'. _get("webURL") .'/www/lib/css/default.css" type="text/css" />' . "\n";
-			}			
-		}
 		
 		if(file_exists($file)) {
 			$file = $this->getScript($file, 'css');
