@@ -21,7 +21,7 @@ class Users_Model extends ZP_Load {
 		$this->Data->table("users");
 
 		$this->table  = "users";
-		$this->fields = "ID_User, Username, Email, Website, Situation";
+		$this->fields = "ID_User, ID_Privilege, Username, Email, Website, Situation";
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_User DESC", $search = NULL, $field = NULL, $trash = FALSE) {
@@ -205,7 +205,7 @@ class Users_Model extends ZP_Load {
 	}
 	
 	public function activate($user, $code) {
-		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, Username, Email, Pwd, Privilege");
+		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
 		
 		if($data) {
 			$this->Db->update($this->table, array("Situation" => "Active"), $data[0]["ID_User"]);
@@ -246,8 +246,19 @@ class Users_Model extends ZP_Load {
 		}
 	}
 	
-	public function deactivate() {
+	public function deactivateOrDelete($action, $username = NULL) {
+		$username = $username ? $username : POST("username");
+		$data 	  = $this->Db->findBySQL("Username = '$username' AND Situation = 'Active'", $this->table, "ID_User");
 		
+		if($data) {
+			$situation = $action === "deactivate" ? "Inactive" : "Deleted";
+
+			$this->Db->update($this->table, array("Situation" => $situation), $data[0]["ID_User"]);
+
+			return $data;
+		}
+
+		return FALSE;
 	}
 
 	public function isAdmin($sessions = FALSE) {

@@ -1,0 +1,100 @@
+#tweet-container {
+    margin-left: -60px;
+}
+
+#tweets {
+  overflow: hidden;
+  /* Increases CPU Usage */
+  -webkit-mask-image: -webkit-gradient(linear, left 80%, left bottom, from(black), to(rgba(0, 0, 0, 0)));
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(15%, black), color-stop(85%, black), color-stop(100%, rgba(0, 0, 0, 0)));
+  *zoom: 1;
+  margin: 0 auto;
+}
+  #tweets:before, #tweets:after {
+    display: table;
+    content: "";
+  }
+  #tweets:after {
+    clear: both;
+  }
+
+.tweetscroller {
+  width: 92%;
+  margin: 0 auto;
+  *zoom: 1;
+}
+  .tweetscroller:before, .tweetscroller:after {
+    display: table;
+    content: "";
+  }
+  .tweetscroller:after {
+    clear: both;
+  }
+  .tweetscroller .tweet {
+    position: absolute !important;
+    float: left !important;
+    clear: none !important;
+    margin: 14px !important;
+    width: 240px;
+    background: #f6f7f6;
+    text-align: left;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    /* Increases CPU Usage */
+/*    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24);   */ 
+  }
+    .tweetscroller .tweet blockquote {
+      margin: 10px;
+      padding: 0;
+      border: none;
+      font-weight: normal;
+    }
+    .tweetscroller .tweet blockquote a {
+      text-decoration: none;
+    }
+    .tweetscroller .tweet blockquote a:hover {
+      color: #333333 !important;
+      text-decoration: underline;
+    }
+    .tweetscroller .tweet blockquote .author .avatar {
+      float: left;
+      margin: 2px 10px 0 0;
+    }
+    .tweetscroller .tweet blockquote .author .avatar .photo {
+      width: 32px;
+      height: 32px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+    .tweetscroller .tweet blockquote .author .fn {
+      display: block;
+      font-size: 15px;
+      line-height: 18.75px;            
+      color: #333333 !important;
+      font-weight: bold;
+    }
+    .tweetscroller .tweet blockquote .author .nickname {
+      font-size: 12px;
+      line-height: 16.25px;      
+      color: #a8a8a8 !important;
+      text-decoration: none !important;
+    }
+    .tweetscroller .tweet blockquote .author .nickname:hover {
+      text-decoration: none !important;
+    }
+    .tweetscroller .tweet blockquote .entry-content {
+      font-size: 15px;
+      line-height: 20px;
+      color: #333;
+      text-align: left;
+    }    
+    .tweetscroller .tweet blockquote .footer a {
+      font-size: 13px;
+      line-height: 16.25px;
+      color: #a8a8a8;
+      text-decoration: none;
+    }

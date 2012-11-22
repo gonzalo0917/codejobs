@@ -1063,6 +1063,7 @@ CREATE TABLE IF NOT EXISTS `muu_polls` (
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(255) NOT NULL,
   `Type` varchar(10) DEFAULT 'Simple',
+  `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
   `Start_Date` int(11) NOT NULL,
   `Text_Date` varchar(40) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',

@@ -32,7 +32,7 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 		<![CDATA[<?php echo $bookmark["Title"]; ?>]]>
 		</title>
 		<link>
-		<![CDATA[<?php echo $bookmark["URL"]; ?>]]>
+		<![CDATA[<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>]]>
 		</link>
 		<description>
 		<![CDATA[<?php echo $bookmark["Description"]; ?>]]>

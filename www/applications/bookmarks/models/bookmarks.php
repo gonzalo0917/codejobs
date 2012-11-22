@@ -21,7 +21,7 @@ class Bookmarks_Model extends ZP_Load {
 	}
 
 	public function getRSS() {	
-		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", _maxLimit);
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", _maxLimit);
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_Bookmark DESC", $search = NULL, $field = NULL, $trash = FALSE) {		

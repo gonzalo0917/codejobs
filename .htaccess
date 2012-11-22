@@ -4,3 +4,13 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*) index.php
+
+SetOutputFilter DEFLATE
+Header unset ETag
+FileETag None
+
+<FilesMatch "\.(js|css|ico|pdf|jpg|jpeg|png|gif)$">
+Header set Cache-Control "public"
+Header set Expires "Thu, 15 Apr 2020 20:00:00 GMT"
+Header unset Last-Modified
+</FilesMatch>

@@ -178,9 +178,9 @@ class CPanel_Controller extends ZP_Load {
 		$data = $this->{"$this->Model"}->getByID($ID);
 		
 		if($data) {		
-			$this->vars["data"] = $data;
+			$this->vars["data"] 	  = $data;
 			$this->vars["privileges"] = $this->$Model->getPrivileges();	
-			$this->vars["view"] = $this->view("add", TRUE, $this->application);
+			$this->vars["view"] 	  = $this->view("add", TRUE, $this->application);
 			
 			$this->render("content", $this->vars);
 		} else {

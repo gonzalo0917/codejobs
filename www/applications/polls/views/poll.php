@@ -2,7 +2,7 @@
 	if(isset($special)) {
 		$width = "500px;";
 	?>
-		<div class="polls" style="width: 225px; margin-top: -50px; border:1px solod #000;">
+		<div class="polls" style="width: 225px; margin-top: 0px; border:1px solod #000;">
 	<?php
 	} else {
 		$width = "250px;";
@@ -107,24 +107,26 @@
 
 <?php 
 	if(isset($special)) {
-		if(_get("domain")) {
 		?>
-		<p>
-			<script type="text/javascript"><!--
-				google_ad_client = "ca-pub-4006994369722584";
-				/* CodeJobs.biz */
-				google_ad_slot = "1672839256";
-				google_ad_width = 728;
-				google_ad_height = 90;
-				//-->
-				</script>
-				<script type="text/javascript"
-				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-			</script>
-		</p>
+		<a href="https://twitter.com/codejobs" class="twitter-follow-button" data-show-count="false" data-lang="es" data-size="large"><?php echo __("Follow"); ?> @codejobs</a>
+    	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		
 		<?php
-		}
+			 echo display('<p>
+                        <script type="text/javascript"><!--
+                            google_ad_client = "ca-pub-4006994369722584";
+                            /* CodeJobs.biz */
+                            google_ad_slot = "1672839256";
+                            google_ad_width = 728;
+                            google_ad_height = 90;
+                            //-->
+                            </script>
+                            <script type="text/javascript"
+                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                        </script>
+                    </p>', 4);
 		?>
+
 		<div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="2" data-width="750"></div>
 	<?php
 	}

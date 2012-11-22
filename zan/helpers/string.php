@@ -175,8 +175,22 @@ function cleanHTML($HTML) {
  * @param string $text
  * @return string $text
  */ 
-function compress($string) {
-    return str_replace(array("\r\n", "\r", "\n", "\t", "  ", "    ", "    "), "", $string);      
+function compress($string, $filetype = NULL) {
+	if(is_null($filetype)) {
+	    return str_replace(array("\r\n", "\r", "\n", "\t", "  ", "    ", "    "), "", $string);      
+	} else {
+		global $Load;
+
+		if($filetype === 'css') {
+			$Load->library('cssmin', NULL, NULL, 'minify');
+			return CSSMin::minify($string);
+		} elseif($filetype === 'js') {
+			$Load->library('jsmin', NULL, NULL, 'minify');
+			return JSMin::minify($string);
+		}
+	}
+
+	return '';
 }
 
 /**

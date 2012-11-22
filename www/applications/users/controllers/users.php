@@ -29,12 +29,14 @@ class Users_Controller extends ZP_Load {
 	}
 	
 	public function activate($user = NULL, $code = FALSE) {
+		$this->helper("alerts");
+		
 		if(!$user or !$code) {
 			redirect();
 		} else {
 			$data = $this->Users_Model->activate($user, $code);
 			
-			if(is_array($data)) {
+			if($data) {
 				SESSION("ZanUser", $data[0]["Username"]);
 				SESSION("ZanUserName", $data[0]["Name"]);
 				SESSION("ZanUserPwd", $data[0]["Pwd"]);
@@ -56,13 +58,36 @@ class Users_Controller extends ZP_Load {
 	public function deactivate() {
 		isConnected();
 
-		$this->title(__("Deactivate my account"));
-		$this->CSS("deactivate", $this->application);
-		$this->config("deactivate", $this->application);
+		if(POST("option") and POST("username") and POST("password")) {
+			$this->helper("alerts");
 
-		$vars["view"] = $this->view("deactivate", TRUE);
-			
-		$this->render("content", $vars);
+			if($this->Users_Model->isMember()) {
+				switch(POST("option")) {
+					case "deactivate": case "delete":
+						if($this->Users_Model->deactivateOrDelete(POST("option"))) {
+							showAlert(__("Your account has been ". POST("option") ."d"), "users/logout/");
+							break;
+						}
+					
+					default:
+						showAlert(__("Something went wrong! Try again later"), "users/logout/");
+				}
+			} else {
+				showAlert(__("Incorrect password. Try again later"), "users/logout/");
+			}
+		} else {
+			$this->title(__("Deactivate my account"));
+			$this->CSS("deactivate", $this->application);
+			$this->js("bootstrap");
+			$this->js("deactivate", $this->application);
+
+			$this->config("deactivate", $this->application);
+
+			$vars["view"] 	  = $this->view("deactivate", TRUE);
+			$vars["username"] = SESSION("ZanUser");
+				
+			$this->render("content", $vars);
+		}
 	}
 	
 	public function login() {
@@ -93,6 +118,7 @@ class Users_Controller extends ZP_Load {
 
 				redirect();
 			} else { 
+				$this->helper("alerts");
 				showAlert(__("Incorrect Login"), path());
 			}		
 		} else {

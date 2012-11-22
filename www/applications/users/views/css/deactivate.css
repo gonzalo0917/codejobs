@@ -19,3 +19,16 @@ label {
 label dt, label dd {
 	line-height: 1.5em;
 }
+
+#getPassword {
+	margin-top: -100px;
+}
+
+#getPassword input {
+	width: 515px;
+	width: calc(100% - 15px);
+	width: -moz-calc(100% - 15px);
+	width: -ms-calc(100% - 15px);
+	width: -o-calc(100% - 15px);
+	width: -webkit-calc(100% - 15px);
+}

@@ -56,6 +56,10 @@
 
 	<?php echo $this->js("$this->themeRoute/js/social.min.js", NULL, TRUE); ?>
 	<?php echo $this->js("$this->themeRoute/js/porlets.min.js", NULL, TRUE); ?>
+
+	<link rel="stylesheet" href="<?php echo path("www/lib/scripts/js/tweetscroller/css/utils.css", TRUE); ?>">
+    <link rel="stylesheet" href="<?php echo path("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", TRUE); ?>">
+    <link rel="stylesheet" href="<?php echo path("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", TRUE); ?>">
         
     <script type="text/javascript">
 		var PATH = "<?php print path(); ?>";
@@ -91,7 +95,8 @@
 						<!--<li><a href="<?php echo path("jobs"); ?>"><?php echo __("Jobs"); ?></a></li>-->
 						<!--<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>-->
 						<li><a href="http://www.youtube.com/codejobs" target="_blank"><?php echo __("Videos"); ?></a></li>
-						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>						
+						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>
+						<li><a href="<?php echo path("live"); ?>"><?php echo __("Community"); ?></a></li>						
 					</ul>
 				</nav>
 

@@ -3,6 +3,7 @@
 ?>
 	<form method="post" class="deleteForm">
 		<fieldset>
+			<input type="hidden" name="username" value="<?php echo $username; ?>" />
 			<label class="radio">
 				<input type="radio" name="option" value="deactivate" checked>
 				<dl>
@@ -17,6 +18,20 @@
 				  <dd><?php echo __("It will permanently delete your account. No turning back!"); ?></dd>
 				</dl>
 			</label>
-			<input type="submit" value="<?php echo __("Confirm"); ?>" name="confirm" class="btn btn-danger" />
+			<input type="submit" value="<?php echo __("Confirm"); ?>" name="confirm" class="btn btn-danger" data-toggle="modal" data-target="#getPassword" />
 		</fieldset>
 	</form>
+
+	<div id="getPassword" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel"><?php echo __("Input your password"); ?></h3>
+		</div>
+		<div class="modal-body">
+			<p><input type="password" /></p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo __("Cancel"); ?></button>
+			<button class="btn btn-primary" onclick="acceptedPass()"><?php echo __("Accept"); ?></button>
+		</div>
+	</div>

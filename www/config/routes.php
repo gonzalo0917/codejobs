@@ -28,4 +28,11 @@ $routes = array(
 		"method"	  => "getBySlug",
 		"params"	  => array("links")
 	),
+	3 => array(
+		"pattern"	  => "/^live/",
+		"application" => "pages",
+		"controller"  => "pages",
+		"method"	  => "getBySlug",
+		"params"	  => array("live")
+	),
 );
