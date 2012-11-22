@@ -5,16 +5,15 @@
 		  // -- Public Static Methods --------------------------------------------------
 
 		  /**
-		* Minify Javascript
+		* Minify CSS
 		*
-		* @uses __construct()
-		* @uses min()
-		* @param string $js Javascript to be minified
+		* @uses _optimize()
+		* @param string $css to be minified
 		* @return string
 		*/
 		public static function minify($css) {
 		    $cssmin = new CSSMin;
-			return $cssmin->_optimize($css);
+			return trim($cssmin->_optimize($css));
 		}
 
 		/**

@@ -13,7 +13,7 @@
 		        } elseif(preg_match('/(.+)\.(js|css)$/', $entry, $name) and !preg_match('/\.min\.(js|css)$/', $entry)) {
 					unset($name[0]);
 		        	$filename = current($name) .'.min.'. next($name);
-		        	$contents = compress(file_get_contents("$path/$entry"));
+		        	$contents = compress(file_get_contents("$path/$entry"), current($name));
 		        	file_put_contents("$path/$filename", $contents, LOCK_EX);
 		        	$files++;
 		        }

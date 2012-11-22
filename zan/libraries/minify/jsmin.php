@@ -72,7 +72,7 @@ class JSMin {
 */
   public static function minify($js) {
     $jsmin = new JSMin($js);
-    return $jsmin->min();
+    return trim($jsmin->min());
   }
 
   // -- Public Instance Methods ------------------------------------------------
