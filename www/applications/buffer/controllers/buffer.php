@@ -13,7 +13,7 @@ class Buffer_Controller extends ZP_Load {
 
 		$this->RESTClient = $this->core("RESTClient");
 
-		$this->bufferProfiles = array("504fea9d6ffb363e53000031", "50ad80001b81f69f14000035");
+		$this->bufferProfiles = array("504fea9d6ffb363e53000031");
 	}
 	
 	public function index() {	
