@@ -1,35 +1,40 @@
 .polls {
-	width: 180px;
-	text-align: left;
-	font-size: 14px;
+	margin: 0 auto;
+	width: 225px;
 }
 
-.polls-graphic {
-    position: relative;
-    width: 180px;
-	height: 20px;
-	line-height: 20px;
-    padding: 2px;
-	margin-bottom: 3px;
-	margin-left: 5px;	
+.polls-width {
+	width: 250px;
 }
 
-.poll-graphic-bar {
-    display: block;
-    position: relative;
-    text-align: left;
-    color: #333333;
-    height: 20px;
-    line-height: 20px;    
+.polls-special {
+	margin-top: 0px;
+	width: 225px;
 }
 
-.poll-graphic-bar span {
-    position: absolute; 
-	left: 1em;
+.polls-special-width {
+	width: 500px;
 }
 
-.poll-submit {
-	border:1px solid #333333;
-	background-color: #999999;
-	color: #000000;
+.poll-graphic {
+    background-color: #EEE;
+    padding: 2px;	
+    width: 250px;
+}
+
+.poll-answer {
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.poll-send-vote {
+	text-align: center;
+}
+
+.poll-total {
+	font-size: 12px
+}
+
+.poll-center {
+	text-align: center;
 }

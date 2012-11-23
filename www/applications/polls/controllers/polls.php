@@ -34,6 +34,7 @@ class Polls_Controller extends ZP_Load {
 
 		if($data) {		
 			$this->title(decode($data["question"]["Title"]));
+			$this->CSS("polls", $this->application);
 
 			$vars["results"] = $results;
 			$vars["poll"] 	 = $data;
@@ -54,6 +55,8 @@ class Polls_Controller extends ZP_Load {
 		$data = $this->Polls_Model->getLastPoll();
 		
 		if($data) {
+			$this->CSS("polls", $this->application);
+			
 			$vars["results"] = FALSE;
 			$vars["poll"]    = $data;			
 			

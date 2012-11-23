@@ -8,12 +8,12 @@ body {
    	overflow-x: hidden;
 }
 
-.polls h3 a {
+.polls h3 a, .polls-special h3 a {
 	color: #292929;
 	text-decoration: none;
 }
 
-.polls h3 a:hover {
+.polls h3 a:hover, .polls-special h3 a:hover {
 	color: #045c98;
 }
 
