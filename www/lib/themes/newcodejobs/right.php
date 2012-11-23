@@ -60,11 +60,12 @@
                 <?php $this->execute("Blog_Controller", "relevant"); ?>
             </section>
 
+            <?php if(segment(0, isLang()) !== "polls") { ?>
             <section class="polls">
                 <?php $this->execute("Polls_Controller", "last"); ?>
             </section>
+            <?php }
 
-            <?php
                 echo display('<section class="ads">
                                 <script type="text/javascript"><!--
                                 google_ad_client = "ca-pub-4006994369722584";

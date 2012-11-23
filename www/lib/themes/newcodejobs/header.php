@@ -15,9 +15,15 @@
 	<link href="<?php echo path("codes/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Codes"); ?>" >
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
 	
-    <?php $this->CSS("www/lib/css/default.min.css", NULL, TRUE); ?>
-    <?php $this->CSS("$this->themeRoute/css/style.min.css", NULL, TRUE); ?>
-    <?php $this->CSS("$this->themeRoute/css/mediaqueries.min.css", NULL, TRUE); ?>
+    <?php
+    	$this->CSS("www/lib/css/default.min.css", NULL, TRUE);
+    	$this->CSS("$this->themeRoute/css/style.min.css", NULL, TRUE);
+    	$this->CSS("$this->themeRoute/css/mediaqueries.min.css", NULL, TRUE);
+
+    	if(segment(0, isLang()) !== "polls") {
+    		$this->CSS("polls", "polls", TRUE);
+    	}
+    ?>
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 
 	<?php 
