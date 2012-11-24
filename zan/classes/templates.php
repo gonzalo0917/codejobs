@@ -352,7 +352,6 @@ class ZP_Templates extends ZP_Load {
 		} elseif($js === "codemirror") {
 			$js = '<script type="text/javascript" src="'. path("vendors/js/codemirror/codemirror.js", "zan") .'"></script>';
 			$js .= '<script type="text/javascript" src="'. path("vendors/js/codemirror/util/loadmode.js", "zan") .'"></script>';
-            $this->CSS("codemirror", NULL, TRUE);
 		} elseif(file_exists($js)) {
 			$js = '<script type="text/javascript" src="'. _get("webURL") .'/'. $this->getScript($js, 'js') .'"></script>';
 		} elseif(file_exists(path($js, "zan"))) {

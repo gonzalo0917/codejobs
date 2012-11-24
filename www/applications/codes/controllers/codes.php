@@ -82,6 +82,9 @@ class Codes_Controller extends ZP_Load {
 				$this->meta("description", $data[0]["Description"]);
             }
 
+            $this->js("codes", "codes");
+            $this->CSS("codes_", "codes");
+
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -115,6 +118,9 @@ class Codes_Controller extends ZP_Load {
 	            if($data[0]["Description"] !== "") {
 					$this->meta("description", $data[0]["Description"]);
 	            }
+
+	            $this->js("codes", "codes");
+	            $this->CSS("code", "codes");
 
                 $vars["code"] 	= $data[0];
                 $vars["view"]   = $this->view("code", TRUE);
@@ -158,6 +164,9 @@ class Codes_Controller extends ZP_Load {
 				$this->meta("description", $data[0]["Description"]);
             }
 
+            $this->js("codes", "codes");
+            $this->CSS("codes_", "codes");
+
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -197,6 +206,9 @@ class Codes_Controller extends ZP_Load {
 				$this->meta("description", $data[0]["Description"]);
             }
 
+            $this->js("codes", "codes");
+            $this->CSS("codes_", "codes");
+
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]       = $this->view("codes", TRUE);
@@ -235,6 +247,9 @@ class Codes_Controller extends ZP_Load {
             if($data[0]["Description"] !== "") {
 				$this->meta("description", $data[0]["Description"]);
             }
+			
+            $this->js("codes", "codes");
+            $this->CSS("codes_", "codes");
 			
 			$vars["codes"]  	= $data;
 			$vars["pagination"] = $this->pagination;
@@ -287,6 +302,7 @@ class Codes_Controller extends ZP_Load {
 
 		$this->config("user", "codes");
 
+		$this->js("mode", "codes");
 		$vars["view"] = $this->view("new", TRUE);
 
 		$this->render("content", $vars);

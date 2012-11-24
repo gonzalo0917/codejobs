@@ -3,8 +3,6 @@
         die("Error: You don't have permission to access here...");
     }
     
-    $this->CSS("code", "codes", TRUE);
-
     $URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
 ?>
 <div class="codes">
@@ -119,7 +117,3 @@
         }
     ?>
 </script>
-
-<?php
-    echo $this->js("codes.js", "codes", TRUE);
-?>

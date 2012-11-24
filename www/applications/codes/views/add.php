@@ -3,8 +3,6 @@
 		die("Error: You don't have permission to access here..."); 
 	}
         
-    $this->CSS("add", "codes", TRUE);
-        
     $ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) 				: 0;
 	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
     $description = isset($data) ? recoverPOST("description", $data[0]["Description"])   : recoverPOST("description");
@@ -141,7 +139,6 @@
 	echo htmlTag("div", FALSE);
 ?>
 <script type="text/javascript">
-CodeMirror.modeURL = URL + "/zan/vendors/js/codemirror/mode/%N.js";
 
 function FileCtrl($scope) {
     $scope.files = [

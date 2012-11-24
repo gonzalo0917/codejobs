@@ -8,53 +8,23 @@
 	<?php
 		$application = segment(0, isLang());
 
-    	$this->CSS("bootstrap", NULL, TRUE);
+    	$this->CSS("bootstrap");
 		$this->CSS("prettyPhoto", "videos"); 
 		$this->CSS("ads", "ads"); 
 		$this->CSS("default"); 
 	
 	 	echo $this->getCSS();
 		echo $this->themeCSS("cpanel"); 
-                
-        if(defined("_angularjs")) {
-            echo $this->js("angular", NULL, TRUE);
-        }
-        
-        if(defined("_codemirror")) {
-            echo $this->js("codemirror", NULL, TRUE);
-        }
-                
-		$this->js("www/lib/scripts/js/main.js");
-	?>
 
-	<script type="text/javascript" src="<?php echo path("vendors/js/jquery/jquery.js", "zan"); ?>"></script>
+		if(defined("_codemirror")) {
+            $this->CSS("codemirror", NULL, TRUE);
+        }
 
-	<?php
 		if($application !== "codes" and $application !== "blog") {
-	?>
-			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/jquery.markitup.js", "zan"); ?>"></script>
-			<script type="text/javascript" src="<?php echo path("vendors/js/editors/markitup/sets/html/set.js", "zan"); ?>"></script>
-
-			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/skins/markitup/style.css", "zan"); ?>" />
-			<link rel="stylesheet" type="text/css" href="<?php echo path("vendors/js/editors/markitup/sets/html/style.css", "zan"); ?>" />
-	<?php
+			$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, TRUE);
+			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css", NULL, TRUE);
 		}
-	?>
-	
-	<script type="text/javascript">
-		var PATH = "<?php echo path(); ?>";
-		
-		var URL  = "<?php echo _get('webURL'); ?>";
-	<?php
-		if ($application !== "codes" and $application !== "blog") {
-	?>
-			$(document).on("ready", function() {
-	      		$("textarea").markItUp(mySettings);
-	   		});
-	<?php
-		}
-	?>
-	</script>			
+	?>			
 </head>
 
 <body>

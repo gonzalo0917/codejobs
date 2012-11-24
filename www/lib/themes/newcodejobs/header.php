@@ -23,75 +23,31 @@
     	if(segment(0, isLang()) !== "polls") {
     		$this->CSS("polls", "polls", TRUE);
     	}
-    ?>
-	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 
-	<?php 
-		if(defined("_bootstrap")) {
+    	if(segment(0, isLang()) === "forums") {
+            $this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.min.css", NULL, TRUE);
+            $this->CSS(_corePath ."/vendors/js/editors/markitup/sets/bbcode/style.min.css", NULL, TRUE);
+        }
+
+        if(defined("_bootstrap")) {
 			$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, TRUE);
 		}
-		
+
+		if(defined("_codemirror")) {
+            $this->CSS("codemirror", NULL, TRUE);
+        }
+
+		$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", NULL, TRUE);
+		$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", NULL, TRUE);
+		$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", NULL, TRUE);
+
 		echo $this->getCSS(); 
-	 	
-	 	echo $this->js("jquery", NULL, TRUE); 
-                
-        if(defined("_codemirror")) {
-            echo $this->js("codemirror", NULL, TRUE);
-        }
-        
-        if(defined("_angularjs")) {
-            echo $this->js("angular", NULL, TRUE);
-        }
-
-        if(segment(0, isLang()) === "forums") {
-			echo $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, TRUE);
-			echo $this->js(_corePath ."/vendors/js/editors/markitup/sets/bbcode/set.js", NULL, TRUE);
-
-			$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.min.css", NULL, TRUE);
-			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/bbcode/style.min.css", NULL, TRUE);
-		?>
-
-			<script type="text/javascript">
-				$(document).on("ready", function() {
-		      		$("textarea").markItUp(mySettings);
-		   		});
-			</script>
-        <?php
-        }
-	 ?>
-
-	<?php echo $this->js("$this->themeRoute/js/social.min.js", NULL, TRUE); ?>
-	<?php echo $this->js("$this->themeRoute/js/porlets.min.js", NULL, TRUE); ?>
-
-	<link rel="stylesheet" href="<?php echo path("www/lib/scripts/js/tweetscroller/css/utils.css", TRUE); ?>">
-    <link rel="stylesheet" href="<?php echo path("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", TRUE); ?>">
-    <link rel="stylesheet" href="<?php echo path("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", TRUE); ?>">
-        
-    <script type="text/javascript">
-		var PATH = "<?php print path(); ?>";
-		
-		var URL  = "<?php print _get('webURL'); ?>";
-	</script>
+    ?>
+	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 </head>
-
-<?php $locale = getLocal(); ?>
-
 <body>	
 	<header>
-		<div id="fb-root"></div> 
-		<script type="text/javascript">
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-
-                if(d.getElementById(id)) return;
-
-                js = d.createElement(s); 
-                js.id = id;
-                js.src = "//connect.facebook.net/<?php echo $locale; ?>/all.js#xfbml=1&appId=323728064351205";
-
-                fjs.parentNode.insertBefore(js, fjs);
-            } (document, 'script', 'facebook-jssdk'));
-		</script>
+		<div id="fb-root"></div>
 		<div id="topbar-wrapper">
 			<div id="topbar">
 				<nav>

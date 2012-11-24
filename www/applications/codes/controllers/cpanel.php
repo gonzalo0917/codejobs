@@ -169,7 +169,10 @@ class CPanel_Controller extends ZP_Load {
 		} elseif(POST("cancel")) {
 			redirect("cpanel");
 		}
-		
+
+		$this->CSS("add", $this->application);
+		$this->js("mode", "codes");
+
 		$this->vars["view"] = $this->view("add", TRUE, $this->application);
 		
 		$this->render("content", $this->vars);
@@ -209,6 +212,9 @@ class CPanel_Controller extends ZP_Load {
             $this->helper(array("forms", "html"));
             $this->helper("codes", $this->application);
             
+            $this->CSS("add", $this->application);
+            $this->js("mode", "codes");
+
             $this->vars["data"] = $data;
 			$this->vars["view"] = $this->view("add", TRUE, $this->application);
 			

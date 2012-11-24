@@ -135,7 +135,6 @@
 	echo htmlTag("div", FALSE);
 ?>
 <script type="text/javascript">
-CodeMirror.modeURL = URL + "/zan/vendors/js/codemirror/mode/%N.js";
 
 function FileCtrl($scope) {
     $scope.files = [

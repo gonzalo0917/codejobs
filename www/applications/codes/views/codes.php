@@ -2,8 +2,6 @@
     if(!defined("_access")) {
         die("Error: You don't have permission to access here...");
     }
-    
-    $this->CSS("codes_", "codes", TRUE);
 ?>
 <div class="codes">
 	<?php 
@@ -101,7 +99,3 @@
         }
     ?>
 </script>
-
-<?php
-    echo $this->js("codes.js", "codes", TRUE);
-?>

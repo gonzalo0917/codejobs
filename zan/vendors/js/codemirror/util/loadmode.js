@@ -27,8 +27,7 @@
 
     var script = document.createElement("script");
     script.src = CodeMirror.modeURL.replace(/%N/g, mode);
-    var others = document.getElementsByTagName("script")[0];
-    others.parentNode.insertBefore(script, others);
+    document.body.appendChild(script);
     var list = loading[mode] = [cont];
     var count = 0, poll = setInterval(function() {
       if (++count > 100) return clearInterval(poll);

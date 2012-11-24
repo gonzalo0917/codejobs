@@ -20,8 +20,40 @@
                         <?php echo __("Powered by"); ?> <a href="http://www.milkzoft.com" target="_blank">MilkZoft</a>
                     </p>
                 </footer>
+            <script type="text/javascript">
+                var PATH = "<?php print path(); ?>";
+                
+                var URL  = "<?php print _get('webURL'); ?>";
+            </script>
+    
             <?php 
             }   
+
+            echo $this->js("jquery", NULL, TRUE); 
+                    
+            if(defined("_codemirror")) {
+                echo $this->js("codemirror", NULL, TRUE);
+            }
+            
+            if(defined("_angularjs")) {
+                echo $this->js("angular", NULL, TRUE);
+            }
+
+            if(segment(0, isLang()) === "forums") {
+                echo $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, TRUE);
+                echo $this->js(_corePath ."/vendors/js/editors/markitup/sets/bbcode/set.js", NULL, TRUE);
+            ?>
+
+                <script type="text/javascript">
+                    $(document).on("ready", function() {
+                        $("textarea").markItUp(mySettings);
+                    });
+                </script>
+            <?php
+            }
+    
+            echo $this->js("$this->themeRoute/js/social.min.js", NULL, TRUE);
+            echo $this->js("$this->themeRoute/js/porlets.min.js", NULL, TRUE);
 
             echo $this->getJs(); 
 
@@ -35,6 +67,7 @@
         ?>
 
         <?php 
+
             if(segment(0, isLang()) === "live") {
             ?>
                 <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/handlebars.js", TRUE); ?>"></script>
