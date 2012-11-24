@@ -35,8 +35,8 @@
 		</header>
 		
 		<div id="content">
-			<iframe width="924" height="520" src="http://www.youtube.com/embed/u9_JvcmSjMM" frameborder="0" allowfullscreen></iframe>
-			
+			<iframe width="850" height="420" src="http://www.youtube.com/embed/St-30zsoDus" frameborder="0" allowfullscreen></iframe>
+						
 			<div class="ads">
 				<script type="text/javascript"><!--
 				google_ad_client = "ca-pub-4006994369722584";
