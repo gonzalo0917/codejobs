@@ -119,7 +119,7 @@ class Codes_Model extends ZP_Load {
 	}
 	
     public function add() {
-		$error = $this->editOrSave();
+		$error = $this->editOrSave("save");
 
 		if($error) {
 			return $error;
