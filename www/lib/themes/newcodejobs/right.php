@@ -3,11 +3,11 @@
 ?>
         <aside>
             <section class="social">
-                <a href="https://twitter.com/#!/codejobs" target="_blank"><img class="no-border" title="<?php echo __("Follow us on Twitter"); ?>" alt="<?php echo __("Follow us on Twitter"); ?>" src="<?php echo $this->themePath; ?>/images/social/twitter.png"></a>
+                <a href="https://twitter.com/#!/codejobs" class="social-twitter" target="_blank" title="<?php echo __("Follow us on Twitter"); ?>"></a>
                 
-                <a href="http://www.youtube.com/codejobs" target="_blank"><img class="no-border" title="<?php echo __("Subscribe to our Youtube channel"); ?>" alt="<?php echo __("Subscribe to our Youtube channel"); ?>" src="<?php echo $this->themePath; ?>/images/social/youtube.png"></a>
+                <a href="http://www.youtube.com/codejobs" class="social-youtube" target="_blank" title="<?php echo __("Subscribe to our Youtube channel"); ?>"></a>
                 
-                <a href="<?php echo path("blog/rss"); ?>" target="_blank"><img class="no-border" title="<?php echo __("Follow us with RSS"); ?>" alt="<?php echo __("Follow us with RSS"); ?>" src="<?php echo $this->themePath; ?>/images/social/rss.png"></a>
+                <a href="<?php echo path("blog/rss"); ?>" class="social-rss" target="_blank" title="<?php echo __("Follow us with RSS"); ?>"></a>
             </section>
 
             <div class="line"></div>
@@ -21,33 +21,38 @@
 
                 <ul>
                     <li>
-                        <img title="México" alt="México" src="<?php echo $this->themePath; ?>/images/flags/11am.png">
-                        <span class="schedule1">11:00 am</span>
+                        <span class="flag mexico-flag" title="México"></span>
+                        11:00 am
                     </li>
 
                     <li>
-                        <img title="Colombia-Perú-Ecuador-Panamá" alt="Colombia-Perú-Ecuador-Panamá" src="<?php echo $this->themePath; ?>/images/flags/12pm.png">
-                        <span class="schedule2">12:00 pm</span>
+                        <span class="flag peru-flag" title="Perú"></span>
+                        <span class="flag colombia-flag" title="Colombia"></span>
+                        <span class="flag ecuador-flag" title="Ecuador"></span>
+                        <span class="flag panama-flag" title="Panamá"></span>
+                        12:00 pm
                     </li>
 
                     <li>
-                        <img title="Venezuela" alt="Venezuela" src="<?php echo $this->themePath; ?>/images/flags/1230pm.png">
-                        <span class="schedule1">12:30 pm</span>
+                        <span class="flag venezuela-flag" title="Venezuela"></span>
+                        12:30 pm
                     </li>
 
                     <li>
-                        <img title="Chile-Argentina-Paraguay" alt="Chile-Argentina-Paraguay" src="<?php echo $this->themePath; ?>/images/flags/02pm.png">
-                        <span class="schedule3">02:00 pm</span>
+                        <span class="flag chile-flag" title="Chile"></span>
+                        <span class="flag argentina-flag" title="Argentina"></span>
+                        <span class="flag paraguay-flag" title="Paraguay"></span>
+                        02:00 pm
                     </li>
 
                     <li>
-                        <img title="Uruguay" alt="Uruguay" src="<?php echo $this->themePath; ?>/images/flags/03pm.png">
-                        <span class="schedule4">03:00 pm</span>
+                        <span class="flag uruguay-flag" title="Uruguay"></span>
+                        03:00 pm
                     </li>
 
                     <li>
-                        <img title="España" alt="España" src="<?php echo $this->themePath; ?>/images/flags/06pm.png">
-                        <span class="schedule4">06:00 pm</span>
+                        <span class="flag spain-flag" title="España"></span>
+                        06:00 pm
                     </li>
                 </ul>
             </section>

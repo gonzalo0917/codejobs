@@ -1,23 +1,27 @@
 $(document).ready(function() {
-	$("#display-languages").on("click", function() {
+	$("#display-languages").on("click", function(e) {
+		e.preventDefault();
 		$("#top-box-register").hide();
 		$("#top-box-login").hide();
 			$("#top-box-languages").slideToggle("slow");
 	});
 
-	$("#display-register").on("click", function() {
+	$("#display-register").on("click", function(e) {
+		e.preventDefault();
 		$("#top-box-languages").hide();
 		$("#top-box-login").hide();
 			$("#top-box-register").slideToggle("slow");
 	});
 
-	$("#display-login").on("click", function() {
+	$("#display-login").on("click", function(e) {
+		e.preventDefault();
 		$("#top-box-register").hide();
 		$("#top-box-languages").hide();
 			$("#top-box-login").slideToggle("slow");		
 	});
 
-	$("#display-profile").on("click", function() {
+	$("#display-profile").on("click", function(e) {
+		e.preventDefault();
 		$("#top-box-languages").hide();
 			$("#top-box-profile").slideToggle("slow");
 	});

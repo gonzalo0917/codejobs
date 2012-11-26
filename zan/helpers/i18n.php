@@ -113,7 +113,7 @@ function getLanguage($lang, $flags = FALSE) {
 	foreach($languages as $language) {
 		if($flags) {
 			if($language["language"] === $lang) {
-				return '<img class="flag no-border" src="'. _get("webURL") .'/www/lib/images/icons/flags/'. strtolower($lang) .'.png" alt="'. __($lang) .'" />';	
+				return '<span class="flag '. strtolower($language["lang"]) .'-flag"></span>';	
 			}
 		} else {
 			if($language["language"] === $lang) {

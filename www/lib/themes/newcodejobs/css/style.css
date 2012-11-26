@@ -206,6 +206,26 @@ aside .social {
 	margin-left: 30%;
 }
 
+aside .social a {
+	background-image: url(../images/social.png);
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+}
+
+aside .social .social-twitter {
+	background-position: 0px 0px;
+}
+
+aside .social .social-youtube {
+	background-position: -32px 0px;
+}
+
+aside .social .social-rss {
+	background-position: -64px 0px;
+}
+
 aside header {
 	text-align: center;
 }
@@ -234,6 +254,79 @@ aside .transmission ul {
 
 aside .transmission ul li {
     margin-bottom: 5px;
+    margin-right: 4px;
+	text-align: right;
+}
+
+aside .transmission ul li .flag {
+	background-image: url(../images/flags.gif);
+	background-repeat: no-repeat;
+	display: inline-block;
+	float: left;
+	margin-right: 3px;
+	margin-top: 5px;
+	height: 11px;
+	width: 16px;
+}
+
+.mexico-flag, .es-flag {
+	background-position: 0px 0px;
+}
+
+.colombia-flag {
+	background-position: -16px 0px;
+}
+
+.peru-flag {
+	background-position: -32px 0px;
+}
+
+.ecuador-flag {
+	background-position: -48px 0px;
+}
+
+.panama-flag {
+	background-position: -64px 0px;
+}
+
+.venezuela-flag {
+	background-position: -80px 0px;
+}
+
+.chile-flag {
+	background-position: -96px 0px;
+}
+
+.argentina-flag {
+	background-position: -112px 0px;
+}
+
+.paraguay-flag {
+	background-position: -128px 0px;
+}
+
+.uruguay-flag {
+	background-position: -144px 0px;
+}
+
+.spain-flag {
+	background-position: -160px 0px;
+}
+
+.en-flag {
+	background-position: -176px 0px;
+}
+
+.fr-flag {
+	background-position: -192px 0px;
+}
+
+.it-flag {
+	background-position: -208px 0px;
+}
+
+.pt-flag {
+	background-position: -224px 0px;
 }
 
 footer p {
@@ -283,26 +376,30 @@ footer a:hover {
 	background-color: #F9F9F9;
 }
 
-/* Schedule */
-.schedule1 {
-	padding-left: 155px;
-}
-
-.schedule2 {
-	padding-left: 98px;
-}
-
-.schedule3 {
-	padding-left: 118px;
-}
-
-.schedule4 {
-	padding-left: 156px;
-}
-
 /* Top bar */
-#top-box .flag {
+#topbar .flag {
+	background-image: url(../images/flags.gif);
+	background-repeat: no-repeat;
+	display: inline-block;
+	float: none;
+	height: 11px;
+	margin-left: 0px;
+	width: 16px;
 	vertical-align: middle;
+}
+
+#top-box-languages .flag {
+	margin-left: 1px;
+	margin-top: -8px;
+}
+
+#top-box .arrow-down {
+	background-image: url(../images/arrow-down.png);
+	display: inline-block;
+	float: none;
+	height: 10px;
+	margin-left: 0px;
+	width: 7px;
 }
 
 #top-box ul {
@@ -330,7 +427,7 @@ footer a:hover {
 
 #top-box-languages {
 	border: 1px solid #000;
-	width: 100px;
+	width: 103px;
 	height: 30px;
 	position: absolute;
 	top: 32px;

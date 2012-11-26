@@ -63,11 +63,11 @@
 				</nav>
 
 				<div id="top-box-languages" class="toggle">
-					<a href="<?php echo path("es"); ?>" title="<?php echo __("Spanish"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/es.png" alt="Spanish" class="noborder" /></a>
-					<a href="<?php echo path("en"); ?>" title="<?php echo __("English"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/en.png" alt="English" class="noborder" /></a>
-					<a href="<?php echo path("fr"); ?>" title="<?php echo __("French"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/fr.png" alt="French" class="noborder" /></a>
-					<a href="<?php echo path("pt"); ?>" title="<?php echo __("Portuguese"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/pt.png" alt="Portuguese" class="noborder" /></a>
-					<a href="<?php echo path("it"); ?>" title="<?php echo __("Italian"); ?>"><img src="<?php echo $this->themePath; ?>/images/flags/it.png" alt="Italian" class="noborder" /></a>
+					<a href="<?php echo path("es"); ?>" title="<?php echo __("Spanish"); ?>" class="flag es-flag"></a>
+					<a href="<?php echo path("en"); ?>" title="<?php echo __("English"); ?>" class="flag en-flag"></a>
+					<a href="<?php echo path("fr"); ?>" title="<?php echo __("French"); ?>" class="flag fr-flag"></a>
+					<a href="<?php echo path("pt"); ?>" title="<?php echo __("Portuguese"); ?>" class="flag pt-flag"></a>
+					<a href="<?php echo path("it"); ?>" title="<?php echo __("Italian"); ?>" class="flag it-flag"></a>
 				</div>
 
 				<div id="top-box-register" class="toggle">
@@ -161,13 +161,13 @@
 						?>
 								<li class="float-right">
 									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
-										<?php echo __("Login"); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" class="noborder" />
+										<?php echo __("Login"); ?> <span class="arrow-down"></span>
 									</a>
 								</li>
 								
 								<li class="float-right">
 									<a id="display-register" href="#" title="<?php echo __("Register!"); ?>">
-										<?php echo __("Register!"); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" class="noborder" />
+										<?php echo __("Register!"); ?> <span class="arrow-down"></span>
 									</a>
 								</li>
 						<?php
@@ -175,7 +175,7 @@
 						?>
 								<li class="float-right">
 									<a id="display-profile" href="#" title="<?php echo __("Hi"); ?>">
-										<?php echo __("Hi") .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" class="noborder" />
+										<?php echo __("Hi") .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <span class="arrow-down"></span>
 									</a>
 								</li>
 						<?php
@@ -184,7 +184,7 @@
 						
 						<li class="float-right">
 							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
-								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __("Language"); ?> <img src="<?php echo $this->themePath; ?>/images/arrow-down.png" class="noborder" />
+								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
 							</a>
 						</li>
 					</ul>
