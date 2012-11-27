@@ -392,7 +392,7 @@ function quotes($text) {
 	$text = str_replace("?t", "'t", $text);
 	$text = str_replace("s?", "s", $text); 
 
-	return $text;
+	return stripslashes($text);
 }
 
 function getBetween($content, $start, $end) {

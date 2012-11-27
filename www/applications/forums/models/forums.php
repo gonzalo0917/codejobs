@@ -99,76 +99,11 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	public function getByID($ID) {		
-		$data = $this->Db->find($ID, $this->table);
-		
-		return $data;
+		return $this->Db->find($ID, $this->table);
 	}
 	
-	public function getByDefault($language = "Spanish") {
-		$forums = $this->Db->findBySQL("Language = '$language' AND Situation = 'Active'", $this->table);
-		
-		if($forums) {
-			$i = 0;
-
-			foreach($forums as $forum) {
-				$data[$i]["ID_Forum"]    = $forum["ID_Forum"];
-				$data[$i]["Title"]       = $forum["Title"];
-				$data[$i]["Slug"]        = $forum["Slug"];
-				$data[$i]["Description"] = $forum["Description"];
-				$data[$i]["editURL"]     = path("forums/cpanel/edit/". $forum["ID_Forum"]);
-				$data[$i]["deleteURL"]   = path("forums/cpanel/trash/". $forum["ID_Forum"]);
-				
-				if($forum["Topics"] < 1) {
-					$data[$i]["Topics"]     = 0;
-					$data[$i]["Replies"]    = 0;
-					$data[$i]["Last_Reply"] = __("There are not replies");
-					$data[$i]["Last_Date"]  = NULL;
-					$data[$i]["Situation"]  = $forum["Situation"];
-				} else {
-					$data[$i]["Topics"]  = $forum["Topics"];
-					$data[$i]["Replies"] = $forum["Replies"];
-					
-					$ID_Last = $forum["Last_Reply"];
-					
-					$reply = $this->Db->findBySQL("ID_Post = '$ID_Last' AND Situation = 'Active'", "forums_posts");
-					
-					if($reply) {
-						$data[$i]["Last_Reply"]           = $forum["Last_Reply"];
-						$data[$i]["Last_Reply_Title"]     = $reply[0]["Title"];
-						$data[$i]["Last_Reply_Slug"]      = $reply[0]["Slug"];
-						$data[$i]["Last_Reply_Author"]    = $reply[0]["Author"];
-						$data[$i]["Last_Reply_Author_ID"] = $reply[0]["ID_User"];
-						$data[$i]["Last_Reply_Content"]   = $reply[0]["Content"];				
-						$data[$i]["Last_Date"]            = $forum["Last_Date"];
-						$data[$i]["Last_Date2"]           = $reply[0]["Start_Date"];
-
-						$page = $this->getPage($reply[0]["ID_Parent"]);
-						
-						$data[$i]["Last_URL"] = path("forums/". $data[$i]["Slug"] ."/". $reply[0]["ID_Parent"] ."/page/". $page ."/#bottom");
-					} else {
-						$ID_Forum = $forum["ID_Forum"];
-						
-						$topic = $this->Db->findBySQL("ID_Forum = '$ID_Forum' AND Topic = 1 and Situation = 'Active' ORDER BY ID_Post DESC LIMIT 1", "forums_posts");
-						
-						$data[$i]["Last_Reply"]           = $topic[0]["ID_Post"];
-						$data[$i]["Last_Reply_Title"]     = $topic[0]["Title"];
-						$data[$i]["Last_Reply_Slug"]      = $topic[0]["Slug"];
-						$data[$i]["Last_Reply_Author"]    = $topic[0]["Author"];
-						$data[$i]["Last_Reply_Author_ID"] = $topic[0]["ID_User"];
-						$data[$i]["Last_Reply_Content"]   = $topic[0]["Content"];				
-						$data[$i]["Last_Date"]            = $topic[0]["Text_Date"];
-						$data[$i]["Last_Date2"]           = $topic[0]["Start_Date"];
-						$data[$i]["Last_URL"]             = path("forums" . _sh . $data[$i]["Slug"] . _sh . $topic[0]["ID_Post"] . _sh);
-					}
-				}				
-				
-				$i++;
-			}
-
-			return $data;
-		} else {
-			return FALSE;
-		}
+	public function getForums($language = "Spanish") {
+		return $this->Db->findBySQL("Language = '$language' AND Situation = 'Active'", $this->table);
 	}
 	
 	public function getByForum($slug, $language = "Spanish") {	
