@@ -91,7 +91,7 @@ class Codes_Model extends ZP_Load {
 		} else {
 			$data["Modified_Date"] = now(4);
 		}
-                
+        
 		$this->Data->ignore(array("file", "programming", "syntax", "syntaxname", "name", "code"));
 		
 		$this->data = $this->Data->proccess($data, $validations);
@@ -126,7 +126,7 @@ class Codes_Model extends ZP_Load {
 		}
 		
 		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
-
+		
 		if(($lastID = $this->Db->insert($this->table, $this->data)) !== FALSE) {
             $this->data = $this->proccessFiles($lastID);
                         
