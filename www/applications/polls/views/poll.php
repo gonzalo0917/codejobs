@@ -2,14 +2,14 @@
 	if(isset($special)) {
 		$class = "polls-special-width";
 	?>
-		<div class="polls-special">
+	<div id="poll-container">
 	<?php
 	} else {
 		$class = "polls-width";
+	}
 	?>
 		<div class="polls">
 	<?php
-	}	
 
 	if(isset($poll["answers"])) {
 		if(!COOKIE("ZanPoll") and !$results) {
@@ -35,8 +35,8 @@
 					<input name="URL" type="hidden" value="<?php echo $URL; ?>" />			
 				  
 					<div class="poll-send-vote">
-						<input id="send-vote" name="send" type="submit" value="<?php echo __("Vote");?>" class="poll-submit" />
-						<input id="results" name="results" type="submit" value="<?php echo __("Results");?>" class="poll-submit" />
+						<input id="send-vote" type="button" value="<?php echo __("Vote");?>" />
+						<input id="results" name="results" type="submit" value="<?php echo __("Results");?>" />
 					</div>
 				</form>
 			<?php
@@ -98,11 +98,24 @@
 						<span class="poll-total"><strong><?php echo __("Total");?>:</strong> <?php echo $show; ?></span>
 					</p>
 					<?php
+
+				if($already) {
+					?>
+					<script>alert("<?php echo __("You have previously voted on this poll"); ?>");</script>
+					<?php
+				}
 			}
 		}
 	}
 ?>
 </div>
+<?php
+	if(isset($special)) {
+?>
+</div>
+<?php
+	}
+?>
 <br />
 
 <?php 
@@ -130,3 +143,10 @@
 		<div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="2" data-width="750"></div>
 	<?php
 	}
+?>
+
+<script>
+var empty_message   = "<?php echo __("You must choose an answer"); ?>",
+	sending_message = "<?php echo __("Voting"); ?>",
+	poll_selector   = "<?php echo isset($special) ? "#poll-container" : "section.polls"; ?>";
+</script>
