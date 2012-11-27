@@ -85,8 +85,4 @@ class Polls_Controller extends ZP_Load {
 			redirect($URL);
 		}
 	}
-
-	function ajax() {
-		echo "Esta es una prueba con ajax";
-	}
 }
