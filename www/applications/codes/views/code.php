@@ -27,12 +27,18 @@
 		?>
 	</span>
 
-    <div class="addthis_toolbox addthis_default_style ">
-        <a class="addthis_button_tweet" tw:via="codejobs" addthis:title="#Code <?php echo $code["Title"]; ?>" tw:url="<?php echo path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]); ?>"></a>
+    <div class="social">
+        <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style">
+                <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                <a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($code["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>
+                <a class="addthis_button_pinterest_pinit"></a>
+                <a class="addthis_counter addthis_pill_style"></a>
+            </div>
+            <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b64f6b39227d84"></script>
+        <!-- AddThis Button END -->
     </div>
-
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-    <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-5026e83358e73317"></script> 
 
     <?php
         if($code["Description"] !== "") {
