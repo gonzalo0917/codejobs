@@ -30,7 +30,7 @@
 				<div class="social" style="position: relative; z-index:100;">
 					<!-- AddThis Button BEGIN -->
 						<div class="addthis_toolbox addthis_default_style" addthis:url="<?php echo $URL; ?>" addthis:title="<?php echo stripslashes($post["Title"]); ?>">							
-							<a class="addthis_button_tweet" tw:via="codejobs"></a>
+							<a class="addthis_button_tweet" tw:via="codejobs" tw:title="<?php echo stripslashes($post["Title"]); ?>"></a>
 							<a class="addthis_button_pinterest_pinit"></a>
 							<a class="addthis_counter addthis_pill_style"></a>
 						</div>
