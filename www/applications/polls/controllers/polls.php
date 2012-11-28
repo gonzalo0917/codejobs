@@ -77,12 +77,10 @@ class Polls_Controller extends ZP_Load {
 			$vote = $this->Polls_Model->vote();
 			
 			if($vote === FALSE) {
-				$URL = POST("URL") ."already";
+				$this->last("results", "already");
 			} else {
-				$URL = POST("URL");
+				$this->last("results");
 			}
-
-			redirect($URL);
 		}
 	}
 }

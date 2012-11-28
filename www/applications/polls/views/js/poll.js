@@ -9,8 +9,7 @@ $("#send-vote").click(function(e) {
 		$(this).attr("disabled", true);
 		$(poll_selector).load(PATH + "/polls/vote/", {
 			"answer": found,
-			"ID_Poll": $("input[name='ID_Poll']").val(),
-			"URL": PATH + "/polls/last/results/"
+			"ID_Poll": $("input[name='ID_Poll']").val()
 		});
 	} else {
 		alert(empty_message);
