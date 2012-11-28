@@ -36,15 +36,16 @@ class Buffer_Controller extends ZP_Load {
 
 			if(strlen($profile) === 24) {
 				foreach($tweets as $tweet) {
-					$data = array(
-						"text" 			=> stripslashes($tweet["Phrase"]) ." vía @SiempreSabio",
-						"profile_ids[]" => $profile
-					);					
+					if(strlen($tweet["Phrase"]) <= 140) {
+						$data = array(
+							"text" 			=> stripslashes($tweet["Phrase"]) ." vía @SiempreSabio",
+							"profile_ids[]" => $profile
+						);					
 
-					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+						$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
-					$this->RESTClient->POST($data);
-					
+						$this->RESTClient->POST($data);
+					}
 				}
 			}
 		} elseif($app === "blog") {
