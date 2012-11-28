@@ -38,7 +38,7 @@ class Buffer_Controller extends ZP_Load {
 				foreach($tweets as $tweet) {
 					if(strlen($tweet["Phrase"]) <= 140) {
 						$data = array(
-							"text" 			=> stripslashes($tweet["Phrase"]) ." vía @SiempreSabio",
+							"text" 			=> stripslashes($tweet["Phrase"]),
 							"profile_ids[]" => $profile
 						);					
 
