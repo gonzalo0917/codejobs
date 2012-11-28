@@ -36,7 +36,23 @@
 				  
 					<div class="poll-send-vote">
 						<input id="send-vote" type="button" value="<?php echo __("Vote");?>" />
-						<input id="results" name="results" type="submit" value="<?php echo __("Results");?>" />
+						<input id="results" type="button" value="<?php echo __("Results");?>" />
+						<div id="warningGradientOuterBarG">
+							<div id="warningGradientFrontBarG" class="warningGradientAnimationG">
+								<div class="warningGradientBarLineG">
+								</div>
+								<div class="warningGradientBarLineG">
+								</div>
+								<div class="warningGradientBarLineG">
+								</div>
+								<div class="warningGradientBarLineG">
+								</div>
+								<div class="warningGradientBarLineG">
+								</div>
+								<div class="warningGradientBarLineG">
+								</div>
+							</div>
+						</div>
 					</div>
 				</form>
 			<?php
