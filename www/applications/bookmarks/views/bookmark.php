@@ -31,7 +31,7 @@
 	<div class="social">
 		<!-- AddThis Button BEGIN -->
 			<div class="addthis_toolbox addthis_default_style">
-				<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="<?php echo $URL; ?>" addthis:title="<?php echo stripslashes($bookmark["Title"]); ?>"></a>
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:url="<?php echo $URL; ?>" fb:like:title="<?php echo stripslashes($bookmark["Title"]); ?>"></a>
 				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($bookmark["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>
 				<a class="addthis_button_pinterest_pinit"></a>
 				<a class="addthis_counter addthis_pill_style"></a>
