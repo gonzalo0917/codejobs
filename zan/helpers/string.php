@@ -366,12 +366,17 @@ function encode($text, $URL = FALSE) {
 function filter($text, $filter = FALSE) {
 	if(is_null($text)) {
 		return FALSE;
-	}
+	} 
 	
 	if($text === TRUE) {
 		return TRUE;
 	} elseif($filter === TRUE) {
 		$text = cleanHTML($text);		
+	} elseif($filter === "remove") { 
+		$text = str_replace("\'", "", $text);
+		$text = str_replace('\"', "", $text);
+		$text = str_replace("'", "", $text);
+		$text = str_replace('"', "", $text);
 	} else {	
 		$text = addslashes($text);
 	}

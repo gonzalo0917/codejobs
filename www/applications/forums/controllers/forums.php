@@ -23,11 +23,62 @@ class Forums_Controller extends ZP_Load {
 	
 	public function index() {
 		$this->title("Forums");		
+
+		if(segment(1, isLang()) and segment(2, isLang()) > 0 and segment(3, isLang())) {
+			$postID = segment(2, isLang());
+
+			$this->getPost($postID);
+		} elseif(segment(1, isLang())) {
+			$forum = segment(1, isLang());
+
+			$this->getForum($forum);
+		} else {
+			$this->getForums();
+		}		
 	}
 	
 	public function getForums() {
 		$data = $this->Forums_Model->getForums($this->language);
 
-		die(var_dump($data));
+		if($data) {
+			$vars["forums"] = $data;
+			$vars["view"]   = $this->view("forums", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
+	}
+
+	public function getForum($forum) {
+		$data = $this->Forums_Model->getByForum($forum, $this->language);
+
+		if($data) {
+			$this->helper("time");
+			$this->css("posts", "blog");
+
+			$vars["posts"] = $data;
+			$vars["view"]  = $this->view("forum", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
+	}
+
+	public function getPost($postID) {
+		$data = $this->Forums_Model->getPost($postID);
+
+		if($data) {
+			$this->helper("time");
+			$this->css("posts", "blog");
+
+			$vars["posts"] = $data;
+			$vars["view"]  = $this->view("posts", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
 	}
 }

@@ -488,7 +488,7 @@ function segment($segment = 0, $isLang = FALSE) {
 				return (int) 0;
 			}
 				
-			return filter($route[$segment]);
+			return filter($route[$segment], "remove");
 		} else {
 			return FALSE;
 		}
