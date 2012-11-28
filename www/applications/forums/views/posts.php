@@ -49,7 +49,14 @@
 										</p>', 4);
 						?>
 					</div>
-				</div>					
+				</div>			
+
+				<div class="comments-editor">
+					<form action="">
+						<textarea name="comment"></textarea> <br />
+						<input name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
+					</form>
+				</div>		
 				<?php
 
 				if($count > 0) {

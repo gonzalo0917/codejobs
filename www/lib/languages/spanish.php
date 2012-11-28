@@ -46,6 +46,7 @@ $phrase["cpanel"]										= "CPanel";
 $phrase["code"] 										= "Código";
 $phrase["codes"] 	 									= "Códigos";
 $phrase["codes_of"] 	 								= "Códigos de";
+$phrase["_comment"] 									= "Comentar";
 $phrase["comment"] 										= "Comentario";
 $phrase["comments"] 									= "Comentarios";
 $phrase["comments_validations"] 						= "Validación de comentarios";
