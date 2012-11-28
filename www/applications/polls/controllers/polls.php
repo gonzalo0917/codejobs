@@ -35,7 +35,9 @@ class Polls_Controller extends ZP_Load {
 		if($data) {		
 			$this->title(decode($data["question"]["Title"]));
 			$this->CSS("polls", $this->application);
+			$this->js("poll", $this->application);
 
+			$vars["already"] = FALSE;
 			$vars["results"] = $results;
 			$vars["poll"] 	 = $data;
 			$vars["special"] = TRUE;
@@ -47,7 +49,7 @@ class Polls_Controller extends ZP_Load {
 		}
 	}
 	
-	public function last() {	
+	public function last($results = FALSE, $already = FALSE) {	
 		$this->config("polls");
 		
 		$this->Polls_Model = $this->model("Polls_Model");
@@ -56,8 +58,10 @@ class Polls_Controller extends ZP_Load {
 		
 		if($data) {
 			$this->CSS("polls", $this->application);
-			
-			$vars["results"] = FALSE;
+			$this->js("poll", $this->application);
+
+			$vars["already"] = $already;
+			$vars["results"] = $results;
 			$vars["poll"]    = $data;			
 			
 			$this->view("poll", $vars, "polls");
@@ -69,14 +73,16 @@ class Polls_Controller extends ZP_Load {
 	public function vote() {
 		if(POST("results")) {
 			redirect(POST("URL") ."/results");
-		} else {
-			if(!POST("answer")) {
-				showAlert("You must select an answer", POST("URL"));
-			}		
+		} elseif(POST("answer")) {
+			$vote = $this->Polls_Model->vote();
 			
-			$this->Polls_Model->vote();
-			
-			showAlert("Thanks for your vote", POST("URL"));
+			if($vote === FALSE) {
+				$URL = POST("URL") ."already";
+			} else {
+				$URL = POST("URL");
+			}
+
+			redirect($URL);
 		}
 	}
 }
