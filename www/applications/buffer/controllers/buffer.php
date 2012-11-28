@@ -29,7 +29,25 @@ class Buffer_Controller extends ZP_Load {
 		
 		$count = count($this->bufferProfiles) - 1;
 
-		if($app === "blog") {
+		if($app === "sabio") {
+			$this->Blog_Model = $this->model("Blog_Model");
+
+			$tweets = $this->Blog_Model->getBufferSabio();
+
+			if(strlen($profile) === 24) {
+				foreach($tweets as $tweet) {
+					$data = array(
+						"text" 			=> stripslashes($tweet["Phrase"]) ." vía @SiempreSabio",
+						"profile_ids[]" => $profile
+					);					
+
+					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+
+					$this->RESTClient->POST($data);
+					
+				}
+			}
+		} elseif($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
 			$posts = $this->Blog_Model->getBufferPosts($language);			
@@ -61,7 +79,6 @@ class Buffer_Controller extends ZP_Load {
 					$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
 					$this->RESTClient->POST($data);
-					
 				}
 			} 				
 		} elseif($app === "bookmarks") {
