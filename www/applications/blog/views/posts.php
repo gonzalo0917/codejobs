@@ -47,7 +47,7 @@ if(is_array($posts)) {
 				<div class="social" style="position: relative; z-index:100;">
 					<!-- AddThis Button BEGIN -->
 						<div class="addthis_toolbox addthis_default_style" addthis:url="<?php echo $URL; ?>" addthis:title="<?php echo stripslashes($post["Title"]); ?>">
-							<a class="addthis_button_facebook_like"></a>
+							<a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:action="recommend">
 							<a class="addthis_button_tweet" tw:via="codejobs"></a>
 							<a class="addthis_button_google_plusone_badge"></a>
 						</div>
