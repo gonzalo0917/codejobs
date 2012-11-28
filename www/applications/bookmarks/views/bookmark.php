@@ -28,7 +28,7 @@
 		?>
 	</span>
 
-	<div class="social">
+	<div class="social" style="position: relative; z-index:100;">
 		<!-- AddThis Button BEGIN -->
 			<div class="addthis_toolbox addthis_default_style">
 				<a class="addthis_button_facebook_like" fb:like:layout="button_count" fb:like:url="<?php echo $URL; ?>" fb:like:title="<?php echo stripslashes($bookmark["Title"]); ?>"></a>
