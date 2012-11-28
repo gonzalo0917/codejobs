@@ -30,7 +30,7 @@
 				<div class="social">
 					<!-- AddThis Button BEGIN -->
 						<div class="addthis_toolbox addthis_default_style">
-							<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+							<a class="addthis_button_facebook_like" fb:like:layout="button_count" addthis:url="<?php echo $URL; ?>" addthis:title="<?php echo stripslashes($post["Title"]); ?>"></a>
 							<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($post["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>
 							<a class="addthis_button_pinterest_pinit"></a>
 							<a class="addthis_counter addthis_pill_style"></a>
@@ -41,7 +41,7 @@
 				</div>
 
 				<?php echo showContent($post["Content"], $URL); ?>
-				
+
 				<br />
 
 				<a href="https://twitter.com/codejobs" class="twitter-follow-button" data-show-count="false" data-lang="es" data-size="large"><?php echo __("Follow"); ?> @codejobs</a>
