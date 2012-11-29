@@ -146,11 +146,42 @@ section.polls .polls {
 
 .answer-chosen {
 	background:#3478E3;
-	animation-name:selected;
-	animation-duration:3s;
+	animation:selected 3s;
+	-moz-animation:selected 3s;
+	-ms-animation:selected 3s;
+	-o-animation:selected 3s;
+	-webkit-animation:selected 3s;
 }
 
 @keyframes selected
+{
+	from { background:#C80000; }
+	70% { background:#C80000; }
+	to { background:#3478E3; }
+}
+
+@-moz-keyframes selected
+{
+	from { background:#C80000; }
+	70% { background:#C80000; }
+	to { background:#3478E3; }
+}
+
+@-ms-keyframes selected
+{
+	from { background:#C80000; }
+	70% { background:#C80000; }
+	to { background:#3478E3; }
+}
+
+@-o-keyframes selected
+{
+	from { background:#C80000; }
+	70% { background:#C80000; }
+	to { background:#3478E3; }
+}
+
+@-webkit-keyframes selected
 {
 	from { background:#C80000; }
 	70% { background:#C80000; }
