@@ -660,4 +660,16 @@ class ZP_Load {
 		
 		return $this->Templates->ignoreArgs(func_get_args());
 	}
+
+	/**
+     * Verifies if CSS file is minified
+     * 
+     * @param boolean $print = TRUE
+     * @return boolean value
+     */
+	public function isCssMinified($print = TRUE) {
+		$this->Templates = $this->core("Templates");
+		
+		return $this->Templates->isMinified("CSS", $print);
+	}
 }

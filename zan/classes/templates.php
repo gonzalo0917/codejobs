@@ -521,8 +521,22 @@ class ZP_Templates extends ZP_Load {
 	public function vars($vars) {
 		$this->vars = $vars;
 	}
-	
+
+	/**
+     * Set ignored arguments
+     *
+     * @return void
+     */	
 	public function ignoreArgs($arguments = array()) {
 		$this->ignoredArgs = $arguments;
+	}
+
+	/**
+     * Verifies if the $script file is minified
+     *
+     * @return boolean value
+     */
+	public function isMinified($script, $print) {
+		return FALSE;
 	}
 }
