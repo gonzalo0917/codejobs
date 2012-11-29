@@ -61,6 +61,12 @@
 				$total = 0;
 				$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
 
+				if(POST("answer")) {
+					$answer = (int) POST("answer");
+				} else {
+					$answer = FALSE;
+				}
+
 				foreach($poll["answers"] as $answers) {
 					$total = (int) ($total + $answers["Votes"]);
 				}
@@ -98,7 +104,11 @@
 								<span class="poll-answer"><?php echo $answers["Answer"]; ?> (<?php echo $percentage; ?>%)</span> <br />
 								
 								<div class="poll-graphic">
-									<div style="<?php echo $style; ?>">&nbsp;</div>
+									<div style="<?php echo $style; ?>"<?php
+										if((int) $answers["ID_Answer"] === $answer) {
+											echo ' class="answer-chosen"';
+										}
+									?>>&nbsp;</div>
 								</div>
 								
 						<?php

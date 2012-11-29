@@ -143,3 +143,16 @@ section.polls .polls {
 	margin-left:-24px;
 	}
 }
+
+.answer-chosen {
+	background:#3478E3;
+	animation-name:selected;
+	animation-duration:3s;
+}
+
+@keyframes selected
+{
+	from { background:#C80000; }
+	70% { background:#C80000; }
+	to { background:#3478E3; }
+}
