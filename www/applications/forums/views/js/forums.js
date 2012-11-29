@@ -36,7 +36,7 @@ $(document).on("ready", function() {
 			tags = "";
 		}
 
-		if(title.length > 5 && content.length > 30) {
+		if(title.length > 5 && content.length > 10) {
 			$.ajax({
 				type: 'POST',
 				url:   PATH + '/forums/publish',
