@@ -672,4 +672,16 @@ class ZP_Load {
 		
 		return $this->Templates->isMinified("CSS", $print);
 	}
+
+	/**
+     * Verifies if JS file is minified
+     * 
+     * @param boolean $print = TRUE
+     * @return boolean value
+     */
+	public function isJsMinified($print = TRUE) {
+		$this->Templates = $this->core("Templates");
+		
+		return $this->Templates->isMinified("JS", $print);
+	}
 }
