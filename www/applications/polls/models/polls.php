@@ -161,7 +161,7 @@ class Polls_Model extends ZP_Load {
 		$data = $this->Db->findBySQL("ID_Poll = '$ID_Poll' AND IP = '$IP' AND End_Date > $date", "polls_ips", "ID_Poll, IP, Start_Date, End_Date");
 		
 		if($data) {
-			//COOKIE("ZanPoll", $ID_Poll, 3600);
+			COOKIE("ZanPoll", $ID_Poll, 3600);
 			
 			return FALSE;
 		} else {								
@@ -174,9 +174,9 @@ class Polls_Model extends ZP_Load {
 				"End_Date"	 => $end
 			);
 
-			//$this->Db->insert("polls_ips", $data);
+			$this->Db->insert("polls_ips", $data);
 			
-			//COOKIE("ZanPoll", $ID_Poll, 3600);
+			COOKIE("ZanPoll", $ID_Poll, 3600);
 		}
 		
 		return TRUE;
