@@ -19,8 +19,10 @@
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
 	
     <?php
-    	if(!$this->isCssMinified()) {
-    		$this->CSS("www/lib/css/default.min.css", NULL, TRUE);
+    	if(_get("optimization")) {
+    		$this->CSS("www/lib/css/full.css", NULL, TRUE);
+    	} else {
+	    	$this->CSS("www/lib/css/default.min.css", NULL, TRUE);
 	    	$this->CSS("$this->themeRoute/css/style.min.css", NULL, TRUE);
 	    	$this->CSS("$this->themeRoute/css/mediaqueries.min.css", NULL, TRUE);
 
@@ -45,11 +47,9 @@
 				$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", NULL, TRUE);
 				$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", NULL, TRUE);
 			}
-
-			echo $this->getCSS();
 		}
 
-		echo $this->js("jquery", NULL, TRUE);
+		echo $this->getCSS(); 		
     ?>
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 </head>

@@ -29,7 +29,11 @@
         
                 <?php 
                 }   
-                
+
+                echo $this->js("jquery", NULL, TRUE);         
+                echo $this->js("$this->themeRoute/js/social.min.js", NULL, TRUE);
+                echo $this->js("$this->themeRoute/js/porlets.min.js", NULL, TRUE);                           
+
                 if(segment(0, isLang()) !== "forums") {         
                     if(defined("_codemirror")) {
                         echo $this->js("codemirror", NULL, TRUE);
@@ -52,22 +56,6 @@
                     <?php
                     }
                 }
-        
-                echo $this->js("$this->themeRoute/js/social.min.js", NULL, TRUE);
-                echo $this->js("$this->themeRoute/js/porlets.min.js", NULL, TRUE);
-
-                echo $this->getJs(); 
-
-                echo display('<script type="text/javascript">
-                                var sc_project = 7655788; 
-                                var sc_invisible = 1; 
-                                var sc_security = "f167f55b"; 
-                            </script> 
-
-                            <script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);
-            ?>
-
-            <?php 
 
                 if(segment(0, isLang()) === "live") {
                 ?>
@@ -87,6 +75,9 @@
                     </script>
                 <?php
                 }
-                ?>
+                
+                echo $this->getJs();     
+                echo display('<script type="text/javascript">var sc_project = 7655788;var sc_invisible = 1;var sc_security = "f167f55b";</script><script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);         
+            ?>
         </body>
     </html>

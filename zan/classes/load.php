@@ -613,7 +613,12 @@ class ZP_Load {
 		} 
 
 		if(!is_null($application)) {
-			$view = "www/applications/$application/views/$name.php";
+			$view    = "www/applications/$application/views/$name.php";
+			$minView = "www/applications/$application/views/min/$name.php";
+
+			if(_get("environment") > 2 and file_exists($minView)) {
+				$view = $minView;
+			}
 			
 			if(is_array($vars)) {
 				$key  = array_keys($vars);
@@ -659,29 +664,5 @@ class ZP_Load {
 		$this->Templates = $this->core("Templates");
 		
 		return $this->Templates->ignoreArgs(func_get_args());
-	}
-
-	/**
-     * Verifies if CSS file is minified
-     * 
-     * @param boolean $print = TRUE
-     * @return boolean value
-     */
-	public function isCssMinified($print = TRUE) {
-		$this->Templates = $this->core("Templates");
-		
-		return $this->Templates->isMinified("CSS", $print);
-	}
-
-	/**
-     * Verifies if JS file is minified
-     * 
-     * @param boolean $print = TRUE
-     * @return boolean value
-     */
-	public function isJsMinified($print = TRUE) {
-		$this->Templates = $this->core("Templates");
-		
-		return $this->Templates->isMinified("JS", $print);
 	}
 }
