@@ -25,10 +25,11 @@ $ZP["benchMark"]	= FALSE;
  *  3. Stage  
  *  4. Production
  */
-$ZP["environment"] = 1;
-$ZP["domain"] 	   = FALSE;
-$ZP["modRewrite"]  = FALSE;
-$ZP["autoRender"]  = TRUE;
+$ZP["environment"]  = 1;
+$ZP["optimization"] = TRUE;
+$ZP["domain"] 	    = FALSE;
+$ZP["modRewrite"]   = FALSE;
+$ZP["autoRender"]   = TRUE;
 
 /**
  * Applications
