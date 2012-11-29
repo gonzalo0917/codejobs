@@ -1,7 +1,6 @@
 var loading = false;
 
 $("#send-vote").click(function(e) {
-	e.preventDefault();
 	var found = false;
 	$("#polls input[type='radio']").each(function() {
 		if (this.checked) found = this.value;
@@ -28,7 +27,11 @@ $("#send-vote").click(function(e) {
 $("#results").click(function(e) {
 	$("#polls input[type='button']").fadeOut(function() {
 		$("#warningGradientOuterBarG").fadeIn(function() {
-			
+			if (!loading) {
+				loading = true;
+
+				$(poll_selector).load(PATH + "/polls/last/results/", new Function("loading = false"));
+			}
 		});
 	});
 });

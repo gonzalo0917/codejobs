@@ -71,9 +71,7 @@ class Polls_Controller extends ZP_Load {
 	}
 	
 	public function vote() {
-		if(POST("results")) {
-			redirect(POST("URL") ."/results");
-		} elseif(POST("answer")) {
+		if(POST("answer")) {
 			$vote = $this->Polls_Model->vote();
 			
 			if($vote === FALSE) {
