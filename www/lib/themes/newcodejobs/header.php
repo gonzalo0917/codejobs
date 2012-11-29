@@ -8,8 +8,11 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 	<?php echo $this->getMeta(); ?>
+	
 	<title><?php echo $this->getTitle(); ?></title>
+	
 	<link href="<?php echo path("blog/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Blog"); ?>" />
 	<link href="<?php echo path("bookmarks/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Bookmarks"); ?>" >
 	<link href="<?php echo path("codes/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Codes"); ?>" >
@@ -25,8 +28,7 @@
     	}
 
     	if(segment(0, isLang()) === "forums") {
-            $this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.min.css", NULL, TRUE);
-            $this->CSS(_corePath ."/vendors/js/editors/markitup/sets/bbcode/style.min.css", NULL, TRUE);
+            $this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, TRUE);
         }
 
         if(defined("_bootstrap")) {
@@ -37,14 +39,19 @@
             $this->CSS("codemirror", NULL, TRUE);
         }
 
-		$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", NULL, TRUE);
-		$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", NULL, TRUE);
-		$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", NULL, TRUE);
+        if(segment(0, isLang()) === "live") {
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", NULL, TRUE);
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", NULL, TRUE);
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", NULL, TRUE);
+		}
 
 		echo $this->getCSS(); 
+
+		echo $this->js("jquery", NULL, TRUE);
     ?>
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 </head>
+
 <body>	
 	<header>
 		<div id="fb-root"></div>

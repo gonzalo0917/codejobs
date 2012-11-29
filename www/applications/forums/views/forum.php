@@ -8,9 +8,23 @@ if(is_array($posts)) {
 	$rand2 = rand(6, 10);
 
 	?>
-		<h1><?php echo __("Forum") .": ". ucfirst($forum) .""; ?></h1>
+		<h1><?php echo $forum; ?></h1>
 		<div class="forums-options">
-			<?php echo __("Create new post"); ?>
+			<span class="forums-create"><?php echo __("Create new post"); ?></span>
+
+			<br />
+			<form action="#" method="post">
+				<input id="ftitle" class="span8 forums-title" name="title" type="text" value="<?php echo __("Write the title of the new post..."); ?>" /> <br />
+				<input id="ftags" class="span8 forums-title no-display" name="tags" type="text" value="<?php echo __("Write the tags separated by commas..."); ?>" /> <br />
+				<textarea id="fcontent" class="span8 forums-textarea no-display"><?php echo __("Write the content here..."); ?></textarea> <br />
+				<input id="fpublish" class="btn-success no-display" name="publish" type="button" value="<?php echo __("Publish"); ?>" />
+				<input id="fcancel" class="btn-danger no-display" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
+
+				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
+				<input id="ftitle-temp" type="hidden" value="<?php echo __("Write the title of the new post..."); ?>" />
+				<input id="ftags-temp" type="hidden" value="<?php echo __("Write the tags separated by commas..."); ?>" />
+				<input id="fcontent-temp" type="hidden" value="<?php echo __("Write the content here..."); ?>" />
+			</form>
 		</div>
 	<?php 
 	

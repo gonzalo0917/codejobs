@@ -1,0 +1,13 @@
+.forums-create {
+	color: #6F675E;
+}
+
+.forums-textarea {
+	color: #999 !important;
+	height: 50px;
+}
+
+.forums-title {
+	color: #999 !important;
+	background-color: #000;
+}

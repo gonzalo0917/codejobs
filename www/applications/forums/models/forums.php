@@ -107,7 +107,7 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	public function getByForum($slug, $language = "Spanish") {	
-		$query = "SELECT muu_forums.ID_Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
+		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
 				  WHERE muu_forums.Slug = '$slug' AND muu_forums.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC";

@@ -36,6 +36,10 @@ class Forums_Controller extends ZP_Load {
 			$this->getForums();
 		}		
 	}
+
+	public function publish() {
+		POST();
+	}
 	
 	public function getForums() {
 		$data = $this->Forums_Model->getForums($this->language);
@@ -55,11 +59,14 @@ class Forums_Controller extends ZP_Load {
 
 		if($data) {
 			$this->helper("time");
+			$this->js("forums", "forums");
 			$this->css("posts", "blog");
+			$this->css("forums", "forums");
 
-			$vars["forum"] = $forum;
-			$vars["posts"] = $data;
-			$vars["view"]  = $this->view("forum", TRUE);
+			$vars["forumID"] = $data[0]["ID_Forum"];
+			$vars["forum"] 	 = $data[0]["Forum"];
+			$vars["posts"]   = $data;
+			$vars["view"]    = $this->view("forum", TRUE);
 
 			$this->render("content", $vars);
 		} else {
