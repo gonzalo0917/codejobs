@@ -51,19 +51,12 @@
 					</div>
 				</div>			
 
-				<div class="comments-editor">
-					<form action="">
-						<textarea name="comment"></textarea> <br />
-						<input name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
-					</form>
-				</div>		
-				<?php
-
-				if($count > 0) {
-				?>
-					<h3><?php echo __("Replies") . ": $count"; ?></h3>
-				<?php
-				}				
+				<?php				
+					if($count > 0) {
+					?>
+						<h3><?php echo __("Replies") . ": $count"; ?></h3>
+					<?php
+					}				
 			} else {
 				?>
 				<div class="comments">
@@ -79,6 +72,22 @@
 				<?php
 			}		
 		}
+
+			if(SESSION("ZanUser")) {
+			?>				
+				<div class="comments-editor">
+					<form action="">
+						<textarea name="comment"></textarea> <br />
+						<input name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
+					</form>
+				</div>		
+			<?php
+			} else {
+			?>
+				<div class="no-connected"><?php echo __("You need to login or create an account to comment this topic"); ?></div>
+			<?php
+			}
+					
 		?>
 		<br /> 
 		<h3><?php echo __("Comments") . ": "; ?><div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div></h3>

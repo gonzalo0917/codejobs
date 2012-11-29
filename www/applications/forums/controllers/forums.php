@@ -57,6 +57,7 @@ class Forums_Controller extends ZP_Load {
 			$this->helper("time");
 			$this->css("posts", "blog");
 
+			$vars["forum"] = $forum;
 			$vars["posts"] = $data;
 			$vars["view"]  = $this->view("forum", TRUE);
 
