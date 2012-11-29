@@ -86,6 +86,13 @@ class ZP_Templates extends ZP_Load {
 	 */
 	private $vars = array();
 	
+	/**
+	 * Contains the ignored arguments
+	 * 
+	 * @var private $ignoredArgs = array()
+	 */
+	private $ignoredArgs = array();
+	
     /**
      * Load helpers: array, browser, debugging, forms, html and web
      *
@@ -515,4 +522,7 @@ class ZP_Templates extends ZP_Load {
 		$this->vars = $vars;
 	}
 	
+	public function ignoreArgs($arguments = array()) {
+		$this->ignoredArgs = $arguments;
+	}
 }

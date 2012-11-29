@@ -646,4 +646,18 @@ class ZP_Load {
 		}
 	}
 	
+	/**
+     * Sets the arguments to be ignored (like slugs)
+     * 
+     * @param integer $argument1
+     * @param integer $argument2
+     * @param ...
+     * @param integer $argumentN
+     * @return void
+     */
+	public function ignoreArgs() {
+		$this->Templates = $this->core("Templates");
+		
+		return $this->Templates->ignoreArgs(func_get_args());
+	}
 }
