@@ -533,7 +533,22 @@ class ZP_Templates extends ZP_Load {
 		$this->vars = $vars;
 	}
 	
+	/**
+     * Set ignored arguments
+     *
+     * @return void
+     */
 	public function ignoreArgs($arguments = array()) {
 		$this->ignoredArgs = $arguments;
+	}
+
+	/**
+     * Verifies if exists a minified file
+     *
+     * @return boolean value
+     */
+	public function isMinified($type, $print) {
+		/* TODO */
+		return FALSE;
 	}
 }

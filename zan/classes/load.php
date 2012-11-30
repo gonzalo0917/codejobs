@@ -663,6 +663,30 @@ class ZP_Load {
 	public function ignoreArgs() {
 		$this->Templates = $this->core("Templates");
 		
-		return $this->Templates->ignoreArgs(func_get_args());
+		$this->Templates->ignoreArgs(func_get_args());
+	}
+
+	/**
+     * Verifies if exists a minified CSS
+     * 
+     * @param  boolean $print = TRUE
+     * @return boolean value
+     */
+	public function isCssMinified($print = TRUE) {
+		$this->Templates = $this->core("Templates");
+		
+		return $this->Templates->isMinified("CSS", $print);
+	}
+
+	/**
+     * Verifies if exists a minified JS
+     * 
+     * @param  boolean $print = TRUE
+     * @return boolean value
+     */
+	public function isJsMinified($print = TRUE) {
+		$this->Templates = $this->core("Templates");
+		
+		return $this->Templates->isMinified("JS", $print);
 	}
 }
