@@ -36,6 +36,9 @@ class ZP_Templates extends ZP_Load {
 	 * @var private $CSS = NULL
 	 */
 	private $CSS = NULL;
+
+	private $topCSS    = array();
+	private $bottomCSS = array();
 	
 	/**
 	 * 
@@ -107,76 +110,60 @@ class ZP_Templates extends ZP_Load {
      *
      * @return void
      */	
-	public function CSS($CSS = NULL, $application = NULL, $print = FALSE) {
+	public function CSS($CSS = NULL, $application = NULL, $print = FALSE, $top = FALSE) {
+		if($top) {
+			$arrayCSS = &$this->topCSS;
+		} else {
+			$arrayCSS = &$this->bottomCSS;
+		}
+
 		if(file_exists($CSS)) { 
 			if($print) {
 				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->getScript($CSS, 'css') .'" type="text/css" />';
 			} else { 
-				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->getScript($CSS, 'css') .'" type="text/css" />';
+				array_push($arrayCSS, $CSS);
 			}
+			// $this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->getScript($CSS, 'css') .'" type="text/css" />';
 		} 
 
 		if($CSS === "bootstrap") {
-			if(is_null($this->CSS)) {
-				if($print) {
-					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />';
-				} else {
-					$this->CSS = '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />';
-				}
+			if($print) {
+				print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />';
 			} else {
-				if($print) {
-					print '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />';
-				} else {
-					$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />';
-				}	
+				array_push($arrayCSS, _corePath ."/vendors/css/frameworks/bootstrap/css/bootstrap.min.css");
 			}
+			// $this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />';
 
 			$this->js("bootstrap");
 		} elseif($CSS === "prettyphoto") {
-			if(is_null($this->CSS)) {
-				if($print) {
-					print '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />';
-				} else {
-					$this->CSS = '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />';
-				}
+			if($print) {
+				print '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />';
 			} else {
-				if($print) {
-					print '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />';
-				} else {
-					$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />';
-				}	
+				array_push($arrayCSS, _corePath ."/vendors/js/lightbox/prettyphoto/css/prettyPhoto.css");
 			}
+			//$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />';	
 		} elseif($CSS === "codemirror") {
             if ($print) {
                 print '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />';
             } else {
-                if (is_null($this->CSS)) {
-                    $this->CSS = '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />';
-                } else {
-                    $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />';
-                }
+				array_push($arrayCSS, _corePath ."/vendors/js/codemirror/codemirror.css");
+                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />';
             }
 		} elseif($CSS === "redactorjs") {
             if ($print) {
                 print '<link rel="stylesheet" href="'. path("vendors/js/editors/redactorjs/css/redactor.css", "zan") .'" type="text/css" />';
             } else {
-                if (is_null($this->CSS)) {
-                    $this->CSS = '<link rel="stylesheet" href="'. path("vendors/js/editors/redactorjs/css/redactor.css", "zan") .'" type="text/css" />';
-                } else {
-                    $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/redactorjs/css/redactor.css", "zan") .'" type="text/css" />';
-                }
+				array_push($arrayCSS, _corePath ."/vendors/js/editors/redactorjs/css/redactor.css");
+                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/redactorjs/css/redactor.css", "zan") .'" type="text/css" />';
             }			
 		} elseif($CSS === "markitup") {
             if ($print) {
                 print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />';
                 print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/html/style.css", "zan") .'" type="text/css" />';
             } else {
-                if (is_null($this->CSS)) {
-                    $this->CSS = '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />';
-                } else {
-                    $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />';
-                }
-                $this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/html/style.css", "zan") .'" type="text/css" />';
+				array_push($arrayCSS, _corePath ."/vendors/js/editors/markitup/skins/markitup/style.min.css", _corePath ."/vendors/js/editors/markitup/sets/html/style.css");
+                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />';
+                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/html/style.css", "zan") .'" type="text/css" />';
             }			
 		}
 
@@ -187,12 +174,13 @@ class ZP_Templates extends ZP_Load {
 		}
 		
 		if(file_exists($file)) {
-			$file = $this->getScript($file, 'css');
+			//$file = $this->getScript($file, 'css');
 
 			if($print) {
 				print '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />';
 			} else {
-				$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />';
+				array_push($arrayCSS, $file);
+				//$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />';
 			}
 		}
 	}
@@ -240,7 +228,9 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getCSS() {
-		return $this->CSS;
+		$CSS = array_merge($this->topCSS, $this->bottomCSS);
+		array_walk($CSS, create_function('&$val', '$val = "'. _get("webURL") .'/$val";'));
+		return '<link rel="stylesheet" href="'. implode('" type="text/css" /><link rel="stylesheet" href="', $CSS) .'" type="text/css" />';
 	}
 	
     /**
