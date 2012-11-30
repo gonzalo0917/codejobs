@@ -343,7 +343,9 @@ function whichApplication() {
 function path($path = FALSE, $URL = FALSE, $lang = TRUE) {
 	if(!$path) {
 		return isLang() ? _get("webBase") ."/". _get("webLang") : _get("webBase");
-	} 
+	} elseif($path === TRUE) {
+		return $lang ? _get("webBase") ."/". _get("webLang") : _get("webBase");
+	}
 
 	if($URL === "zan") {
 		return getDomain(_corePath) ."/zan/". $path;

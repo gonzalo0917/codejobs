@@ -548,8 +548,17 @@ class ZP_Templates extends ZP_Load {
      * @return boolean value
      */
 	public function isMinified($ext, $print) {
-		exit($this->filterURL());
-		return FALSE;
+		if(_get("environment") < 3) {
+			return FALSE;
+		} else {
+			$exists = is_file($this->getMinFile() .".". $ext);
+
+			if($exists and $print) {
+				echo '<link rel="stylesheet" href="'. $this->getMinFile(TRUE) .'.'. $ext .'" type="text/css" />';
+			}
+
+			return $exists;
+		}
 	}
 
 	/**
@@ -557,8 +566,14 @@ class ZP_Templates extends ZP_Load {
      *
      * @return string value
      */
-	private function getMinified($URL = FALSE) {
+	private function getMinFile($URL = FALSE) {
+		$filename = sha1($this->filterURL());
 
+		if(!$URL) {
+			return _cacheDir . _sh . $filename;
+		} else {
+			return path(_cacheDir ."/$filename", TRUE);
+		}
 	}
 
 	private function filterURL() {
@@ -569,6 +584,6 @@ class ZP_Templates extends ZP_Load {
 
 		if(count($parts) > 0 and count($this->ignoredSegments) > 0) foreach ($this->ignoredSegments as $segment) array_splice($parts, $segment, 1, "-");
 		
-		return path() ."/". implode("/", $parts);
+		return path(TRUE) ."/". implode("/", $parts);
 	}
 }
