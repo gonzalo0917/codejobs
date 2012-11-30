@@ -675,7 +675,7 @@ class ZP_Load {
 	public function isCssMinified($print = TRUE) {
 		$this->Templates = $this->core("Templates");
 		
-		return $this->Templates->isMinified("CSS", $print);
+		return $this->Templates->isMinified("css", $print);
 	}
 
 	/**
@@ -687,6 +687,6 @@ class ZP_Load {
 	public function isJsMinified($print = TRUE) {
 		$this->Templates = $this->core("Templates");
 		
-		return $this->Templates->isMinified("JS", $print);
+		return $this->Templates->isMinified("js", $print);
 	}
 }

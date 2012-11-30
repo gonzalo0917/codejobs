@@ -6,23 +6,25 @@
 	<title><?php echo $this->getTitle(); ?></title>
 	
 	<?php
-		$application = segment(0, isLang());
+		if(!$this->isCssMinified()) {
+			$application = segment(0, isLang());
 
-    	$this->CSS("bootstrap");
-		$this->CSS("prettyPhoto", "videos"); 
-		$this->CSS("ads", "ads"); 
-		$this->CSS("default"); 
-	
-	 	echo $this->getCSS();
-		echo $this->themeCSS("cpanel"); 
+	    	$this->CSS("bootstrap");
+			$this->CSS("prettyPhoto", "videos"); 
+			$this->CSS("ads", "ads"); 
+			$this->CSS("default"); 
+		
+		 	echo $this->getCSS();
+			echo $this->themeCSS("cpanel"); 
 
-		if(defined("_codemirror")) {
-            $this->CSS("codemirror", NULL, TRUE);
-        }
+			if(defined("_codemirror")) {
+	            $this->CSS("codemirror", NULL, TRUE);
+	        }
 
-		if($application !== "codes" and $application !== "blog") {
-			$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, TRUE);
-			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css", NULL, TRUE);
+			if($application !== "codes" and $application !== "blog") {
+				$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, TRUE);
+				$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css", NULL, TRUE);
+			}
 		}
 	?>			
 </head>

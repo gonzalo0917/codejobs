@@ -547,8 +547,17 @@ class ZP_Templates extends ZP_Load {
      *
      * @return boolean value
      */
-	public function isMinified($type, $print) {
-		/* TODO */
+	public function isMinified($ext, $print) {
+
 		return FALSE;
+	}
+
+	/**
+     * Gets the path/URL of minified file without extension
+     *
+     * @return string value
+     */
+	private function getMinified($URL = FALSE) {
+
 	}
 }
