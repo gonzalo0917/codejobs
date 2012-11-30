@@ -87,5 +87,6 @@
                     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
                 })();
             </script>
+            <script src="//platform.linkedin.com/in.js" type="text/javascript"></script> 
         </body>
     </html>
