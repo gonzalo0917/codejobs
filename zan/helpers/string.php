@@ -354,8 +354,12 @@ function encode($text, $URL = FALSE) {
 	return (!$URL) ? utf8_encode($text) : urlencode($text);
 }
 
-function fbComments($URL, $posts = 50, $width = 750) {
-	return '<div class="fb-comments" data-href="'. $URL .'" data-num-posts="'. $posts .'" data-width="'. $width .'"></div>';
+function fbComments($URL, $count = FALSE, $posts = 50, $width = 750) {
+	if($count) {
+		return '<div class="fb-comments-count" data-href="'. $URL .'"></div> <span data-singular="'. __("comment") .'">'. __("comments") .'</span>';
+	} else {
+		return '<div class="fb-comments" data-href="'. $URL .'" data-num-posts="'. $posts .'" data-width="'. $width .'"></div>';
+	}
 }
 
 /**
