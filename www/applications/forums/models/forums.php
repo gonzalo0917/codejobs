@@ -73,6 +73,28 @@ class Forums_Model extends ZP_Load {
 			return $this->data["error"];
 		}
 	}
+
+	public function savePost() {
+		$this->Data = $this->core("Data");
+
+		$this->Data->table("forums_posts");
+
+		$validations = array(
+			"title"   	  => "required",
+			"description" => "required"
+		);
+            	
+		$data = array(
+			"ID_Forum"    => POST("ID"),
+            "Title"       => POST("title"),
+			"Slug"        => slug(POST("title", "clean")),
+			"Description" => POST("description"),
+			"Language"    => POST("language"),
+            "Situation"   => POST("situation")
+		);
+	
+		$this->data = $this->Data->proccess($data, $validations);
+	}
 	
 	private function save() {
         if($this->getIDByForum($this->data["Slug"])){

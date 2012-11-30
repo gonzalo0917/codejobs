@@ -28,20 +28,17 @@
 		?>
 	</span>
 
-	<div class="social" style="position: relative; z-index:100;">
-		<!-- AddThis Button BEGIN -->
-			<div class="addthis_toolbox addthis_default_style" addthis:url="<?php echo $URL; ?>" addthis:title="<?php echo stripslashes($bookmark["Title"]); ?>">							
-				<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($bookmark["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>				
-			</div>
-			<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-			<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b64f6b39227d84"></script>
-		<!-- AddThis Button END -->
-	</div>
+	<?php echo social($URL, $bookmark["Title"] ." ". $URL, FALSE); ?>
 
 
 	<p class="justify">				
-		<?php echo stripslashes($bookmark["Description"]); ?> 
+		<?php 
+			echo stripslashes($bookmark["Description"]); 
+			echo social($URL, $bookmark["Title"] ." ". $URL, TRUE, FALSE, FALSE, FALSE, TRUE);
+		?> 
 	</p>
+
+	<br />
 
 	<h3>
 		<a href="<?php echo path("bookmarks/visit/". $bookmark["ID_Bookmark"]); ?>" target="_blank" title="<?php echo $bookmark["Title"]; ?>"><?php echo __("Visit Bookmark"); ?></a>
@@ -59,25 +56,23 @@
 
 	<br />
 
-	<a href="https://twitter.com/codejobs" class="twitter-follow-button" data-show-count="false" data-lang="es" data-size="large"><?php echo __("Follow"); ?> @codejobs</a>
-	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-	<br />
 	<?php
 		echo display('<p>
-                        <script type="text/javascript"><!--
+                        <script type="text/javascript">
                             google_ad_client = "ca-pub-4006994369722584";
                             /* CodeJobs.biz */
                             google_ad_slot = "1672839256";
                             google_ad_width = 728;
                             google_ad_height = 90;
-                            //-->
                             </script>
                             <script type="text/javascript"
                             src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
                         </script>
                     </p>', 4);
 	?>
-	<p><div class="fb-comments" data-href="<?php echo path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]); ?>" data-num-posts="2" data-width="750"></div></p>
+	<p>
+		<?php echo fbComments($URL); ?>
+	</p>
 	
 	<p>
 		<a href="<?php echo path("bookmarks"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>

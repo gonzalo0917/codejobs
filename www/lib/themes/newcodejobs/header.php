@@ -22,9 +22,9 @@
     	if(_get("optimization")) {
     		$this->CSS("www/lib/css/full.css", NULL, TRUE);
     	} else {
-	    	$this->CSS("www/lib/css/default.min.css", NULL, TRUE);
-	    	$this->CSS("$this->themeRoute/css/style.min.css", NULL, TRUE);
-	    	$this->CSS("$this->themeRoute/css/mediaqueries.min.css", NULL, TRUE);
+	    	echo $this->CSS("www/lib/css/default.css", NULL, TRUE);
+	    	echo $this->CSS("$this->themeRoute/css/style.css", NULL, TRUE);
+	    	echo $this->CSS("$this->themeRoute/css/mediaqueries.css", NULL, TRUE);
 
 	    	if(segment(0, isLang()) !== "polls") {
 	    		$this->CSS("polls", "polls", TRUE);

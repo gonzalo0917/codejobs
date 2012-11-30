@@ -33,17 +33,9 @@
 				?>
 			</span>
 
-			<div class="social" style="position: relative; z-index:100;">
-				<!-- AddThis Button BEGIN -->
-					<div class="addthis_toolbox addthis_default_style" addthis:url="<?php echo $URL; ?>">				
-						<a class="addthis_button_tweet" tw:via="codejobs" addthis:title="<?php echo stripslashes($code["Title"]); ?>" tw:url="<?php echo $URL; ?>"></a>									
-					</div>
-					<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-					<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50b64f6b39227d84"></script>
-				<!-- AddThis Button END -->
-			</div>		                     
-
 			<?php
+				echo social($URL, $code["Title"] ." ". $URL, FALSE);	                     
+
 				if($code["Description"] !== "") {
 					echo str_replace("\\", "", htmlTag("p", showLinks($code["Description"])));
 				}
@@ -63,16 +55,19 @@
 					</p>
 			<?php 
 				} 
+
+				echo social($URL, $code["Title"] ." ". $URL, TRUE, FALSE, FALSE, FALSE, TRUE);
+
+				?><br /><?php
 							
 				if($i === $rand2) {
 					echo display('<p>
-									<script type="text/javascript"><!--
+									<script type="text/javascript">
 										google_ad_client = "ca-pub-4006994369722584";
 										/* CodeJobs.biz */
 										google_ad_slot = "1672839256";
 										google_ad_width = 728;
 										google_ad_height = 90;
-										//-->
 										</script>
 										<script type="text/javascript"
 										src="http://pagead2.googlesyndication.com/pagead/show_ads.js">

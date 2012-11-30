@@ -354,6 +354,10 @@ function encode($text, $URL = FALSE) {
 	return (!$URL) ? utf8_encode($text) : urlencode($text);
 }
 
+function fbComments($URL, $posts = 50, $width = 750) {
+	return '<div class="fb-comments" data-href="'. $URL .'" data-num-posts="'. $posts .'" data-width="'. $width .'"></div>';
+}
+
 /**
  * filter
  * 
@@ -806,6 +810,19 @@ function removeSpaces($text, $trim = FALSE) {
 	}
 	
 	return $text;
+}
+
+function social($URL, $content, $facebook = TRUE, $twitter = TRUE, $gPlus = TRUE, $linkedin = TRUE, $float = FALSE) {
+	$float = ($float) ? " float-right" : NULL;
+
+	$HTML  = '<div class="social'. $float .'">';
+	$HTML .= ($facebook) ? ' <div class="fb-like" data-href="<?php echo $URL; ?>" data-send="true" data-layout="button_count" data-width="100" data-show-faces="true" data-font="lucida grande"></div>' : "";
+	$HTML .= ($twitter)  ? ' <a href="https://twitter.com/share" class="twitter-share-button" data-url="'. $URL .'" data-text="'. $content .'" data-via="'. _via .'" data-lang="'. _get("webLang") .'">Tweet</a>' : "";
+	$HTML .= ($gPlus)    ? ' <div class="g-plusone" data-size="medium"></div>' : "";
+	$HTML .= ($linkedin) ? ' <script src="//platform.linkedin.com/in.js" type="text/javascript"></script> <script type="IN/Share" data-url="'. $URL .'" data-counter="right"></script>' : "";
+	$HTML .= '</div>';
+
+	return $HTML;
 }
 
 function showLinks($content) {
