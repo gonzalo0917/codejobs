@@ -38,9 +38,7 @@ class Codes_Model extends ZP_Load {
 		}
 		
 		if($action === "all") {
-			$order = "ID_Code DESC";
-
-			return $this->all($trash, $order, $limit);
+			return $this->all($trash, "ID_Code DESC", $limit);
 		} elseif($action === "edit") {
 			return $this->edit();															
 		} elseif($action === "save") {
@@ -227,7 +225,7 @@ class Codes_Model extends ZP_Load {
 	}
 
 	public function getBufferCodes($language = "all") {
-		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "rand()", 70) : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "rand()", 70);
+		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "ID_Code", 85) : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "ID_Code", 85);
 	}
         
     private function proccessFiles($ID) {
