@@ -20,6 +20,9 @@ Header set Cache-Control "max-age=172800, public, must-revalidate"
 Header set Cache-Control "max-age=7200, must-revalidate"
 </FilesMatch>
 
+Header unset ETag
+FileETag None
+
 <ifModule mod_gzip.c>
   mod_gzip_on Yes
   mod_gzip_dechunk Yes
