@@ -34,7 +34,6 @@
 	<p class="justify">				
 		<?php 
 			echo stripslashes($bookmark["Description"]); 
-			echo social($URL, $bookmark["Title"] ." ". $URL, TRUE, FALSE, FALSE, FALSE, TRUE);
 		?> 
 	</p>
 

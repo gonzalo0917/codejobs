@@ -33,7 +33,6 @@
 				<br /><br />
 
 				<?php 
-					echo social($URL, $post["Title"] ." ". $URL, TRUE, FALSE, FALSE, FALSE, TRUE);
 					echo display('<p>
 									<script type="text/javascript">
 										google_ad_client = "ca-pub-4006994369722584";

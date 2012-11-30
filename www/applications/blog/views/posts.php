@@ -48,10 +48,7 @@ if(is_array($posts)) {
 				?>	
 
 				<br /><br />
-
-				<?php echo social($URL, $post["Title"] ." ". $URL, TRUE, FALSE, FALSE, FALSE, TRUE); ?>
-
-				<br />
+				
 				<?php					
 					if($i === $rand2) {
 						echo display('<p>

@@ -56,8 +56,6 @@
 			<?php 
 				} 
 
-				echo social($URL, $code["Title"] ." ". $URL, TRUE, FALSE, FALSE, FALSE, TRUE);
-
 				?><br /><?php
 							
 				if($i === $rand2) {

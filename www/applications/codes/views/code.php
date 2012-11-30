@@ -66,8 +66,6 @@
             </p>
 	    <?php
 		}
-	
-        echo social($URL, $code["Title"] ." ". $URL, TRUE, FALSE, FALSE, FALSE, TRUE);
         ?>
     
         <br />
