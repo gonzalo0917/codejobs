@@ -820,7 +820,7 @@ function social($URL, $content, $facebook = TRUE, $twitter = TRUE, $gPlus = TRUE
 	$float = ($float) ? " float-right" : NULL;
 
 	$HTML  = '<div class="social'. $float .'">';
-	$HTML .= ($facebook) ? ' <div class="fb-like" data-href="<?php echo $URL; ?>" data-send="true" data-layout="button_count" data-width="100" data-show-faces="true" data-font="lucida grande"></div>' : "";
+	$HTML .= ($facebook) ? ' <div class="fb-like" data-href="'. $URL .'" data-send="true" data-layout="button_count" data-width="100" data-show-faces="true" data-font="lucida grande"></div>' : "";
 	$HTML .= ($twitter)  ? ' <a href="https://twitter.com/share" class="twitter-share-button" data-url="'. $URL .'" data-text="'. $content .'" data-via="'. _via .'" data-lang="'. _get("webLang") .'">Tweet</a>' : "";
 	$HTML .= ($gPlus)    ? ' <div class="g-plusone" data-size="medium" data-href="'. $URL .'"></div>' : "";
 	$HTML .= ($linkedin) ? ' <script src="//platform.linkedin.com/in.js" type="text/javascript"></script> <script type="IN/Share" data-url="'. $URL .'" data-counter="right"></script>' : "";
