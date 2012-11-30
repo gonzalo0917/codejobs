@@ -87,11 +87,11 @@ class ZP_Templates extends ZP_Load {
 	private $vars = array();
 	
 	/**
-	 * Contains the ignored arguments
+	 * Contains the ignored segments
 	 * 
-	 * @var private $ignoredArgs = array()
+	 * @var private $ignoredSegments = array()
 	 */
-	private $ignoredArgs = array();
+	private $ignoredSegments = array();
 	
     /**
      * Load helpers: array, browser, debugging, forms, html and web
@@ -534,12 +534,12 @@ class ZP_Templates extends ZP_Load {
 	}
 	
 	/**
-     * Set ignored arguments
+     * Set ignored segments
      *
      * @return void
      */
-	public function ignoreArgs($arguments = array()) {
-		$this->ignoredArgs = $arguments;
+	public function ignoreSegments($segments = array()) {
+		$this->ignoredSegments = $segments;
 	}
 
 	/**
@@ -548,7 +548,7 @@ class ZP_Templates extends ZP_Load {
      * @return boolean value
      */
 	public function isMinified($ext, $print) {
-
+		exit($this->filterURL());
 		return FALSE;
 	}
 
@@ -559,5 +559,16 @@ class ZP_Templates extends ZP_Load {
      */
 	private function getMinified($URL = FALSE) {
 
+	}
+
+	private function filterURL() {
+		$parts 	  = route();
+		$segments = "/";
+
+		if(isLang()) array_shift($parts);
+
+		if(count($parts) > 0 and count($this->ignoredSegments) > 0) foreach ($this->ignoredSegments as $segment) array_splice($parts, $segment, 1, "-");
+		
+		return path() ."/". implode("/", $parts);
 	}
 }

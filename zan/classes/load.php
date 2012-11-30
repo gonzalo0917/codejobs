@@ -652,18 +652,18 @@ class ZP_Load {
 	}
 	
 	/**
-     * Sets the arguments to be ignored (like slugs)
+     * Sets the segments to be ignored (like slugs)
      * 
-     * @param integer $argument1
-     * @param integer $argument2
+     * @param integer $segment1
+     * @param integer $segment2
      * @param ...
-     * @param integer $argumentN
+     * @param integer $segmentN
      * @return void
      */
-	public function ignoreArgs() {
+	public function ignoreSegments() {
 		$this->Templates = $this->core("Templates");
 		
-		$this->Templates->ignoreArgs(func_get_args());
+		$this->Templates->ignoreSegments(func_get_args());
 	}
 
 	/**
