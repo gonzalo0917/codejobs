@@ -37,7 +37,7 @@
 					<!-- AddThis Button END -->
 				</div>
 
-				<?php echo showContent(compress($post["Content"]), $URL); ?>
+				<?php echo showContent($post["Content"], $URL); ?>
 
 				<br />
 
