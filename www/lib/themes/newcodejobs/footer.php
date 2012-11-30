@@ -29,10 +29,8 @@
         
                 <?php 
                 }   
-
-                echo $this->js("jquery", NULL, TRUE);         
-                echo $this->js("$this->themeRoute/js/social.min.js", NULL, TRUE);
-                echo $this->js("$this->themeRoute/js/porlets.min.js", NULL, TRUE);                           
+                
+                echo $this->js("www/lib/scripts/js/full.min.js", NULL, TRUE);                
 
                 if(segment(0, isLang()) !== "forums") {         
                     if(defined("_codemirror")) {
