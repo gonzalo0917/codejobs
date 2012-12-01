@@ -2,58 +2,63 @@
 // markItUp!
 // By Jay Salvat - http://markitup.jaysalvat.com/
 // ------------------------------------------------------------------*/
+.markItUp .markItUpHeader ul a {
+	background-image:url(data:image/png;base64,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);
+	margin:3px;
+	padding:0px;
+}
 .markItUp .markItUpButton1 a {
-	background-image:url(images/h1.png); 
+	background-position: 0px 0px;
 }
 .markItUp .markItUpButton2 a {
-	background-image:url(images/h2.png); 
+	background-position: -16px 0px;
 }
 .markItUp .markItUpButton3 a {
-	background-image:url(images/h3.png); 
+	background-position: -32px 0px;
 }
 .markItUp .markItUpButton4 a {
-	background-image:url(images/h4.png); 
+	background-position: -48px 0px;
 }
 .markItUp .markItUpButton5 a {
-	background-image:url(images/h5.png); 
+	background-position: -64px 0px;
 }
 .markItUp .markItUpButton6 a {
-	background-image:url(images/h6.png); 
+	background-position: -80px 0px;
 }
 .markItUp .markItUpButton7 a {
-	background-image:url(images/paragraph.png); 
+	background-position: -80px -32px;
 }
 
 .markItUp .markItUpButton8 a {
-	background-image:url(images/bold.png);
+	background-position: 0px -16px;
 }
 .markItUp .markItUpButton9 a {
-	background-image:url(images/italic.png);
+	background-position: -48px -16px;
 }
 .markItUp .markItUpButton10 a {
-	background-image:url(images/stroke.png);
+	background-position: 0px -32px;
 }
 
 .markItUp .markItUpButton11 a {
-	background-image:url(images/list-bullet.png);
+	background-position: -32px -16px;
 }
 .markItUp .markItUpButton12 a {
-	background-image:url(images/list-numeric.png);
+	background-position: -48px -32px;
 }
 .markItUp .markItUpButton13 a {
-	background-image:url(images/list-item.png);
+	background-position: -64px -16px;
 }
 
 .markItUp .markItUpButton14 a {
-	background-image:url(images/picture.png); 
+	background-position: -32px -32px;
 }
 .markItUp .markItUpButton15 a {
-	background-image:url(images/link.png);
+	background-position: -64px -32px;
 }
 
 .markItUp .clean a {
-	background-image:url(images/clean.png);
+	background-position: -16px -16px;
 }
 .markItUp .preview a {
-	background-image:url(images/preview.png);
+	background-position: -16px -32px;
 }
