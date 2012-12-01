@@ -229,8 +229,22 @@ class ZP_Templates extends ZP_Load {
      */
 	public function getCSS() {
 		$CSS = array_merge($this->topCSS, $this->bottomCSS);
-		array_walk($CSS, create_function('&$val', '$val = "'. _get("webURL") .'/$val";'));
-		return '<link rel="stylesheet" href="'. implode('" type="text/css" /><link rel="stylesheet" href="', $CSS) .'" type="text/css" />';
+		
+		if(count($CSS) > 0) {
+			if(_get("environment") < 3) {
+				array_walk($CSS, create_function('&$val', '$val = "'. _get("webURL") .'/$val";'));
+				return '<link rel="stylesheet" href="'. implode('" type="text/css" /><link rel="stylesheet" href="', $CSS) .'" type="text/css" />';
+			} else {
+				$contents = "";
+
+				foreach ($CSS as $file) $contents .= @file_get_contents($file) . "\n";
+
+				$filename = $this->getMinFile() .".css";
+				$contents = compress($contents, 'css');
+
+	        	file_put_contents($filename, $contents, LOCK_EX);
+			}
+		}
 	}
 	
     /**
@@ -543,7 +557,7 @@ class ZP_Templates extends ZP_Load {
 		} else {
 			$exists = is_file($this->getMinFile() .".". $ext);
 
-			if($exists and $print) {
+			if($print) {
 				echo '<link rel="stylesheet" href="'. $this->getMinFile(TRUE) .'.'. $ext .'" type="text/css" />';
 			}
 

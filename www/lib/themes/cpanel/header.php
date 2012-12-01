@@ -13,18 +13,19 @@
 			$this->CSS("prettyPhoto", "videos"); 
 			$this->CSS("ads", "ads"); 
 			$this->CSS("default"); 
-		
-		 	echo $this->getCSS();
-			echo $this->themeCSS("cpanel"); 
+			
+			$this->CSS("$this->themeRoute/css/style.css");
 
 			if(defined("_codemirror")) {
-	            $this->CSS("codemirror", NULL, TRUE);
+	            $this->CSS("codemirror");
 	        }
 
 			if($application !== "codes" and $application !== "blog") {
-				$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, TRUE);
-				$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css", NULL, TRUE);
+				$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css");
+				$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css");
 			}
+
+		 	echo $this->getCSS();
 		}
 	?>			
 </head>
