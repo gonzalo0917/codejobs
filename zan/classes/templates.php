@@ -258,7 +258,7 @@ class ZP_Templates extends ZP_Load {
 		}
 		
 		if(count($scripts) > 0) {
-			if(_get("environment") < 3) {
+			if(_get("environment") < 3 or (segment(0, isLang()) !== "cpanel" and segment(1, isLang()) !== "cpanel")) {
 				array_walk($scripts, create_function('&$val', '$val = "'. _get("webURL") .'/$val";'));
 				if($ext === "css") {
 					return '<link rel="stylesheet" href="'. implode('" type="text/css" /><link rel="stylesheet" href="', $scripts) .'" type="text/css" />';
