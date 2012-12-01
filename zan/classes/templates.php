@@ -46,6 +46,9 @@ class ZP_Templates extends ZP_Load {
 	 * 
 	 */
 	private $js = NULL;
+
+	private $topJS 	  = array();
+	private $bottomJS = array();
 	
 	/**
 	 * Contains the name of the current theme
@@ -228,23 +231,7 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getCSS() {
-		$CSS = array_merge($this->topCSS, $this->bottomCSS);
-		
-		if(count($CSS) > 0) {
-			if(_get("environment") < 3) {
-				array_walk($CSS, create_function('&$val', '$val = "'. _get("webURL") .'/$val";'));
-				return '<link rel="stylesheet" href="'. implode('" type="text/css" /><link rel="stylesheet" href="', $CSS) .'" type="text/css" />';
-			} else {
-				$contents = "";
-
-				foreach ($CSS as $file) $contents .= @file_get_contents($file) . "\n";
-
-				$filename = $this->getMinFile() .".css";
-				$contents = compress($contents, 'css');
-
-	        	file_put_contents($filename, $contents, LOCK_EX);
-			}
-		}
+		return $this->getScripts("css");
 	}
 	
     /**
@@ -253,7 +240,42 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getJs() {
-		return $this->js;
+		return $this->getScripts("js");
+	}
+
+	/**
+	 * Get the Js or Css files
+	 *
+	 * @return string/void
+	 */
+	private function getScripts($ext) {
+		if($ext === "css") {
+			$scripts = array_merge($this->topCSS, $this->bottomCSS);
+		} elseif($ext === "js") {
+			$scripts = array_merge($this->topJS, $this->bottomJS);
+		} else {
+			return NULL;
+		}
+		
+		if(count($scripts) > 0) {
+			if(_get("environment") < 3) {
+				array_walk($scripts, create_function('&$val', '$val = "'. _get("webURL") .'/$val";'));
+				if($ext === "css") {
+					return '<link rel="stylesheet" href="'. implode('" type="text/css" /><link rel="stylesheet" href="', $scripts) .'" type="text/css" />';
+				} else {
+					return '<script type="text/javascript" src="'. implode('"></script><script type="text/javascript" src="', $scripts) .'"></script>';
+				}
+			} else {
+				$contents = "";
+
+				foreach ($scripts as $file) $contents .= @file_get_contents($file) . "\n";
+
+				$filename = $this->getMinFile() .'.'. $ext;
+				$contents = compress($contents, $ext);
+
+	        	file_put_contents($filename, $contents, LOCK_EX);
+			}
+		}
 	}
 	
     /**
@@ -327,64 +349,134 @@ class ZP_Templates extends ZP_Load {
      *
      * 
      */
-	public function js($js, $application = NULL, $getJs = FALSE) {
-		if($js == "prettyphoto") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/lightbox/prettyphoto/js/jquery.prettyphoto.js", "zan") .'"></script>';
+	public function js($js, $application = NULL, $getJs = FALSE, $top = FALSE) {
+		if($top) {
+			$arrayJS = &$this->topJS;
+		} else {
+			$arrayJS = &$this->bottomJS;
+		}
 
+		if($js == "prettyphoto") {
 			$this->CSS("prettyphoto");
+
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/js/lightbox/prettyphoto/js/jquery.prettyphoto.js", "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/lightbox/prettyphoto/js/jquery.prettyphoto.js');
+			}
+
 		} elseif($js === "jquery") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/jquery.js", "zan") .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/js/jquery/jquery.js", "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/jquery/jquery.js');
+			}
 		} elseif (preg_match('/^jquery\.(.+)\.js$/i', $js, $matches)){ # Plugin jQuery
 			$plugin_name = trim($matches[1]);
 			
 			if(file_exists(_corePath . "/vendors/js/jquery/$plugin_name/")) {
-				$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$plugin_name/$js", "zan") .'"></script>';
 				$this->css(_corePath . "/vendors/js/jquery/$plugin_name/$plugin_name.css");
+
+				if($getJs) {
+					return '<script type="text/javascript" src="'. path("vendors/js/jquery/$plugin_name/$js", "zan") .'"></script>';
+				} else {
+					array_push($arrayJS, _corePath ."/vendors/js/jquery/$plugin_name/$js");
+				}
+			} elseif($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
 			} else {
-				$js = '<script type="text/javascript" src="'. path("vendors/js/jquery/$js", "zan") .'"></script>';
+				array_push($arrayJS, _corePath ."/vendors/js/jquery/$js");
 			}
         } elseif($js === "redactorjs") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.js", "zan") .'"></script>';
-			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/scripts/set.js", "zan") .'"></script>';
-			if(_get("webLang") !== "en") {
-				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/". _get("webLang") .".js", "zan") .'"></script>';
-			}
 			$this->CSS("redactorjs");
+
+			if($getJs) {
+				$js = '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/redactor.js", "zan") .'"></script>';
+				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/scripts/set.js", "zan") .'"></script>';
+				if(_get("webLang") !== "en") {
+					$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/redactorjs/langs/". _get("webLang") .".js", "zan") .'"></script>';
+				}
+				return $js;
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/editors/redactorjs/redactor.js', _corePath .'/vendors/js/editors/redactorjs/scripts/set.js');
+				if(_get("webLang") !== "en") array_push($arrayJS, _corePath .'/vendors/js/editors/redactorjs/langs/'. _get("webLang") .'.js');
+			}
 		} elseif($js === "markitup") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/jquery.markitup.js", "zan") .'"></script>';
-			$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/html/set.js", "zan") .'"></script>';
 			$this->CSS("markitup");
+
+			if($getJs) {
+				$js = '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/jquery.markitup.js", "zan") .'"></script>';
+				$js .= '<script type="text/javascript" src="'. path("vendors/js/editors/markitup/sets/html/set.js", "zan") .'"></script>';
+				return $js;
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/editors/markitup/jquery.markitup.js', _corePath .'/vendors/js/editors/markitup/sets/html/set.js');
+			}
 		} elseif($js === "tinymce") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/tinymce/tiny_mce.js", "zan") .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/js/editors/tinymce/tiny_mce.js", "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/editors/tinymce/tiny_mce.js');
+			}
 		} elseif($js === "switch-editor") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js", "zan") .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/js/editors/switch.js", "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/editors/switch.js');
+			}
 		} elseif($js === "lesscss") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/js/less/less.js", "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/less/less.js');
+			}
 		} elseif($js === "angular") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/angular/angular-1.0.1.min.js", "zan") .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/js/angular/angular-1.0.1.min.js", "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/angular/angular-1.0.1.min.js');
+			}
 		} elseif($js === "bootstrap") {
-			$js = '<script type="text/javascript" src="'. path("vendors/css/frameworks/bootstrap/js/bootstrap.min.js", "zan") .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path("vendors/css/frameworks/bootstrap/js/bootstrap.min.js", "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/css/frameworks/bootstrap/js/bootstrap.min.js');
+			}
 		} elseif($js === "codemirror") {
-			$js = '<script type="text/javascript" src="'. path("vendors/js/codemirror/codemirror.js", "zan") .'"></script>';
-			$js .= '<script type="text/javascript" src="'. path("vendors/js/codemirror/util/loadmode.js", "zan") .'"></script>';
+			if($getJs) {
+				$js = '<script type="text/javascript" src="'. path("vendors/js/codemirror/codemirror.js", "zan") .'"></script>';
+				$js .= '<script type="text/javascript" src="'. path("vendors/js/codemirror/util/loadmode.js", "zan") .'"></script>';
+				return $js;
+			} else {
+				array_push($arrayJS, _corePath .'/vendors/js/codemirror/codemirror.js', _corePath .'/vendors/js/codemirror/util/loadmode.js');
+			}
 		} elseif(file_exists($js)) {
-			$js = '<script type="text/javascript" src="'. _get("webURL") .'/'. $this->getScript($js, 'js') .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. _get("webURL") .'/'. $this->getScript($js, 'js') .'"></script>';
+			} else {
+				array_push($arrayJS, $js);
+			}
 		} elseif(file_exists(path($js, "zan"))) {
-			$js = '<script type="text/javascript" src="'. path($js, "zan") .'"></script>';
+			if($getJs) {
+				return '<script type="text/javascript" src="'. path($js, "zan") .'"></script>';
+			} else {
+				array_push($arrayJS, _corePath .'/'. $js);
+			}
 		} elseif(file_exists("www/applications/$application/views/js/$js")) {
-			$filename = $this->getScript("www/applications/$application/views/js/$js", 'js');
-			$js = '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
+			if($getJs) {
+				$filename = $this->getScript("www/applications/$application/views/js/$js", 'js');
+				return '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
+			} else {
+				array_push($arrayJS, "www/applications/$application/views/js/$js");
+			}
 		} elseif(file_exists("www/applications/$application/views/js/$js.js")) {
-			$filename = $this->getScript("www/applications/$application/views/js/$js.js", 'js');
-			$js = '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
+			if($getJs) {
+				$filename = $this->getScript("www/applications/$application/views/js/$js.js", 'js');
+				return '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
+			} else {
+				array_push($arrayJS, "www/applications/$application/views/js/$js.js");
+			}
 		} else {
 			return FALSE;
-		}
-
-		if($getJs) {
-			return $js;
-		} else {
-			$this->js .= $js;
 		}
 	}
 
@@ -558,7 +650,11 @@ class ZP_Templates extends ZP_Load {
 			$exists = is_file($this->getMinFile() .".". $ext);
 
 			if($print) {
-				echo '<link rel="stylesheet" href="'. $this->getMinFile(TRUE) .'.'. $ext .'" type="text/css" />';
+				if($ext === "css") {
+					echo '<link rel="stylesheet" href="'. $this->getMinFile(TRUE) .'.'. $ext .'" type="text/css" />';
+				} elseif($ext === "js") {
+					echo '<script type="text/javascript" src="'. $this->getMinFile(TRUE) .'.'. $ext .'"></script>';
+				}
 			}
 
 			return $exists;

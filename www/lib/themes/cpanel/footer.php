@@ -12,32 +12,37 @@
 		</script>
 
 		<?php
-			echo $this->js("jquery", NULL, TRUE); 
+			if(!$this->isJsMinified()) {
+				$this->js("jquery", NULL, FALSE, TRUE); 
 
-			if(defined("_angularjs")) {
-	            echo $this->js("angular", NULL, TRUE);
-	        }
-	        
-	        if(defined("_codemirror")) {
-	            echo $this->js("codemirror", NULL, TRUE);
-	        }
+				if(defined("_angularjs")) {
+		            $this->js("angular", NULL, FALSE, TRUE); 
+		        }
+		        
+		        if(defined("_codemirror")) {
+		            $this->js("codemirror", NULL, FALSE, TRUE); 
+		        }
 
-			echo $this->js("upload", NULL, TRUE);
-			echo $this->js("www/lib/scripts/js/main.js", NULL, TRUE);
+				$this->js("upload", NULL, FALSE, TRUE); 
+				$this->js("www/lib/scripts/js/main.js", NULL, FALSE, TRUE); 
 
-			if(segment(0, isLang()) !== "codes" and segment(0, isLang()) !== "blog") {
-				echo $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, TRUE);
-				echo $this->js(_corePath ."/vendors/js/editors/markitup/sets/html/set.js", NULL, TRUE);
-		?>
-		<script type="textjavascript">
-			$(document).on("ready", function() {
-	      		$("textarea").markItUp(mySettings);
-	   		});
-		</script>
-		<?php
+				if(segment(0, isLang()) !== "codes" and segment(0, isLang()) !== "blog") {
+					$this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, FALSE, TRUE); 
+					$this->js(_corePath ."/vendors/js/editors/markitup/sets/html/set.js", NULL, FALSE, TRUE); 
+				}
+
+				echo $this->getJs();
 			}
 
-			print $this->getJs();
+			if(segment(0, isLang()) !== "codes" and segment(0, isLang()) !== "blog") {
+		?>
+		<script type="text/javascript">
+			$(window).on("load", function() {
+	      		$("textarea").markItUp(mySettings);
+	   		});
+	   	</script>
+		<?php
+			}
 		?>
     </body>
 </html>
