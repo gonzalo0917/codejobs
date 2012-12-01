@@ -167,7 +167,7 @@ class ZP_Templates extends ZP_Load {
             }			
 		}
 
-		if(!_get("optimization")) {
+		if(!_get("optimization") or segment(0, isLang()) === "cpanel") {
 			$file = is_null($application) ? "www/lib/css/$CSS.css" : "www/applications/$application/views/css/$CSS.css";
 		} else {
 			$file = NULL;

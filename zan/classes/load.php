@@ -177,10 +177,10 @@ class ZP_Load {
      * @param bool $print = FALSE
      * @return void
      */
-	public function CSS($CSS = NULL, $application = NULL, $print = FALSE) {
+	public function CSS($CSS = NULL, $application = NULL, $print = FALSE, $top = FALSE) {
 		$this->Templates = $this->core("Templates");
 	
-		$this->Templates->CSS($CSS, $application, $print);
+		$this->Templates->CSS($CSS, $application, $print, $top);
 	}
 
 	public function driver($driver = NULL, $type = "db") {
