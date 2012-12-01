@@ -26,7 +26,7 @@
 				
 			<div class="post-content">
 				<?php
-					echo social($URL, $post["Title"] ." ". $URL, FALSE); 
+					echo social($URL, $post["Title"], FALSE); 
 					echo showContent($post["Content"], $URL); 
 				?>
 

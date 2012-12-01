@@ -43,7 +43,7 @@ if(is_array($posts)) {
 					
 			<div class="post-content">	
 				<?php 
-					echo social($URL, $post["Title"] ." ". $URL, FALSE);
+					echo social($URL, $post["Title"], FALSE);
 					echo showContent(pagebreak($post["Content"], $URL), TRUE); 
 				?>	
 

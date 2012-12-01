@@ -28,7 +28,7 @@
 		?>
 	</span>
 
-	<?php echo social($URL, $bookmark["Title"] ." ". $URL, FALSE); ?>
+	<?php echo social($URL, $bookmark["Title"], FALSE); ?>
 
 
 	<p class="justify">				

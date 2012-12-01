@@ -34,7 +34,7 @@
 			</span>
 
 			<?php
-				echo social($URL, $code["Title"] ." ". $URL, FALSE);	                     
+				echo social($URL, $code["Title"], FALSE);	                     
 
 				if($code["Description"] !== "") {
 					echo str_replace("\\", "", htmlTag("p", showLinks($code["Description"])));
