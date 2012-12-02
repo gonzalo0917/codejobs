@@ -75,25 +75,26 @@ class Forums_Model extends ZP_Load {
 	}
 
 	public function savePost() {
-		$this->Data = $this->core("Data");
-
-		$this->Data->table("forums_posts");
-
-		$validations = array(
-			"title"   	  => "required",
-			"description" => "required"
-		);
+		$this->helper(array("alerts", "time"));
             	
 		$data = array(
-			"ID_Forum"    => POST("ID"),
+			"ID_User"     => SESSION("ZanUserID"),
+			"ID_Forum"    => POST("forumID"),
+			"ID_Parent"   => 0,
             "Title"       => POST("title"),
 			"Slug"        => slug(POST("title", "clean")),
-			"Description" => POST("description"),
-			"Language"    => POST("language"),
-            "Situation"   => POST("situation")
+			"Content"     => POST("content"),
+			"Author" 	  => SESSION("ZanUser"),
+			"Start_Date"  => now(4),
+			"Text_Date"   => decode(now(2)),
+			"Tags" 		  => POST("tags"),
+			"Language"    => whichLanguage(),
+            "Situation"   => "Active"
 		);
-	
-		$this->data = $this->Data->proccess($data, $validations);
+		
+		$this->Db->insert("forums_posts", $data);
+		
+		echo getAlert(__("The post has ben saved correctly"), "success");
 	}
 	
 	private function save() {

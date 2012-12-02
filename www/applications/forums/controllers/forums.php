@@ -38,7 +38,9 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function publish() {
-		$this->Forums_Model->savePost();
+		if(POST("title") and POST("content")) {
+			$this->Forums_Model->savePost();
+		}
 	}
 	
 	public function getForums() {

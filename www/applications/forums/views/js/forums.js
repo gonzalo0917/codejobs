@@ -27,22 +27,28 @@ $(document).on("ready", function() {
 	});
 
 	$("#fpublish").on("click", function() {
-		var fid   	= $("#fid").val();
-		var title   = $("#ftitle").val();
-		var tags  	= $("#ftags").val();
+		var fid = $("#fid").val();
+		var title = $("#ftitle").val();
+		var tags = $("#ftags").val();
 		var content = $("#fcontent").val();
+		var needTitle = $("#needtitle").val();
+		var needContent = $("#needcontent").val();
 
 		if(tags == $("#ftags-temp").val()) {
 			tags = "";
 		}
 
-		if(title.length > 5 && content.length > 10) {
+		if(title.length == 0 || title == $("#ftitle-temp").val()) { 
+			$("#fmessage").html(needTitle);
+		} else if(content.length == 0 || content == $("#fcontent-temp").val()) { 
+			$("#fmessage").html(needContent);
+		} else {
 			$.ajax({
 				type: 'POST',
 				url:   PATH + '/forums/publish',
 				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&forumID=' + fid,
 				success: function(response) {
-					console.log(response);
+					$("#fmessage").html(response);
 				}
 			});
 		}

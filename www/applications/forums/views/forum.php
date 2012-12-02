@@ -11,7 +11,7 @@ if(is_array($posts)) {
 		<h1><?php echo $forum; ?></h1>
 		<div class="forums-options">
 			<span class="forums-create"><?php echo __("Create new topic"); ?></span>
-
+			<span id="fmessage"></span>
 			<br />
 			<form action="#" method="post">
 				<input id="ftitle" class="span8 forums-title" name="title" type="text" value="<?php echo __("Write the title of the new topic..."); ?>" /> <br />
@@ -24,6 +24,8 @@ if(is_array($posts)) {
 				<input id="ftitle-temp" type="hidden" value="<?php echo __("Write the title of the new topic..."); ?>" />
 				<input id="ftags-temp" type="hidden" value="<?php echo __("Write the tags separated by commas..."); ?>" />
 				<input id="fcontent-temp" type="hidden" value="<?php echo __("Write the content here..."); ?>" />
+				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
+				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 			</form>
 		</div>
 	<?php 
