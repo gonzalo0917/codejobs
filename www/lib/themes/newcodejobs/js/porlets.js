@@ -1,9 +1,15 @@
 $(document).ready(function() {
 	$("#display-languages").on("click", function(e) {
 		e.preventDefault();
+
+		var position = $("#display-languages").offset(),
+			width    = $("#display-languages").width(),
+			diff 	 = $("#top-box-languages").width() + 5;
+
 		$("#top-box-register").hide();
 		$("#top-box-login").hide();
-			$("#top-box-languages").slideToggle("slow");
+		$("#top-box-languages").css({"left": (position.left + width - diff) + "px"});
+		$("#top-box-languages").slideToggle("slow");
 	});
 
 	$("#display-register").on("click", function(e) {
