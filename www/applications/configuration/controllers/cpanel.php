@@ -87,6 +87,38 @@ class CPanel_Controller extends ZP_Load {
 			redirect(path($this->application ."/cpanel/results"));
 		}
 	}
+
+	public function minifier() {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+
+		$this->helper("forms");		
+		$this->title(__("Minifier"));
+		
+		$this->CSS("forms", "cpanel");
+		
+		if(POST("minify") and POST("code") and POST("type")) {
+			$this->helper("html");
+
+			$type = POST("type");
+			$code = POST("code", "clean");
+
+			if($type === 'css') {
+	   			$this->library('cssmin', NULL, NULL, 'minify');
+	  			$this->vars["result"] = CSSMin::minify($code);
+	   		} else {
+	   			$this->library('jsmin', NULL, NULL, 'minify');
+	   			$this->vars["result"] = JSMin::minify($code);
+	   		}
+
+	   		$this->vars["view"] = $this->view("minified", TRUE, $this->application);
+		} else {
+			$this->vars["view"] = $this->view("minifier", TRUE, $this->application);	
+		}
+		
+		$this->render("content", $this->vars);
+	}
 	
 	public function login() {
 		
