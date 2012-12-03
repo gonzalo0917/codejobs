@@ -225,7 +225,7 @@ class Codes_Model extends ZP_Load {
 	}
 
 	public function getBufferCodes($language = "all") {
-		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "ID_Code", 85) : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "ID_Code", 85);
+		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "rand()", 85) : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Code, Title, Slug, Language", NULL, "rand()", 85);
 	}
         
     private function proccessFiles($ID) {
