@@ -76,9 +76,21 @@ class Applications_Model extends ZP_Load {
 								}
 															
 								$list[$i]["item"] .= closeUl();
-								$list[$i]["class"] = "no-list-style";	
+								$list[$i]["class"] = "no-list-style";																
 									
 								unset($li);								
+							}
+
+							if($application["Slug"] == "configuration") {
+								$li[]["item"] = a(__("Minifier"), path($application["Slug"] . "/cpanel/minifier"));
+								$li[]["item"] = a("TV", path($application["Slug"] . "/cpanel/tv"));
+								
+								$i = count($list);
+								
+								$list[$i]["item"]  = openUl() . li($li) . closeUl();
+								$list[$i]["class"] = "no-list-style";	
+
+								unset($li);	
 							}
 						}
 					}							

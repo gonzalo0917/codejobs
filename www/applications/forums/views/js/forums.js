@@ -1,26 +1,27 @@
 $(document).on("ready", function() {
-	$("#ftitle").on("click", function() {
+	$("#ftags").hide();
+	$("#fcontent").hide();
+	$("#fpublish").hide();
+	$("#fcancel").hide();
+
+	$("#ftitle").on("focus", function() {
 		if($("#ftitle").val() == $("#ftitle-temp").val()) {
 			$("#ftitle").val("");
 		}
 
-		$("#ftags").removeClass("no-display");
-		$("#fcontent").removeClass("no-display");
-
-		$("#fpublish").addClass("btn");
-		$("#fpublish").removeClass("no-display");
-
-		$("#fcancel").addClass("btn");
-		$("#fcancel").removeClass("no-display");
+		$("#ftags").show();
+		$("#fcontent").show();
+		$("#fpublish").show();
+		$("#fcancel").show();
 	});
 
-	$("#ftags").on("click", function() {
+	$("#ftags").on("focus", function() {
 		if($("#ftags").val() == $("#ftags-temp").val()) {
 			$("#ftags").val("");
 		}
 	});
 
-	$("#fcontent").on("click", function() {
+	$("#fcontent").on("focus", function() {
 		if($("#fcontent").val() == $("#fcontent-temp").val()) {
 			$("#fcontent").val("");
 		}
@@ -28,12 +29,15 @@ $(document).on("ready", function() {
 
 	$("#fpublish").on("click", function() {
 		var fid = $("#fid").val();
+		var forumName = $("#fname").val();
 		var title = $("#ftitle").val();
 		var tags = $("#ftags").val();
 		var content = $("#fcontent").val();
-		var needTitle = $("#needtitle").val();
-		var needContent = $("#needcontent").val();
 
+		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
+		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
+		var needTags = '<div id="alert-message" class="alert alert-error">' + $("#needtags").val() + '</div>';			
+				
 		if(tags == $("#ftags-temp").val()) {
 			tags = "";
 		}
@@ -42,13 +46,40 @@ $(document).on("ready", function() {
 			$("#fmessage").html(needTitle);
 		} else if(content.length == 0 || content == $("#fcontent-temp").val()) { 
 			$("#fmessage").html(needContent);
+		} else if(tags.length == 0 || tags == $("#ftags-temp").val()) { 
+			$("#fmessage").html(needTags);
 		} else {
+			var newPost = '';
+
 			$.ajax({
 				type: 'POST',
 				url:   PATH + '/forums/publish',
-				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&forumID=' + fid,
-				success: function(response) {
-					$("#fmessage").html(response);
+				dataType: 'json',
+				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&forumID=' + fid + '&fname=' + forumName,
+				success: function(response) {	
+					console.log(response);				
+					$("#fmessage").html(response.alert);
+					var oldPosts = $("#fposts").html();
+
+					newPost = newPost + '<div class="post">';
+					newPost = newPost + '	<div class="post-title">';
+					newPost = newPost + '		' + response.title;
+					newPost = newPost + '	</div>';
+					newPost = newPost + '	<div class="post-left">';
+					newPost = newPost + '		' + response.date;
+					newPost = newPost + '	</div>';
+					newPost = newPost + '	<div class="clear"></div>';
+					newPost = newPost + '</div>';
+
+					$("#fposts").html(newPost + oldPosts);	
+
+					$("#ftitle").val($("#ftitle-temp").val());
+					$("#ftags").val($("#ftags-temp").val());
+					
+					$("#ftags").hide();
+					$("#fcontent").hide();
+					$("#fpublish").hide();
+					$("#fcancel").hide();				
 				}
 			});
 		}
@@ -58,15 +89,10 @@ $(document).on("ready", function() {
 		$("#ftitle").val($("#ftitle-temp").val());
 
 		$("#ftags").val($("#ftags-temp").val());
-		$("#ftags").addClass("no-display");
-
-		$("#fcontent").val($("#fcontent-temp").val());
-		$("#fcontent").addClass("no-display");
-
-		$("#fpublish").addClass("no-display");
-		$("#fpublish").removeClass("btn");
-
-		$("#fcancel").addClass("no-display");
-		$("#fcancel").removeClass("btn");
+		
+		$("#ftags").hide();
+		$("#fcontent").hide();
+		$("#fpublish").hide();
+		$("#fcancel").hide();
 	});
 });

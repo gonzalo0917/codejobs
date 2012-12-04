@@ -29,6 +29,8 @@ class Configuration_Model extends ZP_Load {
 			return $this->all();
 		} elseif($action === "edit") {
 			return $this->edit();															
+		} elseif($action === "tv") {
+			return $this->setTV();
 		}
 	}	
 	
@@ -73,5 +75,17 @@ class Configuration_Model extends ZP_Load {
 
 	public function getCities($country) {
 		return $this->Db->findBy("Country", $country, "world", "District", NULL, "District ASC");
+	}
+
+	public function getTV() {
+		return $this->Db->find(1, $this->table, "TV, Enable_Chat");
+	}
+	
+	public function setTV() {
+		$this->helper("alerts");
+		
+		$this->Db->update($this->table, array("TV" => POST("tv", "clean"), "Enable_Chat" => POST("chat") ? 1 : 0), 1);
+		
+		return getAlert(__("The configuration has been edited correctly"), "success");
 	}
 }

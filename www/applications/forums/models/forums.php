@@ -79,7 +79,7 @@ class Forums_Model extends ZP_Load {
             	
 		$data = array(
 			"ID_User"     => SESSION("ZanUserID"),
-			"ID_Forum"    => POST("forumID"),
+			"ID_Forum"    => (int) POST("forumID"),
 			"ID_Parent"   => 0,
             "Title"       => POST("title"),
 			"Slug"        => slug(POST("title", "clean")),
@@ -87,14 +87,22 @@ class Forums_Model extends ZP_Load {
 			"Author" 	  => SESSION("ZanUser"),
 			"Start_Date"  => now(4),
 			"Text_Date"   => decode(now(2)),
-			"Tags" 		  => POST("tags"),
+			"Tags" 		  => POST("tags") ? POST("tags") : "",
 			"Language"    => whichLanguage(),
             "Situation"   => "Active"
 		);
 		
-		$this->Db->insert("forums_posts", $data);
+		$lastID = $this->Db->insert("forums_posts", $data);
 		
-		echo getAlert(__("The post has ben saved correctly"), "success");
+		$URL = path("forums/". slug(POST("fname")) ."/". $lastID ."/". $data["Slug"]);
+
+		$json =  array(
+			"alert" => getAlert(__("The post has been saved correctly"), "success"),
+			"title" => '<a href="'. $URL .'" title="'. stripslashes($data["Title"]) .'">'. stripslashes($data["Title"]) .'</a>',
+			"date"  => __("Published") ." ". howLong($data["Start_Date"]) ." ". __("in") ." ". exploding($data["Tags"], "forums/tag/") ." ". __("by") .' <a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a>'
+		);
+
+		echo json_encode($json);
 	}
 	
 	private function save() {
@@ -133,8 +141,8 @@ class Forums_Model extends ZP_Load {
 		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
-				  WHERE muu_forums.Slug = '$slug' AND muu_forums.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC";
-
+				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC";
+		
 		return $this->Db->query($query);
 	}
 

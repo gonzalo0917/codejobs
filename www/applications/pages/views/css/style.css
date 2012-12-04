@@ -6,6 +6,7 @@ body {
 	width: 100%;
    	height: 100%;
    	overflow-x: hidden;
+   	text-align: center;
 }
 
 a {
@@ -130,7 +131,6 @@ header #wrapper nav ul li a:hover, header ul li a.current {
 }
 
 #content {
-	width: 924px;
 	margin: 0 auto;
 	min-height: 430px;
 }

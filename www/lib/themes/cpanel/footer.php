@@ -34,7 +34,7 @@
 				echo $this->getJs();
 			}
 
-			if(segment(0, isLang()) !== "codes" and segment(0, isLang()) !== "blog") {
+			if(segment(0, isLang()) !== "codes" and segment(0, isLang()) !== "blog" and segment(2, isLang()) !== "minifier" and segment(2, isLang()) !== "tv") {
 		?>
 		<script type="text/javascript">
 			$(window).on("load", function() {
