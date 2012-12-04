@@ -119,6 +119,39 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->render("content", $this->vars);
 	}
+
+	public function tv() {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+
+		$this->helper(array("forms", "html"));		
+		$this->title(__("TV"));
+		
+		$this->CSS("forms", "cpanel");
+		
+		$Model = ucfirst($this->application) ."_Model";
+		
+		$this->$Model = $this->model($Model);
+		$this->Cache  = $this->core("Cache");
+		
+		if(POST("save")) {
+			$this->Cache->removeAll("tv");
+			
+			$this->vars["alert"] = $this->$Model->cpanel("tv");
+		}
+
+		$data = $this->Cache->data("settings", "tv", $this->$Model, "getTV", array(), 86400);
+	
+		if($data) {
+			$this->vars["data"] = $data;		
+			$this->vars["view"] = $this->view("tv", TRUE, $this->application);	
+			
+			$this->render("content", $this->vars);
+		} else {
+			redirect(path($this->application ."/cpanel/edit"));
+		}
+	}
 	
 	public function login() {
 		

@@ -35,7 +35,22 @@
 		</header>
 		
 		<div id="content">
-			<iframe width="850" height="420" src="http://www.youtube.com/embed/aLlcRw9vEjM" frameborder="0" allowfullscreen></iframe>
+			<?php
+				echo $tv;
+
+				if($chat) {
+			?>
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://macromedia.com/cabs/swflash.cab#version=6,0,0,0" width="250" height="420">
+			  <param name="movie" value="http://cdn.livestream.com/chat/LivestreamChat.swf">
+			  <param name="flashvars" value="channel=codejobs">
+			  <param name="quality" value="medium">
+			  <param name="bgcolor" value="#FFFFFF">
+			  <embed src="http://cdn.livestream.com/chat/LivestreamChat.swf" flashvars="channel=codejobs" bgcolor="#FFFFFF" width="250" height="420" type="application/x-shockwave-flash">
+			  </embed>
+			</object>
+			<?php
+				}
+			?>
 						
 			<div class="ads">
 				<script type="text/javascript"><!--
@@ -52,7 +67,7 @@
 			</div>
 		</div>    
         
-		<div class="sponsors" style="text-align: center; margin-top: -70px;">
+		<div class="sponsors" style="text-align: center; margin-top: 0px;">
 			<div style="width: 400px; margin: 0 auto;"><a rel="nofollow" href="http://vincoorbis.com/unete-al-equipo/" target="_blank"><img src="<?=$path; ?>/images/patrocinadores/vacantes.gif" /></a></div>
 			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>			
 			<a rel="nofollow" href="http://www.vangtel.com" target="_blank" title="Vangtel"><img src="<?=$path; ?>/images/patrocinadores/vangtel.png" width="100" height="31" /></a>
