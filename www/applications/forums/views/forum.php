@@ -21,12 +21,13 @@ if(is_array($posts)) {
 				<input id="fcancel" class="btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
 
 				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
+				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 				<input id="ftitle-temp" type="hidden" value="<?php echo __("Write the title of the new topic..."); ?>" />
 				<input id="ftags-temp" type="hidden" value="<?php echo __("Write the tags separated by commas..."); ?>" />
 				<input id="fcontent-temp" type="hidden" value="<?php echo __("Write the content here..."); ?>" />
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
 				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
-				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />
+				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
 			</form>
 		</div>	
 	<?php 

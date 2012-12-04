@@ -94,7 +94,7 @@ class Forums_Model extends ZP_Load {
 		
 		$lastID = $this->Db->insert("forums_posts", $data);
 		
-		$URL = path("forums/". segment(1, isLang()) ."/". $lastID ."/". $data["Slug"]);
+		$URL = path("forums/". slug(POST("fname")) ."/". $lastID ."/". $data["Slug"]);
 
 		$json =  array(
 			"alert" => getAlert(__("The post has been saved correctly"), "success"),

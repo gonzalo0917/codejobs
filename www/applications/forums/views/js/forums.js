@@ -29,12 +29,14 @@ $(document).on("ready", function() {
 
 	$("#fpublish").on("click", function() {
 		var fid = $("#fid").val();
+		var forumName = $("#fname").val();
 		var title = $("#ftitle").val();
 		var tags = $("#ftags").val();
 		var content = $("#fcontent").val();
+
 		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
-		var needTags = '<div id="alert-message" class="alert alert-error">' + $("#needtags").val() + '</div>';	
+		var needTags = '<div id="alert-message" class="alert alert-error">' + $("#needtags").val() + '</div>';			
 				
 		if(tags == $("#ftags-temp").val()) {
 			tags = "";
@@ -53,7 +55,7 @@ $(document).on("ready", function() {
 				type: 'POST',
 				url:   PATH + '/forums/publish',
 				dataType: 'json',
-				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&forumID=' + fid,
+				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&forumID=' + fid + '&fname=' + forumName,
 				success: function(response) {	
 					console.log(response);				
 					$("#fmessage").html(response.alert);
