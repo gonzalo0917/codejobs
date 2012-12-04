@@ -6,27 +6,23 @@
 	<title><?php echo $this->getTitle(); ?></title>
 	
 	<?php
-		if(!$this->isCssMinified()) {
-			$application = segment(0, isLang());
+		$application = segment(0, isLang());
 
-	    	$this->CSS("bootstrap", NULL, FALSE, TRUE);
-			$this->CSS("prettyPhoto", "videos", NULL, FALSE, TRUE); 
-			$this->CSS("ads", "ads", NULL, FALSE, TRUE); 
-			$this->CSS("default", NULL, FALSE, TRUE); 
-			
-			$this->CSS("$this->themeRoute/css/style.css", NULL, FALSE, TRUE);
+    	$this->CSS("bootstrap", NULL, FALSE, TRUE);
+		$this->CSS("default", NULL, FALSE, TRUE); 
+		
+		$this->CSS("$this->themeRoute/css/style.css", NULL, FALSE, TRUE);
 
-			if(defined("_codemirror")) {
-	            $this->CSS("codemirror", NULL, FALSE, TRUE);
-	        }
+		if(defined("_codemirror")) {
+            $this->CSS("codemirror", NULL, FALSE, TRUE);
+        }
 
-			if($application !== "codes" and $application !== "blog") {
-				$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, FALSE, TRUE);
-				$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css", NULL, FALSE, TRUE);
-			}
-
-		 	echo $this->getCSS();
+		if($application !== "codes" and $application !== "blog") {
+			$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, FALSE, TRUE);
+			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css", NULL, FALSE, TRUE);
 		}
+
+	 	echo $this->getCSS();
 	?>			
 </head>
 

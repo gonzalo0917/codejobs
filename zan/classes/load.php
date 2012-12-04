@@ -650,43 +650,4 @@ class ZP_Load {
 			return FALSE;
 		}
 	}
-	
-	/**
-     * Sets the segments to be ignored (like slugs)
-     * 
-     * @param integer $segment1
-     * @param integer $segment2
-     * @param ...
-     * @param integer $segmentN
-     * @return void
-     */
-	public function ignoreSegments() {
-		$this->Templates = $this->core("Templates");
-		
-		$this->Templates->ignoreSegments(func_get_args());
-	}
-
-	/**
-     * Verifies if exists a minified CSS
-     * 
-     * @param  boolean $print = TRUE
-     * @return boolean value
-     */
-	public function isCssMinified($print = TRUE) {
-		$this->Templates = $this->core("Templates");
-		
-		return $this->Templates->isMinified("css", $print);
-	}
-
-	/**
-     * Verifies if exists a minified JS
-     * 
-     * @param  boolean $print = TRUE
-     * @return boolean value
-     */
-	public function isJsMinified($print = TRUE) {
-		$this->Templates = $this->core("Templates");
-		
-		return $this->Templates->isMinified("js", $print);
-	}
 }

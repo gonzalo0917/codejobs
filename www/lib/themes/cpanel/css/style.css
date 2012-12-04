@@ -1,6 +1,6 @@
 body {
 	margin: 0 auto;
-	background-image: url(../images/background.png), url(../themes/cpanel/images/background.png);
+	background-image: url(../images/background.png), url(../../themes/cpanel/images/background.png);
 	background-repeat: repeat-x;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1em;
@@ -92,7 +92,7 @@ a:hover {
 }
 
 #background {
-	background-image: url(../images/top-background.png), url(../themes/cpanel/images/top-background.png);
+	background-image: url(../images/top-background.png), url(../../themes/cpanel/images/top-background.png);
 	background-repeat: repeat-x;
 	height: 60px;
 	font-size: 0.8em;
@@ -137,7 +137,7 @@ a:hover {
 }
 
 #sidebar ul {
-	list-style: url(../images/arrow-blue.gif), url(../themes/cpanel/images/arrow-blue.gif);
+	list-style: url(../images/arrow-blue.gif), url(../../themes/cpanel/images/arrow-blue.gif);
 }
 
 #sidebar ul li ul li {
@@ -184,7 +184,7 @@ a:hover {
 	margin: 0px;
 	margin-left: 20px;
 	padding: 0px;
-	list-style: url(../images/arrow-grey.gif), url(../themes/cpanel/images/arrow-grey.gif);
+	list-style: url(../images/arrow-grey.gif), url(../../themes/cpanel/images/arrow-grey.gif);
 	width: 745px;
 }
 
@@ -212,7 +212,7 @@ a:hover {
 }
 
 .tiny-image {
-	background-image: url(../images/icons/tiny-icons.png), url(../themes/cpanel/images/icons/tiny-icons.png);
+	background-image: url(../images/icons/tiny-icons.png), url(../../themes/cpanel/images/icons/tiny-icons.png);
 	background-repeat: no-repeat;
 }
 
@@ -339,7 +339,7 @@ a:hover {
 }
 
 #add-img {
-	background-image:url(../images/icons/plus2.png), url(../themes/cpanel/images/icons/plus2.png);
+	background-image:url(../images/icons/plus2.png), url(../../themes/cpanel/images/icons/plus2.png);
 	display:block;
 	float:right;
 	width:38px;
@@ -349,7 +349,7 @@ a:hover {
 }
 
 #add-img:hover {
-	background-image:url(../images/icons/plus2_hover.png), url(../themes/cpanel/images/icons/plus2_hover.png);
+	background-image:url(../images/icons/plus2_hover.png), url(../../themes/cpanel/images/icons/plus2_hover.png);
 }
 
 .form-results-search fieldset {

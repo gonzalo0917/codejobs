@@ -122,11 +122,10 @@ class ZP_Templates extends ZP_Load {
 
 		if(file_exists($CSS)) { 
 			if($print) {
-				print '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->getScript($CSS, 'css') .'" type="text/css" />';
+				print '<link rel="stylesheet" href="'. _get("webURL") .'/'. $CSS .'" type="text/css" />';
 			} else { 
 				array_push($arrayCSS, $CSS);
 			}
-			// $this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") . _sh . $this->getScript($CSS, 'css') .'" type="text/css" />';
 		} 
 
 		if($CSS === "bootstrap") {
@@ -135,7 +134,6 @@ class ZP_Templates extends ZP_Load {
 			} else {
 				array_push($arrayCSS, _corePath ."/vendors/css/frameworks/bootstrap/css/bootstrap.min.css");
 			}
-			// $this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/zan/vendors/css/frameworks/bootstrap/css/bootstrap.min.css" type="text/css" />';
 
 			$this->js("bootstrap");
 		} elseif($CSS === "prettyphoto") {
@@ -144,20 +142,17 @@ class ZP_Templates extends ZP_Load {
 			} else {
 				array_push($arrayCSS, _corePath ."/vendors/js/lightbox/prettyphoto/css/prettyPhoto.css");
 			}
-			//$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/lightbox/prettyphoto/css/prettyPhoto.css", "zan") .'" type="text/css" />';	
 		} elseif($CSS === "codemirror") {
             if ($print) {
                 print '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />';
             } else {
 				array_push($arrayCSS, _corePath ."/vendors/js/codemirror/codemirror.css");
-                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/codemirror/codemirror.css", "zan") .'" type="text/css" />';
             }
 		} elseif($CSS === "redactorjs") {
             if ($print) {
                 print '<link rel="stylesheet" href="'. path("vendors/js/editors/redactorjs/css/redactor.css", "zan") .'" type="text/css" />';
             } else {
 				array_push($arrayCSS, _corePath ."/vendors/js/editors/redactorjs/css/redactor.css");
-                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/redactorjs/css/redactor.css", "zan") .'" type="text/css" />';
             }			
 		} elseif($CSS === "markitup") {
             if ($print) {
@@ -165,9 +160,7 @@ class ZP_Templates extends ZP_Load {
                 print '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/html/style.css", "zan") .'" type="text/css" />';
             } else {
 				array_push($arrayCSS, _corePath ."/vendors/js/editors/markitup/skins/markitup/style.min.css", _corePath ."/vendors/js/editors/markitup/sets/html/style.css");
-                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/skins/markitup/style.min.css", "zan") .'" type="text/css" />';
-                //$this->CSS .= '<link rel="stylesheet" href="'. path("vendors/js/editors/markitup/sets/html/style.css", "zan") .'" type="text/css" />';
-            }			
+            }
 		}
 
 		if(!_get("optimization") or segment(0, isLang()) === "cpanel" or segment(1, isLang()) === "cpanel") {
@@ -177,33 +170,10 @@ class ZP_Templates extends ZP_Load {
 		}
 		
 		if(file_exists($file)) {
-			//$file = $this->getScript($file, 'css');
-
 			if($print) {
 				print '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />';
 			} else {
 				array_push($arrayCSS, $file);
-				//$this->CSS .= '<link rel="stylesheet" href="'. _get("webURL") .'/'. $file .'" type="text/css" />';
-			}
-		}
-	}
-	
-	/*
-	* Gets the filename according to current environment
-	*/
-	private function getScript($filename, $ext) {
-		if(_get('environment') > 2) {
-			if(!preg_match("/(.+)\.min\.$ext$/", $filename)) {
-				return preg_replace("/.$ext$/", ".min.$ext", $filename);
-			} else {
-				return $filename;
-			}
-		} else {
-			if(preg_match("/(.+)\.min\.$ext$/", $filename, $name)) {
-				unset($name[0]);
-				return current($name) . ".$ext";
-			} else {
-				return $filename;
 			}
 		}
 	}
@@ -231,7 +201,7 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getCSS() {
-		return $this->getScripts("css");
+		return $this->getScript("css");
 	}
 	
     /**
@@ -240,7 +210,7 @@ class ZP_Templates extends ZP_Load {
      * @return void
      */
 	public function getJs() {
-		return $this->getScripts("js");
+		return $this->getScript("js");
 	}
 
 	/**
@@ -248,7 +218,7 @@ class ZP_Templates extends ZP_Load {
 	 *
 	 * @return string/void
 	 */
-	private function getScripts($ext) {
+	private function getScript($ext) {
 		if($ext === "css") {
 			$scripts = array_merge($this->topCSS, $this->bottomCSS);
 		} elseif($ext === "js") {
@@ -266,14 +236,23 @@ class ZP_Templates extends ZP_Load {
 					return '<script type="text/javascript" src="'. implode('"></script><script type="text/javascript" src="', $scripts) .'"></script>';
 				}
 			} else {
-				$contents = "";
+				$filename = _cacheDir .'/'. $ext .'/'. md5(implode(':', $scripts)) .'.'. $ext;
 
-				foreach ($scripts as $file) $contents .= @file_get_contents($file) . "\n";
+				if(!is_file($filename)) {
+					$contents = "";
 
-				$filename = $this->getMinFile() .'.'. $ext;
-				$contents = compress($contents, $ext);
+					foreach ($scripts as $file) $contents .= @file_get_contents($file) . "\n";
 
-	        	file_put_contents($filename, $contents, LOCK_EX);
+					$contents = compress($contents, $ext);
+
+		        	file_put_contents($filename, $contents, LOCK_EX);
+				}
+
+				if($ext === "css") {
+					return '<link rel="stylesheet" href="'. _get("webURL") .'/'. $filename .'" type="text/css" />';
+				} else {
+					return '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
+				}
 			}
 		}
 	}
@@ -451,7 +430,7 @@ class ZP_Templates extends ZP_Load {
 			}
 		} elseif(file_exists($js)) {
 			if($getJs) {
-				return '<script type="text/javascript" src="'. _get("webURL") .'/'. $this->getScript($js, 'js') .'"></script>';
+				return '<script type="text/javascript" src="'. _get("webURL") .'/'. $js .'"></script>';
 			} else {
 				array_push($arrayJS, $js);
 			}
@@ -463,14 +442,14 @@ class ZP_Templates extends ZP_Load {
 			}
 		} elseif(file_exists("www/applications/$application/views/js/$js")) {
 			if($getJs) {
-				$filename = $this->getScript("www/applications/$application/views/js/$js", 'js');
+				$filename = "www/applications/$application/views/js/$js";
 				return '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
 			} else {
 				array_push($arrayJS, "www/applications/$application/views/js/$js");
 			}
 		} elseif(file_exists("www/applications/$application/views/js/$js.js")) {
 			if($getJs) {
-				$filename = $this->getScript("www/applications/$application/views/js/$js.js", 'js');
+				$filename = "www/applications/$application/views/js/$js.js";
 				return '<script type="text/javascript" src="'. _get("webURL") .'/'. $filename .'"></script>';
 			} else {
 				array_push($arrayJS, "www/applications/$application/views/js/$js.js");
@@ -627,63 +606,5 @@ class ZP_Templates extends ZP_Load {
      */
 	public function vars($vars) {
 		$this->vars = $vars;
-	}
-	
-	/**
-     * Set ignored segments
-     *
-     * @return void
-     */
-	public function ignoreSegments($segments = array()) {
-		$this->ignoredSegments = $segments;
-	}
-
-	/**
-     * Verifies if exists a minified file
-     *
-     * @return boolean value
-     */
-	public function isMinified($ext, $print) {
-		if(_get("environment") < 3) {
-			return FALSE;
-		} else {
-			$exists = is_file($this->getMinFile() .".". $ext);
-
-			if($print) {
-				if($ext === "css") {
-					echo '<link rel="stylesheet" href="'. $this->getMinFile(TRUE) .'.'. $ext .'" type="text/css" />';
-				} elseif($ext === "js") {
-					echo '<script type="text/javascript" src="'. $this->getMinFile(TRUE) .'.'. $ext .'"></script>';
-				}
-			}
-
-			return $exists;
-		}
-	}
-
-	/**
-     * Gets the path/URL of minified file without extension
-     *
-     * @return string value
-     */
-	private function getMinFile($URL = FALSE) {
-		$filename = sha1($this->filterURL());
-
-		if(!$URL) {
-			return _cacheDir . _sh . $filename;
-		} else {
-			return path(_cacheDir ."/$filename", TRUE);
-		}
-	}
-
-	private function filterURL() {
-		$parts 	  = route();
-		$segments = "/";
-
-		if(isLang()) array_shift($parts);
-
-		if(count($parts) > 0 and count($this->ignoredSegments) > 0) foreach ($this->ignoredSegments as $segment) array_splice($parts, $segment, 1, "-");
-		
-		return path(TRUE) ."/". implode("/", $parts);
 	}
 }
