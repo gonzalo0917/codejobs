@@ -355,6 +355,8 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
   `Validation` varchar(15) NOT NULL DEFAULT 'Super Admin',
   `Application` varchar(30) NOT NULL DEFAULT 'Blog',
   `Editor` varchar(15) NOT NULL DEFAULT 'MarkitUp',
+  `TV` text NOT NULL,
+  `Enable_Chat` tinyint(1) NOT NULL,
   `Message` text NOT NULL,
   `Activation` varchar(10) NOT NULL DEFAULT 'Nobody',
   `Email_Recieve` varchar(50) NOT NULL,
@@ -367,8 +369,8 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 -- Dumping data for table `muu_configuration`
 --
 
-INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs',  'es', 'Spanish',  'newcodejobs',  'Active', 'blog', 'MarkitUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz',  'Active');
+INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `TV`, `Enable_Chat`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
+(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs',  'es', 'Spanish',  'newcodejobs',  'Active', 'blog', 'MarkitUp', '<iframe width=\"850\" height=\"420\" src=\"http://www.youtube.com/embed/aLlcRw9vEjM\" frameborder=\"0\" allowfullscreen></iframe>', 1, 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz',  'Active');
 
 
 -- --------------------------------------------------------
