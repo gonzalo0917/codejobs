@@ -132,6 +132,7 @@ $phrase["go_to_cpanel"]  								= "Ir al Panel de Control";
 $phrase["help"]  										= "Ayuda";
 $phrase["hi"]  											= "Hola";
 $phrase["home"] 	 									= "Inicio";
+$phrase["how_much_is_"] 	 							= "¿Cuánto es ";
 $phrase["i_dislike"]									= "No me gusta";
 $phrase["i_like"]										= "Me gusta";
 $phrase["if_you_are_sure_to_deactivate_your_account_please_choose_an_option_below_and_click_the_confirm_button_to_continue"] = "Si estás seguro de desactivar tu cuenta, por favor elige una de las opciones y haz clic en el botón de confirmación para continuar.";

@@ -439,6 +439,29 @@ function formSave($action = NULL) {
  * @returns string $HTML
  */		 
 function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
+	if(!$alphanumeric) {
+		$num1 = rand(0, 9);
+		$num2 = rand(0, 9);
+
+		switch(rand(1, 3)) {
+			case 1:
+				$operation = '+';
+				$result    = $num1 + $num2;
+			break;
+
+			case 2:
+				$operation = '-';
+				$result    = $num1 - $num2;
+			break;
+
+			default:
+				$operation = 'x';
+				$result    = $num1 * $num2;
+		}
+
+		$HTML = __("How much is ") . $num1 .' '. $operation .' '. $num2 .'? ';
+	}
+
 	if(isset($attributes) and is_array($attributes)) {
 		$attrs = NULL;
 		
@@ -458,7 +481,7 @@ function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 			}
 		}
 		
-		$HTML = '<input'. $attrs .' type="text" /> ' . "\n";
+		$HTML .= '<input'. $attrs .' type="text" /> ' . "\n";
 
 		if(isset($p) and $p and isset($field)) {
 			$HTML = '	<p>
@@ -475,7 +498,7 @@ function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 
 		return $HTML;
 	} elseif($attributes) {
-		return '<input name="'. $attributes .'" type="text" />' . "\n";
+		return $HTML .'<input name="'. $attributes .'" type="text" />' . "\n";
 	} else {
 		return NULL;	
 	}

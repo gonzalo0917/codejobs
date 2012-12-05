@@ -41,6 +41,12 @@ echo div("new-user", "class");
 				"value"    => $message,
 				"required" => TRUE
 			));
+
+			echo formCaptcha(array(
+				"name" 	   => "captcha",
+				"p"		   => TRUE,
+				"field"    => __("Security verification")
+			));
 			
 			echo formInput(array(	
 				"name" 	=> "send",
