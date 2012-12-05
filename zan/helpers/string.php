@@ -175,17 +175,18 @@ function cleanHTML($HTML) {
  * @param string $text
  * @return string $text
  */ 
-function compress($string, $filetype = NULL) {
-	if(is_null($filetype)) {
+function compress($string, $filetype = "php") {
+	if($filetype === "php") {
+		$string = str_replace("<?php\r", "<?php ", $string);
 	    return str_replace(array("\r\n", "\r", "\n", "\t", "  ", "    ", "    "), "", $string);      
 	} else {
 		global $Load;
 
-		if($filetype === 'css') {
-			$Load->library('cssmin', NULL, NULL, 'minify');
+		if($filetype === "css") {
+			$Load->library("cssmin", NULL, NULL, "minify");
 			return CSSMin::minify($string);
 		} elseif($filetype === 'js') {
-			$Load->library('jsmin', NULL, NULL, 'minify');
+			$Load->library("jsmin", NULL, NULL, "minify");
 			return JSMin::minify($string);
 		}
 	}

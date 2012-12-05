@@ -27,6 +27,11 @@
 						"value"    => "js",
 						"option"   => "Javascript",
 						"selected" => $type === "js" ? TRUE : FALSE
+					),
+					array(
+						"value"    => "php",
+						"option"   => "PHP",
+						"selected" => $type === "php" ? TRUE : FALSE
 					)
 				)
 			);

@@ -104,16 +104,9 @@ class CPanel_Controller extends ZP_Load {
 			$type = POST("type");
 			$code = POST("code", "clean");
 
-			if($type === 'css') {
-	   			$this->library('cssmin', NULL, NULL, 'minify');
-	  			$this->vars["code"] = CSSMin::minify($code);
-	   		} else {
-	   			$this->library('jsmin', NULL, NULL, 'minify');
-	   			$this->vars["code"] = JSMin::minify($code);
-	   		}
-
+   			$this->vars["code"]  = compress($code, $type);
 	   		$this->vars["type"]  = $type;
-	   		$this->vars["alert"] = getAlert(__("The code has been minified"), "success");
+	   		$this->vars["alert"] = getAlert("The code has been minified", "success");
 		}
 
 		$this->vars["view"] = $this->view("minifier", TRUE, $this->application);	

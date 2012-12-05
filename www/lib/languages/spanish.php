@@ -295,6 +295,7 @@ $phrase["the_account_has_been_created_correctly_we_will_send_you_an_email_so_you
 $phrase["the_bookmark_has_been_saved_correctly"]		= "El marcador fue agregado correctamente";
 $phrase["the_cache_files_were_removed"] 				= "Los archivos de caché fueron eliminados";
 $phrase["the_changes_you_have_made_have_not_been_saved_yet"] = "Aún no se han guardado los cambios";
+$phrase["the_code_has_been_minified"] 					= "El código ha sido minificado";
 $phrase["the_email_already_exists"]			  			= "El Email ya existe";
 $phrase["the_bookmark_has_been_edit_correctly"]			= "El marcador ha sido editado correctamente";
 $phrase["the_code_has_been_edit_correctly"]				= "El código ha sido editado correctamente";
