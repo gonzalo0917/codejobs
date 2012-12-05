@@ -440,30 +440,28 @@ function formSave($action = NULL) {
  */		 
 function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 	if(!$alphanumeric) {
-		$num1 = rand(0, 9);
-		$num2 = rand(0, 9);
+		$num1 = rand(1, 9);
+		$num2 = rand(1, 9);
 
 		switch(rand(1, 3)) {
 			case 1:
-				$operation = '+';
-				$result    = $num1 + $num2;
-			break;
-
-			case 2:
 				$operation = '-';
 				$result    = $num1 - $num2;
 			break;
 
 			default:
-				$operation = 'x';
-				$result    = $num1 * $num2;
+				$operation = '+';
+				$result    = $num1 + $num2;
 		}
 
-		$HTML = __("How much is ") . $num1 .' '. $operation .' '. $num2 .'? ';
+		$HTML = __("How much is ") . (rand(0, 1) === 0 ? $num1 : num2str($num1, TRUE)) .' '. $operation .' '. (rand(0, 1) === 0 ? $num2 : num2str($num2, TRUE)) .'? ';
 	}
 
 	if(isset($attributes) and is_array($attributes)) {
 		$attrs = NULL;
+
+		$attributes["style"] = (isset($attributes["style"]) ? $attributes["style"] : '') . "max-width: 50px; text-align: center;";
+		$attributes["type"]  = "number";
 		
 		foreach($attributes as $attribute => $value) {
 			if($attribute === "required") {
