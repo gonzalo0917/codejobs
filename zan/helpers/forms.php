@@ -428,3 +428,55 @@ function formSave($action = NULL) {
 	
 	return $HTML;
 }
+
+/**
+ * formCaptcha
+ * 
+ * Generate a captcha to validate forms
+ * 
+ * @param array   $attributes   = [$p, $field, $name, $class, ...]
+ * @param boolean $alphanumeric = "No"
+ * @returns string $HTML
+ */		 
+function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
+	if(isset($attributes) and is_array($attributes)) {
+		$attrs = NULL;
+		
+		foreach($attributes as $attribute => $value) {
+			if($attribute === "required") {
+				$attrs .= ' required ';
+			} elseif($attribute === "events") {
+				$attrs .= ' '. $value .' ';
+			} elseif($attribute !== "p" and $attribute !== "field") {
+				if(!preg_match('/"/', $value)) {
+					$attrs .= ' '. strtolower($attribute) .'="'. $value .'"';
+				} else {
+					$attrs .= ' '. strtolower($attribute) ."='". $value ."'";
+				}
+			} else {
+				$$attribute = $value;
+			}
+		}
+		
+		$HTML = '<input'. $attrs .' type="text" /> ' . "\n";
+
+		if(isset($p) and $p and isset($field)) {
+			$HTML = '	<p>
+							<span class="field">&raquo; '. $field .'</span><br />
+							'. $HTML .'
+						</p>';
+		} elseif(isset($p) and $p) {
+			$HTML = '	<p>
+							'. $HTML .'
+						</p>';
+		} elseif(isset($field)) {
+			$HTML = '<span class="field">&raquo; '. $field .'</span><br />'. $HTML .'';
+		}
+
+		return $HTML;
+	} elseif($attributes) {
+		return '<input name="'. $attributes .'" type="text" />' . "\n";
+	} else {
+		return NULL;	
+	}
+}
