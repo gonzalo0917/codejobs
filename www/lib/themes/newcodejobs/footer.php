@@ -30,20 +30,22 @@
                 <?php 
                 }   
                 
-                echo $this->js("www/lib/scripts/js/full.min.js", NULL, TRUE);                
+                $this->js("jquery", NULL, FALSE, TRUE);
+                $this->js("$this->themeRoute/js/social.js", NULL, FALSE, TRUE);
+                $this->js("$this->themeRoute/js/porlets.js", NULL, FALSE, TRUE);
 
                 if(segment(0, isLang()) !== "forums") {         
                     if(defined("_codemirror")) {
-                        echo $this->js("codemirror", NULL, TRUE);
+                        $this->js("codemirror", NULL, FALSE, TRUE);
                     }
                     
                     if(defined("_angularjs")) {
-                        echo $this->js("angular", NULL, TRUE);
+                        $this->js("angular", NULL, FALSE, TRUE);
                     }
 
                     if(segment(0, isLang()) === "forums") {
-                        echo $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, TRUE);
-                        echo $this->js(_corePath ."/vendors/js/editors/markitup/sets/bbcode/set.js", NULL, TRUE);
+                        $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, FALSE, TRUE);
+                        $this->js(_corePath ."/vendors/js/editors/markitup/sets/bbcode/set.js", NULL, FALSE, TRUE);
                     ?>
 
                         <script type="text/javascript">
@@ -56,12 +58,12 @@
                 }
 
                 if(segment(0, isLang()) === "live") {
+                    $this->js("www/lib/scripts/js/tweetscroller/js/handlebars.js", NULL, FALSE, TRUE);
+                    $this->js("www/lib/scripts/js/tweetscroller/js/moment.js", NULL, FALSE, TRUE);
+                    $this->js("www/lib/scripts/js/tweetscroller/js/jquery.masonry.js", NULL, FALSE, TRUE);
+                    $this->js("www/lib/scripts/js/tweetscroller/js/jquery.hoverIntent.js", NULL, FALSE, TRUE);
+                    $this->js("www/lib/scripts/js/tweetscroller/js/jquery.tweetscroller.js", NULL, FALSE, TRUE);
                 ?>
-                    <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/handlebars.js", TRUE); ?>"></script>
-                    <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/moment.js", TRUE); ?>"></script>
-                    <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.masonry.js", TRUE); ?>"></script>
-                    <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.hoverIntent.js", TRUE); ?>"></script>
-                    <script src="<?php echo path("www/lib/scripts/js/tweetscroller/js/jquery.tweetscroller.js", TRUE); ?>"></script>
                     <script>
                         (function(){
                             $('#tweets').tweetscroller({
@@ -75,7 +77,7 @@
                 }
                 
                 echo $this->getJs();     
-                echo display('<script type="text/javascript">var sc_project = 7655788;var sc_invisible = 1;var sc_security = "f167f55b";</script><script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);         
+                echo display('<script type="text/javascript">var sc_project = 7655788;var sc_invisible = 1;var sc_security = "f167f55b";</script><script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);
             ?>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
             <script type="text/javascript">

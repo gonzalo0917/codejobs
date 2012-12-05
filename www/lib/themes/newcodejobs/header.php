@@ -19,34 +19,30 @@
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
 	
     <?php
-    	if(_get("optimization")) {
-    		$this->CSS("www/lib/css/full.css", NULL, TRUE);
-    	} else {
-	    	echo $this->CSS("www/lib/css/default.css", NULL, TRUE);
-	    	echo $this->CSS("$this->themeRoute/css/style.css", NULL, TRUE);
-	    	echo $this->CSS("$this->themeRoute/css/mediaqueries.css", NULL, TRUE);
+    	$this->CSS("www/lib/css/default.css", NULL, FALSE, TRUE);
+    	$this->CSS("$this->themeRoute/css/style.css", NULL, FALSE, TRUE);
+    	$this->CSS("$this->themeRoute/css/mediaqueries.css", NULL, FALSE, TRUE);
 
-	    	if(segment(0, isLang()) !== "polls") {
-	    		$this->CSS("polls", "polls", TRUE);
-	    	}
+    	if(segment(0, isLang()) !== "polls") {
+    		$this->CSS("polls", "polls", FALSE, TRUE);
+    	}
 
-	    	if(segment(0, isLang()) === "forums") {
-	            $this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, TRUE);
-	        }
+    	if(segment(0, isLang()) === "forums") {
+            $this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
+        }
 
-	        if(defined("_bootstrap")) {
-				$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, TRUE);
-			}
+        if(defined("_bootstrap")) {
+			$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
+		}
 
-			if(defined("_codemirror")) {
-	            $this->CSS("codemirror", NULL, TRUE);
-	        }
+		if(defined("_codemirror")) {
+            $this->CSS("codemirror", NULL, FALSE, TRUE);
+        }
 
-	        if(segment(0, isLang()) === "live") {
-				$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", NULL, TRUE);
-				$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", NULL, TRUE);
-				$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", NULL, TRUE);
-			}
+        if(segment(0, isLang()) === "live") {
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", NULL, FALSE, TRUE);
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", NULL, FALSE, TRUE);
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", NULL, FALSE, TRUE);
 		}
 
 		echo $this->getCSS(); 		
