@@ -440,6 +440,9 @@ function formSave($action = NULL) {
  */		 
 function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 	if(!$alphanumeric) {
+		$attributes["style"] = (isset($attributes["style"]) ? $attributes["style"] : '') . "max-width: 50px; text-align: center;";
+		$attributes["type"]  = "number";
+
 		$num1 = rand(1, 9);
 		$num2 = rand(1, 9);
 
@@ -454,14 +457,15 @@ function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 				$result    = $num1 + $num2;
 		}
 
-		$HTML = __("How much is ") . (rand(0, 1) === 0 ? $num1 : num2str($num1, TRUE)) .' '. $operation .' '. (rand(0, 1) === 0 ? $num2 : num2str($num2, TRUE)) .'? ';
+		$hash = md5(getURL());
+		$HTML = '<input type="hidden" name="captcha_token" value="'. $hash .'" />';
+		$HTML .= __("How much is ") . (rand(0, 1) === 0 ? $num1 : num2str($num1, TRUE)) .' '. $operation .' '. (rand(0, 1) === 0 ? $num2 : num2str($num2, TRUE)) .'? ';
+
+		SESSION("ZanCaptcha$hash", $result);
 	}
 
 	if(isset($attributes) and is_array($attributes)) {
 		$attrs = NULL;
-
-		$attributes["style"] = (isset($attributes["style"]) ? $attributes["style"] : '') . "max-width: 50px; text-align: center;";
-		$attributes["type"]  = "number";
 		
 		foreach($attributes as $attribute => $value) {
 			if($attribute === "required") {

@@ -11,6 +11,8 @@ class Feedback_Model extends ZP_Load {
 	public function __construct() {
 		$this->Db = $this->db();
 		
+		$this->Data = $this->core("Data");
+
 		$this->Email = $this->core("Email");
 		
 		$this->Email->setLibrary("PHPMailer");
@@ -20,6 +22,8 @@ class Feedback_Model extends ZP_Load {
 		
 		$this->table  = "feedback";
 		$this->fields = "ID_Feedback, Name, Email, Company, Phone, City, Subject, Message, Text_Date, Situation";
+
+		$this->Data->table($this->table);
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_Feedback DESC", $search = NULL, $field = NULL, $trash = FALSE) {
@@ -65,15 +69,22 @@ class Feedback_Model extends ZP_Load {
 	}
 	
 	public function send() {
-		if(!POST("name")) {
-			return getAlert(__("You need to write your name"));
-		} elseif(!isEmail(POST("email"))) {
-			return getAlert(__("Invalid E-Mail"));
-		} elseif(!POST("message")) {
-			return getAlert(__("You need to write a message"));
-		}
+		$validations = array(
+			"name"    => "required",
+			"email"   => "email?",
+			"message" => "required",
+			"captcha" => "captcha?"
+		);
 
 		$this->helper(array("alerts", "time"));
+
+		$this->Data->ignore(array("captcha_token"));
+		
+		$data = $this->Data->proccess(NULL, $validations);
+
+		if(isset($data["error"])) {
+			return $data["error"];
+		}
 		
 		$values = array(
 			"Name"   	 => POST("name"),
@@ -85,6 +96,7 @@ class Feedback_Model extends ZP_Load {
 			"Start_Date" => now(4),
 			"Text_Date"  => decode(now(2))
 		);
+
 		
 		$insert = $this->Db->insert($this->table, $values);
 			
