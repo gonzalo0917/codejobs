@@ -332,7 +332,7 @@ class Codes_Model extends ZP_Load {
 	}
 
 	public function updateViews($codeID) {
-		return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Code = '$codeID' AND Situation = 'Active'");
+		//return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Code = '$codeID' AND Situation = 'Active'");
 	}
 
     public function setReport($ID) {

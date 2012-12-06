@@ -213,7 +213,7 @@ class Bookmarks_Model extends ZP_Load {
 	}
 
 	public function updateViews($bookmarkID) {
-		return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Bookmark = '$bookmarkID'");
+		//return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Bookmark = '$bookmarkID'");
 	}
 
 	public function setReport($ID) {
