@@ -19,8 +19,8 @@ class Captcha_Controller extends ZP_Load {
 	public function __construct() { }
 	
 
-	public function index() {
-		$text = SESSION("ZanCaptcha" . md5(getURL()));
+	public function index($token) {
+		$text = SESSION("ZanCaptcha$token");
 
 		if(!$this->generate($text)) {
 			header( "Content-Type: image/gif" );

@@ -472,7 +472,7 @@ function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 			$answer .= $characters[rand(0, count($characters) - 1)];
 		}
 
-		$HTML .= '<img src="'. path("captcha") .'" /> ';
+		$HTML .= '<img src="'. path("captcha/$hash") .'" /> ';
 	}
 
 	SESSION("ZanCaptcha$hash", $answer);

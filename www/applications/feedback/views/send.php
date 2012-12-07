@@ -46,7 +46,7 @@ echo div("new-user", "class");
 				"name" 	   => "captcha",
 				"p"		   => TRUE,
 				"field"    => __("Verification") .' ('. __("answer must be a number") .')'
-			), TRUE);
+			));
 			
 			echo formInput(array(	
 				"name" 	=> "send",
