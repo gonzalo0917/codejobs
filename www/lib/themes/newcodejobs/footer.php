@@ -63,20 +63,24 @@
                     $this->js("www/lib/scripts/js/tweetscroller/js/jquery.masonry.js", NULL, FALSE, TRUE);
                     $this->js("www/lib/scripts/js/tweetscroller/js/jquery.hoverIntent.js", NULL, FALSE, TRUE);
                     $this->js("www/lib/scripts/js/tweetscroller/js/jquery.tweetscroller.js", NULL, FALSE, TRUE);
+                }
+                
+                echo $this->getJs();
+
+                if(segment(0, isLang()) === "live") {
                 ?>
                     <script>
-                        (function(){
+                        !function(){
                             $('#tweets').tweetscroller({
                                 autoplay: true,
                                 speed: 65,
                                 username: 'codejobs'
                             });
-                        })(jQuery);
+                        }();
                     </script>
                 <?php
                 }
-                
-                echo $this->getJs();     
+
                 echo display('<script type="text/javascript">var sc_project = 7655788;var sc_invisible = 1;var sc_security = "f167f55b";</script><script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);
             ?>
             <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
