@@ -1,5 +1,7 @@
 <?php
-	class Captcha
+	include "../../classes/load.php";
+
+	class Captcha extends ZP_Load
 	{
 		const backgroundSizeX = 2000;
 		const backgroundSizeY = 350;
@@ -9,7 +11,7 @@
 		const backgroundFile  = "src/background.png";
 		const errorFile 	  = "src/error.gif";
 
-		public static init() {
+		public static function init() {
 			$text = SESSION("ZanCaptcha" . md5(getURL()));
 
 			if(!$this->generate($text)) {
