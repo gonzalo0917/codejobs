@@ -1,27 +1,40 @@
 <?php
-	function minify($path = '.') {
-		if($handle = opendir($path)) {
-			$files = 0;
+	if(!defined("_access")) {
+		die("Error: You don't have permission to access here...");
+	}
 
-		    while(FALSE !== ($entry = readdir($handle))) {
-		    	if(preg_match('/^\./', $entry)) {
-		    		continue;
-		    	}
+	function minify($ext = NULL) {
+		$css = FALSE; $js  = FALSE;
 
-		        if(is_dir("$path/$entry")) {
-		        	$files += minify("$path/$entry");
-		        } elseif(preg_match('/(.+)\.(js|css)$/', $entry, $name) and !preg_match('/\.min\.(js|css)$/', $entry)) {
-					unset($name[0]);
-		        	$filename = current($name) .'.min.'. next($name);
-		        	$contents = compress(file_get_contents("$path/$entry"), current($name));
-		        	file_put_contents("$path/$filename", $contents, LOCK_EX);
-		        	$files++;
-		        }
-		    }
-		    closedir($handle);
-
-		    return $files;
+		if(is_null($ext)) {
+			$css = TRUE; $js = TRUE;
+		} else {
+			$$ext = TRUE;
 		}
 
-		return 0;
+		if($js) {
+			$path = _cacheDir .'/js';
+
+			if($handle = opendir($path)) {
+			    while(FALSE !== ($entry = readdir($handle))) {
+			    	if(preg_match('/.+\.js$/', $entry)) {
+			    		unlink("$path/$entry");
+			    	}
+			    }
+			    closedir($handle);
+			}
+		}
+
+		if($css) {
+			$path = _cacheDir .'/css';
+
+			if($handle = opendir($path)) {
+			    while(FALSE !== ($entry = readdir($handle))) {
+			    	if(preg_match('/.+\.css$/', $entry)) {
+			    		unlink("$path/$entry");
+			    	}
+			    }
+			    closedir($handle);
+			}
+		}
 	}

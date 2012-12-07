@@ -52,11 +52,19 @@ class CPanel_Controller extends ZP_Load {
 			$this->vars["alert"] = $this->$Model->cpanel("edit");
 		} elseif(POST("cancel")) {
 			redirect("cpanel");
-		} elseif(POST("minify")) {
+		} elseif(POST("minify") or POST("minify_css") or POST("minify_js")) {
 			$this->helper("minify", $this->application);
 			$this->helper("alerts");
 			
-			$this->vars["alert"] = getAlert(minify() . __(" files were minified."), "success");
+			if(POST("minify_css")) {
+				minify("css");
+			} elseif(POST("minify_js")) {
+				minify("js");
+			} else {
+				minify();
+			}
+
+			$this->vars["alert"] = getAlert("Updated successfully", "success");
 		} elseif(POST("delete_cache")) {
 			$this->Cache = $this->core("Cache");
 			$this->helper("alerts");
