@@ -441,6 +441,7 @@ function formSave($action = NULL) {
 function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 	$hash = md5(getURL());
 	$HTML = '<input type="hidden" name="captcha_token" value="'. $hash .'" />';
+	$HTML .= '<input type="hidden" name="captcha_type" value="'. ($alphanumeric ? 'alphanumeric' : 'aritmethic') .'" />';
 	
 	if(!$alphanumeric) {
 		$attributes["style"] = (isset($attributes["style"]) ? $attributes["style"] : '') . "max-width: 50px; text-align: center;";
@@ -463,16 +464,18 @@ function formCaptcha($attributes = FALSE, $alphanumeric = FALSE) {
 		$HTML .= __("How much is ") . (rand(0, 1) === 0 ? $num1 : num2str($num1, TRUE)) .' '. $operation .' '. (rand(0, 1) === 0 ? $num2 : num2str($num2, TRUE)) .'? ';
 
 	} else {
+		$attributes["style"] = (isset($attributes["style"]) ? $attributes["style"] : '') . "max-width: 200px; text-align: center;";
+
 		$answer 	= "";
 		$characters = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
 							"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
 							"1", "2", "3", "4", "5", "6", "7", "8", "9", "0");
 
-		for($i = 0; $i < 6; $i++) {
+		for($i = 0; $i < 5; $i++) {
 			$answer .= $characters[rand(0, count($characters) - 1)];
 		}
 
-		$HTML .= '<img src="'. path("captcha/$hash") .'" /> ';
+		$HTML .= '<img src="'. path("captcha/$hash") .'" /><br />';
 	}
 
 	SESSION("ZanCaptcha$hash", $answer);
