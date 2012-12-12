@@ -70,13 +70,13 @@
                 if(segment(0, isLang()) === "live") {
                 ?>
                     <script>
-                        !function(){
+                        !function($){
                             $('#tweets').tweetscroller({
                                 autoplay: true,
                                 speed: 65,
                                 username: 'codejobs'
                             });
-                        }();
+                        }(jQuery);
                     </script>
                 <?php
                 }
