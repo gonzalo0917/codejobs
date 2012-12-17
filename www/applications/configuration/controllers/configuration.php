@@ -18,8 +18,8 @@ class Configuration_Controller extends ZP_Load {
 	}
 	
 	public function world() {
-		if(POST("country")) {
-			$country = POST("country");
+		if(GET("country")) {
+			$country = GET("country");
 
 			$vars["data"] = $this->Cache->data("cities-$country", "world", $this->Configuration_Model, "getCities", array($country), 86400);
 

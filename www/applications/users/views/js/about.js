@@ -1,4 +1,5 @@
 function changeCountry() {
+	console.log("Se cambiará");
 	var $city, $obj;
 
 	$city = $("select[name='city']");
@@ -10,10 +11,8 @@ function changeCountry() {
 	if ($obj.val() !== "") {
 		$obj.attr('disabled', true);
 		$.ajax({
-			url: PATH + "/configuration/world/",
-			type: "POST",
+			url: PATH + "/configuration/world/?country=" + $obj.val(),
 			dataType: "json",
-			data: {country: $obj.val()},
 			success: function (data) {
 				$.each(data, function(val, text) {
 				    $city.append(new Option(text, val));
