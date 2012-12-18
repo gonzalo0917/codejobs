@@ -184,16 +184,17 @@ class Users_Controller extends ZP_Load {
 	}
 
 	public function edit($scope = "about") {
+		$this->helper(array("forms", "html"));
+		$this->config("users", $this->application);
+		$this->css("forms", "cpanel");
+		$this->css("users", $this->application);
+
 		if($scope === "about") {
 			if(POST("save")) {
 				$this->helper("alerts");
 				$vars["alert"] = $this->Users_Model->setInformation();
 			}
 
-			$this->helper(array("forms", "html"));
-			$this->config("users", $this->application);
-			$this->css("forms", "cpanel");
-			$this->css("users", $this->application);
 			$this->js("about", $this->application);
 			$this->js("jquery.jdpicker.js");
 
@@ -233,13 +234,19 @@ class Users_Controller extends ZP_Load {
 				$vars["alert"] = $this->Users_Model->changePassword();
 			}
 
-			$this->helper(array("forms", "html"));
-			$this->config("users", $this->application);
-			$this->css("forms", "cpanel");
-			$this->css("users", $this->application);
-
 			$vars["view"] = $this->view("password", TRUE);
 			$vars["href"] = path("users/edit/password/");
+
+			$this->render("content", $vars);
+		} elseif($scope === "email") {
+			if(POST("save")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->changeEmail();
+			}
+
+			$vars["view"] = $this->view("email", TRUE);
+			$vars["href"] = path("users/edit/email/");
+			$vars["data"] = $this->Users_Model->getEmail();
 
 			$this->render("content", $vars);
 		}

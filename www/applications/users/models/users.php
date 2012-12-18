@@ -619,7 +619,7 @@ class Users_Model extends ZP_Load {
 			return getAlert(__("The information has been saved correctly"), "success");	
 		}
 		
-		return getAlert(__("Insert error"));
+		return getAlert(__("Update error"));
 	}
 
 	public function changePassword() {
@@ -644,8 +644,35 @@ class Users_Model extends ZP_Load {
 				return getAlert(__("The password has been changed correctly"), "success");	
 			}
 
-			return getAlert(__("Insert error"));
+			return getAlert(__("Update error"));
 		}
+	}
+
+	public function changeEmail() {
+		$this->data = $this->Data->proccess(NULL, array(
+			"password" 		  => "required",
+			"email" 	  	  => "email?"
+		));
+
+		if(isset($this->data["error"])) {
+			return $this->data["error"];
+		} else{
+			$this->helper("alerts");
+
+			if(!$this->isMember()) {
+				return getAlert("Incorrect password");
+			}
+
+			if($this->Db->update($this->table, array("Email" => POST("email")), SESSION("ZanUserID"))) {
+				return getAlert(__("The email has been changed correctly"), "success");	
+			}
+
+			return getAlert(__("Update error"));
+		}
+	}
+
+	public function getEmail() {
+		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Email");
 	}
 
 }

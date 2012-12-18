@@ -314,6 +314,7 @@ $phrase["the_characters_did_not_match_the_picture"] 	= "Las letras no coinciden 
 $phrase["the_changes_you_have_made_have_not_been_saved_yet"] = "Aún no se han guardado los cambios";
 $phrase["the_code_has_been_minified"] 					= "El código ha sido minificado";
 $phrase["the_email_already_exists"]			  			= "El Email ya existe";
+$phrase["the_email_has_been_changed_correctly"]			= "El correo electrónico ha sido guardado correctamente";
 $phrase["the_bookmark_has_been_edit_correctly"]			= "El marcador ha sido editado correctamente";
 $phrase["the_code_has_been_edit_correctly"]				= "El código ha sido editado correctamente";
 $phrase["the_page_has_been_edit_correctly"]				= "La página ha sido editada correctamente";
