@@ -326,7 +326,11 @@ function formSelect($attributes = FALSE, $options = FALSE, $select = FALSE) {
 		
 		foreach($attributes as $attribute => $value) {
 			if($attribute !== "p" and $attribute !== "field") {
-				$attrs .= ' '. strtolower($attribute) .'="'. $value .'"';
+				if($attribute !== "disabled") {
+					$attrs .= ' '. strtolower($attribute) .'="'. $value .'"';
+				} elseif($value) {
+					$attrs .= ' disabled';
+				}
 			} else {
 				$$attribute = $value;
 			}

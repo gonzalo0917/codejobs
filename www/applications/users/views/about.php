@@ -61,17 +61,24 @@
 			echo formSelect(array(
 				"name" 		=> "country", 
 				"p" 		=> TRUE, 
-				"field" 	=> __("Country") ."*",
-				"onchange"  => 'changeCountry()'),
+				"field" 	=> __("Country") ."*"),
 				$countries
 			);
+
+			if(isset($cities)) {
+				$city_index = array_search(array("option" => $city, "value" => $city), $cities);
+
+				if($city_index !== FALSE) {
+					$cities[$city_index]["selected"] = TRUE;
+				}
+			}
 
 			echo formSelect(array(
 				"name" 		=> "city", 
 				"p" 		=> TRUE, 
 				"field" 	=> __("City") ."*",
-				"disabled"  => TRUE
-				), array()
+				"disabled"  => !isset($cities)
+				), isset($cities) ? $cities : array()
 			);
 
 			echo formInput(array(

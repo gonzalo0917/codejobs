@@ -184,10 +184,6 @@ class Users_Controller extends ZP_Load {
 	}
 
 	public function edit($scope = "about") {
-		if(!$this->Users_Model->isAdmin(TRUE)) {
-			redirect();
-		}
-
 		if($scope === "about") {
 			if(POST("save")) {
 				$this->helper("alerts");
@@ -205,7 +201,7 @@ class Users_Controller extends ZP_Load {
 			$this->Cache   				= $this->core("Cache");
 			$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
 
-			foreach ($list_of_countries as $country) {
+			foreach($list_of_countries as $country) {
 				$countries[] = array(
 					"option" => $country["Country"],
 					"value"  => $country["Country"]
@@ -216,6 +212,19 @@ class Users_Controller extends ZP_Load {
 			$vars["view"] 		= $this->view("about", TRUE);
 			$vars["href"]  		= path("users/edit/about/");
 			$vars["data"]  		= $this->Users_Model->getInformation();
+
+			if($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
+				$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
+
+				foreach($list_of_cities as $city) {
+					$cities[] = array(
+						"option" => $city["District"],
+						"value"  => $city["District"]
+					);
+				}
+
+				$vars["cities"] = $cities;
+			}
 			
 			$this->render("content", $vars);
 		}
