@@ -193,7 +193,7 @@ class Users_Controller extends ZP_Load {
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");
-			$this->css("about", $this->application);
+			$this->css("users", $this->application);
 			$this->js("about", $this->application);
 			$this->js("jquery.jdpicker.js");
 
@@ -226,6 +226,21 @@ class Users_Controller extends ZP_Load {
 				$vars["cities"] = $cities;
 			}
 			
+			$this->render("content", $vars);
+		} elseif($scope === "password") {
+			if(POST("save")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->changePassword();
+			}
+
+			$this->helper(array("forms", "html"));
+			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
+
+			$vars["view"] = $this->view("password", TRUE);
+			$vars["href"] = path("users/edit/password/");
+
 			$this->render("content", $vars);
 		}
 	}

@@ -21,7 +21,6 @@
 				"field" => __("Full name") ."*", 
 				"p" 	=> TRUE,
 				"maxlength" => "150",
-				"autofocus" => "autofocus",
 				"value" => $name
 			));
 

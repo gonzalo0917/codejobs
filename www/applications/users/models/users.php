@@ -622,4 +622,30 @@ class Users_Model extends ZP_Load {
 		return getAlert(__("Insert error"));
 	}
 
+	public function changePassword() {
+		$this->data = $this->Data->proccess(NULL, array(
+			"password" 		  => "required",
+			"new_password" 	  => "length:6",
+			"re_new_password" => "length:6"
+		));
+
+		if(isset($this->data["error"])) {
+			return $this->data["error"];
+		} else{
+			$this->helper("alerts");
+
+			if(POST("new_password", "clean") !== POST("re_new_password", "clean")) {
+				return getAlert("New password does not match the confirm password");
+			} elseif(!$this->isMember()) {
+				return getAlert("Incorrect password");
+			}
+
+			if($this->Db->update($this->table, array("Pwd" => POST("new_password", "encrypt")), SESSION("ZanUserID"))) {
+				return getAlert(__("The password has been changed correctly"), "success");	
+			}
+
+			return getAlert(__("Insert error"));
+		}
+	}
+
 }
