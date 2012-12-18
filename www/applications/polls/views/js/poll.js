@@ -12,10 +12,7 @@ $("#send-vote").click(function(e) {
 				if (!loading) {
 					loading = true;
 
-					$(poll_selector).load(PATH + "/polls/vote/", {
-						"answer": found,
-						"ID_Poll": $("input[name='ID_Poll']").val()
-					}, new Function("loading = false"));
+					$(poll_selector).load(PATH + "/polls/vote/?answer=" + found + "&ID_Poll=" + $("input[name='ID_Poll']").val(), new Function("loading = false"));
 				}
 			});
 		});

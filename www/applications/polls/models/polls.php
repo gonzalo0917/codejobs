@@ -152,8 +152,8 @@ class Polls_Model extends ZP_Load {
 	public function vote() {
 		$this->helper("time");
 
-		$ID_Poll   = POST("ID_Poll");
-		$ID_Answer = POST("answer");
+		$ID_Poll   = GET("ID_Poll");
+		$ID_Answer = GET("answer");
 		$IP		   = getIP();
 		$date	   = now(4);
 		$end	   = $date + 3600;
