@@ -26,7 +26,7 @@ if(is_array($data)) {
 	if($data[0]["Situation"] === "Inactive" and segment(0, isLang()) !== "cpanel" and segment(1, isLang()) !== "cpanel") {
 		die($data[0]["Message"]);
 	}
-
+	
 	set("webName", 		   $data[0]["Name"]);
 	set("webURL", 		   $data[0]["URL"]);
 	set("webTheme", 	   $data[0]["Theme"]);
@@ -44,7 +44,7 @@ if(is_array($data)) {
 	}
 }
 
-if(_get("translation") === "gettext") {
+if(_get("translation") === "gettext") {die("Si");
 	$languageFile = _dir ."/lib/languages/gettext/". whichLanguage(TRUE, TRUE) .".mo";
 	
 	if(file_exists($languageFile)) { 			
