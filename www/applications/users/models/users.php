@@ -635,7 +635,7 @@ class Users_Model extends ZP_Load {
 			$this->helper("alerts");
 
 			if(POST("new_password", "clean") !== POST("re_new_password", "clean")) {
-				return getAlert("New password does not match the confirm password");
+				return getAlert("The password does not match the confirm password");
 			} elseif(!$this->isMember()) {
 				return getAlert("Incorrect password");
 			}

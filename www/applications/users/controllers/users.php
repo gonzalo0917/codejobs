@@ -234,6 +234,9 @@ class Users_Controller extends ZP_Load {
 				$vars["alert"] = $this->Users_Model->changePassword();
 			}
 
+			$this->js("bootstrap");
+			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
+
 			$vars["view"] = $this->view("password", TRUE);
 			$vars["href"] = path("users/edit/password/");
 

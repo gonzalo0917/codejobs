@@ -14,7 +14,7 @@
 
 			echo formInput(array(
 				"type"  => "password",
-				"name" 	=> "password", 
+				"name" 	=> "new_password", 
 				"class" => "field-title span4",
 				"field" => __("Password"), 
 				"p" 	=> TRUE,
@@ -23,18 +23,9 @@
 
 			echo formInput(array(
 				"type"  => "password",
-				"name" 	=> "new_password", 
-				"class" => "field-title span4",
-				"field" => __("New password"), 
-				"p" 	=> TRUE,
-				"maxlength" => "40"
-			));
-
-			echo formInput(array(
-				"type"  => "password",
 				"name" 	=> "re_new_password", 
 				"class" => "field-title span4",
-				"field" => __("Confirm new password"), 
+				"field" => __("Confirm password"), 
 				"p" 	=> TRUE,
 				"maxlength" => "40"
 			));
@@ -48,3 +39,10 @@
 
 		echo formClose();
 	echo div(FALSE);
+?>
+<script>
+	var acceptLabel = "<?php echo __("Accept"); ?>",
+		cancelLabel = "<?php echo __("Cancel"); ?>",
+		inputLabel  = "<?php echo __("Input your password"); ?>",
+		btnSelector = 'input[type="submit"]:first';
+</script>
