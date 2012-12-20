@@ -24,15 +24,6 @@
 				"value" => $email
 			));
 
-			echo formInput(array(
-				"type"  => "password",
-				"name" 	=> "password", 
-				"class" => "field-title span4",
-				"field" => __("Password"), 
-				"p" 	=> TRUE,
-				"maxlength" => "40"
-			));
-
 			echo formInput(array(	
 				"name" 	=> "save", 
 				"class" => "btn btn-success", 
@@ -42,3 +33,10 @@
 
 		echo formClose();
 	echo div(FALSE);
+?>
+<script>
+	var acceptLabel = "<?php echo __("Accept"); ?>",
+		cancelLabel = "<?php echo __("Cancel"); ?>",
+		inputLabel  = "<?php echo __("Input your password"); ?>",
+		btnSelector = 'input[type="submit"]:first';
+</script>

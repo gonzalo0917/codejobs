@@ -244,6 +244,9 @@ class Users_Controller extends ZP_Load {
 				$vars["alert"] = $this->Users_Model->changeEmail();
 			}
 
+			$this->js("bootstrap");
+			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
+
 			$vars["view"] = $this->view("email", TRUE);
 			$vars["href"] = path("users/edit/email/");
 			$vars["data"] = $this->Users_Model->getEmail();

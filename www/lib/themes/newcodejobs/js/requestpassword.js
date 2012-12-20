@@ -1,9 +1,5 @@
 ;+function($, window, document, undefined) {
-	var $form = $("form:last"),
-		acceptLabel = acceptLabel || 'Ok',
-		cancelLabel = cancelLabel || 'Cancel',
-		inputLabel  = inputLabel  || 'Input your password',
-		btnSelector = btnSelector || 'input[type="submit"]:first';
+	var $form = $("form:last");
 
 	$form.find(btnSelector).get(0).dataset.toggle = "modal";
 	$form.find(btnSelector).get(0).dataset.target = "#request-password";
@@ -18,7 +14,7 @@
 				<p><input type="password" /></p> \
 			</div> \
 			<div class="modal-footer"> \
-				<button class="btn btn-primary" onclick="requestPasswordAccepted()">' + acceptLabel + '</button> \
+				<button class="btn btn-danger" onclick="requestPasswordAccepted()">' + acceptLabel + '</button> \
 				<button class="btn" data-dismiss="modal" aria-hidden="true">' + cancelLabel + '</button> \
 			</div> \
 		</div> \
@@ -45,6 +41,7 @@
 		if($("#request-password input").val().length > 0) {
 			$("#request-password").modal("hide");
 			$('<input name="password" type="hidden" value="' + $("#request-password input").val() + '" />').appendTo($form.find("fieldset"));
+			$('<input name="' + $form.find(btnSelector).attr("name") + '" type="hidden" value="1" />').appendTo($form.find("fieldset"));
 			$form.submit();
 		} else {
 			$("#request-password input").focus();
