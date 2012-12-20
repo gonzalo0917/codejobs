@@ -1,30 +1,53 @@
 ;+function($, window, document, undefined) {
-	$form = $("form:last");
+	var $form = $("form:last"),
+		acceptLabel = acceptLabel || 'Ok',
+		cancelLabel = cancelLabel || 'Cancel',
+		inputLabel  = inputLabel  || 'Input your password',
+		btnSelector = btnSelector || 'input[type="submit"]:first';
 
-	$("#getPassword").on("shown", function () {
-		$("#getPassword input").focus();
-		if(!$("#getPassword input").data("onkeypress")) {
-			$("#getPassword input").on("keypress", function(e) {
+	$form.find(btnSelector).get(0).dataset.toggle = "modal";
+	$form.find(btnSelector).get(0).dataset.target = "#request-password";
+
+	$form.after(' \
+		<div id="request-password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> \
+			<div class="modal-header"> \
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> \
+				<h3 id="myModalLabel">' + inputLabel + '</h3> \
+			</div> \
+			<div class="modal-body"> \
+				<p><input type="password" /></p> \
+			</div> \
+			<div class="modal-footer"> \
+				<button class="btn btn-primary" onclick="requestPasswordAccepted()">' + acceptLabel + '</button> \
+				<button class="btn" data-dismiss="modal" aria-hidden="true">' + cancelLabel + '</button> \
+			</div> \
+		</div> \
+	');
+
+	$("#request-password").on("shown", function () {
+		$("#request-password input").focus();
+		if(!$("#request-password input").data("onkeypress")) {
+			$("#request-password input").on("keypress", function(e) {
 				if (e.keyCode === 13) {
-					acceptedPass();
+					requestPasswordAccepted();
 				}
 			});
 
-			$("#getPassword input").data("onkeypress", true);
+			$("#request-password input").data("onkeypress", true);
 		}
 	});
 
-	$("#getPassword").on("hidden", function () {
-		$("#getPassword input").val("");
+	$("#request-password").on("hidden", function () {
+		$("#request-password input").val("");
 	});
 
-	function acceptedPass() {
-		if($("#getPassword input").val().length > 0) {
-			$("#getPassword").modal("hide");
-			$('<input name="password" type="hidden" value="' + $("#getPassword input").val() + '" />').appendTo($form.find("fieldset"));
+	function requestPasswordAccepted() {
+		if($("#request-password input").val().length > 0) {
+			$("#request-password").modal("hide");
+			$('<input name="password" type="hidden" value="' + $("#request-password input").val() + '" />').appendTo($form.find("fieldset"));
 			$form.submit();
 		} else {
-			$("#getPassword input").focus();
+			$("#request-password input").focus();
 		}
 	}
 }(jQuery, window, document);

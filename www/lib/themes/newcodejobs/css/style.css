@@ -615,3 +615,15 @@ a img {
 .field {
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
+
+#request-password {
+	margin-top: -100px;
+}
+
+#request-password input {
+	width: 515px;
+	width: calc(100% - 15px);
+	width: -moz-calc(100% - 15px);
+	width: -ms-calc(100% - 15px);
+	width: -webkit-calc(100% - 15px);
+}
