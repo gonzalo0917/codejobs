@@ -34,7 +34,7 @@
 				?>
 			</span>
 
-			<?php echo social($URL, $bookmark["Title"], FALSE); ?>	
+			<?php echo display(social($URL, $bookmark["Title"], FALSE), 4); ?>	
 
 			<p class="justify">				
 				<?php 
