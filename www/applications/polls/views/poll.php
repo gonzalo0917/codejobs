@@ -61,8 +61,8 @@
 				$total = 0;
 				$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
 
-				if(POST("answer")) {
-					$answer = (int) POST("answer");
+				if(GET("answer")) {
+					$answer = (int) GET("answer");
 				} else {
 					$answer = FALSE;
 				}
