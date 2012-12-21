@@ -8,7 +8,7 @@
 	<?php 
 		$i = 1;
 		$rand1 = rand(1, 5);
-		$rand2 = rand(5, 10);
+		$rand2 = rand(6, 10);
 		
 		foreach($bookmarks as $bookmark) { 
 			$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
