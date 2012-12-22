@@ -298,6 +298,7 @@ $phrase["spanish"] 	 									= "Español";
 $phrase["sponsors"]										= "Patrocinadores";
 $phrase["stylesheet"]									= "Hoja de estilo";
 $phrase["subject"]										= "Asunto";
+$phrase["subscribe_to_our_free_email_newsletters"]		= "Suscríbete a nuestros boletines grauitos por correo electrónico";
 $phrase["subscribe_to_our_youtube_channel"] 			= "Suscríbete a nuestro canal de Youtube";
 $phrase["sunday"] 	 									= "Domingo";
 $phrase["tags"] 										= "Etiquetas";

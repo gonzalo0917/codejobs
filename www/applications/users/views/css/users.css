@@ -31,3 +31,9 @@
 .field-full-size {
 	width: 80%;
 }
+.field-title {
+	margin-bottom: 0px !important;
+}
+.form-add label {
+	margin-bottom: 15px;
+}

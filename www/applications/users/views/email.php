@@ -24,6 +24,12 @@
 				"value" => $email
 			));
 
+			echo formCheckbox(array(
+				"name" 	   => "subscribed",
+				"position" => "right",
+				"text"     => __("Subscribe to our free email newsletters")
+			));
+
 			echo formInput(array(	
 				"name" 	=> "save", 
 				"class" => "btn btn-success", 
