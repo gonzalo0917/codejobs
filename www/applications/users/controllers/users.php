@@ -255,6 +255,12 @@ class Users_Controller extends ZP_Load {
 			$vars["data"] = $this->Users_Model->getEmail();
 
 			$this->render("content", $vars);
+		} elseif($scope === "avatar") {
+			$vars["view"] = $this->view("avatar", TRUE);
+			$vars["href"] = path("users/edit/avatar/");
+			$vars["data"] = $this->Users_Model->getAvatar();
+
+			$this->render("content", $vars);
 		}
 	}
 }

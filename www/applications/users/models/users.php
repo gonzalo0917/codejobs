@@ -675,4 +675,8 @@ class Users_Model extends ZP_Load {
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Email, Subscribed");
 	}
 
+	public function getAvatar() {
+		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Avatar");
+	}
+
 }
