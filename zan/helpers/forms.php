@@ -52,11 +52,11 @@ function formCheckbox($attributes = FALSE) {
 		}
 		
 		if(isset($position) and $position === "left" and isset($text)) {
-			return '<label>'. $text .' <input'. $attrs .' type="checkbox"'. $check .' /></label>';
+			return '<label>'. utf8_decode($text) .' <input'. $attrs .' type="checkbox"'. $check .' /></label>';
 		} elseif(isset($position) and $position === "right" and isset($text)) {
-			return '<label><input'. $attrs .' type="checkbox"'. $check .' /> '. $text .'</label>';
+			return '<label><input'. $attrs .' type="checkbox"'. $check .' /> '. utf8_decode($text) .'</label>';
 		} elseif(isset($text)) {
-			return '<label>'. $text .' <input'. $attrs .' type="checkbox"'. $check .' /></label>';
+			return '<label>'. utf8_decode($text) .' <input'. $attrs .' type="checkbox"'. $check .' /></label>';
 		} else {
 			return '<input'. $attrs .' type="checkbox"'. $check .' />';
 		}
