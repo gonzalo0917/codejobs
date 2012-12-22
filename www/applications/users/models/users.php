@@ -663,7 +663,7 @@ class Users_Model extends ZP_Load {
 				return getAlert("Incorrect password");
 			}
 
-			if($this->Db->update($this->table, array("Email" => POST("email")), SESSION("ZanUserID"))) {
+			if($this->Db->update($this->table, array("Email" => POST("email"), "Subscribed" => (int)(POST("subscribed") === "on")), SESSION("ZanUserID"))) {
 				return getAlert(__("The email has been changed correctly"), "success");	
 			}
 
@@ -672,7 +672,7 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function getEmail() {
-		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Email");
+		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Email, Subscribed");
 	}
 
 }

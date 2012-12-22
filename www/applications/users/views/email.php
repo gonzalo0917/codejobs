@@ -1,7 +1,8 @@
 <?php
 	if(!defined("_access")) die("Error: You don't have permission to access here...");
 
-	$email = recoverPOST("email", encode($data[0]["Email"]));
+	$email 		= recoverPOST("email", encode($data[0]["Email"]));
+	$subscribed = (boolean) recoverPOST("subscribed", encode($data[0]["Subscribed"]));
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -27,7 +28,8 @@
 			echo formCheckbox(array(
 				"name" 	   => "subscribed",
 				"position" => "right",
-				"text"     => __("Subscribe to our free email newsletters")
+				"text"     => __("Subscribe to our free email newsletters"),
+				"checked"  => $subscribed === TRUE
 			));
 
 			echo formInput(array(	
