@@ -38,7 +38,7 @@ class Pages_Controller extends ZP_Load {
 		$data = $this->Cache->data("settings", "tv", $this->Configuration_Model, "getTV", array(), 86400);
 
 		if($data) {
-			$this->vars["tv"] 	= $data[0]["TV"];
+			$this->vars["tv"] 	= '<iframe width="850" height="420" src="'. $data[0]["TV"] .'" frameborder="0" allowfullscreen></iframe>';
 			$this->vars["chat"] = $data[0]["Enable_Chat"];
 		} else {
 			$this->vars["tv"] 	= '<iframe width="850" height="420" src="http://www.youtube.com/embed/aLlcRw9vEjM" frameborder="0" allowfullscreen></iframe>';
