@@ -40,14 +40,14 @@
 
 				if($chat) {
 			?>
-			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://macromedia.com/cabs/swflash.cab#version=6,0,0,0" width="250" height="420">
-			  <param name="movie" value="http://cdn.livestream.com/chat/LivestreamChat.swf">
-			  <param name="flashvars" value="channel=codejobs">
-			  <param name="quality" value="medium">
-			  <param name="bgcolor" value="#FFFFFF">
-			  <embed src="http://cdn.livestream.com/chat/LivestreamChat.swf" flashvars="channel=codejobs" bgcolor="#FFFFFF" width="250" height="420" type="application/x-shockwave-flash">
-			  </embed>
-			</object>
+				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://macromedia.com/cabs/swflash.cab#version=6,0,0,0" width="250" height="420">
+				  <param name="movie" value="http://cdn.livestream.com/chat/LivestreamChat.swf">
+				  <param name="flashvars" value="channel=codejobs">
+				  <param name="quality" value="medium">
+				  <param name="bgcolor" value="#FFFFFF">
+				  <embed src="http://cdn.livestream.com/chat/LivestreamChat.swf" flashvars="channel=codejobs" bgcolor="#FFFFFF" width="250" height="420" type="application/x-shockwave-flash">
+				  </embed>
+				</object>
 			<?php
 				}
 			?>
