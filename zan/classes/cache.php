@@ -177,6 +177,57 @@ class ZP_Cache extends ZP_Load {
 
 	public function setStatus($status) {
 		$this->status = $status;
-	}	
+	}
+
+	public function getValue($ID, $table = "default", $field = "default", $default = FALSE) {
+		$this->setValueFileRoutes($table, $field);
+
+		if($content = @file_get_contents($this->file)) {
+			$meta = unserialize($content);
+
+			$checkExpiration = $this->checkUpdating($meta["update_time"]);
+			$checkIntegrity	 = $this->checkIntegrity($meta["integrity"], $meta["data"]);
+
+			if($checkExpiration and $checkIntegrity) {
+				return unserialize($meta["data"]);
+			}
+		}
+
+		return $default;
+	}
+
+	public function setValue($ID, $value, $table = "default", $field = "default", $update = FALSE) {
+		$this->setFileRoutes($table, $field);
+
+		if(!is_dir($this->filePath)) {
+			if(!mkdir($this->filePath, 0777, TRUE)) {
+				return FALSE;
+			}
+		}
+
+		$value = $this->getValue($ID, $table, $field);
+
+		$data = serialize($data);
+
+		$hash = sha1($data);
+
+		$meta["expiration_time"] = time() + $time;
+		$meta["integrity"]		 = $hash;
+		$meta["data"]			 = $data;
+
+		$data = serialize($meta);
+
+		return file_put_contents($this->file, $data, LOCK_EX);
+	}
+
+	public function setValueFileRoutes($table, $field) {
+		$keyTable = $this->getKey($table);
+		$keyField = $this->getKey($field);
+		$dirValue = _cacheDir . _sh ."values";
+
+		$this->filePath	= $dirValue . _sh . $keyTable . _sh;
+		$this->filename	= $keyField . _cacheExt;
+		$this->file		= $this->filePath . $this->filename;
+	}
 
 }
