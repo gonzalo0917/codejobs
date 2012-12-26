@@ -180,20 +180,36 @@ class ZP_Cache extends ZP_Load {
 	}
 
 	public function getValue($ID, $table = "default", $field = "default", $default = FALSE) {
+		$data  = $this->getValues($table, $field);
+		$IDKey = $this->getKey($ID);
+
+		if(is_array($data) and isset($data[$IDKey])) {
+			return $data[$IDKey];
+		}
+
+		return $default;
+	}
+
+	public function getValues($table = "default", $field = "default") {
+		$meta = $this->getMetaValue($table, $field);
+
+		return $meta["data"];
+	}
+
+	public function getMetaValue($table = "default", $field = "default") {
 		$this->setValueFileRoutes($table, $field);
 
 		if($content = @file_get_contents($this->file)) {
 			$meta = unserialize($content);
 
-			$checkExpiration = $this->checkUpdating($meta["update_time"]);
-			$checkIntegrity	 = $this->checkIntegrity($meta["integrity"], $meta["data"]);
+			if($this->checkIntegrity($meta["integrity"], $meta["data"])) {
+				$this->checkUpdating($meta["update_time"]);
 
-			if($checkExpiration and $checkIntegrity) {
-				return unserialize($meta["data"]);
+				return $meta;
 			}
 		}
 
-		return $default;
+		return FALSE;
 	}
 
 	public function setValue($ID, $value, $table = "default", $field = "default", $update = FALSE) {
@@ -205,15 +221,20 @@ class ZP_Cache extends ZP_Load {
 			}
 		}
 
-		$value = $this->getValue($ID, $table, $field);
+		$meta   = $this->getMetaValue($table, $field);
+		$IDKey  = $this->getKey($ID);
+
+		$data   = $meta ? $meta["data"] : array();
+		$exists = $meta ? isset($data[$IDKey]) : FALSE;
+
+		$data[$IDKey] = $value;
 
 		$data = serialize($data);
-
 		$hash = sha1($data);
 
-		$meta["expiration_time"] = time() + $time;
-		$meta["integrity"]		 = $hash;
-		$meta["data"]			 = $data;
+		$meta["update_time"] = time() + $update;
+		$meta["integrity"]	 = $hash;
+		$meta["data"]		 = $data;
 
 		$data = serialize($meta);
 
