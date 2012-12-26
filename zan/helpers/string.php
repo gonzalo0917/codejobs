@@ -496,7 +496,7 @@ function getCode($code) {
 function showContent($content) {
 	$content = str_replace('<hr />', "", $content);
 	$content = str_replace('<hr>', "", $content);
-	$content = str_replace("------", "", $content);
+	$content = str_replace("------", "", $content);	
 	$content = stripslashes($content);
 	
 	return setCode($content, TRUE, TRUE);		
@@ -517,6 +517,7 @@ function setCode($HTML, $return = FALSE) {
 
 		   		if(isset($code[0])) {
 		   			$code[0] = ($return) ? stripslashes(getCode($code[0])) : $code[0];	
+		   			$code[0] = str_replace("\\", "", $code[0]);
 		   		}
 
 		   		$codes[$i] = ($return) ? implode("", $code) : implode("[/code]", $code);		   		
