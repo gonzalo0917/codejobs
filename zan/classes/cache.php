@@ -217,11 +217,12 @@ class ZP_Cache extends ZP_Load {
 
 			if($this->checkIntegrity($meta["integrity"], $meta["data"])) {
 				if(!$this->checkUpdating($meta["update_time"])) {
+
 					$meta["update_time"] = FALSE;
 
 					$this->Db = $this->db();
 
-					foreach($meta["data"] as $ID => $value) {
+					foreach(unserialize($meta["data"]) as $ID => $value) {
 						$fields[$field] = $value;
 
 						$this->Db->update($table, $fields, $ID);
