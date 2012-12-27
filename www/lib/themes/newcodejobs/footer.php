@@ -22,9 +22,9 @@
                 </footer>
 
                 <script type="text/javascript">
-                    var PATH = "<?php print path(); ?>";
-                    
-                    var URL  = "<?php print _get('webURL'); ?>";
+                    var PATH = "<?php echo path(); ?>",
+                        URL  = "<?php echo _get('webURL'); ?>",
+                        ZAN  = "<?php echo path("", "zan");?>";
                 </script>
         
                 <?php 
