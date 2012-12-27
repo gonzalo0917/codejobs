@@ -1,4 +1,4 @@
-<?php  die("ssssi");
+<?php 
 	if(!defined("_access")) {
 		die("Error: You don't have permission to access here..."); 
 	}
@@ -7,6 +7,8 @@
 <div class="bookmarks">
 	<?php 
 		$i = 1;
+		$rand1 = rand(1, 5);
+		$rand2 = rand(6, 10);
 		
 		foreach($bookmarks as $bookmark) { 
 			$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
@@ -24,28 +26,52 @@
 					}
 				?>			
 				<br />
+
+				<?php 
+					echo '<span class="bold">'. __("Likes") .":</span> ". (int) $bookmark["Likes"]; 
+					echo ' <span class="bold">'. __("Dislikes") .":</span> ". (int) $bookmark["Dislikes"];
+					echo ' <span class="bold">'. __("Views") .":</span> ". (int) $bookmark["Views"];
+				?>
 			</span>
 
 			<?php echo display(social($URL, $bookmark["Title"], FALSE), 4); ?>	
 
 			<p class="justify">				
-				<?php echo stripslashes(compress($bookmark["Description"])); ?>
+				<?php 
+					echo stripslashes(compress($bookmark["Description"])); 
+				?>
 			</p>
 
 			<br />
-					
-			<p>
-				<script type="text/javascript">
-					google_ad_client = "ca-pub-4006994369722584";
-					/* CodeJobs.biz */
-					google_ad_slot = "1672839256";
-					google_ad_width = 728;
-					google_ad_height = 90;
-				</script>
 
-				<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-			</p>
-							
+			<?php 
+				if(SESSION("ZanUser")) { 
+			?>
+					<p class="small italic">
+						<?php echo like($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Likes"]) ." ". dislike($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Dislikes"]) ." ". report($bookmark["ID_Bookmark"], "bookmarks"); ?>
+					</p>
+			<?php 
+				} 
+			?>
+			
+			<?php					
+				if($i === $rand2) { 
+					echo display('<p>
+									<script type="text/javascript">
+										google_ad_client = "ca-pub-4006994369722584";
+										/* CodeJobs.biz */
+										google_ad_slot = "1672839256";
+										google_ad_width = 728;
+										google_ad_height = 90;
+										</script>
+										<script type="text/javascript"
+										src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+									</script>
+								</p>', 4);
+				}
+
+				$i++;
+			?>			
 			<br />
 	<?php 
 		} 
