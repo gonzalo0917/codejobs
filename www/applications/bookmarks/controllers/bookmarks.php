@@ -204,7 +204,7 @@ class Bookmarks_Controller extends ZP_Load {
 		}
 	}
 
-	private function getBookmarks() { die("Si");
+	private function getBookmarks() { 
 		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
