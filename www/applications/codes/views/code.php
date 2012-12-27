@@ -23,7 +23,7 @@
 		<?php 
 			echo '<span class="bold">'. __("Likes") .":</span> ". (int) $code["Likes"]; 
 			echo ' <span class="bold">'. __("Dislikes") .":</span> ". (int) $code["Dislikes"];
-			echo ' <span class="bold">'. __("Views") .":</span> ". (int) $code["Views"];
+			echo ' <span class="bold">'. __("Views") .":</span> ". (int) $Views;
 		?>
 	</span>
 

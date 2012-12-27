@@ -332,7 +332,11 @@ class Codes_Model extends ZP_Load {
 	}
 
 	public function updateViews($codeID) {
-		//return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Code = '$codeID' AND Situation = 'Active'");
+		$this->Cache = $this->core("Cache");
+
+		$views = $this->Cache->getValue($codeID, "codes", "Views", TRUE);
+
+		return $this->Cache->setValue($codeID, $views + 1, "codes", "Views", 86400);
 	}
 
     public function setReport($ID) {

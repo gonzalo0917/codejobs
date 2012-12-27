@@ -111,7 +111,6 @@ class Codes_Controller extends ZP_Load {
                 $data[0]["Files"] = $files;
             	$this->title(__("Codes", FALSE) ." - ". stripslashes(decode($data[0]["Title"])));
 			
-                $this->Codes_Model->updateViews($codeID);
 
                 $this->meta("keywords", $data[0]["Languages"]);
 
@@ -122,8 +121,9 @@ class Codes_Controller extends ZP_Load {
 	            $this->js("codes", "codes");
 	            $this->CSS("code", "codes");
 
-                $vars["code"] 	= $data[0];
-                $vars["view"]   = $this->view("code", TRUE);
+                $vars["Views"] = $this->Codes_Model->updateViews($codeID);
+                $vars["code"]  = $data[0];
+                $vars["view"]  = $this->view("code", TRUE);
 
                 $this->render("content", $vars);
             } else {
