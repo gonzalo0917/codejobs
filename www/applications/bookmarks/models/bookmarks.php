@@ -216,9 +216,8 @@ class Bookmarks_Model extends ZP_Load {
 		$this->Cache = $this->core("Cache");
 
 		$views = $this->Cache->getValue($bookmarkID, "bookmarks", "Views", TRUE);
-echo "<!-- Vistas actuales: $views -->";
+
 		return $this->Cache->setValue($bookmarkID, $views + 1, "bookmarks", "Views", 86400);
-		//return $this->Db->updateBySQL($this->table, "Views = (Views) + 1 WHERE ID_Bookmark = '$bookmarkID'");
 	}
 
 	public function setReport($ID) {

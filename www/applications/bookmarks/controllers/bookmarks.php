@@ -182,8 +182,7 @@ class Bookmarks_Controller extends ZP_Load {
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
                         
-			$this->Bookmarks_Model->updateViews($bookmarkID);
-
+			$vars["Views"]    = $this->Bookmarks_Model->updateViews($bookmarkID);
 			$vars["bookmark"] = $data[0];
 			$vars["view"]     = $this->view("bookmark", TRUE);
 			

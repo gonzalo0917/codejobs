@@ -24,7 +24,7 @@
 		<?php 
 			echo '<span class="bold">'. __("Likes") .":</span> ". (int) $bookmark["Likes"]; 
 			echo ' <span class="bold">'. __("Dislikes") .":</span> ". (int) $bookmark["Dislikes"];
-			echo ' <span class="bold">'. __("Views") .":</span> ". (int) $bookmark["Views"];
+			echo ' <span class="bold">'. __("Views") .":</span> ". (int) $Views;
 		?>
 	</span>
 
