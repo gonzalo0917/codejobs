@@ -7,8 +7,6 @@
 <div class="bookmarks">
 	<?php 
 		$i = 1;
-		$rand1 = rand(1, 5);
-		$rand2 = rand(6, 10);
 		
 		foreach($bookmarks as $bookmark) { 
 			$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
@@ -55,7 +53,7 @@
 			?>
 			
 			<?php					
-				if($i === $rand2) { 
+				if($i === 5) { 
 					echo display('<p>
 									<script type="text/javascript">
 										google_ad_client = "ca-pub-4006994369722584";
