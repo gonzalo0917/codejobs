@@ -330,8 +330,12 @@ class Blog_Model extends ZP_Load {
 	public function getPost($year, $month, $day, $slug) {		
 		$post = $this->Db->findBySQL("Slug = '$slug' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
 		
-		if($post) {						
-			//$this->Db->updateBySQL("blog", "Views = (Views) + 1 WHERE ID_Post = '". $post[0]["ID_Post"] ."'");				
+		if($post) {
+			$this->Cache = $this->core("Cache");
+
+			$views = $this->Cache->getValue($post[0]["ID_Post"], "blog", "Views", TRUE);
+
+			$this->Cache->setValue($post[0]["ID_Post"], $views + 1, "blog", "Views", 86400);
 		
 			$data[0]["post"] = $post;
 									
