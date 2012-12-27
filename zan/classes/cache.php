@@ -18,6 +18,10 @@ class ZP_Cache extends ZP_Load {
 		return ($readHash === $hash) ? TRUE : FALSE;
 	}
 
+	private function checkUpdating($updateTime) {
+		return (time() < $updateTime) ? TRUE : FALSE;
+	}
+
 	public function data($ID, $group = "default", $Class = FALSE, $method = FALSE, $params = array(), $time = _cacheTime) {
 		if(_cacheStatus and $this->get($ID, $group)) {
 			$data = $this->get($ID, $group);
@@ -181,10 +185,19 @@ class ZP_Cache extends ZP_Load {
 
 	public function getValue($ID, $table = "default", $field = "default", $default = FALSE) {
 		$data  = $this->getValues($table, $field);
-		$IDKey = $this->getKey($ID);
 
-		if(is_array($data) and isset($data[$IDKey])) {
-			return $data[$IDKey];
+		if(is_array($data) and isset($data[$ID])) {
+			return $data[$ID];
+		}
+
+		if($default === TRUE) {
+			$this->Db = $this->db();
+
+			$data = $this->Db->find($ID, $table, $field);
+			
+			if(isset($data[0][$field])) {
+				return $data[0][$field];
+			}
 		}
 
 		return $default;
@@ -193,7 +206,7 @@ class ZP_Cache extends ZP_Load {
 	public function getValues($table = "default", $field = "default") {
 		$meta = $this->getMetaValue($table, $field);
 
-		return $meta["data"];
+		return unserialize($meta["data"]);
 	}
 
 	public function getMetaValue($table = "default", $field = "default") {
@@ -203,7 +216,17 @@ class ZP_Cache extends ZP_Load {
 			$meta = unserialize($content);
 
 			if($this->checkIntegrity($meta["integrity"], $meta["data"])) {
-				$this->checkUpdating($meta["update_time"]);
+				if(!$this->checkUpdating($meta["update_time"])) {
+					$meta["update_time"] = FALSE;
+
+					$this->Db = $this->db();
+
+					foreach($meta["data"] as $ID => $value) {
+						$fields[$field] = $value;
+
+						$this->Db->update($table, $fields, $ID);
+					}
+				}
 
 				return $meta;
 			}
@@ -213,7 +236,7 @@ class ZP_Cache extends ZP_Load {
 	}
 
 	public function setValue($ID, $value, $table = "default", $field = "default", $update = FALSE) {
-		$this->setFileRoutes($table, $field);
+		$this->setValueFileRoutes($table, $field);
 
 		if(!is_dir($this->filePath)) {
 			if(!mkdir($this->filePath, 0777, TRUE)) {
@@ -222,23 +245,42 @@ class ZP_Cache extends ZP_Load {
 		}
 
 		$meta   = $this->getMetaValue($table, $field);
-		$IDKey  = $this->getKey($ID);
 
-		$data   = $meta ? $meta["data"] : array();
-		$exists = $meta ? isset($data[$IDKey]) : FALSE;
+		if(!$meta) {
+			$meta = array();
 
-		$data[$IDKey] = $value;
+			$data[$ID] = $value;
 
-		$data = serialize($data);
-		$hash = sha1($data);
+			$data = serialize($data);
+			$hash = sha1($data);
 
-		$meta["update_time"] = time() + $update;
+			if($update !== FALSE) {
+				$meta["update_time"] = time() + $update;
+			} else {
+				$meta["update_time"] = FALSE;
+			}
+		} else {
+			$data 		 = unserialize($meta["data"]);
+			$update_time = $meta["update_time"];
+
+			$data[$ID] = $value;
+
+			$data = serialize($data);
+			$hash = sha1($data);
+
+			if($update !== FALSE and $update_time === FALSE) {
+				$meta["update_time"] = time() + $update;
+			}
+		}
+
 		$meta["integrity"]	 = $hash;
 		$meta["data"]		 = $data;
 
 		$data = serialize($meta);
 
-		return file_put_contents($this->file, $data, LOCK_EX);
+		file_put_contents($this->file, $data, LOCK_EX);
+
+		return $value;
 	}
 
 	public function setValueFileRoutes($table, $field) {
