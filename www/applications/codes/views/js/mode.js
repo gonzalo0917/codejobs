@@ -1,1 +1,1 @@
-CodeMirror.modeURL = URL + "/zan/vendors/js/codemirror/mode/%N.js";
+CodeMirror.modeURL = ZAN + "/vendors/js/codemirror/mode/%N.js";
