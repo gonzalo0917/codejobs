@@ -24,12 +24,6 @@
 					}
 				?>			
 				<br />
-
-				<?php 
-					echo '<span class="bold">'. __("Likes") .":</span> ". (int) $bookmark["Likes"]; 
-					echo ' <span class="bold">'. __("Dislikes") .":</span> ". (int) $bookmark["Dislikes"];
-					echo ' <span class="bold">'. __("Views") .":</span> ". (int) $bookmark["Views"];
-				?>
 			</span>
 
 			<?php echo display(social($URL, $bookmark["Title"], FALSE), 4); ?>	
@@ -39,16 +33,6 @@
 			</p>
 
 			<br />
-
-			<?php 
-				if(SESSION("ZanUser")) { 
-			?>
-					<p class="small italic">
-						<?php echo like($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Likes"]) ." ". dislike($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Dislikes"]) ." ". report($bookmark["ID_Bookmark"], "bookmarks"); ?>
-					</p>
-			<?php 
-				} 
-			?>
 					
 			<p>
 				<script type="text/javascript">
