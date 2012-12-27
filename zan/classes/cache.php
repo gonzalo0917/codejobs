@@ -217,7 +217,6 @@ class ZP_Cache extends ZP_Load {
 
 			if($this->checkIntegrity($meta["integrity"], $meta["data"])) {
 				if(!$this->checkUpdating($meta["update_time"])) {
-
 					$meta["update_time"] = FALSE;
 
 					$this->Db = $this->db();
