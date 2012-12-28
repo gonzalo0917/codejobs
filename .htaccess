@@ -5,7 +5,7 @@
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule /codejobs.biz/^(.*) index.php
+  RewriteRule ^(.*) index.php
 </IfModule>
 
 <IfModule mod_gzip.c>
