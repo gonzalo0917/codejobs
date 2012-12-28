@@ -2,6 +2,7 @@
 *.swp
 *~
 *.DS_Store
+zan/
 www/config/config.php
 www/config/database.php
 /nbproject/private/
