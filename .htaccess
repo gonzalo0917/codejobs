@@ -3,6 +3,7 @@
 
   RewriteBase /
 
+  RewriteCond %{REQUEST_URI} /zan/|(/[^.]*|\.(css|js|feed|pdf|vcf|raw))$ [NC]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*) index.php
