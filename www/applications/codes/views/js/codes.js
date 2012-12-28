@@ -1,4 +1,4 @@
-CodeMirror.modeURL = ZAN + "/vendors/js/codemirror/mode/%N.js";
+CodeMirror.modeURL = ZAN + "vendors/js/codemirror/mode/%N.js";
 
 $('textarea[name="code"]').each(function() {
     var editor = CodeMirror.fromTextArea(this, {
