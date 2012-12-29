@@ -185,7 +185,7 @@ class Users_Controller extends ZP_Load {
 
 	public function about() {
 		isConnected();
-		
+
 		$this->helper(array("forms", "html"));
 		$this->config("users", $this->application);
 		$this->css("forms", "cpanel");
@@ -283,6 +283,7 @@ class Users_Controller extends ZP_Load {
 		$this->config("users", $this->application);
 		$this->css("forms", "cpanel");
 		$this->css("users", $this->application);
+		$this->css("avatar", $this->application);
 
 		$vars["view"] = $this->view("avatar", TRUE);
 		$vars["href"] = path("users/avatar/");
