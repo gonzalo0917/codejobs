@@ -183,84 +183,111 @@ class Users_Controller extends ZP_Load {
 		}
 	}
 
-	public function edit($scope = "about") {
+	public function about() {
+		isConnected();
+		
 		$this->helper(array("forms", "html"));
 		$this->config("users", $this->application);
 		$this->css("forms", "cpanel");
 		$this->css("users", $this->application);
 
-		if($scope === "about") {
-			if(POST("save")) {
-				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->setInformation();
-			}
+		if(POST("save")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->setInformation();
+		}
 
-			$this->js("about", $this->application);
-			$this->js("jquery.jdpicker.js");
+		$this->js("about", $this->application);
+		$this->js("jquery.jdpicker.js");
 
-			$this->Configuration_Model  = $this->model("Configuration_Model");
-			$this->Cache   				= $this->core("Cache");
-			$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
+		$this->Configuration_Model  = $this->model("Configuration_Model");
+		$this->Cache   				= $this->core("Cache");
+		$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
 
-			foreach($list_of_countries as $country) {
-				$countries[] = array(
-					"option" => $country["Country"],
-					"value"  => $country["Country"]
+		foreach($list_of_countries as $country) {
+			$countries[] = array(
+				"option" => $country["Country"],
+				"value"  => $country["Country"]
+			);
+		}
+
+		$vars["countries"]  = $countries;
+		$vars["view"] 		= $this->view("about", TRUE);
+		$vars["href"]  		= path("users/about/");
+		$vars["data"]  		= $this->Users_Model->getInformation();
+
+		if($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
+			$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
+
+			foreach($list_of_cities as $city) {
+				$cities[] = array(
+					"option" => $city["District"],
+					"value"  => $city["District"]
 				);
 			}
 
-			$vars["countries"]  = $countries;
-			$vars["view"] 		= $this->view("about", TRUE);
-			$vars["href"]  		= path("users/edit/about/");
-			$vars["data"]  		= $this->Users_Model->getInformation();
-
-			if($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
-				$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
-
-				foreach($list_of_cities as $city) {
-					$cities[] = array(
-						"option" => $city["District"],
-						"value"  => $city["District"]
-					);
-				}
-
-				$vars["cities"] = $cities;
-			}
-			
-			$this->render("content", $vars);
-		} elseif($scope === "password") {
-			if(POST("save")) {
-				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->changePassword();
-			}
-
-			$this->js("bootstrap");
-			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
-
-			$vars["view"] = $this->view("password", TRUE);
-			$vars["href"] = path("users/edit/password/");
-
-			$this->render("content", $vars);
-		} elseif($scope === "email") {
-			if(POST("save")) {
-				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->changeEmail();
-			}
-
-			$this->js("bootstrap");
-			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
-
-			$vars["view"] = $this->view("email", TRUE);
-			$vars["href"] = path("users/edit/email/");
-			$vars["data"] = $this->Users_Model->getEmail();
-
-			$this->render("content", $vars);
-		} elseif($scope === "avatar") {
-			$vars["view"] = $this->view("avatar", TRUE);
-			$vars["href"] = path("users/edit/avatar/");
-			$vars["data"] = $this->Users_Model->getAvatar();
-
-			$this->render("content", $vars);
+			$vars["cities"] = $cities;
 		}
+		
+		$this->render("content", $vars);
+	}
+
+	public function password() {
+		isConnected();
+		
+		$this->helper(array("forms", "html"));
+		$this->config("users", $this->application);
+		$this->css("forms", "cpanel");
+		$this->css("users", $this->application);
+
+		if(POST("save")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->changePassword();
+		}
+
+		$this->js("bootstrap");
+		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
+
+		$vars["view"] = $this->view("password", TRUE);
+		$vars["href"] = path("users/password/");
+
+		$this->render("content", $vars);
+	}
+
+	public function email() {
+		isConnected();
+		
+		$this->helper(array("forms", "html"));
+		$this->config("users", $this->application);
+		$this->css("forms", "cpanel");
+		$this->css("users", $this->application);
+
+		if(POST("save")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->changeEmail();
+		}
+
+		$this->js("bootstrap");
+		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
+
+		$vars["view"] = $this->view("email", TRUE);
+		$vars["href"] = path("users/email/");
+		$vars["data"] = $this->Users_Model->getEmail();
+
+		$this->render("content", $vars);
+	}
+
+	public function avatar() {
+		isConnected();
+		
+		$this->helper(array("forms", "html"));
+		$this->config("users", $this->application);
+		$this->css("forms", "cpanel");
+		$this->css("users", $this->application);
+
+		$vars["view"] = $this->view("avatar", TRUE);
+		$vars["href"] = path("users/avatar/");
+		$vars["data"] = $this->Users_Model->getAvatar();
+
+		$this->render("content", $vars);
 	}
 }
