@@ -1,5 +1,5 @@
 <?php
-	if(defined("_showLeft") and segment(0, isLang())) {
+	if(defined("_showLeft")) {
 		switch(segment(1, isLang())) {
 			case "avatar": case "password": case "options": case "privacity": case "social": case "email":
 				$active = segment(1, isLang());
