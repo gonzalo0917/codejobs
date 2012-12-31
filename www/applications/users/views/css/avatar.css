@@ -2,10 +2,9 @@ img.avatar {
 	background-color: #FFF;
 	border: 1px solid #000;
 	height: auto;
-	width: 250px;
 }
 
-img.avatar[src$="default.png"] {
+img.avatar[src$="/default.png"] {
 	opacity: 0.5;
 }
 
@@ -17,6 +16,11 @@ span.field {
 	display: block;
 }
 
-input[name="avatar"] {
-	width: 600px;
+input.avatar-file {
+	display: none;
+}
+
+p.left {
+	margin: 0;
+	text-align: center;
 }

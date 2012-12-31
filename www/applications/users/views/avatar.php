@@ -7,28 +7,29 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo isset($alert) ? $alert : NULL;
 			
-			echo p(TRUE, "");
+			echo p(span("field", "&raquo; " . __("Choose an image")), "");
 
-				echo span("field", "&raquo; " . __("Choose an image"));
+			echo formInput(array(
+				"class" => "avatar-file",
+				"name"  => "avatar",
+				"type"  => "file"
+			));
 
+
+			echo p(TRUE, "avatar-container");
 				echo formInput(array(
-					"id" => "choose-avatar",
-					"name" => "avatar",
-					"type" => "file"
+					"name" => "browse",
+					"type" => "button",
+					"value" => __("Browse") ."..."
 				));
 
 				echo formInput(array(
 					"name" => "delete",
 					"type" => "button",
-					"value" => "Delete image",
-					"onclick" => "document.querySelector('#choose-avatar').click()"
+					"value" => __("Remove image")
 				));
 
-				echo p(TRUE, "avatar-container");
-
-					echo image(path("www/lib/files/images/users/$avatar", TRUE), "avatar");
-
-				echo p(FALSE);
+				echo image(path("www/lib/files/images/users/$avatar", TRUE), "avatar", FALSE, array("p" => TRUE));
 
 			echo p(FALSE);
 
