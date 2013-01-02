@@ -267,6 +267,7 @@ $phrase["register_on_codejobs"]  						= "¡Regístrate en CodeJobs!";
 $phrase["registered_users"] 							= "Usuarios registrados";
 $phrase["relevant_posts"]								= "Publicaciones relevantes";
 $phrase["remove_file"]									= "Eliminar archivo";
+$phrase["remove_image"]									= "Eliminar imagen";
 $phrase["reply"]										= "Respuesta";
 $phrase["_reply"]										= "Responder";
 $phrase["replies"]										= "Respuestas";

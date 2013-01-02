@@ -284,6 +284,7 @@ class Users_Controller extends ZP_Load {
 		$this->css("forms", "cpanel");
 		$this->css("users", $this->application);
 		$this->css("avatar", $this->application);
+		$this->js("avatar", $this->application);
 
 		$vars["view"] = $this->view("avatar", TRUE);
 		$vars["href"] = path("users/avatar/");
