@@ -16,7 +16,7 @@
 			));
 
 
-			echo p(TRUE, "avatar");
+			echo div("avatar", "class");
 				echo formInput(array(
 					"name" => "browse",
 					"type" => "button",
@@ -30,14 +30,14 @@
 					"class" => "btn btn-danger",
 					"value" => __("Remove image")
 				));
+			echo div(FALSE);
 
-				echo div("avatar-container", "id/class", "avatar well");
+			echo div("avatar", "class");
+				echo div("avatar-container", "id/class", "avatar-image well");
 
 					echo image(path("www/lib/files/images/users/$avatar", TRUE), "avatar", "avatar-image");
 
 				echo div(FALSE);
-
-			echo p(FALSE);
-
+			echo div(FALSE);
 		echo formClose();
 	echo div(FALSE);

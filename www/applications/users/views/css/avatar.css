@@ -1,16 +1,14 @@
 img.avatar {
 	height: auto;
+	max-width: 700px;
 }
 
 img.avatar[src$="/default.png"] {
 	opacity: 0.5;
 }
 
-img.avatar[src$="/default.png"] ~ div.avatar {
-	background-color: red !important;
-}
-
-p.avatar {
+div.avatar {
+	margin-bottom: 10px;
 	text-align: center;
 }
 
@@ -27,11 +25,9 @@ p.left {
 	text-align: center;
 }
 
-div.avatar {
+div.avatar-image {
 	background-color: white;
+	display: inline-block;
 	margin: 0 auto;
-	min-height: 250px;
 	position: relative;
-	text-align: center;
-	vertical-align: middle;
 }
