@@ -6,6 +6,10 @@ img.avatar[src$="/default.png"] {
 	opacity: 0.5;
 }
 
+img.avatar[src$="/default.png"] ~ div.avatar {
+	background-color: red !important;
+}
+
 p.avatar {
 	text-align: center;
 }
@@ -30,5 +34,4 @@ div.avatar {
 	position: relative;
 	text-align: center;
 	vertical-align: middle;
-	width: 250px;
 }

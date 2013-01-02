@@ -33,7 +33,7 @@
 
 				echo div("avatar-container", "id/class", "avatar well");
 
-					echo image(path("www/lib/files/images/users/$avatar", TRUE), "avatar", FALSE);
+					echo image(path("www/lib/files/images/users/$avatar", TRUE), "avatar", "avatar-image");
 
 				echo div(FALSE);
 
