@@ -72,8 +72,10 @@ class CPanel_Controller extends ZP_Load {
 			switch(POST("cache")) {
 				case "blog": case "bookmarks": case "codes": case "pages": case "world":
 					$this->Cache->removeAll(POST("cache"));
+					
 					$this->vars["alert"] = getAlert("The cache files were removed", "success");
 				break;
+
 				default:
 					$this->vars["alert"] = getAlert("Does not exist cache group specified");
 			}
@@ -84,9 +86,9 @@ class CPanel_Controller extends ZP_Load {
 		if($data) {
 			$this->Applications_Model = $this->model("Applications_Model");
 			
-			$this->vars["themes"]		   = $this->Templates->getThemes($data[0]["Theme"]);
+			$this->vars["themes"]		       = $this->Templates->getThemes($data[0]["Theme"]);
 			$this->vars["defaultApplications"] = $this->Applications_Model->getDefaultApplications($data[0]["Application"]);
-			$this->vars["data"]		   = $data;
+			$this->vars["data"]		   		   = $data;
 		
 			$this->vars["view"] = $this->view("edit", TRUE, $this->application);
 			

@@ -130,8 +130,12 @@
 	}
 
 	aside .polls {
-		margin-left: 100px;
+		margin-left: 78px;
 	}	
+
+	aside .facebook-like {
+		margin-left: 90px;
+	}
 
 	#tweet-container {
     	margin-left: 15%;

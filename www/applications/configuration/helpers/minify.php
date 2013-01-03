@@ -4,10 +4,12 @@
 	}
 
 	function minify($ext = NULL) {
-		$css = FALSE; $js  = FALSE;
+		$css = FALSE; 
+		$js  = FALSE;
 
 		if(is_null($ext)) {
-			$css = TRUE; $js = TRUE;
+			$css = TRUE; 
+			$js  = TRUE;
 		} else {
 			$$ext = TRUE;
 		}
@@ -21,6 +23,7 @@
 			    		unlink("$path/$entry");
 			    	}
 			    }
+
 			    closedir($handle);
 			}
 		}
@@ -34,6 +37,7 @@
 			    		unlink("$path/$entry");
 			    	}
 			    }
+
 			    closedir($handle);
 			}
 		}

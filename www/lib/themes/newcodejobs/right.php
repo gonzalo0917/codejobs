@@ -12,6 +12,10 @@
 
             <div class="line"></div>
 
+            <section class="facebook-like">
+                <div class="fb-like-box" data-href="http://www.facebook.com/codejobs" data-width="292" data-show-faces="true" data-stream="false" data-header="false"></div>
+            </section>
+
             <section class="transmission">
                 <header>
                     <h3><?php echo __("Live broadcast"); ?></h3>
