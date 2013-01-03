@@ -210,6 +210,8 @@ class Users_Controller extends ZP_Load {
 			);
 		}
 
+		$this->title(__("About me"));
+
 		$vars["countries"]  = $countries;
 		$vars["view"] 		= $this->view("about", TRUE);
 		$vars["href"]  		= path("users/about/");
@@ -247,6 +249,8 @@ class Users_Controller extends ZP_Load {
 		$this->js("bootstrap");
 		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
+		$this->title(htmlentities(__("Change password")));
+
 		$vars["view"] = $this->view("password", TRUE);
 		$vars["href"] = path("users/password/");
 
@@ -269,6 +273,8 @@ class Users_Controller extends ZP_Load {
 		$this->js("bootstrap");
 		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
+		$this->title(htmlentities(__("Change e-mail")));
+
 		$vars["view"] = $this->view("email", TRUE);
 		$vars["href"] = path("users/email/");
 		$vars["data"] = $this->Users_Model->getEmail();
@@ -285,6 +291,8 @@ class Users_Controller extends ZP_Load {
 		$this->css("users", $this->application);
 		$this->css("avatar", $this->application);
 		$this->js("avatar", $this->application);
+
+		$this->title(__("Avatar"));
 
 		$vars["view"] = $this->view("avatar", TRUE);
 		$vars["href"] = path("users/avatar/");
