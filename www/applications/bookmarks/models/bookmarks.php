@@ -14,7 +14,9 @@ class Bookmarks_Model extends ZP_Load {
 		$this->table  = "bookmarks";
 		$this->fields = "ID_Bookmark, Title, Slug, URL, Description, Tags, Author, Views, Likes, Dislikes, Reported, Language, Start_Date, Situation";
 		$this->language = whichLanguage();
+
 		$this->Data = $this->core("Data");
+
 		$this->Data->table("bookmarks");
 
 		$this->helper("alerts");
@@ -142,9 +144,11 @@ class Bookmarks_Model extends ZP_Load {
 	private function save() {
 		if($this->Db->insert($this->table, $this->data)) {
 			$this->Cache = $this->core("Cache");	
+
 			$this->Cache->removeAll("bookmarks");
 
 			$this->Users_Model = $this->model("Users_Model");
+			
 			$this->Users_Model->setCredits(1, 9);
 
 			return getAlert(__("The bookmark has been saved correctly"), "success");	
@@ -167,13 +171,16 @@ class Bookmarks_Model extends ZP_Load {
 			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
 		} elseif($type === "tag") {
 			$tag = str_replace("-", " ", segment(2, isLang()));
+
 			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
 		} elseif($type === "author") {
 			$user = segment(2, isLang());
+			
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		} elseif($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag  = str_replace("-", " ", segment(4, isLang()));
+			
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		}
 	}
@@ -193,9 +200,7 @@ class Bookmarks_Model extends ZP_Load {
 	}
 	
 	public function getAll($limit) {		
-		$data = $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
-		
-		return $data;
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 	}
 	
 	public function getAllByAuthor($author, $limit) {		

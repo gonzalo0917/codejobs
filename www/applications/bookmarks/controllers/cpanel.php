@@ -217,7 +217,7 @@ class CPanel_Controller extends ZP_Load {
 		$this->CSS("pagination");
 		
 		$this->js("checkbox");
-		
+	
 		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
 		
 		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
