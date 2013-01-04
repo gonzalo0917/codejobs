@@ -196,6 +196,8 @@ class CPanel_Controller extends ZP_Load {
 		$data = $this->{"$this->Model"}->getByID($ID);
 	
 		if($data) {
+			$this->helper(array("forms", "debugging"));
+
 			$this->vars["data"] = $data;				
 			$this->vars["view"] = $this->view("add", TRUE, $this->application);
 			

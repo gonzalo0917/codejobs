@@ -146,8 +146,7 @@ class Jobs_Model extends ZP_Load {
 
 	private function edit() {
 		if($this->Db->update($this->table, $this->data, POST("ID"))) {
-            
-            return getAlert(__("The code has been edit correctly"), "success");
+            return getAlert(__("The job has been edit correctly"), "success");
         }
         
         return getAlert(__("Update error"));
