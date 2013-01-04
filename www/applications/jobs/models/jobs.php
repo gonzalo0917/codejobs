@@ -13,7 +13,7 @@ class Jobs_Model extends ZP_Load {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "jobs";
-		$this->fields   = "ID_Job, ID_Company, ID_User, Title, Slug, Email, Company_Information, Location, Salary, Allocation_Time, Requirements, Experience, Activities, Profile, Technologies, Additional_Information, Company_Contact, Situation";
+		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Email, Company_Information, Location, Salary, Allocation_Time, Requirements, Experience, Activities, Profile, Technologies, Additional_Information, Company_Contact, Language, Duration, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -47,45 +47,45 @@ class Jobs_Model extends ZP_Load {
 	
 	private function all($trash, $order, $limit) {	
 		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Job, Company, Title, Location, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit);
 		} else {
 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "D_Job, Title, Location, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Job, Company, Title, Location, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "D_Job, Title, Location, Situation", NULL, $order, $limit);
 		}
 	}
 	
 	private function editOrSave($action) {
-		 
 		$validations = array(
-			"id_company"   => "required",
-			"title" => "required",
-			"email" => "email?",
-			"Company_Information" => "required",
-			"location" => "required",
-			"activities" => "required",
-			"company_contact" => "required"
+			"company"   	=> "required",
+			"title" 		=> "required",
+			"email" 		=> "email?",
+			"cinformation"  => "required",
+			"location" 		=> "required",
+			"salary"		=> "required",
+			"requirements" 	=> "required",
+			"experience" 	=> "required",
+			"activities" 	=> "required",
+			"profile" 		=> "required",
+			"technologies" 	=> "required",
+			"ccontact" 		=> "required"
 		);
 		 
-		$this->helper("alerts");
+		$this->helper(array("alerts", "time"));
+		
+		$date = now(4);
 
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"Slug"    	 => slug(POST("title", "clean")),
-            "Email"      => POST("email", "clean"),
-            "Salary"  => POST("salary", "clean"),
-			"Allocation_Time" => POST("allocation_time", "clean"),
-			"Requirements"      => POST("requirements", "clean"),
-			"Experience"      => POST("experience", "clean"),
-			"Profile"      => POST("profile", "clean"),
-			"Technologies"      => POST("technologies", "clean"),
-			"Additional_Information"      => POST("additional_information", "clean"),
-			"Situation"  => POST("situation", "clean")
-
+			"Start_Date" => $date,
+			"End_Date"   => $date + POST("duration")
 		);
 
+		$this->Data->change("cinformation", "Company_Information");
+		$this->Data->change("allocation", "Allocation_Time");
+		$this->Data->change("ccontact", "Company_Contact");
 
 		$this->data = $this->Data->proccess($data, $validations);
-
 
 		if(isset($this->data["error"])) {
 			return $this->data["error"];
@@ -97,9 +97,11 @@ class Jobs_Model extends ZP_Load {
 	}
 	
 	private function save() {
-		$this->Db->insert($this->table, $this->data);
-	
-		return getAlert(__("The post has been saved correctly"), "success");
+		if($this->Db->insert($this->table, $this->data)) {
+		 	return getAlert(__("The job has been saved correctly"), "success");
+		}
+
+		return getAlert(__("Insert Error"));
 	}
 	
 	private function search($search, $field) {

@@ -2,7 +2,7 @@
 if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
 $caption = __("Manage Jobs");
-$colspan = 6;
+$colspan = 8;
 
 echo $search;
 
@@ -24,9 +24,10 @@ $j = 2;
 		<tr>
 			<th>&nbsp;</th>
 			<th>ID</th>
+			<th><?php echo __("Company"); ?></th>
 			<th><?php echo __("Title"); ?></th>
 			<th><?php echo __("Location"); ?></th>
-			<th><?php# echo __("Language"); ?></th>
+			<th><?php echo __("Language"); ?></th>
 			<th><?php echo __("Situation"); ?></th>
 			<th><?php echo __("Action"); ?></th>
 		</tr>
@@ -58,7 +59,11 @@ $j = 2;
 					<td class="center">
 						<?php echo $ID; ?>
 					</td>
-																				
+						
+					<td>
+						<?php echo $column["Company"]; ?>
+					</td>
+
 					<td>
 					<?php			
 						$title = cut($column["Title"], 4, "text"); 
@@ -72,7 +77,7 @@ $j = 2;
 					</td>
 								
 					<td class="center">
-						<?php# echo getLanguage($column["Language"], TRUE); ?>
+						<?php echo getLanguage($column["Language"], TRUE); ?>
 					</td>
 						 
 					<td class="center">
