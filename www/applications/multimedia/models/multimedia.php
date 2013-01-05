@@ -57,64 +57,12 @@ class Multimedia_Model extends ZP_Load {
 		return $data;	
 	}
 	
-	private function editOrSave($action) {
-		$validations = array(
-			"exists"  => array(
-							"Slug" 	   => slug(POST("title", "clean")), 
-							"Year"	   => date("Y"),
-							"Month"	   => date("m"),
-							"Day"	   => date("d"),
-							"Language" => POST("language")
-						),
-			"title"   => "required",
-			"content" => "required"
-		);
+	private function editOrSave($action) {	
+		$this->helper("files");
 		
-		$this->categories = POST("categories"); 
-		$this->tags	  = POST("tags");
-		$this->URL        = PATH("blog/". date("Y")) ."/". date("m") ."/". date("d") ."/". slug(POST("title", "clean"));
-		$this->muralExist = POST("mural_exist");
-				
-		$this->Files = $this->core("Files");
+		createFiles(POST("names"), POST("files"), POST("types"));
 		
-		$this->mural = FILES("mural");
-		
-		if($this->mural["name"] !== "") {
-			$dir = "www/lib/files/images/mural/";
-
-			$this->mural = $this->Files->uploadImage($dir, "mural", "mural");
-		
-			if(is_array($this->mural)) {
-				return $this->mural["alert"];
-			}
-		}
-		
-		$dir = "www/lib/files/images/blog/";
-		
-		$this->image = $this->Files->uploadImage($dir, "image", "resize", TRUE, TRUE, FALSE);
-
-		$data = array(
-			"ID_User"      => SESSION("ZanUserID"),
-			"Slug"         => slug(POST("title", "clean")),
-			"Content"      => POST("content", "clean"),
-			"Author"       => SESSION("ZanUser"),
-			"Year"	       => date("Y"),
-			"Month"	       => date("m"),
-			"Day"	       => date("d"),
-			"Image_Small"  => isset($this->image["small"])  ? $this->image["small"]  : NULL,
-			"Image_Medium" => isset($this->image["medium"]) ? $this->image["medium"] : NULL,
-			"Pwd"	       => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,
-			"Start_Date"   => now(4),
-			"Text_Date"    => now(2)
-		);
-	
-		$this->Data->ignore(array("categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
-
-		$this->data = $this->Data->proccess($data, $validations);
-
-		if(isset($this->data["error"])) {
-			return $this->data["error"];
-		}
+		die("archivos creados");
 	}
 	
 	private function save() {			

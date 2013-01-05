@@ -132,14 +132,15 @@ class CPanel_Controller extends ZP_Load {
 		$this->title("Add");
 		
 		$this->CSS("forms", "cpanel");
-		$this->CSS("www/lib/scripts/js/uploader/styles.css");
-		$this->js("www/lib/scripts/js/uploader/filedrag.js");
+		$this->js("filedrag");
 
 		$this->vars["uploaded"] = FALSE; 
-
+		
 		if(POST("upload")) {
 			$this->vars["uploaded"] = TRUE; 
 		}
+
+		$this->helper("forms");
 
 		if(POST("save")) {
 			$save = $this->{"$this->Model"}->cpanel("save");
@@ -262,13 +263,5 @@ class CPanel_Controller extends ZP_Load {
 		$this->render("content", $this->vars);
 	}
 	
-	public function upload($size) {
-		if(!$this->isAdmin) {
-			$this->login();
-		}
-
-		$this->Files = $this->core("Files");
-		
-		print $this->Files->uploadResource();
-	}
+	
 }

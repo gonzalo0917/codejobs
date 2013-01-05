@@ -39,9 +39,7 @@
 
 			print '<div class="clear"></div>';
 
-			if($uploaded) {
-				print formSave($action);
-			}
+			print formSave($action);
 			
 			print formInput(array("name" => "upload", "type" => "hidden", "value" => path(whichApplication() ."/cpanel/upload"), "id" => "upload"));
 			print formInput(array("name" => "MAX_FILE_SIZE", "type" => "hidden", "value" => "MAX_FILE_SIZE", "id" => "upload"));
