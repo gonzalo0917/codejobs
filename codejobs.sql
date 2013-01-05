@@ -300,43 +300,6 @@ CREATE TABLE IF NOT EXISTS `muu_comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_companies`
---
-
-CREATE TABLE IF NOT EXISTS `muu_companies` (
-  `ID_Company` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `RFC` varchar(20) NOT NULL,
-  `Name` varchar(250) NOT NULL,
-  `Legal_Name` varchar(100) NOT NULL,
-  `Legal_Last_Name` varchar(100) NOT NULL,
-  `Legal_Maiden_Name` varchar(100) NOT NULL,
-  `Legal_Title` varchar(100) NOT NULL,
-  `Legal_Email` varchar(100) NOT NULL,
-  `Legal_Phone` varchar(15) NOT NULL,
-  `Legal_Mobile` varchar(15) NOT NULL,
-  `Vacancies` smallint(5) NOT NULL,
-  `Type_Vacancy` varchar(50) NOT NULL,
-  `Employees` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `Sector` varchar(100) NOT NULL,
-  `Turn` varchar(100) NOT NULL,
-  `Country` varchar(50) NOT NULL,
-  `State` varchar(50) NOT NULL,
-  `City` varchar(50) NOT NULL,
-  `Address` varchar(255) NOT NULL,
-  `Zip_Code` varchar(10) NOT NULL,
-  `Website` varchar(100) NOT NULL,
-  `Logo` varchar(250) NOT NULL,
-  PRIMARY KEY (`ID_Company`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_companies`
---
-
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `muu_configuration`
 --
 
@@ -910,11 +873,11 @@ CREATE TABLE IF NOT EXISTS `muu_inbox` (
 
 CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `ID_Job` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ID_Company` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(250) NOT NULL,
   `Slug` varchar(250) NOT NULL,
   `Email` varchar(100) NOT NULL,
+  `Company` varchar(150) NOT NULL,
   `Company_Information` text NOT NULL,
   `Location` varchar(250) NOT NULL,
   `Salary` varchar(25) NOT NULL,
@@ -926,9 +889,14 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `Technologies` varchar(250) NOT NULL,
   `Additional_Information` text NOT NULL,
   `Company_Contact` text NOT NULL,
+  `Language` varchar(25) NOT NULL DEFAULT 'English',
+  `Duration` int(11) unsigned NOT NULL DEFAULT '86400',
+  `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
+  `Modified_Date` int(11) unsigned NOT NULL DEFAULT '0',
+  `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `muu_jobs`
