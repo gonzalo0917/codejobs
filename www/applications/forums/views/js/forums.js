@@ -5,26 +5,10 @@ $(document).on("ready", function() {
 	$("#fcancel").hide();
 
 	$("#ftitle").on("focus", function() {
-		if($("#ftitle").val() == $("#ftitle-temp").val()) {
-			$("#ftitle").val("");
-		}
-
 		$("#ftags").show();
 		$("#fcontent").show();
 		$("#fpublish").show();
 		$("#fcancel").show();
-	});
-
-	$("#ftags").on("focus", function() {
-		if($("#ftags").val() == $("#ftags-temp").val()) {
-			$("#ftags").val("");
-		}
-	});
-
-	$("#fcontent").on("focus", function() {
-		if($("#fcontent").val() == $("#fcontent-temp").val()) {
-			$("#fcontent").val("");
-		}
 	});
 
 	$("#fpublish").on("click", function() {
