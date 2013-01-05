@@ -300,4 +300,21 @@ class Users_Controller extends ZP_Load {
 
 		$this->render("content", $vars);
 	}
+
+	public function social() {
+		isConnected();
+
+		$this->helper(array("forms", "html"));
+		$this->config("users", $this->application);
+		$this->css("forms", "cpanel");
+		$this->css("users", $this->application);
+
+		$this->title(__("Social Networks"));
+
+		$vars["view"] = $this->view("social", TRUE);
+		$vars["href"] = path("users/social/");
+		$vars["data"] = $this->Users_Model->getSocial();
+
+		$this->render("content", $vars);
+	}
 }
