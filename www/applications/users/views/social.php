@@ -1,35 +1,60 @@
 <?php
 	if(!defined("_access")) die("Error: You don't have permission to access here...");
 
-	$email 		= recoverPOST("email", encode($data[0]["Email"]));
-	$subscribed = (boolean) recoverPOST("subscribed", encode($data[0]["Subscribed"]));
+	$twitter  = recoverPOST("twitter", encode($data[0]["Twitter"]));
+	$facebook = recoverPOST("facebook", encode($data[0]["Facebook"]));
+	$linkedin = recoverPOST("linkedin", encode($data[0]["Linkedin"]));
+	$google   = recoverPOST("google", encode($data[0]["Google"]));
+	$viadeo   = recoverPOST("viadeo", encode($data[0]["Viadeo"]));
+
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(
-				"type"  => "hidden",
-				"name" 	=> "username",
-				"p" 	=> FALSE,
-				"value" => SESSION("ZanUser")
+				"name" 	=> "twitter", 
+				"class" => "field-title field-full-size",
+				"field" => __("Twitter"), 
+				"p" 	=> TRUE,
+				"maxlength" => "150",
+				"value" => $twitter
 			));
 
 			echo formInput(array(
-				"name" 	=> "email", 
-				"class" => "field-title span4",
-				"field" => __("E-mail"), 
+				"name" 	=> "facebook", 
+				"class" => "field-title field-full-size",
+				"field" => __("Facebook"), 
 				"p" 	=> TRUE,
-				"maxlength" => "45",
-				"pattern"   => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
-				"value" => $email
+				"maxlength" => "150",
+				"value" => $facebook
 			));
 
-			echo formCheckbox(array(
-				"name" 	   => "subscribed",
-				"position" => "right",
-				"text"     => __("Subscribe to our free email newsletters"),
-				"checked"  => $subscribed === TRUE
+			echo formInput(array(
+				"name" 	=> "linkedin", 
+				"class" => "field-title field-full-size",
+				"field" => __("Linkedin"), 
+				"p" 	=> TRUE,
+				"maxlength" => "150",
+				"value" => $linkedin
+			));
+
+			echo formInput(array(
+				"name" 	=> "google", 
+				"class" => "field-title field-full-size",
+				"field" => __("Google"), 
+				"p" 	=> TRUE,
+				"maxlength" => "150",
+				"value" => $google
+			));
+
+			echo formInput(array(
+				"name" 	=> "viadeo", 
+				"class" => "field-title field-full-size",
+				"field" => __("Viadeo"), 
+				"p" 	=> TRUE,
+				"maxlength" => "150",
+				"value" => $viadeo
 			));
 
 			echo formInput(array(	
