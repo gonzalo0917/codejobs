@@ -61,10 +61,10 @@ class Applications_Model extends ZP_Load {
 								$count = $this->CPanel_Model->deletedRecords($application["Slug"]);		
 											
 								if($count > 0) {	
-									$span  = span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;");
+									$span  = span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 									$span .= span("bold italic blue", __("Trash") ." ($count)");
 									
-									$li[]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash", FALSE, array("title" => __("In trash") .": ". $count)));
+									$li[]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash"), FALSE, array("title" => __("In trash") .": ". $count));
 									
 									$i = count($list) - 1;
 									

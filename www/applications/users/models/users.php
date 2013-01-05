@@ -679,4 +679,8 @@ class Users_Model extends ZP_Load {
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Avatar");
 	}
 
+	public function getSocial() {
+		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Twitter, Facebook, Linkedin, Google, Viadeo");
+	}
+
 }

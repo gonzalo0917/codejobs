@@ -49,7 +49,7 @@ if(is_array($posts)) {
 					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/tag/") ." ". __("by") .' <a href="'. path("forums/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 				</div>
 				
-				<div class="clear"></div>
+				<div class="clear"><?php echo $post["Content"]; ?></div>
 			</div>
 								
 			<?php

@@ -42,7 +42,7 @@
 				"field" => __("Code"), 
 				"p" 	=> TRUE,
 				"rows"  => 15,
-				"value" => $code,
+				"value" => stripslashes($code),
 				"onfocus"   => "this.select()"
 			));
 			

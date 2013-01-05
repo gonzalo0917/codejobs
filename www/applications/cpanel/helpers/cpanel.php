@@ -27,10 +27,10 @@ function getAction($trash = FALSE, $ID, $delete = TRUE, $edit = TRUE, $comments 
 			$onClick2 = "return confirm('". __("Do you want to send to the trash the record?") ."')";			
 				
 			if($comments) {					
-				$action = a(span("tiny-image tiny-ok", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
-						  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));
+				$action = a(span("tiny-image tiny-ok", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
+						  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));
 			} else {
-				$action = a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));
+				$action = a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));
 			}
 		} elseif($delete and $edit) {
 			$URL1	  = path($application ."/cpanel/read/$ID");
@@ -39,8 +39,8 @@ function getAction($trash = FALSE, $ID, $delete = TRUE, $edit = TRUE, $comments 
 			$title2   = __("Send to Trash");				
 			$onClick2 = "return confirm('". __("Do you want to send to the trash the record?") ."')";	
 				
-			$action = a(span("tiny-image tiny-mail-off", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
-					  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));												
+			$action = a(span("tiny-image tiny-mail-off", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
+					  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));												
 		}
 	} elseif($application === "feedback") {
 		if($delete and $edit) {
@@ -60,7 +60,7 @@ function getAction($trash = FALSE, $ID, $delete = TRUE, $edit = TRUE, $comments 
 			$onClick2 = "return confirm('". __("Do you want to send to the trash the record?") ."')";	
 				
 			$action = a(span("tiny-image tiny-mail-off", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
-					  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));				
+					  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));				
 		}	
 	} elseif($comments) {
 		$URL1     = path($application ."/cpanel/validate/$ID");
@@ -71,7 +71,7 @@ function getAction($trash = FALSE, $ID, $delete = TRUE, $edit = TRUE, $comments 
 		$onClick2 = "return confirm('". __("Do you want to send to the trash the record?") ."')";	
 					
 		$action = a(span("tiny-image tiny-ok", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
-		  		  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));						 
+		  		  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));						 
 	} elseif(!$trash) {
 		if($delete and $edit) {
 			$URL1     = path($application ."/cpanel/edit/$ID");
@@ -81,17 +81,17 @@ function getAction($trash = FALSE, $ID, $delete = TRUE, $edit = TRUE, $comments 
 			$onClick1 = "return confirm('". __("Do you want to edit the record?") ."')";
 			$onClick2 = "return confirm('". __("Do you want to send to the trash the record?") ."')";
 			
-			$action = a(span("tiny-image tiny-edit", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
-					  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));	
+			$action = a(span("tiny-image tiny-edit", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
+					  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));	
 		} elseif($delete and !$edit) {  				
 			$URL2     = path(application ."/cpanel/trash/$ID");				
 			$title2   = __("Send to trash");				
 			$onClick2 = "return confirm('". __("Do you want to send to the trash the record?") ."')";
 			
-			$action = a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));				
+			$action = a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));				
 		} elseif(!$delete and !$edit) {
 			$action = span("tiny-image tiny-edit-off", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;") . 
-			   		  span("tiny-image tiny-trash-off", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+			   		  span("tiny-image tiny-trash-off", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 		}
 	} else {
 		$URL1     = path($application ."/cpanel/restore/$ID");

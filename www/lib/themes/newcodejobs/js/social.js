@@ -22,9 +22,11 @@ $(document).ready(function() {
         $(this).on("DOMNodeInserted", function (event) {
             $target = $(event.target);
             $next   = $target.parent().next();
-            if (parseInt($target.text()) == 1) {
+            
+            if(parseInt($target.text()) == 1) {
                 singular = $next.data("singular");
-                if (singular) {
+               
+                if(singular) {
                     $next.text(singular);
                 }
             }

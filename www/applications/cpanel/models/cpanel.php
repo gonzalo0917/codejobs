@@ -198,6 +198,8 @@ class CPanel_Model extends ZP_Load {
 				$data = $this->$Model->cpanel("search", NULL, POST("field") ." ". POST("order"), POST("search"), POST("field"));
 				
 				if(!$data) {
+					$this->helper("alerts");
+					
 					showAlert("Results not found", path(whichApplication() ."/cpanel/results"));
 				}
 			} else {

@@ -14,10 +14,10 @@
 	$principal = isset($data) ? recoverPOST("principal", $data[0]["Principal"]) 	: recoverPOST("principal");
 	$edit      = isset($data) ? TRUE 												: FALSE;	
 	$action	   = isset($data) ? "edit" 												: "save";
-	$href	   = isset($data) ? path(whichApplication() ."cpanel/$action/$ID/") 	: path(whichApplication() ."cpanel/add/");
+	$href	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") 	: path(whichApplication() ."/cpanel/add/");
 
 	echo div("add-form", "class");
-		echo formOpen($href, "form-add", "form-add");
+		echo formOpen($href, "form-add", "form-add", NULL, "post", "multipart/form-data");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
@@ -31,8 +31,10 @@
 			));
 			
 			if(isset($banner)) {
+				$image = img(path($banner, TRUE), array("alt" => "Banner", "class" => "no-border", "style" => "max-width: 780px;"));
+			
 				echo __("If you change the banner image, this image will be deleted") . "<br />";
-				echo img(path($banner, TRUE), array("alt" => "Banner", "class" => "no-border", "style" => "max-width: 780px;"));
+				echo $image;
 				echo formInput(array("name" => "banner", "type" => "hidden", "value" => $banner));
 			} 
 
