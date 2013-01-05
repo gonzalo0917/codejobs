@@ -58,53 +58,35 @@ class Multimedia_Model extends ZP_Load {
 	}
 	
 	private function editOrSave($action) {	
-		$this->helper("files");
+		$this->helper(array("alerts", "files"));
 		
-		createFiles(POST("names"), POST("files"), POST("types"));
+		$filenames = POST("titles");
+		$files 	   = createFiles(POST("names"), POST("files"), POST("types"), POST("sizes"));
 		
-		die("archivos creados");
+		if(is_array($filenames) and is_array($files)) {
+			for($i = 0; $i <= count($files) - 1; $i++) {
+				$this->data[] = array(
+					"ID_User"  	 => SESSION("ZanUserID"),
+					"Filename" 	 => $filenames[$i],
+					"URL" 	   	 => $files[$i]["url"],
+					"Medium"   	 => $files[$i]["medium"],
+					"Small"    	 => $files[$i]["small"],
+					"Thumbnail"  => $files[$i]["thumbnail"],
+					"Category"   => $files[$i]["category"],
+					"Size"		 => $files[$i]["size"],
+					"Author"	 => SESSION("ZanUser"),
+					"Start_Date" => now(4)
+				);
+			}
+		} else {
+			return getAlert(__("Error while try to upload the files"));
+		}
 	}
 	
 	private function save() {			
-		$insertID1 = $this->Db->insert("url", array("URL" => $this->URL));
-		$insertID2 = $this->Db->insert($this->table, $this->data);
+		$this->Db->insertBatch($this->table, $this->data);
 		
-		if(isset($this->mural["name"]) and $this->mural["name"] !== "") {			
-			$this->Db->insert("mural", array("ID_Post" => $insertID2, "Title" => POST("title"), "URL" => $this->URL, "Image" => $this->mural));
-		}
-		
-		if(is_array($this->categories)) {
-			$this->Db->select("ID_Category2Application");
-			$this->Db->whereIn("ID_Category", $this->categories);
-
-			$categories = $this->Db->get("re_categories_applications");
-			
-			for($i = 0; $i <= count($categories) - 1; $i++) {
-				$categories[$i]["ID_Record"] = $insertID2;
-			}
-			
-			$this->Db->insertBatch("re_categories_records", $categories);
-		}
-				
-		$this->Tags_Model = $this->model("Tags_Model");
-		
-		$insert = $this->Tags_Model->setTagsByRecord(3, $this->tags, $insertID2);
-
-		if($insertID1 === "rollback" or $insertID2 === "rollback") {					
-			$this->Db->rollBack();
-			
-			return array("error" => TRUE, "alert" => getAlert("Insert error"));
-		} else {
-			$this->Db->commit();
-			
-			if(SESSION("ZanUserMethod") === "twitter") {
-				$this->Twitter_Model = $this->model("Twitter_Model");
-				
-				$this->Twitter_Model->publish('"'. $this->title .'"', $this->URL);
-			}
-			
-			return getAlert("The post has been saved correctly", "success", $this->URL);
-		}		
+		return getAlert(__("The files has been saved correctly"), "success");
 	}
 	
 	private function edit() {	
