@@ -106,7 +106,7 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	private function save() {
-        if($this->getIDByForum($this->data["Slug"])){
+        if($this->getByForum($this->data["Slug"], POST("language"))) {
             return getAlert(__("This forum already exists"), "error", $this->URL);
         } 
         
