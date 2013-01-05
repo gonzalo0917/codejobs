@@ -186,51 +186,57 @@ class Users_Controller extends ZP_Load {
 	public function about() {
 		isConnected();
 
-		$this->helper(array("forms", "html"));
-		$this->config("users", $this->application);
-		$this->css("forms", "cpanel");
-		$this->css("users", $this->application);
+		$data = $this->Users_Model->getInformation();
 
-		if(POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->setInformation();
-		}
+		if($data) {
+			$this->helper(array("forms", "html"));
+			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
 
-		$this->js("about", $this->application);
-		$this->js("jquery.jdpicker.js");
+			if(POST("save")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->setInformation();
+			}
 
-		$this->Configuration_Model  = $this->model("Configuration_Model");
-		$this->Cache   				= $this->core("Cache");
-		$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
+			$this->js("about", $this->application);
+			$this->js("jquery.jdpicker.js");
 
-		foreach($list_of_countries as $country) {
-			$countries[] = array(
-				"option" => $country["Country"],
-				"value"  => $country["Country"]
-			);
-		}
+			$this->Configuration_Model  = $this->model("Configuration_Model");
+			$this->Cache   				= $this->core("Cache");
+			$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
 
-		$this->title(__("About me"));
-
-		$vars["countries"]  = $countries;
-		$vars["view"] 		= $this->view("about", TRUE);
-		$vars["href"]  		= path("users/about/");
-		$vars["data"]  		= $this->Users_Model->getInformation();
-
-		if($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
-			$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
-
-			foreach($list_of_cities as $city) {
-				$cities[] = array(
-					"option" => $city["District"],
-					"value"  => $city["District"]
+			foreach($list_of_countries as $country) {
+				$countries[] = array(
+					"option" => $country["Country"],
+					"value"  => $country["Country"]
 				);
 			}
 
-			$vars["cities"] = $cities;
+			$this->title(__("About me"));
+
+			$vars["countries"]  = $countries;
+			$vars["view"] 		= $this->view("about", TRUE);
+			$vars["href"]  		= path("users/about/");
+			$vars["data"]  		= $data;
+
+			if($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
+				$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
+
+				foreach($list_of_cities as $city) {
+					$cities[] = array(
+						"option" => $city["District"],
+						"value"  => $city["District"]
+					);
+				}
+
+				$vars["cities"] = $cities;
+			}
+			
+			$this->render("content", $vars);
+		} else {
+			redirect();
 		}
-		
-		$this->render("content", $vars);
 	}
 
 	public function password() {
@@ -259,62 +265,86 @@ class Users_Controller extends ZP_Load {
 
 	public function email() {
 		isConnected();
+
+		$data = $this->Users_Model->getEmail();
 		
-		$this->helper(array("forms", "html"));
-		$this->config("users", $this->application);
-		$this->css("forms", "cpanel");
-		$this->css("users", $this->application);
+		if($data) {
+			$this->helper(array("forms", "html"));
+			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
 
-		if(POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->changeEmail();
+			if(POST("save")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->changeEmail();
+			}
+
+			$this->js("bootstrap");
+			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
+
+			$this->title(htmlentities(__("Change e-mail")));
+
+			$vars["view"] = $this->view("email", TRUE);
+			$vars["href"] = path("users/email/");
+			$vars["data"] = $data;
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
 		}
-
-		$this->js("bootstrap");
-		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
-
-		$this->title(htmlentities(__("Change e-mail")));
-
-		$vars["view"] = $this->view("email", TRUE);
-		$vars["href"] = path("users/email/");
-		$vars["data"] = $this->Users_Model->getEmail();
-
-		$this->render("content", $vars);
 	}
 
 	public function avatar() {
 		isConnected();
+
+		$data = $this->Users_Model->getAvatar();
 		
-		$this->helper(array("forms", "html"));
-		$this->config("users", $this->application);
-		$this->css("forms", "cpanel");
-		$this->css("users", $this->application);
-		$this->css("avatar", $this->application);
-		$this->js("avatar", $this->application);
+		if($data) {
+			$this->helper(array("forms", "html"));
+			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
+			$this->css("avatar", $this->application);
+			$this->js("avatar", $this->application);
 
-		$this->title(__("Avatar"));
+			$this->title(__("Avatar"));
 
-		$vars["view"] = $this->view("avatar", TRUE);
-		$vars["href"] = path("users/avatar/");
-		$vars["data"] = $this->Users_Model->getAvatar();
+			$vars["view"] = $this->view("avatar", TRUE);
+			$vars["href"] = path("users/avatar/");
+			$vars["data"] = $data;
 
-		$this->render("content", $vars);
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
 	}
 
 	public function social() {
 		isConnected();
 
-		$this->helper(array("forms", "html"));
-		$this->config("users", $this->application);
-		$this->css("forms", "cpanel");
-		$this->css("users", $this->application);
+		if(POST("save")) {
+			$this->helper("alerts");
 
-		$this->title(__("Social Networks"));
+			$vars["alert"] = $this->Users_Model->saveSocial();
+		}
 
-		$vars["view"] = $this->view("social", TRUE);
-		$vars["href"] = path("users/social/");
-		$vars["data"] = $this->Users_Model->getSocial();
+		$data = $this->Users_Model->getSocial();
 
-		$this->render("content", $vars);
+		if($data) {
+			$this->helper(array("forms", "html"));
+			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
+
+			$this->title(__("Social Networks"));
+
+			$vars["view"] = $this->view("social", TRUE);
+			$vars["href"] = path("users/social/");
+			$vars["data"] = $data;
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
 	}
 }
