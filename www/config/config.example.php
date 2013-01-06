@@ -81,12 +81,12 @@ define("_maxWidth", 720);
 define("_maxHeight", 380);
 define("_minSmall", 60);
 define("_maxSmall", 90);
-define("_minMini", 90);
-define("_maxMini", 90);
+define("_minThumbnail", 90);
+define("_maxThumbnail", 90);
 define("_minMedium", 220);
 define("_maxMedium", 320);
-define("_minOriginal", 560);
-define("_maxOriginal", 800);
+define("_minLarge", 700);
+define("_maxLarge", 1024);
 define("_fileSize", 10485760);
 
 if(!$ZP["modRewrite"]) {

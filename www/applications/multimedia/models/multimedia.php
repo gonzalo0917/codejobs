@@ -58,20 +58,21 @@ class Multimedia_Model extends ZP_Load {
 	}
 	
 	private function editOrSave($action) {	
-		$this->helper(array("alerts", "files"));
+		$this->helper("alerts");
 		
-		$filenames = POST("titles");
-		$files 	   = createFiles(POST("names"), POST("files"), POST("types"), POST("sizes"));
+		$this->Files = $this->core("Files");
+
+		$files = $this->Files->createFiles(POST("names"), POST("files"), POST("types"), POST("sizes"), POST("filenames"));
 		
 		if(is_array($filenames) and is_array($files)) {
 			for($i = 0; $i <= count($files) - 1; $i++) {
 				$this->data[] = array(
 					"ID_User"  	 => SESSION("ZanUserID"),
-					"Filename" 	 => $filenames[$i],
+					"Filename" 	 => $files[$i]["filename"],
 					"URL" 	   	 => $files[$i]["url"],
 					"Medium"   	 => $files[$i]["medium"],
-					"Small"    	 => $files[$i]["small"],
-					"Thumbnail"  => $files[$i]["thumbnail"],
+					"Small"   	 => $files[$i]["small"],
+					"Thumbnail"	 => $files[$i]["thumbnail"],
 					"Category"   => $files[$i]["category"],
 					"Size"		 => $files[$i]["size"],
 					"Author"	 => SESSION("ZanUser"),
