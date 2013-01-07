@@ -68,6 +68,12 @@ class CPanel_Controller extends ZP_Load {
 		if(!$this->isAdmin) {
 			$this->login();
 		}
+
+		$data = $this->{"$this->Model"}->getByID($ID);
+
+		if($data) {
+			@unlink($data[0]["URL"]);
+		}
 		
 		if($this->CPanel_Model->delete($ID)) {
 			if($return) {
@@ -246,23 +252,20 @@ class CPanel_Controller extends ZP_Load {
 		$this->CSS("pagination");
 		
 		$this->js("checkbox");
+
+		$this->helper(array("files", "time"));
 			
 		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
 		
-		$total 	    = $this->CPanel_Model->total($trash);
-		$thead 	    = $this->CPanel_Model->thead("checkbox, ". getFields($this->application) .", Action", FALSE);
-		$pagination = $this->CPanel_Model->getPagination($trash);
-		$tFoot 	    = getTFoot($trash);
-		
-		$this->vars["message"]    = (!$tFoot) ? "Error" : NULL;
-		$this->vars["pagination"] = $pagination;
+		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
+		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
+		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : NULL;
+		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
 		$this->vars["trash"]  	  = $trash;	
-		$this->vars["search"] 	  = getSearch(); 
-		$this->vars["table"]      = getTable(__("Manage " . ucfirst($this->application)), $thead, $tFoot, $total);					
-		$this->vars["view"]       = $this->view("results", TRUE, "cpanel");
+		$this->vars["search"] 	  = getSearch(); 			
+		$this->vars["view"]       = $this->view("results", TRUE, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
-	
 	
 }

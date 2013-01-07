@@ -259,14 +259,5 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->render("content", $this->vars);
 	}
-	
-	public function upload() {
-		if(!$this->isAdmin) {
-			$this->login();
-		}
-		
-		$this->Library = $this->classes("Library", "cpanel");	
-			
-		$this->Library->upload();
-	}
+
 }
