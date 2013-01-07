@@ -13,8 +13,8 @@ function getCheckbox($ID, $disabled = NULL) {
 function getAction($trash = FALSE, $ID, $delete = TRUE, $edit = TRUE, $comments = FALSE) {
 	global $Load;
 	
-	$delete = $Load->execute("Users_Model", "isAllow", array("delete"), "model");
-	$edit 	= $Load->execute("Users_Model", "isAllow", array("edit"), "model");
+	$delete = ($delete) ? $Load->execute("Users_Model", "isAllow", array("delete"), "model") : $delete;
+	$edit 	= ($edit)   ? $Load->execute("Users_Model", "isAllow", array("edit"), "model")   : $edit;
 	$application = whichApplication();
 
 	if($application === "comments") {

@@ -76,13 +76,11 @@
             <?php }
 
                 echo display('<section class="ads">
-                                <script type="text/javascript"><!--
+                                <script type="text/javascript">
                                 google_ad_client = "ca-pub-4006994369722584";
-                                /* CodeJobs.biz Bloque */
                                 google_ad_slot = "4451171480";
                                 google_ad_width = 336;
                                 google_ad_height = 280;
-                                //-->
                                 </script>
                                 <script type="text/javascript"
                                 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">

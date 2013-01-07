@@ -62,9 +62,9 @@ class Multimedia_Model extends ZP_Load {
 				$this->data[] = array(
 					"ID_User"  	 => SESSION("ZanUserID"),
 					"Filename" 	 => isset($files[$i]["filename"]) ? $files[$i]["filename"] : NULL,
-					"URL" 	   	 => isset($files[$i]["url"]) ? $files[$i]["url"] : NULL,
+					"URL" 	   	 => isset($files[$i]["url"]) 	  ? $files[$i]["url"] 	   : NULL,
 					"Category"   => isset($files[$i]["category"]) ? $files[$i]["category"] : NULL,
-					"Size"		 => isset($files[$i]["size"]) ? $files[$i]["size"] : NULL,
+					"Size"		 => isset($files[$i]["size"]) 	  ? $files[$i]["size"] 	   : NULL,
 					"Author"	 => SESSION("ZanUser"),
 					"Start_Date" => now(4)
 				);
@@ -79,65 +79,7 @@ class Multimedia_Model extends ZP_Load {
 			return getAlert(__("The files has been saved correctly"), "success");
 		}
 
-		return getAlert(__("Error while tried to upload the files"), "success");
-	}
-	
-	private function edit() {	
-		$this->update("url", array("URL" => $this->URL), POST("ID_URL"));		
-		
-		$this->Db->update($this->table, $this->data, POST("ID"));				
-		
-		$purge = $this->Db->deleteBySQL("ID_Record = '". POST("ID") ."'", "re_categories_records");
-
-		if(is_array($this->categories)) {						
-			foreach($this->categories as $category) {
-				$categories[] = $this->Db->findBy("ID_Category", $category, "re_categories_applications");
-			}						
-			
-			foreach($categories as $category) {
-				$category = $category[0]["ID_Category2Application"];
-				$exist    = $this->Db->findBySQL("ID_Category2Application = '$category' AND ID_Record = '". POST("ID") ."'", "re_categories_records");
-				
-				if(!$exist) {
-					$data = array(
-							"ID_Category2Application" => $category,
-							"ID_Record"		  => POST("ID")
-						);
-						
-					$insert = $this->Db->insert($this->table, $data);					
-				}
-			}
-		}
-		
-		$this->Tags_Model = $this->model("Tags_Model");
-		
-		$this->Tags_Model->setTagsByRecord(3, $this->tags, POST("ID"));
-	
-		if(!is_array($this->mural) and !$this->muralExist) {
-			$values = array(
-				"ID_Post" => POST("ID"),
-				"Title"	  => $this->data["Title"],
-				"URL"	  => $this->URL, 
-				"Image"	  => $this->mural
-			);
-		
-			$this->Db->insert("mural", $values);	
-		} elseif(!is_array($this->mural) and $this->muralExist) {
-			unlink($this->muralExist);
-						
-			$this->Db->deleteBy("ID_Post", POST("ID"), "mural");
-			
-			$values = array(
-				"ID_Post" => POST("ID"),
-				"Title"	  => $this->title,
-				"URL"	  => $this->URL, 
-				"Image"	  => $this->mural
-			);
-			
-			$this->Db->insert("mural", $values);	
-		}
-		
-		return getAlert("The post has been edited correctly", "success", $this->URL);
+		return getAlert(__("Error while tried to upload the files"));
 	}
 	
 	private function search($search, $field) {

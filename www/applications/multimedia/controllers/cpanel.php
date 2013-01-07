@@ -234,7 +234,7 @@ class CPanel_Controller extends ZP_Load {
 		}
 		
 		$this->render("include", $this->vars);
-		$this->render("header", "footer");
+		$this->rendering("header", "footer");
 		
 		exit;
 	}
