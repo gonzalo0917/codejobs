@@ -9,3 +9,10 @@ www/config/database.php
 /nbproject/
 www/lib/languages/*.txt
 www/lib/cache/
+www/lib/files/images
+www/lib/files/audio
+www/lib/files/programs
+www/lib/files/codes
+www/lib/files/documents
+www/lib/files/unknown
+www/lib/files/videos
