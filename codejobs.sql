@@ -20,22 +20,23 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 
-CREATE TABLE muu_multimedia (
-ID_File mediumint(8) unsigned default null auto_increment,
-ID_User mediumint(8) unsigned default '0' not null,
-Filename varchar(255) default null,
-URL varchar(255) default null,
-Original varchar(255) default null,
-Medium varchar(255) default null,
-Small varchar(255) default null,
-Display varchar(255) default null,
-Thumbnail varchar(255) default null,
-Category varchar(20) not null default 'Images',
-Size int(11) unsigned default '0' not null,
-Start_Date int(11) unsigned default '0' not null,
-Downloads mediumint(8) unsigned default '0' not null,
-PRIMARY KEY (ID_File)
-);
+CREATE TABLE IF NOT EXISTS `muu_multimedia` (
+  `ID_File` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Filename` varchar(255) DEFAULT NULL,
+  `URL` varchar(255) DEFAULT NULL,
+  `Medium` varchar(255) DEFAULT NULL,
+  `Small` varchar(255) DEFAULT NULL,
+  `Thumbnail` varchar(255) DEFAULT NULL,
+  `Category` varchar(20) NOT NULL DEFAULT 'Images',
+  `Size` int(11) unsigned NOT NULL DEFAULT '0',
+  `Author` varchar(100) NOT NULL,
+  `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
+  `Downloads` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Situation` varchar(20) NOT NULL DEFAULT 'Active',
+  PRIMARY KEY (`ID_File`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 
