@@ -132,6 +132,7 @@ class CPanel_Controller extends ZP_Load {
 		$this->title("Add");
 		
 		$this->CSS("forms", "cpanel");
+
 		$this->js("filedrag");
 
 		$this->vars["uploaded"] = FALSE; 

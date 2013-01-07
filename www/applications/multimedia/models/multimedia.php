@@ -12,7 +12,7 @@ class Multimedia_Model extends ZP_Load {
 		$this->Db = $this->db();
 
 		$this->language = whichLanguage();
-		$this->table 	= "blog";
+		$this->table 	= "multimedia";
 
 		$this->Data = $this->core("Data");
 
@@ -63,31 +63,32 @@ class Multimedia_Model extends ZP_Load {
 		$this->Files = $this->core("Files");
 
 		$files = $this->Files->createFiles(POST("names"), POST("files"), POST("types"), POST("sizes"), POST("filenames"));
-		
-		if(is_array($filenames) and is_array($files)) {
+
+		$this->helper("time");
+
+		if(is_array($files)) {
 			for($i = 0; $i <= count($files) - 1; $i++) {
 				$this->data[] = array(
 					"ID_User"  	 => SESSION("ZanUserID"),
-					"Filename" 	 => $files[$i]["filename"],
-					"URL" 	   	 => $files[$i]["url"],
-					"Medium"   	 => $files[$i]["medium"],
-					"Small"   	 => $files[$i]["small"],
-					"Thumbnail"	 => $files[$i]["thumbnail"],
-					"Category"   => $files[$i]["category"],
-					"Size"		 => $files[$i]["size"],
+					"Filename" 	 => isset($files[$i]["filename"]) ? $files[$i]["filename"] : NULL,
+					"URL" 	   	 => isset($files[$i]["url"]) ? $files[$i]["url"] : NULL,
+					"Category"   => isset($files[$i]["category"]) ? $files[$i]["category"] : NULL,
+					"Size"		 => isset($files[$i]["size"]) ? $files[$i]["size"] : NULL,
 					"Author"	 => SESSION("ZanUser"),
 					"Start_Date" => now(4)
 				);
 			}
 		} else {
-			return getAlert(__("Error while try to upload the files"));
+			return getAlert(__("Error while tried to upload the files"));
 		}
 	}
 	
 	private function save() {			
-		$this->Db->insertBatch($this->table, $this->data);
-		
-		return getAlert(__("The files has been saved correctly"), "success");
+		if($this->Db->insertBatch($this->table, $this->data)) {
+			return getAlert(__("The files has been saved correctly"), "success");
+		}
+
+		return getAlert(__("Error while tried to upload the files"), "success");
 	}
 	
 	private function edit() {	
