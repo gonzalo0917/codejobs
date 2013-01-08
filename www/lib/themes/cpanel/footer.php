@@ -7,8 +7,9 @@
             </div>
         </div>
 		<script type="text/javascript">
-			var PATH = "<?php echo path(); ?>";
-			var URL  = "<?php echo _get('webURL'); ?>";
+			var PATH = "<?php echo path(); ?>",
+				URL  = "<?php echo _get('webURL'); ?>",
+				ZAN  = "<?php echo path("", "zan");?>";
 		</script>
 
 		<?php
