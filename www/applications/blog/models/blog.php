@@ -89,8 +89,26 @@ class Blog_Model extends ZP_Load {
 		
 		$this->image = $this->Files->uploadImage($dir, "image", "resize", TRUE, TRUE, FALSE);
 
+		if(POST("author")) {
+			$this->Users_Model = $this->model("Users_Model");
+
+			$data = $this->Users_Model->getByUsername(POST("author"));
+
+			if(isset($data[0]["ID_User"])) {
+				$ID_User = $data[0]["ID_User"];
+			} else {
+				$ID_User = FALSE;
+			}
+		} else {
+			$ID_User = SESSION("ZanUserID");
+		}
+		
+		if(!$ID_User) {
+			return getAlert("Author is not a valid user");
+		}
+
 		$data = array(
-			"ID_User"      => SESSION("ZanUserID"),
+			"ID_User"      => $ID_User,
 			"Slug"         => slug(POST("title", "clean")),
 			"Content"      => setCode(decode(POST("content", "clean")), FALSE),
 			"Author"       => POST("author") ? POST("author") : SESSION("ZanUser"),

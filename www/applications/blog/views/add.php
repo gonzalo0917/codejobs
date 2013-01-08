@@ -11,11 +11,12 @@
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$author    = isset($data) ? recoverPOST("author", $data[0]["Author"])        : SESSION("ZanUser");
 	$userID    = isset($data) ? recoverPOST("ID_User", $data[0]["ID_User"])      : SESSION("ZanUserID");
-	$buffer    = isset($data) ? recoverPOST("buffer", $data[0]["Buffer"])		 : 1;
+	$buffer    = isset($data) ? (int)recoverPOST("buffer", $data[0]["Buffer"])	 : 1;
 	$code      = isset($data) ? recoverPOST("code", $data[0]["Code"])		 	 : recoverPOST("code");
 	$edit      = isset($data) ? TRUE											 : FALSE;
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
+	$enable_comments = isset($data) ? (int)recoverPOST("enable_comments", $data[0]["Enable_Comments"]) : 1;
 
 	$editor    = _get("defaultEditor") === "Redactor" ? 1 : 2;
 	
@@ -79,8 +80,8 @@
 			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 
 			$options = array(
-				0 => array("value" => 1, "option" => __("Yes"), "selected" => TRUE),
-				1 => array("value" => 0, "option" => __("No"))
+				0 => array("value" => 1, "option" => __("Yes"), "selected" => ($enable_comments === 1) ? TRUE : FALSE),
+				1 => array("value" => 0, "option" => __("No"),  "selected" => ($enable_comments === 0) ? TRUE : FALSE)
 			);
 
 			echo formSelect(array(
