@@ -68,6 +68,99 @@
 				"value"  => stripslashes($content)
 			));
 
+			echo div("multimedia", "class");
+				
+					if($multimedia) {
+						foreach($multimedia as $category) {
+							if($category["audio"]) { 
+								echo '<strong>'. __("Audio") .'</strong><br /><ul id="multimedia-list-audio" class="multimedia-list">';
+								
+								$count = count($category["audio"]) - 1;
+
+								for($i = 0; $i <= $count; $i++) {
+									echo '<li><a class="pointer" onclick="javascript:add(\'audio\', \''. $category["audio"][$i]["Filename"] .'\', \''. path($category["audio"][$i]["URL"], TRUE) .'\');">'. $category["audio"][$i]["Filename"] .'</a></li>';
+								}
+
+								echo '</ul>';
+							} 
+
+							if($category["codes"]) {
+								echo '<strong>'. __("Codes") .'</strong><br /><ul id="multimedia-list-codes" class="multimedia-list">';
+								
+								$count = count($category["codes"]) - 1;
+
+								for($i = 0; $i <= $count; $i++) {
+									echo '<li><a class="pointer" onclick="javascript:add(\'codes\', \''. $category["codes"][$i]["Filename"] .'\', \''. path($category["codes"][$i]["URL"], TRUE) .'\');">'. $category["codes"][$i]["Filename"] .'</a></li>';
+								}
+
+								echo '</ul>';
+							} 
+
+							if($category["documents"]) {
+								echo '<strong>'. __("Documents") .'</strong><br /><ul id="multimedia-list-documents" class="multimedia-list">';
+								
+								$count = count($category["documents"]) - 1;
+
+								for($i = 0; $i <= $count; $i++) {
+									echo '<li><a class="pointer" onclick="javascript:add(\'documents\', \''. $category["documents"][$i]["Filename"] .'\', \''. path($category["documents"][$i]["URL"], TRUE) .'\');">'. $category["documents"][$i]["Filename"] .'</a></li>';
+								}
+
+								echo '</ul>';
+							} 
+
+							if($category["images"]) {
+								echo '<strong>'. __("Images") .'</strong><br /><ul id="multimedia-list-images" class="multimedia-list">';
+								
+								$count = count($category["images"]) - 1;
+
+								for($i = 0; $i <= $count; $i++) {
+									echo '<li><a class="pointer" onclick="javascript:add(\'images\', \''. $category["images"][$i]["Filename"] .'\', \''. path($category["images"][$i]["URL"], TRUE) .'\');">'. $category["images"][$i]["Filename"] .'</a></li>';
+								}
+
+								echo '</ul>';
+							}
+
+							if($category["programs"]) {
+								echo '<strong>'. __("Programs") .'</strong><br /><ul id="multimedia-list-programs" class="multimedia-list">';
+								
+								$count = count($category["programs"]) - 1;
+
+								for($i = 0; $i <= $count; $i++) {
+									echo '<li><a class="pointer" onclick="javascript:add(\'programs\', \''. $category["programs"][$i]["Filename"] .'\', \''. path($category["programs"][$i]["URL"], TRUE) .'\');">'. $category["programs"][$i]["Filename"] .'</a></li>';
+								}
+
+								echo '</ul>';
+							}
+
+							if($category["unknown"]) {
+								echo '<strong>'. __("Unknown") .'</strong><br /><ul id="multimedia-list-unknown" class="multimedia-list">';
+								
+								$count = count($category["unknown"]) - 1;
+
+								for($i = 0; $i <= $count; $i++) {
+									echo '<li><a class="pointer" onclick="javascript:add(\'unknown\', \''. $category["unknown"][$i]["Filename"] .'\', \''. path($category["unknown"][$i]["URL"], TRUE) .'\');">'. $category["unknown"][$i]["Filename"] .'</a></li>';
+								}
+
+								echo '</ul>';
+							}
+
+							if($category["videos"]) {
+								echo '<strong>'. __("Videos") .'</strong><br /><ul id="multimedia-list-videos" class="multimedia-list">';
+								
+								$count = count($category["videos"]) - 1;
+
+								for($i = 0; $i <= $count; $i++) {
+									echo '<li><a class="pointer" onclick="javascript:add(\'videos\', \''. $category["videos"][$i]["Filename"] .'\', \''. path($category["videos"][$i]["URL"], TRUE) .'\');">'. $category["videos"][$i]["Filename"] .'</a></li>';
+								}
+
+								echo '</ul>';
+							}
+
+						}
+					}
+				
+			echo div(FALSE);
+
 			echo formInput(array(	
 				"id"    => "author",
 				"name" 	=> "author", 
