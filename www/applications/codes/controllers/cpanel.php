@@ -182,8 +182,8 @@ class CPanel_Controller extends ZP_Load {
 		if(!$this->isAdmin) {
 			$this->login();
 		}
-                
-                if((int) $ID === 0 AND !POST("edit", "clean")) { 
+        
+        if((int) $ID === 0 AND !POST("edit", "clean")) { 
 			redirect($this->application ."/cpanel/results");
 		}
 
@@ -204,8 +204,8 @@ class CPanel_Controller extends ZP_Load {
 			redirect("cpanel");
 		} 
 		
-                $data = $this->$Model->getByID(isset($this->$Model->id) ? $this->$Model->id : $ID);
-                
+        $data = $this->$Model->getByID(isset($this->$Model->id) ? $this->$Model->id : $ID);
+        
 		if($data) {
             $data[0]["Files"] = $this->$Model_Files->getByCode(isset($this->$Model->id) ? $this->$Model->id : $ID);
             

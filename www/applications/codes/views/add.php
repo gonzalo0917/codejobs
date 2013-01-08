@@ -6,6 +6,7 @@
     $ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) 				: 0;
 	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
     $description = isset($data) ? recoverPOST("description", $data[0]["Description"])   : recoverPOST("description");
+    $author      = isset($data) ? recoverPOST("author", $data[0]["Author"])             : SESSION("ZanUser");
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
 	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
 	$edit        = isset($data) ? TRUE 													: FALSE;
@@ -32,8 +33,7 @@
 			"class" => "span10 required",
 			"field" => __("Title"), 
 			"p" 	=> TRUE, 
-			"value" => $title,
-            "autofocus" => "autofocus"
+			"value" => $title
 		));
 
         echo formTextArea(array(
@@ -120,6 +120,15 @@
             "class"     => "btn span10",
             "ng-click"  => "addFile()"
         ), __("Add another file") . "...");
+
+        echo formInput(array(   
+                "id"    => "author",
+                "name"  => "author", 
+                "class" => "span2 required", 
+                "field" => __("Author"), 
+                "p"     => TRUE, 
+                "value" => stripslashes($author)
+            ));
 
 		echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 		
