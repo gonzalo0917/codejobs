@@ -61,8 +61,13 @@ class Multimedia_Model extends ZP_Load {
 			for($i = 0; $i <= count($files) - 1; $i++) {
 				$this->data[] = array(
 					"ID_User"  	 => SESSION("ZanUserID"),
+<<<<<<< HEAD
+					"Filename" 	 => isset($files[$i]["filename"]) ? decode($files[$i]["filename"]) : NULL,
+					"URL" 	   	 => isset($files[$i]["url"]) ? $files[$i]["url"] : NULL,
+=======
 					"Filename" 	 => isset($files[$i]["filename"]) ? $files[$i]["filename"] : NULL,
 					"URL" 	   	 => isset($files[$i]["url"]) 	  ? $files[$i]["url"] 	   : NULL,
+>>>>>>> 36bde36810ef5809a35250d26c78c7e1b0bbe121
 					"Category"   => isset($files[$i]["category"]) ? $files[$i]["category"] : NULL,
 					"Size"		 => isset($files[$i]["size"]) 	  ? $files[$i]["size"] 	   : NULL,
 					"Author"	 => SESSION("ZanUser"),
@@ -79,7 +84,15 @@ class Multimedia_Model extends ZP_Load {
 			return getAlert(__("The files has been saved correctly"), "success");
 		}
 
+<<<<<<< HEAD
+		return getAlert(__("Error while tried to upload the files"), "success");
+	}
+	
+	private function edit() {	
+		
+=======
 		return getAlert(__("Error while tried to upload the files"));
+>>>>>>> 36bde36810ef5809a35250d26c78c7e1b0bbe121
 	}
 	
 	private function search($search, $field) {
@@ -100,6 +113,14 @@ class Multimedia_Model extends ZP_Load {
 		$data = $this->Db->find($ID, $this->table, $this->fields);
 		
 		return $data;
+	}
+
+	public function getMultimedia($category = "all") {
+		if($category === "all") {
+			return $this->Db->findAll($this->table, $this->fields);
+		} else { 
+			return $this->Db->findBy("Category", $category, $this->table, $this->fields); die(var_dump($a));
+		}
 	}
 	
 }
