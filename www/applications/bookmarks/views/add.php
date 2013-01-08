@@ -8,6 +8,7 @@
 	$description = isset($data) ? recoverPOST("description", $data[0]["Description"]) 	: recoverPOST("description");
 	$URL         = isset($data) ? recoverPOST("URL", $data[0]["URL"]) 					: recoverPOST("URL");
 	$tags    	 = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) 				: recoverPOST("tags");
+	$author    	 = isset($data) ? recoverPOST("author", $data[0]["Author"])        		: SESSION("ZanUser");
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
 	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
 	$action	     = isset($data) ? "edit"												: "save";
@@ -51,6 +52,15 @@
 				"field" => __("Tags"), 
 				"p" 	=> TRUE, 
 				"value" => $tags
+			));
+
+			echo formInput(array(	
+				"id"    => "author",
+				"name" 	=> "author", 
+				"class" => "span2 required", 
+				"field" => __("Author"), 
+				"p" 	=> TRUE, 
+				"value" => stripslashes($author)
 			));
 
 			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
