@@ -148,6 +148,16 @@ class CPanel_Controller extends ZP_Load {
 
 		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
 		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
+
+		$this->Multimedia_Model = $this->model("Multimedia_Model");
+
+		$multimedia[0]["audio"]     = $this->Multimedia_Model->getMultimedia("audio");
+		$multimedia[0]["codes"] 	= $this->Multimedia_Model->getMultimedia("codes");
+		$multimedia[0]["documents"] = $this->Multimedia_Model->getMultimedia("documents");
+		$multimedia[0]["images"]    = $this->Multimedia_Model->getMultimedia("images");
+		$multimedia[0]["programs"]  = $this->Multimedia_Model->getMultimedia("programs");
+		$multimedia[0]["unknown"]   = $this->Multimedia_Model->getMultimedia("unknown");
+		$multimedia[0]["videos"]    = $this->Multimedia_Model->getMultimedia("videos");
 		
 		if(POST("save")) {
 			$save = $this->{"$this->Model"}->cpanel("save");
@@ -157,9 +167,9 @@ class CPanel_Controller extends ZP_Load {
 			redirect("cpanel");
 		}
 
+		$this->vars["multimedia"]  = $multimedia;
 		$this->vars["application"] = $this->CPanel->getApplicationID();
-		
-		$this->vars["view"] = $this->view("add", TRUE, $this->application);
+		$this->vars["view"] 	   = $this->view("add", TRUE, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
