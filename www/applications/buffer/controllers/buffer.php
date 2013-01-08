@@ -16,13 +16,7 @@ class Buffer_Controller extends ZP_Load {
 		$this->bufferProfiles = array("504fea9d6ffb363e53000031");
 	}
 	
-	public function index() {	
-		$this->RESTClient->setURL("https://api.bufferapp.com/1/profiles.json?access_token=". _bufferToken);
-
-		$data = $this->RESTClient->GET();
-
-		die(var_dump($data));
-	}
+	public function index() {}
 
 	public function create($app = "all", $profile = "all", $language = "Spanish") {
 		$this->config($this->application);

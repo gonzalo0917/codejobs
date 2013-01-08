@@ -84,7 +84,7 @@ function getAction($trash = FALSE, $ID, $delete = TRUE, $edit = TRUE, $comments 
 			$action = a(span("tiny-image tiny-edit", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL1, FALSE, array("title" => $title1, "onclick" => $onClick1)) . 
 					  a(span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"), $URL2, FALSE, array("title" => $title2, "onclick" => $onClick2));	
 		} elseif($delete and !$edit) {  				
-			$URL2     = path(application ."/cpanel/trash/$ID");				
+			$URL2     = path($application ."/cpanel/trash/$ID");				
 			$title2   = __("Send to trash");				
 			$onClick2 = "return confirm('". __("Do you want to send to the trash the record?") ."')";
 			

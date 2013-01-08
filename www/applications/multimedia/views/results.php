@@ -91,8 +91,7 @@ $j = 2;
 												 
 					<td class="center">
 					<?php  					
-						#echo ($column["Situation"] === "Deleted") ? getAction(TRUE, $ID, FALSE, FALSE) : getAction(FALSE, $ID, TRUE, FALSE);
-						echo getAction(FALSE, $ID, TRUE, FALSE);
+						echo ($column["Situation"] === "Deleted") ? getAction(TRUE, $ID) : getAction(FALSE, $ID, TRUE, FALSE);						
 					?>
 					</td>
 	 			</tr>
