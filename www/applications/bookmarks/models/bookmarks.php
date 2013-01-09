@@ -65,7 +65,32 @@ class Bookmarks_Model extends ZP_Load {
 	}
 	
 	private function editOrSave($action) {
-		$this->helper("time");
+		$this->helper(array("time", "alerts"));
+
+		if(POST("author")) {
+			$this->Users_Model = $this->model("Users_Model");
+
+			$data = $this->Users_Model->getByUsername(POST("author"));
+
+			if(isset($data[0]["ID_User"])) {
+				$ID_User = $data[0]["ID_User"];
+			} else {
+				$ID_User = FALSE;
+			}
+		} else {
+			$ID_User = SESSION("ZanUserID");
+		}
+		
+		if(!$ID_User) {
+			return getAlert("Author is not a valid user");
+		}
+
+		$data = array(
+			"ID_User" 	 => $ID_User,
+			"Author"  	 => POST("author") ? POST("author") : SESSION("ZanUser"),
+			"Slug"    	 => slug(POST("title", "clean")),
+			"Title"		 => stripslashes(POST("title"))
+		);
 
 		if($action === "save") {
 			$validations = array(
@@ -76,26 +101,16 @@ class Bookmarks_Model extends ZP_Load {
 				"description" => "required"
 			);
 
-			$data = array(
-				"ID_User" 	 => SESSION("ZanUserID"),
-				"Author"  	 => POST("author") ? POST("author") : SESSION("ZanUser"),
-				"Slug"    	 => slug(POST("title", "clean")),
-				"Start_Date" => now(4),
-				"Title"		 => stripslashes(POST("title"))
-			);
+			$data["Start_Date"] = now(4);
 		} else {
 			$validations = array(
 				"title" 	  => "required",
 				"description" => "required"
 			);			
 
-			$data = array(
-				"Slug"    	 	=> slug(POST("title", "clean")),
-				"Modified_Date" => now(4),
-				"Title"		 	=> stripslashes(POST("title"))
-			);
+			$data["Modified_Date"] = now(4);
 		}
-				
+
 		$this->data = $this->Data->proccess($data, $validations);
 
 		if(isset($this->data["error"])) {

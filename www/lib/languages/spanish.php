@@ -29,6 +29,7 @@ $phrase["are_you_new_on_codejobs_register"] 			= "¿Eres nuevo en CodeJobs?, ¡Reg
 $phrase["are_you_sure_you_want_to_leave"]	 			= "¿Seguro que deseas salir?";
 $phrase["ascending"] 									= "Ascendentemente";
 $phrase["august"] 	 									= "Agosto";
+$phrase["author_is_not_a_valid_user"] 					= "El autor no es un usuario válido";
 $phrase["authentification"] 							= "Autentificación";
 $phrase["author"] 										= "Autor";
 $phrase["avatar"] 										= "Imagen de perfil";

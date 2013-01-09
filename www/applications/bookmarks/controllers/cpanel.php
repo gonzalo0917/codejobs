@@ -30,7 +30,7 @@ class CPanel_Controller extends ZP_Load {
 	
 	public function index() {
 		if($this->isAdmin) {
-			$this->redirect("cpanel");
+			redirect("cpanel");
 		} else {
 			$this->login();
 		}

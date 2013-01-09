@@ -503,6 +503,10 @@ class Users_Model extends ZP_Load {
 	public function getByID($ID) {
 		return $this->Db->find($ID, $this->table, $this->fields);
 	}
+
+	public function getByUsername($username) {
+		return $this->Db->findBy("Username", $username, $this->table, $this->fields);
+	}
 	
 	public function getPrivileges() {
 		return $this->Db->findAll("privileges");
