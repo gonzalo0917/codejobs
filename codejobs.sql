@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Month` varchar(2) NOT NULL,
   `Day` varchar(2) NOT NULL,
   `Views` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Mural` varchar(250) DEFAULT NULL,
   `Image_Small` varchar(250) DEFAULT NULL,
   `Image_Medium` varchar(250) NOT NULL,
   `Comments` mediumint(8) NOT NULL DEFAULT '0',
