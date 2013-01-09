@@ -29,5 +29,16 @@ div.avatar-image {
 	background-color: white;
 	display: inline-block;
 	margin: 0 auto;
+	padding: 10px;
 	position: relative;
+}
+
+div.marker {
+	border: 4px solid red;
+	cursor: move;
+	left: 10px;
+	height: 50px;
+	position: absolute;
+	top: 10px;
+	width: 50px;
 }

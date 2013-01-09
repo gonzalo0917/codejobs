@@ -39,5 +39,14 @@
 
 				echo div(FALSE);
 			echo div(FALSE);
+
+			echo div("avatar", "class");
+				echo formInput(array(	
+					"name" 	=> "save", 
+					"class" => "btn btn-success", 
+					"value" => __("Save"), 
+					"type"  => "submit"
+				));
+			echo div(FALSE);
 		echo formClose();
 	echo div(FALSE);
