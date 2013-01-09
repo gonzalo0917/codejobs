@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `muu_applications` (
   `Comments` tinyint(1) NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Application`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 --
 -- Dumping data for table `muu_applications`
@@ -109,7 +109,8 @@ INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Ad
 (15, 'Videos', 'videos', 1, 1, 1, 0, 'Active'),
 (16, 'Works', 'works', 1, 1, 1, 0, 'Active'),
 (17, 'Codes', 'codes', 1, 1, 1, 0, 'Active'),
-(18, 'Jobs', 'jobs', 1, 1, 1, 0, 'Active');
+(18, 'Jobs', 'jobs', 1, 1, 1, 0, 'Active'),
+(19, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -1351,6 +1352,7 @@ INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `
 (2, 18, 1, 1, 1, 1),
 (3, 18, 1, 0, 0, 1),
 (4, 18, 0, 0, 0, 0);
+(1, 19, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
