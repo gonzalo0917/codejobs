@@ -67,60 +67,72 @@ class Blog_Model extends ZP_Load {
 		
 		$lang = getLang(POST("language"));
 		
-		$this->muralExist = POST("mural_exist");
-		
 		$this->helper(array("alerts", "time", "files"));
 
+		$dir = "www/lib/files/images";
+
 		$this->Files = $this->core("Files");
-		
 		$this->mural = FILES("mural");
-		
-		if($this->mural["name"] !== "") {
-			$dir = "www/lib/files/images/mural/";
 
-			$this->mural = $this->Files->uploadImage($dir, "mural", "mural");
+		$this->postImage = $this->Files->uploadImage($dir ."/blog/", "image", "resize", TRUE, TRUE, TRUE, FALSE, TRUE);
 		
-			if(is_array($this->mural)) {
-				return $this->mural["alert"];
-			}
-		}
+		if($action === "edit") {
+			$this->post = $this->Db->find(POST("ID"), $this->table);
+			$currentMural = $this->post[0]["Image_Mural"];
+			$currentOriginalImg = $this->post[0]["Image_Original"];
+			$currentSmallImg = $this->post[0]["Image_Small"];
+			$currentMediumImg = $this->post[0]["Image_Medium"];
+			$currentThumbnailImg = $this->post[0]["Image_Thumbnail"];
+		} 
+        
+        $this->postMural = $this->Files->uploadImage($dir ."/mural/", "mural", "mural");
+
+        if(is_array($this->postMural)) {
+        	return getAlert($this->postMural["alert"]);
+        }
 		
-		$dir = "www/lib/files/images/blog/";
-		
-		$this->image = $this->Files->uploadImage($dir, "image", "resize", TRUE, TRUE, FALSE);
-
-		if(POST("author")) {
-			$this->Users_Model = $this->model("Users_Model");
-
-			$data = $this->Users_Model->getByUsername(POST("author"));
-
-			if(isset($data[0]["ID_User"])) {
-				$ID_User = $data[0]["ID_User"];
-			} else {
-				$ID_User = FALSE;
-			}
+		if(POST("delete_mural") === "on") {
+			$this->Files->deleteFiles(array($currentMural));
+			$this->postMural = FALSE;
 		} else {
-			$ID_User = SESSION("ZanUserID");
+			if(!$this->postMural and $action == "edit") {
+				$this->postMural = $currentMural;
+			} elseif($this->postMural and $action == "edit") {
+				$this->Files->deleteFiles(array($currentMural));
+			}
 		}
 		
-		if(!$ID_User) {
-			return getAlert("Author is not a valid user");
+		if(POST("delete_image") === "on") {
+			$this->Files->deleteFiles(array($currentOriginalImg, $currentSmallImg, $currentMediumImg, $currentThumbnailImg));
+			$this->postImage = NULL;
+		} else {
+			if(!$this->postImage and $action == "edit") {
+				$this->postImage["original"] = $currentOriginalImg;
+				$this->postImage["small"] = $currentSmallImg;
+				$this->postImage["medium"] = $currentMediumImg;
+				$this->postImage["thumbnail"] = $currentThumbnailImg;
+			} elseif($this->postImage and $action == "edit") {
+				$this->Files->deleteFiles(array($currentOriginalImg, $currentSmallImg, $currentMediumImg, $currentThumbnailImg));
+			}
 		}
 
 		$data = array(
-			"ID_User"      => $ID_User,
-			"Slug"         => slug(POST("title", "clean")),
-			"Content"      => setCode(decode(POST("content", "clean")), FALSE),
-			"Author"       => POST("author") ? POST("author") : SESSION("ZanUser"),
-			"Year"	       => date("Y"),
-			"Month"	       => date("m"),
-			"Day"	       => date("d"),
-			"Image_Small"  => isset($this->image["small"])  ? $this->image["small"]  : NULL,
-			"Image_Medium" => isset($this->image["medium"]) ? $this->image["medium"] : NULL,
-			"Pwd"	       => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,			
-			"Tags"		   => POST("tags"),
-			"Buffer"	   => POST("buffer") === FALSE ? 0 : POST("buffer"),
-			"Code"	       => POST("code") === FALSE ? code(10) : POST("code"),
+			"ID_User"         => SESSION("ZanUserID"),
+			"Slug"            => slug(POST("title", "clean")),
+			"Content"         => setCode(decode(POST("content", "clean")), FALSE),
+			"Author"          => POST("author") ? POST("author") : SESSION("ZanUser"),
+			"Year"	          => date("Y"),
+			"Month"	          => date("m"),
+			"Day"	          => date("d"),
+			"Image_Original"  => isset($this->postImage["original"]) ? $this->postImage["original"] : NULL,
+			"Image_Small"  	  => isset($this->postImage["small"])  ? $this->postImage["small"]  : NULL,
+			"Image_Mural"     => isset($this->postMural) ? $this->postMural : NULL,
+			"Image_Medium"    => isset($this->postImage["medium"]) ? $this->postImage["medium"] : NULL,
+			"Image_Thumbnail" => isset($this->postImage["thumbnail"]) ? $this->postImage["thumbnail"] : NULL,
+			"Pwd"	          => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,			
+			"Tags"		      => POST("tags"),
+			"Buffer"	      => !POST("buffer") ? 0 : POST("buffer"),
+			"Code"	          => !POST("code") ? code(10) : POST("code"),
 		);
 
 		if($action === "save") {
@@ -130,7 +142,7 @@ class Blog_Model extends ZP_Load {
 			$data["Modified_Date"] = now(4);
 		}
 
-		$this->Data->ignore(array("temp_title", "temp_tags", "temp_content", "editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
+		$this->Data->ignore(array("delete_image", "delete_mural" , "temp_title", "temp_tags", "temp_content", "editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist"));
 
 		$this->data = $this->Data->proccess($data, $validations);
 

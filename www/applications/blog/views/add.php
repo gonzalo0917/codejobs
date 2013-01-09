@@ -13,6 +13,8 @@
 	$userID    = isset($data) ? recoverPOST("ID_User", $data[0]["ID_User"])      : SESSION("ZanUserID");
 	$buffer    = isset($data) ? (int)recoverPOST("buffer", $data[0]["Buffer"])	 : 1;
 	$code      = isset($data) ? recoverPOST("code", $data[0]["Code"])		 	 : recoverPOST("code");
+	$mural     = isset($data) ? $data[0]["Image_Mural"]                          : NULL;
+	$image 	   = isset($data) ? $data[0]["Image_Medium"]						 : NULL;
 	$edit      = isset($data) ? TRUE											 : FALSE;
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
@@ -43,6 +45,23 @@
 				"p" 	=> TRUE, 
 				"value" => $tags
 			));
+
+			echo formInput(array(	
+				"name" 	=> "mural", 
+				"type"  => "file",
+				"class" => "add-img", 
+				"field" => __("Mural"), 	
+				"p" 	=> TRUE
+			));
+
+			if($action === "edit" and $mural != "") { 
+				echo p(img(path($mural, TRUE), array("class" => "mural")));
+				echo formInput(array(	
+					"name" 	=> "delete_mural", 
+					"type"  => "checkbox",
+					"p" 	=> FALSE
+				)) . " " . __("Delete Mural")  . "<br /><br />";
+			} 
 
 			$options = array(
 				array("value" => 1, "option" => "Redactor", "selected" => ($editor === 1 ? TRUE : FALSE)),
@@ -160,6 +179,23 @@
 					}
 				
 			echo div(FALSE);
+
+			echo formInput(array(	
+				"name" 	=> "image", 
+				"type"  => "file",
+				"class" => "add-img", 
+				"field" => __("Post Image"), 	
+				"p" 	=> TRUE
+			));
+
+			if($action === "edit" and $image != "") { 
+				echo p(img(path($image, TRUE)));
+				echo formInput(array(	
+					"name" 	=> "delete_image", 
+					"type"  => "checkbox",
+					"p" 	=> FALSE
+				)) . " " . __("Delete Image")  . "<br /><br />";
+			}
 
 			echo formInput(array(	
 				"id"    => "author",
