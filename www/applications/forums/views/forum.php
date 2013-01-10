@@ -17,8 +17,8 @@ if(is_array($posts)) {
 				<input id="ftitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="" /> <br />
 				<input id="ftags" placeholder="Write the tags separated by commas..." class="span8 forums-title" name="tags" type="text" value="" /> <br />
 				<textarea id="fcontent" placeholder="Write the content here..." class="span8 forums-textarea"></textarea> <br />
-				<input id="fpublish" class="btn-success" name="publish" type="button" value="<?php echo __("Publish"); ?>" />
-				<input id="fcancel" class="btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
+				<input id="fpublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Publish"); ?>" />
+				<input id="fcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
 
 				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
@@ -49,7 +49,7 @@ if(is_array($posts)) {
 					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/tag/") ." ". __("by") .' <a href="'. path("forums/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 				</div>
 				
-				<div class="clear"><?php echo $post["Content"]; ?></div>
+				<div class="clear"><?php echo cut($post["Content"], 20); ?></div>
 			</div>
 								
 			<?php
