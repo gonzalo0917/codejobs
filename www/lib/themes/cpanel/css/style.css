@@ -92,7 +92,7 @@ a:hover {
 }
 
 #background {
-	background-image: url(../images/top-background.png), url(../../themes/cpanel/images/top-background.png);
+	background-image: url(../images/top-background.png);
 	background-repeat: repeat-x;
 	height: 60px;
 	font-size: 0.8em;
@@ -137,7 +137,7 @@ a:hover {
 }
 
 #sidebar ul {
-	list-style: url(../images/arrow-blue.gif), url(../../themes/cpanel/images/arrow-blue.gif);
+	list-style: url(../images/arrow-blue.gif);
 }
 
 #sidebar ul li ul li {
@@ -184,7 +184,7 @@ a:hover {
 	margin: 0px;
 	margin-left: 20px;
 	padding: 0px;
-	list-style: url(../images/arrow-grey.gif), url(../../themes/cpanel/images/arrow-grey.gif);
+	list-style: url(../images/arrow-grey.gif);
 	width: 745px;
 }
 
