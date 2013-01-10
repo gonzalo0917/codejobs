@@ -52,7 +52,9 @@ $(document).on("ready", function() {
 					newPost = newPost + '	<div class="post-left">';
 					newPost = newPost + '		' + response.date;
 					newPost = newPost + '	</div>';
-					newPost = newPost + '	<div class="clear"></div>';
+					newPost = newPost + '	<div class="clear">';
+					newPost = newPost + '		' + response.description;
+					newPost = newPost + '   </div>';
 					newPost = newPost + '</div>';
 
 					$("#fposts").html(newPost + oldPosts);	

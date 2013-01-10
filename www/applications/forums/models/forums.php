@@ -99,7 +99,8 @@ class Forums_Model extends ZP_Load {
 		$json =  array(
 			"alert" => getAlert(__("The post has been saved correctly"), "success"),
 			"title" => '<a href="'. $URL .'" title="'. stripslashes($data["Title"]) .'">'. stripslashes($data["Title"]) .'</a>',
-			"date"  => __("Published") ." ". howLong($data["Start_Date"]) ." ". __("in") ." ". exploding($data["Tags"], "forums/tag/") ." ". __("by") .' <a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a>'
+			"date"  => __("Published") ." ". howLong($data["Start_Date"]) ." ". __("in") ." ". exploding($data["Tags"], "forums/tag/") ." ". __("by") .' <a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a>',
+			"description" => stripslashes($data["Content"])
 		);
 
 		echo json_encode($json);
