@@ -64,7 +64,8 @@ class Forums_Model extends ZP_Load {
 			"Slug"        => slug(POST("title", "clean")),
 			"Description" => POST("description"),
 			"Language"    => POST("language"),
-            "Situation"   => POST("situation")
+            "Situation"   => POST("situation"),
+            "Last_Date"	  => ""
 		);
 	
 		$this->data = $this->Data->proccess($data, $validations);
