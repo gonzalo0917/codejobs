@@ -103,7 +103,7 @@ class Forums_Model extends ZP_Load {
 			"description" => stripslashes($data["Content"])
 		);
 
-		echo json_encode($json);
+		echo json($json);
 	}
 	
 	private function save() {
