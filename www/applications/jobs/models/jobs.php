@@ -13,7 +13,7 @@ class Jobs_Model extends ZP_Load {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "jobs";
-		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Email, Company_Information, Location, Salary, Allocation_Time, Requirements, Experience, Activities, Profile, Technologies, Additional_Information, Company_Contact, Language, Duration, Situation";
+		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Email, Address1, Address2, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Duration, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -47,27 +47,27 @@ class Jobs_Model extends ZP_Load {
 	
 	private function all($trash, $order, $limit) {	
 		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Job, Company, Title, Location, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Job, Title, Location, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Job, Company, Title, Country, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Job, Title, Country, Situation", NULL, $order, $limit);
 		} else {
 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Job, Company, Title, Location, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "D_Job, Title, Location, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Job, Company, Title, Country, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "D_Job, Title, Country, Situation", NULL, $order, $limit);
 		}
 	}
 	
 	private function editOrSave($action) {
 		$validations = array(
-			"company"   	=> "required",
-			"title" 		=> "required",
-			"email" 		=> "email?",
-			"cinformation"  => "required",
-			"location" 		=> "required",
-			"salary"		=> "required",
-			"requirements" 	=> "required",
-			"experience" 	=> "required",
-			"activities" 	=> "required",
-			"profile" 		=> "required",
-			"technologies" 	=> "required",
-			"ccontact" 		=> "required"
+			"company"   	   => "required",
+			"title" 		   => "required",
+			"email" 		   => "email?",
+			"address1"         => "required",
+			"phone"            => "required",
+			"cinformation"     => "required",
+			"country"          => "required",
+			"city"             => "required",
+			"salary"		   => "required",
+			"salary_currency"  => "required",
+			"requirements" 	   => "required",
+			"technologies" 	   => "required",
 		);
 		 
 		$this->helper(array("alerts", "time"));
@@ -138,8 +138,6 @@ class Jobs_Model extends ZP_Load {
 		return isset($count) ? $count : 0;
 	}
 	
-	
-	
 	public function removePassword($ID) {
 		$this->Db->update($this->table, array("Pwd" => ""), $ID);		
 	}
@@ -151,5 +149,18 @@ class Jobs_Model extends ZP_Load {
         
         return getAlert(__("Update error"));
 	}
-	
+
+	public function getCountries() {
+		$data = $this->Db->findAll("world", "Country", "Country","Country ASC");
+
+		$i = 0;
+		foreach($data as $country) {
+			$countries[$i]["Country"] = __($country["Country"]);
+			$i++;
+		}
+
+		sort($countries);
+
+		return $countries;
+	}	
 }

@@ -26,7 +26,7 @@ $j = 2;
 			<th>ID</th>
 			<th><?php echo __("Company"); ?></th>
 			<th><?php echo __("Title"); ?></th>
-			<th><?php echo __("Location"); ?></th>
+			<th><?php echo __("Country"); ?></th>
 			<th><?php echo __("Language"); ?></th>
 			<th><?php echo __("Situation"); ?></th>
 			<th><?php echo __("Action"); ?></th>
@@ -73,7 +73,7 @@ $j = 2;
 					</td>
 								
 					<td class="center">
-						<?php echo $column["Location"]; ?>
+						<?php echo $column["Country"]; ?>
 					</td>
 								
 					<td class="center">

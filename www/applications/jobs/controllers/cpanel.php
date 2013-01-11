@@ -137,38 +137,20 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->CSS("forms", "cpanel");
 		
-		$this->js("redactorjs");
-		$this->js("insert-html");
-		$this->js("show-element");
-
-		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
-		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
-		
 		if(POST("save")) {
-			
 			$save = $this->{"$this->Model"}->cpanel("save");
 			
 			$this->vars["alert"] = $save;
-
 		} elseif(POST("cancel")) {
 			redirect("cpanel");
 		}
 		
-		$this->vars["application"] = $this->CPanel->getApplicationID();
-
-		$this->js("actions", $this->application);
-		$this->js("tagsinput.min", "cpanel");
-		$this->js("jquery-ui.min", "cpanel");
-		$this->js("tags", "cpanel");
-		
-		$this->CSS("tagsinput", "cpanel");
+		$this->vars["countries"]   = $this->Jobs_Model->getCountries();
 		
 		$this->vars["view"] = $this->view("add", TRUE, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
-	
-	
 	
 	public function login() {
 		$this->title("Login");
@@ -196,7 +178,6 @@ class CPanel_Controller extends ZP_Load {
 
 		$this->check();
 
-		
 		$this->title("Manage ". ucfirst($this->application));
 
 		$this->CSS("results", "cpanel");
@@ -215,7 +196,6 @@ class CPanel_Controller extends ZP_Load {
 		$this->vars["search"] 	  = getSearch(); 			
 		$this->vars["view"]       = $this->view("results", TRUE, $this->application);
 		
-
 		$this->render("content", $this->vars);
 	}
 	
@@ -236,13 +216,6 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->CSS("forms", "cpanel");
 		
-		$this->js("redactorjs");
-		$this->js("insert-html");
-		$this->js("show-element");
-
-		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
-		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
-		
 		if(POST("edit")) {
 			$this->vars["alert"] = $this->{"$this->Model"}->cpanel("edit");
 		} elseif(POST("cancel")) {
@@ -250,18 +223,11 @@ class CPanel_Controller extends ZP_Load {
 		} 
 		
 		$data = $this->{"$this->Model"}->getByID($ID);
+		$this->vars["countries"]   = $this->Jobs_Model->getCountries();
 		
-		if($data) {
-			//$this->Library 	  = $this->classes("Library", "cpanel");
-			//$this->Categories = $this->classes("Categories", "categories");		
-			
-			$this->vars["data"]				= $data;
-			//$this->vars["muralImage"] 		= $this->{"$this->Model"}->getMuralByID(segment(3, isLang()));
-			//$this->vars["muralDeleteURL"] 	= ($this->vars["muralImage"]) ? path("$this->application/cpanel/delete-mural/$ID")  : NULL;
-			$this->vars["application"]		= $this->CPanel->getApplicationID($this->application);
-			
-			$this->js("www/lib/scripts/ajax/password.js", TRUE);
-			$this->js("jquery-ui.min", "cpanel");
+		if($data) {	
+			$this->vars["data"]			= $data;
+			$this->vars["application"]	= $this->CPanel->getApplicationID($this->application);
 					
 			$this->vars["view"] = $this->view("add", TRUE, $this->application);
 			
