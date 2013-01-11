@@ -46,7 +46,7 @@
                         $this->js("angular", NULL, FALSE, TRUE);
                     }
 
-                    if(segment(0, isLang()) === "forums") {
+                    if(segment(0, isLang()) === "forums" or segment(0, isLang()) === "jobs") {
                         $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, FALSE, TRUE);
                         $this->js(_corePath ."/vendors/js/editors/markitup/sets/bbcode/set.js", NULL, FALSE, TRUE);
                     ?>
