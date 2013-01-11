@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2013 at 09:29 PM
+-- Generation Time: Jan 11, 2013 at 05:07 PM
 -- Server version: 5.5.28
 -- PHP Version: 5.3.10-1ubuntu3.4
 
@@ -787,7 +787,7 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `muu_jobs`
@@ -798,7 +798,12 @@ INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Slug`, `Address1`, `Addre
 (2, 1, 'Empleo 2', 'empleo-2', 'prolongacion independencia', '20 Año de Juárez', '4234234', 'soldiercrp@gmail.com', 'SoldierCorp', 'dsfsdfsdfsdfsdfsdf', 'Argentina', 'sdfsdfdsdf', '23234', 'USD', 'Full Time', '23423423423423423cgbdfg', 'css, php, etc', 'Spanish', 1357864492, 0, 1357864492, 'Draft'),
 (3, 1, 'empleo 3', 'empleo-3', 'prolongacion independencia', 'dfsdfsdf', '345345', 'soldiercrp@gmail.com', 'ciompp', 'afer5dfg', 'Colombia', 'ciudadadad', '3452', 'USD', 'Full Time', 'fgtrfseert6hsd', 'css, php, etc', 'Spanish', 1357865200, 0, 1357865200, 'Draft'),
 (4, 1, 'Emmpleo', 'emmpleo', 'ñljñjl', 'lkkkñlñlj', 'ñljkjñjl', 'kldgklgdkl@dfdgf.com', 'lkkjkñjñj', 'ñjñjlñjñljñljñljñlj89438943	 ', 'Bélgica', 'dfgdgdfg', '535.00', 'EUR', 'Half Time', 'wewerrewrew35544', '55,77,88,43', 'Spanish', 1357869284, 0, 1357869284, 'Draft'),
-(5, 1, 'TITULO EMPLEO', 'titulo-empleo', 'direccion 1', 'direccion 2', 'telefono empres', 'soldiercrp@gmail.com', 'empresa nombre', 'informacion de ma empresafsdfdf', 'El Salvador', 'salvador', '2000', 'MXN', 'Full Time', 'requisitos y mas', '55,77,88,43', 'Spanish', 1357873293, 0, 1360465293, 'Draft');
+(5, 1, 'TITULO EMPLEO', 'titulo-empleo', 'direccion 1', 'direccion 2', 'telefono empres', 'soldiercrp@gmail.com', 'empresa nombre', 'informacion de ma empresafsdfdf', 'El Salvador', 'salvador', '2000', 'MXN', 'Full Time', 'requisitos y mas', '55,77,88,43', 'Spanish', 1357873293, 0, 1360465293, 'Draft'),
+(6, 1, 'Empleo desde afuera', 'empleo-desde-afuera', 'direccion emprsa', 'direccion opcional empresa', 'telefono empres', 'email@empleio1.com', 'empresa empresa', 'informacion de la emprsa', 'Ecuador', 'mexico', '145667', 'EUR', 'Full Time', 'Requisitos empresa', 'css, php, etc, tgd', 'Spanish', 1357928766, 0, 1360520766, 'Draft'),
+(7, 1, 'Empleo desde afuera', 'empleo-desde-afuera', 'direccion emprsa', 'direccion opcional empresa', 'telefono empres', 'email@empleio1.com', 'empresa empresa', 'informacion de la emprsa', 'Ecuador', 'mexico', '145667', 'EUR', 'Full Time', 'Requisitos empresa', 'css, php, etc, tgd', 'Spanish', 1357929529, 0, 1360521529, 'Draft'),
+(8, 1, 'Empleo desde afuera', 'empleo-desde-afuera', 'direccion emprsa', 'direccion opcional empresa', 'telefono empres', 'email@empleio1.com', 'empresa empresa', 'informacion de la emprsa', 'Ecuador', 'mexico', '145667', 'EUR', 'Full Time', 'Requisitos empresa', 'css, php, etc, tgd', 'Spanish', 1357929561, 0, 1360521561, 'Draft'),
+(9, 1, 'ejemplo titulo ', 'ejemplo-titulo', 'Prolongacion Independencia #20 Colonia Año de Juarez', '', '527351214628', 'soldiercrp@gmail.com', 'itc', 'detalles empresa', 'Alemania', 'Cuautla', '1000', 'EUR', 'Full Time', 'requisitos', 'tecnologias, php, css', 'Spanish', 1357943473, 0, 1360535473, 'Draft'),
+(10, 1, 'sdfdsfsdf', 'sdfdsfsdf', 'Prolongacion Independencia #20 Colonia Año de Juarez', 'sdfsdf', '527351214628', 'soldiercrp@gmail.com', 'itc', 'sdfsdf', 'Alemania', 'Cuautla', '34234', 'USD', 'Full Time', 'sdfsdfsdfsdfsdf', 'tecnologias, php, css', 'Spanish', 1357945178, 0, 1360537178, 'Draft');
 
 -- --------------------------------------------------------
 
@@ -1424,7 +1429,7 @@ CREATE TABLE IF NOT EXISTS `muu_users_online` (
 --
 
 INSERT INTO `muu_users_online` (`User`, `Start_Date`) VALUES
-('admin', 1357874679);
+('admin', 1357945178);
 
 -- --------------------------------------------------------
 
