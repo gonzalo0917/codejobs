@@ -9,7 +9,7 @@ if(!defined("_access")) {
 function routePath() {
 	$flag  	= FALSE;		
 	$rsaquo = " &rsaquo;&rsaquo; ";
-	$path  	= path(whichApplication());
+	$path  	= path(whichApplication()) ."/";
 	
 	if(segments() > 0) {
 		for($i = 0; $i <= segments() - 1; $i++) {

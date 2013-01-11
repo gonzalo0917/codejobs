@@ -13,7 +13,7 @@ class Jobs_Model extends ZP_Load {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "jobs";
-		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Email, Address1, Address2, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Duration, Situation";
+		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Email, Address1, Address2, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -78,8 +78,8 @@ class Jobs_Model extends ZP_Load {
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"Slug"    	 => slug(POST("title", "clean")),
 			"Start_Date" => $date,
-			"End_Date"   => $date + POST("duration")
-		);
+			"End_Date"   => $date + (3600 * 24 * 30)
+ 		);
 
 		$this->Data->change("cinformation", "Company_Information");
 		$this->Data->change("allocation", "Allocation_Time");

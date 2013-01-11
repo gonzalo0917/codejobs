@@ -14,7 +14,8 @@
 	$country	  	= isset($data) ? recoverPOST("country", $data[0]["Country"])        				 : recoverPOST("country");
 	$city  		 	= isset($data) ? recoverPOST("city", $data[0]["City"])        				 		 : recoverPOST("city");	
 	$salary    	  	= isset($data) ? recoverPOST("salary", $data[0]["Salary"])            				 : recoverPOST("salary");	
-	$salary_currency= isset($data) ? recoverPOST("salary_currency", $data[0]["Currency"])            	 : recoverPOST("salary_currency");	
+	$currency       = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"])            	 : recoverPOST("salary_currency");	
+	//____($currency);
 	$allocation  	= isset($data) ? recoverPOST("allocation_time", $data[0]["Allocation_Time"]) 		 : recoverPOST("allocation_time");
 	$requirements	= isset($data) ? recoverPOST("requirements", $data[0]["Requirements"])				 : recoverPOST("requirements");
 	$technologies	= isset($data) ? recoverPOST("technologies", $data[0]["Technologies"])				 : recoverPOST("technologies");
@@ -134,11 +135,11 @@
 			));
 
 			$options = array(
-				0 => array("value" => "USD",   "option" => __("USD"),   "selected" => ($salary_currency === "USD")   ? TRUE : FALSE),
-				1 => array("value" => "MXN",   "option" => __("MXN"),   "selected" => ($salary_currency === "MXN")   ? TRUE : FALSE),
-				2 => array("value" => "EUR",   "option" => __("EUR"),   "selected" => ($salary_currency === "EUR")   ? TRUE : FALSE)
+				0 => array("value" => "USD",   "option" => __("USD"),   "selected" => ($currency === "USD")   ? TRUE : FALSE),
+				1 => array("value" => "MXN",   "option" => __("MXN"),   "selected" => ($currency === "MXN")   ? TRUE : FALSE),
+				2 => array("value" => "EUR",   "option" => __("EUR"),   "selected" => ($currency === "EUR")   ? TRUE : FALSE)
 			);
-
+			
 			echo formSelect(array(
 				"id"    => "salary_currency",
 				"name"  => "salary_currency", 
@@ -162,7 +163,6 @@
 			);
 
 			echo formTextarea(array(	
-				"id" 	 => "", 
 				"name" 	 => "requirements", 
 				"class"  => "markItUp",
 				"style"  => "height: 240px;",
