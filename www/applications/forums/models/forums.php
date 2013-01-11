@@ -121,7 +121,7 @@ class Forums_Model extends ZP_Load {
         $forum = $this->getIDByForum($this->data["Slug"]);
         
         if(!$forum){
-            return getAlert(__("The forum does not exists"), "error", $this->URL);
+            return getAlert(__("The forum does not exist"), "error", $this->URL);
         }
         
         $this->Db->update($this->table, $this->data, POST("ID"));	
@@ -154,5 +154,13 @@ class Forums_Model extends ZP_Load {
 
 	public function getIDByForum($slug) {
 		return $this->Db->findBy("Slug", $slug, $this->table, $this->fields);
+	}
+
+	private function search($search, $field) {
+		if($search and $field) {
+			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
+		} else {
+			return FALSE;
+		}
 	}
 }
