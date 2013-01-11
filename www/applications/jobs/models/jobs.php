@@ -96,7 +96,13 @@ class Jobs_Model extends ZP_Load {
 		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 	
-	private function save() {
+	public function save() {
+		$error = $this->editOrSave("save");
+
+		if($error) {
+			return $error;
+		}
+		
 		if($this->Db->insert($this->table, $this->data)) {
 		 	return getAlert(__("The job has been saved correctly"), "success");
 		}

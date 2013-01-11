@@ -132,7 +132,7 @@
 							<span class="small grey"><a href="<?php echo path("blog/add"); ?>"><?php echo __("Publish a post"); ?></a></span><br />
 							<span class="small grey"><a href="<?php echo path("codes/add"); ?>"><?php echo __("Publish a code"); ?></a></span><br />
 							<span class="small grey"><a href="<?php echo path("bookmarks/add"); ?>"><?php echo __("Publish a bookmark"); ?></a></span><br />
-							<!--span class="small grey"><a href="#"><?php echo __("Publish a job"); ?></a></span><br /-->
+							<span class="small grey"><a href="<?php echo path("jobs/add"); ?>"><?php echo __("Publish a job"); ?></a></span><br />
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 

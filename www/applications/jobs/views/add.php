@@ -15,12 +15,10 @@
 	$city  		 	= isset($data) ? recoverPOST("city", $data[0]["City"])        				 		 : recoverPOST("city");	
 	$salary    	  	= isset($data) ? recoverPOST("salary", $data[0]["Salary"])            				 : recoverPOST("salary");	
 	$currency       = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"])            	 : recoverPOST("salary_currency");	
-	//____($currency);
 	$allocation  	= isset($data) ? recoverPOST("allocation_time", $data[0]["Allocation_Time"]) 		 : recoverPOST("allocation_time");
 	$requirements	= isset($data) ? recoverPOST("requirements", $data[0]["Requirements"])				 : recoverPOST("requirements");
 	$technologies	= isset($data) ? recoverPOST("technologies", $data[0]["Technologies"])				 : recoverPOST("technologies");
 	$language  		= isset($data) ? recoverPOST("language", $data[0]["Language"])  	 				 : recoverPOST("language");
-	$duration 		= isset($data) ? recoverPOST("duration", $data[0]["Duration"])  					 : recoverPOST("duration");
 	$situation 		= isset($data) ? recoverPOST("situation", $data[0]["Situation"])  					 : recoverPOST("situation");				
 	$edit      		= isset($data) ? TRUE											 					 : FALSE;
 	$action	   		= isset($data) ? "edit"											 					 : "save";
