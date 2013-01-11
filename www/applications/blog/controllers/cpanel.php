@@ -133,7 +133,7 @@ class CPanel_Controller extends ZP_Load {
 			$this->login();
 		}
 
-		$this->helper("forms");
+		$this->helper(array("forms", "files"));
 
 		$this->js("redactorjs");
 		$this->js("markitup");

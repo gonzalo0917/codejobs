@@ -129,7 +129,7 @@ class CPanel_Controller extends ZP_Load {
 			$this->login();
 		}
                 
-                $this->helper(array("forms", "alerts"));
+        $this->helper(array("forms", "alerts"));
 		
 		$this->title("Add");	
 		

@@ -64,7 +64,8 @@ class Forums_Model extends ZP_Load {
 			"Slug"        => slug(POST("title", "clean")),
 			"Description" => POST("description"),
 			"Language"    => POST("language"),
-            "Situation"   => POST("situation")
+            "Situation"   => POST("situation"),
+            "Last_Date"	  => ""
 		);
 	
 		$this->data = $this->Data->proccess($data, $validations);
@@ -119,10 +120,8 @@ class Forums_Model extends ZP_Load {
 	private function edit() {
         $forum = $this->getIDByForum($this->data["Slug"]);
         
-        if($forum){
-            if($Forum[0]["ID_Forum"] != $this->data["ID_Forum"]){
-                return getAlert(__("This forum already exists"), "error", $this->URL);
-            }
+        if(!$forum){
+            return getAlert(__("The forum does not exist"), "error", $this->URL);
         }
         
         $this->Db->update($this->table, $this->data, POST("ID"));	
@@ -151,5 +150,17 @@ class Forums_Model extends ZP_Load {
 		$query = "SELECT ID_Post, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post";
 		
 		return $this->Db->query($query);		
+	}
+
+	public function getIDByForum($slug) {
+		return $this->Db->findBy("Slug", $slug, $this->table, $this->fields);
+	}
+
+	private function search($search, $field) {
+		if($search and $field) {
+			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
+		} else {
+			return FALSE;
+		}
 	}
 }
