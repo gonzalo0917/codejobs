@@ -34,26 +34,18 @@ class Gallery_Model extends ZP_Load {
 			return $this->search($search, $field);
 		}
 	}
-	
-	private function all($trash, $order, $limit) {
-		if(!$trash) {
-			if(SESSION("ZanUserPrivilege") === _super) {
-				$data = $this->Db->findBySQL("Situation != 'Deleted'", $this->table, NULL, $order, $limit);
-			} else {
-				$data = $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, NULL, $order, $limit);
-			}	
+
+	private function all($trash, $order, $limit) {	
+		if(!$trash) { 
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "*", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
 		} else {
-			if(SESSION("ZanUserPrivilege") === _super) {
-				$data = $this->Db->findBy("Situation", "Deleted", $this->table, NULL, $order, $limit);
-			} else {
-				$data = $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, NULL, $order, $limit);
-			}
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "*", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
 		}
-		
-		return $data;	
 	}
 	
 	private function editOrSave($action) {		
+		$this->helper("alerts");
+		
 		if(!POST("title")) {
 			return getAlert("You need to write a title");
 		}
