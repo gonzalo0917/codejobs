@@ -76,7 +76,7 @@
 				"placeholder" => __("Enter your company phone"), 
 				"value"    => $phone,
 			));
-			
+
 			echo formInput(array(
 				"name"	 => "company",
 				"class"  => "span5 required", 

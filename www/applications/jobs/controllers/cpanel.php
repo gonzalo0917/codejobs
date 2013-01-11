@@ -187,7 +187,6 @@ class CPanel_Controller extends ZP_Load {
 			
 		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
 
-				
 		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
 		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
 		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : NULL;
