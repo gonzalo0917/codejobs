@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 17, 2012 at 02:51 AM
--- Server version: 5.1.44
--- PHP Version: 5.3.1
+-- Generation Time: Jan 10, 2013 at 09:29 PM
+-- Server version: 5.5.28
+-- PHP Version: 5.3.10-1ubuntu3.4
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,25 +19,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Database: `codejobs`
 --
-
-
-CREATE TABLE IF NOT EXISTS `muu_multimedia` (
-  `ID_File` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `Filename` varchar(255) DEFAULT NULL,
-  `URL` varchar(255) DEFAULT NULL,
-  `Medium` varchar(255) DEFAULT NULL,
-  `Small` varchar(255) DEFAULT NULL,
-  `Thumbnail` varchar(255) DEFAULT NULL,
-  `Category` varchar(20) NOT NULL DEFAULT 'Images',
-  `Size` int(11) unsigned NOT NULL DEFAULT '0',
-  `Author` varchar(100) NOT NULL,
-  `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
-  `Downloads` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `Situation` varchar(20) NOT NULL DEFAULT 'Active',
-  PRIMARY KEY (`ID_File`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
 
 -- --------------------------------------------------------
 
@@ -85,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `muu_applications` (
   `Comments` tinyint(1) NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Application`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `muu_applications`
@@ -133,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Month` varchar(2) NOT NULL,
   `Day` varchar(2) NOT NULL,
   `Views` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `Image_Mural` varchar(250) DEFAULT NULL,  
+  `Image_Mural` varchar(250) DEFAULT NULL,
   `Image_Thumbnail` varchar(250) DEFAULT NULL,
   `Image_Small` varchar(250) DEFAULT NULL,
   `Image_Medium` varchar(250) NOT NULL,
@@ -147,7 +129,14 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `muu_blog`
+--
+
+INSERT INTO `muu_blog` (`ID_Post`, `ID_User`, `Title`, `Slug`, `Content`, `Tags`, `Author`, `Start_Date`, `Modified_Date`, `Text_Date`, `Year`, `Month`, `Day`, `Views`, `Image_Mural`, `Image_Thumbnail`, `Image_Small`, `Image_Medium`, `Image_Original`, `Comments`, `Enable_Comments`, `Language`, `Pwd`, `Buffer`, `Code`, `Situation`) VALUES
+(1, 1, 'Nuevo marcador de prueba', 'nuevo-marcador-de-prueba', 'qweadzasdsdfsdfsdfsdf', 'php, pdo, mysql, conexion, base datos', 'admin', 1357692854, 0, 'Martes, 08 de Enero de 2013', '2013', '01', '08', 0, '', '', '', '', '', 0, 1, 'Spanish', '', 1, '38570CA356', 'Active');
 
 -- --------------------------------------------------------
 
@@ -180,11 +169,11 @@ CREATE TABLE IF NOT EXISTS `muu_bookmarks` (
 -- Dumping data for table `muu_bookmarks`
 --
 
-INSERT INTO `muu_bookmarks` (`ID_Bookmark`, `ID_User`, `Title`, `Slug`, `URL`, `Description`, `Tags`, `Author`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Start_Date`, `Situation`) VALUES
-(1, 1, 'How to create a Debian .deb package', 'how-to-create-a-debian-deb-package', 'http://blog.serverdensity.com/2010/02/05/how-to-create-a-debian-deb-package/', 'A few weeks ago we announced that the agent for our server monitoring application, Server Density, was available as a Debian or Red Hat package, with associated repositories. Over my next few posts I will be outlining how we created our Linux-based packages and repositories, and what our steps are going to be to improve these processes in the future.', 'linux, debian, ubuntu, ror', 'codejobs', 6, 0, 0, 0, 'English', 1332738072, 'Active'),
-(2, 1, 'Guardar en disco con HTML5 y Javascript: SessionStorage y LocalStorage', 'guardar-en-disco-con-html5-y-javascript-sessionstorage-y-localstorage', 'http://www.cristalab.com/tutoriales/guardar-en-disco-con-html5-y-javascript-sessionstorage-y-localst', 'Si hay algo que siempre se extrañó de HTML es en alguna forma de almacenar datos, que ayude al usuario a una mejor movilidad mientras navega nuestras páginas.', 'ror, html5, javascript, sessionstorage, localstorage', 'codejobs', 22, 0, 1, 0, 'Spanish', 1332738072, 'Active'),
-(3, 1, 'Migrating Rails&RJS From Prototype To JQuery', 'migrating-rails-rjs-from-prototype-to-jquery', 'http://dzone.com/snippets/migrating-railsrjs-prototype', 'I was changing prototype to jsquery in my Rails app. To make my AJAX+RJS stuff work I tried jrails gem. For some reason AJAX responses were rendedered to whole page, instead of evaluating the returned JS. So i did the hack. I took this piece of jrails and put it in my /lib folder.', 'rails, ror, rjs, jquery', 'codejobs', 17, 0, 0, 0, 'English', 1337738320, 'Active'),
-(4, 1, 'Capistrano: Deploy Rails Twice To The Same Machine', 'capistrano-deploy-rails-twice-to-the-same-machine', 'http://dzone.com/snippets/capistrano-deploy-rails-twice', 'Capistrano is oriented so it deploys to the same directory on several machines. This means you can''t deploy to two different locations on the same machine. The following recipe in Capfile will allow you to duplicate your main rails app in a second directory. You can schedule it to run automatically with every deploy or just do it manually. I included database migrations by default. Remove the shared config line if you don''t have it.', 'capistrano, ror, rails', 'codejobs', 36, 1, 0, 0, 'English', 1337738320, 'Active');
+INSERT INTO `muu_bookmarks` (`ID_Bookmark`, `ID_User`, `Title`, `Slug`, `URL`, `Description`, `Tags`, `Author`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Start_Date`, `Modified_Date`, `Situation`) VALUES
+(1, 1, 'How to create a Debian .deb package', 'how-to-create-a-debian-deb-package', 'http://blog.serverdensity.com/2010/02/05/how-to-create-a-debian-deb-package/', 'A few weeks ago we announced that the agent for our server monitoring application, Server Density, was available as a Debian or Red Hat package, with associated repositories. Over my next few posts I will be outlining how we created our Linux-based packages and repositories, and what our steps are going to be to improve these processes in the future.', 'linux, debian, ubuntu, ror', 'codejobs', 6, 0, 0, 0, 'English', 1332738072, 0, 'Active'),
+(2, 1, 'Guardar en disco con HTML5 y Javascript: SessionStorage y LocalStorage', 'guardar-en-disco-con-html5-y-javascript-sessionstorage-y-localstorage', 'http://www.cristalab.com/tutoriales/guardar-en-disco-con-html5-y-javascript-sessionstorage-y-localst', 'Si hay algo que siempre se extrañó de HTML es en alguna forma de almacenar datos, que ayude al usuario a una mejor movilidad mientras navega nuestras páginas.', 'ror, html5, javascript, sessionstorage, localstorage', 'codejobs', 22, 0, 1, 0, 'Spanish', 1332738072, 0, 'Active'),
+(3, 1, 'Migrating Rails&RJS From Prototype To JQuery', 'migrating-rails-rjs-from-prototype-to-jquery', 'http://dzone.com/snippets/migrating-railsrjs-prototype', 'I was changing prototype to jsquery in my Rails app. To make my AJAX+RJS stuff work I tried jrails gem. For some reason AJAX responses were rendedered to whole page, instead of evaluating the returned JS. So i did the hack. I took this piece of jrails and put it in my /lib folder.', 'rails, ror, rjs, jquery', 'codejobs', 17, 0, 0, 0, 'English', 1337738320, 0, 'Active'),
+(4, 1, 'Capistrano: Deploy Rails Twice To The Same Machine', 'capistrano-deploy-rails-twice-to-the-same-machine', 'http://dzone.com/snippets/capistrano-deploy-rails-twice', 'Capistrano is oriented so it deploys to the same directory on several machines. This means you can''t deploy to two different locations on the same machine. The following recipe in Capfile will allow you to duplicate your main rails app in a second directory. You can schedule it to run automatically with every deploy or just do it manually. I included database migrations by default. Remove the shared config line if you don''t have it.', 'capistrano, ror, rails', 'codejobs', 36, 1, 0, 0, 'English', 1337738320, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -210,46 +199,16 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
   `Language` varchar(20) NOT NULL DEFAULT 'English',
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `muu_codes`
 --
 
-INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Description`, `Slug`, `Languages`, `Author`, `Start_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
-(1, 1, 'Mi primera página web', 'Forma de incrustar un archivo CSS.', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
-(2, 1, 'Mostrar información en PHP', NULL, 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
-(3, 1, 'My first webpage', NULL, 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 'Sunday, 29 de July de 2012', 1, 0, 0, 0, 'English', 'Active');
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `muu_codes_syntax`
---
-
-CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
-  `ID_Syntax` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(50) NOT NULL,
-  `MIME` varchar(50) NOT NULL,
-  `Filename` varchar(50) NOT NULL,
-  `Extension` varchar(10) NOT NULL,
-  PRIMARY KEY (`ID_Syntax`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `muu_codes_syntax`
---
-
-INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extension`) VALUES
-(1, 'Text plain', 'text/plain', '', ''),
-(2, 'JSON', 'application/json', 'javascript', 'json'),
-(3, 'C++', 'text/x-c++src', 'clike', 'cpp'),
-(4, 'PHP', 'application/x-httpd-php', 'php', 'php'),
-(5, 'Javascript', 'text/javascript', 'javascript', 'js'),
-(6, 'HTML', 'text/html', 'htmlmixed', 'html'),
-(7, 'CSS', 'text/css', 'css', 'css');
-
+INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Description`, `Slug`, `Languages`, `Author`, `Start_Date`, `Modified_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
+(1, 1, 'Mi primera página web', 'Forma de incrustar un archivo CSS.', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 0, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
+(2, 1, 'Mostrar información en PHP', NULL, 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 0, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
+(3, 1, 'My first webpage', NULL, 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 0, 'Sunday, 29 de July de 2012', 1, 0, 0, 0, 'English', 'Active');
 
 -- --------------------------------------------------------
 
@@ -265,22 +224,47 @@ CREATE TABLE IF NOT EXISTS `muu_codes_files` (
   `Code` text NOT NULL,
   PRIMARY KEY (`ID_File`),
   KEY `ID_Code` (`ID_Code`),
-  KEY `ID_Syntax` (`ID_Syntax`),
-  CONSTRAINT `muu_codes_files_ibfk_1` FOREIGN KEY (`ID_Code`) REFERENCES `muu_codes` (`ID_Code`),
-  CONSTRAINT `muu_codes_files_ibfk_2` FOREIGN KEY (`ID_Syntax`) REFERENCES `muu_codes_syntax` (`ID_Syntax`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  KEY `ID_Syntax` (`ID_Syntax`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `muu_codes_files`
 --
 
 INSERT INTO `muu_codes_files` (`ID_File`, `ID_Code`, `Name`, `ID_Syntax`, `Code`) VALUES
-(1, 1, 'pagina.html', 6, '<!DOCTYPE html>\r\n<html lang=\"es\">\r\n<head>\r\n  <meta charset=\"utf-8\" />\r\n  <title>Título de la página</title>\r\n  <link href=\"estilo.css\" />\r\n</head>\r\n<body>\r\n  Esta es mi primera página web.\r\n</body>\r\n</html>'),
+(1, 1, 'pagina.html', 6, '<!DOCTYPE html>\r\n<html lang="es">\r\n<head>\r\n  <meta charset="utf-8" />\r\n  <title>Título de la página</title>\r\n  <link href="estilo.css" />\r\n</head>\r\n<body>\r\n  Esta es mi primera página web.\r\n</body>\r\n</html>'),
 (2, 1, 'estilo.css', 7, '/* Estilo del cuerpo */\r\n\r\nbody {\r\n  background-color: lightyellow;\r\n  margin: 10px;\r\n}'),
 (3, 2, 'info.php', 4, '<?php\r\n // La siguiente línea muestra información\r\n phpinfo();\r\n?>'),
-(4, 3, 'page.html', 6, '<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n  <meta charset=\"utf-8\" />\r\n  <title>Title\'s webpage</title>\r\n  <link href=\"estilo.css\" />\r\n</head>\r\n<body>\r\n  This is my first webpage.\r\n</body>\r\n</html>'),
-(5, 3, 'style.css', 7, '/* Body\'s style */\r\n\r\nbody {\r\n  background-color: lightyellow;\r\n  margin: 10px;\r\n}');
+(4, 3, 'page.html', 6, '<!DOCTYPE html>\r\n<html lang="en">\r\n<head>\r\n  <meta charset="utf-8" />\r\n  <title>Title''s webpage</title>\r\n  <link href="estilo.css" />\r\n</head>\r\n<body>\r\n  This is my first webpage.\r\n</body>\r\n</html>'),
+(5, 3, 'style.css', 7, '/* Body''s style */\r\n\r\nbody {\r\n  background-color: lightyellow;\r\n  margin: 10px;\r\n}');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `muu_codes_syntax`
+--
+
+CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
+  `ID_Syntax` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) NOT NULL,
+  `MIME` varchar(50) NOT NULL,
+  `Filename` varchar(50) NOT NULL,
+  `Extension` varchar(10) NOT NULL,
+  PRIMARY KEY (`ID_Syntax`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `muu_codes_syntax`
+--
+
+INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extension`) VALUES
+(1, 'Text plain', 'text/plain', '', ''),
+(2, 'JSON', 'application/json', 'javascript', 'json'),
+(3, 'C++', 'text/x-c++src', 'clike', 'cpp'),
+(4, 'PHP', 'application/x-httpd-php', 'php', 'php'),
+(5, 'Javascript', 'text/javascript', 'javascript', 'js'),
+(6, 'HTML', 'text/html', 'htmlmixed', 'html'),
+(7, 'CSS', 'text/css', 'css', 'css');
 
 -- --------------------------------------------------------
 
@@ -299,8 +283,7 @@ CREATE TABLE IF NOT EXISTS `muu_comments` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Comment`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -338,8 +321,7 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 --
 
 INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `TV`, `Enable_Chat`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs',  'es', 'Spanish',  'newcodejobs',  'Active', 'blog', 'MarkitUp', '<iframe width=\"850\" height=\"420\" src=\"http://www.youtube.com/embed/aLlcRw9vEjM\" frameborder=\"0\" allowfullscreen></iframe>', 1, 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz',  'Active');
-
+(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkitUp', '<iframe width="850" height="420" src="http://www.youtube.com/embed/aLlcRw9vEjM" frameborder="0" allowfullscreen></iframe>', 1, 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz', 'Active');
 
 -- --------------------------------------------------------
 
@@ -358,11 +340,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_categories` (
   PRIMARY KEY (`ID_Category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_categories`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -379,11 +356,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_enrollments` (
   PRIMARY KEY (`ID_Enrollment`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_enrollments`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -399,11 +371,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_help` (
   PRIMARY KEY (`ID_Help`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_help`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -417,11 +384,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_lessons` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   PRIMARY KEY (`ID_Lesson`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_courses_lessons`
---
-
 
 -- --------------------------------------------------------
 
@@ -439,11 +401,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_material` (
   PRIMARY KEY (`ID_Material`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_material`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -459,11 +416,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_resources` (
   PRIMARY KEY (`ID_Resource`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_resources`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -477,11 +429,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_roles` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   PRIMARY KEY (`ID_Role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_courses_roles`
---
-
 
 -- --------------------------------------------------------
 
@@ -510,11 +457,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_students` (
   PRIMARY KEY (`ID_Student`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_students`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -525,11 +467,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_students_archive` (
   `ID_Student` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Test` mediumint(8) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `muu_courses_students_archive`
---
-
 
 -- --------------------------------------------------------
 
@@ -549,11 +486,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests` (
   PRIMARY KEY (`ID_Test`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_tests`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -564,11 +496,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests_answers` (
   `ID_Question` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Answer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `muu_courses_tests_answers`
---
-
 
 -- --------------------------------------------------------
 
@@ -587,11 +514,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests_questions` (
   PRIMARY KEY (`ID_Question`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_tests_questions`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -607,11 +529,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   PRIMARY KEY (`ID_Tutor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_courses_tutors`
---
-
 
 -- --------------------------------------------------------
 
@@ -631,11 +548,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_alerts` (
   PRIMARY KEY (`ID_Alert`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_courses_tutors_alerts`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -654,11 +566,6 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_messages` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Message`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_courses_tutors_messages`
---
-
 
 -- --------------------------------------------------------
 
@@ -702,11 +609,6 @@ CREATE TABLE IF NOT EXISTS `muu_events` (
   `Description` text NOT NULL,
   PRIMARY KEY (`ID_Event`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_events`
---
-
 
 -- --------------------------------------------------------
 
@@ -825,11 +727,6 @@ CREATE TABLE IF NOT EXISTS `muu_gallery` (
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_gallery`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -843,11 +740,6 @@ CREATE TABLE IF NOT EXISTS `muu_gallery_themes` (
   `Description` varchar(200) NOT NULL,
   PRIMARY KEY (`ID_Gallery_Theme`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_gallery_themes`
---
-
 
 -- --------------------------------------------------------
 
@@ -865,11 +757,6 @@ CREATE TABLE IF NOT EXISTS `muu_inbox` (
   PRIMARY KEY (`ID_Inbox`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_inbox`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -881,32 +768,37 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(250) NOT NULL,
   `Slug` varchar(250) NOT NULL,
+  `Address1` varchar(250) NOT NULL,
+  `Address2` varchar(250) NOT NULL,
+  `Phone` varchar(15) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `Company` varchar(150) NOT NULL,
   `Company_Information` text NOT NULL,
-  `Location` varchar(250) NOT NULL,
+  `Country` varchar(80) NOT NULL,
+  `City` varchar(80) NOT NULL,
   `Salary` varchar(25) NOT NULL,
+  `Salary_Currency` varchar(3) NOT NULL,
   `Allocation_Time` varchar(50) NOT NULL,
   `Requirements` text NOT NULL,
-  `Experience` text NOT NULL,
-  `Activities` text NOT NULL,
-  `Profile` text NOT NULL,
   `Technologies` varchar(250) NOT NULL,
-  `Additional_Information` text NOT NULL,
-  `Company_Contact` text NOT NULL,
   `Language` varchar(25) NOT NULL DEFAULT 'English',
-  `Duration` int(11) unsigned NOT NULL DEFAULT '86400',
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Modified_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `muu_jobs`
 --
 
+INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Slug`, `Address1`, `Address2`, `Phone`, `Email`, `Company`, `Company_Information`, `Country`, `City`, `Salary`, `Salary_Currency`, `Allocation_Time`, `Requirements`, `Technologies`, `Language`, `Start_Date`, `Modified_Date`, `End_Date`, `Situation`) VALUES
+(1, 1, 'Empleo prueba', 'empleo-prueba', '', '', '', 'email@empleio1.com', 'empresa 1 empleo', 'informacion empleo	 ', '', '', '1000', '', 'Full Time', 'requitos empleo 1', 'css, php, etc', 'Spanish', 1357680953, 0, 1358976953, 'Active'),
+(2, 1, 'Empleo 2', 'empleo-2', 'prolongacion independencia', '20 Año de Juárez', '4234234', 'soldiercrp@gmail.com', 'SoldierCorp', 'dsfsdfsdfsdfsdfsdf', 'Argentina', 'sdfsdfdsdf', '23234', 'USD', 'Full Time', '23423423423423423cgbdfg', 'css, php, etc', 'Spanish', 1357864492, 0, 1357864492, 'Draft'),
+(3, 1, 'empleo 3', 'empleo-3', 'prolongacion independencia', 'dfsdfsdf', '345345', 'soldiercrp@gmail.com', 'ciompp', 'afer5dfg', 'Colombia', 'ciudadadad', '3452', 'USD', 'Full Time', 'fgtrfseert6hsd', 'css, php, etc', 'Spanish', 1357865200, 0, 1357865200, 'Draft'),
+(4, 1, 'Emmpleo', 'emmpleo', 'ñljñjl', 'lkkkñlñlj', 'ñljkjñjl', 'kldgklgdkl@dfdgf.com', 'lkkjkñjñj', 'ñjñjlñjñljñljñljñlj89438943	 ', 'Bélgica', 'dfgdgdfg', '535.00', 'EUR', 'Half Time', 'wewerrewrew35544', '55,77,88,43', 'Spanish', 1357869284, 0, 1357869284, 'Draft'),
+(5, 1, 'TITULO EMPLEO', 'titulo-empleo', 'direccion 1', 'direccion 2', 'telefono empres', 'soldiercrp@gmail.com', 'empresa nombre', 'informacion de ma empresafsdfdf', 'El Salvador', 'salvador', '2000', 'MXN', 'Full Time', 'requisitos y mas', '55,77,88,43', 'Spanish', 1357873293, 0, 1360465293, 'Draft');
 
 -- --------------------------------------------------------
 
@@ -929,11 +821,6 @@ CREATE TABLE IF NOT EXISTS `muu_learning` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Course`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_learning`
---
-
 
 -- --------------------------------------------------------
 
@@ -976,10 +863,35 @@ CREATE TABLE IF NOT EXISTS `muu_logs` (
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `muu_logs`
+-- Table structure for table `muu_multimedia`
 --
 
+CREATE TABLE IF NOT EXISTS `muu_multimedia` (
+  `ID_File` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Filename` varchar(255) DEFAULT NULL,
+  `URL` varchar(255) DEFAULT NULL,
+  `Medium` varchar(255) DEFAULT NULL,
+  `Small` varchar(255) DEFAULT NULL,
+  `Thumbnail` varchar(255) DEFAULT NULL,
+  `Category` varchar(20) NOT NULL DEFAULT 'Images',
+  `Size` int(11) unsigned NOT NULL DEFAULT '0',
+  `Author` varchar(100) NOT NULL,
+  `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
+  `Downloads` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Situation` varchar(20) NOT NULL DEFAULT 'Active',
+  PRIMARY KEY (`ID_File`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `muu_multimedia`
+--
+
+INSERT INTO `muu_multimedia` (`ID_File`, `ID_User`, `Filename`, `URL`, `Medium`, `Small`, `Thumbnail`, `Category`, `Size`, `Author`, `Start_Date`, `Downloads`, `Situation`) VALUES
+(1, 1, 'logosoldiercorp.png', 'www/lib/files/images/a69c2c8f7be63f5.png', NULL, NULL, NULL, 'images', 6157, 'admin', 1357692368, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -997,11 +909,6 @@ CREATE TABLE IF NOT EXISTS `muu_mural` (
   PRIMARY KEY (`ID_Mural`),
   KEY `ID_Post` (`ID_Post`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_mural`
---
-
 
 -- --------------------------------------------------------
 
@@ -1024,7 +931,7 @@ CREATE TABLE IF NOT EXISTS `muu_pages` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Page`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `muu_pages`
@@ -1035,7 +942,7 @@ INSERT INTO `muu_pages` (`ID_Page`, `ID_User`, `ID_Translation`, `Title`, `Slug`
 (2, 1, 0, 'Aviso Legal', 'aviso-legal', '<p>Aviso Legal</p>', 0, 'Spanish', 0, 1337746393, 'MiÃ©rcoles, 23 de Mayo de 2012', 'Active'),
 (3, 1, 0, 'Condiciones de uso', 'condiciones-de-uso', '<p>Condiciones de uso</p>', 0, 'Spanish', 0, 1337746409, 'MiÃ©rcoles, 23 de Mayo de 2012', 'Active'),
 (4, 1, 0, 'Acerca de Codejobs', 'acerca-de-codejobs', '<p>Acerca de Codejobs</p>', 0, 'Spanish', 0, 1337746606, 'MiÃ©rcoles, 23 de Mayo de 2012', 'Active'),
-(5, 1, 0, 'Live', 'live', '<div id=\"tweet-container\" class=\"span12\">\r\n        <div id=\"tweets\"></div>\r\n        <script id=\"tweet-template\" type=\"text/x-handlebars-template\">\r\n          <div class=\"tweet\">\r\n            <blockquote class=\"twitter-tweet\">\r\n              <div class=\"vcard author\">\r\n                <a rel=\"nofollow\" target=\"_blank\" class=\"screen-name url\" href=\"https://twitter.com/{{user.screen_name}}\">\r\n                  <span class=\"avatar\">\r\n                    <img src=\"{{user.profile_image_url}}\" class=\"photo\">\r\n                  </span>\r\n                  <span class=\"fn\">{{user.name}}</span>\r\n                </a>\r\n                <a rel=\"nofollow\" target=\"_blank\" class=\"nickname\" href=\"https://twitter.com/{{user.screen_name}}\"><span>@{{user.screen_name}}</span></a>\r\n              </div>\r\n              <div class=\"entry-content\">\r\n                <p class=\"entry-title\">{{text}}</p>\r\n              </div>\r\n              <div class=\"footer\">\r\n                <a rel=\"nofollow\" target=\"_blank\" class=\"view-details\" href=\"https://twitter.com/{{user.screen_name}}/status/{{id_str}}\">{{created_at}}</a>\r\n              </div>\r\n            </blockquote>\r\n          </div>\r\n        </script>\r\n      </div>', 0, 'Spanish', 0, 1337746606, 'MiÃ©rcoles, 23 de Mayo de 2012', 'Active');
+(5, 1, 0, 'Live', 'live', '<div id="tweet-container" class="span12">\r\n        <div id="tweets"></div>\r\n        <script id="tweet-template" type="text/x-handlebars-template">\r\n          <div class="tweet">\r\n            <blockquote class="twitter-tweet">\r\n              <div class="vcard author">\r\n                <a rel="nofollow" target="_blank" class="screen-name url" href="https://twitter.com/{{user.screen_name}}">\r\n                  <span class="avatar">\r\n                    <img src="{{user.profile_image_url}}" class="photo">\r\n                  </span>\r\n                  <span class="fn">{{user.name}}</span>\r\n                </a>\r\n                <a rel="nofollow" target="_blank" class="nickname" href="https://twitter.com/{{user.screen_name}}"><span>@{{user.screen_name}}</span></a>\r\n              </div>\r\n              <div class="entry-content">\r\n                <p class="entry-title">{{text}}</p>\r\n              </div>\r\n              <div class="footer">\r\n                <a rel="nofollow" target="_blank" class="view-details" href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}">{{created_at}}</a>\r\n              </div>\r\n            </blockquote>\r\n          </div>\r\n        </script>\r\n      </div>', 0, 'Spanish', 0, 1337746606, 'MiÃ©rcoles, 23 de Mayo de 2012', 'Active');
 
 -- --------------------------------------------------------
 
@@ -1056,11 +963,6 @@ CREATE TABLE IF NOT EXISTS `muu_polls` (
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_polls`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -1076,11 +978,6 @@ CREATE TABLE IF NOT EXISTS `muu_polls_answers` (
   KEY `ID_Poll` (`ID_Poll`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_polls_answers`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -1094,11 +991,6 @@ CREATE TABLE IF NOT EXISTS `muu_polls_ips` (
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   KEY `ID_Poll` (`ID_Poll`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `muu_polls_ips`
---
-
 
 -- --------------------------------------------------------
 
@@ -1147,11 +1039,6 @@ CREATE TABLE IF NOT EXISTS `muu_resumes` (
   `Last_Update` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Resume`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_resumes`
---
-
 
 -- --------------------------------------------------------
 
@@ -1210,11 +1097,6 @@ CREATE TABLE IF NOT EXISTS `muu_re_companies_jobs` (
   `ID_Job` int(11) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `muu_re_companies_jobs`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -1225,11 +1107,6 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_course_categories` (
   `ID_Category` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Course` mediumint(8) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `muu_re_courses_course_categories`
---
-
 
 -- --------------------------------------------------------
 
@@ -1242,11 +1119,6 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_lesson_course` (
   `ID_Lesson` mediumint(8) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `muu_re_courses_lesson_course`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -1258,11 +1130,6 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_tests_question_answer` (
   `ID_Answer` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Correct` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `muu_re_courses_tests_question_answer`
---
-
 
 -- --------------------------------------------------------
 
@@ -1387,11 +1254,6 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_companies` (
   `ID_Company` mediumint(8) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `muu_re_users_companies`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -1403,10 +1265,16 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_events` (
   `ID_Event` mediumint(8) unsigned NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `muu_re_users_events`
+-- Table structure for table `muu_re_users_followers`
 --
 
+CREATE TABLE IF NOT EXISTS `muu_re_users_followers` (
+  `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `ID_User_Follower` mediumint(8) unsigned NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1429,11 +1297,6 @@ CREATE TABLE IF NOT EXISTS `muu_support` (
   PRIMARY KEY (`ID_Ticket`),
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `muu_support`
---
-
 
 -- --------------------------------------------------------
 
@@ -1481,18 +1344,13 @@ CREATE TABLE IF NOT EXISTS `muu_tutorials` (
   PRIMARY KEY (`ID_Tutorial`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_tutorials`
---
-
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `muu_users`
 --
 
-CREATE TABLE `muu_users` (
+CREATE TABLE IF NOT EXISTS `muu_users` (
   `ID_User` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Privilege` mediumint(8) NOT NULL DEFAULT '4',
   `Username` varchar(30) NOT NULL,
@@ -1538,25 +1396,16 @@ CREATE TABLE `muu_users` (
   `Viadeo` varchar(150) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_User`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `muu_users`
 --
 
-INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Bookmarks`, `Codes`, `Jobs`, `Subscribed`, `Start_Date`, `Code`, `Name`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
-(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', 50, 0, '', 0, 1, 0, 0, 0, 0, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
-(2, 4, 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 1, 1347453332, 'C3F4E6E123', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
+INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Followers`, `Subscribed`, `Start_Date`, `Code`, `Name`, `Description`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
+(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', 95, 75, '', 0, 1, 0, 0, 0, 15, 0, 0, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', '', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
+(2, 4, 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1347453332, 'C3F4E6E123', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
 
---
--- Table structure for table `muu_re_users_followers`
---
-
-CREATE TABLE IF NOT EXISTS `muu_re_users_followers` (
-  `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `ID_User_Follower` mediumint(8) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
---
 -- --------------------------------------------------------
 
 --
@@ -1575,7 +1424,7 @@ CREATE TABLE IF NOT EXISTS `muu_users_online` (
 --
 
 INSERT INTO `muu_users_online` (`User`, `Start_Date`) VALUES
-('admin', 1342325959);
+('admin', 1357874679);
 
 -- --------------------------------------------------------
 
@@ -1589,13 +1438,6 @@ CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
   PRIMARY KEY (`IP`),
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `muu_users_online_anonymous`
---
-
-INSERT INTO `muu_users_online_anonymous` (`IP`, `Start_Date`) VALUES
-('::1', 1342325791);
 
 -- --------------------------------------------------------
 
@@ -1655,18 +1497,13 @@ CREATE TABLE IF NOT EXISTS `muu_works` (
   PRIMARY KEY (`ID_Work`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `muu_works`
---
-
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `muu_world`
 --
 
-CREATE TABLE `muu_world` (
+CREATE TABLE IF NOT EXISTS `muu_world` (
   `Continent` varchar(20) NOT NULL,
   `Code` varchar(5) NOT NULL,
   `Country` varchar(100) NOT NULL,
@@ -1675,363 +1512,367 @@ CREATE TABLE `muu_world` (
   KEY `District` (`District`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `muu_world`
+--
+
 INSERT INTO `muu_world` (`Continent`, `Code`, `Country`, `District`, `Town`) VALUES
-('America', 'ARG',  'Argentina',  'Buenos Aires', ''),
-('America', 'ARG',  'Argentina',  'Catamarca',  ''),
-('America', 'ARG',  'Argentina',  'Chaco',  ''),
-('America', 'ARG',  'Argentina',  'Chubut', ''),
-('America', 'ARG',  'Argentina',  'Córdoba',  ''),
-('America', 'ARG',  'Argentina',  'Corrientes', ''),
-('America', 'ARG',  'Argentina',  'Distrito Federal', ''),
-('America', 'ARG',  'Argentina',  'Entre Rios', ''),
-('America', 'ARG',  'Argentina',  'Formosa',  ''),
-('America', 'ARG',  'Argentina',  'Jujuy',  ''),
-('America', 'ARG',  'Argentina',  'La Rioja', ''),
-('America', 'ARG',  'Argentina',  'Mendoza',  ''),
-('America', 'ARG',  'Argentina',  'Misiones', ''),
-('America', 'ARG',  'Argentina',  'Neuquén',  ''),
-('America', 'ARG',  'Argentina',  'Salta',  ''),
-('America', 'ARG',  'Argentina',  'San Juan', ''),
-('America', 'ARG',  'Argentina',  'San Luis', ''),
-('America', 'ARG',  'Argentina',  'Santa Fé', ''),
-('America', 'ARG',  'Argentina',  'Santiago del Estero',  ''),
-('America', 'ARG',  'Argentina',  'Tucumán',  ''),
-('America', 'BLZ',  'Belize', 'Belize City',  ''),
-('America', 'BLZ',  'Belize', 'Cayo', ''),
-('America', 'BOL',  'Bolivia',  'Chuquisaca', ''),
-('America', 'BOL',  'Bolivia',  'Cochabamba', ''),
-('America', 'BOL',  'Bolivia',  'La Paz', ''),
-('America', 'BOL',  'Bolivia',  'Oruro',  ''),
-('America', 'BOL',  'Bolivia',  'Potosí', ''),
-('America', 'BOL',  'Bolivia',  'Santa Cruz', ''),
-('America', 'BOL',  'Bolivia',  'Tarija', ''),
-('America', 'BRA',  'Brazil', 'Acre', ''),
-('America', 'BRA',  'Brazil', 'Alagoas',  ''),
-('America', 'BRA',  'Brazil', 'Amapá',  ''),
-('America', 'BRA',  'Brazil', 'Amazonas', ''),
-('America', 'BRA',  'Brazil', 'Bahia',  ''),
-('America', 'BRA',  'Brazil', 'Ceará',  ''),
-('America', 'BRA',  'Brazil', 'Distrito Federal', ''),
-('America', 'BRA',  'Brazil', 'Espírito Santo', ''),
-('America', 'BRA',  'Brazil', 'Goiás',  ''),
-('America', 'BRA',  'Brazil', 'Maranhão', ''),
-('America', 'BRA',  'Brazil', 'Mato Grosso',  ''),
-('America', 'BRA',  'Brazil', 'Mato Grosso do Sul', ''),
-('America', 'BRA',  'Brazil', 'Minas Gerais', ''),
-('America', 'BRA',  'Brazil', 'Pará', ''),
-('America', 'BRA',  'Brazil', 'Paraíba',  ''),
-('America', 'BRA',  'Brazil', 'Paraná', ''),
-('America', 'BRA',  'Brazil', 'Pernambuco', ''),
-('America', 'BRA',  'Brazil', 'Piauí',  ''),
-('America', 'BRA',  'Brazil', 'Rio de Janeiro', ''),
-('America', 'BRA',  'Brazil', 'Rio Grande do Norte',  ''),
-('America', 'BRA',  'Brazil', 'Rio Grande do Sul',  ''),
-('America', 'BRA',  'Brazil', 'Rondônia', ''),
-('America', 'BRA',  'Brazil', 'Roraima',  ''),
-('America', 'BRA',  'Brazil', 'Santa Catarina', ''),
-('America', 'BRA',  'Brazil', 'São Paulo',  ''),
-('America', 'BRA',  'Brazil', 'Sergipe',  ''),
-('America', 'BRA',  'Brazil', 'Tocantins',  ''),
-('America', 'CAN',  'Canada', 'Alberta',  ''),
-('America', 'CAN',  'Canada', 'British Colombia', ''),
-('America', 'CAN',  'Canada', 'Manitoba', ''),
-('America', 'CAN',  'Canada', 'Newfoundland', ''),
-('America', 'CAN',  'Canada', 'Nova Scotia',  ''),
-('America', 'CAN',  'Canada', 'Ontario',  ''),
-('America', 'CAN',  'Canada', 'Québec', ''),
-('America', 'CAN',  'Canada', 'Saskatchewan', ''),
-('America', 'CHL',  'Chile',  'Antofagasta',  ''),
-('America', 'CHL',  'Chile',  'Atacama',  ''),
-('America', 'CHL',  'Chile',  'Bíobío', ''),
-('America', 'CHL',  'Chile',  'Coquimbo', ''),
-('America', 'CHL',  'Chile',  'La Araucanía', ''),
-('America', 'CHL',  'Chile',  'Los Lagos',  ''),
-('America', 'CHL',  'Chile',  'Magallanes', ''),
-('America', 'CHL',  'Chile',  'Maule',  ''),
-('America', 'CHL',  'Chile',  'Santiago', ''),
-('America', 'CHL',  'Chile',  'Tarapacá', ''),
-('America', 'CHL',  'Chile',  'Valparaíso', ''),
-('America', 'COL',  'Colombia', 'Antioquia',  ''),
-('America', 'COL',  'Colombia', 'Atlántico',  ''),
-('America', 'COL',  'Colombia', 'Bolívar',  ''),
-('America', 'COL',  'Colombia', 'Boyacá', ''),
-('America', 'COL',  'Colombia', 'Caldas', ''),
-('America', 'COL',  'Colombia', 'Caquetá',  ''),
-('America', 'COL',  'Colombia', 'Cauca',  ''),
-('America', 'COL',  'Colombia', 'Cesar',  ''),
-('America', 'COL',  'Colombia', 'Córdoba',  ''),
-('America', 'COL',  'Colombia', 'Cundinamarca', ''),
-('America', 'COL',  'Colombia', 'Huila',  ''),
-('America', 'COL',  'Colombia', 'La Guajira', ''),
-('America', 'COL',  'Colombia', 'Magdalena',  ''),
-('America', 'COL',  'Colombia', 'Meta', ''),
-('America', 'COL',  'Colombia', 'Norte de Santander', ''),
-('America', 'COL',  'Colombia', 'Quindío',  ''),
-('America', 'COL',  'Colombia', 'Risaralda',  ''),
-('America', 'COL',  'Colombia', 'Santafé de Bogotá',  ''),
-('America', 'COL',  'Colombia', 'Santander',  ''),
-('America', 'COL',  'Colombia', 'Sucre',  ''),
-('America', 'COL',  'Colombia', 'Tolima', ''),
-('America', 'COL',  'Colombia', 'Valle',  ''),
-('America', 'CRI',  'Costa Rica', 'San Jos',  ''),
-('America', 'CUB',  'Cuba', 'Ciego de Ávila', ''),
-('America', 'CUB',  'Cuba', 'Cienfuegos', ''),
-('America', 'CUB',  'Cuba', 'Granma', ''),
-('America', 'CUB',  'Cuba', 'Guantánamo', ''),
-('America', 'CUB',  'Cuba', 'Holguín',  ''),
-('America', 'CUB',  'Cuba', 'La Habana',  ''),
-('America', 'CUB',  'Cuba', 'Las Tunas',  ''),
-('America', 'CUB',  'Cuba', 'Matanzas', ''),
-('America', 'CUB',  'Cuba', 'Pinar del Río',  ''),
-('America', 'CUB',  'Cuba', 'Santiago de Cuba', ''),
-('America', 'CUB',  'Cuba', 'Villa Clara',  ''),
-('America', 'CYM',  'Cayman Islands', 'Grand Cayman', ''),
-('America', 'DMA',  'Dominica', 'St George',  ''),
-('America', 'DOM',  'Dominican Republic', 'Distrito Nacional',  ''),
-('America', 'DOM',  'Dominican Republic', 'Duarte', ''),
-('America', 'DOM',  'Dominican Republic', 'La Romana',  ''),
-('America', 'DOM',  'Dominican Republic', 'Puerto Plata', ''),
-('America', 'DOM',  'Dominican Republic', 'San Pedro de Macorís', ''),
-('America', 'DOM',  'Dominican Republic', 'Santiago', ''),
-('America', 'ECU',  'Ecuador',  'Azuay',  ''),
-('America', 'ECU',  'Ecuador',  'Chimborazo', ''),
-('America', 'ECU',  'Ecuador',  'El Oro', ''),
-('America', 'ECU',  'Ecuador',  'Esmeraldas', ''),
-('America', 'ECU',  'Ecuador',  'Guayas', ''),
-('America', 'ECU',  'Ecuador',  'Imbabura', ''),
-('America', 'ECU',  'Ecuador',  'Loja', ''),
-('America', 'ECU',  'Ecuador',  'Los Río',  ''),
-('America', 'ECU',  'Ecuador',  'Manabí', ''),
-('America', 'ECU',  'Ecuador',  'Pichincha',  ''),
-('America', 'ECU',  'Ecuador',  'Tungurahua', ''),
-('America', 'SLV',  'El Salvador',  'La Libertad',  ''),
-('America', 'SLV',  'El Salvador',  'San Miguel', ''),
-('America', 'SLV',  'El Salvador',  'San Salvador', ''),
-('America', 'SLV',  'El Salvador',  'Santa Ana',  ''),
-('America', 'GTM',  'Guatemala',  'Guatemala',  ''),
-('America', 'GTM',  'Guatemala',  'Quetzaltenango', ''),
-('America', 'HND',  'Honduras', 'Atlántida',  ''),
-('America', 'HND',  'Honduras', 'Cortés', ''),
-('America', 'HND',  'Honduras', 'Distrito Central', ''),
-('America', 'MEX',  'Mexico', 'Aguascalientes', ''),
-('America', 'MEX',  'Mexico', 'Baja California',  ''),
-('America', 'MEX',  'Mexico', 'Baja California Sur',  ''),
-('America', 'MEX',  'Mexico', 'Campeche', ''),
-('America', 'MEX',  'Mexico', 'Chiapas',  ''),
-('America', 'MEX',  'Mexico', 'Chihuahua',  ''),
-('America', 'MEX',  'Mexico', 'Coahuila de Zaragoza', ''),
-('America', 'MEX',  'Mexico', 'Colima', ''),
-('America', 'MEX',  'Mexico', 'Distrito Federal', ''),
-('America', 'MEX',  'Mexico', 'Durango',  ''),
-('America', 'MEX',  'Mexico', 'Guanajuato', ''),
-('America', 'MEX',  'Mexico', 'Guerrero', ''),
-('America', 'MEX',  'Mexico', 'Hidalgo',  ''),
-('America', 'MEX',  'Mexico', 'Jalisco',  ''),
-('America', 'MEX',  'Mexico', 'México', ''),
-('America', 'MEX',  'Mexico', 'Michoacán de Ocampo',  ''),
-('America', 'MEX',  'Mexico', 'Morelos',  ''),
-('America', 'MEX',  'Mexico', 'Nayarit',  ''),
-('America', 'MEX',  'Mexico', 'Nuevo León', ''),
-('America', 'MEX',  'Mexico', 'Oaxaca', ''),
-('America', 'MEX',  'Mexico', 'Puebla', ''),
-('America', 'MEX',  'Mexico', 'Querétaro',  ''),
-('America', 'MEX',  'Mexico', 'Querétaro de Arteaga', ''),
-('America', 'MEX',  'Mexico', 'Quintana Roo', ''),
-('America', 'MEX',  'Mexico', 'San Luis Potosí',  ''),
-('America', 'MEX',  'Mexico', 'Sinaloa',  ''),
-('America', 'MEX',  'Mexico', 'Sonora', ''),
-('America', 'MEX',  'Mexico', 'Tabasco',  ''),
-('America', 'MEX',  'Mexico', 'Tamaulipas', ''),
-('America', 'MEX',  'Mexico', 'Veracruz', ''),
-('America', 'MEX',  'Mexico', 'Yucatán',  ''),
-('America', 'MEX',  'Mexico', 'Zacatecas',  ''),
-('America', 'NIC',  'Nicaragua',  'Chinandega', ''),
-('America', 'NIC',  'Nicaragua',  'León', ''),
-('America', 'NIC',  'Nicaragua',  'Managua',  ''),
-('America', 'NIC',  'Nicaragua',  'Masaya', ''),
-('America', 'PAN',  'Panama', 'Panamá', ''),
-('America', 'PAN',  'Panama', 'San Miguelito',  ''),
-('America', 'PER',  'Peru', 'Ancash', ''),
-('America', 'PER',  'Peru', 'Arequipa', ''),
-('America', 'PER',  'Peru', 'Ayacucho', ''),
-('America', 'PER',  'Peru', 'Cajamarca',  ''),
-('America', 'PER',  'Peru', 'Callao', ''),
-('America', 'PER',  'Peru', 'Cusco',  ''),
-('America', 'PER',  'Peru', 'Huánuco',  ''),
-('America', 'PER',  'Peru', 'Ica',  ''),
-('America', 'PER',  'Peru', 'Junín',  ''),
-('America', 'PER',  'Peru', 'La Libertad',  ''),
-('America', 'PER',  'Peru', 'Lambayeque', ''),
-('America', 'PER',  'Peru', 'Lima', ''),
-('America', 'PER',  'Peru', 'Loreto', ''),
-('America', 'PER',  'Peru', 'Piura',  ''),
-('America', 'PER',  'Peru', 'Puno', ''),
-('America', 'PER',  'Peru', 'Tacna',  ''),
-('America', 'PER',  'Peru', 'Ucayali',  ''),
-('America', 'PRI',  'Puerto Rico',  'Arecibo',  ''),
-('America', 'PRI',  'Puerto Rico',  'Bayamón',  ''),
-('America', 'PRI',  'Puerto Rico',  'Caguas', ''),
-('America', 'PRI',  'Puerto Rico',  'Carolina', ''),
-('America', 'PRI',  'Puerto Rico',  'Guaynabo', ''),
-('America', 'PRI',  'Puerto Rico',  'Ponce',  ''),
-('America', 'PRI',  'Puerto Rico',  'San Juan', ''),
-('America', 'PRI',  'Puerto Rico',  'Toa Baja', ''),
-('America', 'PRY',  'Paraguay', 'Alto Paraná',  ''),
-('America', 'PRY',  'Paraguay', 'Asunción', ''),
-('America', 'PRY',  'Paraguay', 'Central',  ''),
-('America', 'URY',  'Uruguay',  'Montevideo', ''),
-('America', 'USA',  'United Situations',  'Alabama',  ''),
-('America', 'USA',  'United Situations',  'Alaska', ''),
-('America', 'USA',  'United Situations',  'Arizona',  ''),
-('America', 'USA',  'United Situations',  'Arkansas', ''),
-('America', 'USA',  'United Situations',  'California', ''),
-('America', 'USA',  'United Situations',  'Colorado', ''),
-('America', 'USA',  'United Situations',  'Connecticut',  ''),
-('America', 'USA',  'United Situations',  'District of Columbia', ''),
-('America', 'USA',  'United Situations',  'Florida',  ''),
-('America', 'USA',  'United Situations',  'Georgia',  ''),
-('America', 'USA',  'United Situations',  'Hawaii', ''),
-('America', 'USA',  'United Situations',  'Idaho',  ''),
-('America', 'USA',  'United Situations',  'Illinois', ''),
-('America', 'USA',  'United Situations',  'Indiana',  ''),
-('America', 'USA',  'United Situations',  'Iowa', ''),
-('America', 'USA',  'United Situations',  'Kansas', ''),
-('America', 'USA',  'United Situations',  'Kentucky', ''),
-('America', 'USA',  'United Situations',  'Louisiana',  ''),
-('America', 'USA',  'United Situations',  'Maryland', ''),
-('America', 'USA',  'United Situations',  'Massachusetts',  ''),
-('America', 'USA',  'United Situations',  'Michigan', ''),
-('America', 'USA',  'United Situations',  'Minnesota',  ''),
-('America', 'USA',  'United Situations',  'Mississippi',  ''),
-('America', 'USA',  'United Situations',  'Missouri', ''),
-('America', 'USA',  'United Situations',  'Montana',  ''),
-('America', 'USA',  'United Situations',  'Nebraska', ''),
-('America', 'USA',  'United Situations',  'Nevada', ''),
-('America', 'USA',  'United Situations',  'New Hampshire',  ''),
-('America', 'USA',  'United Situations',  'New Jersey', ''),
-('America', 'USA',  'United Situations',  'New Mexico', ''),
-('America', 'USA',  'United Situations',  'New York', ''),
-('America', 'USA',  'United Situations',  'North Carolina', ''),
-('America', 'USA',  'United Situations',  'Ohio', ''),
-('America', 'USA',  'United Situations',  'Oklahoma', ''),
-('America', 'USA',  'United Situations',  'Oregon', ''),
-('America', 'USA',  'United Situations',  'Pennsylvania', ''),
-('America', 'USA',  'United Situations',  'Rhode Island', ''),
-('America', 'USA',  'United Situations',  'South Carolina', ''),
-('America', 'USA',  'United Situations',  'South Dakota', ''),
-('America', 'USA',  'United Situations',  'Tennessee',  ''),
-('America', 'USA',  'United Situations',  'Texas',  ''),
-('America', 'USA',  'United Situations',  'Utah', ''),
-('America', 'USA',  'United Situations',  'Virginia', ''),
-('America', 'USA',  'United Situations',  'Washington', ''),
-('America', 'USA',  'United Situations',  'Wisconsin',  ''),
-('America', 'VEN',  'Venezuela',  'Anzoátegui', ''),
-('America', 'VEN',  'Venezuela',  'Apure',  ''),
-('America', 'VEN',  'Venezuela',  'Aragua', ''),
-('America', 'VEN',  'Venezuela',  'Barinas',  ''),
-('America', 'VEN',  'Venezuela',  'Bolívar',  ''),
-('America', 'VEN',  'Venezuela',  'Carabobo', ''),
-('America', 'VEN',  'Venezuela',  'Distrito Federal', ''),
-('America', 'VEN',  'Venezuela',  'Falcón', ''),
-('America', 'VEN',  'Venezuela',  'Guárico',  ''),
-('America', 'VEN',  'Venezuela',  'Lara', ''),
-('America', 'VEN',  'Venezuela',  'Mérida', ''),
-('America', 'VEN',  'Venezuela',  'Miranda',  ''),
-('America', 'VEN',  'Venezuela',  'Monagas',  ''),
-('America', 'VEN',  'Venezuela',  'Portuguesa', ''),
-('America', 'VEN',  'Venezuela',  'Sucre',  ''),
-('America', 'VEN',  'Venezuela',  'Táchira',  ''),
-('America', 'VEN',  'Venezuela',  'Trujillo', ''),
-('America', 'VEN',  'Venezuela',  'Yaracuy',  ''),
-('America', 'VEN',  'Venezuela',  'Zulia',  ''),
-('Europe',  'BEL',  'Belgium',  'Antwerpen',  ''),
-('Europe',  'BEL',  'Belgium',  'Bryssel',  ''),
-('Europe',  'BEL',  'Belgium',  'East Flanderi',  ''),
-('Europe',  'BEL',  'Belgium',  'Hainaut',  ''),
-('Europe',  'BEL',  'Belgium',  'Namur',  ''),
-('Europe',  'BEL',  'Belgium',  'West Flanderi',  ''),
-('Europe',  'FRA',  'France', 'Alsace', ''),
-('Europe',  'FRA',  'France', 'Aquitaine',  ''),
-('Europe',  'FRA',  'France', 'Auvergne', ''),
-('Europe',  'FRA',  'France', 'Basse-Normandie',  ''),
-('Europe',  'FRA',  'France', 'Bourgogne',  ''),
-('Europe',  'FRA',  'France', 'Bretagne', ''),
-('Europe',  'FRA',  'France', 'Centre', ''),
-('Europe',  'FRA',  'France', 'Limousin', ''),
-('Europe',  'FRA',  'France', 'Lorraine', ''),
-('Europe',  'FRA',  'France', 'Pays de la Loire', ''),
-('Europe',  'FRA',  'France', 'Picardie', ''),
-('Europe',  'FRA',  'France', 'Rhône-Alpes',  ''),
-('Europe',  'DEU',  'Germany',  'Anhalt Sachsen', ''),
-('Europe',  'DEU',  'Germany',  'Baijeri',  ''),
-('Europe',  'DEU',  'Germany',  'Berliini', ''),
-('Europe',  'DEU',  'Germany',  'Brandenburg',  ''),
-('Europe',  'DEU',  'Germany',  'Bremen', ''),
-('Europe',  'DEU',  'Germany',  'Hamburg',  ''),
-('Europe',  'DEU',  'Germany',  'Hessen', ''),
-('Europe',  'DEU',  'Germany',  'Mecklenburg-Vorpomme', ''),
-('Europe',  'DEU',  'Germany',  'Niedersachsen',  ''),
-('Europe',  'DEU',  'Germany',  'Nordrhein-Westfalen',  ''),
-('Europe',  'DEU',  'Germany',  'Rheinland-Pfalz',  ''),
-('Europe',  'DEU',  'Germany',  'Saarland', ''),
-('Europe',  'DEU',  'Germany',  'Saksi',  ''),
-('Europe',  'DEU',  'Germany',  'Schleswig-Holstein', ''),
-('Europe',  'ITA',  'Italy',  'Abruzzit', ''),
-('Europe',  'ITA',  'Italy',  'Apulia', ''),
-('Europe',  'ITA',  'Italy',  'Calabria', ''),
-('Europe',  'ITA',  'Italy',  'Campania', ''),
-('Europe',  'ITA',  'Italy',  'Emilia-Romagna', ''),
-('Europe',  'ITA',  'Italy',  'Friuli-Venezia Giuli', ''),
-('Europe',  'ITA',  'Italy',  'Latium', ''),
-('Europe',  'ITA',  'Italy',  'Liguria',  ''),
-('Europe',  'ITA',  'Italy',  'Lombardia',  ''),
-('Europe',  'ITA',  'Italy',  'Marche', ''),
-('Europe',  'ITA',  'Italy',  'Piemonte', ''),
-('Europe',  'ITA',  'Italy',  'Sardinia', ''),
-('Europe',  'ITA',  'Italy',  'Sisilia',  ''),
-('Europe',  'ITA',  'Italy',  'Toscana',  ''),
-('Europe',  'ITA',  'Italy',  'Umbria', ''),
-('Europe',  'ITA',  'Italy',  'Veneto', ''),
-('Europe',  'PRT',  'Portugal', 'Braga',  ''),
-('Europe',  'PRT',  'Portugal', 'Coímbra',  ''),
-('Europe',  'PRT',  'Portugal', 'Lisboa', ''),
-('Europe',  'PRT',  'Portugal', 'Porto',  ''),
-('Europe',  'ESP',  'Spain',  'Andalusia',  ''),
-('Europe',  'ESP',  'Spain',  'Aragonia', ''),
-('Europe',  'ESP',  'Spain',  'Asturia',  ''),
-('Europe',  'ESP',  'Spain',  'Balears',  ''),
-('Europe',  'ESP',  'Spain',  'Baskimaa', ''),
-('Europe',  'ESP',  'Spain',  'Canary Islands', ''),
-('Europe',  'ESP',  'Spain',  'Cantabria',  ''),
-('Europe',  'ESP',  'Spain',  'Castilla and León',  ''),
-('Europe',  'ESP',  'Spain',  'Extremadura',  ''),
-('Europe',  'ESP',  'Spain',  'Galicia',  ''),
-('Europe',  'ESP',  'Spain',  'Katalonia',  ''),
-('Europe',  'ESP',  'Spain',  'La Rioja', ''),
-('Europe',  'ESP',  'Spain',  'Madrid', ''),
-('Europe',  'ESP',  'Spain',  'Murcia', ''),
-('Europe',  'ESP',  'Spain',  'Navarra',  ''),
-('Europe',  'ESP',  'Spain',  'Valencia', ''),
-('Europe',  'CHE',  'Switzerland',  'Bern', ''),
-('Europe',  'CHE',  'Switzerland',  'Geneve', ''),
-('Europe',  'CHE',  'Switzerland',  'Vaud', ''),
-('Europe',  'GBR',  'United Kingdom', 'England',  ''),
-('Europe',  'GBR',  'United Kingdom', 'Jersey', ''),
-('Europe',  'GBR',  'United Kingdom', 'North Ireland',  ''),
-('Europe',  'GBR',  'United Kingdom', 'Scotland', ''),
-('Europe',  'GBR',  'United Kingdom', 'Wales',  ''),
-('Oceania', 'AUS',  'Australia',  'Capital Region', ''),
-('Oceania', 'AUS',  'Australia',  'New South Wales',  ''),
-('Oceania', 'AUS',  'Australia',  'Queensland', ''),
-('Oceania', 'AUS',  'Australia',  'South Australia',  ''),
-('Oceania', 'AUS',  'Australia',  'Tasmania', ''),
-('Oceania', 'AUS',  'Australia',  'Victoria', ''),
-('Oceania', 'AUS',  'Australia',  'West Australia', ''),
-('Oceania', 'NZL',  'New Zealand',  'Auckland', ''),
-('Oceania', 'NZL',  'New Zealand',  'Canterbury', ''),
-('Oceania', 'NZL',  'New Zealand',  'Dunedin',  ''),
-('Oceania', 'NZL',  'New Zealand',  'Hamilton', ''),
-('Oceania', 'NZL',  'New Zealand',  'Wellington', '');
+('America', 'ARG', 'Argentina', 'Buenos Aires', ''),
+('America', 'ARG', 'Argentina', 'Catamarca', ''),
+('America', 'ARG', 'Argentina', 'Chaco', ''),
+('America', 'ARG', 'Argentina', 'Chubut', ''),
+('America', 'ARG', 'Argentina', 'Córdoba', ''),
+('America', 'ARG', 'Argentina', 'Corrientes', ''),
+('America', 'ARG', 'Argentina', 'Distrito Federal', ''),
+('America', 'ARG', 'Argentina', 'Entre Rios', ''),
+('America', 'ARG', 'Argentina', 'Formosa', ''),
+('America', 'ARG', 'Argentina', 'Jujuy', ''),
+('America', 'ARG', 'Argentina', 'La Rioja', ''),
+('America', 'ARG', 'Argentina', 'Mendoza', ''),
+('America', 'ARG', 'Argentina', 'Misiones', ''),
+('America', 'ARG', 'Argentina', 'Neuquén', ''),
+('America', 'ARG', 'Argentina', 'Salta', ''),
+('America', 'ARG', 'Argentina', 'San Juan', ''),
+('America', 'ARG', 'Argentina', 'San Luis', ''),
+('America', 'ARG', 'Argentina', 'Santa Fé', ''),
+('America', 'ARG', 'Argentina', 'Santiago del Estero', ''),
+('America', 'ARG', 'Argentina', 'Tucumán', ''),
+('America', 'BLZ', 'Belize', 'Belize City', ''),
+('America', 'BLZ', 'Belize', 'Cayo', ''),
+('America', 'BOL', 'Bolivia', 'Chuquisaca', ''),
+('America', 'BOL', 'Bolivia', 'Cochabamba', ''),
+('America', 'BOL', 'Bolivia', 'La Paz', ''),
+('America', 'BOL', 'Bolivia', 'Oruro', ''),
+('America', 'BOL', 'Bolivia', 'Potosí', ''),
+('America', 'BOL', 'Bolivia', 'Santa Cruz', ''),
+('America', 'BOL', 'Bolivia', 'Tarija', ''),
+('America', 'BRA', 'Brazil', 'Acre', ''),
+('America', 'BRA', 'Brazil', 'Alagoas', ''),
+('America', 'BRA', 'Brazil', 'Amapá', ''),
+('America', 'BRA', 'Brazil', 'Amazonas', ''),
+('America', 'BRA', 'Brazil', 'Bahia', ''),
+('America', 'BRA', 'Brazil', 'Ceará', ''),
+('America', 'BRA', 'Brazil', 'Distrito Federal', ''),
+('America', 'BRA', 'Brazil', 'Espírito Santo', ''),
+('America', 'BRA', 'Brazil', 'Goiás', ''),
+('America', 'BRA', 'Brazil', 'Maranhão', ''),
+('America', 'BRA', 'Brazil', 'Mato Grosso', ''),
+('America', 'BRA', 'Brazil', 'Mato Grosso do Sul', ''),
+('America', 'BRA', 'Brazil', 'Minas Gerais', ''),
+('America', 'BRA', 'Brazil', 'Pará', ''),
+('America', 'BRA', 'Brazil', 'Paraíba', ''),
+('America', 'BRA', 'Brazil', 'Paraná', ''),
+('America', 'BRA', 'Brazil', 'Pernambuco', ''),
+('America', 'BRA', 'Brazil', 'Piauí', ''),
+('America', 'BRA', 'Brazil', 'Rio de Janeiro', ''),
+('America', 'BRA', 'Brazil', 'Rio Grande do Norte', ''),
+('America', 'BRA', 'Brazil', 'Rio Grande do Sul', ''),
+('America', 'BRA', 'Brazil', 'Rondônia', ''),
+('America', 'BRA', 'Brazil', 'Roraima', ''),
+('America', 'BRA', 'Brazil', 'Santa Catarina', ''),
+('America', 'BRA', 'Brazil', 'São Paulo', ''),
+('America', 'BRA', 'Brazil', 'Sergipe', ''),
+('America', 'BRA', 'Brazil', 'Tocantins', ''),
+('America', 'CAN', 'Canada', 'Alberta', ''),
+('America', 'CAN', 'Canada', 'British Colombia', ''),
+('America', 'CAN', 'Canada', 'Manitoba', ''),
+('America', 'CAN', 'Canada', 'Newfoundland', ''),
+('America', 'CAN', 'Canada', 'Nova Scotia', ''),
+('America', 'CAN', 'Canada', 'Ontario', ''),
+('America', 'CAN', 'Canada', 'Québec', ''),
+('America', 'CAN', 'Canada', 'Saskatchewan', ''),
+('America', 'CHL', 'Chile', 'Antofagasta', ''),
+('America', 'CHL', 'Chile', 'Atacama', ''),
+('America', 'CHL', 'Chile', 'Bíobío', ''),
+('America', 'CHL', 'Chile', 'Coquimbo', ''),
+('America', 'CHL', 'Chile', 'La Araucanía', ''),
+('America', 'CHL', 'Chile', 'Los Lagos', ''),
+('America', 'CHL', 'Chile', 'Magallanes', ''),
+('America', 'CHL', 'Chile', 'Maule', ''),
+('America', 'CHL', 'Chile', 'Santiago', ''),
+('America', 'CHL', 'Chile', 'Tarapacá', ''),
+('America', 'CHL', 'Chile', 'Valparaíso', ''),
+('America', 'COL', 'Colombia', 'Antioquia', ''),
+('America', 'COL', 'Colombia', 'Atlántico', ''),
+('America', 'COL', 'Colombia', 'Bolívar', ''),
+('America', 'COL', 'Colombia', 'Boyacá', ''),
+('America', 'COL', 'Colombia', 'Caldas', ''),
+('America', 'COL', 'Colombia', 'Caquetá', ''),
+('America', 'COL', 'Colombia', 'Cauca', ''),
+('America', 'COL', 'Colombia', 'Cesar', ''),
+('America', 'COL', 'Colombia', 'Córdoba', ''),
+('America', 'COL', 'Colombia', 'Cundinamarca', ''),
+('America', 'COL', 'Colombia', 'Huila', ''),
+('America', 'COL', 'Colombia', 'La Guajira', ''),
+('America', 'COL', 'Colombia', 'Magdalena', ''),
+('America', 'COL', 'Colombia', 'Meta', ''),
+('America', 'COL', 'Colombia', 'Norte de Santander', ''),
+('America', 'COL', 'Colombia', 'Quindío', ''),
+('America', 'COL', 'Colombia', 'Risaralda', ''),
+('America', 'COL', 'Colombia', 'Santafé de Bogotá', ''),
+('America', 'COL', 'Colombia', 'Santander', ''),
+('America', 'COL', 'Colombia', 'Sucre', ''),
+('America', 'COL', 'Colombia', 'Tolima', ''),
+('America', 'COL', 'Colombia', 'Valle', ''),
+('America', 'CRI', 'Costa Rica', 'San Jos', ''),
+('America', 'CUB', 'Cuba', 'Ciego de Ávila', ''),
+('America', 'CUB', 'Cuba', 'Cienfuegos', ''),
+('America', 'CUB', 'Cuba', 'Granma', ''),
+('America', 'CUB', 'Cuba', 'Guantánamo', ''),
+('America', 'CUB', 'Cuba', 'Holguín', ''),
+('America', 'CUB', 'Cuba', 'La Habana', ''),
+('America', 'CUB', 'Cuba', 'Las Tunas', ''),
+('America', 'CUB', 'Cuba', 'Matanzas', ''),
+('America', 'CUB', 'Cuba', 'Pinar del Río', ''),
+('America', 'CUB', 'Cuba', 'Santiago de Cuba', ''),
+('America', 'CUB', 'Cuba', 'Villa Clara', ''),
+('America', 'CYM', 'Cayman Islands', 'Grand Cayman', ''),
+('America', 'DMA', 'Dominica', 'St George', ''),
+('America', 'DOM', 'Dominican Republic', 'Distrito Nacional', ''),
+('America', 'DOM', 'Dominican Republic', 'Duarte', ''),
+('America', 'DOM', 'Dominican Republic', 'La Romana', ''),
+('America', 'DOM', 'Dominican Republic', 'Puerto Plata', ''),
+('America', 'DOM', 'Dominican Republic', 'San Pedro de Macorís', ''),
+('America', 'DOM', 'Dominican Republic', 'Santiago', ''),
+('America', 'ECU', 'Ecuador', 'Azuay', ''),
+('America', 'ECU', 'Ecuador', 'Chimborazo', ''),
+('America', 'ECU', 'Ecuador', 'El Oro', ''),
+('America', 'ECU', 'Ecuador', 'Esmeraldas', ''),
+('America', 'ECU', 'Ecuador', 'Guayas', ''),
+('America', 'ECU', 'Ecuador', 'Imbabura', ''),
+('America', 'ECU', 'Ecuador', 'Loja', ''),
+('America', 'ECU', 'Ecuador', 'Los Río', ''),
+('America', 'ECU', 'Ecuador', 'Manabí', ''),
+('America', 'ECU', 'Ecuador', 'Pichincha', ''),
+('America', 'ECU', 'Ecuador', 'Tungurahua', ''),
+('America', 'SLV', 'El Salvador', 'La Libertad', ''),
+('America', 'SLV', 'El Salvador', 'San Miguel', ''),
+('America', 'SLV', 'El Salvador', 'San Salvador', ''),
+('America', 'SLV', 'El Salvador', 'Santa Ana', ''),
+('America', 'GTM', 'Guatemala', 'Guatemala', ''),
+('America', 'GTM', 'Guatemala', 'Quetzaltenango', ''),
+('America', 'HND', 'Honduras', 'Atlántida', ''),
+('America', 'HND', 'Honduras', 'Cortés', ''),
+('America', 'HND', 'Honduras', 'Distrito Central', ''),
+('America', 'MEX', 'Mexico', 'Aguascalientes', ''),
+('America', 'MEX', 'Mexico', 'Baja California', ''),
+('America', 'MEX', 'Mexico', 'Baja California Sur', ''),
+('America', 'MEX', 'Mexico', 'Campeche', ''),
+('America', 'MEX', 'Mexico', 'Chiapas', ''),
+('America', 'MEX', 'Mexico', 'Chihuahua', ''),
+('America', 'MEX', 'Mexico', 'Coahuila de Zaragoza', ''),
+('America', 'MEX', 'Mexico', 'Colima', ''),
+('America', 'MEX', 'Mexico', 'Distrito Federal', ''),
+('America', 'MEX', 'Mexico', 'Durango', ''),
+('America', 'MEX', 'Mexico', 'Guanajuato', ''),
+('America', 'MEX', 'Mexico', 'Guerrero', ''),
+('America', 'MEX', 'Mexico', 'Hidalgo', ''),
+('America', 'MEX', 'Mexico', 'Jalisco', ''),
+('America', 'MEX', 'Mexico', 'México', ''),
+('America', 'MEX', 'Mexico', 'Michoacán de Ocampo', ''),
+('America', 'MEX', 'Mexico', 'Morelos', ''),
+('America', 'MEX', 'Mexico', 'Nayarit', ''),
+('America', 'MEX', 'Mexico', 'Nuevo León', ''),
+('America', 'MEX', 'Mexico', 'Oaxaca', ''),
+('America', 'MEX', 'Mexico', 'Puebla', ''),
+('America', 'MEX', 'Mexico', 'Querétaro', ''),
+('America', 'MEX', 'Mexico', 'Querétaro de Arteaga', ''),
+('America', 'MEX', 'Mexico', 'Quintana Roo', ''),
+('America', 'MEX', 'Mexico', 'San Luis Potosí', ''),
+('America', 'MEX', 'Mexico', 'Sinaloa', ''),
+('America', 'MEX', 'Mexico', 'Sonora', ''),
+('America', 'MEX', 'Mexico', 'Tabasco', ''),
+('America', 'MEX', 'Mexico', 'Tamaulipas', ''),
+('America', 'MEX', 'Mexico', 'Veracruz', ''),
+('America', 'MEX', 'Mexico', 'Yucatán', ''),
+('America', 'MEX', 'Mexico', 'Zacatecas', ''),
+('America', 'NIC', 'Nicaragua', 'Chinandega', ''),
+('America', 'NIC', 'Nicaragua', 'León', ''),
+('America', 'NIC', 'Nicaragua', 'Managua', ''),
+('America', 'NIC', 'Nicaragua', 'Masaya', ''),
+('America', 'PAN', 'Panama', 'Panamá', ''),
+('America', 'PAN', 'Panama', 'San Miguelito', ''),
+('America', 'PER', 'Peru', 'Ancash', ''),
+('America', 'PER', 'Peru', 'Arequipa', ''),
+('America', 'PER', 'Peru', 'Ayacucho', ''),
+('America', 'PER', 'Peru', 'Cajamarca', ''),
+('America', 'PER', 'Peru', 'Callao', ''),
+('America', 'PER', 'Peru', 'Cusco', ''),
+('America', 'PER', 'Peru', 'Huánuco', ''),
+('America', 'PER', 'Peru', 'Ica', ''),
+('America', 'PER', 'Peru', 'Junín', ''),
+('America', 'PER', 'Peru', 'La Libertad', ''),
+('America', 'PER', 'Peru', 'Lambayeque', ''),
+('America', 'PER', 'Peru', 'Lima', ''),
+('America', 'PER', 'Peru', 'Loreto', ''),
+('America', 'PER', 'Peru', 'Piura', ''),
+('America', 'PER', 'Peru', 'Puno', ''),
+('America', 'PER', 'Peru', 'Tacna', ''),
+('America', 'PER', 'Peru', 'Ucayali', ''),
+('America', 'PRI', 'Puerto Rico', 'Arecibo', ''),
+('America', 'PRI', 'Puerto Rico', 'Bayamón', ''),
+('America', 'PRI', 'Puerto Rico', 'Caguas', ''),
+('America', 'PRI', 'Puerto Rico', 'Carolina', ''),
+('America', 'PRI', 'Puerto Rico', 'Guaynabo', ''),
+('America', 'PRI', 'Puerto Rico', 'Ponce', ''),
+('America', 'PRI', 'Puerto Rico', 'San Juan', ''),
+('America', 'PRI', 'Puerto Rico', 'Toa Baja', ''),
+('America', 'PRY', 'Paraguay', 'Alto Paraná', ''),
+('America', 'PRY', 'Paraguay', 'Asunción', ''),
+('America', 'PRY', 'Paraguay', 'Central', ''),
+('America', 'URY', 'Uruguay', 'Montevideo', ''),
+('America', 'USA', 'United States', 'Alabama', ''),
+('America', 'USA', 'United States', 'Alaska', ''),
+('America', 'USA', 'United States', 'Arizona', ''),
+('America', 'USA', 'United States', 'Arkansas', ''),
+('America', 'USA', 'United States', 'California', ''),
+('America', 'USA', 'United States', 'Colorado', ''),
+('America', 'USA', 'United States', 'Connecticut', ''),
+('America', 'USA', 'United States', 'District of Columbia', ''),
+('America', 'USA', 'United States', 'Florida', ''),
+('America', 'USA', 'United States', 'Georgia', ''),
+('America', 'USA', 'United States', 'Hawaii', ''),
+('America', 'USA', 'United States', 'Idaho', ''),
+('America', 'USA', 'United States', 'Illinois', ''),
+('America', 'USA', 'United States', 'Indiana', ''),
+('America', 'USA', 'United States', 'Iowa', ''),
+('America', 'USA', 'United States', 'Kansas', ''),
+('America', 'USA', 'United States', 'Kentucky', ''),
+('America', 'USA', 'United States', 'Louisiana', ''),
+('America', 'USA', 'United States', 'Maryland', ''),
+('America', 'USA', 'United States', 'Massachusetts', ''),
+('America', 'USA', 'United States', 'Michigan', ''),
+('America', 'USA', 'United States', 'Minnesota', ''),
+('America', 'USA', 'United States', 'Mississippi', ''),
+('America', 'USA', 'United States', 'Missouri', ''),
+('America', 'USA', 'United States', 'Montana', ''),
+('America', 'USA', 'United States', 'Nebraska', ''),
+('America', 'USA', 'United States', 'Nevada', ''),
+('America', 'USA', 'United States', 'New Hampshire', ''),
+('America', 'USA', 'United States', 'New Jersey', ''),
+('America', 'USA', 'United States', 'New Mexico', ''),
+('America', 'USA', 'United States', 'New York', ''),
+('America', 'USA', 'United States', 'North Carolina', ''),
+('America', 'USA', 'United States', 'Ohio', ''),
+('America', 'USA', 'United States', 'Oklahoma', ''),
+('America', 'USA', 'United States', 'Oregon', ''),
+('America', 'USA', 'United States', 'Pennsylvania', ''),
+('America', 'USA', 'United States', 'Rhode Island', ''),
+('America', 'USA', 'United States', 'South Carolina', ''),
+('America', 'USA', 'United States', 'South Dakota', ''),
+('America', 'USA', 'United States', 'Tennessee', ''),
+('America', 'USA', 'United States', 'Texas', ''),
+('America', 'USA', 'United States', 'Utah', ''),
+('America', 'USA', 'United States', 'Virginia', ''),
+('America', 'USA', 'United States', 'Washington', ''),
+('America', 'USA', 'United States', 'Wisconsin', ''),
+('America', 'VEN', 'Venezuela', 'Anzoátegui', ''),
+('America', 'VEN', 'Venezuela', 'Apure', ''),
+('America', 'VEN', 'Venezuela', 'Aragua', ''),
+('America', 'VEN', 'Venezuela', 'Barinas', ''),
+('America', 'VEN', 'Venezuela', 'Bolívar', ''),
+('America', 'VEN', 'Venezuela', 'Carabobo', ''),
+('America', 'VEN', 'Venezuela', 'Distrito Federal', ''),
+('America', 'VEN', 'Venezuela', 'Falcón', ''),
+('America', 'VEN', 'Venezuela', 'Guárico', ''),
+('America', 'VEN', 'Venezuela', 'Lara', ''),
+('America', 'VEN', 'Venezuela', 'Mérida', ''),
+('America', 'VEN', 'Venezuela', 'Miranda', ''),
+('America', 'VEN', 'Venezuela', 'Monagas', ''),
+('America', 'VEN', 'Venezuela', 'Portuguesa', ''),
+('America', 'VEN', 'Venezuela', 'Sucre', ''),
+('America', 'VEN', 'Venezuela', 'Táchira', ''),
+('America', 'VEN', 'Venezuela', 'Trujillo', ''),
+('America', 'VEN', 'Venezuela', 'Yaracuy', ''),
+('America', 'VEN', 'Venezuela', 'Zulia', ''),
+('Europe', 'BEL', 'Belgium', 'Antwerpen', ''),
+('Europe', 'BEL', 'Belgium', 'Bryssel', ''),
+('Europe', 'BEL', 'Belgium', 'East Flanderi', ''),
+('Europe', 'BEL', 'Belgium', 'Hainaut', ''),
+('Europe', 'BEL', 'Belgium', 'Namur', ''),
+('Europe', 'BEL', 'Belgium', 'West Flanderi', ''),
+('Europe', 'FRA', 'France', 'Alsace', ''),
+('Europe', 'FRA', 'France', 'Aquitaine', ''),
+('Europe', 'FRA', 'France', 'Auvergne', ''),
+('Europe', 'FRA', 'France', 'Basse-Normandie', ''),
+('Europe', 'FRA', 'France', 'Bourgogne', ''),
+('Europe', 'FRA', 'France', 'Bretagne', ''),
+('Europe', 'FRA', 'France', 'Centre', ''),
+('Europe', 'FRA', 'France', 'Limousin', ''),
+('Europe', 'FRA', 'France', 'Lorraine', ''),
+('Europe', 'FRA', 'France', 'Pays de la Loire', ''),
+('Europe', 'FRA', 'France', 'Picardie', ''),
+('Europe', 'FRA', 'France', 'Rhône-Alpes', ''),
+('Europe', 'DEU', 'Germany', 'Anhalt Sachsen', ''),
+('Europe', 'DEU', 'Germany', 'Baijeri', ''),
+('Europe', 'DEU', 'Germany', 'Berliini', ''),
+('Europe', 'DEU', 'Germany', 'Brandenburg', ''),
+('Europe', 'DEU', 'Germany', 'Bremen', ''),
+('Europe', 'DEU', 'Germany', 'Hamburg', ''),
+('Europe', 'DEU', 'Germany', 'Hessen', ''),
+('Europe', 'DEU', 'Germany', 'Mecklenburg-Vorpomme', ''),
+('Europe', 'DEU', 'Germany', 'Niedersachsen', ''),
+('Europe', 'DEU', 'Germany', 'Nordrhein-Westfalen', ''),
+('Europe', 'DEU', 'Germany', 'Rheinland-Pfalz', ''),
+('Europe', 'DEU', 'Germany', 'Saarland', ''),
+('Europe', 'DEU', 'Germany', 'Saksi', ''),
+('Europe', 'DEU', 'Germany', 'Schleswig-Holstein', ''),
+('Europe', 'ITA', 'Italy', 'Abruzzit', ''),
+('Europe', 'ITA', 'Italy', 'Apulia', ''),
+('Europe', 'ITA', 'Italy', 'Calabria', ''),
+('Europe', 'ITA', 'Italy', 'Campania', ''),
+('Europe', 'ITA', 'Italy', 'Emilia-Romagna', ''),
+('Europe', 'ITA', 'Italy', 'Friuli-Venezia Giuli', ''),
+('Europe', 'ITA', 'Italy', 'Latium', ''),
+('Europe', 'ITA', 'Italy', 'Liguria', ''),
+('Europe', 'ITA', 'Italy', 'Lombardia', ''),
+('Europe', 'ITA', 'Italy', 'Marche', ''),
+('Europe', 'ITA', 'Italy', 'Piemonte', ''),
+('Europe', 'ITA', 'Italy', 'Sardinia', ''),
+('Europe', 'ITA', 'Italy', 'Sisilia', ''),
+('Europe', 'ITA', 'Italy', 'Toscana', ''),
+('Europe', 'ITA', 'Italy', 'Umbria', ''),
+('Europe', 'ITA', 'Italy', 'Veneto', ''),
+('Europe', 'PRT', 'Portugal', 'Braga', ''),
+('Europe', 'PRT', 'Portugal', 'Coímbra', ''),
+('Europe', 'PRT', 'Portugal', 'Lisboa', ''),
+('Europe', 'PRT', 'Portugal', 'Porto', ''),
+('Europe', 'ESP', 'Spain', 'Andalusia', ''),
+('Europe', 'ESP', 'Spain', 'Aragonia', ''),
+('Europe', 'ESP', 'Spain', 'Asturia', ''),
+('Europe', 'ESP', 'Spain', 'Balears', ''),
+('Europe', 'ESP', 'Spain', 'Baskimaa', ''),
+('Europe', 'ESP', 'Spain', 'Canary Islands', ''),
+('Europe', 'ESP', 'Spain', 'Cantabria', ''),
+('Europe', 'ESP', 'Spain', 'Castilla and León', ''),
+('Europe', 'ESP', 'Spain', 'Extremadura', ''),
+('Europe', 'ESP', 'Spain', 'Galicia', ''),
+('Europe', 'ESP', 'Spain', 'Katalonia', ''),
+('Europe', 'ESP', 'Spain', 'La Rioja', ''),
+('Europe', 'ESP', 'Spain', 'Madrid', ''),
+('Europe', 'ESP', 'Spain', 'Murcia', ''),
+('Europe', 'ESP', 'Spain', 'Navarra', ''),
+('Europe', 'ESP', 'Spain', 'Valencia', ''),
+('Europe', 'CHE', 'Switzerland', 'Bern', ''),
+('Europe', 'CHE', 'Switzerland', 'Geneve', ''),
+('Europe', 'CHE', 'Switzerland', 'Vaud', ''),
+('Europe', 'GBR', 'United Kingdom', 'England', ''),
+('Europe', 'GBR', 'United Kingdom', 'Jersey', ''),
+('Europe', 'GBR', 'United Kingdom', 'North Ireland', ''),
+('Europe', 'GBR', 'United Kingdom', 'Scotland', ''),
+('Europe', 'GBR', 'United Kingdom', 'Wales', ''),
+('Oceania', 'AUS', 'Australia', 'Capital Region', ''),
+('Oceania', 'AUS', 'Australia', 'New South Wales', ''),
+('Oceania', 'AUS', 'Australia', 'Queensland', ''),
+('Oceania', 'AUS', 'Australia', 'South Australia', ''),
+('Oceania', 'AUS', 'Australia', 'Tasmania', ''),
+('Oceania', 'AUS', 'Australia', 'Victoria', ''),
+('Oceania', 'AUS', 'Australia', 'West Australia', ''),
+('Oceania', 'NZL', 'New Zealand', 'Auckland', ''),
+('Oceania', 'NZL', 'New Zealand', 'Canterbury', ''),
+('Oceania', 'NZL', 'New Zealand', 'Dunedin', ''),
+('Oceania', 'NZL', 'New Zealand', 'Hamilton', ''),
+('Oceania', 'NZL', 'New Zealand', 'Wellington', '');
 
 --
 -- Constraints for dumped tables
@@ -2044,10 +1885,11 @@ ALTER TABLE `muu_ads`
   ADD CONSTRAINT `muu_ads_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_blog`
+-- Constraints for table `muu_codes_files`
 --
-ALTER TABLE `muu_blog`
-  ADD CONSTRAINT `muu_blog_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `muu_codes_files`
+  ADD CONSTRAINT `muu_codes_files_ibfk_1` FOREIGN KEY (`ID_Code`) REFERENCES `muu_codes` (`ID_Code`),
+  ADD CONSTRAINT `muu_codes_files_ibfk_2` FOREIGN KEY (`ID_Syntax`) REFERENCES `muu_codes_syntax` (`ID_Syntax`);
 
 --
 -- Constraints for table `muu_forums_posts`
@@ -2122,3 +1964,7 @@ ALTER TABLE `muu_tokens`
 --
 ALTER TABLE `muu_videos`
   ADD CONSTRAINT `muu_videos_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
