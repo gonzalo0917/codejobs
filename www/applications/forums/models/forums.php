@@ -14,6 +14,7 @@ class Forums_Model extends ZP_Load {
         $this->language = whichLanguage();
 		$this->table    = "forums";
 		$this->fields   = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
+		$this->fieldsPosts = "ID_Post, ID_User, ID_Forum, ID_Parent, Title, Slug, Content, Author, Start_Date, Text_Date, Hour, Visits, Topic, Tags, Language, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -161,6 +162,23 @@ class Forums_Model extends ZP_Load {
 			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
 		} else {
 			return FALSE;
+		}
+	}
+
+	public function getByTag($tag, $limit = FALSE) {
+		$tag = str_replace("-", " ", $tag);
+		
+		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) ORDER BY ID_Post DESC LIMIT ". $limit);
+		
+	}
+
+	public function count($type = "posts") {
+		if($type === "tag") {
+			$tag = str_replace("-", " ", segment(2, isLang()));
+
+ 	 		$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) ORDER BY ID_Post DESC LIMIT ". $limit);
+
+ 	 		return $count[0]["Total"];
 		}
 	}
 }
