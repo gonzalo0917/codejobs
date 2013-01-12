@@ -14,19 +14,20 @@
 	$country	  	= isset($data) ? recoverPOST("country", $data[0]["Country"])        				 : recoverPOST("country");
 	$city  		 	= isset($data) ? recoverPOST("city", $data[0]["City"])        				 		 : recoverPOST("city");	
 	$salary    	  	= isset($data) ? recoverPOST("salary", $data[0]["Salary"])            				 : recoverPOST("salary");	
-	$currency       = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"])            	 : recoverPOST("salary_currency");	
+	$currency       = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"])         : recoverPOST("salary_currency");	
 	$allocation  	= isset($data) ? recoverPOST("allocation_time", $data[0]["Allocation_Time"]) 		 : recoverPOST("allocation_time");
 	$requirements	= isset($data) ? recoverPOST("requirements", $data[0]["Requirements"])				 : recoverPOST("requirements");
 	$technologies	= isset($data) ? recoverPOST("technologies", $data[0]["Technologies"])				 : recoverPOST("technologies");
 	$language  		= isset($data) ? recoverPOST("language", $data[0]["Language"])  	 				 : recoverPOST("language");
+	$duration 		= isset($data) ? recoverPOST("duration", $data[0]["Duration"])  					 : recoverPOST("duration");
 	$situation 		= isset($data) ? recoverPOST("situation", $data[0]["Situation"])  					 : recoverPOST("situation");				
 	$edit      		= isset($data) ? TRUE											 					 : FALSE;
 	$action	   		= isset($data) ? "edit"											 					 : "save";
-	$href 	   		= isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") 					 : path(whichApplication() ."/cpanel/add");
+	$href	        = path("jobs/add/");
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__(ucfirst(whichApplication())), "resalt");
+			echo p(__("Add new job"), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 			
@@ -141,7 +142,7 @@
 			echo formSelect(array(
 				"id"    => "salary_currency",
 				"name"  => "salary_currency", 
-				"class" => "span2 required", 
+				"class" => "span1 required", 
 				"field" => __("Currency")), 
 				$options
 			);			

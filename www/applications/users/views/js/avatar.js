@@ -1,4 +1,6 @@
 !function($) {
+	var jcrop_api;
+
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();
 	});
@@ -24,7 +26,18 @@
 			var reader = new FileReader();
 
 			reader.onload = function (event) {
-				$("#avatar-image").attr("src", event.target.result);
+				if(jcrop_api === undefined) {
+					$("#avatar-image").Jcrop({
+						minSize: [90, 90],
+						aspectRatio: 1
+					}, function() {
+						console.log("Se creara la imagen desde previewImage()");
+						jcrop_api = this;
+					});
+				}
+
+				jcrop_api.setImage(event.target.result);
+				//$("#avatar-image").attr("src", event.target.result);
 
 				window.setTimeout(markImage, 0);
 			}
@@ -34,8 +47,13 @@
 	}
 
 	function markImage() {
-		if($("#marker").get(0) === undefined) {
-			$("div.avatar-image").append('<div class="marker" id="marker"></div>');
+		if(jcrop_api === undefined) {
+			$("#avatar-image").Jcrop({
+				minSize: [90, 90],
+				aspectRatio: 1
+			}, function() {
+				jcrop_api = this;
+			});
 		}
 
 		var width  = $("#avatar-image").width(),
@@ -45,18 +63,22 @@
 
 		if(!square || !small) {
 			if(square) {
-				$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: "10px"});
+				jcrop_api.setSelect([0, 0, width - 6, width - 6]);
+				//$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: "10px"});
 			} else if(width > height) {
 				var pos_left = parseInt((width - height)/2) + 10;
-				$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: pos_left + "px"});
+				jcrop_api.setSelect([pos_left, 0, height - 6, height - 6]);
+				//$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: pos_left + "px"});
 			} else {
 				var pos_top = parseInt((height - width)/2) + 10;
-				$("#marker").width(width - 6).height(width - 6).css({top: pos_top + "px", left: "10px"});
+				jcrop_api.setSelect([0, pos_top, width - 6, width - 6]);
+				//$("#marker").width(width - 6).height(width - 6).css({top: pos_top + "px", left: "10px"});
 			}
 
-			$("#marker").css("display", "block");
+			//$("#marker").css("display", "block");
 		} else {
-			$("#marker").hide();
+			console.log("SE LIBERARA");
+			jcrop_api.release();
 		}
 	}
 
