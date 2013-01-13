@@ -200,6 +200,7 @@ $phrase["it_will_permanently_delete_your_account_no_turning_back"] = "Esto elimi
 $phrase["italian"]										= "Italiano";
 $phrase["italy"]										= "Italia";
 $phrase["january"]   									= "Enero";
+$phrase["job_description"]								= "Descripción del empleo";
 $phrase["jobs"] 	 									= "Empleos";
 $phrase["join_today_to"]				 	  			= "Únete hoy a";
 $phrase["july"] 	 									= "Julio";

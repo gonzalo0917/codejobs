@@ -107,7 +107,7 @@ header #topbar-wrapper {
 }
 
 header #topbar {
-	width: 1020px;
+	max-width: 1020px;
 	height: 40px;
 	line-height: 40px;
 	margin: 0 auto;

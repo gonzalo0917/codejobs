@@ -13,7 +13,7 @@ class Jobs_Model extends ZP_Load {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "jobs";
-		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Email, Address1, Address2, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Situation";
+		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Author, Email, Address1, Address2, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -76,6 +76,7 @@ class Jobs_Model extends ZP_Load {
 
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
+			"Author"  	 => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Slug"    	 => slug(POST("title", "clean")),
 			"Start_Date" => $date,
 			"End_Date"   => $date + (3600 * 24 * 30)
@@ -92,17 +93,43 @@ class Jobs_Model extends ZP_Load {
 		}
 	}
 
-	public function getByID($ID) {			
+	/*public function getByID($ID) {			 original
 		return $this->Db->find($ID, $this->table, $this->fields);
+	}*/
+
+	public function preview() {
+		if(POST("title") AND POST("email") AND POST("address1") AND POST("phone") AND POST("company") AND POST("cinformation") AND POST("country") AND POST("city") AND POST("salary") AND POST("salary_currency") AND POST("allocation") AND POST("requirements") AND POST("technologies") AND POST("language")) {
+			return array(
+				"Address1"       		=> POST("address1"),
+				"Address2"       		=> POST("address2"),
+				"Allocation_Time" 		=> POST("allocation"),
+				"Author"  				=> SESSION("ZanUser"),
+				"Company"       		=> POST("company"),
+				"Company_Information" 	=> POST("cinformation"),
+				"Country"     			=> POST("country"),
+				"City" 					=> POST("city"),
+				"Email" 					=> POST("email"),
+				"Salary" 				=> POST("salary"),
+				"Salary_Currency"		=> POST("salary_currency"),
+				"Requirements" 			=> stripslashes(encode(POST("requirements", "decode", NULL))),
+				"Language" 				=> POST("language"),
+				"Phone"         		=> POST("phone"),
+				"Start_Date"			=> now(4),
+				"Technologies" 			=> stripslashes(encode(POST("technologies", "decode", NULL))),
+				"Title" 				=> stripslashes(encode(POST("title", "decode", NULL))),
+			);
+		} else {
+			return FALSE;
+		}
 	}
-	
+
 	public function save() {
 		$error = $this->editOrSave("save");
 
 		if($error) {
 			return $error;
 		}
-		
+
 		if($this->Db->insert($this->table, $this->data)) {
 		 	return getAlert(__("The job has been saved correctly"), "success");
 		}
@@ -118,7 +145,7 @@ class Jobs_Model extends ZP_Load {
 		}
 	}
 	
-	public function count($type = "posts") {					
+	/*public function count($type = "posts") { //original			
 		$year  = isYear(segment(1,  isLang())) ? segment(1, isLang()) : FALSE;
 		$month = isMonth(segment(2, isLang())) ? segment(2, isLang()) : FALSE;
 		$day   = isDay(segment(3,   isLang())) ? segment(3, isLang()) : FALSE;
@@ -142,8 +169,67 @@ class Jobs_Model extends ZP_Load {
 		}
 		
 		return isset($count) ? $count : 0;
+	}*/
+	
+	public function count($type = NULL) {
+		if(is_null($type)) {
+			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
+		} elseif($type === "tag") {
+			$tag = str_replace("-", " ", segment(2, isLang()));
+
+			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+		} elseif($type === "author") {
+			$user = segment(2, isLang());
+			
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		} elseif($type === "author-tag") {
+			$user = segment(2, isLang());
+			$tag  = str_replace("-", " ", segment(4, isLang()));
+			
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+		}
 	}
 	
+	public function getBufferJobs($language = "all") {
+		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Job, Title, Slug, Language", NULL, "rand()", 85) : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Job, Title, Slug, Language", NULL, "rand()", 85);
+	}
+	
+	public function getByTag($tag, $limit) {
+		$tag = str_replace("-", " ", $tag);
+		
+		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Job DESC", $limit);
+	}
+	
+	public function getByID($ID) {
+		return $this->Db->findBySQL("ID_Job = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
+	}
+	
+	public function getAll($limit) {		
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Job DESC", $limit);
+	}
+	
+	public function getAllByAuthor($author, $limit) {		
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, NULL, "ID_Job DESC", $limit);
+	}
+	
+	public function getAllByTag($author, $tag, $limit) {
+		$tag = str_replace("-", " ", $tag);
+
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%')", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
+	}
+
+	public function getAllByUser() {
+		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Job DESC");
+	}
+
+	public function updateViews($jobID) {
+		$this->Cache = $this->core("Cache");
+
+		$views = $this->Cache->getValue($jobID, "jobs", "Views", TRUE);
+
+		return $this->Cache->setValue($jobID, $views + 1, "jobs", "Views", 86400);
+	}
+
 	public function removePassword($ID) {
 		$this->Db->update($this->table, array("Pwd" => ""), $ID);		
 	}

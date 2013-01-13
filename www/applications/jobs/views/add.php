@@ -141,7 +141,7 @@
 			echo formSelect(array(
 				"id"    => "salary_currency",
 				"name"  => "salary_currency", 
-				"class" => "span2 required", 
+				"class" => "span1 required", 
 				"field" => __("Currency")), 
 				$options
 			);			

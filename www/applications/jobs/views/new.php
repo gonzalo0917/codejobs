@@ -3,26 +3,24 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID         	= isset($data) ? recoverPOST("ID", $data[0]["ID_Job"]) 			   					 : 0;
-	$title      	= isset($data) ? recoverPOST("title", $data[0]["Title"])   		   					 : recoverPOST("title");		
-	$email       	= isset($data) ? recoverPOST("email", $data[0]["Email"])   		   					 : recoverPOST("email");
-	$address1      	= isset($data) ? recoverPOST("address1", $data[0]["Address1"])   		   			 : recoverPOST("address1");
-	$address2      	= isset($data) ? recoverPOST("address2", $data[0]["Address2"])   		   			 : recoverPOST("address2");
-	$phone       	= isset($data) ? recoverPOST("phone", $data[0]["Phone"])   		   					 : recoverPOST("phone");
-	$company       	= isset($data) ? recoverPOST("company", $data[0]["Company"])   		   				 : recoverPOST("company");
-	$cinformation	= isset($data) ? recoverPOST("cinformation", $data[0]["Company_Information"]) 		 : recoverPOST("cinformation");
-	$country	  	= isset($data) ? recoverPOST("country", $data[0]["Country"])        				 : recoverPOST("country");
-	$city  		 	= isset($data) ? recoverPOST("city", $data[0]["City"])        				 		 : recoverPOST("city");	
-	$salary    	  	= isset($data) ? recoverPOST("salary", $data[0]["Salary"])            				 : recoverPOST("salary");	
-	$currency       = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"])         : recoverPOST("salary_currency");	
-	$allocation  	= isset($data) ? recoverPOST("allocation_time", $data[0]["Allocation_Time"]) 		 : recoverPOST("allocation_time");
-	$requirements	= isset($data) ? recoverPOST("requirements", $data[0]["Requirements"])				 : recoverPOST("requirements");
-	$technologies	= isset($data) ? recoverPOST("technologies", $data[0]["Technologies"])				 : recoverPOST("technologies");
-	$language  		= isset($data) ? recoverPOST("language", $data[0]["Language"])  	 				 : recoverPOST("language");
-	$duration 		= isset($data) ? recoverPOST("duration", $data[0]["Duration"])  					 : recoverPOST("duration");
-	$situation 		= isset($data) ? recoverPOST("situation", $data[0]["Situation"])  					 : recoverPOST("situation");				
-	$edit      		= isset($data) ? TRUE											 					 : FALSE;
-	$action	   		= isset($data) ? "edit"											 					 : "save";
+	$ID         	= isset($data) ? recoverPOST("ID", 0) 			   					 			 : 0;
+	$title      	= isset($data) ? recoverPOST("title", $data["Title"])   		   				 : recoverPOST("title");		
+	$email       	= isset($data) ? recoverPOST("email", $data["Email"])   		   				 : recoverPOST("email");
+	$address1      	= isset($data) ? recoverPOST("address1", $data["Address1"])   		   			 : recoverPOST("address1");
+	$address2      	= isset($data) ? recoverPOST("address2", $data["Address2"])   		   			 : recoverPOST("address2");
+	$phone       	= isset($data) ? recoverPOST("phone", $data["Phone"])   		   				 : recoverPOST("phone");
+	$company       	= isset($data) ? recoverPOST("company", $data["Company"])   		   			 : recoverPOST("company");
+	$cinformation	= isset($data) ? recoverPOST("cinformation", $data["Company_Information"]) 		 : recoverPOST("cinformation");
+	$country	  	= isset($data) ? recoverPOST("country", $data["Country"])        				 : recoverPOST("country");
+	$city  		 	= isset($data) ? recoverPOST("city", $data["City"])        				 		 : recoverPOST("city");	
+	$salary    	  	= isset($data) ? recoverPOST("salary", $data["Salary"])            				 : recoverPOST("salary");	
+	$currency       = isset($data) ? recoverPOST("salary_currency", $data["Salary_Currency"])        : recoverPOST("salary_currency");	
+	$allocation  	= isset($data) ? recoverPOST("allocation_time", $data["Allocation_Time"]) 		 : recoverPOST("allocation_time");
+	$requirements	= isset($data) ? recoverPOST("requirements", $data["Requirements"])				 : recoverPOST("requirements");
+	$technologies	= isset($data) ? recoverPOST("technologies", $data["Technologies"])				 : recoverPOST("technologies");
+	$language  		= isset($data) ? recoverPOST("language", $data["Language"])  	 				 : recoverPOST("language");
+	$edit      		= isset($data) ? TRUE											 				 : FALSE;
+	$action	   		= isset($data) ? "edit"											 				 : "save";
 	$href	        = path("jobs/add/");
 	
 	echo div("add-form", "class");
@@ -182,24 +180,20 @@
 			
 			echo formField(NULL, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));
 
-			$options = array(
-				0 => array("value" => "Draft",   "option" => __("Draft"),     "selected" => ($situation === "Draft")    ? TRUE : FALSE),
-				1 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				2 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
-			);
+			echo formInput(array(	
+				"name" 	=> "save", 
+				"class" => "btn btn-success", 
+				"value" => __("Save"), 
+				"type"  => "submit"
+			));
 
-			echo formSelect(array(
-				"id"    => "situation",
-				"name"  => "situation", 
-				"p"  	=> TRUE, 
-				"class" => "required", 
-				"field" => __("Situation")), 
-				$options
-			);
-			
-			
-			echo formSave($action);
-			
+			echo formInput(array(	
+				"name" 	=> "preview", 
+				"class" => "btn", 
+				"value" => __("Preview"), 
+				"type"  => "submit"
+			));
+					
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Job"));
 		echo formClose();
 	echo div(FALSE);

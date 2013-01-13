@@ -47,6 +47,8 @@
                     }
 
                     if(segment(0, isLang()) === "jobs") {      
+                        //$this->css(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.min.css", NULL, FALSE, TRUE);
+                        //$this->js(_corePath ."/vendors/js/jquery/jquery.js", NULL, FALSE, TRUE);
                         $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, FALSE, TRUE);
                         $this->js(_corePath ."/vendors/js/editors/markitup/sets/html/set.js", NULL, FALSE, TRUE);
                     ?>
