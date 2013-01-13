@@ -687,4 +687,20 @@ class Users_Model extends ZP_Load {
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Twitter, Facebook, Linkedin, Google, Viadeo");
 	}
 
+	public function saveSocial() {
+		$data = array(
+			"Twitter"  => POST("twitter"),
+			"Facebook" => POST("facebook"),
+			"Linkedin" => POST("linkedin"),
+			"Google"   => POST("google"),
+			"Viadeo"   => POST("viadeo")
+		);
+
+		if($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
+			return getAlert(__("Data have been saved correctly"), "success");	
+		}
+		
+		return getAlert(__("Update error"));
+	}
+
 }
