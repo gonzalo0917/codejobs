@@ -62,7 +62,7 @@ function add(type, filename, url) {
 
 	if(type == "images") {
 		var name = "Images",
-			code = '<p><img alt="' + filename + '" src="' + url +'" class="no-border" /></p>';
+			code = '<p><img alt="' + filename + '" src="' + url +'" class="no-border" style="max-width:720px;" /></p>';
 	}
 
 	if(type == "videos") {
