@@ -14,5 +14,5 @@ define("_color5", "#BBBBBB");
 define("_maxLimit", 50);
 
 define("_muralSize", "960x300px");
-define("_muralWidth", 960);
-define("_muralHeight", 300);
+define("_muralWidth", 940);
+define("_muralHeight", 320);
