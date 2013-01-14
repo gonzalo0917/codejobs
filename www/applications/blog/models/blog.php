@@ -350,10 +350,7 @@ class Blog_Model extends ZP_Load {
 		return $this->Db->findBy("ID_Post", $ID_Post, "mural", "Title, URL, Image");			
 	}
 	
-	
 	public function getPosts($limit) {	
-		$a = $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
-		die(var_dump($a));
 		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", $limit);
 	}
 	
