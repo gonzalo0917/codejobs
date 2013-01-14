@@ -25,6 +25,13 @@
 				));
 
 				echo formInput(array(
+					"name" => "resume",
+					"type" => "button",
+					"class" => "btn",
+					"value" => __("Restore image")
+				));
+
+				echo formInput(array(
 					"name" => "delete",
 					"type" => "button",
 					"class" => "btn btn-danger",
