@@ -13,7 +13,7 @@ class Blog_Model extends ZP_Load {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "blog";
-		$this->fields   = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Small, Image_Medium, Comments, Enable_Comments, Language, Pwd, Buffer, Code, Situation";
+		$this->fields   = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Mural, Image_Thumbnail, Image_Small, Image_Medium, Image_Original, Comments, Enable_Comments, Language, Pwd, Buffer, Code, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -72,9 +72,9 @@ class Blog_Model extends ZP_Load {
 		$dir = "www/lib/files/images";
 
 		$this->Files = $this->core("Files");
-		$this->mural = FILES("mural");
 
 		$this->postImage = $this->Files->uploadImage($dir ."/blog/", "image", "resize", TRUE, TRUE, TRUE, FALSE, TRUE);
+		$this->postMural = $this->Files->uploadImage($dir ."/mural/", "mural", "mural");
 		
 		if($action === "edit") {
 			$this->post = $this->Db->find(POST("ID"), $this->table);
@@ -84,8 +84,6 @@ class Blog_Model extends ZP_Load {
 			$currentMediumImg = $this->post[0]["Image_Medium"];
 			$currentThumbnailImg = $this->post[0]["Image_Thumbnail"];
 		} 
-        
-        $this->postMural = $this->Files->uploadImage($dir ."/mural/", "mural", "mural");
 
         if(is_array($this->postMural)) {
         	return getAlert($this->postMural["alert"]);
@@ -121,9 +119,6 @@ class Blog_Model extends ZP_Load {
 			"Slug"            => slug(POST("title", "clean")),
 			"Content"         => setCode(decode(POST("content", "clean")), FALSE),
 			"Author"          => POST("author") ? POST("author") : SESSION("ZanUser"),
-			"Year"	          => date("Y"),
-			"Month"	          => date("m"),
-			"Day"	          => date("d"),
 			"Image_Original"  => isset($this->postImage["original"]) ? $this->postImage["original"] : NULL,
 			"Image_Small"  	  => isset($this->postImage["small"])  ? $this->postImage["small"]  : NULL,
 			"Image_Mural"     => isset($this->postMural) ? $this->postMural : NULL,
@@ -138,6 +133,9 @@ class Blog_Model extends ZP_Load {
 		if($action === "save") {
 			$data["Start_Date"] = now(4);
 			$data["Text_Date"]  = decode(now(2));
+			$data["Year"]	    = date("Y");
+			$data["Month"]	    = date("m");
+			$data["Day"]	    = date("d");
 		} else {
 			$data["Modified_Date"] = now(4);
 		}
@@ -225,7 +223,7 @@ class Blog_Model extends ZP_Load {
 		$this->Cache->removeAll("blog");
 		
 		$this->Db->update($this->table, $this->data, POST("ID"));
-		
+	
 		return getAlert(__("The post has been edited correctly"), "success");
 	}
 

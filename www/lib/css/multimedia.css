@@ -1,0 +1,12 @@
+#multimedia {
+	background-color: #EEE;
+	border: 1px solid #333;
+	width: 700px;
+	height: 350px;
+	padding: 5px;
+	overflow: auto;
+}
+
+.multimedia-list {
+	list-style: none;
+}

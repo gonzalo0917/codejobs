@@ -16,6 +16,39 @@ $(document).on("ready", function() {
 	});
 });	
 
+//Multimedia 
+$("#show-multimedia").click(function () {
+	$("#multimedia").slideToggle("slow");
+});
+
+$("#audio").click(function () {
+	$("#multimedia-list-audio").slideToggle("slow");
+});
+
+$("#codes").click(function () {
+    $("#multimedia-list-codes").slideToggle("slow");
+});
+
+$("#documents").click(function () {
+    $("#multimedia-list-documents").slideToggle("slow");
+});
+
+$("#images").click(function () {
+    $("#multimedia-list-images").slideToggle("slow");
+});
+
+$("#programs").click(function () {
+    $("#multimedia-list-programs").slideToggle("slow");
+});
+
+$("#unknown").click(function () {
+    $("#multimedia-list-unknown").slideToggle("slow");
+});
+
+$("#videos").click(function () {
+    $("#multimedia-list-videos").slideToggle("slow");
+});
+
 //Checkbox
 function checkAll(idForm) {
 	$("form input:checkbox").attr("checked", "checked");
