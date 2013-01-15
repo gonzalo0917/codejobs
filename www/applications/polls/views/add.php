@@ -3,13 +3,13 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID  	   = isset($data) ? recoverPOST("ID", $data[0]["ID_Poll"])			 : recoverPOST("ID");
-	$title     = isset($data) ? recoverPOST("title", $data[0]["Title"])			 : recoverPOST("title");
-	$answers   = isset($data) ? recoverPOST("answers", $data[1])				 : recoverPOST("answers");
-	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])	 : recoverPOST("situation");
-	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
-	$action	   = isset($data) ? "edit"											 : "save";
-	$href	   = isset($data) ? path("polls/cpanel/$action/$ID/") : path("polls/cpanel/add/");
+	$ID  	   = isset($data) ? recoverPOST("ID", $data["question"]["ID_Poll"])			 : recoverPOST("ID");
+	$title     = isset($data) ? recoverPOST("title", $data["question"]["Title"])		 : recoverPOST("title");
+	$answers   = isset($data) ? recoverPOST("answers", $data["answers"])				 : recoverPOST("answers");
+	$situation = isset($data) ? recoverPOST("situation", $data["question"]["Situation"]) : recoverPOST("situation");
+	$language  = isset($data) ? recoverPOST("language", $data["question"]["Language"])   : recoverPOST("language");
+	$action	   = isset($data) ? "edit"											 		 : "save";
+	$href	   = isset($data) ? path("polls/cpanel/$action/$ID/") 						 : path("polls/cpanel/add/");
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -31,9 +31,9 @@
 			if(is_array($answers)) { 
 				$count = 1;
 
-				foreach($answers as $key => $answer) { 
+				foreach($answers as $answer) { 
 					echo p(TRUE, "field panswer");	
-						echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answer));	
+						echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answer["Answer"]));	
 					echo p(FALSE);
 
 					$count++;
