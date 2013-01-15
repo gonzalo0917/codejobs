@@ -241,7 +241,6 @@ class Jobs_Controller extends ZP_Load {
 	}
 
 	private function getJobsByTag($author, $tag) {
-		$this->title(__("Jobs of") ." ". $author);
 		$this->CSS("jobs", $this->application);
 		$this->CSS("pagination");
 		

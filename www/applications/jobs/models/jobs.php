@@ -20,7 +20,7 @@ class Jobs_Model extends ZP_Load {
 		$this->Data->table($this->table);
 	}
 
-	public function getRSS() {	
+	public function getRSS() {
 		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC");
 	}
 

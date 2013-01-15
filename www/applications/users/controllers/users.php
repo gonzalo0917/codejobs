@@ -91,36 +91,45 @@ class Users_Controller extends ZP_Load {
 	}
 	
 	public function login() {
-		$this->CSS("login", $this->application);
-		
-		$this->title("Login");
-		
-		$data = FALSE;
 
-		$vars["href"] = path("users/login");
+		$this->helper(array("html", "alerts"));
+				
+		if(!SESSION("ZanUser")) {
+			$this->title(decode(__("Login")));
 
-		if(POST("login")) {
-			if($this->Users_Model->isAdmin() or $this->Users_Model->isMember()) {
-				$data = $this->Users_Model->getUserData();
-			} 
-			
-			if($data) {
-				SESSION("ZanUser", $data[0]["Username"]);
-				SESSION("ZanUserName", $data[0]["Name"]);
-				SESSION("ZanUserPwd", $data[0]["Pwd"]);
-				SESSION("ZanUserAvatar", $data[0]["Avatar"]);
-				SESSION("ZanUserID", $data[0]["ID_User"]);
-				SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
-				SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
-				SESSION("ZanUserCodes", $data[0]["Codes"]);
-				SESSION("ZanUserPosts", $data[0]["Posts"]);
-				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
+			$this->helper("forms");
 
-				redirect();
-			} else { 
-				$this->helper("alerts");
-				showAlert(__("Incorrect Login"), path());
+			$vars["href"] = path("users/login");
+
+			$data = FALSE;
+
+			if(POST("login")) {
+				if($this->Users_Model->isAdmin() or $this->Users_Model->isMember()) {
+					$data = $this->Users_Model->getUserData();
+				} 
+				
+				if($data) {
+					SESSION("ZanUser", $data[0]["Username"]);
+					SESSION("ZanUserName", $data[0]["Name"]);
+					SESSION("ZanUserPwd", $data[0]["Pwd"]);
+					SESSION("ZanUserAvatar", $data[0]["Avatar"]);
+					SESSION("ZanUserID", $data[0]["ID_User"]);
+					SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
+					SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
+					SESSION("ZanUserCodes", $data[0]["Codes"]);
+					SESSION("ZanUserPosts", $data[0]["Posts"]);
+					SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
+
+					redirect();
+				} else { 
+					$this->helper("alerts");
+					showAlert(__("Incorrect Login")."!", path("users/login"));
+				}
 			}		
+
+			$vars["view"] = $this->view("loginuser", TRUE);
+			
+			$this->render("content", $vars);
 		} else {
 			redirect();
 		} 

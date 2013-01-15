@@ -17,10 +17,9 @@
 			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
 			 
 			if($job["Technologies"] !== "") {
-				
 				echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
 			}
-		?>			
+		?>
 		<br />
 	</span>
 
@@ -48,6 +47,21 @@
 				<li><?php echo __("Salary"). ": ". $job["Salary"] ." ". $job["Salary_Currency"] ?></li>
 				<li><?php echo __("Allocation Time"). ": ". __($job["Allocation_Time"]) ?></li>
 			</ul>
+		</p>
+
+		<h5><?php echo __("Contact Information")?></h5>
+		<p>
+			<?php if(SESSION("ZanUserID")) {?>
+			<ul>
+				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
+				<li><?php echo __("Phone"). ": ". __($job["Phone"]) ?></li>
+			</ul>
+			<?php } else {?>
+				<span class="small italic grey">
+					<?php echo __("You must be registered to display this content"); ?></br/>
+					<?php echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). "</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a>" ; ?>
+				</span>
+			<?php }?>
 		</p>
 	</p>
 
