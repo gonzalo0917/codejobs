@@ -1356,6 +1356,7 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Email` varchar(45) NOT NULL,
   `Website` varchar(100) NOT NULL,
   `Avatar` varchar(200) NOT NULL DEFAULT 'default.png',
+  `Avatar_Coordinate` varchar(20) NOT NULL DEFAULT '0,0,90,90',
   `Credits` mediumint(8) NOT NULL DEFAULT '0',
   `Recommendation` mediumint(8) NOT NULL DEFAULT '50',
   `Sign` text NOT NULL,
@@ -1400,9 +1401,9 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
 -- Dumping data for table `muu_users`
 --
 
-INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Followers`, `Subscribed`, `Start_Date`, `Code`, `Name`, `Description`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
-(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', 95, 75, '', 0, 1, 0, 0, 0, 1, 4, 3, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', '', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
-(2, 4, 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1347453332, 'C3F4E6E123', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
+INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Avatar_Coordinate`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Followers`, `Subscribed`, `Start_Date`, `Code`, `Name`, `Description`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
+(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', '0,0,90,90', 95, 75, '', 0, 1, 0, 0, 0, 1, 4, 3, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', '', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
+(2, 4, 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', '0,0,90,90', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1347453332, 'C3F4E6E123', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
 
 -- --------------------------------------------------------
 
