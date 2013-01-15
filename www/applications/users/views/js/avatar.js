@@ -1,5 +1,5 @@
 !function($) {
-	var jcrop_api;
+	var jcrop_api, avatar_file, avatar_coordinate;
 
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();
@@ -9,6 +9,13 @@
 		selectFile(this.files);
 	});
 
+	$('input[name="resume"]').click(function () {
+		restoreImage();
+	});
+
+	avatar_file 	  = $("#avatar-image").attr("src");
+	avatar_coordinate = $("#coordinate").val();
+
 	function selectFile(files) {
 		if (files.length === 1) {
 			var file = files[0];
@@ -16,7 +23,7 @@
 			if (/image/i .test(file.type)) {
 				previewImage(file);
 			} else {
-				alert("Image type does not supported");
+				alert("Image type not supported");
 			}
 		}
 	}
@@ -26,18 +33,9 @@
 			var reader = new FileReader();
 
 			reader.onload = function (event) {
-				if(jcrop_api === undefined) {
-					$("#avatar-image").Jcrop({
-						minSize: [90, 90],
-						aspectRatio: 1
-					}, function() {
-						console.log("Se creara la imagen desde previewImage()");
-						jcrop_api = this;
-					});
-				}
+				$("#avatar-image").attr("src", event.target.result);
 
-				jcrop_api.setImage(event.target.result);
-				//$("#avatar-image").attr("src", event.target.result);
+				destroyMark();
 
 				window.setTimeout(markImage, 0);
 			}
@@ -46,7 +44,7 @@
 		}
 	}
 
-	function markImage() {
+	function markImage(coordinate) {
 		if(jcrop_api === undefined) {
 			$("#avatar-image").Jcrop({
 				minSize: [90, 90],
@@ -56,30 +54,40 @@
 			});
 		}
 
-		var width  = $("#avatar-image").width(),
-			height = $("#avatar-image").height(),
-			small  = (width <= 90 && height <= 90),
-			square = (width === height);
-
 		if(!square || !small) {
-			if(square) {
-				jcrop_api.setSelect([0, 0, width - 6, width - 6]);
-				//$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: "10px"});
-			} else if(width > height) {
-				var pos_left = parseInt((width - height)/2) + 10;
-				jcrop_api.setSelect([pos_left, 0, height - 6, height - 6]);
-				//$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: pos_left + "px"});
-			} else {
-				var pos_top = parseInt((height - width)/2) + 10;
-				jcrop_api.setSelect([0, pos_top, width - 6, width - 6]);
-				//$("#marker").width(width - 6).height(width - 6).css({top: pos_top + "px", left: "10px"});
-			}
+			if(coordinate === undefined) {
+				var width  = $("#avatar-image").width(),
+					height = $("#avatar-image").height(),
+					small  = (width <= 90 && height <= 90),
+					square = (width === height);
 
-			//$("#marker").css("display", "block");
+				if(square) {
+					jcrop_api.setSelect([0, 0, width, width]);
+				} else if(width > height) {
+					var pos_left = parseInt((width - height)/2) + 10;
+					jcrop_api.setSelect([pos_left, 0, height, height]);
+				} else {
+					var pos_top = parseInt((height - width)/2) + 10;
+					jcrop_api.setSelect([0, pos_top, width, width]);
+				}
+			} else {
+				jcrop_api.setSelect(coordinate.split(","));
+			}
 		} else {
-			console.log("SE LIBERARA");
-			jcrop_api.release();
+			destroyMark();
 		}
+	}
+
+	function destroyMark() {
+		if (jcrop_api !== undefined) {
+			jcrop_api.destroy();
+			$("#avatar-image").css({height: "", width: "", visibility: "visible"});
+			jcrop_api = undefined;
+		}
+	}
+
+	function restoreImage() {
+		previewImage(avatar_file);
 	}
 
 	markImage();

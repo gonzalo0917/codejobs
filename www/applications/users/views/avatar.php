@@ -1,7 +1,8 @@
 <?php
 	if(!defined("_access")) die("Error: You don't have permission to access here...");
 
-	$avatar = recoverPOST("avatar", encode($data[0]["Avatar"]));
+	$avatar 	= recoverPOST("avatar", encode($data[0]["Avatar"]));
+	$coordinate = recoverPOST("coordinate", encode($data[0]["Avatar_Coordinate"]));
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -25,6 +26,13 @@
 				));
 
 				echo formInput(array(
+					"name" => "resume",
+					"type" => "button",
+					"class" => "btn",
+					"value" => __("Restore image")
+				));
+
+				echo formInput(array(
 					"name" => "delete",
 					"type" => "button",
 					"class" => "btn btn-danger",
@@ -39,6 +47,13 @@
 
 				echo div(FALSE);
 			echo div(FALSE);
+
+			echo formInput(array(
+				"id"	=> "coordinate",
+				"name"  => "coordinate",
+				"type"  => "hidden",
+				"value" => $coordinate
+			));
 
 			echo div("avatar", "class");
 				echo formInput(array(	

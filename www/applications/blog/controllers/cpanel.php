@@ -145,9 +145,7 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->CSS("forms", "cpanel");
 		$this->CSS("add", "blog");
-
-		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
-		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
+		$this->CSS("multimedia");
 
 		$this->Multimedia_Model = $this->model("Multimedia_Model");
 
@@ -191,13 +189,21 @@ class CPanel_Controller extends ZP_Load {
 
 		$this->title("Edit");
 		
-		$this->helper("forms");
+		$this->helper(array("forms", "files"));
 		
 		$this->CSS("forms", "cpanel");
 		$this->CSS("add", "blog");
+		$this->CSS("multimedia");
 
-		$this->CSS("www/lib/scripts/js/upload/client/fileuploader.css");
-		$this->js("www/lib/scripts/js/upload/client/fileuploader.js");
+		$this->Multimedia_Model = $this->model("Multimedia_Model");
+
+		$multimedia[0]["audio"]     = $this->Multimedia_Model->getMultimedia("audio");
+		$multimedia[0]["codes"] 	= $this->Multimedia_Model->getMultimedia("codes");
+		$multimedia[0]["documents"] = $this->Multimedia_Model->getMultimedia("documents");
+		$multimedia[0]["images"]    = $this->Multimedia_Model->getMultimedia("images");
+		$multimedia[0]["programs"]  = $this->Multimedia_Model->getMultimedia("programs");
+		$multimedia[0]["unknown"]   = $this->Multimedia_Model->getMultimedia("unknown");
+		$multimedia[0]["videos"]    = $this->Multimedia_Model->getMultimedia("videos");
 		
 		if(POST("edit")) { 
 			$this->vars["alert"] = $this->{"$this->Model"}->cpanel("edit");
@@ -208,6 +214,7 @@ class CPanel_Controller extends ZP_Load {
 		$data = $this->{"$this->Model"}->getByID($ID);
 		
 		if($data) {			
+			$this->vars["multimedia"]  	  = $multimedia;
 			$this->vars["data"]			  = $data;
 			$this->vars["muralImage"] 	  = $this->{"$this->Model"}->getMuralByID(segment(3, isLang()));
 			$this->vars["muralDeleteURL"] = ($this->vars["muralImage"]) ? path("$this->application/cpanel/delete-mural/$ID")  : NULL;

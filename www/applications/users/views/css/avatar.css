@@ -1,6 +1,8 @@
 img.avatar {
 	height: auto;
 	max-width: 700px;
+	min-height: 90px;
+	min-width: 90px;
 }
 
 img.avatar[src$="/default.png"] {

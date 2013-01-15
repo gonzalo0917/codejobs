@@ -6,7 +6,7 @@
 	$ID        = isset($data) ? recoverPOST("ID", $data[0]["ID_Post"]) 			 : 0;
 	$title     = isset($data) ? recoverPOST("title", $data[0]["Title"])   		 : recoverPOST("title");		
 	$tags      = isset($data) ? recoverPOST("tags", $data[0]["Tags"])   		 : recoverPOST("tags");
-	$content   = isset($data) ? str_replace('"', "'", $data[0]["Content"])		 : recoverPOST("content");	
+	$content   = isset($data) ? recoverPOST("content", $data[0]["Content"])		 : recoverPOST("content");	
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");				
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$author    = isset($data) ? recoverPOST("author", $data[0]["Author"])        : SESSION("ZanUser");
@@ -23,10 +23,10 @@
 	$editor    = _get("defaultEditor") === "Redactor" ? 1 : 2;
 	
 	echo div("add-form", "class");
-		echo formOpen($href, "form-add", "form-add");
+		echo formOpen($href, "form-add", "form-add", NULL, "post", "multipart/form-data");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
-			echo isset($alert) ? $alert : '<div id="alert-message" class="alert alert-success no-display"></div>';
+			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(	
 				"id"    => "title",
@@ -55,7 +55,7 @@
 			));
 
 			if($action === "edit" and $mural != "") { 
-				echo p(img(path($mural, TRUE), array("class" => "mural")));
+				echo p(img(path($mural, TRUE), array("style" => "max-width:700px;", "class" => "mural")));
 				echo formInput(array(	
 					"name" 	=> "delete_mural", 
 					"type"  => "checkbox",
@@ -86,6 +86,8 @@
 				"p" 	 => TRUE, 
 				"value"  => stripslashes($content)
 			));
+
+			echo '<p><span id="show-multimedia" class="field pointer">&raquo; Multimedia</span></p>';
 
 			echo getFilesFromMultimedia($multimedia);
 

@@ -40,39 +40,6 @@
 			   		});
 			   	</script>
 				<?php
-			} else {
-				?>
-				<script type="text/javascript">
-					function add(type, filename, url) {
-						if(type == "audio") {
-							var name = "Audio",
-								code = '<p><audio controls><source src="' + url + '" type="audio/mpeg"></audio></p>';							
-						}
-
-						if(type == "codes" || type == "documents" || type == "programs" || type == "unknown") {
-							var name = "All",
-								code = '<p><a href="' + url + '" target="_blank">' + filename + '</a></p>';							
-						}
-
-						if(type == "images") {
-							var name = "Images",
-								code = '<p><img alt="' + filename + '" src="' + url +'" class="no-border" /></p>';
-			        	}
-
-			        	if(type == "videos") {
-			        		var name = "Videos",
-								code = '<p><video width="640" height="360" controls><source src="' + url + '" type="video/mp4"></video></p>';
-			        	}
-
-			        	$.markItUp({ 
-			        		name: name, 
-			        		replaceWith: code + '\n' 
-			        	});
-
-	        			return false;
-					}
-				</script>
-				<?php
 			}
 		?>
 
