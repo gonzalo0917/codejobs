@@ -44,7 +44,7 @@
 		<h5><?php echo __("Additional Information")?></h5>
 		<p>
 			<ul>
-				<li><?php echo __("Salary"). ": ". $job["Salary"] ." ". $job["Salary_Currency"] ?></li>
+				<li><?php echo __("Salary"). ": $". $job["Salary"] ." ". $job["Salary_Currency"] ?></li>
 				<li><?php echo __("Allocation Time"). ": ". __($job["Allocation_Time"]) ?></li>
 			</ul>
 		</p>

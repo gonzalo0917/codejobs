@@ -190,7 +190,7 @@ $phrase["if_you_are_sure_to_deactivate_your_account_please_choose_an_option_belo
 $phrase["image"] 										= "Imagen";
 $phrase["image_for_this_post"] 							= "Imagen para la publicación";
 $phrase["in"] 											= "en";
-$phrase["incorrect_login"]								= "Datos erroneos";
+$phrase["incorrect_login"]								= "Login incorrecto";
 $phrase["incorrect_password"]							= "Contraseña incorrecta";
 $phrase["in_trash"]										= "En papelera";
 $phrase["inactive"] 									= "Inactivo";
@@ -203,6 +203,7 @@ $phrase["it_will_permanently_delete_your_account_no_turning_back"] = "Esto elimi
 $phrase["italian"]										= "Italiano";
 $phrase["italy"]										= "Italia";
 $phrase["january"]   									= "Enero";
+$phrase["job_description"]								= "Descripción del empleo";
 $phrase["jobs"] 	 									= "Empleos";
 $phrase["join_today_to"]				 	  			= "Únete hoy a";
 $phrase["july"] 	 									= "Julio";

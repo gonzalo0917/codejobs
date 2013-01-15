@@ -25,7 +25,7 @@ echo div("new-user", "class");
 					"value"    => recoverPOST("username"),
 					"required" => TRUE
 				));
-
+				
 				echo formInput(array(	
 					"name" 	   => "password",
 					"type"     => "password",
