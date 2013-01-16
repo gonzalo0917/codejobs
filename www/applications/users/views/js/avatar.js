@@ -19,17 +19,21 @@
 	function selectFile(files) {
 		if (files.length === 1) {
 			var file = files[0];
-			
-			if (/image/i .test(file.type)) {
+			console.log(file);
+			if (file.size < 1024) {
+				alert($("#small-error").val());
+			} else if (file.size > 5242880) {
+				alert($("#big-error").val());
+			} else if (/image/i .test(file.type)) {
 				previewImage(file);
 			} else {
-				alert("Image type not supported");
+				alert($("#type-error").val());
 			}
 		}
 	}
 
 	function previewImage(file) {
-		if (typeof FileReader !== "undefined") {
+		if (typeof FileReader !== "undefined" && typeof file !== "string") {
 			var reader = new FileReader();
 
 			reader.onload = function (event) {
@@ -41,6 +45,12 @@
 			}
 
 			reader.readAsDataURL(file);
+		} else if (typeof file === "string") {
+			$("#avatar-image").attr("src", file);
+
+			destroyMark();
+
+			markImage();
 		}
 	}
 
@@ -54,13 +64,13 @@
 			});
 		}
 
+		var width  = $("#avatar-image").width(),
+			height = $("#avatar-image").height(),
+			small  = (width <= 90 && height <= 90),
+			square = (width === height);
+
 		if(!square || !small) {
 			if(coordinate === undefined) {
-				var width  = $("#avatar-image").width(),
-					height = $("#avatar-image").height(),
-					small  = (width <= 90 && height <= 90),
-					square = (width === height);
-
 				if(square) {
 					jcrop_api.setSelect([0, 0, width, width]);
 				} else if(width > height) {

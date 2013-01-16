@@ -55,6 +55,24 @@
 				"value" => $coordinate
 			));
 
+			echo formInput(array(
+				"id" 	=> "small-error",
+				"type" 	=> "hidden",
+				"value" => __("The file size must be greater than or equal to 1KB")
+			));
+
+			echo formInput(array(
+				"id" 	=> "big-error",
+				"type" 	=> "hidden",
+				"value" => __("The file size must be less than or equal to 5MB")
+			));
+
+			echo formInput(array(
+				"id" 	=> "type-error",
+				"type" 	=> "hidden",
+				"value" => __("Image type not supported")
+			));
+
 			echo div("avatar", "class");
 				echo formInput(array(	
 					"name" 	=> "save", 
