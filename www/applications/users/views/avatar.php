@@ -31,13 +31,6 @@
 					"class" => "btn",
 					"value" => __("Restore image")
 				));
-
-				echo formInput(array(
-					"name" => "delete",
-					"type" => "button",
-					"class" => "btn btn-danger",
-					"value" => __("Remove image")
-				));
 			echo div(FALSE);
 
 			echo div("avatar", "class");
@@ -73,12 +66,25 @@
 				"value" => __("Image type not supported")
 			));
 
+			echo formInput(array(
+				"id" 	=> "delete-message",
+				"type" 	=> "hidden",
+				"value" => __("Are you sure you want to delete the current avatar image?")
+			));
+
 			echo div("avatar", "class");
 				echo formInput(array(	
 					"name" 	=> "save", 
 					"class" => "btn btn-success", 
 					"value" => __("Save"), 
 					"type"  => "submit"
+				));
+
+				echo formInput(array(
+					"name" => "delete",
+					"type" => "submit",
+					"class" => "btn btn-danger",
+					"value" => __("Delete")
 				));
 			echo div(FALSE);
 		echo formClose();

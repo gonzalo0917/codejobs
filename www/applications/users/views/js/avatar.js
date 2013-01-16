@@ -13,6 +13,10 @@
 		restoreImage();
 	});
 
+	$('input[name="delete"]').click(function () {
+		return removeImage();
+	});
+
 	avatar_file 	  = $("#avatar-image").attr("src");
 	avatar_coordinate = $("#coordinate").val();
 
@@ -107,6 +111,12 @@
 
 	function restoreImage() {
 		previewImage(avatar_file, avatar_coordinate);
+	}
+
+	function removeImage() {
+		restoreImage();
+
+		return confirm($("#delete-message").val());
 	}
 
 	markImage();
