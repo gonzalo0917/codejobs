@@ -91,7 +91,6 @@ class Users_Controller extends ZP_Load {
 	}
 	
 	public function login() {
-
 		$this->helper(array("html", "alerts"));
 				
 		if(!SESSION("ZanUser")) {
@@ -355,6 +354,29 @@ class Users_Controller extends ZP_Load {
 			$this->render("content", $vars);
 		} else {
 			redirect();
+		}
+	}
+
+	public function cv() {
+		isConnected();
+
+		if(POST("update")) {
+			//Guardes todo por PHP
+		}
+
+		$this->js("cv", "users");
+
+		$data = $this->Users_Model->getInformation();
+
+		if($data) {
+			//mostrar el form con toda la info
+			$vars["user"] = $data[0];
+			$vars["view"] = $this->view("cv", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			//$this->render("error404");
+			//redirect();
 		}
 	}
 }
