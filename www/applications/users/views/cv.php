@@ -1,7 +1,5 @@
 <div class="personal-information">
-	<input id="name" name="name" type="text" value="Carlos" /> <br />
-	<input id="birthday" name="birthday" ... /> <br />
-	<input id="update-personal-information" type="button" value="<?php echo __("Update"); ?>" />
+	
 </div>
 
 <div class="school-information">
