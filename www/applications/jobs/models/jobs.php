@@ -13,7 +13,7 @@ class Jobs_Model extends ZP_Load {
 		
 		$this->language = whichLanguage();
 		$this->table 	= "jobs";
-		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Author, Email, Address1, Address2, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Situation";
+		$this->fields   = "ID_Job, ID_User, Company, Title, Slug, Author, Email, Address1, Address2, Logo, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -70,7 +70,7 @@ class Jobs_Model extends ZP_Load {
 			"technologies" 	   => "required",
 		);
 		 
-		$this->helper(array("alerts", "time"));
+		$this->helper(array("alerts", "time", "files"));
 		
 		$date = now(4);
 
@@ -81,13 +81,29 @@ class Jobs_Model extends ZP_Load {
 			"Start_Date" => $date,
 			"End_Date"   => $date + (3600 * 24 * 30)
  		);
+		
+ 		if(FILES("image", "name")) {
+ 
+			if(POST("logo")) {
+				@unlink(POST("logo"));
+			}
+			
+			$dir = "www/lib/files/images/companies/";
+			
+			$this->Files = $this->core("Files");									
+			
+			$data["Logo"] = $this->Files->uploadImage($dir, "image", "normal");
+
+			if(!$data["Logo"]) {
+				return getAlert(__("Upload error"));
+			}
+		}
 
 		$this->Data->change("cinformation", "Company_Information");
 		$this->Data->change("allocation", "Allocation_Time");
 		$this->Data->change("ccontact", "Company_Contact");
 
 		$this->data = $this->Data->proccess($data, $validations);
-
 		if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}
@@ -98,17 +114,18 @@ class Jobs_Model extends ZP_Load {
 	}*/
 
 	public function preview() {
-		if(POST("title") AND POST("email") AND POST("address1") AND POST("phone") AND POST("company") AND POST("cinformation") AND POST("country") AND POST("city") AND POST("salary") AND POST("salary_currency") AND POST("allocation") AND POST("requirements") AND POST("technologies") AND POST("language")) {
+		if(POST("title") AND POST("email") AND POST("address1") AND POST("logo") AND POST("phone") AND POST("company") AND POST("cinformation") AND POST("country") AND POST("city") AND POST("salary") AND POST("salary_currency") AND POST("allocation") AND POST("requirements") AND POST("technologies") AND POST("language")) {
 			return array(
 				"Address1"       		=> POST("address1"),
 				"Address2"       		=> POST("address2"),
+				"Logo"					=> POST("logo"),
 				"Allocation_Time" 		=> POST("allocation"),
 				"Author"  				=> SESSION("ZanUser"),
 				"Company"       		=> POST("company"),
 				"Company_Information" 	=> POST("cinformation"),
 				"Country"     			=> POST("country"),
 				"City" 					=> POST("city"),
-				"Email" 					=> POST("email"),
+				"Email" 				=> POST("email"),
 				"Salary" 				=> POST("salary"),
 				"Salary_Currency"		=> POST("salary_currency"),
 				"Requirements" 			=> stripslashes(encode(POST("requirements", "decode", NULL))),
