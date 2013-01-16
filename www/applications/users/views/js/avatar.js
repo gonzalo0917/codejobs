@@ -32,7 +32,8 @@
 		}
 	}
 
-	function previewImage(file) {
+	function previewImage(file, coordinate) {
+		console.log("Se solicita imagen previa de (" + file + ", " + coordinate + ")");
 		if (typeof FileReader !== "undefined" && typeof file !== "string") {
 			var reader = new FileReader();
 
@@ -41,7 +42,11 @@
 
 				destroyMark();
 
-				window.setTimeout(markImage, 0);
+				if (coordinate !== undefined) {
+					window.setTimeout('markImage("' + coordinate + '")', 0);
+				} else {
+					window.setTimeout(markImage, 0);
+				}
 			}
 
 			reader.readAsDataURL(file);
@@ -50,7 +55,11 @@
 
 			destroyMark();
 
-			markImage();
+			if (coordinate !== undefined) {
+				markImage(coordinate);
+			} else {
+				markImage();
+			}
 		}
 	}
 
@@ -97,7 +106,7 @@
 	}
 
 	function restoreImage() {
-		previewImage(avatar_file);
+		previewImage(avatar_file, avatar_coordinate);
 	}
 
 	markImage();
