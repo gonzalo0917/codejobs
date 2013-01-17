@@ -169,6 +169,8 @@ class Users_Model extends ZP_Load {
 		$code = code(10);		
 
 		$data = array(			
+			"ID_Service" => POST("serviceID") ? POST("serviceID") : "0",
+			"Name" 		 => POST("name"),
 			"Start_Date" => now(4),
 			"Subscribed" => 1,
 			"Code"		 => $code,
@@ -194,8 +196,6 @@ class Users_Model extends ZP_Load {
 		$ID_User = $this->Db->insert($this->table, $data);
 	
 		if($ID_User) {
-			$ID_User_Information = $this->Db->insert("users_information", array("ID_User" => $ID_User, "Name" => POST("name")));
-
 			$this->Db->insert("re_privileges_users", array("ID_Privilege" => "4", "ID_User" => $ID_User));
 
 			if($service === "facebook") {
@@ -222,7 +222,7 @@ class Users_Model extends ZP_Load {
 	}
 	
 	public function activate($user, $code) {
-		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
+		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, ID_Service, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
 		
 		if($data) {
 			$this->Db->update($this->table, array("Situation" => "Active"), $data[0]["ID_User"]);
