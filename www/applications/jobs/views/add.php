@@ -80,7 +80,7 @@
 				"type" 	=> "file", 
 				"name" 	=> "image", 
 				"class" => "required", 
-				"field" => __("Image"), 
+				"field" => __("Image"),
 				"p" 	=> TRUE
 			));
 

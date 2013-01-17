@@ -27,6 +27,11 @@
 
 
 	<p class="justify">		
+		<h5><?php echo ("Company Logo")?></h5>
+		<p>
+			<img src="<?php echo path($job["Logo"], TRUE); ?>">
+		</p>
+
 		<h5><?php echo __("Job Description")?></h5>
 		<p>
 			<?php 

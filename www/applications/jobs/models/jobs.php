@@ -96,7 +96,7 @@ class Jobs_Model extends ZP_Load {
 
 			if(!$data["Logo"]) {
 				return getAlert(__("Upload error"));
-			}
+			};
 		}
 
 		$this->Data->change("cinformation", "Company_Information");

@@ -80,7 +80,7 @@ class Ads_Model extends ZP_Load {
 			
 			$dir = "www/lib/files/images/ads/";
 			
-			$this->Files = $this->core("Files");										
+			$this->Files = $this->core("Files");									
 			
 			$this->data["Banner"] = $this->Files->uploadImage($dir, "image", "normal");
 			
