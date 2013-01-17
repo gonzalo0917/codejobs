@@ -141,6 +141,13 @@ class Users_Model extends ZP_Load {
 		return getAlert(__("The user has been edit correctly"), "success");
 	}
 
+	public function checkUserService($serviceID, $service = "Facebook") {
+		return $this->Db->query("SELECT muu_users.ID_User, ID_Privilege, ID_Service, Service, Username, Name, Avatar, Bookmarks, Codes, Posts, Recommendation
+								 FROM muu_users_services 
+								 INNER JOIN muu_users ON muu_users.ID_User = muu_users_services.ID_User
+								 WHERE ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
+	}
+
 	public function addUser() {
 		$this->helper(array("alerts", "time"));
 
@@ -262,20 +269,26 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function isAdmin($sessions = FALSE) {
+		if(SESSION("ZanUserServiceID") and SESSION("ZanUserPrivilegeID") <= 2) {
+			return TRUE;
+		}
+
 		if($sessions) {		
 			$username = SESSION("ZanUser");
 			$password = SESSION("ZanUserPwd");	
 		} else {			
 			$username = POST("username");
 			$password = POST("password", "encrypt");
-		}
-		
-		$this->Db->select("ID_User");
+		}		
 
-		return $this->Db->findBySQL("ID_Privilege <= 2 AND (Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'", $this->table);
+		return $this->Db->findBySQL("ID_Privilege <= 2 AND (Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'", $this->table, "ID_User");
 	}
 	
 	public function isMember($sessions = FALSE) {
+		if(SESSION("ZanUserServiceID")) {
+			return TRUE;
+		}
+
 		if($sessions) {		
 			$username = SESSION("ZanUser");
 			$password = SESSION("ZanUserPwd");					

@@ -52,8 +52,32 @@ class Users_Controller extends ZP_Load {
 		     		$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
 		 
 		     		$User = json_decode(file_get_contents($graphURL));
-		     	
-		     		die(var_dump($User));
+
+		     		if($User) {
+		     			$data = $this->Users_Model->checkUserService($User->id);
+
+		     			if($data) {
+		     				SESSION("ZanUserServiceID", $data[0]["ID_Service"]);
+							SESSION("ZanUser", $data[0]["Username"]);
+							SESSION("ZanUserName", $data[0]["Name"]);
+							SESSION("ZanUserPwd", $data[0]["Pwd"]);
+							SESSION("ZanUserAvatar", $data[0]["Avatar"]);
+							SESSION("ZanUserID", $data[0]["ID_User"]);
+							SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
+							SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
+							SESSION("ZanUserCodes", $data[0]["Codes"]);
+							SESSION("ZanUserPosts", $data[0]["Posts"]);
+							SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
+
+							redirect();
+		     			} else {
+		     				$vars["view"] = $this->view("fbregister", TRUE);
+
+		     				$this->render("content", $vars);
+		     			}
+		     		} else {
+		     			showAlert(__("An unknown problem occurred, try to login again"), path());	
+		     		}     			     		
 		     	} else {
 		     		showAlert(__("Invalid Token, try to login again"), path());
 		     	}		     
