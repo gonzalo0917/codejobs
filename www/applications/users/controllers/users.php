@@ -51,7 +51,7 @@ class Users_Controller extends ZP_Load {
 		 
 		     	$User = json_decode(file_get_contents($graphURL));
 		     	
-		     	____($User);		     	
+		     	die(var_dump(($User));
 			}
 		}
 	}
