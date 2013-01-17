@@ -118,6 +118,11 @@
 					<div class="top-box-profile">
 						<div style="float: left; width: 90px;">
 							<?php
+								if(isAllowedIP()) {
+									$a = substr(SESSION("ZanUserAvatar"), 0, 3);
+									die(var_dump($a));
+								}
+
 								if(substr(SESSION("ZanUserAvatar"), 0, 3) === "http") {
 									$avatar = SESSION("ZanUserAvatar");
 								} else {
