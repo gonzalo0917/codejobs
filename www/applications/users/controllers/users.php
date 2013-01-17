@@ -137,6 +137,8 @@ class Users_Controller extends ZP_Load {
 	public function recover($token = FALSE) {	
 		$this->title(decode(__("Recover Password")));
 		
+		$this->helper(array("forms", "html", "alerts"));
+
 		if(POST("change")) {			
 			$vars["alert"] 	 = $this->Users_Model->change();
 			$vars["tokenID"] = $token;
@@ -153,8 +155,6 @@ class Users_Controller extends ZP_Load {
 				redirect();
 			}
 		} 
-
-		$this->helper(array("forms", "html"));
 
 		$vars["view"] = $this->view("recover", TRUE);
 		

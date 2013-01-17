@@ -412,7 +412,7 @@ class Users_Model extends ZP_Load {
 							$this->Email->email	  = $email;
 							$this->Email->subject = __("Recover Password") ." - ". _get("webName");
 							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
-							
+
 							$this->Email->send();							
 
 							return getAlert(__("We've sent you an email with instructions to retrieve your password"), "success");							
