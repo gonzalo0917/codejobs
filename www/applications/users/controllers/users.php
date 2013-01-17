@@ -71,6 +71,7 @@ class Users_Controller extends ZP_Load {
 
 							redirect();
 		     			} else {
+		     				die(var_dump($User));
 		     				$vars["view"] = $this->view("fbregister", TRUE);
 
 		     				$this->render("content", $vars);
