@@ -34,7 +34,7 @@ class Users_Controller extends ZP_Load {
 
 	public function facebookLogin($login = FALSE) {	
 		$this->config("users");
-		$this->helper("alerts");
+		$this->helper(array("alerts", "facebook"));
 		
 		$code = REQUEST("code");
 
