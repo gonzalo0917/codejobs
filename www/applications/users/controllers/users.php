@@ -56,7 +56,7 @@ class Users_Controller extends ZP_Load {
 		     			$vars["username"]   = $facebookUser["username"];
 						$vars["name"]	   	= $facebookUser["name"];
 						$vars["email"]	   	= $facebookUser["email"];
-						$vars["birthday"]   = $facebookUser["birthday]";
+						$vars["birthday"]   = $facebookUser["birthday"];
 						$vars["avatar"]		= $facebookUser["avatar"]; 										
 		     			$vars["view"] 	    = $this->view("fbregister", TRUE);
 
