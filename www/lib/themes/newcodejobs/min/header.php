@@ -117,17 +117,8 @@
 				<div id="top-box-profile" class="toggle">
 					<div class="top-box-profile">
 						<div style="float: left; width: 90px;">
-							<?php
-								if(isAllowedIP()) {
-									$a = substr(SESSION("ZanUserAvatar"), 0, 3);
-									die(var_dump($a));
-								}
-
-								if(substr(SESSION("ZanUserAvatar"), 0, 3) === "http") {
-									$avatar = SESSION("ZanUserAvatar");
-								} else {
-									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
-								}
+							<?php						
+								$avatar = (substr(SESSION("ZanUserAvatar"), 0, 4) === "http") ? SESSION("ZanUserAvatar") : path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);			
 							?>
 							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" />
 						</div>
