@@ -102,7 +102,7 @@
 
 							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />		 					
 							<?php 
-								if(in_array(getIP(), _get("allowIP"))) {
+								if(isAllowedIP()) {
 								?>
 									<br />
 									<br />

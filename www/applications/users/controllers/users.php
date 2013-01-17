@@ -24,65 +24,11 @@ class Users_Controller extends ZP_Load {
 		redirect();
 	}
 
-	public function facebook($login = FALSE) {
-		$this->config("users");
-		$this->helper("alerts");
-
-		$code = REQUEST("code");
-
-		if(!$code) {
-			if($login) {
-				SESSION("state", code(32));
-
-				$loginURL = "https://www.facebook.com/dialog/oauth?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&state=". SESSION("state") ."&scope=". _fbAppScope;
-				
-				redirect($loginURL);
-			}
-		} else {
-			if(SESSION("state") and SESSION("state") === REQUEST("state")) {
-				$tokenURL = "https://graph.facebook.com/oauth/access_token?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&client_secret=". _fbAppSecret ."&code=". $code;
-		     	$response = file_get_contents($tokenURL);
-		     	$params   = NULL;
-		     	
-		     	parse_str($response, $params);
-
-		     	if(isset($params["access_token"])) {
-		     		SESSION("access_token", $params["access_token"]);
-
-		     		$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
-		 
-		     		$User = json_decode(file_get_contents($graphURL));
-
-		     		if($User) {
-		     			$data = $this->Users_Model->checkUserService($User->id);
-
-		     			if($data) {
-		     				SESSION("ZanUserServiceID", $data[0]["ID_Service"]);
-							SESSION("ZanUser", $data[0]["Username"]);
-							SESSION("ZanUserName", $data[0]["Name"]);
-							SESSION("ZanUserPwd", $data[0]["Pwd"]);
-							SESSION("ZanUserAvatar", $data[0]["Avatar"]);
-							SESSION("ZanUserID", $data[0]["ID_User"]);
-							SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
-							SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
-							SESSION("ZanUserCodes", $data[0]["Codes"]);
-							SESSION("ZanUserPosts", $data[0]["Posts"]);
-							SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
-
-							redirect();
-		     			} else {
-		     				die(var_dump($User));
-		     				$vars["view"] = $this->view("fbregister", TRUE);
-
-		     				$this->render("content", $vars);
-		     			}
-		     		} else {
-		     			showAlert(__("An unknown problem occurred, try to login again"), path());	
-		     		}     			     		
-		     	} else {
-		     		showAlert(__("Invalid Token, try to login again"), path());
-		     	}		     
-			}
+	public function service($service = "facebook", $login = FALSE) {
+		if($service === "facebook") {
+			facebookLogin();
+		} elseif($service === "twitter") {
+			//twitterLogin();
 		}
 	}
 	
@@ -99,16 +45,7 @@ class Users_Controller extends ZP_Load {
 			$data = $this->Users_Model->activate($user, $code);
 			
 			if($data) {
-				SESSION("ZanUser", $data[0]["Username"]);
-				SESSION("ZanUserName", $data[0]["Name"]);
-				SESSION("ZanUserPwd", $data[0]["Pwd"]);
-				SESSION("ZanUserAvatar", $data[0]["Avatar"]);
-				SESSION("ZanUserID", $data[0]["ID_User"]);
-				SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
-				SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
-				SESSION("ZanUserCodes", $data[0]["Codes"]);
-				SESSION("ZanUserPosts", $data[0]["Posts"]);
-				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
+				createLoginSessions($data[0], FALSE);
 					 
 				showAlert(__("Your account has been activated correctly!"), path());
 			} else {
@@ -170,18 +107,7 @@ class Users_Controller extends ZP_Load {
 				} 
 				
 				if($data) {
-					SESSION("ZanUser", $data[0]["Username"]);
-					SESSION("ZanUserName", $data[0]["Name"]);
-					SESSION("ZanUserPwd", $data[0]["Pwd"]);
-					SESSION("ZanUserAvatar", $data[0]["Avatar"]);
-					SESSION("ZanUserID", $data[0]["ID_User"]);
-					SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
-					SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
-					SESSION("ZanUserCodes", $data[0]["Codes"]);
-					SESSION("ZanUserPosts", $data[0]["Posts"]);
-					SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
-
-					redirect();
+					createLoginSessions($data[0]);					
 				} else { 
 					$this->helper("alerts");
 					showAlert(__("Incorrect Login")."!", path("users/login"));
