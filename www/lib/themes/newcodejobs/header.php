@@ -4,10 +4,6 @@
 	}
 
 	$lang = _get("webLang");
-
-	if(isAdmin()) {
-		die(var_dump(getIP()));		
-	}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
@@ -104,8 +100,16 @@
 							<br />
 							<a href="<?php echo path("users/recover"); ?>"><?php echo __("Forgot your password?"); ?></a>
 
-							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />							
-							<!--<a href="#" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /> -->
+							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />		 					
+							<?php 
+								if(in_array(getIP(), _get("allowIP"))) {
+								?>
+									<br />
+									<br />
+									<a href="<?php echo path("users/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="#" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" />								
+								<?php
+								}
+							?>							
 						</fieldset>
 					</form>
 				</div>

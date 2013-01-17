@@ -30,6 +30,7 @@ $ZP["optimization"] = TRUE;
 $ZP["domain"] 	    = FALSE;
 $ZP["modRewrite"]   = FALSE;
 $ZP["autoRender"]   = TRUE;
+$ZP["allowIP"]      = array("127.0.0.1");
 
 /**
  * Applications

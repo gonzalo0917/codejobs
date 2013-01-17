@@ -23,6 +23,38 @@ class Users_Controller extends ZP_Load {
 	public function index() {	
 		redirect();
 	}
+
+	public function facebook($login = FALSE) {
+		$this->config("users");
+
+		$code = REQUEST("code");
+
+		if(!$code) {
+			if($login) {
+				SESSION("state", code(32));
+
+				$loginURL = "https://www.facebook.com/dialog/oauth?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&state=". SESSION("state") ."&scope=". _fbAppScope;
+				
+				redirect($loginURL);
+			}
+		} else {
+			if(SESSION("state") and SESSION("state") === REQUEST("state")) {
+				$tokenURL = "https://graph.facebook.com/oauth/access_token?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&client_secret=". _fbAppSecret ."&code=". $code;
+		     	$response = file_get_contents($tokenURL);
+		     	$params   = NULL;
+		     	
+		     	parse_str($response, $params);
+
+		     	SESSION("access_token", $params["access_token"]);
+
+		     	$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
+		 
+		     	$User = json_decode(file_get_contents($graphURL));
+		     	
+		     	____($User);		     	
+			}
+		}
+	}
 	
 	public function logout() {
 		unsetSessions(path());
