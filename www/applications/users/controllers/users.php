@@ -263,7 +263,7 @@ class Users_Controller extends ZP_Load {
 		$this->js("bootstrap");
 		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
-		$this->title(htmlentities(__("Change password")));
+		$this->title(decode(__("Change password")));
 
 		$vars["view"] = $this->view("password", TRUE);
 		$vars["href"] = path("users/password/");
@@ -290,7 +290,7 @@ class Users_Controller extends ZP_Load {
 			$this->js("bootstrap");
 			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
-			$this->title(htmlentities(__("Change e-mail")));
+			$this->title(decode(__("Change e-mail")));
 
 			$vars["view"] = $this->view("email", TRUE);
 			$vars["href"] = path("users/email/");
