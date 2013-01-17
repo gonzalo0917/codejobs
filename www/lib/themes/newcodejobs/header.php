@@ -106,7 +106,7 @@
 								?>
 									<br />
 									<br />
-									<a href="<?php echo path("users/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="#" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" />								
+									<a href="<?php echo path("users/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="#" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>							
 								<?php
 								}
 							?>							
