@@ -55,11 +55,11 @@ class Users_Controller extends ZP_Load {
 		     	parse_str($response, $params);
 
 		     	if(isset($params["access_token"])) {
-		     		SESSION("access_token", $params["access_token"]);
+		     		SESSION("ZanUserServiceAccessToken", $params["access_token"]);
 
 		     		$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
 		 
-		     		$User = json_decode(file_get_contents($graphURL));
+		     		$user = json_decode(file_get_contents($graphURL));
 
 		     		if($User) {
 		     			$data = $this->Users_Model->checkUserService($User->id);
@@ -67,7 +67,12 @@ class Users_Controller extends ZP_Load {
 		     			if($data) {
 		     				createLoginSessions($data[0]);							
 		     			} else {
-		     				die(var_dump($User));
+		     				$vars["serviceID"] 	= $user->id;
+		     				$vars["name"]	   	= decode($User->name);
+		     				$vars["email"]	   	= $user->email;
+		     				$vars["birthday"]   = $user->birthday;
+		     				$vars["avatar"]		= $user->picture->data->url;
+
 		     				$vars["view"] = $this->view("fbregister", TRUE);
 
 		     				$this->render("content", $vars);
