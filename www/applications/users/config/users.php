@@ -7,7 +7,7 @@ if(!defined("_access")) {
 define("_fbAppID", "324953487621707");
 define("_fbAppSecret", "77d85e535c01319c86f4b150bbf87f8a");
 define("_fbAppScope", "email,user_birthday,read_stream");
-define("_fbAppFields", "id,name,email,birthday,picture,timezone");
+define("_fbAppFields", "id,name,email,birthday,picture,username");
 define("_fbAppURL", "http://www.codejobs.biz/es/users/service/facebook/");
 
 define("_bootstrap", TRUE);

@@ -40,49 +40,33 @@ class Users_Controller extends ZP_Load {
 
 		if(!$code) {
 			if($login) {
-				SESSION("state", code(32));
-
-				$loginURL = "https://www.facebook.com/dialog/oauth?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&state=". SESSION("state") ."&scope=". _fbAppScope;
-				
-				redirect($loginURL);
+				getFacebookLogin();
 			}
 		} else {
-			if(SESSION("state") and SESSION("state") === REQUEST("state")) {
-				$tokenURL = "https://graph.facebook.com/oauth/access_token?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&client_secret=". _fbAppSecret ."&code=". $code;
-		     	$response = file_get_contents($tokenURL);
-		     	$params   = NULL;
-		     	
-		     	parse_str($response, $params);
+			if(isConnectedToFacebook()) {
+				$facebookUser = getFacebookUser($code);
 
-		     	if(isset($params["access_token"])) {
-		     		SESSION("ZanUserServiceAccessToken", $params["access_token"]);
+		     	if($facebookUser) {		     		
+		     		$data = $this->Users_Model->checkUserService($facebookUser["serviceID"]);
 
-		     		$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
-		 
-		     		$user = json_decode(file_get_contents($graphURL));
+		     		if($data) {
+		     			createLoginSessions($data[0]);							
+		     		} else {	
+		     			$vars["serviceID"] 	= $facebookUser["serviceID"];
+		     			$vars["username"]   = $facebookUser["username"];
+						$vars["name"]	   	= $facebookUser["name"];
+						$vars["email"]	   	= $facebookUser["email"];
+						$vars["birthday"]   = $facebookUser["birthday]";
+						$vars["avatar"]		= $facebookUser["avatar"]; 										
+		     			$vars["view"] 	    = $this->view("fbregister", TRUE);
 
-		     		if($User) {
-		     			$data = $this->Users_Model->checkUserService($User->id);
-
-		     			if($data) {
-		     				createLoginSessions($data[0]);							
-		     			} else {
-		     				$vars["serviceID"] 	= $user->id;
-		     				$vars["name"]	   	= decode($User->name);
-		     				$vars["email"]	   	= $user->email;
-		     				$vars["birthday"]   = $user->birthday;
-		     				$vars["avatar"]		= $user->picture->data->url;
-
-		     				$vars["view"] = $this->view("fbregister", TRUE);
-
-		     				$this->render("content", $vars);
-		     			}
-		     		} else {
-		     			showAlert(__("An unknown problem occurred, try to login again"), path());	
-		     		}     			     		
+		     			$this->render("content", $vars);
+		     		}
 		     	} else {
-		     		showAlert(__("Invalid Token, try to login again"), path());
-		     	}		     
+		     		showAlert(__("An unknown problem occurred, try to login again"), path());	     			     		
+		     	} 
+		    } else {
+		     	showAlert(__("Invalid Token, try to login again"), path());			     
 			}
 		}
 	}
