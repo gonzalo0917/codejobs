@@ -26,12 +26,66 @@ class Users_Controller extends ZP_Load {
 
 	public function service($service = "facebook", $login = FALSE) {
 		if($service === "facebook") {
-			facebookLogin($login);
+			$this->facebookLogin($login);
 		} elseif($service === "twitter") {
-			//twitterLogin();
+			//$this->twitterLogin();
 		}
 	}
-	
+
+	public function facebookLogin($login = FALSE) {
+		global $Load;
+		
+		$Load->config("users");
+		$Load->helper("alerts");
+		
+		$code = REQUEST("code");
+
+		if(!$code) {
+			if($login) {
+				SESSION("state", code(32));
+
+				$loginURL = "https://www.facebook.com/dialog/oauth?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&state=". SESSION("state") ."&scope=". _fbAppScope;
+				
+				redirect($loginURL);
+			}
+		} else {
+			if(SESSION("state") and SESSION("state") === REQUEST("state")) {
+				$tokenURL = "https://graph.facebook.com/oauth/access_token?client_id=". _fbAppID ."&redirect_uri=". encode(_fbAppURL, TRUE) ."&client_secret=". _fbAppSecret ."&code=". $code;
+		     	$response = file_get_contents($tokenURL);
+		     	$params   = NULL;
+		     	
+		     	parse_str($response, $params);
+
+		     	if(isset($params["access_token"])) {
+		     		SESSION("access_token", $params["access_token"]);
+
+		     		$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
+		 
+		     		$User = json_decode(file_get_contents($graphURL));
+
+		     		if($User) {
+		     			$Users_Model = $Load->model("Users_Model");
+
+		     			$data = $Users_Model->checkUserService($User->id);
+
+		     			if($data) {
+		     				createLoginSessions($data[0]);							
+		     			} else {
+		     				die(var_dump($User));
+		     				$vars["view"] = $this->view("fbregister", TRUE);
+
+		     				$this->render("content", $vars);
+		     			}
+		     		} else {
+		     			showAlert(__("An unknown problem occurred, try to login again"), path());	
+		     		}     			     		
+		     	} else {
+		     		showAlert(__("Invalid Token, try to login again"), path());
+		     	}		     
+			}
+		}
+	}
+		
 	public function logout() {
 		unsetSessions(path());
 	}
