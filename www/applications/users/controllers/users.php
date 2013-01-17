@@ -26,7 +26,7 @@ class Users_Controller extends ZP_Load {
 
 	public function service($service = "facebook", $login = FALSE) {
 		if($service === "facebook") {
-			facebookLogin();
+			facebookLogin($login);
 		} elseif($service === "twitter") {
 			//twitterLogin();
 		}
