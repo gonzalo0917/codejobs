@@ -308,6 +308,9 @@ class Users_Controller extends ZP_Load {
 		if(POST("delete")) {
 			$this->helper("alerts");
 			$vars["alert"] = $this->Users_Model->deleteAvatar();
+		} elseif(POST("save")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->saveAvatar();
 		}
 
 		$data = $this->Users_Model->getAvatar();

@@ -23,15 +23,15 @@
 	function selectFile(files) {
 		if (files.length === 1) {
 			var file = files[0];
-			console.log(file);
-			if (file.size < 1024) {
+			
+			if (! /image/i .test(file.type)) {
+				alert($("#type-error").val());
+			} else if (file.size < 1024) {
 				alert($("#small-error").val());
 			} else if (file.size > 5242880) {
 				alert($("#big-error").val());
-			} else if (/image/i .test(file.type)) {
-				previewImage(file);
 			} else {
-				alert($("#type-error").val());
+				previewImage(file);
 			}
 		}
 	}
@@ -70,8 +70,11 @@
 	function markImage(coordinate) {
 		if(jcrop_api === undefined) {
 			$("#avatar-image").Jcrop({
-				minSize: [90, 90],
-				aspectRatio: 1
+				minSize: 	 [90, 90],
+				aspectRatio: 1,
+				onChange:    setCoords,
+		        onSelect:    setCoords,
+		        onRelease:   delCoords
 			}, function() {
 				jcrop_api = this;
 			});
@@ -118,6 +121,14 @@
 
 		return confirm($("#delete-message").val());
 	}
-	
+
+	function setCoords(coor) {
+		$("#coordinate").val(parseInt(coor.x) + "," + parseInt(coor.y) + "," + parseInt(coor.w) + "," + parseInt(coor.h));
+	}
+
+	function delCoords(coor) {
+		$("#coordinate").val("");
+	}
+
 	markImage(avatar_coordinate);
 }(jQuery);

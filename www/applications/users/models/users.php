@@ -685,7 +685,7 @@ class Users_Model extends ZP_Load {
 
 	public function deleteAvatar() {
 		if($this->Db->update($this->table, array("Avatar" => NULL, "Avatar_Coordinate" => NULL), SESSION("ZanUserID"))) {
-			return getAlert(__("The avatar has been deleted successfully"));
+			return getAlert(__("The avatar has been deleted successfully"), "success");
 		}
 
 		return getAlert(__("Update error"));
