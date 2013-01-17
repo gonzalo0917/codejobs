@@ -263,6 +263,7 @@ $phrase["my_points"]  									= "Mis puntos";
 $phrase["my_posts"]  									= "Mis publicaciones";
 $phrase["name"]								  			= "Nombre";
 $phrase["name_of_the_website"] 							= "Nombre del Sitio Web";
+$phrase["the_avatar_has_been_deleted_successfully"] 	= "La imagen de perfil se ha eliminado correctamente";
 $phrase["the_file_size_must_be_greater_than_or_equal_to_1kb"] = "El tamaño del archivo debe ser mayor o igual a 1KB";
 $phrase["the_file_size_must_be_less_than_or_equal_to_5mb"] = "El tamaño del archivo debe ser menor o igual a 5MB";
 $phrase["the_password_does_not_match_the_confirm_password"]	= "La contraseña no coincide con la contraseña de confirmación";

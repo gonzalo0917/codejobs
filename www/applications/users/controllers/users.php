@@ -305,6 +305,11 @@ class Users_Controller extends ZP_Load {
 	public function avatar() {
 		isConnected();
 
+		if(POST("delete")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->deleteAvatar();
+		}
+
 		$data = $this->Users_Model->getAvatar();
 		
 		if($data) {

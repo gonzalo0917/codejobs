@@ -118,6 +118,6 @@
 
 		return confirm($("#delete-message").val());
 	}
-
-	markImage();
+	
+	markImage(avatar_coordinate);
 }(jQuery);
