@@ -26,6 +26,7 @@ class Users_Controller extends ZP_Load {
 
 	public function facebook($login = FALSE) {
 		$this->config("users");
+		$this->helper("alerts");
 
 		$code = REQUEST("code");
 
@@ -45,13 +46,17 @@ class Users_Controller extends ZP_Load {
 		     	
 		     	parse_str($response, $params);
 
-		     	SESSION("access_token", $params["access_token"]);
+		     	if(isset($params["access_token"])) {
+		     		SESSION("access_token", $params["access_token"]);
 
-		     	$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
+		     		$graphURL = "https://graph.facebook.com/me?fields=". _fbAppFields ."&access_token=". $params["access_token"];
 		 
-		     	$User = json_decode(file_get_contents($graphURL));
+		     		$User = json_decode(file_get_contents($graphURL));
 		     	
-		     	die(var_dump($User));
+		     		die(var_dump($User));
+		     	} else {
+		     		showAlert(__("Invalid Token, try to login again"));
+		     	}		     
 			}
 		}
 	}
