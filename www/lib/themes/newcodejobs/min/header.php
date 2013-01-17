@@ -117,7 +117,14 @@
 				<div id="top-box-profile" class="toggle">
 					<div class="top-box-profile">
 						<div style="float: left; width: 90px;">
-							<img src="<?php echo path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE); ?>" alt="<?php echo SESSION("ZanUser"); ?>" />
+							<?php
+								if(substr(SESSION("ZanUserAvatar"), 0, 3) === "http") {
+									$avatar = SESSION("ZanUserAvatar");
+								} else {
+									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
+								}
+							?>
+							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" />
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px;">
