@@ -22,6 +22,9 @@ echo div("new-user", "class");
 
 		if(!isset($inserted) or !$inserted) {
 			if(!SESSION("UserRegistered")) {
+				?>
+				<p><?php echo img($avatar); ?> <?php echo __("Hi"); ?>, <?php echo $name; ?></p>
+				<?php
 				echo formInput(array(
 					"id"	   => "username",
 					"name" 	   => "username",
@@ -33,14 +36,6 @@ echo div("new-user", "class");
 					"required" => TRUE
 				));
 
-				echo formInput(array(					
-					"name" 	   => "name", 
-					"field"    => __("Name"), 
-					"p" 	   => TRUE, 
-					"value"    => $name,
-					"required" => TRUE
-				));
-
 				echo formInput(array(	
 					"name" 	   => "email",
 					"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
@@ -49,6 +44,12 @@ echo div("new-user", "class");
 					"p" 	   => TRUE, 
 					"value"    => $email,
 					"required" => TRUE
+				));
+
+				echo formInput(array(					
+					"name" 	=> "name", 										
+					"value" => $name,
+					"type"  => "hidden"
 				));
 
 				echo formInput(array(					
