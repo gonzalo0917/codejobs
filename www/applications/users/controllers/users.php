@@ -188,7 +188,7 @@ class Users_Controller extends ZP_Load {
 		$this->render("content", $vars);
 	}
 	
-	public function register() {	
+	public function register($service = FALSE) {	
 		$this->helper(array("html", "alerts"));
 				
 		if(!SESSION("ZanUser")) {
@@ -202,7 +202,7 @@ class Users_Controller extends ZP_Load {
 				$vars["pwd"]      = POST("password") ? POST("password") : NULL;
 
 				if(POST("username")) {
-					$status = $this->Users_Model->addUser();
+					$status = $this->Users_Model->addUser($service);
 				
 					$vars["inserted"] = $status["inserted"];
 					$vars["alert"]    = $status["alert"];	

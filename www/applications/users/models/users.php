@@ -148,7 +148,7 @@ class Users_Model extends ZP_Load {
 								 WHERE ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
 	}
 
-	public function addUser() {
+	public function addUser($service = FALSE) {
 		$this->helper(array("alerts", "time"));
 
 		if(SESSION("UserRegistered")) {
@@ -162,22 +162,28 @@ class Users_Model extends ZP_Load {
 				"Email"    => POST("email"),
 			),
 			"username" => "required",
-			"name" 	   => "name?",
-			"password" => "length:6",
+			"name" 	   => "name?",			
 			"email"    => "email?"
-		);
+		);		
 
 		$code = code(10);		
 
-		$data = array(
-			"Pwd"	     => POST("password", "encrypt"),
+		$data = array(			
 			"Start_Date" => now(4),
 			"Subscribed" => 1,
 			"Code"		 => $code,
 			"Situation"  => "Inactive"
 		);
+
+		if(!$service) {
+			$validations["password"] = "length:6";
+
+			$data["Pwd"] = POST("password", "encrypt");
+		} else {
+			$data["Pwd"] = NULL;
+		}
 	
-		$this->Data->ignore(array("password", "register", "name"));
+		$this->Data->ignore(array("password", "register", "name", "serviceID"));
 
 		$data = $this->Data->proccess($data, $validations);
 		
@@ -191,6 +197,10 @@ class Users_Model extends ZP_Load {
 			$ID_User_Information = $this->Db->insert("users_information", array("ID_User" => $ID_User, "Name" => POST("name")));
 
 			$this->Db->insert("re_privileges_users", array("ID_Privilege" => "4", "ID_User" => $ID_User));
+
+			if($service === "facebook") {
+				$this->Db->insert("users_services", array("ID_User" => $ID_User, "ID_Service" => POST("serviceID"), "Service" => "Facebook"));
+			}
 			
 			$message = $this->view("register_email", array("code" => $code), "users", TRUE);
 

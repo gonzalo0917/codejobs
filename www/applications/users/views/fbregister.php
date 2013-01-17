@@ -23,7 +23,7 @@ echo div("new-user", "class");
 		if(!isset($inserted) or !$inserted) {
 			if(!SESSION("UserRegistered")) {
 				?>
-				<p><?php echo img($avatar, array("style" => "border: 1px dotted #CCC; padding: 2px;")); ?> <?php echo __("Hi"); ?>, <?php echo $name; ?></p>
+				<p><?php echo img($avatar, array("style" => "border: 1px dotted #CCC; padding: 2px;")); ?> <strong><?php echo __("Hi"); ?></strong>, <?php echo $name; ?></p>
 				<?php
 				echo formInput(array(
 					"id"	   => "username",
