@@ -58,7 +58,7 @@ class Videos_Model extends ZP_Load {
 	
 	private function editOrSave() {
 		if((!POST("videos") or is_null(POST("videos"))) and (!POST("URL") or is_null(POST("URL"))) and (!POST("ID") or is_null(POST("ID")))) {
-			return getAlert("You need select video o write URL");
+			return getAlert(__("You need select video o write URL"));
 		}
 		
 		if(POST("URL")) {
@@ -178,9 +178,9 @@ class Videos_Model extends ZP_Load {
 		$response = $this->Db->update($this->table, $values, "ID_Video = " . $this->ID);
 		
 		if($response) {
-			return getAlert("The video has been edited correctly", "success");
+			return getAlert(__("The video has been edited correctly"), "success");
 		} else {
-			return getAlert("Edit error");
+			return getAlert(__("Edit error"));
 		}
 	}
 	

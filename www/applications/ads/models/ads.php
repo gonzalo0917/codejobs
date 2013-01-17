@@ -80,7 +80,7 @@ class Ads_Model extends ZP_Load {
 			
 			$dir = "www/lib/files/images/ads/";
 			
-			$this->Files = $this->core("Files");										
+			$this->Files = $this->core("Files");									
 			
 			$this->data["Banner"] = $this->Files->uploadImage($dir, "image", "normal");
 			
@@ -107,7 +107,7 @@ class Ads_Model extends ZP_Load {
 		
 		$this->Db->insert($this->table, $this->data);
 					
-		return getAlert("The ad has been saved correctly", "success");	
+		return getAlert(__("The ad has been saved correctly"), "success");	
 	}
 	
 	private function edit() {	
@@ -121,7 +121,7 @@ class Ads_Model extends ZP_Load {
 
 		$this->Db->update($this->table, $this->data, POST("ID"));
 		
-		return getAlert("The ad has been edited correctly", "success");
+		return getAlert(__("The ad has been edited correctly"), "success");
 	}
 	
 	private function search($search, $field) {

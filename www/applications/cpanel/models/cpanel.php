@@ -200,7 +200,7 @@ class CPanel_Model extends ZP_Load {
 				if(!$data) {
 					$this->helper("alerts");
 					
-					showAlert("Results not found", path(whichApplication() ."/cpanel/results"));
+					showAlert(__("Results not found"), path(whichApplication() ."/cpanel/results"));
 				}
 			} else {
 				$start = 0;

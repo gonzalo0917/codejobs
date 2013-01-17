@@ -67,17 +67,17 @@
 			<?php 
 				if($action === "save") {
 					if($success > 0) { 
-						echo showAlert("The new topic has been saved correctly", $href);
+						echo showAlert(__("The new topic has been saved correctly"), $href);
 					} elseif($success === 0) {
-						echo showAlert("You need to wait 25 seconds to create a new topic", $hrefE);
+						echo showAlert(__("You need to wait 25 seconds to create a new topic"), $hrefE);
 					} else { 
-						echo showAlert("Ooops an unexpected problem has ocurred", "reload");
+						echo showAlert(__("Ooops an unexpected problem has ocurred"), "reload");
 					}
 				} else { 
 					if($success > 0) { 
-						echo showAlert("The topic has been edited correctly", $href);
+						echo showAlert(__("The topic has been edited correctly"), $href);
 					} else { 
-						echo showAlert("Ooops an unexpected problem has ocurred", "reload");
+						echo showAlert(__("Ooops an unexpected problem has ocurred"), "reload");
 					}
 				}
 			?>

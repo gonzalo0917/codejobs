@@ -412,7 +412,7 @@ class Users_Model extends ZP_Load {
 							$this->Email->email	  = $email;
 							$this->Email->subject = __("Recover Password") ." - ". _get("webName");
 							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
-							
+
 							$this->Email->send();							
 
 							return getAlert(__("We've sent you an email with instructions to retrieve your password"), "success");							
@@ -639,9 +639,9 @@ class Users_Model extends ZP_Load {
 			$this->helper("alerts");
 
 			if(POST("new_password", "clean") !== POST("re_new_password", "clean")) {
-				return getAlert("The password does not match the confirm password");
+				return getAlert(__("The password does not match the confirm password"));
 			} elseif(!$this->isMember()) {
-				return getAlert("Incorrect password");
+				return getAlert(__("Incorrect password"));
 			}
 
 			if($this->Db->update($this->table, array("Pwd" => POST("new_password", "encrypt")), SESSION("ZanUserID"))) {
@@ -664,7 +664,7 @@ class Users_Model extends ZP_Load {
 			$this->helper("alerts");
 
 			if(!$this->isMember()) {
-				return getAlert("Incorrect password");
+				return getAlert(__("Incorrect password"));
 			}
 
 			if($this->Db->update($this->table, array("Email" => POST("email"), "Subscribed" => (int)(POST("subscribed") === "on")), SESSION("ZanUserID"))) {
@@ -680,7 +680,15 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function getAvatar() {
-		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Avatar");
+		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Avatar, Avatar_Coordinate");
+	}
+
+	public function deleteAvatar() {
+		if($this->Db->update($this->table, array("Avatar" => NULL, "Avatar_Coordinate" => NULL), SESSION("ZanUserID"))) {
+			return getAlert(__("The avatar has been deleted successfully"), "success");
+		}
+
+		return getAlert(__("Update error"));
 	}
 
 	public function getSocial() {
@@ -702,5 +710,4 @@ class Users_Model extends ZP_Load {
 		
 		return getAlert(__("Update error"));
 	}
-
 }

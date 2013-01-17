@@ -48,9 +48,9 @@ class Users_Controller extends ZP_Load {
 				SESSION("ZanUserPosts", $data[0]["Posts"]);
 				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
 					 
-				showAlert("Your account has been activated correctly!", path());
+				showAlert(__("Your account has been activated correctly!"), path());
 			} else {
-				showAlert("An error occurred when attempting to activate your account!", path());
+				showAlert(__("An error occurred when attempting to activate your account!"), path());
 			}
 		}
 	}
@@ -91,36 +91,44 @@ class Users_Controller extends ZP_Load {
 	}
 	
 	public function login() {
-		$this->CSS("login", $this->application);
-		
-		$this->title("Login");
-		
-		$data = FALSE;
+		$this->helper(array("html", "alerts"));
+				
+		if(!SESSION("ZanUser")) {
+			$this->title(decode(__("Login")));
 
-		$vars["href"] = path("users/login");
+			$this->helper("forms");
 
-		if(POST("login")) {
-			if($this->Users_Model->isAdmin() or $this->Users_Model->isMember()) {
-				$data = $this->Users_Model->getUserData();
-			} 
-			
-			if($data) {
-				SESSION("ZanUser", $data[0]["Username"]);
-				SESSION("ZanUserName", $data[0]["Name"]);
-				SESSION("ZanUserPwd", $data[0]["Pwd"]);
-				SESSION("ZanUserAvatar", $data[0]["Avatar"]);
-				SESSION("ZanUserID", $data[0]["ID_User"]);
-				SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
-				SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
-				SESSION("ZanUserCodes", $data[0]["Codes"]);
-				SESSION("ZanUserPosts", $data[0]["Posts"]);
-				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
+			$vars["href"] = path("users/login");
 
-				redirect();
-			} else { 
-				$this->helper("alerts");
-				showAlert(__("Incorrect Login"), path());
+			$data = FALSE;
+
+			if(POST("login")) {
+				if($this->Users_Model->isAdmin() or $this->Users_Model->isMember()) {
+					$data = $this->Users_Model->getUserData();
+				} 
+				
+				if($data) {
+					SESSION("ZanUser", $data[0]["Username"]);
+					SESSION("ZanUserName", $data[0]["Name"]);
+					SESSION("ZanUserPwd", $data[0]["Pwd"]);
+					SESSION("ZanUserAvatar", $data[0]["Avatar"]);
+					SESSION("ZanUserID", $data[0]["ID_User"]);
+					SESSION("ZanUserPrivilegeID", $data[0]["ID_Privilege"]);
+					SESSION("ZanUserBookmarks", $data[0]["Bookmarks"]);
+					SESSION("ZanUserCodes", $data[0]["Codes"]);
+					SESSION("ZanUserPosts", $data[0]["Posts"]);
+					SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
+
+					redirect();
+				} else { 
+					$this->helper("alerts");
+					showAlert(__("Incorrect Login")."!", path("users/login"));
+				}
 			}		
+
+			$vars["view"] = $this->view("loginuser", TRUE);
+			
+			$this->render("content", $vars);
 		} else {
 			redirect();
 		} 
@@ -129,6 +137,8 @@ class Users_Controller extends ZP_Load {
 	public function recover($token = FALSE) {	
 		$this->title(decode(__("Recover Password")));
 		
+		$this->helper(array("forms", "html", "alerts"));
+
 		if(POST("change")) {			
 			$vars["alert"] 	 = $this->Users_Model->change();
 			$vars["tokenID"] = $token;
@@ -145,8 +155,6 @@ class Users_Controller extends ZP_Load {
 				redirect();
 			}
 		} 
-
-		$this->helper(array("forms", "html"));
 
 		$vars["view"] = $this->view("recover", TRUE);
 		
@@ -255,7 +263,7 @@ class Users_Controller extends ZP_Load {
 		$this->js("bootstrap");
 		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
-		$this->title(htmlentities(__("Change password")));
+		$this->title(decode(__("Change password")));
 
 		$vars["view"] = $this->view("password", TRUE);
 		$vars["href"] = path("users/password/");
@@ -282,7 +290,7 @@ class Users_Controller extends ZP_Load {
 			$this->js("bootstrap");
 			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
-			$this->title(htmlentities(__("Change e-mail")));
+			$this->title(decode(__("Change e-mail")));
 
 			$vars["view"] = $this->view("email", TRUE);
 			$vars["href"] = path("users/email/");
@@ -296,6 +304,14 @@ class Users_Controller extends ZP_Load {
 
 	public function avatar() {
 		isConnected();
+
+		if(POST("delete")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->deleteAvatar();
+		} elseif(POST("save")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->saveAvatar();
+		}
 
 		$data = $this->Users_Model->getAvatar();
 		
@@ -346,6 +362,29 @@ class Users_Controller extends ZP_Load {
 			$this->render("content", $vars);
 		} else {
 			redirect();
+		}
+	}
+
+	public function cv() {
+		isConnected();
+
+		if(POST("update")) {
+			//Guardes todo por PHP
+		}
+
+		$this->js("cv", "users");
+
+		$data = $this->Users_Model->getInformation();
+
+		if($data) {
+			//mostrar el form con toda la info
+			$vars["user"] = $data[0];
+			$vars["view"] = $this->view("cv", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			//$this->render("error404");
+			//redirect();
 		}
 	}
 }

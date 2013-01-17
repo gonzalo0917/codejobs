@@ -1,5 +1,5 @@
 !function($) {
-	var jcrop_api;
+	var jcrop_api, avatar_file, avatar_coordinate;
 
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();
@@ -9,48 +9,72 @@
 		selectFile(this.files);
 	});
 
+	$('input[name="resume"]').click(function () {
+		restoreImage();
+	});
+
+	$('input[name="delete"]').click(function () {
+		return removeImage();
+	});
+
+	avatar_file 	  = $("#avatar-image").attr("src");
+	avatar_coordinate = $("#coordinate").val();
+
 	function selectFile(files) {
 		if (files.length === 1) {
 			var file = files[0];
 			
-			if (/image/i .test(file.type)) {
-				previewImage(file);
+			if (! /image/i .test(file.type)) {
+				alert($("#type-error").val());
+			} else if (file.size < 1024) {
+				alert($("#small-error").val());
+			} else if (file.size > 5242880) {
+				alert($("#big-error").val());
 			} else {
-				alert("Image type does not supported");
+				previewImage(file);
 			}
 		}
 	}
 
-	function previewImage(file) {
-		if (typeof FileReader !== "undefined") {
+	function previewImage(file, coordinate) {
+		console.log("Se solicita imagen previa de (" + file + ", " + coordinate + ")");
+		if (typeof FileReader !== "undefined" && typeof file !== "string") {
 			var reader = new FileReader();
 
 			reader.onload = function (event) {
-				if(jcrop_api === undefined) {
-					$("#avatar-image").Jcrop({
-						minSize: [90, 90],
-						aspectRatio: 1
-					}, function() {
-						console.log("Se creara la imagen desde previewImage()");
-						jcrop_api = this;
-					});
+				$("#avatar-image").attr("src", event.target.result);
+
+				destroyMark();
+
+				if (coordinate !== undefined) {
+					window.setTimeout('markImage("' + coordinate + '")', 0);
+				} else {
+					window.setTimeout(markImage, 0);
 				}
-
-				jcrop_api.setImage(event.target.result);
-				//$("#avatar-image").attr("src", event.target.result);
-
-				window.setTimeout(markImage, 0);
 			}
 
 			reader.readAsDataURL(file);
+		} else if (typeof file === "string") {
+			$("#avatar-image").attr("src", file);
+
+			destroyMark();
+
+			if (coordinate !== undefined) {
+				markImage(coordinate);
+			} else {
+				markImage();
+			}
 		}
 	}
 
-	function markImage() {
+	function markImage(coordinate) {
 		if(jcrop_api === undefined) {
 			$("#avatar-image").Jcrop({
-				minSize: [90, 90],
-				aspectRatio: 1
+				minSize: 	 [90, 90],
+				aspectRatio: 1,
+				onChange:    setCoords,
+		        onSelect:    setCoords,
+		        onRelease:   delCoords
 			}, function() {
 				jcrop_api = this;
 			});
@@ -62,25 +86,49 @@
 			square = (width === height);
 
 		if(!square || !small) {
-			if(square) {
-				jcrop_api.setSelect([0, 0, width - 6, width - 6]);
-				//$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: "10px"});
-			} else if(width > height) {
-				var pos_left = parseInt((width - height)/2) + 10;
-				jcrop_api.setSelect([pos_left, 0, height - 6, height - 6]);
-				//$("#marker").width(height - 6).height(height - 6).css({top: "10px", left: pos_left + "px"});
+			if(coordinate === undefined) {
+				if(square) {
+					jcrop_api.setSelect([0, 0, width, width]);
+				} else if(width > height) {
+					var pos_left = parseInt((width - height)/2) + 10;
+					jcrop_api.setSelect([pos_left, 0, height, height]);
+				} else {
+					var pos_top = parseInt((height - width)/2) + 10;
+					jcrop_api.setSelect([0, pos_top, width, width]);
+				}
 			} else {
-				var pos_top = parseInt((height - width)/2) + 10;
-				jcrop_api.setSelect([0, pos_top, width - 6, width - 6]);
-				//$("#marker").width(width - 6).height(width - 6).css({top: pos_top + "px", left: "10px"});
+				jcrop_api.setSelect(coordinate.split(","));
 			}
-
-			//$("#marker").css("display", "block");
 		} else {
-			console.log("SE LIBERARA");
-			jcrop_api.release();
+			destroyMark();
 		}
 	}
 
-	markImage();
+	function destroyMark() {
+		if (jcrop_api !== undefined) {
+			jcrop_api.destroy();
+			$("#avatar-image").css({height: "", width: "", visibility: "visible"});
+			jcrop_api = undefined;
+		}
+	}
+
+	function restoreImage() {
+		previewImage(avatar_file, avatar_coordinate);
+	}
+
+	function removeImage() {
+		restoreImage();
+
+		return confirm($("#delete-message").val());
+	}
+
+	function setCoords(coor) {
+		$("#coordinate").val(parseInt(coor.x) + "," + parseInt(coor.y) + "," + parseInt(coor.w) + "," + parseInt(coor.h));
+	}
+
+	function delCoords(coor) {
+		$("#coordinate").val("");
+	}
+
+	markImage(avatar_coordinate);
 }(jQuery);

@@ -510,7 +510,7 @@ class Library extends ZP_Load {
 		$options = NULL;
 		
 		if(!$dir) {
-			showAlert("Uploads directories does not exists", path("cpanel"));
+			showAlert(__("Uploads directories does not exists"), path("cpanel"));
 		}
 		
 		while($element = $dir->read()) {			

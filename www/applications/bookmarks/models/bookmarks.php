@@ -82,7 +82,7 @@ class Bookmarks_Model extends ZP_Load {
 		}
 		
 		if(!$ID_User) {
-			return getAlert("Author is not a valid user");
+			return getAlert(__("Author is not a valid user"));
 		}
 
 		$data = array(

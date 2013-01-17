@@ -23,10 +23,13 @@
 					echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
 					 
 					if($job["Technologies"] !== "") {
-						//validacion antes si esta autor, agregar autor a la url
-						echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
+						if(segment(1, isLang()) === "author") {      
+							echo __("in") ." ". exploding($job["Technologies"], "jobs/". $job["Author"]. "/tag/");
+						} else {
+							echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
+						}
 					}
-				?>			
+				?>
 				<br />
 			</span>
 

@@ -2,9 +2,15 @@
 	if(!defined("_access")) {
 		die("Error: You don't have permission to access here...");
 	}
+
+	$lang = _get("webLang");
+
+	if(isAdmin()) {
+		die(var_dump(getIP()));		
+	}
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo _get("webLang"); ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
+<html lang="<?php echo $lang; ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -59,7 +65,7 @@
 					<ul>
 						<li><a href="<?php echo path(); ?>"><?php echo __("Home"); ?></a></li>
 						<li><a href="<?php echo path("codes"); ?>"><?php echo __("Codes"); ?></a></li>
-						<!--<li><a href="<?php echo path("jobs"); ?>"><?php echo __("Jobs"); ?></a></li>-->
+						<li><a href="<?php echo path("jobs"); ?>"><?php echo __("Jobs"); ?></a></li>
 						<!--<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>-->
 						<li><a href="http://www.youtube.com/codejobs" target="_blank"><?php echo __("Videos"); ?></a></li>
 						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>
@@ -98,7 +104,8 @@
 							<br />
 							<a href="<?php echo path("users/recover"); ?>"><?php echo __("Forgot your password?"); ?></a>
 
-							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />
+							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />							
+							<!--<a href="#" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /> -->
 						</fieldset>
 					</form>
 				</div>

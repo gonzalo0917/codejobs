@@ -55,17 +55,17 @@ class Comments_Model extends ZP_Load {
 		$this->helper(array("time", "alerts"));
 
 		if(COOKIE("ZanComment")) {
-			return getAlert("You must wait a little to publish another comment");
+			return getAlert(__("You must wait a little to publish another comment"));
 		} elseif(!POST("comment")) {
-			return getAlert("You must write your comment");
+			return getAlert(__("You must write your comment"));
 		} elseif(isSPAM(POST("comment"))) {
-			return getAlert("Your comment contains a lot of SPAM");
+			return getAlert(__("Your comment contains a lot of SPAM"));
 		} elseif(isVulgar(POST("comment"))) {
-			return getAlert("Your comment is very vulgar");
+			return getAlert(__("Your comment is very vulgar"));
 		} elseif(isInjection(POST("comment", "clean"))) {
-			return getAlert("Please do not try to inject HTML in your comments");
+			return getAlert(__("Please do not try to inject HTML in your comments"));
 		} elseif(!POST("recordID")) {
-			return getAlert("Invalid comment");
+			return getAlert(__("Invalid comment"));
 		}
 
 		$data = array(

@@ -86,7 +86,7 @@ class Blog_Model extends ZP_Load {
 		} 
 
         if(is_array($this->postMural)) {
-        	return getAlert($this->postMural["alert"]);
+        	return getAlert(__($this->postMural["alert"]));
         }
 		
 		if(POST("delete_mural") === "on") {

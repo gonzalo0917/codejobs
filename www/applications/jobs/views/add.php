@@ -8,13 +8,14 @@
 	$email       	= isset($data) ? recoverPOST("email", $data[0]["Email"])   		   					 : recoverPOST("email");
 	$address1      	= isset($data) ? recoverPOST("address1", $data[0]["Address1"])   		   			 : recoverPOST("address1");
 	$address2      	= isset($data) ? recoverPOST("address2", $data[0]["Address2"])   		   			 : recoverPOST("address2");
+	$logo	      	= isset($data) ? recoverPOST("logo", $data[0]["Logo"])   		   					 : recoverPOST("logo");
 	$phone       	= isset($data) ? recoverPOST("phone", $data[0]["Phone"])   		   					 : recoverPOST("phone");
 	$company       	= isset($data) ? recoverPOST("company", $data[0]["Company"])   		   				 : recoverPOST("company");
 	$cinformation	= isset($data) ? recoverPOST("cinformation", $data[0]["Company_Information"]) 		 : recoverPOST("cinformation");
 	$country	  	= isset($data) ? recoverPOST("country", $data[0]["Country"])        				 : recoverPOST("country");
 	$city  		 	= isset($data) ? recoverPOST("city", $data[0]["City"])        				 		 : recoverPOST("city");	
 	$salary    	  	= isset($data) ? recoverPOST("salary", $data[0]["Salary"])            				 : recoverPOST("salary");	
-	$currency       = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"])            	 : recoverPOST("salary_currency");	
+	$currency       = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"])         : recoverPOST("salary_currency");	
 	$allocation  	= isset($data) ? recoverPOST("allocation_time", $data[0]["Allocation_Time"]) 		 : recoverPOST("allocation_time");
 	$requirements	= isset($data) ? recoverPOST("requirements", $data[0]["Requirements"])				 : recoverPOST("requirements");
 	$technologies	= isset($data) ? recoverPOST("technologies", $data[0]["Technologies"])				 : recoverPOST("technologies");
@@ -25,7 +26,7 @@
 	$href 	   		= isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") 					 : path(whichApplication() ."/cpanel/add");
 	
 	echo div("add-form", "class");
-		echo formOpen($href, "form-add", "form-add");
+		echo formOpen($href, "form-add", "form-add", NULL, "post", "multipart/form-data");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
@@ -65,6 +66,22 @@
 				"class"    => "span5",
 				"placeholder" => __("Company Address (Optional)"),
 				"value"    => $address2,
+			));
+
+			if(isset($logo)) {
+				$image = img(path($logo, TRUE), array("alt" => "Logo", "class" => "no-border", "style" => "max-width: 200px;"));
+			
+				echo __("If you change the logo image, this image will be deleted") . "<br />";
+				echo $image;
+				echo formInput(array("name" => "logo", "type" => "hidden", "value" => $logo));
+			} 
+
+			echo formInput(array(
+				"type" 	=> "file", 
+				"name" 	=> "image", 
+				"class" => "required", 
+				"field" => __("Image"),
+				"p" 	=> TRUE
 			));
 
 			echo formInput(array( 
