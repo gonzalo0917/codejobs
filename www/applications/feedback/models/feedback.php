@@ -101,7 +101,7 @@ class Feedback_Model extends ZP_Load {
 		$insert = $this->Db->insert($this->table, $values);
 			
 		if(!$insert) {
-			return getAlert("Insert error");
+			return getAlert(__("Insert error"));
 		}
 
 		$vars["name"] 	 = POST("name");

@@ -639,9 +639,9 @@ class Users_Model extends ZP_Load {
 			$this->helper("alerts");
 
 			if(POST("new_password", "clean") !== POST("re_new_password", "clean")) {
-				return getAlert("The password does not match the confirm password");
+				return getAlert(__("The password does not match the confirm password"));
 			} elseif(!$this->isMember()) {
-				return getAlert("Incorrect password");
+				return getAlert(__("Incorrect password"));
 			}
 
 			if($this->Db->update($this->table, array("Pwd" => POST("new_password", "encrypt")), SESSION("ZanUserID"))) {
@@ -664,7 +664,7 @@ class Users_Model extends ZP_Load {
 			$this->helper("alerts");
 
 			if(!$this->isMember()) {
-				return getAlert("Incorrect password");
+				return getAlert(__("Incorrect password"));
 			}
 
 			if($this->Db->update($this->table, array("Email" => POST("email"), "Subscribed" => (int)(POST("subscribed") === "on")), SESSION("ZanUserID"))) {

@@ -66,17 +66,17 @@
 		<?php 
 			if($action === "save") {
 				if($success > 0) { 
-					echo showAlert("The reply has been saved correctly", $href);
+					echo showAlert(__("The reply has been saved correctly"), $href);
 				} elseif($success === 0) {
-					echo showAlert("You need to wait 25 seconds to create a new reply", $href);
+					echo showAlert(__("You need to wait 25 seconds to create a new reply"), $href);
 				} else { 
-					echo showAlert("Ooops an unexpected problem has ocurred", "reload");
+					echo showAlert(__("Ooops an unexpected problem has ocurred"), "reload");
 				}
 			} else { 
 				if($success > 0) { 
-					echo showAlert("The reply has been edited correctly", $href);
+					echo showAlert(__("The reply has been edited correctly"), $href);
 				} else { 
-					echo showAlert("Ooops an unexpected problem has ocurred", "reload");
+					echo showAlert(__("Ooops an unexpected problem has ocurred"), "reload");
 				}
 			}
 		?>

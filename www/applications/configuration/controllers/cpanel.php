@@ -64,7 +64,7 @@ class CPanel_Controller extends ZP_Load {
 				minify();
 			}
 
-			$this->vars["alert"] = getAlert("Updated successfully", "success");
+			$this->vars["alert"] = getAlert(__("Updated successfully"), "success");
 		} elseif(POST("delete_cache")) {
 			$this->Cache = $this->core("Cache");
 			$this->helper("alerts");
@@ -73,11 +73,11 @@ class CPanel_Controller extends ZP_Load {
 				case "blog": case "bookmarks": case "codes": case "pages": case "world":
 					$this->Cache->removeAll(POST("cache"));
 					
-					$this->vars["alert"] = getAlert("The cache files were removed", "success");
+					$this->vars["alert"] = getAlert(__("The cache files were removed"), "success");
 				break;
 
 				default:
-					$this->vars["alert"] = getAlert("Does not exist cache group specified");
+					$this->vars["alert"] = getAlert(__("Does not exist cache group specified"));
 			}
 		}
 		
@@ -116,7 +116,7 @@ class CPanel_Controller extends ZP_Load {
 
    			$this->vars["code"]  = compress($code, $type);
 	   		$this->vars["type"]  = $type;
-	   		$this->vars["alert"] = getAlert("The code has been minified", "success");
+	   		$this->vars["alert"] = getAlert(__("The code has been minified"), "success");
 		}
 
 		$this->vars["view"] = $this->view("minifier", TRUE, $this->application);	

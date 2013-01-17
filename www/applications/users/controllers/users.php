@@ -48,9 +48,9 @@ class Users_Controller extends ZP_Load {
 				SESSION("ZanUserPosts", $data[0]["Posts"]);
 				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
 					 
-				showAlert("Your account has been activated correctly!", path());
+				showAlert(__("Your account has been activated correctly!"), path());
 			} else {
-				showAlert("An error occurred when attempting to activate your account!", path());
+				showAlert(__("An error occurred when attempting to activate your account!"), path());
 			}
 		}
 	}

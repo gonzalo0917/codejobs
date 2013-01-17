@@ -92,7 +92,7 @@ class Codes_Model extends ZP_Load {
 		}
 
 		if(!$ID_User) {
-			return getAlert("Author is not a valid user");
+			return getAlert(__("Author is not a valid user"));
 		}
 		
 		$data = array(
@@ -254,13 +254,13 @@ class Codes_Model extends ZP_Load {
         $total  = count($files);
             
         if($total == 0) {
-        	return array("error" => getAlert("Files are required"));
+        	return array("error" => getAlert(__("Files are required")));
         } elseif(count(array_filter($syntax)) != $total) {
-        	return array("error" => getAlert("Syntax is required"));
+        	return array("error" => getAlert(__("Syntax is required")));
         } elseif(count(array_filter($name)) != $total) {
-        	return array("error" => getAlert("Filename is required"));
+        	return array("error" => getAlert(__("Filename is required")));
         } elseif(count(array_filter($code)) != $total) {
-        	return array("error" => getAlert("Code is required"));
+        	return array("error" => getAlert(__("Code is required")));
         }
          
         $data = array();

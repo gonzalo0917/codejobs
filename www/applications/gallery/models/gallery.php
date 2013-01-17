@@ -47,7 +47,7 @@ class Gallery_Model extends ZP_Load {
 		$this->helper("alerts");
 		
 		if(!POST("title")) {
-			return getAlert("You need to write a title");
+			return getAlert(__("You need to write a title"));
 		}
 				
 		if(!POST("category") and POST("ID_Category") === "0") {
@@ -95,7 +95,7 @@ class Gallery_Model extends ZP_Load {
 					$this->medium   = $this->Images->getResize("medium", $dir, $upload["filename"], _minOriginal, _maxOriginal);
 					$this->small    = $this->Images->getResize("small", $dir, $upload["filename"], _minOriginal, _maxOriginal);
 				} else {
-					return getAlert($upload["message"]);
+					return getAlert(__($upload["message"]));
 				}
 			} else {
 				if($action === "edit") {
@@ -103,7 +103,7 @@ class Gallery_Model extends ZP_Load {
 					$this->medium   = "";
 					$this->small    = "";
 				} else {
-					return getAlert("Selected Image");
+					return getAlert(__("Selected Image"));
 				}
 			}
 		}
@@ -155,7 +155,7 @@ class Gallery_Model extends ZP_Load {
 						$this->medium   = $this->Images->getResize("medium", $dir, $upload["filename"], _minOriginal, _maxOriginal);
 						$this->small    = $this->Images->getResize("small", $dir, $upload["filename"], _minOriginal, _maxOriginal);
 					} else {
-						return getAlert($upload["message"]);
+						return getAlert(__($upload["message"]));
 					}	
 					
 					$query  = "setImage(". SESSION("ZanUserID") .", $this->category, '$this->title', '$this->nice', '$this->description', '$this->small', ";
@@ -171,9 +171,9 @@ class Gallery_Model extends ZP_Load {
 		} 
 
 		if($noImage === $filecount) {
-			return getAlert("Selected Image");
+			return getAlert(__("Selected Image"));
 		} else {
-			return getAlert("The image has been saved correctly", "success");
+			return getAlert(__("The image has been saved correctly"), "success");
 		}
 	}
 	
@@ -184,10 +184,10 @@ class Gallery_Model extends ZP_Load {
 		$data = $this->Db->call($query);
 							
 		if(isset($data[0]["Image_Not_Exists"])) {
-			return getAlert("This image not exists");
+			return getAlert(__("This image not exists"));
 		}
 		
-		return getAlert("The image has been edit correctly", "success");
+		return getAlert(__("The image has been edit correctly"), "success");
 	}
 	
 	public function getByID($ID, $mode = FALSE) {
