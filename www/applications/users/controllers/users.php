@@ -55,7 +55,7 @@ class Users_Controller extends ZP_Load {
 		     	
 		     		die(var_dump($User));
 		     	} else {
-		     		showAlert(__("Invalid Token, try to login again"));
+		     		showAlert(__("Invalid Token, try to login again"), path());
 		     	}		     
 			}
 		}
