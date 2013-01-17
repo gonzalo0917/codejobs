@@ -32,11 +32,9 @@ class Users_Controller extends ZP_Load {
 		}
 	}
 
-	public function facebookLogin($login = FALSE) {
-		global $Load;
-		
-		$Load->config("users");
-		$Load->helper("alerts");
+	public function facebookLogin($login = FALSE) {	
+		$this->config("users");
+		$this->helper("alerts");
 		
 		$code = REQUEST("code");
 
@@ -64,9 +62,7 @@ class Users_Controller extends ZP_Load {
 		     		$User = json_decode(file_get_contents($graphURL));
 
 		     		if($User) {
-		     			$Users_Model = $Load->model("Users_Model");
-
-		     			$data = $Users_Model->checkUserService($User->id);
+		     			$data = $this->Users_Model->checkUserService($User->id);
 
 		     			if($data) {
 		     				createLoginSessions($data[0]);							
