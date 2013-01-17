@@ -120,7 +120,7 @@
 							<?php						
 								$avatar = (substr(SESSION("ZanUserAvatar"), 0, 4) === "http") ? SESSION("ZanUserAvatar") : path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);			
 							?>
-							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" />
+							<img class="dotted" src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" />
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px;">

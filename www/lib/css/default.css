@@ -1,3 +1,8 @@
+.dotted {
+	border: 1px dotted #CCC; 
+	padding: 2px;
+}
+
 .center {
 	text-align: center;
 }
