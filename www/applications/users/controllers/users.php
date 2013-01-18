@@ -33,6 +33,8 @@ class Users_Controller extends ZP_Load {
 	}
 
 	public function twitterLogin() {
+		$this->helper(array("alerts", "twitter", "forms", "html"));
+
 		$this->Twitter = $this->library("twitter", "EpiTwitter", array(_twConsumerKey, _twConsumerSecret));
 		
 		$oauthToken = GET("oauth_token");
