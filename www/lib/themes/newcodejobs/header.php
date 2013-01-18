@@ -106,14 +106,7 @@
 							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />		 					
 							<br />
 							<br />
-							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" />
-							<?php 
-								if(isAllowedIP()) {
-								?>
-									<br /><a href="<?php echo path("users/service/twitter"); ?>" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>							
-								<?php
-								}
-							?>							
+							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="<?php echo path("users/service/twitter"); ?>" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>					
 						</fieldset>
 					</form>
 				</div>
