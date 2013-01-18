@@ -58,9 +58,9 @@ define("_via", "codejobs");
  */
 define("_twConsumerKey", "Your Twitter Consumer Key");
 define("_twConsumerSecret", "Your Twitter Consumer Secret");
-define("_twRequestTokenURL", "https://api.twitter.com/oauth/request_token");
-define("_twAuthorizeURL", "https://api.twitter.com/oauth/authorize");
-define("_twAccessTokenURL", "https://api.twitter.com/oauth/access_token");
+define("_twRequestTokenURL", "http://twitter.com/oauth/request_token");
+define("_twAuthorizeURL", "http://twitter.com/oauth/authorize");
+define("_twAccessTokenURL", "http://twitter.com/oauth/access_token");
 
 /**
  * Facebook App
