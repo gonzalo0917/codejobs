@@ -40,14 +40,13 @@ class Users_Controller extends ZP_Load {
 		$oauthToken = GET("oauth_token");
 
 		if(!$oauthToken) { 	
+			$a = $this->Twitter->getAuthenticateUrl();
+			die(var_dump($a));
 	  		redirect($this->Twitter->getAuthenticateUrl());	
      	} else {
      		$data = getTwitterUser($oauthToken, $this->Twitter);
      		
-			$username = $data->screen_name;
-			$profilepic = $data->profile_image_url;
-			echo "<pre>";
-			die(var_dump($data));
+			
      	}
 	}
 
