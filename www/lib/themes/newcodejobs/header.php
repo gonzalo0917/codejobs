@@ -119,13 +119,13 @@
 					<div class="top-box-profile">
 						<div style="float: left; width: 90px;">
 							<?php
-								if(substr(SESSION("ZanUserAvatar"), 0, 3) === "http") {
+								if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http") {
 									$avatar = SESSION("ZanUserAvatar");
 								} else {
 									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
 								}
 							?>
-							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" />
+							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" />
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px;">
