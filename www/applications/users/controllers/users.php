@@ -37,10 +37,8 @@ class Users_Controller extends ZP_Load {
 		
 		$oauthToken = GET("oauth_token");
 
-		if(!$oauthToken) { 
-			$a = $this->Twitter->getAuthorizationUrl();
-			die(var_dump($a));
-	  		redirect($this->Twitter->getAuthorizationUrl());	
+		if(!$oauthToken) { 				
+	  		redirect($this->Twitter->getAuthorizationURL());	
      	} else {
      		$this->Twitter->setToken($oauthToken);
      		
