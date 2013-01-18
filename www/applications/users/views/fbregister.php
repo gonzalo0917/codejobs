@@ -6,12 +6,14 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-$username  = recoverPOST("username", $username);
-$email     = recoverPOST("email", $email);
-$name      = recoverPOST("name", $name);
-$avatar    = recoverPOST("avatar", $avatar);
-$birthday  = recoverPOST("birthday", $birthday);
-$serviceID = recoverPOST("serviceID", $serviceID);
+$fbUser = SESSION("fbUser");
+
+$username  = recoverPOST("username", $fbUser["username"]);
+$email     = recoverPOST("email", $fbUser["email"]);
+$name      = recoverPOST("name", $fbUser["name"]);
+$avatar    = recoverPOST("avatar", $fbUser["avatar"]);
+$birthday  = recoverPOST("birthday", $fbUser["birthday"]);
+$serviceID = recoverPOST("serviceID", $fbUser["serviceID"]);
 
 echo div("new-user", "class");
 	echo formOpen(path("users/register/facebook"), "form", "form");
