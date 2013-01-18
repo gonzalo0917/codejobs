@@ -6,6 +6,13 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
+$username  = recoverPOST("username", $username);
+$email     = recoverPOST("email", $email);
+$name      = recoverPOST("name", $name);
+$avatar    = recoverPOST("avatar", $avatar);
+$birthday  = recoverPOST("birthday", $birthday);
+$serviceID = recoverPOST("serviceID", $serviceID);
+
 echo div("new-user", "class");
 	echo formOpen(path("users/register/facebook"), "form", "form");
 		echo p(__("Join today to") ." ". _get("webName"), "resalt");
