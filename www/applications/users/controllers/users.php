@@ -46,7 +46,7 @@ class Users_Controller extends ZP_Load {
      	} else {
      		$data = getTwitterUser($oauthToken, $this->Twitter);
      		
-			
+			die(var_dump($data));
      	}
 	}
 
