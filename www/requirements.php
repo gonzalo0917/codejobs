@@ -26,7 +26,7 @@ if(file_exists(_dir ."/config/config.php")) {
 if($ZP["environment"] > 2) { 
 	error_reporting(E_ALL);
 
-	#ini_set("display_errors", FALSE); 
+	ini_set("display_errors", FALSE); 
 } else {
 	if(!headers_sent()) {
 		header("Cache-Control: no-cache, must-revalidate");

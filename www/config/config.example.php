@@ -54,6 +54,24 @@ define("_defaultTimezone", "America/Mexico_City");
 define("_via", "codejobs");
 
 /**
+ * Twitter App
+ */
+define("_twConsumerKey", "Your Twitter Consumer Key");
+define("_twConsumerSecret", "Your Twitter Consumer Secret");
+define("_twRequestTokenURL", "https://api.twitter.com/oauth/request_token");
+define("_twAuthorizeURL", "https://api.twitter.com/oauth/authorize");
+define("_twAccessTokenURL", "https://api.twitter.com/oauth/access_token");
+
+/**
+ * Facebook App
+ */
+define("_fbAppID", "Your Facebook App ID");
+define("_fbAppSecret", "Your Facebook App Secret");
+define("_fbAppScope", "email,user_birthday,read_stream");
+define("_fbAppFields", "id,name,email,birthday,picture,username");
+define("_fbAppURL", "Your Facebook App URL");
+
+/**
  * Cache
  */
 define("_cacheStatus", FALSE);

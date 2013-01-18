@@ -28,12 +28,37 @@ class Users_Controller extends ZP_Load {
 		if($service === "facebook") {
 			$this->facebookLogin($login);
 		} elseif($service === "twitter") {
-			//$this->twitterLogin();
+			$this->twitterLogin();
 		}
 	}
 
-	public function facebookLogin($login = FALSE) {	
-		$this->config("users");
+	public function twitterLogin() {
+		$this->Twitter = $this->library("twitter", "TwTwitter", array(_twConsumerKey, _twConsumerSecret));
+		
+		$oauthToken = GET("oauth_token");
+
+		if(!$oauthToken) { 
+	  		redirect($this->Twitter->getAuthorizationUrl());	
+     	} else {
+     		$this->Twitter->setToken($oauthToken);
+     		
+			$accessToken = $this->Twitter->getAccessToken();
+
+			$this->Twitter->setToken($accessToken->oauth_token, $accessToken->oauth_token_secret);	  	
+			
+			SESSION("ZanUserServiceAccessToken", $accessToken->oauth_token);
+			SESSION("ZanUserServiceAccessTokenSecret", $accessToken->oauth_token_secret);
+
+			$data = $this->Twitter->get_accountVerify_credentials();			
+		
+			$username = $data->screen_name;
+			$profilepic = $data->profile_image_url;
+
+			die(var_dump($data));
+     	}
+	}
+
+	public function facebookLogin($login = FALSE) {			
 		$this->helper(array("alerts", "facebook", "forms", "html"));
 		
 		$code = REQUEST("code");
