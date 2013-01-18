@@ -32,25 +32,18 @@ class Users_Controller extends ZP_Load {
 		}
 	}
 
-	public function twitterLogin() {	
-		$this->helper(array("alerts", "twitter", "forms", "html"));
-
+	public function twitterLogin() {
+		$this->Twitter = $this->library("twitter", "EpiTwitter", array(_twConsumerKey, _twConsumerSecret));
+		
 		$oauthToken = GET("oauth_token");
 
 		if(!$oauthToken) { 	
-	  		getTwitterLogin();
+	  		redirect($this->Twitter->getAuthenticateUrl());	
      	} else {
-     		setTwitterToken($oauthToken);
+     		$data = getTwitterUser($oauthToken, $this->Twitter);
      		
-			$accessToken = getTwitterAccessToken();
-
-			setTwitterToken($accessToken->oauth_token, $accessToken->oauth_token_secret);
-			
-			SESSION("ZanUserServiceAccessToken", $accessToken->oauth_token);
-			SESSION("ZanUserServiceAccessTokenSecret", $accessToken->oauth_token_secret);
-
-			$data = getTwitterCredentials();						
-		
+			$username = $data->screen_name;
+			$profilepic = $data->profile_image_url;
 			echo "<pre>";
 			die(var_dump($data));
      	}
