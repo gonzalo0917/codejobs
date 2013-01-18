@@ -86,7 +86,7 @@
 	}
 
 	header #topbar {
-		width: 1500px;
+		max-width: 1500px;
 	}
 
 	#top-box-languages {
