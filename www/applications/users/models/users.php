@@ -162,7 +162,7 @@ class Users_Model extends ZP_Load {
 				"Email"    => POST("email"),
 			),
 			"username" => "required",
-			"name" 	   => "name?",			
+			"name" 	   => "required",			
 			"email"    => "email?"
 		);		
 

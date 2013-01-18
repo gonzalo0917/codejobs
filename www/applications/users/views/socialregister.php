@@ -37,8 +37,7 @@ echo div("new-user", "class");
 				<?php
 				echo formInput(array(
 					"id"	   => "username",
-					"name" 	   => "username",
-					"pattern"  => "^[A-Za-z0-9_-]{3,15}$", 
+					"name" 	   => "username",					
 					"class"    => "required", 
 					"field"    => __("Username"), 
 					"p" 	   => TRUE, 
