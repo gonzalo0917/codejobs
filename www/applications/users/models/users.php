@@ -142,13 +142,13 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function checkUserService($serviceID, $service = "Facebook") {
-		return $this->Db->query("SELECT muu_users.ID_User, ID_Privilege, ID_Service, Service, Username, Name, Avatar, Bookmarks, Codes, Posts, Recommendation
+		return $this->Db->query("SELECT muu_users.ID_User, ID_Privilege, muu_users_services.ID_Service, Service, Username, Name, Avatar, Bookmarks, Codes, Posts, Recommendation
 								 FROM muu_users_services 
 								 INNER JOIN muu_users ON muu_users.ID_User = muu_users_services.ID_User
-								 WHERE ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
+								 WHERE muu_users_services.ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
 	}
 
-	public function addUser() {
+	public function addUser($service = FALSE) {
 		$this->helper(array("alerts", "time"));
 
 		if(SESSION("UserRegistered")) {
@@ -162,22 +162,30 @@ class Users_Model extends ZP_Load {
 				"Email"    => POST("email"),
 			),
 			"username" => "required",
-			"name" 	   => "name?",
-			"password" => "length:6",
+			"name" 	   => "name?",			
 			"email"    => "email?"
-		);
+		);		
 
 		$code = code(10);		
 
-		$data = array(
-			"Pwd"	     => POST("password", "encrypt"),
+		$data = array(			
+			"ID_Service" => POST("serviceID") ? POST("serviceID") : "0",
+			"Name" 		 => POST("name"),
 			"Start_Date" => now(4),
 			"Subscribed" => 1,
 			"Code"		 => $code,
 			"Situation"  => "Inactive"
 		);
+
+		if(!$service) {
+			$validations["password"] = "length:6";
+
+			$data["Pwd"] = POST("password", "encrypt");
+		} else {
+			$data["Pwd"] = NULL;
+		}
 	
-		$this->Data->ignore(array("password", "register", "name"));
+		$this->Data->ignore(array("password", "register", "name", "serviceID"));
 
 		$data = $this->Data->proccess($data, $validations);
 		
@@ -188,9 +196,11 @@ class Users_Model extends ZP_Load {
 		$ID_User = $this->Db->insert($this->table, $data);
 	
 		if($ID_User) {
-			$ID_User_Information = $this->Db->insert("users_information", array("ID_User" => $ID_User, "Name" => POST("name")));
-
 			$this->Db->insert("re_privileges_users", array("ID_Privilege" => "4", "ID_User" => $ID_User));
+
+			if($service === "facebook") {
+				$this->Db->insert("users_services", array("ID_User" => $ID_User, "ID_Service" => POST("serviceID"), "Service" => "Facebook"));
+			}
 			
 			$message = $this->view("register_email", array("code" => $code), "users", TRUE);
 
@@ -212,7 +222,7 @@ class Users_Model extends ZP_Load {
 	}
 	
 	public function activate($user, $code) {
-		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
+		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, ID_Service, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
 		
 		if($data) {
 			$this->Db->update($this->table, array("Situation" => "Active"), $data[0]["ID_User"]);

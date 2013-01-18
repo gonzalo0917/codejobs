@@ -34,7 +34,7 @@ class Users_Controller extends ZP_Load {
 
 	public function facebookLogin($login = FALSE) {	
 		$this->config("users");
-		$this->helper("alerts");
+		$this->helper(array("alerts", "facebook", "forms", "html"));
 		
 		$code = REQUEST("code");
 
@@ -48,7 +48,7 @@ class Users_Controller extends ZP_Load {
 
 		     	if($facebookUser) {		     		
 		     		$data = $this->Users_Model->checkUserService($facebookUser["serviceID"]);
-
+		     		
 		     		if($data) {
 		     			createLoginSessions($data[0]);							
 		     		} else {	
@@ -56,9 +56,12 @@ class Users_Controller extends ZP_Load {
 		     			$vars["username"]   = $facebookUser["username"];
 						$vars["name"]	   	= $facebookUser["name"];
 						$vars["email"]	   	= $facebookUser["email"];
-						$vars["birthday"]   = $facebookUser["birthday]";
-						$vars["avatar"]		= $facebookUser["avatar"]; 										
-		     			$vars["view"] 	    = $this->view("fbregister", TRUE);
+						$vars["birthday"]   = $facebookUser["birthday"];
+						$vars["avatar"]		= $facebookUser["avatar"]; 						
+
+						SESSION("fbUser", $vars);
+
+		     			$vars["view"] = $this->view("fbregister", TRUE);
 
 		     			$this->render("content", $vars);
 		     		}
@@ -188,7 +191,7 @@ class Users_Controller extends ZP_Load {
 		$this->render("content", $vars);
 	}
 	
-	public function register() {	
+	public function register($service = FALSE) {	
 		$this->helper(array("html", "alerts"));
 				
 		if(!SESSION("ZanUser")) {
@@ -202,7 +205,7 @@ class Users_Controller extends ZP_Load {
 				$vars["pwd"]      = POST("password") ? POST("password") : NULL;
 
 				if(POST("username")) {
-					$status = $this->Users_Model->addUser();
+					$status = $this->Users_Model->addUser($service);
 				
 					$vars["inserted"] = $status["inserted"];
 					$vars["alert"]    = $status["alert"];	
@@ -210,8 +213,12 @@ class Users_Controller extends ZP_Load {
 				}			
 			}
 
-			$vars["view"] = $this->view("new", TRUE);
-			
+			if(!$service) {
+				$vars["view"] = $this->view("new", TRUE);
+			} elseif($service === "facebook") {
+				$vars["view"] = $this->view("fbregister", TRUE);
+			}
+
 			$this->render("content", $vars);
 		} else {
 			redirect();

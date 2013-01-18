@@ -101,12 +101,13 @@
 							<a href="<?php echo path("users/recover"); ?>"><?php echo __("Forgot your password?"); ?></a>
 
 							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />		 					
+							<br />
+							<br />
+							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" />
 							<?php 
 								if(isAllowedIP()) {
 								?>
-									<br />
-									<br />
-									<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="#" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>							
+									<br /><a href="#" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>							
 								<?php
 								}
 							?>							
@@ -117,7 +118,14 @@
 				<div id="top-box-profile" class="toggle">
 					<div class="top-box-profile">
 						<div style="float: left; width: 90px;">
-							<img src="<?php echo path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE); ?>" alt="<?php echo SESSION("ZanUser"); ?>" />
+							<?php
+								if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http") {
+									$avatar = SESSION("ZanUserAvatar");
+								} else {
+									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
+								}
+							?>
+							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" />
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px;">

@@ -6,6 +6,15 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
+$fbUser = SESSION("fbUser");
+
+$username  = recoverPOST("username", $fbUser["username"]);
+$email     = recoverPOST("email", $fbUser["email"]);
+$name      = recoverPOST("name", $fbUser["name"]);
+$avatar    = recoverPOST("avatar", $fbUser["avatar"]);
+$birthday  = recoverPOST("birthday", $fbUser["birthday"]);
+$serviceID = recoverPOST("serviceID", $fbUser["serviceID"]);
+
 echo div("new-user", "class");
 	echo formOpen(path("users/register/facebook"), "form", "form");
 		echo p(__("Join today to") ." ". _get("webName"), "resalt");
@@ -22,6 +31,9 @@ echo div("new-user", "class");
 
 		if(!isset($inserted) or !$inserted) {
 			if(!SESSION("UserRegistered")) {
+				?>
+				<p><?php echo img($avatar, array("class" => "dotted")); ?> <strong><?php echo __("Hi"); ?></strong>, <?php echo $name; ?>!</p>
+				<?php
 				echo formInput(array(
 					"id"	   => "username",
 					"name" 	   => "username",
@@ -33,14 +45,6 @@ echo div("new-user", "class");
 					"required" => TRUE
 				));
 
-				echo formInput(array(					
-					"name" 	   => "name", 
-					"field"    => __("Name"), 
-					"p" 	   => TRUE, 
-					"value"    => $name,
-					"required" => TRUE
-				));
-
 				echo formInput(array(	
 					"name" 	   => "email",
 					"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
@@ -49,6 +53,12 @@ echo div("new-user", "class");
 					"p" 	   => TRUE, 
 					"value"    => $email,
 					"required" => TRUE
+				));
+
+				echo formInput(array(					
+					"name" 	=> "name", 										
+					"value" => $name,
+					"type"  => "hidden"
 				));
 
 				echo formInput(array(					
