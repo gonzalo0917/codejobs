@@ -35,18 +35,20 @@ class Users_Controller extends ZP_Load {
 	public function twitterLogin() {
 		$this->helper(array("alerts", "twitter", "forms", "html"));
 
-		$this->Twitter = $this->library("twitter", "EpiTwitter", array(_twConsumerKey, _twConsumerSecret));
-
-		$this->Twitter->setCallback(_twCallbackURL);
+		$this->Twitter = $this->library("twitter", "EpiTwitter", array(_twConsumerKey, _twConsumerSecret));		
 		
 		$oauthToken = GET("oauth_token");
 
 		if(!$oauthToken) { 	
 	  		redirect($this->Twitter->getAuthenticateUrl());	
      	} else {
-     		$data = getTwitterUser($oauthToken, $this->Twitter);
+     		$vars = getTwitterUser($oauthToken, $this->Twitter);
      		
-			die(var_dump($data));
+			SESSION("socialUser", $vars);
+
+		    $vars["view"] = $this->view("socialregister", TRUE);
+
+		    $this->render("content", $vars);
      	}
 	}
 
@@ -69,16 +71,18 @@ class Users_Controller extends ZP_Load {
 		     		if($data) {
 		     			createLoginSessions($data[0]);							
 		     		} else {	
-		     			$vars["serviceID"] 	= $facebookUser["serviceID"];
-		     			$vars["username"]   = $facebookUser["username"];
-						$vars["name"]	   	= $facebookUser["name"];
-						$vars["email"]	   	= $facebookUser["email"];
-						$vars["birthday"]   = $facebookUser["birthday"];
-						$vars["avatar"]		= $facebookUser["avatar"]; 						
+		     			$vars = array(
+		     				"serviceID" => $facebookUser["serviceID"],
+		     				"username"  => $facebookUser["username"],
+		     				"name"		=> $facebookUser["name"],
+		     				"email"		=> $facebookUser["email"],
+		     				"birthday"  => $facebookUser["birthday"],
+		     				"avatar"	=> $facebookUser["avatar"]
+		     			);					
 
-						SESSION("fbUser", $vars);
+						SESSION("socialUser", $vars);
 
-		     			$vars["view"] = $this->view("fbregister", TRUE);
+		     			$vars["view"] = $this->view("socialregister", TRUE);
 
 		     			$this->render("content", $vars);
 		     		}
