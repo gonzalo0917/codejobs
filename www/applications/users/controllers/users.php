@@ -46,7 +46,7 @@ class Users_Controller extends ZP_Load {
 
      		if(is_array($vars)) {
      			$data = $this->Users_Model->checkUserService($vars["serviceID"]);
-
+     			die(var_dump($data));
      			if($data) {
      				createLoginSessions($data[0]);
      			} else {
