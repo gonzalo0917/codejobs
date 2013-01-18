@@ -45,10 +45,10 @@ class Users_Controller extends ZP_Load {
 		} else {
 			if(isConnectedToFacebook()) {
 				$facebookUser = getFacebookUser($code);
-				
+
 		     	if($facebookUser) {		     		
 		     		$data = $this->Users_Model->checkUserService($facebookUser["serviceID"]);
-
+		     		
 		     		if($data) {
 		     			createLoginSessions($data[0]);							
 		     		} else {	
