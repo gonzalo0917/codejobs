@@ -43,12 +43,20 @@ class Users_Controller extends ZP_Load {
 	  		redirect($this->Twitter->getAuthenticateUrl());	
      	} else {
      		$vars = getTwitterUser($oauthToken, $this->Twitter);
-     		
-			SESSION("socialUser", $vars);
 
-		    $vars["view"] = $this->view("socialregister", TRUE);
+     		if(is_array($vars)) {
+     			$data = $this->Users_Model->checkUserService($vars["serviceID"]);
 
-		    $this->render("content", $vars);
+     			if($data) {
+     				createLoginSessions($data[0]);
+     			} else {
+     				SESSION("socialUser", $vars);
+
+		    		$vars["view"] = $this->view("socialregister", TRUE);
+
+		    		$this->render("content", $vars);
+     			}
+     		}
      	}
 	}
 
