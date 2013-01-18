@@ -72,6 +72,7 @@ class Users_Controller extends ZP_Load {
 		     			createLoginSessions($data[0]);							
 		     		} else {	
 		     			$vars = array(
+		     				"service"   => "facebook",
 		     				"serviceID" => $facebookUser["serviceID"],
 		     				"username"  => $facebookUser["username"],
 		     				"name"		=> $facebookUser["name"],
@@ -236,8 +237,8 @@ class Users_Controller extends ZP_Load {
 
 			if(!$service) {
 				$vars["view"] = $this->view("new", TRUE);
-			} elseif($service === "facebook") {
-				$vars["view"] = $this->view("fbregister", TRUE);
+			} else {
+				$vars["view"] = $this->view("socialregister", TRUE);
 			}
 
 			$this->render("content", $vars);

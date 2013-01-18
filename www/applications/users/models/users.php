@@ -196,11 +196,9 @@ class Users_Model extends ZP_Load {
 		$ID_User = $this->Db->insert($this->table, $data);
 	
 		if($ID_User) {
-			$this->Db->insert("re_privileges_users", array("ID_Privilege" => "4", "ID_User" => $ID_User));
-
-			if($service === "facebook") {
-				$this->Db->insert("users_services", array("ID_User" => $ID_User, "ID_Service" => POST("serviceID"), "Service" => "Facebook"));
-			}
+			if($service === "facebook" or $service === "twitter") {
+				$this->Db->insert("users_services", array("ID_User" => $ID_User, "ID_Service" => POST("serviceID"), "Service" => ucfirst($service)));
+			} 
 			
 			$message = $this->view("register_email", array("code" => $code), "users", TRUE);
 

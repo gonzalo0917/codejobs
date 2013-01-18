@@ -8,6 +8,7 @@ if(!defined("_access")) {
 
 $socialUser = SESSION("socialUser");
 
+$service   = recoverPOST("service", $socialUser["service"]);
 $username  = recoverPOST("username", $socialUser["username"]);
 $email     = recoverPOST("email", $socialUser["email"]);
 $name      = recoverPOST("name", $socialUser["name"]);
@@ -16,7 +17,7 @@ $birthday  = recoverPOST("birthday", $socialUser["birthday"]);
 $serviceID = recoverPOST("serviceID", $socialUser["serviceID"]);
 
 echo div("new-user", "class");
-	echo formOpen(path("users/register/facebook"), "form", "form");
+	echo formOpen(path("users/register/$service"), "form", "form");
 		echo p(__("Join today to") ." ". _get("webName"), "resalt");
 		
 		if(!isset($alert) and SESSION("UserRegistered") and !POST("register")) {
