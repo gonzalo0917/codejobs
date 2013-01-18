@@ -53,8 +53,8 @@ class Users_Controller extends ZP_Load {
 		
 			$username = $data->screen_name;
 			$profilepic = $data->profile_image_url;
-
-			die(var_dump($username));
+			echo "<pre>";
+			die(var_dump($data));
      	}
 	}
 
