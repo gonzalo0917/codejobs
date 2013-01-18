@@ -145,7 +145,7 @@ class Users_Model extends ZP_Load {
 		return $this->Db->query("SELECT muu_users.ID_User, ID_Privilege, muu_users_services.ID_Service, Service, Username, Name, Avatar, Bookmarks, Codes, Posts, Recommendation
 								 FROM muu_users_services 
 								 INNER JOIN muu_users ON muu_users.ID_User = muu_users_services.ID_User
-								 WHERE ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
+								 WHERE muu_users_services.ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
 	}
 
 	public function addUser($service = FALSE) {
