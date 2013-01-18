@@ -210,8 +210,12 @@ class Users_Controller extends ZP_Load {
 				}			
 			}
 
-			$vars["view"] = $this->view("new", TRUE);
-			
+			if(!$service) {
+				$vars["view"] = $this->view("new", TRUE);
+			} elseif($service === "facebook") {
+				$vars["view"] = $this->view("fbregister", TRUE);
+			}
+
 			$this->render("content", $vars);
 		} else {
 			redirect();
