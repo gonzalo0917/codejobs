@@ -45,7 +45,7 @@ class Users_Controller extends ZP_Load {
 		} else {
 			if(isConnectedToFacebook()) {
 				$facebookUser = getFacebookUser($code);
-				die(var_dump($facebookUser));
+				
 		     	if($facebookUser) {		     		
 		     		$data = $this->Users_Model->checkUserService($facebookUser["serviceID"]);
 
