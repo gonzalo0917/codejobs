@@ -285,15 +285,15 @@ class Bookmarks_Controller extends ZP_Load {
 		if(is_null($type)) {
 			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/page/");
-		} elseif($type === "tag") {
+		} elseif($type === "tag") { 
 			$tag   = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/tag/$tag/page/");
-		} elseif($type === "author") {
+		} elseif($type === "author") { 
 			$user  = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
 			$URL   = path("bookmarks/author/$user/page/");
-		} elseif($type === "author-tag") {
+		} elseif($type === "author-tag") { 
 			$user  = segment(2, isLang());
 			$tag   = segment(4, isLang());
 			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * _maxLimit) - _maxLimit : 0;

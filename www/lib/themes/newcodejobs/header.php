@@ -3,7 +3,7 @@
 		die("Error: You don't have permission to access here...");
 	}
 
-	$lang = _get("webLang");
+	$lang = _get("webLang") === "es" ? "es" : "en";
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
