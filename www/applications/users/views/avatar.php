@@ -49,6 +49,13 @@
 			));
 
 			echo formInput(array(
+				"id" 	=> "file",
+				"name"  => "file",
+				"type" 	=> "hidden",
+				"value" => ""
+			));
+
+			echo formInput(array(
 				"id" 	=> "small-error",
 				"type" 	=> "hidden",
 				"value" => __("The file size must be greater than or equal to 1KB")

@@ -42,8 +42,10 @@
 			var reader = new FileReader();
 
 			reader.onload = function (event) {
-				$("#avatar-image").attr("src", event.target.result);
-				$("#form-add").append('<input type="hidden" name="file" value="' + event.target.result + '">');
+				var result = event.target.result;
+
+				$("#avatar-image").attr("src", result);
+				$("#file").val(result);
 
 				destroyMark();
 
