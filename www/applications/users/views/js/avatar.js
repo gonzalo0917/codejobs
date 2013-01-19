@@ -43,6 +43,7 @@
 
 			reader.onload = function (event) {
 				$("#avatar-image").attr("src", event.target.result);
+				$("#form-add").append('<input type="hidden" name="file" value="' + event.target.result + '">');
 
 				destroyMark();
 
