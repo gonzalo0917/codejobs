@@ -73,6 +73,7 @@ $phrase["company_information"]							= "Información de la empresa";
 $phrase["data_have_been_saved_correctly"]	            = "Los datos se han guardado correctamente";
 $phrase["day"]											= "Día";
 $phrase["days"]											= "Días";
+$phrase["drag_-_drop_your_file_here"]		            = "Arrastra tu archivo aquí";
 $phrase["duration"]							            = "Duración";
 $phrase["location"]										= "Ubicación";
 $phrase["salary"]										= "Salario";

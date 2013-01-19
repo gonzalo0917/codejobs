@@ -41,6 +41,12 @@
 				echo div(FALSE);
 			echo div(FALSE);
 
+			echo div("filedrag"); 
+				echo div("textdrag", "class");
+					echo __("Drag & drop your file here");
+				echo div(FALSE);
+			echo div(FALSE);
+
 			echo formInput(array(
 				"id"	=> "coordinate",
 				"name"  => "coordinate",

@@ -1,0 +1,17 @@
+#filedrag {
+	background: #fff;
+	border: 2px dashed #999;
+	border-radius: 4px;
+	display: none;
+	height: 90px;
+	line-height: 110%;
+	padding: 10px;
+	position: absolute;
+	text-align: center;
+	width: 90px;
+}
+
+#filedrag .textdrag {
+	display: table-cell;
+	vertical-align: middle;
+}

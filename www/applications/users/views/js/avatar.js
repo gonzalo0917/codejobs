@@ -37,7 +37,6 @@
 	}
 
 	function previewImage(file, coordinate) {
-		console.log("Se solicita imagen previa de (" + file + ", " + coordinate + ")");
 		if (typeof FileReader !== "undefined" && typeof file !== "string") {
 			var reader = new FileReader();
 
