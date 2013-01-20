@@ -1,72 +1,4 @@
-@media (max-width: 400px), (max-device-width: 400px) {
-	body {
-		width: 400px;
-	}
-
-	header #topbar-wrapper {
-		width: 400px;
-		height: 40px;
-		background-color: #292929;
-	}
-
-	header #wrapper nav ul {
-		margin: 0px;
-		padding: 0px;
-		position: relative;
-		z-index: 2;
-		margin-left: 1%;
-		width: 300px;
-		font-size: 0.8em;
-	}
-
-	header #topbar nav ul {
-		width: 400px;
-		margin: 0px;
-		padding: 0px;
-	}
-
-	header #topbar .toggle {
-		display: none;
-	}
-
-	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
-		display: none;
-	}
-
-
-	.post .post-title {
-		font-size: 16px;
-		color: #333;
-		font-weight: bold;
-	}
-
-	#pagination {
-		font-size: 12px;
-	}
-
-	iframe {
-		width: 250px;
-		height: 160px;
-	}
-
-	header #topbar {
-		width: 1020px;
-	}
-
-	header #topbar nav ul li {
-    	font-size: 55%;
-	}
-
-	header #logo {
-		margin-left: 2.5%;
-	}
-
-	footer p {
-		width: 700px;
-	}
-}
-
-@media (min-width: 1920px), (min-device-width: 1920px) {
+@media (max-width: 1920px), (max-device-width: 1920px) {
 	header #wrapper {
 		width: 1500px;
 	}
@@ -139,5 +71,661 @@
 
 	#tweet-container {
     	margin-left: 15%;
+	}
+}
+
+/* Kindle landscape 1024x600 */
+@media (max-width: 1024px), (max-device-width: 1024px) {
+
+	header #wrapper {
+		width: 1024px;
+	}
+
+	header #wrapper nav {
+		width: 700px;
+		float: left;
+		margin-top: -85px;
+		margin-left: 265px;
+	}
+
+	header #wrapper nav ul {
+		margin: 10px;
+		padding: 0px;
+		z-index: 2;
+		margin-left: 2.5%;
+	}
+
+	header #topbar {
+		max-width: 1024px;
+	}
+	
+	aside .transmission ul {
+	    margin-left: 6%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 6%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 6%
+	}
+
+	.ads {
+		margin-left: 6%;
+	}	
+
+	.popular ul {		
+		margin-left: 6%;
+	}
+
+	aside .polls {
+		margin-left: 6%;
+	}	
+
+	aside .facebook-like {
+		margin-left: 6%;
+	}
+
+	#tweet-container {
+    	margin-left: 6%;
+	}
+}
+
+/* iPad portrait 768x1024 */
+
+@media (max-width: 768px), (max-device-width: 768px) {
+
+	header #wrapper {
+		width: 768px;
+	}
+
+	header #wrapper nav {
+		width: 700px;
+		float: left;
+		margin-top: -85px;
+		margin-left: 265px;
+	}
+
+	header #wrapper nav ul {
+		margin: 10px;
+		padding: 0px;
+		z-index: 2;
+		margin-left: 2.5%;
+	}
+
+	header #topbar {
+		max-width: 1024px;
+	}
+	
+	aside .transmission ul {
+	    margin-left: 6%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 6%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 6%
+	}
+
+	.ads {
+		margin-left: 6%;
+	}	
+
+	.popular ul {		
+		margin-left: 6%;
+	}
+
+	aside .polls {
+		margin-left: 6%;
+	}	
+
+	aside .facebook-like {
+		margin-left: 6%;
+	}
+
+	#tweet-container {
+    	margin-left: 6%;
+	}
+}
+
+/* iPad portrait 685x380 */
+@media (max-width: 685px), (max-device-width: 685px) {
+	body {
+		width: 685px;
+	}
+
+	header #topbar-wrapper {
+		width: 685px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 300px;
+		font-size: 0.95em;
+	}
+
+	header #topbar nav ul {
+		width: 400px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.post .post-content {
+		width: 550px;	
+	}
+
+	.post .post-content img {
+		width: 450px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 550px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 685px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 685px;
+	}
+}
+
+/* iPhone 5 landscape portrait 568x380 */
+@media (max-width: 568px), (max-device-width: 568px) {
+	body {
+		width: 568px;
+	}
+
+	header #topbar-wrapper {
+		width: 568px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 550px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -20px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 500px;
+		font-size: 0.95em;
+	}
+
+	header #topbar nav ul {
+		width: 400px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.post .post-content {
+		width: 450px;	
+	}
+
+	.post .post-content img {
+		width: 400px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 550px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 568px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 568px;
+	}
+}
+
+/* iPhone landscape landscape 480x320 */
+@media (max-width: 480px), (max-device-width: 480px) {
+	body {
+		width: 480px;
+	}
+
+	header #topbar-wrapper {
+		width: 480px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 460px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -40px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 440px;
+		font-size: 0.95em;
+	}
+
+	header #topbar nav ul {
+		width: 400px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.post .post-content {
+		width: 440px;	
+	}
+
+	.post .post-content img {
+		width: 350px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 450px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 480px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 480px;
+	}
+}
+
+/* Android portrait 380x568 */
+@media (max-width: 380px), (max-device-width: 380px) {
+	body {
+		width: 380px;
+	}
+
+	header #topbar-wrapper {
+		width: 380px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 380px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -40px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 350px;
+		font-size: .9em;
+	}
+
+	header #topbar nav ul {
+		width: 380px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		width: 350px;
+	}
+
+	.post .post-content {
+		width: 330px;	
+	}
+
+	.post .post-content img {
+		width: 250px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 300px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 380px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 380px;
+		height: 70px;
+	}
+}
+
+
+/* Crappy Android Landscape 320x568 */
+@media (max-width: 320px), (max-device-width: 320px) {
+	body {
+		width: 320px;
+	}
+
+	header #topbar-wrapper {
+		width: 320px;
+		height: 50px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 320px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -40px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 320px;
+		font-size: .9em;
+	}
+
+	header #topbar nav ul {
+		width: 320px;
+		margin: 0px;
+		padding: 0px;
+		line-height: 20px !important;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		width: 290px;
+	}
+
+	.post .post-content {
+		width: 290px;	
+	}
+
+	.post .post-content img {
+		width: 250px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 300px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 320px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 320px;
+		height: 70px;
+	}
+}
+
+/* Crappy Android 240x320 */
+@media (max-width: 240px), (max-device-width: 240px) {
+	body {
+		width: 240px;
+	}
+
+	header #topbar-wrapper {
+		width: 240px;
+		height: 50px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 220px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -20px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 220px;
+		font-size: .9em;
+	}
+
+	header #topbar nav ul {
+		width: 240px;
+		margin: 0px;
+		padding: 0px;
+		line-height: 20px !important;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		width: 200px;
+	}
+
+	.post .post-content {
+		width: 220px;	
+	}
+
+	.post .post-content img {
+		width: 200px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 200px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 220px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo img {
+		margin-left: -15px;
+		width:220px; 
+	}
+
+	footer p {
+		width: 240px;
+		height: 70px;
 	}
 }
