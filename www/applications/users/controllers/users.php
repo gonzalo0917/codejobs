@@ -388,6 +388,7 @@ class Users_Controller extends ZP_Load {
 			$this->css("draganddrop", $this->application);
 			$this->js("jquery.jcrop.js");
 			$this->js("avatar", $this->application);
+			$this->js("draganddrop", $this->application);
 
 			$this->title(__("Avatar"));
 
