@@ -48,6 +48,8 @@
 
 				destroyMark();
 
+				resizeFont();
+
 				if (coordinate !== undefined) {
 					window.setTimeout('markImage("' + coordinate + '")', 0);
 				} else {
@@ -60,6 +62,8 @@
 			$("#avatar-image").attr("src", file);
 
 			destroyMark();
+
+			resizeFont();
 
 			if (coordinate !== undefined) {
 				markImage(coordinate);
@@ -112,6 +116,22 @@
 			$("#avatar-image").css({height: "", width: "", visibility: "visible"});
 			jcrop_api = undefined;
 		}
+	}
+
+	function resizeFont() {
+		console.log ("Se resizeara la fuente");
+
+		var width = $("#avatar-image").width(), size = 1;
+
+		if (width > 150 && width <= 350) {
+			size = 2;
+		} else if (width > 350 && width < 500) {
+			size = 3.5;
+		} else if (width >= 500) {
+			size = 5;
+		}
+
+		$("#filedrag").css("fontSize", size + "em");
 	}
 
 	function restoreImage() {
