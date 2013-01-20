@@ -82,12 +82,7 @@ class Jobs_Model extends ZP_Load {
 			"End_Date"   => $date + (3600 * 24 * 30)
  		);
 		
- 		if(FILES("image", "name")) {
- 
-			if(POST("logo")) {
-				@unlink(POST("logo"));
-			}
-			
+ 		if(FILES("image", "name")) {	
 			$dir = "www/lib/files/images/companies/";
 			
 			$this->Files = $this->core("Files");									
@@ -96,14 +91,15 @@ class Jobs_Model extends ZP_Load {
 
 			if(!$data["Logo"]) {
 				return getAlert(__("Upload error"));
-			};
+			}
 		}
-
+		
 		$this->Data->change("cinformation", "Company_Information");
 		$this->Data->change("allocation", "Allocation_Time");
 		$this->Data->change("ccontact", "Company_Contact");
 
 		$this->data = $this->Data->proccess($data, $validations);
+
 		if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}
@@ -141,12 +137,7 @@ class Jobs_Model extends ZP_Load {
 	}
 
 	public function save() {
-		$error = $this->editOrSave("save");
-
-		if($error) {
-			return $error;
-		}
-
+		____($this->data);
 		if($this->Db->insert($this->table, $this->data)) {
 		 	return getAlert(__("The job has been saved correctly"), "success");
 		}

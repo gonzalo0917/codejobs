@@ -88,7 +88,7 @@
 							<input name="register" class="register-submit" type="submit" value="<?php echo __("Register on CodeJobs!"); ?>" />
 							<br />
 							<br />
-							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" />
+							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /></a>
 						</fieldset>
 					</form>
 				</div>

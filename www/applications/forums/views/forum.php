@@ -3,12 +3,12 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here..."); 
 } 
 
-if(is_array($posts)) {
+if(is_array($posts)) { 
 	$i = 1;
 	$rand2 = rand(6, 10);
 	if(SESSION("ZanUser")) {
 	?>
-		<h1><?php echo $forum; ?></h1>
+		<h1><?php echo strtoupper($forum); ?></h1>
 		<div class="forums-options">
 			<span class="forums-create"><?php echo __("Create new topic"); ?></span>
 			<span id="fmessage"></span>
@@ -32,10 +32,11 @@ if(is_array($posts)) {
 	?>
 	<div id="fposts">
 	<?php
-		foreach($posts as $post) {			
-			$URL = path("forums/". $post["Forum_Slug"] ."/". $post["ID_Post"] ."/". $post["Post_Slug"]);	
+		foreach($posts as $post) {		
+			$slug = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
+			$URL = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
 			
-			$in = ($post["Forum_Slug"] !== "") ? __("in") : NULL;	
+			$in = ($forum !== "") ? __("in") : NULL;	
 			?>		
 				
 			<div class="post">
@@ -46,7 +47,7 @@ if(is_array($posts)) {
 				</div>
 				
 				<div class="post-left">
-					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/tag/") ." ". __("by") .' <a href="'. path("forums/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
+					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 				</div>
 				
 				<div class="clear"><?php echo cut($post["Content"], 20); ?></div>
