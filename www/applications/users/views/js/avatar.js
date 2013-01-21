@@ -44,7 +44,8 @@
 				var result = event.target.result;
 
 				$("#avatar-image").attr("src", result);
-				$("#file").val(result);
+
+				setFile(result, file.name, file.type, file.size);
 
 				destroyMark();
 
@@ -60,6 +61,8 @@
 			reader.readAsDataURL(file);
 		} else if (typeof file === "string") {
 			$("#avatar-image").attr("src", file);
+			
+			setFile();
 
 			destroyMark();
 
@@ -71,6 +74,13 @@
 				markImage();
 			}
 		}
+	}
+
+	function setFile(file, name, type, size) {
+		$("#file").val(file || "");
+		$("#name").val(name || "");
+		$("#type").val(type || "");
+		$("#size").val(size || "");
 	}
 
 	function markImage(coordinate) {

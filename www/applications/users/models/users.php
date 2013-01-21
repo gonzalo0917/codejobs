@@ -704,6 +704,20 @@ class Users_Model extends ZP_Load {
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Avatar, Avatar_Coordinate");
 	}
 
+	public function saveAvatar() {
+		if(POST("file")) {
+			$this->Files = $this->core("Files");
+
+			$files = $this->Files->createFiles(array(POST("name")), array(POST("file")), array(POST("type")), array(POST("size")));
+
+			if(is_array($files)) {
+				
+			} else {
+				return getAlert(__("Error while tried to upload the files"));
+			}
+		}
+	}
+
 	public function deleteAvatar() {
 		if($this->Db->update($this->table, array("Avatar" => NULL, "Avatar_Coordinate" => NULL), SESSION("ZanUserID"))) {
 			return getAlert(__("The avatar has been deleted successfully"), "success");
