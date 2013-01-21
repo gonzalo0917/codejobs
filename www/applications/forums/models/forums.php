@@ -167,8 +167,14 @@ class Forums_Model extends ZP_Load {
 
 	public function getByAuthor($author, $limit = FALSE) {
 		$author = str_replace("-", " ", $author);
+		
+		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM muu_forums_posts WHERE Author = '$author' AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) ORDER BY ID_Post DESC LIMIT ". $limit);
+	}
 
-		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM muu_forums_posts WHERE (Title LIKE '%$author%' OR Content LIKE '%$author%' OR Author LIKE '%$author%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) ORDER BY ID_Post DESC LIMIT ". $limit);
+	public function getByAuthorTag($author, $tag, $limit) {
+		$tag = str_replace("-", " ", $tag);
+
+		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Author = '$author' AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) ORDER BY ID_Post DESC LIMIT ". $limit);
 	}
 
 	public function getByTag($tag, $limit = FALSE) {
@@ -178,8 +184,7 @@ class Forums_Model extends ZP_Load {
 		return $this->Db->query("SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums_posts.ID_Post, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 								 FROM muu_forums 
 								 INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
-								 WHERE muu_forums.Slug = '$slug' AND (muu_forums_posts.Title LIKE '%$tag%' OR muu_forums_posts.Content LIKE '%$tag%' OR muu_forums_posts.Tags LIKE '%$tag%') AND muu_forums_posts.Language = '$this->language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC");
-		
+								 WHERE muu_forums.Slug = '$slug' AND (muu_forums_posts.Title LIKE '%$tag%' OR muu_forums_posts.Content LIKE '%$tag%' OR muu_forums_posts.Tags LIKE '%$tag%') AND muu_forums_posts.Language = '$this->language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC");	
 	}
 
 	public function count($type = "posts") {
@@ -193,6 +198,16 @@ class Forums_Model extends ZP_Load {
 			$author = str_replace("-", " ", segment(2, isLang()));
 
 			$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$author%' OR Content LIKE '%$author%' OR Author LIKE '%$author%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)");
+
+			return  $count[0]["Total"];
+		} elseif($type === "author-tag") {
+			$author = segment(3, isLang());
+
+			$tag  = str_replace("-", " ", segment(5, isLang()));
+			
+			$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content Like '%$tag%' OR Tags Like '%$tag%') AND Author = '$author' AND (Situation = 'Active' OR Situation = 'Pending') AND Language = '$this->language' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)");
+
+			return $count[0]["Total"];
 		}
 	}
 }

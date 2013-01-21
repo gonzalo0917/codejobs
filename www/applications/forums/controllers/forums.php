@@ -26,16 +26,26 @@ class Forums_Controller extends ZP_Load {
 	}
 	
 	public function index() {
+
 		$this->title("Forums");		
 
 		if(segment(1, isLang()) and segment(2, isLang()) === "tag" and segment(3, isLang())) {	
 			$tag = segment(3, isLang());
 
+
 			$this->tag($tag);
-		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang())) {
+		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === false) {
 			$author = segment(3, isLang());
 
 			$this->author($author);
+
+		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === "tag" and segment(5, isLang())) {
+
+			$author = segment(3, isLang());
+			$tag = segment(5, isLang());
+
+			$this->author($author, $tag);
+
 		} elseif(segment(1, isLang()) and segment(2, isLang()) > 0 and segment(3, isLang())) {
 			$postID = segment(2, isLang());
 
@@ -73,28 +83,34 @@ class Forums_Controller extends ZP_Load {
 		}
 	}
 
-	public function author($author) {
-		$this->CSS("pagination");
+	public function author($author, $tag = NULL) {	
 
-		$limit = $this->limit("author");
-	
-		$data = $this->Cache->data("author-$author-$limit-". $this->language, "forums", $this->Forums_Model, "getByAuthor", array($author, $limit));
+		$this->CSS("pagination");
+		
+		if($tag !== NULL) {
+			$limit = $this->limit("author-tag");
+			$data = $this->Cache->data("author-$author-tag-$tag-$limit", "forums", $this->Forums_Model, "getByAuthorTag", array($author, $tag, $limit));
+
+		} else {
+			$limit = $this->limit("author");
+			$data = $this->Cache->data("author-$author-$limit-". $this->language, "forums", $this->Forums_Model, "getByAuthor", array($author, $limit));	
+		}
 
 		if($data) {
-			$this->helper("time");
-			$this->js("forums", "forums");
-			$this->css("posts", "blog");
-			$this->css("forums", "forums");
+				$this->helper("time");
+				$this->js("forums", "forums");
+				$this->css("posts", "blog");
+				$this->css("forums", "forums");
 
-			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = segment(1, isLang());
-			$vars["posts"]   = $data;
-			$vars["view"]    = $this->view("forum", TRUE);
+				$vars["forumID"] = $data[0]["ID_Forum"];
+				$vars["forum"] 	 = segment(1, isLang());
+				$vars["posts"]   = $data;
+				$vars["view"]    = $this->view("forum", TRUE);
 
-			$this->render("content", $vars);
-		} else {
-			redirect();
-		}
+				$this->render("content", $vars);
+			} else {
+				redirect();
+			}
 	}
 
 	public function limit($type = "posts") {
@@ -106,6 +122,7 @@ class Forums_Controller extends ZP_Load {
 			}
 
 			$count = $this->Forums_Model->count("author");
+
 			$URL   = path("forums/". segment(1, isLang()). "/author/". segment(3, isLang()) ."/page/");
 		} elseif($type === "tag") {	
 			if(segment(2, isLang()) === "tag" and segment(3, isLang()) and segment(4, isLang()) === "page" and segment(5, isLang()) > 0) {
@@ -113,7 +130,14 @@ class Forums_Controller extends ZP_Load {
 			}
 
 			$count = $this->Forums_Model->count("tag");
+
 			$URL = path("forums/". segment(1, isLang()). "/tag/". segment(3, isLang()) ."/page/");
+		} elseif($type === "author-tag") { 
+			$user  = segment(3, isLang());
+			$tag   = segment(5, isLang());
+			$start = (segment(6, isLang()) === "page" and segment(7, isLang()) > 0) ? (segment(7, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("forums/". segment(1, isLang()). "/author/$user/tag/$tag/page/");
+			$count = $this->Forums_Model->count("author-tag");
 		}
 
 		$limit = $start .", ". _maxLimit;
