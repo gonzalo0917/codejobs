@@ -177,8 +177,6 @@
 			if (files.length > 0) {
 				selectFile(files);
 			}
-		} else {
-			console.log(event.target);
 		}
 	}, false);
 

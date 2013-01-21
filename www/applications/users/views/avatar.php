@@ -8,7 +8,7 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo isset($alert) ? $alert : NULL;
 			
-			echo p(span("field", "&raquo; " . __("Choose an image")), "");
+			echo p(span("field", "&raquo; " . __("Select a file or use drag & drop")), "");
 
 			echo formInput(array(
 				"class" => "avatar-file",

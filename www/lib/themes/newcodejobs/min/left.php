@@ -2,7 +2,7 @@
 	if(defined("_showLeft")) {
 		if(SESSION("ZanUser")) {
 			switch(segment(1, isLang())) {
-				case "avatar": case "password": case "options": case "privacity": case "social": case "email":
+				case "avatar": case "password": case "options": case "social": case "email":
 					$active = segment(1, isLang());
 				break;
 
@@ -27,9 +27,6 @@
 					    </li>
 					    <li<?php echo $active === "options" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/options/"); ?>"><?php echo __("Options");?></a>
-					    </li>
-					    <li<?php echo $active === "privacity" ? ' class="active"' : ''; ?>>
-					    	<a href="<?php echo path("users/privacity/"); ?>"><?php echo __("Privacity");?></a>
 					    </li>
 					    <li<?php echo $active === "social" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/social/"); ?>"><?php echo __("Social networks");?></a>
