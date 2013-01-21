@@ -171,12 +171,14 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		if (event.target.id == "avatar-image" || event.target.className === "textdrag")	{
+		if (event.target.id == "avatar-image" || event.target.className === "textdrag" || /^jcrop.*/img .test(event.target.className))	{
 			var files = event.dataTransfer.files, file;
 
 			if (files.length > 0) {
 				selectFile(files);
 			}
+		} else {
+			console.log(event.target);
 		}
 	}, false);
 
