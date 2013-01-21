@@ -153,4 +153,39 @@
 	}
 
 	markImage(avatar_coordinate);
+
+	$(document).on("dragover", function (event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		$("#filedrag").css({
+			display: "table",
+			left: $("#avatar-container").offset().left,
+			top: $("#avatar-container").offset().top,
+			width: $("#avatar-container").width(),
+			height: $("#avatar-container").height()
+		});
+	});
+
+	document.addEventListener("drop", function (event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if (event.target.id == "avatar-image" || event.target.className === "textdrag")	{
+			var files = event.dataTransfer.files, file;
+
+			if (files.length > 0) {
+				selectFile(files);
+			}
+		}
+	}, false);
+
+	$(document).mouseenter(function (event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if ($("#filedrag").css("display") === "table") {
+			$("#filedrag").css("display", "none");
+		}
+	});
 }(jQuery);
