@@ -231,6 +231,7 @@ $phrase["load_time"] 									= "Tiempo de carga";
 $phrase["login"]  										= "Conectar";
 $phrase["logout"]  										= "Desconectar";
 $phrase["male"] 										= "Masculino";
+$phrase["manage_"] 										= "Administrar ";
 $phrase["manage_ads"] 									= "Administrar Anuncios";
 $phrase["manage_blog"] 									= "Administrar Blog";
 $phrase["manage_bookmarks"] 							= "Administrar Marcadores";

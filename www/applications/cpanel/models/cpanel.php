@@ -187,7 +187,7 @@ class CPanel_Model extends ZP_Load {
 		return $pagination;		
 	}
 	
-	public function records($trash = FALSE, $order = NULL) {
+	public function records($trash = FALSE, $order = NULL, $own = FALSE) {
 		$application = segment(0, isLang());
 		$Model 		 = ucfirst(segment(0, isLang())) ."_Model";
 
@@ -230,12 +230,12 @@ class CPanel_Model extends ZP_Load {
 					}
 					
 					if(segment($j) === "asc") {		
-						$data = $this->$Model->cpanel("all", $limit, "$field ASC", NULL, NULL, $trash);
+						$data = $this->$Model->cpanel("all", $limit, "$field ASC", NULL, NULL, $trash, $own);
 					} elseif(segment($j) === "desc") {
-						$data = $this->$Model->cpanel("all", $limit, "$field DESC", NULL, NULL, $trash);
+						$data = $this->$Model->cpanel("all", $limit, "$field DESC", NULL, NULL, $trash, $own);
 					}
 				} else {
-					$data = $this->$Model->cpanel("all", $limit, $order, NULL, NULL, $trash);
+					$data = $this->$Model->cpanel("all", $limit, $order, NULL, NULL, $trash, $own);
 				}
 			}
 
