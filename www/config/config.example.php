@@ -9,7 +9,7 @@ if(!defined("_access")) {
 /**
  * Website
  */
-$ZP["webURL"] 	    = "http://localhost:8088/codejobs";
+$ZP["webURL"] 	    = "http://localhost/codejobs";
 $ZP["webName"] 	    = "ZanPHP";
 $ZP["webTheme"]     = "default";
 $ZP["webSituation"] = "Active";
