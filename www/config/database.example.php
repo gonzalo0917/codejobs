@@ -12,7 +12,7 @@ if(!defined("_access")) {
  */
 $ZP["db"]["dbPDO"] 	  = FALSE;
 $ZP["db"]["dbDriver"] = "mysqli";
-$ZP["db"]["dbHost"]   = "localhost";
+$ZP["db"]["dbHost"]   = "localhost:8088";
 $ZP["db"]["dbUser"]   = "root";
 $ZP["db"]["dbPwd"] 	  = "";
 $ZP["db"]["dbName"]   = "codejobs";

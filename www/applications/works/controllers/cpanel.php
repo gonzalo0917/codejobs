@@ -125,6 +125,8 @@ class CPanel_Controller extends ZP_Load {
 			$this->login();
 		}
 		
+		$this->helper("forms");
+
 		$this->title("Add");
 		
 		$this->js("tiny-mce");
@@ -216,7 +218,7 @@ class CPanel_Controller extends ZP_Load {
 			$this->login();
 		}
 		
-		$this->title("Manage ". $this->application);
+		/* $this->title("Manage ". $this->application);
 		
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
@@ -237,7 +239,28 @@ class CPanel_Controller extends ZP_Load {
 		$this->vars["table"]      = getTable(__("Manage ". ucfirst($this->application)), $thead, $tFoot, $total);					
 		$this->vars["view"]       = $this->view("results", TRUE, "cpanel");
 		
+		$this->render("content", $this->vars); */
+		$this->check();
+
+		$this->title("Manage ". ucfirst($this->application));
+
+		$this->CSS("results", "cpanel");
+		$this->CSS("pagination");
+		
+		$this->js("checkbox");
+			
+		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
+
+		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
+		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
+		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : NULL;
+		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
+		$this->vars["trash"]  	  = $trash;	
+		$this->vars["search"] 	  = getSearch(); 			
+		$this->vars["view"]       = $this->view("results", TRUE, $this->application);
+		
 		$this->render("content", $this->vars);
+
 	}
 	
 }
