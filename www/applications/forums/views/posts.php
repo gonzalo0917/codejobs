@@ -61,12 +61,12 @@
 				?>
 				<div class="comments">
 					<div class="comments-author">
-						<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> <?php echo $post["Author"]; ?>
-						<?php echo __("Published") ." ". howLong($post["Start_Date"]); ?>
+						<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> 
 					</div>
 
 					<div class="comments-content">
-						<?php echo $post["Content"]; ?>
+						<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?></p>
+						<p class="comment-post"><?php echo $post["Content"]; ?></p>
 					</div>
 				</div>
 				<?php
@@ -86,8 +86,7 @@
 			?>
 				<div class="no-connected"><?php echo __("You need to login or create an account to comment this topic"); ?></div>
 			<?php
-			}
-					
+			}				
 		?>
 		<br /> 
 		<h3><?php echo __("Comments") . ": "; ?><div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div></h3>
