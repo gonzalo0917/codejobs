@@ -630,7 +630,6 @@ a img {
 
 .comments {
 	padding: 1%;
-	margin-bottom: 1%;
 	overflow: hidden;
 }
 
@@ -643,7 +642,7 @@ a img {
 	margin-right: 1%;
 }
 
-div.comments-content {
+.comments-content {
 	float: left;
 	padding-left: 1%;
 	padding-right: 1%;
@@ -659,7 +658,7 @@ div.comments-content {
 	box-shadow: 0px 0px 5px 0px #ccc; 
 }
 
-.comments-content:hover {
+div.comments-content:hover {
 	-webkit-box-shadow: 0px 2px 5px 0px #ccc;
 	box-shadow: 0px 2px 5px 0px #ccca; 
 }
