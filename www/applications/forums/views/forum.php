@@ -49,13 +49,12 @@ if(is_array($posts)) {
 				<div class="post-left">
 					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';?>					
 					
-
-
 					<?php
 					if(SESSION("ZanUserPrivilegeID") <= 3) {
 						 echo '| <a href="#"> Edit </a> | <a href="#"> Delete </a>';
 					}
 					?>
+					
 				</div>
 				
 				<div class="clear"><?php echo cut($post["Content"], 20); ?></div>
