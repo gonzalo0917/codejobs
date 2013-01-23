@@ -13,8 +13,7 @@ class Users_Controller extends ZP_Load {
 
 		$this->config($this->application);
 
-		//$this->Users_Model = $this->model("Users_Model");
-		$this->CPanel_Model = $this->model("CPanel_Model");
+		$this->Users_Model = $this->model("Users_Model");
 
 		$this->Templates = $this->core("Templates");
 		
@@ -40,23 +39,31 @@ class Users_Controller extends ZP_Load {
 			}
 		}
 
-		$this->title(__("Manage ") . __($this->application));
-
-		//$data = $this->Blog_Model->getAllByUser();
+		$this->helper("time");
 
 		$this->CSS("user_results", "cpanel");
 		$this->CSS("admin", "blog");
 		$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 
-		$this->vars["records"] = $this->CPanel_Model->records(FALSE, NULL, TRUE);
+		$this->js("jquery.appear.js");
+		$this->js("user_results", "cpanel");
+
+		$this->vars["records"] = $this->Users_Model->records();
 		$this->vars["view"]    = $this->view("user_results", TRUE, $this->application, $this->application);
 		$this->vars["caption"] = __("My posts");
-		
-		//$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
-		//$this->vars["search"] 	  = getSearch();
+		$this->vars["total"]   = SESSION("ZanUserPosts");
 
+		$this->title($this->vars["caption"]);
 		
 		$this->render("content", $this->vars);
+	}
+
+	public function more($start = 0) {
+		isConnected($this->application);
+
+		$data = $this->Users_Model->records(TRUE, (int) $start);
+
+		echo json($data);
 	}
 
 }
