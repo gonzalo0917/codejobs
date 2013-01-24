@@ -64,14 +64,16 @@ class Works_Model extends ZP_Load {
 			"Slug"    	 => slug(POST("title", "clean")),
  		);
 
+ 		$this->Data->ignore(array("image_last", "preview1_last", "preview2_last"));
+
  		$this->data = $this->Data->proccess($data, $validations);
+
 		if(isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 
 		if(FILES("image", "name")) {
- 
-			if(POST("image")) {
+			if(POST("image_last")) {
 				@unlink(POST("image_last"));
 			}
 			
@@ -80,14 +82,14 @@ class Works_Model extends ZP_Load {
 			$this->Files = $this->core("Files");									
 			
 			$this->data["Image"] = $this->Files->uploadImage($dir, "image", "normal");
+
 			if(!$this->data["Image"]) {
 				return getAlert(__("Upload error"));
 			}
 		}
 
 		if(FILES("preview1", "name")) {
- 
-			if(POST("preview1")) {
+			if(POST("preview1_last")) {
 				@unlink(POST("preview1_last"));
 			}
 			
@@ -96,14 +98,14 @@ class Works_Model extends ZP_Load {
 			$this->Files = $this->core("Files");									
 			
 			$this->data["Preview1"] = $this->Files->uploadImage($dir, "preview1", "normal");
+
 			if(!$this->data["Preview1"]) {
 				return getAlert(__("Upload error"));
 			}
 		}
 
 		if(FILES("preview2", "name")) {
- 
-			if(POST("preview2")) {
+			if(POST("preview2_last")) {
 				@unlink(POST("preview2_last"));
 			}
 			
@@ -112,6 +114,7 @@ class Works_Model extends ZP_Load {
 			$this->Files = $this->core("Files");									
 			
 			$this->data["Preview2"] = $this->Files->uploadImage($dir, "preview2", "normal");
+
 			if(!$this->data["Preview2"]) {
 				return getAlert(__("Upload error"));
 			}
@@ -129,14 +132,14 @@ class Works_Model extends ZP_Load {
 	
 	private function edit() {
 		if($this->Db->update($this->table, $this->data, POST("ID"))) {
-            return getAlert(__("The job has been edit correctly"), "success");
+            return getAlert(__("The work has been edit correctly"), "success");
         }
         
         return getAlert(__("Update error"));
 	}
 	
 	public function getByID($ID) {
-		return $this->Db->findBySQL("ID_Work = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
+		return $this->Db->findBySQL("ID_Work = '$ID' AND Situation != 'Deleted'", $this->table, $this->fields);
 	}
 
 	private function search($search, $field) {

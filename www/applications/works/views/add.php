@@ -52,26 +52,28 @@ echo div("add-form", "class");
 			));
 
 			if(isset($image)) {
+				$imageLast = $image;
 				$image = img(path($image, TRUE), array("alt" => "Image", "class" => "no-border", "style" => "max-width: 200px;"));
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $image;
-				echo formInput(array("name" => "image_last", "type" => "hidden", "value" => $image));
+				echo formInput(array("name" => "image_last", "type" => "hidden", "value" => $imageLast));
 			}
 
 			echo formInput(array(
-				"type" 	=> "file", 
+				"type" 	=> "file",
 				"name" 	=> "image",  
 				"field" => __("Image"),
 				"p" 	=> TRUE
 			));
 
 			if(isset($preview1)) {
+				$preview1Last = $preview1;
 				$preview1 = img(path($preview1, TRUE), array("alt" => "Preview1", "class" => "no-border", "style" => "max-width: 200px;"));
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $preview1;
-				echo formInput(array("name" => "preview1_last", "type" => "hidden", "value" => $preview1));
+				echo formInput(array("name" => "preview1_last", "type" => "hidden", "value" => $preview1Last));
 			}
 
 			echo formInput(array(
@@ -82,11 +84,12 @@ echo div("add-form", "class");
 			));
 
 			if(isset($preview2)) {
+				$preview2Last = $preview2;
 				$preview2 = img(path($preview2, TRUE), array("alt" => "Preview2", "class" => "no-border", "style" => "max-width: 200px;"));
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $preview2;
-				echo formInput(array("name" => "preview2_last", "type" => "hidden", "value" => $preview2));
+				echo formInput(array("name" => "preview2_last", "type" => "hidden", "value" => $preview2Last));
 			}
 
 			echo formInput(array(
