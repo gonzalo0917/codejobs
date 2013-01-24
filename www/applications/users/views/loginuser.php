@@ -31,7 +31,6 @@ echo div("new-user", "class");
 					"type"     => "password",
 					"field"    => __("Password"), 
 					"p" 	   => TRUE, 
-					"value"    => $pwd,
 					"required" => TRUE
 				));
 

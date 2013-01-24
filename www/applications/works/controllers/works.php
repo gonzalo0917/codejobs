@@ -11,35 +11,200 @@ class Works_Controller extends ZP_Load {
 	private $effect = FALSE;
 	
 	public function __construct() {		
-		$this->Templates   = $this->core("Templates");
-		$this->Gallery_Model = $this->model("Works_Model");
+		$this->Templates = $this->core("Templates");
+		//$this->Cache     = $this->core("Cache");
 		
-		$this->application = "works";
-		$this->Pagination = $this->core("Pagination");
-		$this->Templates->theme(_webTheme);
-		$this->CSS("style", $this->application);
+		$this->application = $this->app("works");
+
+		//$this->Templates->theme();
+		
+		//$this->Works_Model = $this->model("Works_Model");
+
+		//$this->helper("pagination");
 	}
 	
-	public function index() {
-		if(segment(2) === "image" and segment(3) > 0 and segment(4) !== "" and segment(5) === "prev") {		
-			$this->getPrev();			
-		} elseif(segment(2) === "image" and segment(3) > 0 and segment(4) !== "" and segment(5) === "next") {	
-			$this->getNext();		
-		} elseif(segment(2) === "image" and segment(3) > 0) {
-			$this->showImage();			
-		} elseif(segment(2) === "album" and segment(3) !== "")	{		
-			$this->showAlbum();			
-		} elseif(segment(2) === "album" and segment(3) !== "" and segment(4) === _page and segment(5) > 0) {		
-			$this->showAlbum();		
-		} elseif(segment(2) === "albums" and segment(3) === _page and segment(4) > 0) {		
-			$this->showGallery();
-			$this->showAlbums();		
-		} else {			
-			$this->showGallery();
-			#if($this->effect === FALSE) $this->showAlbums();			
-		}	
+	public function index($workID = 0) {
+		/*
+		$this->meta("language", whichLanguage(FALSE));
+                
+		if($workID !== "add") {
+			if($workID > 0) {
+				$this->go($workID);
+			} else {
+				$this->getWorks();
+			}
+		}
+		*/
+		redirect();
+	}
+
+	public function works() {
+		$data = $this->Works_Model->getWorks();
+	
+		if($data) {
+			$vars["data"] = $data;
+			
+			$this->view("works", $vars, $this->application);				
+		} 
+
+		return FALSE;
+	}
+	/*
+	public function add() {
+		isConnected();
+		
+		if(POST("save")) {
+			$vars["alert"] = $this->Works_Model->save();
+		}
+
+		if(POST("preview")) {
+			$this->helper("time");
+
+			$this->title(__("Works") ." - ". htmlentities(encode(POST("title", "decode", NULL)), ENT_QUOTES, "UTF-8"));
+
+			$data = $this->Works_Model->preview();
+
+			if($data) {
+				$this->CSS("works", $this->application);
+				$this->js("preview", $this->application);
+				
+				$this->config("user", "works");
+
+				$vars["works"] = $data;
+				$vars["view"] = $this->view("preview", TRUE);
+				
+				$this->render("content", $vars);
+			} else {
+				redirect();
+			}
+		} else {
+			$this->CSS("forms", "cpanel");
+
+			$this->helper(array("html", "forms"));
+
+			$this->config("user", "works");
+
+			$vars["view"] = $this->view("new", TRUE);
+
+			$this->render("content", $vars);
+		}
+	}
+
+	public function admin() {
+		isConnected();
+
+		$this->config("user", "works");
+
+		$data = $this->Works_Model->getAllByUser();
+
+		$this->CSS("results", "cpanel");
+		$this->CSS("admin", "works");
+
+		if($data) {
+			$vars["tFoot"] = $data;
+			$total = count($data);
+		} else {
+			$vars["tFoot"] = array();
+			$total = 0;
+		}
+
+		$label = ($total === 1 ? __("record") : __("records"));
+
+		$vars["total"] = (int)$total . " $label";
+		
+		$vars["view"] = $this->view("admin", TRUE);
+		$this->render("content", $vars);
 	}
 	
+	public function go($workID = 0) {
+		$this->CSS("works", $this->application);
+		$this->CSS("pagination");
+
+		$data = $this->Cache->data("work-$workID", "works", $this->Works_Model, "getByID", array($workID));
+
+		if($data) {
+			$this->helper("time");
+
+			$this->title(__("Works") ." - ". decode($data[0]["Title"]), FALSE);
+			//$this->meta("keywords", $data[0]["Technologies"]);
+			$this->meta("description", $data[0]["Requirements"]);
+                        
+			$vars["views"]    = $this->Works_Model->updateViews($workID);
+			$vars["work"] = $data[0];
+			$vars["view"]     = $this->view("work", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
+	}
+
+	public function visit($workID = 0) {
+		$data = $this->Cache->data("work-$workID", "works", $this->Works_Model, "getByID", array($workID));
+
+		if($data) {
+			$this->Works_Model->updateViews($workID);
+
+			redirect($data[0]["URL"]);
+		} else {
+			redirect();
+		}
+	}
+
+	private function getWorks() { 
+		$this->title(__("Works"));
+		$this->CSS("works", $this->application);
+		$this->CSS("pagination");
+		
+		$limit = $this->limit();
+		
+		$data = $this->Cache->data("works-$limit", "works", $this->Works_Model, "getAll", array($limit));
+	
+		$this->helper("time");
+		
+		if($data) {	
+			//$this->meta("keywords", $data[0]["Technologies"]);
+			$this->meta("description", $data[0]["Requirements"]);
+                        
+			$vars["works"]  = $data;
+			$vars["pagination"] = $this->pagination;
+			$vars["view"]       = $this->view("works", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect();	
+		} 
+	}
+
+	private function limit($type = NULL) {
+		$count = $this->Works_Model->count($type);	
+		
+		if(is_null($type)) {
+			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("works/page/");
+		} elseif($type === "tag") {
+			$tag   = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("works/tag/$tag/page/");
+		} elseif($type === "author") {
+			$user  = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("works/author/$user/page/");
+		} elseif($type === "author-tag") {
+			$user  = segment(2, isLang());
+			$tag   = segment(4, isLang());
+			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * _maxLimit) - _maxLimit : 0;
+			$URL   = path("works/author/$user/tag/$tag/page/");
+		}
+
+		$limit = $start .", ". _maxLimit;
+		
+		$this->pagination = ($count > _maxLimit) ? paginate($count, _maxLimit, $start, $URL) : NULL;
+
+		return $limit;
+	}
+
+	/*
 	public function showGallery() {		
 		
 		$this->paginate = NULL;
@@ -107,8 +272,7 @@ class Works_Controller extends ZP_Load {
 		
 		$comments = $this->Gallery_Model->getComments($this->record["ID"]);
 		if($comments == FALSE) $vars["comments"] = FALSE;
-		else $vars["comments"] = $comments;		
-		*/
+		else $vars["comments"] = $comments;
 			
 		$vars["count"]   = $this->count;
 		$vars["picture"] = $data;
@@ -124,5 +288,5 @@ class Works_Controller extends ZP_Load {
 		$this->Render();
 		
 	}
-	
+	*/
 }

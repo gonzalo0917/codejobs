@@ -51,45 +51,35 @@
 					</div>
 				</div>			
 
-				<?php				
-					if($count > 0) {
-					?>
-						<h3><?php echo __("Replies") . ": $count"; ?></h3>
-					<?php
-					}				
+				<?php							
 			} else {
 				?>
 				<div class="comments">
 					<div class="comments-author">
-						<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> <?php echo $post["Author"]; ?>
-						<?php echo __("Published") ." ". howLong($post["Start_Date"]); ?>
+						<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> 
 					</div>
 
 					<div class="comments-content">
-						<?php echo $post["Content"]; ?>
+						<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?></p>
+						<p class="comment-post"><?php echo $post["Content"]; ?></p>
 					</div>
 				</div>
 				<?php
 			}		
 		}
 
-			if(SESSION("ZanUser")) {
-			?>				
-				<div class="comments-editor">
-					<form action="">
-						<textarea name="comment"></textarea> <br />
-						<input name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
-					</form>
-				</div>		
-			<?php
-			} else {
-			?>
-				<div class="no-connected"><?php echo __("You need to login or create an account to comment this topic"); ?></div>
-			<?php
-			}
-					
+		if(SESSION("ZanUser")) {
+		?>				
+			<div class="comments-editor">	
+				<textarea id="ccontent" class="markitUp" name="comment" style="height:200px"></textarea> <br />
+				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
+				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
+			</div>		
+		<?php
+		} else {
+			SESSION("lastURL", getURL());
 		?>
-		<br /> 
-		<h3><?php echo __("Comments") . ": "; ?><div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div></h3>
-		<div class="fb-comments" data-href="<?php echo $URL; ?>" data-num-posts="50" data-width="750"></div><?php
+			<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to comment this topic'); ?></div>
+		<?php
+		}				
 	}	

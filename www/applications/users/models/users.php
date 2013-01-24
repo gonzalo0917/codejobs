@@ -745,4 +745,17 @@ class Users_Model extends ZP_Load {
 		
 		return getAlert(__("Update error"));
 	}
+
+	public function records($only = FALSE, $start = 0, $order = NULL, $search = NULL) {
+		$application = segment(0, isLang());
+		$Model 		 = ucfirst($application) ."_Model";
+
+		$this->$Model = $this->model($Model);
+
+		$limit = $start .", ". _maxLimit;
+		$data  = $this->$Model->users(!$only ? "all" : "records", $limit, $order);
+
+		return $data;
+	}
+
 }
