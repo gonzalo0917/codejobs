@@ -13,7 +13,7 @@ class Works_Model extends ZP_Load {
 		
 		$this->language = whichLanguage();
 		$this->table = "works";
-		$this->fields   = "ID_Work, Slug, Preview1, Preview2, Image, URL, Description, Situation";
+		$this->fields   = "ID_Work, Title, Slug, Preview1, Preview2, Image, URL, Description, Situation";
 
 		$this->Data = $this->core("Data");
 
@@ -41,12 +41,10 @@ class Works_Model extends ZP_Load {
 	}
 	
 	private function all($trash, $order, $limit) {
-		$this->Db->select("ID_Post, Title, Author, Views, Language, Situation");
-		
 		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit);
 		}
 	}
 	
@@ -63,7 +61,6 @@ class Works_Model extends ZP_Load {
 
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
-			#"Author"  	 => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Slug"    	 => slug(POST("title", "clean")),
  		);
 
@@ -75,7 +72,7 @@ class Works_Model extends ZP_Load {
 		if(FILES("image", "name")) {
  
 			if(POST("image")) {
-				@unlink(POST("image"));
+				@unlink(POST("image_last"));
 			}
 			
 			$dir = "www/lib/files/images/works/";
@@ -91,7 +88,7 @@ class Works_Model extends ZP_Load {
 		if(FILES("preview1", "name")) {
  
 			if(POST("preview1")) {
-				@unlink(POST("preview1"));
+				@unlink(POST("preview1_last"));
 			}
 			
 			$dir = "www/lib/files/images/works/";
@@ -107,7 +104,7 @@ class Works_Model extends ZP_Load {
 		if(FILES("preview2", "name")) {
  
 			if(POST("preview2")) {
-				@unlink(POST("preview2"));
+				@unlink(POST("preview2_last"));
 			}
 			
 			$dir = "www/lib/files/images/works/";
@@ -120,12 +117,9 @@ class Works_Model extends ZP_Load {
 			}
 		}
 
-		____($data);
-
 	}
 	
 	private function save() {
-		
 		if($this->Db->insert($this->table, $this->data)) {
 		 	return getAlert(__("The work has been saved correctly"), "success");
 		}
@@ -142,11 +136,37 @@ class Works_Model extends ZP_Load {
 	}
 	
 	public function getByID($ID) {
-		$thid->Db->select("ID_Work, Title, Slug, Preview1, Preview2, Image, URL, Description, Situation");
+		return $this->Db->findBySQL("ID_Work = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
+	}
 
-		$data = $this->Db->find($ID, $this->table);
+	private function search($search, $field) {
+		if($search and $field) {
+			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);	      
+		} else {
+			return FALSE;
+		}
+	}
+
+	public function getAll($limit) {		
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Work DESC", $limit);
+	}
+
+	public function getAllByUser() {
+		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Work DESC");
+	}
+
+	public function updateViews($workID) {
+		$this->Cache = $this->core("Cache");
+
+		$views = $this->Cache->getValue($workID, "works", "Views", TRUE);
+
+		return $this->Cache->setValue($workID, $views + 1, "works", "Views", 86400);
+	}
+
+	public function getWorks($position = NULL) {			
+		$this->Db->select("Title, Slug, Preview1, Preview2, Image, URL, Description");	
 		
-		return $data;
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table);
 	}
 	
 }

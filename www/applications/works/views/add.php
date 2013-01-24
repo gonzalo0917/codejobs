@@ -34,7 +34,7 @@ echo div("add-form", "class");
 			echo formInput(array(	
 				"name" 	=> "URL", 
 				"class" => "span5 required", 
-				"field" => __("Title"), 
+				"field" => __("URL"), 
 				"p" 	=> TRUE, 
 				"placeholder" => __("Type the URL of the website"),
 				"value" => $title 
@@ -56,13 +56,12 @@ echo div("add-form", "class");
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $image;
-				echo formInput(array("name" => "image", "type" => "hidden", "value" => $image));
+				echo formInput(array("name" => "image_last", "type" => "hidden", "value" => $image));
 			}
 
 			echo formInput(array(
 				"type" 	=> "file", 
-				"name" 	=> "image", 
-				"class" => "required", 
+				"name" 	=> "image",  
 				"field" => __("Image"),
 				"p" 	=> TRUE
 			));
@@ -72,13 +71,12 @@ echo div("add-form", "class");
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $preview1;
-				echo formInput(array("name" => "preview1", "type" => "hidden", "value" => $preview1));
+				echo formInput(array("name" => "preview1_last", "type" => "hidden", "value" => $preview1));
 			}
 
 			echo formInput(array(
 				"type" 	=> "file", 
-				"name" 	=> "preview1", 
-				"class" => "required", 
+				"name" 	=> "preview1",  
 				"field" => __("Preview1"),
 				"p" 	=> TRUE
 			));
@@ -88,13 +86,12 @@ echo div("add-form", "class");
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $preview2;
-				echo formInput(array("name" => "preview1", "type" => "hidden", "value" => $preview2));
+				echo formInput(array("name" => "preview2_last", "type" => "hidden", "value" => $preview2));
 			}
 
 			echo formInput(array(
 				"type" 	=> "file", 
 				"name" 	=> "preview2", 
-				"class" => "required", 
 				"field" => __("Preview2"),
 				"p" 	=> TRUE
 			));

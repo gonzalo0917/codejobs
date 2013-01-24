@@ -162,13 +162,10 @@ class CPanel_Controller extends ZP_Load {
 		}
 
 		$this->title("Edit");
+
+		$this->helper(array("forms", "files"));
 		
-		$this->CSS("forms", "cpanel");
-		$this->CSS("categories", "categories");
-		
-		$this->js("tiny-mce");
-		$this->js("insert-html");
-		$this->js("show-element");	
+		$this->CSS("forms", "cpanel");	
 		
 		$Model = ucfirst($this->application) ."_Model";
 		
@@ -183,8 +180,6 @@ class CPanel_Controller extends ZP_Load {
 		$data = $this->$Model->getByID($ID);
 		
 		if($data) {
-			$this->Categories = $this->classes("Categories", "categories");
-			
 			$this->vars["data"] = $data;
 			$this->vars["view"] = $this->view("add", TRUE);
 			
@@ -217,31 +212,9 @@ class CPanel_Controller extends ZP_Load {
 		if(!$this->isAdmin) {
 			$this->login();
 		}
-		
-		/* $this->title("Manage ". $this->application);
-		
-		$this->CSS("results", "cpanel");
-		$this->CSS("pagination");
-		
-		$this->js("checkbox");
-		
-		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
-				
-		$total 	    = $this->CPanel_Model->total($trash);
-		$thead 	    = $this->CPanel_Model->thead("checkbox, ". getFields($this->application) .", Action", FALSE);
-		$pagination = $this->CPanel_Model->getPagination($trash);
-		$tFoot 	    = getTFoot($trash);
-		
-		$this->vars["message"]    = (!$tFoot) ? "Error" : NULL;
-		$this->vars["pagination"] = $pagination;
-		$this->vars["trash"]  	  = $trash;	
-		$this->vars["search"] 	  = getSearch(); 
-		$this->vars["table"]      = getTable(__("Manage ". ucfirst($this->application)), $thead, $tFoot, $total);					
-		$this->vars["view"]       = $this->view("results", TRUE, "cpanel");
-		
-		$this->render("content", $this->vars); */
-		$this->check();
 
+		$this->check();
+		
 		$this->title("Manage ". ucfirst($this->application));
 
 		$this->CSS("results", "cpanel");
@@ -250,7 +223,7 @@ class CPanel_Controller extends ZP_Load {
 		$this->js("checkbox");
 			
 		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
-
+		
 		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
 		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
 		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : NULL;
@@ -260,7 +233,6 @@ class CPanel_Controller extends ZP_Load {
 		$this->vars["view"]       = $this->view("results", TRUE, $this->application);
 		
 		$this->render("content", $this->vars);
-
 	}
 	
 }
