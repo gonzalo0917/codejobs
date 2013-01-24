@@ -1,0 +1,18 @@
+.caption {
+	background-color: #50ADEA; 
+	border-bottom: 5px solid #1975D7; 
+	color: #FFFFFF;
+}
+
+.caption thead tr {
+	text-align: center;
+}
+
+.anchor_title {
+	text-align: left;
+}
+
+.anchor_title a {
+	color: rgb(0,102,255);
+	text-decoration: none;
+}

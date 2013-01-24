@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `muu_ads` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Ad`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `muu_ads`
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `muu_applications` (
   `Comments` tinyint(1) NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Application`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `muu_applications`
@@ -93,7 +93,8 @@ INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Ad
 (16, 'Works', 'works', 1, 1, 1, 0, 'Active'),
 (17, 'Codes', 'codes', 1, 1, 1, 0, 'Active'),
 (18, 'Jobs', 'jobs', 1, 1, 1, 0, 'Active'),
-(19, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active');
+(19, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active'),
+(20, 'Workshop', 'workshop', 1, 0, 1, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -130,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `muu_blog`
@@ -164,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `muu_bookmarks` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Bookmark`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `muu_bookmarks`
@@ -200,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
   `Language` varchar(20) NOT NULL DEFAULT 'English',
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `muu_codes`
@@ -226,7 +227,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes_files` (
   PRIMARY KEY (`ID_File`),
   KEY `ID_Code` (`ID_Code`),
   KEY `ID_Syntax` (`ID_Syntax`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `muu_codes_files`
@@ -252,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
   `Filename` varchar(50) NOT NULL,
   `Extension` varchar(10) NOT NULL,
   PRIMARY KEY (`ID_Syntax`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `muu_codes_syntax`
@@ -284,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `muu_comments` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Comment`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -315,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
   `Email_Send` varchar(50) NOT NULL DEFAULT '@domain.com',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Configuration`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `muu_configuration`
@@ -339,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_categories` (
   `Language` varchar(10) NOT NULL DEFAULT 'English',
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Category`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -355,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_enrollments` (
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Enrollment`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -370,7 +371,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_help` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Help`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -384,7 +385,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_lessons` (
   `Title` varchar(100) NOT NULL,
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   PRIMARY KEY (`ID_Lesson`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -400,7 +401,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_material` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Material`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -415,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_resources` (
   `URL` varchar(150) NOT NULL,
   `Description` varchar(250) NOT NULL,
   PRIMARY KEY (`ID_Resource`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -429,7 +430,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_roles` (
   `Category` varchar(100) NOT NULL,
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   PRIMARY KEY (`ID_Role`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -456,7 +457,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_students` (
   `Code` varchar(10) NOT NULL,
   `Privileges` varchar(15) NOT NULL DEFAULT 'Student',
   PRIMARY KEY (`ID_Student`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -485,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Test`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -513,7 +514,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests_questions` (
   `Image` varchar(150) NOT NULL,
   `Video` varchar(150) NOT NULL,
   PRIMARY KEY (`ID_Question`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -529,7 +530,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors` (
   `Photo` varchar(250) NOT NULL,
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   PRIMARY KEY (`ID_Tutor`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -547,7 +548,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_alerts` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Alert`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -566,7 +567,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_messages` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Message`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -581,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `muu_dislikes` (
   `ID_Record` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Dislike`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `muu_dislikes`
@@ -610,7 +611,7 @@ CREATE TABLE IF NOT EXISTS `muu_events` (
   `URL` varchar(150) NOT NULL,
   `Description` text NOT NULL,
   PRIMARY KEY (`ID_Event`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -631,7 +632,7 @@ CREATE TABLE IF NOT EXISTS `muu_feedback` (
   `Text_Date` varchar(60) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Inactive',
   PRIMARY KEY (`ID_Feedback`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `muu_feedback`
@@ -658,7 +659,7 @@ CREATE TABLE IF NOT EXISTS `muu_forums` (
   `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Forum`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `muu_forums`
@@ -694,7 +695,7 @@ CREATE TABLE IF NOT EXISTS `muu_forums_posts` (
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`),
   KEY `ID_Forum` (`ID_Forum`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `muu_forums_posts`
@@ -727,7 +728,7 @@ CREATE TABLE IF NOT EXISTS `muu_gallery` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Image`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -741,7 +742,7 @@ CREATE TABLE IF NOT EXISTS `muu_gallery_themes` (
   `Slug` varchar(50) NOT NULL,
   `Description` varchar(200) NOT NULL,
   PRIMARY KEY (`ID_Gallery_Theme`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -757,7 +758,7 @@ CREATE TABLE IF NOT EXISTS `muu_inbox` (
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Unread',
   PRIMARY KEY (`ID_Inbox`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -790,7 +791,7 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
 
 --
 -- Dumping data for table `muu_jobs`
@@ -830,7 +831,7 @@ CREATE TABLE IF NOT EXISTS `muu_learning` (
   `Language` varchar(15) NOT NULL DEFAULT 'English',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Course`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -845,7 +846,7 @@ CREATE TABLE IF NOT EXISTS `muu_likes` (
   `ID_Record` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Like`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `muu_likes`
@@ -871,7 +872,7 @@ CREATE TABLE IF NOT EXISTS `muu_logs` (
   `Start_Date` datetime NOT NULL,
   PRIMARY KEY (`ID_Log`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -894,7 +895,18 @@ CREATE TABLE IF NOT EXISTS `muu_multimedia` (
   `Downloads` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(20) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_File`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `muu_multimedia`
+--
+
+INSERT INTO `muu_multimedia` (`ID_File`, `ID_User`, `Filename`, `URL`, `Medium`, `Small`, `Thumbnail`, `Category`, `Size`, `Author`, `Start_Date`, `Downloads`, `Situation`) VALUES
+(1, 1, 'logosoldiercorp.png', 'www/lib/files/images/a69c2c8f7be63f5.png', NULL, NULL, NULL, 'images', 6157, 'admin', 1357692368, 0, 'Active'),
+(2, 1, 'APPLICACIONES_MINT.txt', 'www/lib/files/documents/b594db2bd9eb881.txt', NULL, NULL, NULL, 'documents', 246, 'admin', 1358350393, 0, 'Active'),
+(3, 1, 'ic_menu_answer_call.png', 'www/lib/files/images/e5f3c45c940e24b.png', NULL, NULL, NULL, 'images', 6417, 'admin', 1358350393, 0, 'Active'),
+(4, 1, 'NS2_Biosphere_1680x1050_by_Th3Juic3.jpg', 'www/lib/files/images/21099f7e686bae3.jpg', NULL, NULL, NULL, 'images', 664624, 'admin', 1358350393, 0, 'Active'),
+(5, 1, 'Copia de robot.jpg', 'www/lib/files/images/16c74df00858304.jpg', NULL, NULL, NULL, 'images', 41408, 'admin', 1358350393, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -911,7 +923,7 @@ CREATE TABLE IF NOT EXISTS `muu_mural` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Mural`),
   KEY `ID_Post` (`ID_Post`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -934,7 +946,7 @@ CREATE TABLE IF NOT EXISTS `muu_pages` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Page`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `muu_pages`
@@ -964,7 +976,7 @@ CREATE TABLE IF NOT EXISTS `muu_polls` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Poll`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -979,7 +991,7 @@ CREATE TABLE IF NOT EXISTS `muu_polls_answers` (
   `Votes` mediumint(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Answer`),
   KEY `ID_Poll` (`ID_Poll`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1005,7 +1017,7 @@ CREATE TABLE IF NOT EXISTS `muu_privileges` (
   `ID_Privilege` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Privilege` varchar(25) NOT NULL DEFAULT 'Member',
   PRIMARY KEY (`ID_Privilege`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `muu_privileges`
@@ -1041,7 +1053,7 @@ CREATE TABLE IF NOT EXISTS `muu_resumes` (
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Last_Update` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Resume`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1057,7 +1069,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_comments_applications` (
   PRIMARY KEY (`ID_Comment2Application`),
   KEY `ID_Application` (`ID_Application`),
   KEY `ID_Comment` (`ID_Comment`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `muu_re_comments_applications`
@@ -1300,7 +1312,7 @@ CREATE TABLE IF NOT EXISTS `muu_support` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Ticket`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1318,7 +1330,7 @@ CREATE TABLE IF NOT EXISTS `muu_tokens` (
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Token`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `muu_tokens`
@@ -1346,7 +1358,7 @@ CREATE TABLE IF NOT EXISTS `muu_tutorials` (
   `Likes` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Tutorial`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1401,14 +1413,14 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Viadeo` varchar(150) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `muu_users`
 --
 
 INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Avatar_Coordinate`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Followers`, `Subscribed`, `Start_Date`, `Code`, `Name`, `Description`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
-(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', '0,0,90,90', 95, 75, '', 0, 1, 0, 0, 0, 1, 4, 3, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', '', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
+(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', '0,0,90,90', 95, 75, '', 0, 1, 0, 0, 0, 15, 0, 0, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', '', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
 (2, 4, 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', '0,0,90,90', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1347453332, 'C3F4E6E123', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
 (3, 1, 'Soldier', '2b4f2eda0f53ea99ad419d155803f8ea15bc25aa', 'soldiercrp@gmail.com', '', 'default.png', '0,0,90,90', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1358076919, 'BA7C114E6E', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
 
@@ -1467,7 +1479,7 @@ CREATE TABLE IF NOT EXISTS `muu_videos` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Video`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `muu_videos`
@@ -1501,12 +1513,37 @@ CREATE TABLE IF NOT EXISTS `muu_works` (
   `Description` text NOT NULL,
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Work`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_world`
+-- Estructura de tabla para la tabla `muu_workshop`
+--
+
+CREATE TABLE IF NOT EXISTS `muu_workshop` (
+  `ID_Workshop` int(8) unsigned NOT NULL AUTO_INCREMENT,
+  `Title` varchar(250) NOT NULL,
+  `Slug` varchar(250) NOT NULL,
+  `Topics` text NOT NULL,
+  `Description` text NOT NULL,
+  `File` varchar(250) NOT NULL,
+  `Email` varchar(60) NOT NULL,
+  `Skype` varchar(30) DEFAULT NULL,
+  `Gtalk` varchar(30) DEFAULT NULL,
+  `Facebook` varchar(30) DEFAULT NULL,
+  `Twitter` varchar(30) DEFAULT NULL,
+  `Proposal_Day` varchar(60) NOT NULL,
+  `Proposal_Time` varchar(10) NOT NULL,
+  `Start_Date` int(11) NOT NULL,
+  `Situation` varchar(15) NOT NULL,
+  PRIMARY KEY (`ID_Workshop`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_world`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_world` (
