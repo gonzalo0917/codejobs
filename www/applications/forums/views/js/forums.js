@@ -1,4 +1,7 @@
 $(document).on("ready", function() {
+
+	$('#comments').markItUp(mySettings);
+
 	$("#ftags").hide();
 	$("#fcontent").hide();
 	$("#fpublish").hide();

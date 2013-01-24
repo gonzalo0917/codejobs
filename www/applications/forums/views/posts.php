@@ -72,7 +72,8 @@
 		?>				
 			<div class="comments-editor">
 				<form action="">
-					<textarea name="comment"></textarea> <br />
+					<textarea id="comments" class="markitUp" name="comment" cols="80" rows="20">
+					</textarea> <br />
 					<input name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
 				</form>
 			</div>		

@@ -631,6 +631,7 @@ a img {
 .comments {
 	padding: 1%;
 	overflow: hidden;
+	width: 100%;
 }
 
 .comments-author {
