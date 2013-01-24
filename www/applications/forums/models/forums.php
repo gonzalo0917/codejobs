@@ -224,13 +224,9 @@ class Forums_Model extends ZP_Load {
 				"Topic" => 0,
 				"Language" => $this->language,
 				"Situation" => "Active"
-			);
+			);			
 
-			$a = $this->Db->insert($data, "forums_posts");
-
-			____($a);
-
-			if($this->Db->insert($data, "forums_posts")) {
+			if($this->Db->insert("forums_posts", $data)) {
 				return TRUE;
 			} else {			
 				return FALSE;
