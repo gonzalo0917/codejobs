@@ -218,6 +218,10 @@ class Forums_Model extends ZP_Load {
 			$data = array(
 				"ID_User" => SESSION("ZanUserID"),
 				"ID_Parent" => $fid, 
+				"Title" => NULL,
+				"Slug" => NULL,
+				"Text_Date" => decode(now(2)),
+				"Tags" => NULL,
 				"Content" => $content,
 				"Author" => SESSION("ZanUser"),
 				"Start_Date" => now(4), 
