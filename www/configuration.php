@@ -27,15 +27,15 @@ if(is_array($data)) {
 		die($data[0]["Message"]);
 	}
 	
-	set("webName", 		   $data[0]["Name"]);
-	set("webURL", 		   $data[0]["URL"]);
-	set("webTheme", 	   $data[0]["Theme"]);
-	set("webValidation",   $data[0]["Validation"]);
-	set("webActivation",   $data[0]["Activation"]);
-	set("webEmailRecieve", $data[0]["Email_Recieve"]);
-	set("webEmailSend",    $data[0]["Email_Send"]);
+	set("webName", 		      $data[0]["Name"]);
+	set("webURL", 		      $data[0]["URL"]);
+	set("webTheme", 	      $data[0]["Theme"]);
+	set("webValidation",      $data[0]["Validation"]);
+	set("webActivation",      $data[0]["Activation"]);
+	set("webEmailRecieve",    $data[0]["Email_Recieve"]);
+	set("webEmailSend",       $data[0]["Email_Send"]);
 	set("defaultApplication", $data[0]["Application"]);
-	set("defaultEditor",   $data[0]["Editor"]);
+	set("defaultEditor",      $data[0]["Editor"]);
 
 	if(!_get("modRewrite")) {
 		set("webBase", _get("webURL") . _sh . _index);
