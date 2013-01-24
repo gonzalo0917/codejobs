@@ -210,4 +210,31 @@ class Forums_Model extends ZP_Load {
 			return $count[0]["Total"];
 		}
 	}
+
+	public function saveComment($fid, $content) {
+		$this->helper("time");
+
+		if($fid and $content) {
+			$data = array(
+				"ID_User" => SESSION("ZanUserID"),
+				"ID_Parent" => $fid, 
+				"Content" => $content,
+				"Author" => SESSION("ZanUser"),
+				"Start_Date" => now(4), 
+				"Topic" => 0,
+				"Language" => $this->language,
+				"Situation" => "Active"
+			);
+
+			$a = $this->Db->insert($data, "forums_posts");
+
+			____($a);
+
+			if($this->Db->insert($data, "forums_posts")) {
+				return TRUE;
+			} else {			
+				return FALSE;
+			}
+		}
+	}
 }

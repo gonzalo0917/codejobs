@@ -192,6 +192,7 @@ class Forums_Controller extends ZP_Load {
 		if($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");
+			$this->js("forums", "forums");
 
 			$vars["posts"] = $data;
 			$vars["view"]  = $this->view("posts", TRUE);
@@ -199,6 +200,14 @@ class Forums_Controller extends ZP_Load {
 			$this->render("content", $vars);
 		} else {
 			redirect();
+		}
+	}
+
+	public function publishComment() {
+		if($this->Forums_Model->saveComment(POST("fid"), POST("content"))) {
+			echo "success";
+		} else {
+			echo "error";
 		}
 	}
 }
