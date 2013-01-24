@@ -631,7 +631,7 @@ a img {
 .comments {
 	padding: 1%;
 	overflow: hidden;
-	width: 100%;
+	width: 95%;
 }
 
 .comments-author {
@@ -655,13 +655,13 @@ a img {
 	-moz-border-radius-topright: 10px;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
-	-webkit-box-shadow: 0px 0px 5px 0px #ccc;
-	box-shadow: 0px 0px 5px 0px #ccc; 
+	-webkit-box-shadow: 0px 2px 5px 0px #DDD;
+	box-shadow: 0px 2px 5px 0px #DDD; 
 }
 
 div.comments-content:hover {
-	-webkit-box-shadow: 0px 2px 5px 0px #ccc;
-	box-shadow: 0px 2px 5px 0px #ccca; 
+	-webkit-box-shadow: 0px 2px 8px 0px #CCC;
+	box-shadow: 0px 2px 8px 0px #CCC; 
 }
 
 .comment-data {
