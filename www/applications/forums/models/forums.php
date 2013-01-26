@@ -119,15 +119,11 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	private function edit() {
-        $forum = $this->getIDByForum($this->data["Slug"]);
-        
-        if(!$forum){
-            return getAlert(__("The forum does not exist"), "error", $this->URL);
+		if($this->Db->update($this->table, $this->data, POST("ID"))) {
+            return getAlert(__("The work has been edit correctly"), "success");
         }
         
-        $this->Db->update($this->table, $this->data, POST("ID"));	
-		
-		return getAlert(__("The forum has been edited correctly"), "success", $this->URL);
+        return getAlert(__("Update error"));
 	}
 	
 	public function getByID($ID) {		

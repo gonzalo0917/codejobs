@@ -67,13 +67,13 @@ class CPanel_Controller extends ZP_Load {
 			$this->login();
 		}
 		
-		//$Model = ucfirst($this->application) ."_Model";
+		$Model = ucfirst($this->application) ."_Model";
 		
-		//$this->$Model = $this->model($Model);
+		$this->$Model = $this->model($Model);
 
 		$img1 = $this->Works_Model->getImg1($ID);
 
-		var_dump($img1);
+		//var_dump($img1);
 
 		if($this->CPanel_Model->delete($ID)) {
 			if($return) {
