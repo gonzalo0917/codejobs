@@ -1,0 +1,32 @@
+.new-proposal fieldset {
+	border: 0 !important;
+}
+
+.new-proposal textarea {
+	width: 100%;
+	height: 200px;
+}
+
+.new-proposal select {
+	width: 350px;
+	height: 25px;
+}
+
+.new-proposal input {
+	width: 350px;
+	height: 25px;
+}
+
+.new-proposal p:first-child {
+	text-align: center;
+	font-size: 1.2em;
+}
+
+.submit {
+	text-align: center;
+}
+
+.new-proposal input[type=submit] {
+	width: 200px;
+	height: 30px;
+}

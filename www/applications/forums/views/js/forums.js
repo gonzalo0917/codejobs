@@ -11,6 +11,25 @@ $(document).on("ready", function() {
 		$("#fcancel").show();
 	});
 
+	$("#cpublish").on("click", function() {
+		var content = $('#ccontent').val();
+		var fid = $('#fid').val();
+
+		if(content != '' && fid > 0) {
+			var newPost = '';
+
+			$.ajax({
+				type: 'POST',
+				url:   PATH + '/forums/publishComment',
+				dataType: 'json',
+				data: 'fid=' + fid + '&content=' + content,
+				success: function(response) {	
+					console.log(response);							
+				}
+			});
+		}
+	});
+
 	$("#fpublish").on("click", function() {
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();

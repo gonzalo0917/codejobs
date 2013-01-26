@@ -120,75 +120,6 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 	
-	public function add() {
-		if(!$this->isAdmin) {
-			$this->login();
-		}
-		
-		$this->helper("forms");
-
-		$this->title("Add");
-		
-		$this->js("tiny-mce");
-		$this->js("insert-html");
-		$this->js("show-element");	
-		
-		$this->CSS("forms", "cpanel");
-		
-		$this->vars["alert"] = FALSE;
-		
-		$Model = ucfirst($this->application) . "_Model";
-		
-		$this->$Model = $this->model($Model);
-		
-		if(POST("save")) {
-			$this->vars["alert"] = $this->$Model->cpanel("save");
-		} elseif(POST("cancel")) {
-			redirect("cpanel");
-		}
-		
-		$this->vars["view"] = $this->view("add", TRUE);
-		
-		$this->render("content", $this->vars);
-	}
-		
-	public function edit($ID = 0) {
-		if(!$this->isAdmin) {
-			$this->login();
-		}
-		
-		if((int) $ID === 0) { 
-			redirect($this->application ."/cpanel/results");
-		}
-
-		$this->title("Edit");
-
-		$this->helper(array("forms", "files"));
-		
-		$this->CSS("forms", "cpanel");	
-		
-		$Model = ucfirst($this->application) ."_Model";
-		
-		$this->$Model = $this->model($Model);
-		
-		if(POST("edit")) {
-			$this->vars["alert"] = $this->$Model->cpanel("edit");
-		} elseif(POST("cancel")) {
-			redirect("cpanel");
-		} 
-		
-		$data = $this->$Model->getByID($ID);
-
-		if($data) {
-			$this->vars["data"] = $data;
-			$this->vars["view"] = $this->view("add", TRUE);
-			
-			$this->render("content", $this->vars);
-		} else {
-			redirect($this->application ."/cpanel/results");
-		}
-	}
-	
 	public function login() {
 		$this->title("Login");
 		$this->CSS("login", "users");
@@ -215,17 +146,16 @@ class CPanel_Controller extends ZP_Load {
 
 		$this->check();
 		
-		$this->title("Manage ". ucfirst($this->application));
-
+		$this->title("Manage ". $this->application);
+		
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
 		
-		$this->js("checkbox");
-			
-		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
+		$this->js("checkbox");		
 		
-		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
-		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
+		$trash = (segment(3, isLang()) === "trash") ? TRUE : FALSE;
+		$this->vars["total"] 	  = $this->CPanel_Model->total($trash); 
+		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash, "ID_Workshop DESC"); 
 		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : NULL;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
 		$this->vars["trash"]  	  = $trash;	
@@ -233,6 +163,31 @@ class CPanel_Controller extends ZP_Load {
 		$this->vars["view"]       = $this->view("results", TRUE, $this->application);
 		
 		$this->render("content", $this->vars);
+	}
+	
+	public function read($ID = 0) {
+		if(!$this->isAdmin) {
+			$this->login();
+		}
+
+		$this->title("Proposal");
+		
+		$Model = ucfirst($this->application) ."_Model";
+
+		$this->$Model = $this->model($Model);
+
+		$data = $this->$Model->getByID($ID);
+				
+		if($data) {			
+			$this->helper("time");
+			$this->vars["ID"]	 = $ID;
+			$this->vars["data"]	 = $data;
+			$this->vars["view"]  = $this->view("read", TRUE, $this->application);
+			
+			$this->render("content", $this->vars);
+		} else {
+			redirect($this->application ."/cpanel/results");
+		}
 	}
 	
 }
