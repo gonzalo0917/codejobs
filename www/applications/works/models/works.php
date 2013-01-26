@@ -142,6 +142,10 @@ class Works_Model extends ZP_Load {
 		return $this->Db->findBySQL("ID_Work = '$ID' AND Situation != 'Deleted'", $this->table, $this->fields);
 	}
 
+	public function getImg1($ID) {
+		return $this->Db->findBySQL("ID_Work = '$ID' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "Image");
+	}
+
 	private function search($search, $field) {
 		if($search and $field) {
 			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);	      

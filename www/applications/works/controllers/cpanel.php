@@ -26,6 +26,8 @@ class CPanel_Controller extends ZP_Load {
 		$this->Templates = $this->core("Templates");
 		
 		$this->Templates->theme("cpanel");
+
+
 	}
 	
 	public function index() {
@@ -65,8 +67,17 @@ class CPanel_Controller extends ZP_Load {
 			$this->login();
 		}
 		
+		//$Model = ucfirst($this->application) ."_Model";
+		
+		//$this->$Model = $this->model($Model);
+
+		$img1 = $this->Works_Model->getImg1($ID);
+
+		var_dump($img1);
+
 		if($this->CPanel_Model->delete($ID)) {
 			if($return) {
+				unlink($img1);
 				return TRUE;
 			}
 
@@ -104,11 +115,11 @@ class CPanel_Controller extends ZP_Load {
 		if(!$this->isAdmin) {
 			$this->login();
 		}
-		
+
 		if($this->CPanel_Model->trash($ID)) {		
 			if($return) {
 				return TRUE;
-			}	
+			}
 
 			redirect("$this->application/cpanel/results");
 		} else {
