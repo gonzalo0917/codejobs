@@ -24,7 +24,8 @@
                 <script type="text/javascript">
                     var PATH = "<?php echo path(); ?>",
                         URL  = "<?php echo _get('webURL'); ?>",
-                        ZAN  = "<?php echo path("", "zan");?>";
+                        ZAN  = "<?php echo path("", "zan");?>",
+                        APP  = "<?php echo whichApplication(); ?>";
                 </script>
         
                 <?php 

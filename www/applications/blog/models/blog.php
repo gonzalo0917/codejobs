@@ -44,7 +44,7 @@ class Blog_Model extends ZP_Load {
 		}
 	}
 	
-	private function all($trash, $order, $limit, $own) {	
+	private function all($trash, $order, $limit, $own = FALSE) {	
 		if(!$trash) { 
 			return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
 		} else {
@@ -415,28 +415,60 @@ class Blog_Model extends ZP_Load {
 		$this->Db->update($this->table, array("Pwd" => ""), $ID);		
 	}
 	
-	public function users($action, $limit = NULL, $order = "Language DESC") {
+	public function find($query, $order, $limit, $own = FALSE) {
+		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
+	}
+
+	public function users($action, $start = 0, $end = _maxLimit, $order = "ID_Post DESC", $search = FALSE) {
 		if($action === "all") {
-			return $this->all(FALSE, "ID_Post DESC", $limit, TRUE);
+			return $this->all(FALSE, $order, "$start, $end", TRUE);
 		} elseif($action === "records") {
-			$data = $this->all(FALSE, "ID_Post DESC", $limit, TRUE);
+			$data = $this->all(FALSE, $order, "$start, $end", TRUE);
 
-			if($data) {
-				foreach($data as $key => $record) {
-					if(isset($record["Language"])) {
-						$data[$key]["Language"] = getLanguage($record["Language"], TRUE);
-					}
+			return $this->processRecords($data);
+		} else {
+			$data = $this->find($action, $order, "$start, $end", TRUE);
 
-					if(isset($record["Start_Date"])) {
-						$this->helper("time");
+			return $this->processRecords($data);
+		}
+	}
 
-						$data[$key]["Start_Date"] = ucfirst(howLong($record["Start_Date"]));
-					}
+	private function processRecords($data) {
+		if(is_array($data)) {
+			foreach($data as $key => $record) {
+				if(isset($record["Language"])) {
+					$data[$key]["Language"] = getLanguage($record["Language"], TRUE);
+				}
+
+				if(isset($record["Start_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["Start_Date"] = ucfirst(howLong($record["Start_Date"]));
+				}
+
+				if(isset($record["End_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["End_Date"] = ucfirst(howLong($record["End_Date"]));
+				}
+
+				if(isset($record["Modified_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["Modified_Date"] = ucfirst(howLong($record["Modified_Date"]));
+				}
+
+				if(isset($record["Situation"])) {
+					$data[$key]["Situation"] = __($record["Situation"]);
+				}
+
+				if(isset($record["Views"])) {
+					$data[$key]["Views"] = (int)$record["Views"];
 				}
 			}
-
-			return $data;
 		}
+
+		return $data;
 	}
 
 }

@@ -18,8 +18,8 @@
 		</div>
 		<div class="pull-right">
 			<form class="form-search">
-			    <input type="text" class="input-medium search-query" />
-			    <button type="submit" class="btn"><?php echo __("Search"); ?></button>
+			    <input id="search-input" type="text" class="input-medium search-query" />
+			    <button id="search-button" type="submit" class="btn"><?php echo __("Search"); ?></button>
 			</form>
 		</div>
 	</div>
@@ -31,11 +31,11 @@
 		<thead>
 			<tr>
 				<th style="width: 20px;"><input id="records" type="checkbox" title="<?php echo __("Select all"); ?>" /></th>
-				<th ><a href="#"><?php echo __("Title"); ?></a></th>
-				<th style="width: 70px;"><a href="#"><?php echo __("Views"); ?></a></th>
-				<th style="width: 70px;"><?php echo __("Language"); ?></th>
-				<th style="width: 70px;"><a href="#"><?php echo __("Situation"); ?></a></th>
-				<th data-order="DESC" style="width: 120px;"><a href="#"><?php echo __("Published"); ?></a></th>
+				<th data-field="Title"><a href="#"><?php echo __("Title"); ?></a></th>
+				<th style="width: 70px;" data-field="Views"><a href="#"><?php echo __("Views"); ?></a></th>
+				<th style="width: 100px;"><?php echo __("Language"); ?></th>
+				<th style="width: 70px;"><?php echo __("Situation"); ?></th>
+				<th data-order="DESC" style="width: 120px;" data-field="ID_Post"><a href="#"><?php echo __("Published"); ?></a></th>
 				<th style="width: 70px;"><?php echo __("Action"); ?></th>
 			</tr>
 		</thead>
@@ -54,8 +54,8 @@
 				<td data-center><?php echo __($column["Situation"]); ?></td>
 				<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
 				<td data-center>
-					<a href="#" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration" onclick="return confirm('¿Deseas editar el registro?')">&nbsp;&nbsp;&nbsp;</a>
-					<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration" onclick="return confirm('¿Deseas enviar el registro a la papelera?')">&nbsp;&nbsp;&nbsp;</a>
+					<a href="#" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration" onclick="return confirm($('#editing-question').val())">&nbsp;&nbsp;&nbsp;</a>
+					<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>
 				</td>
 			</tr>
 			<?php
@@ -68,14 +68,18 @@
 	</table>
 
 	<p style="text-align: center">
-		<a id="more" disabled class="btn no-decoration">Cargando...</a>
+		<a id="more" disabled class="btn no-decoration" <?php echo ($count < $total ? '' : 'style="display:none"'); ?>>Cargando...</a>
 	</p>
 
 	<input type="hidden" id="order-desc" value="<?php echo __("Sort descending"); ?>">
 	<input type="hidden" id="order-asc" value="<?php echo __("Sort ascending"); ?>">
 	<input type="hidden" id="delete-question" value="<?php echo __("Do you want to delete the records"); ?>">
+	<input type="hidden" id="delete-empty-question" value="<?php echo __("You must select at least one record"); ?>">
+	<input type="hidden" id="editing-question" value="<?php echo __("Do you want to edit the record?"); ?>">
+	<input type="hidden" id="deleting-question" value="<?php echo __("Do you want to delete the record?"); ?>">
 	<input type="hidden" id="count" value="<?php echo $count; ?>">
 	<input type="hidden" id="total" value="<?php echo $total; ?>">
-	<input type="hidden" id="main-url" value="<?php echo path("blog/users/"); ?>">
 
 </form>
+
+<div id="table-shadow"></div>

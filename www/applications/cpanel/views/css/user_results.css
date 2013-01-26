@@ -86,3 +86,11 @@
 .white-a {
 	color: #FFF !important;
 }
+
+#table-shadow {
+    border: 1px solid transparent;
+    background: #fff;
+    display: none;
+    opacity: .4;
+    position: absolute;
+}

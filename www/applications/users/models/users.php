@@ -22,6 +22,8 @@ class Users_Model extends ZP_Load {
 
 		$this->table  = "users";
 		$this->fields = "ID_User, ID_Privilege, Username, Email, Website, Situation";
+
+		$this->application = whichApplication();
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_User DESC", $search = NULL, $field = NULL, $trash = FALSE) {
@@ -579,14 +581,14 @@ class Users_Model extends ZP_Load {
 		showAlert(__("The record doesn't exists"), path());
 	}
 
-	public function setCredits($factor, $application, $record = NULL, $action = "Add") {
+	public function setCredits($factor, $application) {
 		$this->config("scores", "users");
 
 		$prefix = $factor > 0 ? "+" : "";
 		$sign 	= $prefix . $factor;
 
 		switch($application) {
-			case 9:
+			case 9: case "bookmarks":
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + $factor);
 				
 				$additional 	= ", Bookmarks = (Bookmarks) $sign";
@@ -594,7 +596,7 @@ class Users_Model extends ZP_Load {
 				$recommendation = $prefix . (_bookmarksRecommendations * $factor);
 			break;
 			
-			case 17:
+			case 17: case "codes":
 				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + $factor);
 
 				$additional 	= ", Codes = (Codes) $sign";
@@ -602,7 +604,7 @@ class Users_Model extends ZP_Load {
 				$recommendation = $prefix . (_codesRecommendations * $factor);
 			break;
 			
-			case 3:
+			case 3: case "blog":
 				SESSION("ZanUserPosts", SESSION("ZanUserPosts") + $factor);
 
 				$additional 	= ", Posts = (Posts) $sign";
@@ -746,16 +748,35 @@ class Users_Model extends ZP_Load {
 		return getAlert(__("Update error"));
 	}
 
-	public function records($only = FALSE, $start = 0, $order = NULL, $search = NULL) {
+	public function records($only = FALSE, $start = 0, $order = "ID_Post DESC", $search = FALSE) {
 		$application = segment(0, isLang());
 		$Model 		 = ucfirst($application) ."_Model";
 
 		$this->$Model = $this->model($Model);
 
-		$limit = $start .", ". _maxLimit;
-		$data  = $this->$Model->users(!$only ? "all" : "records", $limit, $order);
+		if(!$search) {
+			$data = $this->$Model->users(!$only ? "all" : "records", $start, _maxLimit, $order);
+		} else {
+			$data = $this->$Model->users($search, $start, _maxLimit, $order);
+		}
 
 		return $data;
+	}
+
+	public function delete($records, $start) {
+		$count = count($records);
+
+		foreach($records as $record) {
+			$this->Db->updateBySQL($this->application, "Situation = 'Deleted' WHERE ID_Post = ". $record ." AND ID_User = ". SESSION("ZanUserID"));
+		}
+
+		$Model = ucfirst($this->application) ."_Model";
+
+		$this->$Model = $this->model($Model);
+
+		$this->setCredits(-$count, $this->application);
+
+		return $this->$Model->users("records", $start - $count, $count);
 	}
 
 }

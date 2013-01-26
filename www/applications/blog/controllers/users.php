@@ -33,12 +33,6 @@ class Users_Controller extends ZP_Load {
 	public function results() {
 		isConnected($this->application);
 
-		if(POST("delete") and is_array(POST("records"))) {
-			foreach(POST("records") as $record) {
-				$this->delete($record, TRUE); 
-			}
-		}
-
 		$this->helper("time");
 
 		$this->CSS("user_results", "cpanel");
@@ -58,12 +52,44 @@ class Users_Controller extends ZP_Load {
 		$this->render("content", $this->vars);
 	}
 
-	public function more($start = 0) {
-		isConnected($this->application);
+	public function data() {
+		$this->isMember();
+		
+		$start = (int) GET("start");
+		$field = GET("field") ? GET("field") : "ID_Post";
+		$order = GET("order") ? GET("order") : "DESC";
+		$query = GET("query");
 
-		$data = $this->Users_Model->records(TRUE, (int) $start);
+		$data = $this->Users_Model->records(TRUE, $start, "$field $order", $query);
 
-		echo json($data);
+		if($data) {
+			echo json($data);
+		} else {
+			echo '[]';
+		}
+	}
+
+	public function delete() {
+		$this->isMember();
+
+		$records = GET("records");
+		$start   = GET("start");
+
+		if(is_array($records) and is_integer($start)) {
+			$data = $this->Users_Model->delete($records, $start);
+
+			if($data) {
+				echo json($data);
+			} else {
+				echo '[]';
+			}
+		}
+	}
+
+	private function isMember() {
+		if(!SESSION("ZanUser")) {
+			exit('[]');
+		}
 	}
 
 }
