@@ -50,8 +50,10 @@ if(is_array($posts)) {
 					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';?>					
 					
 					<?php
-					if(SESSION("ZanUserPrivilegeID") <= 3) {
-						 echo '| <a href="#"> Edit </a> | <a href="#"> Delete </a>';
+					if(SESSION("ZanUserPrivilegeID") !== FALSE){
+						if(SESSION("ZanUserPrivilegeID") <= 3) {
+							echo '| <a href="#"> Edit </a> | <a href="#"> Delete </a>';
+						}
 					}
 					?>
 					
