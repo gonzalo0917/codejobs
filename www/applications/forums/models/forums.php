@@ -208,7 +208,7 @@ class Forums_Model extends ZP_Load {
 	}
 
 	public function saveComment($fid, $content) {
-		$this->helper("time");
+		$this->helper(array("alerts", "time"));
 
 		if($fid and $content) {
 			$data = array(
@@ -226,8 +226,18 @@ class Forums_Model extends ZP_Load {
 				"Situation" => "Active"
 			);			
 
+
+
 			if($this->Db->insert("forums_posts", $data)) {
-				return TRUE;
+
+				$json =  array(
+					"alert" => getAlert(__("The comment has been saved correctly"), "success"),
+					"date"  => '<a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]),
+					"content" => stripslashes($data["Content"])
+				);
+
+				echo json($json);
+
 			} else {			
 				return FALSE;
 			}

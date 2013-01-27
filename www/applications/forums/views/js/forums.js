@@ -16,7 +16,7 @@ $(document).on("ready", function() {
 		var fid = $('#fid').val();
 
 		if(content != '' && fid > 0) {
-			var newPost = '';
+			var newComment = '';
 
 			$.ajax({
 				type: 'POST',
@@ -24,7 +24,24 @@ $(document).on("ready", function() {
 				dataType: 'json',
 				data: 'fid=' + fid + '&content=' + content,
 				success: function(response) {	
-					console.log(response);							
+					console.log(response);
+
+					$("#comment-alert").html(response.alert);
+					var oldComments = $("#forum-content").html();
+
+					newComment = newComment + '<div class="comments">';
+					newComment = newComment + '	<div class="comments-author">';
+					newComment = newComment + '	  <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> ';
+					newComment = newComment + '	</div>';
+					newComment = newComment + '	<div class="comments-content">';
+					newComment = newComment + '   <p class="comment-data">' + response.date + '</p>';
+					newComment = newComment + '   <p class="comment-post">' + response.content + '</p>';
+					newComment = newComment + '	</div>';
+					newComment = newComment + '</div>';	
+
+					$("#forum-content").html(oldComments + newComment);	
+					$("#comment-alert").show();
+					$("#comment-alert").hide(4000);				
 				}
 			});
 		}

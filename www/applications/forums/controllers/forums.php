@@ -204,10 +204,6 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function publishComment() {
-		if($this->Forums_Model->saveComment(POST("fid"), POST("content"))) {
-			echo "success";
-		} else {
-			echo "error";
-		}
+		$this->Forums_Model->saveComment(POST("fid"), POST("content"));
 	}
 }
