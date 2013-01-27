@@ -88,7 +88,7 @@
                 ?>
                     <script type="text/javascript">
                         $(window).on("ready", function() {
-                           $("textarea").markItUp(mySettings);
+                           $("#ccontent").markItUp(mySettings);
                         });
                     </script>
                 <?php

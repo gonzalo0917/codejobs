@@ -71,7 +71,7 @@
 		if(SESSION("ZanUser")) {
 		?>				
 			<div class="comments-editor">	
-				<textarea id="ccontent" class="markitUp" name="comment" style="height:200px"></textarea> <br />
+				<textarea id="ccontent" class="markItUp" name="comment" style="height:200px"></textarea> <br />
 				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
 				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
 			</div>		

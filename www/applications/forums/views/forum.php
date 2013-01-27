@@ -56,7 +56,6 @@ if(is_array($posts)) {
 						}
 					}
 					?>
-					
 				</div>
 				
 				<div class="clear"><?php echo cut($post["Content"], 20); ?></div>
