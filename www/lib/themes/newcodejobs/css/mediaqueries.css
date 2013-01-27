@@ -1,4 +1,5 @@
 @media (max-width: 1920px), (max-device-width: 1920px) {
+
 	header #wrapper {
 		width: 1500px;
 	}
@@ -72,6 +73,14 @@
 	#tweet-container {
     	margin-left: 15%;
 	}
+
+	.comments-content {
+		max-width: 820px !important;
+	}
+	
+	.comments-editor {
+		margin-left: 106px;
+	}
 }
 
 /* Kindle landscape 1024x600 */
@@ -134,6 +143,19 @@
 	#tweet-container {
     	margin-left: 6%;
 	}
+
+	div #forum-content {
+		max-width: 820px !important;
+		margin-left: 5.2%;
+	}
+
+	.comments-content {
+		max-width: 620px !important;
+	}
+
+	.comments-editor {
+		margin-left: 106px;
+	}
 }
 
 /* iPad portrait 768x1024 */
@@ -143,12 +165,12 @@
 	header #wrapper {
 		width: 768px;
 	}
-
+	
 	header #wrapper nav {
-		width: 700px;
+		width: 550px;
 		float: left;
-		margin-top: -85px;
-		margin-left: 265px;
+		margin-top: 10px;
+		margin-left: 20px;
 	}
 
 	header #wrapper nav ul {
@@ -197,9 +219,35 @@
 	#tweet-container {
     	margin-left: 6%;
 	}
+
+	div #forum-content {
+		max-width: 720px !important;
+		margin-left: -46px;
+	}
+
+	.comments-content {
+		max-width: 520px !important;
+	}
+
+	.comments-editor {
+		margin-left: 46px;
+	}
+
+	.markItUpContainer {
+		max-width: 520px !important;
+	}
+
+	.markItUp {
+		max-width: 520px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 465px !important;
+	}
+
+	
 }
 
-/* iPad portrait 685x380 */
+/* Android (Samsung Galaxy) landscape 685 by 380  */
 @media (max-width: 685px), (max-device-width: 685px) {
 	body {
 		width: 685px;
@@ -216,8 +264,8 @@
 		padding: 0px;
 		position: relative;
 		z-index: 2;
-		margin-left: 15%;
-		width: 300px;
+		margin-left: 20px;
+		width: 500px;
 		font-size: 0.95em;
 	}
 
@@ -278,6 +326,33 @@
 	footer p {
 		width: 685px;
 	}
+
+
+	div #forum-content {
+		max-width: 640px !important;
+		margin-left: -46px;
+	}
+
+	.comments-content {
+		max-width: 480px !important;
+		margin-left: 6px;
+	}
+
+	.comments-editor {
+		margin-left: -16px;
+	}
+
+	.markItUpContainer {
+		max-width: 520px !important;
+	}
+
+	.markItUp {
+		max-width: 520px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 465px !important;
+	}
+
 }
 
 /* iPhone 5 landscape portrait 568x380 */
@@ -296,7 +371,7 @@
 		width: 550px;
 		float: left;
 		margin-top: 10px;
-		margin-left: -20px;
+		margin-left: -40px;
 	}
 
 	header #wrapper nav ul {
@@ -365,6 +440,27 @@
 
 	footer p {
 		width: 568px;
+	}
+
+
+	.comments-content {
+		max-width: 380px !important;
+		margin-left: 6px;
+	}
+
+	.comments-editor {
+		margin-left: -25px;
+	}
+
+	.markItUpContainer {
+		max-width: 480px !important;
+	}
+
+	.markItUp {
+		max-width: 480px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 425px !important;
 	}
 }
 
@@ -453,6 +549,27 @@
 
 	footer p {
 		width: 480px;
+		height: 60px;
+	}
+
+	.comments-content {
+		max-width: 360px !important;
+		margin-left: 6px;
+	}
+
+	.comments-editor {
+		margin-left: -25px;
+	}
+
+	.markItUpContainer {
+		max-width: 420px !important;
+	}
+
+	.markItUp {
+		max-width: 420px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 365px !important;
 	}
 }
 
