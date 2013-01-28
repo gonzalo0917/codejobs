@@ -126,6 +126,14 @@ class Forums_Model extends ZP_Load {
         return getAlert(__("Update error"));
 	}
 	
+	public function editPost($PostID) {
+		if($this->Db->update($this->table, $this->data, $PostID)) {
+            return getAlert(__("The work has been edit correctly"), "success");
+        }
+        
+        return getAlert(__("Update error"));
+	}
+
 	public function getByID($ID) {		
 		return $this->Db->find($ID, $this->table);
 	}
@@ -185,13 +193,13 @@ class Forums_Model extends ZP_Load {
 
 	public function count($type = "posts") {
 		if($type === "tag") {
-			$tag = str_replace("-", " ", segment(2, isLang()));
+			$tag = str_replace("-", " ", segment(3, isLang()));
 
  	 		$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)");
 
  	 		return $count[0]["Total"];
 		} elseif($type === "author") {
-			$author = str_replace("-", " ", segment(2, isLang()));
+			$author = str_replace("-", " ", segment(3, isLang()));
 
 			$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$author%' OR Content LIKE '%$author%' OR Author LIKE '%$author%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)");
 
