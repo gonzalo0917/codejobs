@@ -245,6 +245,7 @@ $phrase["manage_multimedia"]							= "Administrar Multimedia";
 $phrase["manage_pages"]									= "Administrar Páginas";
 $phrase["manage_jobs"]									= "Administrar Empleos";
 $phrase["manage_users"]									= "Administrar Usuarios";
+$phrase["manage_works"] 								= "Administrar Trabajos";
 $phrase["march"]     									= "Marzo";
 $phrase["may"] 	 	 									= "Mayo";
 $phrase["message"] 										= "Mensaje";
