@@ -419,7 +419,11 @@ class Blog_Model extends ZP_Load {
 		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
 	}
 
-	public function users($action, $start = 0, $end = _maxLimit, $order = "ID_Post DESC", $search = FALSE) {
+	public function found($query, $order, $own = FALSE) {
+		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
+	}
+
+	public function records($action, $start = 0, $end = _maxLimit, $order = "ID_Post DESC", $search = FALSE) {
 		if($action === "all") {
 			return $this->all(FALSE, $order, "$start, $end", TRUE);
 		} elseif($action === "records") {
@@ -428,8 +432,15 @@ class Blog_Model extends ZP_Load {
 			return $this->processRecords($data);
 		} else {
 			$data = $this->find($action, $order, "$start, $end", TRUE);
+			$data = $this->processRecords($data);
 
-			return $this->processRecords($data);
+			if($start === 0) {
+				$total = $this->found($action, $order, TRUE);
+
+				array_unshift($data, $total[0]);
+			}
+
+			return $data;
 		}
 	}
 

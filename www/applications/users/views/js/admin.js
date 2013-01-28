@@ -1,14 +1,16 @@
 !function($) {
-	var application, table, total, loading_more, records, order_by, search_by, field;
+	var application, table, total, loading_more, records, order_by, search_by, field, found_records, total_records;
 
-	application  = APP;
-	table 		 = ".results";
-	total 		 = parseInt($("#total").val());
-	records 	 = parseInt($("#count").val());
-	requesting 	 = false;
-	loading_more = false;
-	order_by 	 = false;
-	search_by 	 = false;
+	application   = APP;
+	table 		  = ".results";
+	total_records = parseInt($("#total").val());
+	records 	  = parseInt($("#count").val());
+	requesting 	  = false;
+	loading_more  = false;
+	order_by 	  = false;
+	search_by 	  = false;
+	found_records = false;
+	total 		  = total_records;
 
 	$(table + " thead th a").mouseenter(refreshTitle);
 
@@ -28,13 +30,13 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		var $elems, elems, total;
+		var $elems, elems, selected;
 
 		$elems = $(table + " tbody input[name='records[]']:checked");
-		total  = $elems.length;
+		selected  = $elems.length;
 
-		if (total > 0) {
-			if (confirm($("#delete-question").val() + " (" + total + ")")) {
+		if (selected > 0) {
+			if (confirm($("#delete-question").val() + " (" + selected + ")")) {
 				elems = [];
 
 				$elems.each(function (key, obj) {
@@ -44,9 +46,19 @@
 				if (!requesting) {
 					shadow(true);
 
+					var uri = "?start=" + records + "&records[]=" + elems.join("&records[]=");
+
+					if (order_by) {
+						uri += "&field=" + order_by[0] + "&order=" + order_by[1];
+					}
+
+					if (search_by) {
+						uri += "&query=" + search_by;
+					}
+
 					$.ajax({
 						"type" 	  : "json",
-						"url"  	  : PATH + "/blog/users/delete/?start=" + records + "&records[]=" + elems.join("&records[]="),
+						"url"  	  : PATH + "/blog/admin/delete/" + uri,
 						"success" : deleted
 					});
 				}
@@ -72,7 +84,7 @@
 
 			$.ajax({
 				"type" 	 : "json",
-				"url" 	 : PATH + "/blog/users/data/" + uri,
+				"url" 	 : PATH + "/blog/admin/data/" + uri,
 				"success": loaded
 			});
 
@@ -81,7 +93,7 @@
 	});
 
 	$("#search-input").keydown(function (event) {
-		if (event.key === 13) {
+		if (event.keyCode === 13) {
 			event.stopPropagation();
 			event.preventDefault();
 
@@ -89,15 +101,6 @@
 
 			return false;
 		}
-	});
-
-	$("#search-button").click(function (event) {
-		event.stopPropagation();
-		event.preventDefault();
-
-		search($("#search-input").val());
-
-		return false;
 	});
 
 	function deleteClick(event) {
@@ -110,9 +113,19 @@
 			if (!requesting) {
 				shadow(true);
 
+				var uri = "?start=" + records + "&records[]=" + id;
+
+				if (order_by) {
+					uri += "&field=" + order_by[0] + "&order=" + order_by[1];
+				}
+
+				if (search_by) {
+					uri += "&query=" + search_by;
+				}
+
 				$.ajax({
 					"type" 	  : "json",
-					"url"  	  : PATH + "/blog/users/delete/?start=" + records + "&records[]=" + id,
+					"url"  	  : PATH + "/blog/admin/delete/" + uri,
 					"success" : function (data) {
 						!$.proxy(deleted, obj)(data, id);
 					}
@@ -123,8 +136,18 @@
 		return false;
 	};
 
+	function setTotal(value) {
+		total = value;
+
+		if (search_by) {
+			found_records = value;
+		} else {
+			total_records = value;
+		}
+	}
+
 	function processData(data) {
-		var values = eval(data);
+		var values = (typeof data === "string" ? eval(data) : data);
 
 		if (values.length > 0) {
 			$.each(values, function (key, value) {
@@ -132,8 +155,8 @@
 			});
 
 			records = $(table + " tbody tr").length;
-		} else {
-			total = records;
+		} else if(records < total) {
+			setTotal(records);
 		}
 
 		if (records >= total) {
@@ -150,19 +173,29 @@
 	}
 
 	function deleted(data, record) {
-		if (record === undefined) {
+		if (record === undefined || record === "success") {
 			var $elems = $(table + " tbody input[name='records[]']:checked");
 
-			total -= $elems.length;
+			setTotal(total - $elems.length);
+
+			if (search_by) {
+				total_records -= $elems.length;
+			}
+
 			$elems.parent().parent().remove();
 		} else {
-			total--;
+			setTotal(total - 1);
+
+			if (search_by) {
+				total_records--;
+			}
+
 			$(this).parent().parent().remove();
 		}
 
 		processData(data);
 
-		$("#my_" + application).text(total);
+		$("#my_" + application).text(total_records);
 
 		shadow(false);
 	}
@@ -177,6 +210,10 @@
 
 	function found(data) {
 		$(table + " tbody").empty();
+
+		data = eval(data);
+		
+		setTotal(data.shift().Total);
 
 		processData(data);
 
@@ -259,8 +296,8 @@
 
 			$.ajax({
 				"type" 	  : "json",
-				"url"  	  : PATH + "/blog/users/data/" + uri,
-				"success" : ordered
+				"url"  	  : PATH + "/blog/admin/data/" + uri,
+				"success" : search_by ? found : ordered
 			});
 
 			order_by = [field, order];
@@ -274,13 +311,26 @@
 			if (!requesting) {
 				shadow(true);
 
+				$("#query").text(search_by = query);
+				$("#subtitle").slideDown();
+				$("#search-input").val("").blur();
+
+				var uri = "?start=0&query" + query;
+
+				if (order_by) {
+					uri += "&field=" + order_by[0] + "&order=" + order_by[1];
+				}
+
+				if (search_by) {
+					uri += "&query=" + search_by;
+				}
+
+
 				$.ajax({
 					"type" 	  : "json",
-					"url"  	  : PATH + "/blog/users/data/?start=0&query=" + query,
+					"url"  	  : PATH + "/blog/admin/data/" + uri,
 					"success" : found
 				});
-
-				search_by = query;
 			}
 		}
 	}

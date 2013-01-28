@@ -101,32 +101,6 @@ class Blog_Controller extends ZP_Load {
 		
 		$this->render("content", $vars);
 	}
-
-	public function admin() {
-		isConnected();
-
-		$this->config("user", "blog");
-
-		$data = $this->Blog_Model->getAllByUser();
-
-		$this->CSS("results", "cpanel");
-		$this->CSS("admin", "blog");
-
-		if($data) {
-			$vars["tFoot"] = $data;
-			$total = count($data);
-		} else {
-			$vars["tFoot"] = array();
-			$total = 0;
-		}
-
-		$label = ($total === 1 ? __("record") : __("records"));
-
-		$vars["total"] = (int)$total . " $label";
-		
-		$vars["view"] = $this->view("admin", TRUE);
-		$this->render("content", $vars);
-	}
 	
 	public function author($user = NULL, $tagLabel = NULL, $tag = NULL) {
 		if($user === NULL) {
