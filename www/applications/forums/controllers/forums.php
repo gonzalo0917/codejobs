@@ -36,7 +36,7 @@ class Forums_Controller extends ZP_Load {
 
 
 			$this->tag($tag);
-		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === false) {
+		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === "page") and segment(5, isLang()) > 0 ) {
 			$author = segment(3, isLang());
 
 			$this->author($author);
