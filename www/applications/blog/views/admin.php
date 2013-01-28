@@ -8,7 +8,7 @@
 </p>
 
 <p id="subtitle" style="display: none">
-	<?php echo __("Results for"); ?> <span id="query"></span> <a href="#" title="<?php echo __("Clear results"); ?>" class="tiny-image tiny-back no-decoration">&nbsp;</a>
+	<?php echo __("Results for"); ?> <span id="query"></span> <a href="#" id="clear" title="<?php echo __("Clear results"); ?>" class="tiny-image tiny-back no-decoration">&nbsp;</a>
 </p>
 
 <?php
@@ -82,6 +82,8 @@
 	<input type="hidden" id="deleting-question" value="<?php echo __("Do you want to delete the record?"); ?>">
 	<input type="hidden" id="count" value="<?php echo $count; ?>">
 	<input type="hidden" id="total" value="<?php echo $total; ?>">
+	<input type="hidden" id="edit-label" value="<?php echo __("Edit"); ?>">
+	<input type="hidden" id="delete-label" value="<?php echo __("Delete"); ?>">
 
 </form>
 

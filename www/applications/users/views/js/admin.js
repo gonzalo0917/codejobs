@@ -103,6 +103,8 @@
 		}
 	});
 
+	$("#clear").click(clearResults);
+
 	function deleteClick(event) {
 		event.stopPropagation();
 		event.preventDefault();
@@ -230,8 +232,8 @@
 		column.append('<td data-center>' + data.Situation + '</td>');
 		column.append('<td data-center title="' + data.Start_Date + '">' + data.Start_Date + '</td>');
 		
-		actions.append('<a href="#" title="' + $(".tiny-edit").attr("title") + '" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>');
-		actions.append($('<a href="#" title="' + $(".tiny-delete").attr("title") + '" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>').click(deleteClick));
+		actions.append('<a href="#" title="' + $("#edit-label").val() + '" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>');
+		actions.append($('<a href="#" title="' + $("#delete-label").val() + '" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>').click(deleteClick));
 
 		column.append(actions);
 
@@ -263,6 +265,8 @@
 				"width": $(".results").width(),
 				"height": $(".results").height()
 			});
+
+			$("#more").hide();
 		} else {
 			$("#table-shadow").css("display", "none");
 		}
@@ -315,16 +319,11 @@
 				$("#subtitle").slideDown();
 				$("#search-input").val("").blur();
 
-				var uri = "?start=0&query" + query;
+				var uri = "?start=0&query=" + query;
 
 				if (order_by) {
 					uri += "&field=" + order_by[0] + "&order=" + order_by[1];
 				}
-
-				if (search_by) {
-					uri += "&query=" + search_by;
-				}
-
 
 				$.ajax({
 					"type" 	  : "json",
@@ -333,6 +332,43 @@
 				});
 			}
 		}
+	}
+
+	function clearResults(event) {
+		event.stopPropagation();
+		event.preventDefault();
+
+		if (!requesting) {
+			shadow(true);
+
+			$("#query").text("");
+			$("#subtitle").hide();
+			$("#search-input").val("").blur();
+
+			var uri = "?start=0";
+
+			if (order_by) {
+				uri += "&field=" + order_by[0] + "&order=" + order_by[1];
+			}
+
+			$.ajax({
+				"type" 	  : "json",
+				"url"  	  : PATH + "/blog/admin/data/" + uri,
+				"success" : restored
+			});
+		}
+
+		return false;
+	}
+
+	function restored(data) {
+		$(table + " tbody").empty();
+
+		search_by = false;
+
+		setTotal(total_records);
+		processData(data);
+		shadow(false);
 	}
 
 	function refreshTitle() {
