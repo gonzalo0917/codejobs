@@ -27,22 +27,27 @@ class Forums_Controller extends ZP_Load {
 		$this->helper("pagination");
 	}
 	
-	public function index() {
-
+	public function index() { 
+		/*
+			  0     1     2      3    4  5
+			forums/php/author/admin/page/2/
+		*/
 		$this->title("Forums");		
 
 		if(segment(1, isLang()) and segment(2, isLang()) === "tag" and segment(3, isLang())) {	
 			$tag = segment(3, isLang());
 
-
 			$this->tag($tag);
-		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === false) {
+		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === "page" and segment(5, isLang()) > 0) {
+			$author = segment(3, isLang());
+			$page = segment(5, isLang());
+
+			//Aquí hacen el proceso.
+		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang())) {
 			$author = segment(3, isLang());
 
 			$this->author($author);
-
 		} elseif(segment(1, isLang()) and segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === "tag" and segment(5, isLang())) {
-
 			$author = segment(3, isLang());
 			$tag = segment(5, isLang());
 
@@ -90,7 +95,6 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function author($author, $tag = NULL) {	
-
 		$this->CSS("pagination");
 		
 		if($tag !== NULL) {
@@ -123,10 +127,7 @@ class Forums_Controller extends ZP_Load {
 	public function limit($type = "posts") {
 		$start = 0;
 
-		if($type === "author") {	
-			
-			##$start = (segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === "page" and segment(5, isLang()) > 0) ? $start = (segment(5, isLang()) * _maxLimit) - _maxLimit : 0;
-
+		if($type === "author") {
 			if(segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === "page" and segment(5, isLang()) > 0) {
 				$start = (segment(5, isLang()) * _maxLimit) - _maxLimit;
 			}
@@ -181,7 +182,6 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function getForum($forum) {
-		
 		$limit = $this->limit();
 
 		$data = $this->Forums_Model->getByForum($forum, $this->language);
