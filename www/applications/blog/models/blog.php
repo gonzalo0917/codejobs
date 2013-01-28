@@ -124,7 +124,7 @@ class Blog_Model extends ZP_Load {
 			"Image_Mural"     => isset($this->postMural) ? $this->postMural : NULL,
 			"Image_Medium"    => isset($this->postImage["medium"]) ? $this->postImage["medium"] : NULL,
 			"Image_Thumbnail" => isset($this->postImage["thumbnail"]) ? $this->postImage["thumbnail"] : NULL,
-			"Pwd"	          => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,			
+			"Pwd"	          => (POST("pwd")) ? POST("pwd", "encrypt") : '',			
 			"Tags"		      => POST("tags"),
 			"Buffer"	      => !POST("buffer") ? 0 : POST("buffer"),
 			"Code"	          => !POST("code") ? code(10) : POST("code"),
@@ -227,8 +227,8 @@ class Blog_Model extends ZP_Load {
 		return getAlert(__("The post has been edited correctly"), "success");
 	}
 
-	public function add() {
-		$error = $this->editOrSave("save");
+	public function add($action = "save") {
+		$error = $this->editOrSave($action);
 
 		if($error) {
 			return $error;
@@ -237,13 +237,24 @@ class Blog_Model extends ZP_Load {
 		$this->data["Situation"] 		= (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 		$this->data["Enable_Comments"]  = TRUE;
 
-		$lastID = $this->Db->insert($this->table, $this->data);
+		if($action === "save") {
+			$return = $this->Db->insert($this->table, $this->data);
+			
+			$this->Users_Model = $this->model("Users_Model");
 
-		$this->Users_Model = $this->model("Users_Model");
+			$this->Users_Model->setCredits(1, 3);
+		} elseif($action === "edit") {
+			$return = $this->Db->update($this->table, $this->data, POST("ID"));
+		}
 
-		$this->Users_Model->setCredits(1, 3);
+		if($this->data["Situation"] === "Active") {
+			$this->Cache = $this->core("Cache");
+
+			$this->Cache->removeAll("blog");
+		}
+
 		
-		if($lastID) {
+		if($return) {
 			return getAlert(__("The post has been saved correctly"), "success");	
 		}
 		
@@ -255,6 +266,7 @@ class Blog_Model extends ZP_Load {
 			$this->helper("time");
 
 			return array(
+				"ID" 			=> POST("ID"),
 				"Author"  		=> SESSION("ZanUser"),
 				"Content"		=> setCode(stripslashes(encode(POST("content", "decode", NULL))), FALSE),
 				"Day"	        => date("d"),
@@ -413,6 +425,10 @@ class Blog_Model extends ZP_Load {
 	
 	public function removePassword($ID) {
 		$this->Db->update($this->table, array("Pwd" => ""), $ID);		
+	}
+
+	public function getPostByID($ID) {
+		return $this->Db->findBySQL("Situation != 'Deleted' AND ID_User = ". SESSION("ZanUserID") ." AND ID_Post = ". $ID, $this->table, $this->fields);
 	}
 	
 	public function find($query, $order, $limit, $own = FALSE) {

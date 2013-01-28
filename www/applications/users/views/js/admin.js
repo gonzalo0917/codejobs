@@ -232,7 +232,7 @@
 		column.append('<td data-center>' + data.Situation + '</td>');
 		column.append('<td data-center title="' + data.Start_Date + '">' + data.Start_Date + '</td>');
 		
-		actions.append('<a href="#" title="' + $("#edit-label").val() + '" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>');
+		actions.append('<a href="' + PATH + '/blog/add/' + data.ID_Post + '" title="' + $("#edit-label").val() + '" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>');
 		actions.append($('<a href="#" title="' + $("#delete-label").val() + '" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>').click(deleteClick));
 
 		column.append(actions);

@@ -57,7 +57,7 @@
 				<td data-center><?php echo __($column["Situation"]); ?></td>
 				<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
 				<td data-center>
-					<a href="#" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration" onclick="return confirm($('#editing-question').val())">&nbsp;&nbsp;&nbsp;</a>
+					<a href="<?php echo path("blog/add/". $column["ID_Post"]); ?>" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>
 					<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>
 				</td>
 			</tr>
@@ -78,7 +78,6 @@
 	<input type="hidden" id="order-asc" value="<?php echo __("Sort ascending"); ?>">
 	<input type="hidden" id="delete-question" value="<?php echo __("Do you want to delete the records"); ?>">
 	<input type="hidden" id="delete-empty-question" value="<?php echo __("You must select at least one record"); ?>">
-	<input type="hidden" id="editing-question" value="<?php echo __("Do you want to edit the record?"); ?>">
 	<input type="hidden" id="deleting-question" value="<?php echo __("Do you want to delete the record?"); ?>">
 	<input type="hidden" id="count" value="<?php echo $count; ?>">
 	<input type="hidden" id="total" value="<?php echo $total; ?>">
