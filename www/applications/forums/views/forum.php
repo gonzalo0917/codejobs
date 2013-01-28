@@ -35,10 +35,11 @@ if(is_array($posts)) {
 		foreach($posts as $post) {		
 			$slug = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
-			
+			$URLEdit = path("forums/". $forum ."/". $post["ID_Post"] ."/edit");
+			$URLDelete = '';
 			$in = ($forum !== "") ? __("in") : NULL;	
 			?>		
-				
+			
 			<div class="post">
 				<div class="post-title">
 					<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
@@ -52,7 +53,7 @@ if(is_array($posts)) {
 					<?php
 					if(SESSION("ZanUserPrivilegeID") !== FALSE){
 						if(SESSION("ZanUserPrivilegeID") <= 3) {
-							echo '| <a href="#"> Edit </a> | <a href="#"> Delete </a>';
+							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href=""> Delete </a>';
 						}
 					}
 					?>
