@@ -8,8 +8,8 @@
 }
 
 .new-proposal select {
-	width: 350px;
-	height: 25px;
+	width: 360px;
+	height: 35px;
 }
 
 .new-proposal input {
@@ -17,9 +17,8 @@
 	height: 25px;
 }
 
-.new-proposal p:first-child {
+.new-proposal h2{
 	text-align: center;
-	font-size: 1.2em;
 }
 
 .submit {

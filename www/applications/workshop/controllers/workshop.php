@@ -33,7 +33,9 @@ class Workshop_Controller extends ZP_Load {
 
 	public function newProposal() {
 		$this->title(__("Workshop"));
+		$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 		$this->CSS("new", $this->application);
+
 
 		$vars["view"] = $this->view("new", TRUE);
 
