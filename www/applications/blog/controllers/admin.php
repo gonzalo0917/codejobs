@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Users_Controller extends ZP_Load {
+class Admin_Controller extends ZP_Load {
 
 	public function __construct() {
 		$this->app(whichApplication());
@@ -25,25 +25,19 @@ class Users_Controller extends ZP_Load {
 	}
 
 	public function index() {
-		isConnected();
-
-		redirect($this->application);
-	}
-
-	public function results() {
 		isConnected($this->application);
 
 		$this->helper("time");
 
-		$this->CSS("user_results", "cpanel");
+		$this->CSS("admin", "users");
 		$this->CSS("admin", "blog");
 		$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 
 		$this->js("jquery.appear.js");
-		$this->js("user_results", "cpanel");
+		$this->js("admin", "users");
 
 		$this->vars["records"] = $this->Users_Model->records();
-		$this->vars["view"]    = $this->view("user_results", TRUE, $this->application, $this->application);
+		$this->vars["view"]    = $this->view("admin", TRUE, $this->application, $this->application);
 		$this->vars["caption"] = __("My posts");
 		$this->vars["total"]   = SESSION("ZanUserPosts");
 
@@ -73,10 +67,13 @@ class Users_Controller extends ZP_Load {
 		$this->isMember();
 
 		$records = GET("records");
-		$start   = GET("start");
+		$start   = (int) GET("start");
+		$field   = GET("field") ? GET("field") : "ID_Post";
+		$order   = GET("order") ? GET("order") : "DESC";
+		$query 	 = GET("query");
 
 		if(is_array($records) and is_integer($start)) {
-			$data = $this->Users_Model->delete($records, $start);
+			$data = $this->Users_Model->delete($records, $start, "$field $order", $query);
 
 			if($data) {
 				echo json($data);

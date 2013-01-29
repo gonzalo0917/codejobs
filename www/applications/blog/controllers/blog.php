@@ -55,11 +55,13 @@ class Blog_Controller extends ZP_Load {
 
 	}
 
-	public function add() {
+	public function add($ID = 0) {
 		isConnected();
 
 		if(POST("save")) {
-			$vars["alert"] = $this->Blog_Model->add();
+			$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+			
+			$vars["alert"] = $this->Blog_Model->add($action);
 		} 
 		
 		if(POST("preview")) {
@@ -76,13 +78,23 @@ class Blog_Controller extends ZP_Load {
 
 				$this->config("user", $this->application);
 
-				$vars["post"]    = $data;
-				$vars["URL"]     = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
-				$vars["view"] 	 = $this->view("preview", TRUE);
+				$vars["post"] = $data;
+				$vars["URL"]  = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
+				$vars["view"] = $this->view("preview", TRUE);
 			} else {
 				redirect();
 			}
 		} else {
+			if((int) $ID !== 0) {
+				$data = $this->Blog_Model->getPostByID($ID);
+
+				if(!$data) {
+					redirect();
+				}
+
+				$vars["data"] = $data[0];
+			}
+
 			$this->CSS("forms", "cpanel");
 
 			$this->js("redactorjs");
@@ -102,32 +114,6 @@ class Blog_Controller extends ZP_Load {
 		$this->render("content", $vars);
 	}
 
-	public function admin() {
-		isConnected();
-
-		$this->config("user", "blog");
-
-		$data = $this->Blog_Model->getAllByUser();
-
-		$this->CSS("results", "cpanel");
-		$this->CSS("admin", "blog");
-
-		if($data) {
-			$vars["tFoot"] = $data;
-			$total = count($data);
-		} else {
-			$vars["tFoot"] = array();
-			$total = 0;
-		}
-
-		$label = ($total === 1 ? __("record") : __("records"));
-
-		$vars["total"] = (int)$total . " $label";
-		
-		$vars["view"] = $this->view("admin", TRUE);
-		$this->render("content", $vars);
-	}
-	
 	public function author($user = NULL, $tagLabel = NULL, $tag = NULL) {
 		if($user === NULL) {
 			redirect($this->application);

@@ -1,88 +1,89 @@
 <?php 
-if(!defined("_access")) die("Error: You don't have permission to access here..."); 
+	if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
-$caption 		= __("My posts");
-$colspan		= 5;
-$colors[0] 		= _color1;
-$colors[1] 		= _color2;
-$colors[2] 		= _color3;
-$colors[3]		= _color4;
-$colors[4] 		= _color5;	
-$i 				= 0;
-$j 				= 2;
-
+	$count = count($records);
 ?>
-<table id="results" class="results">
-	<caption class="caption">
-		<span class="bold"><?php echo $caption; ?></span>
-	</caption>
-					
-	<thead>
-		<tr>
-			<th>No.</th>
-			<th><?php echo __("Title"); ?></th>
-			<th><?php echo __("Views"); ?></th>
-			<th><?php echo __("Language"); ?></th>
-			<th><?php echo __("Situation"); ?></th>
-		</tr>
-	</thead>
-					
-	<tfoot>
-		<tr>
-			<td colspan="<?php echo $colspan; ?>">
-				<span class="bold"><?php echo __("Total"); ?>:</span> <?php echo $total; ?>
-			</td>
-		</tr>
-	</tfoot>
+<p class="resalt">
+	<?php echo $caption; ?>
+</p>
 
-	<tbody>		
+<p id="subtitle" style="display: none">
+	<?php echo __("Results for"); ?> <span id="query"></span> <a href="#" id="clear" title="<?php echo __("Clear results"); ?>" class="tiny-image tiny-back no-decoration">&nbsp;</a>
+</p>
+
+<?php
+	if($count > 0) {
+?>
+<form>
+	<div class="container full-container">
+		<div class="pull-left">
+			<a id="new" class="btn no-decoration black-a" href="<?php echo path("blog/add"); ?>"><?php echo __("New"); ?></a>
+			<a id="delete" class="btn btn-danger no-decoration white-a" href="#"><?php echo __("Delete"); ?></a>
+		</div>
+		<div class="pull-right">
+			<form class="form-search">
+			    <input id="search-input" type="text" class="input-medium search-query" placeholder="<?php echo __("Search"); ?>..." />
+			</form>
+		</div>
+	</div>
 	<?php
-		if(count($tFoot) > 0) {
-			$nro = 0;
-			foreach($tFoot as $column) {
-				$nro++;
-				$color = $colors[$i];
-				
-				$i = ($i === 1) ? 0 : 1;
-				$j = ($j === 3) ? 2 : 3;
-				?>
-				<tr style="background-color: <?php echo $color; ?>">
-					<td class="center">
-						<?php echo $nro; ?>
-					</td>
-																				
-					<td class="anchor_title">
-                        <a href="<?php echo path("blog/{$column["Year"]}/{$column["Month"]}/{$column["Day"]}/{$column["Slug"]}"); ?>" target="_blank">
-                            <?php			
-                                echo cut($column["Title"], 4, "text");
-                            ?>
-                        </a>
-					</td>
-	
-					<td class="center">
-						<?php echo $column["Views"]; ?>
-					</td>
-					
-					<td class="center">
-						<?php echo getLanguage($column["Language"], TRUE); ?>
-					</td>
+		}
+	?>
 
-					<td class="center">
-						<?php echo __($column["Situation"]); ?>
-					</td>
-
-	 			</tr>
-	 		<?php
-	 		}
-	 	} else {
-	 		?>
-	 		<tr style="background-color: <?php echo $colors[$i]; ?>">
-				<td colspan="<?php echo $colspan; ?>">
-					<?php echo __("You still have not published a post"); ?>. <a href="<?php echo path("blog/add"); ?>"><?php echo __("Publish a post"); ?></a>
+	<table class="results table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th style="width: 20px;"><input id="records" type="checkbox" title="<?php echo __("Select all"); ?>" /></th>
+				<th data-field="Title"><a href="#"><?php echo __("Title"); ?></a></th>
+				<th style="width: 70px;" data-field="Views"><a href="#"><?php echo __("Views"); ?></a></th>
+				<th style="width: 100px;"><?php echo __("Language"); ?></th>
+				<th style="width: 70px;"><?php echo __("Situation"); ?></th>
+				<th data-order="DESC" style="width: 120px;" data-field="ID_Post"><a href="#"><?php echo __("Published"); ?></a></th>
+				<th style="width: 70px;"><?php echo __("Action"); ?></th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+				if($count > 0) {
+					foreach($records as $column) {
+						$URL  	   = path("blog/". $column["Year"] ."/". $column["Month"] ."/". $column["Day"] ."/". $column["Slug"]);
+						$text_date = ucfirst(howLong($column["Start_Date"]));
+			?>
+			<tr>
+				<td data-center><input name="records[]" value="<?php echo $column["ID_Post"]; ?>" type="checkbox" /></td>
+				<td><a href="<?php echo $URL; ?>" target="_blank"><?php echo $column["Title"]; ?></a></td>
+				<td data-center><?php echo $column["Views"]; ?></td>
+				<td data-center><?php echo getLanguage($column["Language"], TRUE); ?></td>
+				<td data-center><?php echo __($column["Situation"]); ?></td>
+				<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
+				<td data-center>
+					<a href="<?php echo path("blog/add/". $column["ID_Post"]); ?>" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>
+					<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>
 				</td>
 			</tr>
 			<?php
-	 	}
-	 	?>                     
-	</tbody> 
-</table>
+					}
+				} else {
+
+				}
+			?>
+		</tbody>
+	</table>
+
+	<p style="text-align: center">
+		<a id="more" disabled class="btn no-decoration" <?php echo ($count < $total ? '' : 'style="display:none"'); ?>>Cargando...</a>
+	</p>
+
+	<input type="hidden" id="order-desc" value="<?php echo __("Sort descending"); ?>">
+	<input type="hidden" id="order-asc" value="<?php echo __("Sort ascending"); ?>">
+	<input type="hidden" id="delete-question" value="<?php echo __("Do you want to delete the records"); ?>">
+	<input type="hidden" id="delete-empty-question" value="<?php echo __("You must select at least one record"); ?>">
+	<input type="hidden" id="deleting-question" value="<?php echo __("Do you want to delete the record?"); ?>">
+	<input type="hidden" id="count" value="<?php echo $count; ?>">
+	<input type="hidden" id="total" value="<?php echo $total; ?>">
+	<input type="hidden" id="edit-label" value="<?php echo __("Edit"); ?>">
+	<input type="hidden" id="delete-label" value="<?php echo __("Delete"); ?>">
+
+</form>
+
+<div id="table-shadow"></div>

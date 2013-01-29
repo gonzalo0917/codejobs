@@ -124,7 +124,7 @@ class Blog_Model extends ZP_Load {
 			"Image_Mural"     => isset($this->postMural) ? $this->postMural : NULL,
 			"Image_Medium"    => isset($this->postImage["medium"]) ? $this->postImage["medium"] : NULL,
 			"Image_Thumbnail" => isset($this->postImage["thumbnail"]) ? $this->postImage["thumbnail"] : NULL,
-			"Pwd"	          => (POST("pwd")) ? POST("pwd", "encrypt") : NULL,			
+			"Pwd"	          => (POST("pwd")) ? POST("pwd", "encrypt") : '',			
 			"Tags"		      => POST("tags"),
 			"Buffer"	      => !POST("buffer") ? 0 : POST("buffer"),
 			"Code"	          => !POST("code") ? code(10) : POST("code"),
@@ -227,8 +227,8 @@ class Blog_Model extends ZP_Load {
 		return getAlert(__("The post has been edited correctly"), "success");
 	}
 
-	public function add() {
-		$error = $this->editOrSave("save");
+	public function add($action = "save") {
+		$error = $this->editOrSave($action);
 
 		if($error) {
 			return $error;
@@ -237,13 +237,24 @@ class Blog_Model extends ZP_Load {
 		$this->data["Situation"] 		= (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 		$this->data["Enable_Comments"]  = TRUE;
 
-		$lastID = $this->Db->insert($this->table, $this->data);
+		if($action === "save") {
+			$return = $this->Db->insert($this->table, $this->data);
+			
+			$this->Users_Model = $this->model("Users_Model");
 
-		$this->Users_Model = $this->model("Users_Model");
+			$this->Users_Model->setCredits(1, 3);
+		} elseif($action === "edit") {
+			$return = $this->Db->update($this->table, $this->data, POST("ID"));
+		}
 
-		$this->Users_Model->setCredits(1, 3);
+		if($this->data["Situation"] === "Active") {
+			$this->Cache = $this->core("Cache");
+
+			$this->Cache->removeAll("blog");
+		}
+
 		
-		if($lastID) {
+		if($return) {
 			return getAlert(__("The post has been saved correctly"), "success");	
 		}
 		
@@ -255,6 +266,7 @@ class Blog_Model extends ZP_Load {
 			$this->helper("time");
 
 			return array(
+				"ID" 			=> POST("ID"),
 				"Author"  		=> SESSION("ZanUser"),
 				"Content"		=> setCode(stripslashes(encode(POST("content", "decode", NULL))), FALSE),
 				"Day"	        => date("d"),
@@ -414,12 +426,20 @@ class Blog_Model extends ZP_Load {
 	public function removePassword($ID) {
 		$this->Db->update($this->table, array("Pwd" => ""), $ID);		
 	}
+
+	public function getPostByID($ID) {
+		return $this->Db->findBySQL("Situation != 'Deleted' AND ID_User = ". SESSION("ZanUserID") ." AND ID_Post = ". $ID, $this->table, $this->fields);
+	}
 	
 	public function find($query, $order, $limit, $own = FALSE) {
 		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
 	}
 
-	public function users($action, $start = 0, $end = _maxLimit, $order = "ID_Post DESC", $search = FALSE) {
+	public function found($query, $order, $own = FALSE) {
+		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
+	}
+
+	public function records($action, $start = 0, $end = _maxLimit, $order = "ID_Post DESC", $search = FALSE) {
 		if($action === "all") {
 			return $this->all(FALSE, $order, "$start, $end", TRUE);
 		} elseif($action === "records") {
@@ -428,8 +448,15 @@ class Blog_Model extends ZP_Load {
 			return $this->processRecords($data);
 		} else {
 			$data = $this->find($action, $order, "$start, $end", TRUE);
+			$data = $this->processRecords($data);
 
-			return $this->processRecords($data);
+			if($start === 0) {
+				$total = $this->found($action, $order, TRUE);
+
+				array_unshift($data, $total[0]);
+			}
+
+			return $data;
 		}
 	}
 

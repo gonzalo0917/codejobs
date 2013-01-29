@@ -755,15 +755,15 @@ class Users_Model extends ZP_Load {
 		$this->$Model = $this->model($Model);
 
 		if(!$search) {
-			$data = $this->$Model->users(!$only ? "all" : "records", $start, _maxLimit, $order);
+			$data = $this->$Model->records(!$only ? "all" : "records", $start, _maxLimit, $order);
 		} else {
-			$data = $this->$Model->users($search, $start, _maxLimit, $order);
+			$data = $this->$Model->records($search, $start, _maxLimit, $order);
 		}
 
 		return $data;
 	}
 
-	public function delete($records, $start) {
+	public function delete($records, $start = 0, $order = "ID_Post DESC", $search = FALSE) {
 		$count = count($records);
 
 		foreach($records as $record) {
@@ -776,7 +776,13 @@ class Users_Model extends ZP_Load {
 
 		$this->setCredits(-$count, $this->application);
 
-		return $this->$Model->users("records", $start - $count, $count);
+		if(!$search) {
+			$data = $this->$Model->records("records", $start - $count, $count, $order);
+		} else {
+			$data = $this->$Model->records($search, $start - $count, $count, $order);
+		}
+
+		return $data;
 	}
 
 }
