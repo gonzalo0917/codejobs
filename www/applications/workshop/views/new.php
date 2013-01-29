@@ -128,6 +128,8 @@
 			echo br(2);
 
 			if(!(SESSION("ZanUser"))) {
+				setURL();
+				
 				echo a(__("You need to login to send your proposal"), path("users/login"), FALSE);
 			}
 

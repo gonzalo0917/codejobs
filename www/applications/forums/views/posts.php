@@ -86,7 +86,7 @@
 			</div>		
 		<?php
 		} else {
-			SESSION("lastURL", getURL());
+			setURL();
 		?>
 			<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to comment this topic'); ?></div>
 		<?php
