@@ -39,9 +39,10 @@ $(document).on("ready", function() {
 					newComment = newComment + '	</div>';
 					newComment = newComment + '</div>';	
 
-					$("#forum-content").html(oldComments + newComment);	
+					$("#forum-content").html(oldComments + newComment);
 					$("#comment-alert").show();
-					$("#comment-alert").hide(4000);				
+					$("#comment-alert").hide(4000);
+					$("#ccontent").val("");
 				}
 			});
 		}
@@ -98,10 +99,12 @@ $(document).on("ready", function() {
 					$("#ftitle").val($("#ftitle-temp").val());
 					$("#ftags").val($("#ftags-temp").val());
 					
+
 					$("#ftags").hide();
 					$("#fcontent").hide();
 					$("#fpublish").hide();
-					$("#fcancel").hide();				
+					$("#fcancel").hide();
+
 				}
 			});
 		}
