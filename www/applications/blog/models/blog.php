@@ -78,10 +78,11 @@ class Blog_Model extends ZP_Load {
 		
 		if($action === "edit") {
 			$this->post = $this->Db->find(POST("ID"), $this->table);
-			$currentMural = $this->post[0]["Image_Mural"];
-			$currentOriginalImg = $this->post[0]["Image_Original"];
-			$currentSmallImg = $this->post[0]["Image_Small"];
-			$currentMediumImg = $this->post[0]["Image_Medium"];
+
+			$currentMural 		 = $this->post[0]["Image_Mural"];
+			$currentOriginalImg  = $this->post[0]["Image_Original"];
+			$currentSmallImg 	 = $this->post[0]["Image_Small"];
+			$currentMediumImg 	 = $this->post[0]["Image_Medium"];
 			$currentThumbnailImg = $this->post[0]["Image_Thumbnail"];
 		} 
 
@@ -105,9 +106,9 @@ class Blog_Model extends ZP_Load {
 			$this->postImage = NULL;
 		} else {
 			if(!$this->postImage and $action == "edit") {
-				$this->postImage["original"] = $currentOriginalImg;
-				$this->postImage["small"] = $currentSmallImg;
-				$this->postImage["medium"] = $currentMediumImg;
+				$this->postImage["original"]  = $currentOriginalImg;
+				$this->postImage["small"] 	  = $currentSmallImg;
+				$this->postImage["medium"] 	  = $currentMediumImg;
 				$this->postImage["thumbnail"] = $currentThumbnailImg;
 			} elseif($this->postImage and $action == "edit") {
 				$this->Files->deleteFiles(array($currentOriginalImg, $currentSmallImg, $currentMediumImg, $currentThumbnailImg));
