@@ -153,9 +153,7 @@ class Codes_Controller extends ZP_Load {
                 
                 if($content) {
                     $data[$pos]["File"] = $content[0];
-                } else {
-                    redirect();
-                }
+                } 
             }
 			
             $this->meta("keywords", $data[0]["Languages"]);
