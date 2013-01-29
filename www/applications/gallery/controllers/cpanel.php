@@ -24,9 +24,11 @@ class CPanel_Controller extends ZP_Load {
 		$this->Templates = $this->core("Templates");
 		
 		$this->Templates->theme("cpanel");
+
+		setURL();
 	}
 	
-	public function index() {
+	public function index() {		
 		if($this->isAdmin) {
 			redirect("cpanel");
 		} else {

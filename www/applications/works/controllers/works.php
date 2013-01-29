@@ -21,6 +21,8 @@ class Works_Controller extends ZP_Load {
 		//$this->Works_Model = $this->model("Works_Model");
 
 		//$this->helper("pagination");
+
+		setURL();
 	}
 	
 	public function index($workID = 0) {

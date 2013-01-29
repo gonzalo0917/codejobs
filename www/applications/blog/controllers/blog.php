@@ -22,11 +22,13 @@ class Blog_Controller extends ZP_Load {
 		$this->language = whichLanguage();
 
 		$this->helper("router");
+
+		setURL();
 	}
 	
 	public function index($year = NULL, $month = NULL, $day = NULL, $slug = NULL) { 
-		$this->meta("language", whichLanguage(FALSE));
-                
+		$this->meta("language", whichLanguage(FALSE));               
+
 		if(isYear($year) and isMonth($month) and isDay($day) and $slug and $slug !== "page") {
 			$this->slug($year, $month, $day, $slug);
 		} elseif(isYear($year) and isMonth($month) and isDay($day)) { 
@@ -181,8 +183,6 @@ class Blog_Controller extends ZP_Load {
 		$data = $this->Cache->data("$limit-$year-$month-$day-". $this->language, "blog", $this->Blog_Model, "getByDate", array($limit, $year, $month, $day));
 	
 		if($data) {
-			setURL();
-
 			$this->title("Blog - ". $year ."/". $month ."/". $day);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Content"]);
@@ -207,8 +207,6 @@ class Blog_Controller extends ZP_Load {
 		$data = $this->Cache->data("$limit-author-$author-". $this->language, "blog", $this->Blog_Model, "getAllByAuthor", array($author, $limit));
 	
 		if($data) {
-			setURL();
-
 			$this->title(__("Posts of") ." ". $author);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Content"]);
@@ -233,8 +231,6 @@ class Blog_Controller extends ZP_Load {
 		$data = $this->Cache->data("$limit-author-$author-tag-$tag-". $this->language, "blog", $this->Blog_Model, "getAllByTag", array($author, $tag, $limit));
 	
 		if($data) {
-			setURL();
-
 			$this->title(__("Posts of") ." ". $author);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Content"]);
@@ -258,8 +254,6 @@ class Blog_Controller extends ZP_Load {
 		$data = $this->Cache->data("tag-$tag-$limit-". $this->language, "blog", $this->Blog_Model, "getByTag", array($tag, $limit));
 		
 		if($data) {
-			setURL();
-
 			$this->title("Blog - ". $tag);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Content"]);
@@ -292,8 +286,6 @@ class Blog_Controller extends ZP_Load {
 		$vars["URL"]     = $URL;					
 		
 		if($data) {	
-			setURL();
-
 			$this->title(decode($data[0]["post"][0]["Title"]));
             $this->meta("description", $data[0]["post"][0]["Content"]);
             $this->meta("keywords", $data[0]["post"][0]["Tags"]);
@@ -340,8 +332,6 @@ class Blog_Controller extends ZP_Load {
 		$data = $this->Cache->data("last-". $this->language ."-$limit", "blog", $this->Blog_Model, "getPosts", array($limit));
 
 		$this->helper(array("html","time"));
-
-		setURL();
 		
 		if($data) {			
 			$this->meta("keywords", $data[0]["Tags"]);

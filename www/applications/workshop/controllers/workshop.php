@@ -23,6 +23,8 @@ class Workshop_Controller extends ZP_Load {
 
 		$this->language = whichLanguage();
 		$this->helper(array("forms", "html", "time"));
+
+		setURL();
 	}
 
 	public function index() {

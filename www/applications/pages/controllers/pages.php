@@ -17,6 +17,8 @@ class Pages_Controller extends ZP_Load {
 		$this->language    = whichApplication();
 		
 		$this->Templates->theme();
+
+		setURL();
 	}
 	
 	public function index($slug = NULL) {

@@ -21,6 +21,8 @@ class Jobs_Controller extends ZP_Load {
 		$this->Jobs_Model = $this->model("Jobs_Model");
 
 		$this->helper("pagination");
+
+		setURL();
 	}
 
 	public function index($jobID = 0) {

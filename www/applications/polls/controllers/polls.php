@@ -28,6 +28,8 @@ class Polls_Controller extends ZP_Load {
 	public function get($pollID, $results = FALSE) {
 		$this->config("polls");
 
+		setURL();
+
 		$this->Polls_Model = $this->model("Polls_Model");
 
 		$data = $this->Polls_Model->getByID($pollID);

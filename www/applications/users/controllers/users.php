@@ -105,7 +105,7 @@ class Users_Controller extends ZP_Load {
 	}
 		
 	public function logout() {
-		unsetSessions(path());
+		unsetSessions();
 	}
 	
 	public function activate($user = NULL, $code = FALSE) {

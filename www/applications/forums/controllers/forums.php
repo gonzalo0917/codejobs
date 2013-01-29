@@ -25,10 +25,12 @@ class Forums_Controller extends ZP_Load {
 		$this->helper("debugging");
 
 		$this->helper("pagination");
+
+		setURL();
 	}
 	
 	public function index() { 
-		$this->title("Forums");		
+		$this->title("Forums");				
 
 		if(segment(1, isLang()) and segment(2, isLang()) === "tag" and segment(3, isLang())) {	
 			$tag = segment(3, isLang());

@@ -15,9 +15,11 @@ class Feedback_Controller extends ZP_Load {
 		$this->application = "feedback";
 		
 		$this->Templates->theme();
+
+		setURL();
 	}
 	
-	public function index() {
+	public function index() {		
 		$this->feedback();
 	}
 	

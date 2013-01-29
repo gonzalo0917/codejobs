@@ -22,10 +22,12 @@ class Codes_Controller extends ZP_Load {
         $this->CodesFiles_Model = $this->model("CodesFiles_Model");
 
 		$this->helper("pagination");
+
+		setURL();
 	}
 	
 	public function index($codeID = 0) {
-		$this->meta("language", whichLanguage(FALSE));
+		$this->meta("language", whichLanguage(FALSE));		
 
 		if($codeID > 0) {
 			$this->go($codeID);

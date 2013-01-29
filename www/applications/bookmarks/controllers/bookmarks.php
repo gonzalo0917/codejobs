@@ -21,10 +21,12 @@ class Bookmarks_Controller extends ZP_Load {
 		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 
 		$this->helper("pagination");
+
+		setURL();
 	}
 	
 	public function index($bookmarkID = 0) {
-		$this->meta("language", whichLanguage(FALSE));
+		$this->meta("language", whichLanguage(FALSE));		
                 
 		if($bookmarkID !== "add") {
 			if($bookmarkID > 0) {
