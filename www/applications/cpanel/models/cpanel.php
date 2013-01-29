@@ -38,6 +38,9 @@ class CPanel_Model extends ZP_Load {
 			$data = $this->Db->find($ID, $this->application);
 			
 			if($data[0]["Situation"] === "Deleted") {
+				if($this->application === "workshop") {
+					@unlink($data[0]["File"]);
+				}
 				$this->Db->delete($ID, $this->application);
 				
 				$count = $this->Db->countBySQL("Situation = 'Deleted'", $this->application);
