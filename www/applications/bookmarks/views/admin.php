@@ -1,7 +1,11 @@
 <?php 
 	if(!defined("_access")) die("Error: You don't have permission to access here..."); 
 
-	$count = count($records);
+	if(is_array($records)) {
+		$count = count($records);
+	} else {
+		$count = 0;
+	}
 ?>
 <p class="resalt">
 	<?php echo $caption; ?>
@@ -11,24 +15,30 @@
 	<?php echo __("Results for"); ?> <span id="query"></span> <a href="#" id="clear" title="<?php echo __("Clear results"); ?>" class="tiny-image tiny-back no-decoration">&nbsp;</a>
 </p>
 
-<?php
-	if($count > 0) {
-?>
 <form>
-	<div class="container full-container">
+	<div class="container full-container" <?php echo $count > 0 ? "" : 'style="margin-bottom:20px"'; ?>>
 		<div class="pull-left">
 			<a id="new" class="btn no-decoration black-a" href="<?php echo $path ."add"; ?>"><?php echo __("New"); ?></a>
+			<?php
+				if($count > 0) {
+			?>
 			<a id="delete" class="btn btn-danger no-decoration white-a" href="#"><?php echo __("Delete"); ?></a>
+			<?php
+				}
+			?>
 		</div>
+		<?php
+			if($count > 0) {
+		?>
 		<div class="pull-right">
 			<form class="form-search">
 			    <input id="search-input" type="text" class="input-medium search-query" placeholder="<?php echo __("Search"); ?>..." />
 			</form>
 		</div>
+		<?php
+			}
+		?>
 	</div>
-	<?php
-		}
-	?>
 
 	<table class="results table table-bordered table-striped">
 		<thead>
@@ -64,7 +74,11 @@
 			<?php
 					}
 				} else {
-
+			?>
+			<tr>
+				<td data-center class="no-data" colspan="7"><?php echo __("You still have not published a post"); ?></td>
+			</tr>
+			<?php
 				}
 			?>
 		</tbody>
@@ -83,6 +97,7 @@
 	<input type="hidden" id="total" value="<?php echo $total; ?>">
 	<input type="hidden" id="edit-label" value="<?php echo __("Edit"); ?>">
 	<input type="hidden" id="delete-label" value="<?php echo __("Delete"); ?>">
+	<input type="hidden" id="no-results" value="<?php echo __("No records were found"); ?>">
 
 </form>
 

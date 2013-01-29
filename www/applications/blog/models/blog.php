@@ -457,7 +457,11 @@ class Blog_Model extends ZP_Load {
 			if($start === 0) {
 				$total = $this->found($action, $order, TRUE);
 
-				array_unshift($data, $total[0]);
+				if($data) {
+					array_unshift($data, $total[0]);
+				} else {
+					$data = array("0");
+				}
 			}
 
 			return $data;

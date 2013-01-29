@@ -218,9 +218,17 @@
 		
 		setTotal(data.shift().Total);
 
-		processData(data);
+		if (total > 0) {
+			processData(data);
+		} else {
+			notFound();
+		}
 
 		shadow(false);
+	}
+
+	function notFound() {
+		$(table + " tbody").append($('<tr></tr>').append('<td data-center class="no-data" colspan="7">' + $("#no-results").val() + '</td>'));
 	}
 
 	function addColumn(data) {
@@ -296,7 +304,7 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		if (!requesting) {
+		if (!requesting && total > 0) {
 			shadow(true);
 
 			var field = $(this).parent().data("field"),

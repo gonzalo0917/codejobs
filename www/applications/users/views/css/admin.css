@@ -15,12 +15,16 @@
 }
 
 .results tbody tr:hover td {
-  background-color: rgb(233,245,248);
+    background-color: rgb(233,245,248);
 }
 
 .results tbody tr td a {
 	color: rgb(0, 102, 255);
 	vertical-align: middle;
+}
+
+.results tbody tr td.no-data {
+    background-color: #f9f9f9;
 }
 
 .tiny-image {
