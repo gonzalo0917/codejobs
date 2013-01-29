@@ -3,7 +3,7 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID  	     = isset($data) ? recoverPOST("ID", 0) 								: 0;
+	$ID  	     = isset($data) ? recoverPOST("ID", $data["ID_Bookmark"]) 			: 0;
 	$title       = isset($data) ? recoverPOST("title", $data["Title"]) 				: recoverPOST("title");
 	$description = isset($data) ? recoverPOST("description", $data["Description"]) 	: recoverPOST("description");
 	$URL         = isset($data) ? recoverPOST("URL", $data["URL"]) 					: recoverPOST("URL", "http://");
@@ -11,11 +11,12 @@
 	$language  	 = isset($data) ? recoverPOST("language", $data["Language"])  	 	: recoverPOST("language");
 	$edit        = isset($data) ? TRUE 												: FALSE;
 	$action	     = isset($data) ? "edit"											: "save";
+	$resalt      = isset($data) ? __("Edit bookmark") 								: __("Add new bookmark");
 	$href	     = path("bookmarks/add/");
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__("Add new bookmark"), "resalt");
+			echo p($resalt, "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 

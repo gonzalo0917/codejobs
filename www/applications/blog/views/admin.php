@@ -17,7 +17,7 @@
 <form>
 	<div class="container full-container">
 		<div class="pull-left">
-			<a id="new" class="btn no-decoration black-a" href="<?php echo path("blog/add"); ?>"><?php echo __("New"); ?></a>
+			<a id="new" class="btn no-decoration black-a" href="<?php echo $path ."add"; ?>"><?php echo __("New"); ?></a>
 			<a id="delete" class="btn btn-danger no-decoration white-a" href="#"><?php echo __("Delete"); ?></a>
 		</div>
 		<div class="pull-right">
@@ -38,7 +38,7 @@
 				<th style="width: 70px;" data-field="Views"><a href="#"><?php echo __("Views"); ?></a></th>
 				<th style="width: 100px;"><?php echo __("Language"); ?></th>
 				<th style="width: 70px;"><?php echo __("Situation"); ?></th>
-				<th data-order="DESC" style="width: 120px;" data-field="ID_Post"><a href="#"><?php echo __("Published"); ?></a></th>
+				<th data-order="DESC" style="width: 120px;" data-field="<?php echo $ID_Column; ?>"><a href="#"><?php echo __("Published"); ?></a></th>
 				<th style="width: 70px;"><?php echo __("Action"); ?></th>
 			</tr>
 		</thead>
@@ -46,18 +46,18 @@
 			<?php
 				if($count > 0) {
 					foreach($records as $column) {
-						$URL  	   = path("blog/". $column["Year"] ."/". $column["Month"] ."/". $column["Day"] ."/". $column["Slug"]);
+						$URL  	   = $path . $column["Year"] ."/". $column["Month"] ."/". $column["Day"] ."/". $column["Slug"];
 						$text_date = ucfirst(howLong($column["Start_Date"]));
 			?>
 			<tr>
-				<td data-center><input name="records[]" value="<?php echo $column["ID_Post"]; ?>" type="checkbox" /></td>
-				<td><a href="<?php echo $URL; ?>" target="_blank"><?php echo $column["Title"]; ?></a></td>
+				<td data-center><input name="records[]" value="<?php echo $column[$ID_Column]; ?>" type="checkbox" /></td>
+				<td><a href="<?php echo $URL; ?>" title="<?php echo $column["Title"]; ?>" target="_blank"><?php echo $column["Title"]; ?></a></td>
 				<td data-center><?php echo $column["Views"]; ?></td>
 				<td data-center><?php echo getLanguage($column["Language"], TRUE); ?></td>
 				<td data-center><?php echo __($column["Situation"]); ?></td>
 				<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
 				<td data-center>
-					<a href="<?php echo path("blog/add/". $column["ID_Post"]); ?>" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>
+					<a href="<?php echo $path ."add/". $column[$ID_Column]; ?>" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>
 					<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>
 				</td>
 			</tr>

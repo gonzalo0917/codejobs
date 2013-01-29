@@ -140,6 +140,7 @@ $phrase["draft"]										= "Borrador";
 $phrase["e-mail"]						 				= "Correo electrónico";
 $phrase["edit"]											= "Editar";
 $phrase["editor"]										= "Editor";
+$phrase["edit_bookmark"]								= "Editar marcador";
 $phrase["edit_post"]									= "Editar entrada";
 $phrase["edit_profile"]									= "Editar perfil";
 $phrase["eight"]										= "ocho";

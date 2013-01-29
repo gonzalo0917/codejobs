@@ -32,7 +32,7 @@
 		<?php echo showContent($post["Content"], $URL); ?>
 	</div>
 
-	<form action="<?php echo path("blog/add/"); ?>" method="post" style="display: inline">
+	<form action="<?php echo path("blog/add/". ((int) $post["ID"] !== 0 ? $post["ID"] : "")); ?>" method="post" style="display: inline">
 		<fieldset style="display:inline">
 			<input type="hidden" name="title" value="<?php echo htmlentities($post["Title"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="content" value="<?php echo htmlentities($post["Content"], ENT_QUOTES, "UTF-8"); ?>" />

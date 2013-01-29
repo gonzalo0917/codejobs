@@ -748,7 +748,7 @@ class Users_Model extends ZP_Load {
 		return getAlert(__("Update error"));
 	}
 
-	public function records($only = FALSE, $start = 0, $order = "ID_Post DESC", $search = FALSE) {
+	public function records($only = FALSE, $start = 0, $order = NULL, $search = FALSE) {
 		$application = segment(0, isLang());
 		$Model 		 = ucfirst($application) ."_Model";
 
@@ -763,11 +763,23 @@ class Users_Model extends ZP_Load {
 		return $data;
 	}
 
-	public function delete($records, $start = 0, $order = "ID_Post DESC", $search = FALSE) {
+	public function delete($records, $start = 0, $order = NULL, $search = FALSE) {
+		switch ($this->application) {
+			case "blog":
+				$ID_Column = "ID_Post";
+				break;
+			case "bookmarks":
+				$ID_Column = "ID_Bookmark";
+				break;	
+			case "codes":
+				$ID_Column = "ID_Code";
+				break;
+		}
+
 		$count = count($records);
 
 		foreach($records as $record) {
-			$this->Db->updateBySQL($this->application, "Situation = 'Deleted' WHERE ID_Post = ". $record ." AND ID_User = ". SESSION("ZanUserID"));
+			$this->Db->updateBySQL($this->application, "Situation = 'Deleted' WHERE $ID_Column = ". $record ." AND ID_User = ". SESSION("ZanUserID"));
 		}
 
 		$Model = ucfirst($this->application) ."_Model";

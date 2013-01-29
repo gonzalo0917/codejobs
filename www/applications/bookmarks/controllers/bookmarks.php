@@ -50,11 +50,13 @@ class Bookmarks_Controller extends ZP_Load {
 
 	}
 
-	public function add() {
+	public function add($ID = 0) {
 		isConnected();
 		
 		if(POST("save")) {
-			$vars["alert"] = $this->Bookmarks_Model->add();
+			$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+
+			$vars["alert"] = $this->Bookmarks_Model->add($action);
 		} 
 
 		if(POST("preview")) {
@@ -78,6 +80,16 @@ class Bookmarks_Controller extends ZP_Load {
 				redirect();
 			}
 		} else {
+			if((int) $ID !== 0) {
+				$data = $this->Bookmarks_Model->getBookmarkByID($ID);
+				
+				if(!$data) {
+					redirect();
+				}
+
+				$vars["data"] = $data[0];
+			}
+
 			$this->CSS("forms", "cpanel");
 
 			$this->helper(array("html", "forms"));
@@ -89,32 +101,6 @@ class Bookmarks_Controller extends ZP_Load {
 			$this->render("content", $vars);
 		}
 
-	}
-
-	public function admin() {
-		isConnected();
-
-		$this->config("user", "bookmarks");
-
-		$data = $this->Bookmarks_Model->getAllByUser();
-
-		$this->CSS("results", "cpanel");
-		$this->CSS("admin", "bookmarks");
-
-		if($data) {
-			$vars["tFoot"] = $data;
-			$total = count($data);
-		} else {
-			$vars["tFoot"] = array();
-			$total = 0;
-		}
-
-		$label = ($total === 1 ? __("record") : __("records"));
-
-		$vars["total"] = (int)$total . " $label";
-		
-		$vars["view"] = $this->view("admin", TRUE);
-		$this->render("content", $vars);
 	}
 
 	public function author($user = NULL, $tagLabel = NULL, $tag = NULL) {

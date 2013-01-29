@@ -54,13 +54,13 @@ class Bookmarks_Model extends ZP_Load {
 		}
 	}
 	
-	private function all($trash, $order, $limit) {
+	private function all($trash, $order, $limit, $own = FALSE) {
 		$fields = "ID_Bookmark, ID_User, Title, Slug, URL, Author, Views, Reported, Language, Start_Date, Situation";
 
 		if(!$trash) {			
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
 		} else {	
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $fields, NULL, $order, $limit) 	   : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);	
+			return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", $this->table, $fields, NULL, $order, $limit) 	   : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);	
 		}				
 	}
 	
@@ -118,8 +118,8 @@ class Bookmarks_Model extends ZP_Load {
 		}
 	}
 
-	public function add() {
-		$error = $this->editOrSave("save");
+	public function add($action = "save") {
+		$error = $this->editOrSave($action);
 
 		if($error) {
 			return $error;
@@ -127,13 +127,22 @@ class Bookmarks_Model extends ZP_Load {
 		
 		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 
-		$lastID = $this->Db->insert($this->table, $this->data);
+		if($action === "save") {
+			$return = $this->Db->insert($this->table, $this->data);
 
-		$this->Users_Model = $this->model("Users_Model");
+			$this->Users_Model = $this->model("Users_Model");
+			$this->Users_Model->setCredits(1, 9);
+		} elseif($action === "edit") {
+			$return = $this->Db->update($this->table, $this->data, POST("ID"));
+		}
 
-		$this->Users_Model->setCredits(1, 9);
+		if($this->data["Situation"] === "Active") {
+			$this->Cache = $this->core("Cache");
+
+			$this->Cache->removeAll("bookmarks");
+		}
 		
-		if($lastID) {
+		if($return) {
 			return getAlert(__("The bookmark has been saved correctly"), "success");	
 		}
 		
@@ -143,6 +152,7 @@ class Bookmarks_Model extends ZP_Load {
 	public function preview() {
 		if(POST("description") AND POST("language") AND POST("title") AND POST("URL")) {
 			return array(
+				"ID"			=> POST("ID"),
 				"Author"  		=> SESSION("ZanUser"),
 				"Description" 	=> stripslashes(encode(POST("description", "decode", NULL))),
 				"Language" 		=> POST("language"),
@@ -214,6 +224,10 @@ class Bookmarks_Model extends ZP_Load {
 		return $this->Db->findBySQL("ID_Bookmark = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
 	}
 	
+	public function getBookmarkByID($ID) {
+		return $this->Db->findBySQL("Situation != 'Deleted' AND ID_User = ". SESSION("ZanUserID") ." AND ID_Bookmark = ". $ID, $this->table, $this->fields);
+	}
+	
 	public function getAll($limit) {		
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", $limit);
 	}
@@ -252,5 +266,78 @@ class Bookmarks_Model extends ZP_Load {
 
 	public function activate($ID) {
 		return $this->Db->update($this->table, array("Situation" => "Active"), $ID);
+	}
+
+	public function find($query, $order, $limit, $own = FALSE) {
+		$fields = "ID_Bookmark, ID_User, Title, Slug, URL, Author, Views, Reported, Language, Start_Date, Situation";
+
+		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, NULL, $order, $limit);
+	}
+
+	public function found($query, $order, $own = FALSE) {
+		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
+	}
+
+	public function records($action, $start = 0, $end = _maxLimit, $order = NULL, $search = FALSE) {
+		if(is_null($order)) {
+			$order = "ID_Bookmark DESC";
+		}
+
+		if($action === "all") {
+			return $this->all(FALSE, $order, "$start, $end", TRUE);
+		} elseif($action === "records") {
+			$data = $this->all(FALSE, $order, "$start, $end", TRUE);
+
+			return $this->processRecords($data);
+		} else {
+			$data = $this->find($action, $order, "$start, $end", TRUE);
+			$data = $this->processRecords($data);
+
+			if($start === 0) {
+				$total = $this->found($action, $order, TRUE);
+
+				array_unshift($data, $total[0]);
+			}
+
+			return $data;
+		}
+	}
+
+	private function processRecords($data) {
+		if(is_array($data)) {
+			foreach($data as $key => $record) {
+				if(isset($record["Language"])) {
+					$data[$key]["Language"] = getLanguage($record["Language"], TRUE);
+				}
+
+				if(isset($record["Start_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["Start_Date"] = ucfirst(howLong($record["Start_Date"]));
+				}
+
+				if(isset($record["End_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["End_Date"] = ucfirst(howLong($record["End_Date"]));
+				}
+
+				if(isset($record["Modified_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["Modified_Date"] = ucfirst(howLong($record["Modified_Date"]));
+				}
+
+				if(isset($record["Situation"])) {
+					$data[$key]["Situation"] = __($record["Situation"]);
+				}
+
+				if(isset($record["Views"])) {
+					$data[$key]["Views"] = (int)$record["Views"];
+				}
+			}
+		}
+
+		return $data;
 	}
 }

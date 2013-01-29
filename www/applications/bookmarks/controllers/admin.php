@@ -35,12 +35,12 @@ class Admin_Controller extends ZP_Load {
 		$this->js("jquery.appear.js");
 		$this->js("admin", "users");
 
-		$this->vars["path"]	   = path("blog/");
+		$this->vars["path"]	   = path("bookmarks/");
 		$this->vars["records"] = $this->Users_Model->records();
 		$this->vars["view"]    = $this->view("admin", TRUE, $this->application, $this->application);
-		$this->vars["caption"] = __("My posts");
-		$this->vars["total"]   = SESSION("ZanUserPosts");
-		$this->vars["ID_Column"] = "ID_Post";
+		$this->vars["caption"] = __("My bookmarks");
+		$this->vars["total"]   = SESSION("ZanUserBookmarks");
+		$this->vars["ID_Column"] = "ID_Bookmark";
 
 		$this->title($this->vars["caption"]);
 		
@@ -51,7 +51,7 @@ class Admin_Controller extends ZP_Load {
 		$this->isMember();
 		
 		$start = (int) GET("start");
-		$field = GET("field") ? GET("field") : "ID_Post";
+		$field = GET("field") ? GET("field") : "ID_Bookmark";
 		$order = GET("order") ? GET("order") : "DESC";
 		$query = GET("query");
 
@@ -69,7 +69,7 @@ class Admin_Controller extends ZP_Load {
 
 		$records = GET("records");
 		$start   = (int) GET("start");
-		$field   = GET("field") ? GET("field") : "ID_Post";
+		$field   = GET("field") ? GET("field") : "ID_Bookmark";
 		$order   = GET("order") ? GET("order") : "DESC";
 		$query 	 = GET("query");
 

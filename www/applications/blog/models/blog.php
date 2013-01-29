@@ -253,7 +253,6 @@ class Blog_Model extends ZP_Load {
 			$this->Cache->removeAll("blog");
 		}
 
-		
 		if($return) {
 			return getAlert(__("The post has been saved correctly"), "success");	
 		}
@@ -439,7 +438,11 @@ class Blog_Model extends ZP_Load {
 		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
 	}
 
-	public function records($action, $start = 0, $end = _maxLimit, $order = "ID_Post DESC", $search = FALSE) {
+	public function records($action, $start = 0, $end = _maxLimit, $order = NULL, $search = FALSE) {
+		if(is_null($order)) {
+			$order = "ID_Post DESC";
+		}
+
 		if($action === "all") {
 			return $this->all(FALSE, $order, "$start, $end", TRUE);
 		} elseif($action === "records") {

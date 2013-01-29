@@ -36,14 +36,14 @@
 
 	<br />
 	
-	<form action="<?php echo path("bookmarks/add/"); ?>" method="post" style="display: inline">
+	<form action="<?php echo path("bookmarks/add/". ((int) $bookmark["ID"] !== 0 ? $bookmark["ID"] : "")); ?>" method="post" style="display: inline">
 		<fieldset style="display:inline">
 			<input type="hidden" name="title" value="<?php echo htmlentities($bookmark["Title"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="URL" value="<?php echo htmlentities($bookmark["URL"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="description" value="<?php echo htmlentities($bookmark["Description"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="tags" value="<?php echo htmlentities($bookmark["Tags"], ENT_QUOTES, "UTF-8"); ?>" />
 			<input type="hidden" name="language" value="<?php echo htmlentities($bookmark["Language"], ENT_QUOTES, "UTF-8"); ?>" />
-			<input type="hidden" name="ID" value="" />
+			<input type="hidden" name="ID" value="<?php echo $bookmark["ID"]; ?>" />
 			<input type="submit" name="save" onclick="needToConfirm = false" class="btn btn-success" value="<?php echo __("Save"); ?>" />
 			<input type="submit" onclick="needToConfirm = false" class="btn" value="<?php echo __("Go back"); ?>" />
 	</fieldset>

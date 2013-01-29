@@ -1,6 +1,7 @@
 !function($) {
-	var application, table, total, loading_more, records, order_by, search_by, field, found_records, total_records;
+	var path, application, table, total, loading_more, records, order_by, search_by, field, found_records, total_records;
 
+	path 		  = PATH;
 	application   = APP;
 	table 		  = ".results";
 	total_records = parseInt($("#total").val());
@@ -58,7 +59,7 @@
 
 					$.ajax({
 						"type" 	  : "json",
-						"url"  	  : PATH + "/blog/admin/delete/" + uri,
+						"url"  	  : path + "/" + application + "/admin/delete/" + uri,
 						"success" : deleted
 					});
 				}
@@ -84,7 +85,7 @@
 
 			$.ajax({
 				"type" 	 : "json",
-				"url" 	 : PATH + "/blog/admin/data/" + uri,
+				"url" 	 : path + "/" + application + "/admin/data/" + uri,
 				"success": loaded
 			});
 
@@ -127,7 +128,7 @@
 
 				$.ajax({
 					"type" 	  : "json",
-					"url"  	  : PATH + "/blog/admin/delete/" + uri,
+					"url"  	  : path + "/" + application + "/admin/delete/" + uri,
 					"success" : function (data) {
 						!$.proxy(deleted, obj)(data, id);
 					}
@@ -223,16 +224,35 @@
 	}
 
 	function addColumn(data) {
-		var column = $('<tr></tr>'), actions = $('<td data-center></td>');
+		var column = $('<tr></tr>'), actions = $('<td data-center></td>'), ID_Column;
 
-		column.append('<td data-center><input name="records[]" value="' + data.ID_Post + '" type="checkbox" /></td>');
-		column.append('<td><a href="' + PATH + '/blog/' + data.Year + '/' + data.Month + '/' + data.Day + '/' + data.Slug + '" target="_blank">' + data.Title + '</a></td>');
+		switch (application) {
+			case "blog":
+				ID_Column = data.ID_Post;
+				break;
+			case "bookmarks":
+				ID_Column = data.ID_Bookmark;
+				break;
+			case "codes":
+				ID_Column = data.ID_Code;
+				break;
+		}
+
+		column.append('<td data-center><input name="records[]" value="' + ID_Column + '" type="checkbox" /></td>');
+		
+		if (application === "blog") {
+			column.append('<td><a href="' + path + '/blog/' + data.Year + '/' + data.Month + '/' + data.Day + '/' + data.Slug + '" target="_blank">' + data.Title + '</a></td>');
+		} else if (application === "bookmarks") {
+			column.append('<td><a href="' + path + '/bookmarks/' + data.ID_Bookmark + '/' + data.Slug + '" target="_blank">' + data.Title + '</a></td>');
+		}
+
 		column.append('<td data-center>' + data.Views + '</td>');
 		column.append('<td data-center>' + data.Language + '</td>');
 		column.append('<td data-center>' + data.Situation + '</td>');
 		column.append('<td data-center title="' + data.Start_Date + '">' + data.Start_Date + '</td>');
 		
-		actions.append('<a href="' + PATH + '/blog/add/' + data.ID_Post + '" title="' + $("#edit-label").val() + '" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>');
+		actions.append('<a href="' + path + '/' + application + '/add/' + ID_Column + '" title="' + $("#edit-label").val() + '" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>');
+		actions.append(' ');
 		actions.append($('<a href="#" title="' + $("#delete-label").val() + '" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>').click(deleteClick));
 
 		column.append(actions);
@@ -300,7 +320,7 @@
 
 			$.ajax({
 				"type" 	  : "json",
-				"url"  	  : PATH + "/blog/admin/data/" + uri,
+				"url"  	  : path + "/" + application + "/admin/data/" + uri,
 				"success" : search_by ? found : ordered
 			});
 
@@ -327,7 +347,7 @@
 
 				$.ajax({
 					"type" 	  : "json",
-					"url"  	  : PATH + "/blog/admin/data/" + uri,
+					"url"  	  : path + "/" + application + "/admin/data/" + uri,
 					"success" : found
 				});
 			}
@@ -353,7 +373,7 @@
 
 			$.ajax({
 				"type" 	  : "json",
-				"url"  	  : PATH + "/blog/admin/data/" + uri,
+				"url"  	  : path + "/" + application + "/admin/data/" + uri,
 				"success" : restored
 			});
 		}
