@@ -9,7 +9,8 @@
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
 	$edit        = isset($data) ? TRUE 													: FALSE;
 	$action	     = isset($data) ? "edit"												: "save";
-	$href        = isset($data) ? path(whichApplication() ."/edit/")                    : path(whichApplication() ."/add/");
+	$href        = isset($data) ? path(whichApplication() ."/add/")                     : path(whichApplication() ."/add/");
+    $resalt      = isset($data) ? __("Edit code")                                       : __("Add new code");
 	
     if (! ($files = isset($data) ? $data[0]["Files"] : FALSE)) {
         $files = recoverFiles();
@@ -21,7 +22,7 @@
     ));
 
 		echo formOpen($href, "form-add", "form-add");
-			echo p(__("Add new code"), "resalt");
+			echo p($resalt, "resalt");
 			
 			echo isset($alert) ? $alert : NULL;
 
@@ -40,7 +41,7 @@
                 "field"     => __("Description"), 
                 "p"         => TRUE, 
                 "style"     => "resize: none",
-                "value"     => ""
+                "value"     => $description
             ));
                         
             echo htmlTag("p", array("class" => "field-p"), span("field", "&raquo; " . __("Files") . " ({{files.length}})"));

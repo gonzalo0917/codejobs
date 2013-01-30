@@ -287,12 +287,24 @@ class Codes_Controller extends ZP_Load {
 		}
 	}
         
-    public function add() {
+    public function add($ID = 0) {
 		isConnected();
 
 		if(POST("save")) {
-			$vars["alert"] = $this->Codes_Model->add();
-		} 
+			$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+
+			$vars["alert"] = $this->Codes_Model->add($action);
+		}
+
+		if((int) $ID !== 0) {
+			$data = $this->Codes_Model->getCodeByID($ID);
+			
+			if(!$data) {
+				redirect();
+			}
+
+			$vars["data"] = $data;
+		}
 
 		$this->CSS("new", "codes");
 		$this->CSS("forms", "cpanel");
@@ -305,32 +317,6 @@ class Codes_Controller extends ZP_Load {
 		$this->js("mode", "codes");
 		$vars["view"] = $this->view("new", TRUE);
 
-		$this->render("content", $vars);
-	}
-
-	public function admin() {
-		isConnected();
-
-		$this->config("user", "codes");
-
-		$data = $this->Codes_Model->getCodesByUser(SESSION("ZanUserID"));
-
-		$this->CSS("results", "cpanel");
-		$this->CSS("admin", "codes");
-
-		if($data) {
-			$vars["tFoot"] = $data;
-			$total = count($data);
-		} else {
-			$vars["tFoot"] = array();
-			$total = 0;
-		}
-
-		$label = ($total === 1 ? __("record") : __("records"));
-
-		$vars["total"] = (int)$total . " $label";
-		
-		$vars["view"] = $this->view("admin", TRUE);
 		$this->render("content", $vars);
 	}
 

@@ -10,6 +10,7 @@ class Codes_Model extends ZP_Load {
 	
 	public function __construct() {
 		$this->Db = $this->db();
+		$this->app("codes");
 		
 		$this->table  = "codes";
 		$this->fields = "ID_Code, Title, Description, Slug, Languages, Author, Start_Date, Text_Date, Views, Likes, Dislikes, Language, Situation";
@@ -52,14 +53,14 @@ class Codes_Model extends ZP_Load {
 		}
 	}
 	
-	private function all($trash, $order, $limit) {
+	private function all($trash, $order, $limit, $own = FALSE) {
 		if(segment(2, isLang()) !== "languages") {
-			$fields = "ID_Code, Title, Slug, Author, Text_Date, Views, Likes, Dislikes, Language, Reported, Situation";
+			$fields = "ID_Code, Title, Slug, Author, Start_Date, Text_Date, Views, Likes, Dislikes, Language, Reported, Situation";
 
 			if(!$trash) {			
-				return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+				return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
 			} else {	
-				return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $fields, NULL, $order, $limit) 	   : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);	
+				return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", $this->table, $fields, NULL, $order, $limit) 	   : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);	
 			}				
 		} else {
 			return $this->Db->findAll("codes_syntax", "ID_Syntax, Name, MIME, Filename, Extension");
@@ -134,8 +135,8 @@ class Codes_Model extends ZP_Load {
 		}
 	}
 	
-    public function add() {
-		$error = $this->editOrSave("save");
+    public function add($action = "save") {
+		$error = $this->editOrSave($action);
 
 		if($error) {
 			return $error;
@@ -143,26 +144,36 @@ class Codes_Model extends ZP_Load {
 		
 		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 		
-		$lastID = $this->Db->insert($this->table, $this->data);
-		
-		if($lastID) {
-            $this->data = $this->proccessFiles($lastID);
-                        
-            if(isset($this->data["error"])) {
-                $this->Db->delete($lastID, $this->table);
-                
-                return $this->data["error"];
-            }
-                        
-            if($this->Db->insertBatch("codes_files", $this->data)) {
-				$this->Users_Model = $this->model("Users_Model");
+		if($this->data["Situation"] === "Active") {
+			$this->Cache = $this->core("Cache");
 
-				$this->Users_Model->setCredits(1, 17);
-
-                return getAlert(__("The code has been saved correctly"), "success");	
-            }
+			$this->Cache->removeAll("codes");
 		}
-		
+
+		if($action === "save") {
+			$lastID = $this->Db->insert($this->table, $this->data);
+			
+			if($lastID) {
+	            $this->data = $this->proccessFiles($lastID);
+	                        
+	            if(isset($this->data["error"])) {
+	                $this->Db->delete($lastID, $this->table);
+	                
+	                return $this->data["error"];
+	            }
+	                        
+	            if($this->Db->insertBatch("codes_files", $this->data)) {
+					$this->Users_Model = $this->model("Users_Model");
+
+					$this->Users_Model->setCredits(1, 17);
+
+	                return getAlert(__("The code has been saved correctly"), "success");	
+	            }
+			}
+		} elseif($action === "edit") {
+			return $this->edit();
+		}
+
 		return getAlert(__("Insert error"));
 	}
 		
@@ -201,7 +212,7 @@ class Codes_Model extends ZP_Load {
 	private function edit() {
 		if($this->Db->update($this->table, $this->data, POST("ID"))) {
             $this->data = $this->proccessFiles(POST("ID"));
-                    
+            
             if(isset($this->data["error"])) {
                 return $this->data["error"];
             }
@@ -329,6 +340,18 @@ class Codes_Model extends ZP_Load {
 		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 	
+	public function getCodeByID($ID) {
+		$data = $this->Db->findBySQL("Situation != 'Deleted' AND ID_User = ". SESSION("ZanUserID") ." AND ID_Code = ". $ID, $this->table, $this->fields);
+
+		if(is_array($data)) {
+			$this->CodesFiles_Model = $this->model("CodesFiles_Model");
+
+			$data[0]["Files"] = $this->CodesFiles_Model->getByCode($ID);
+		}
+
+		return $data;
+	}
+	
 	public function getAll($limit) {		
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
@@ -379,5 +402,82 @@ class Codes_Model extends ZP_Load {
 
     public function activate($ID) {
 		return $this->Db->update($this->table, array("Situation" => "Active"), $ID);
+	}
+
+	public function find($query, $order, $limit, $own = FALSE) {
+		$fields = "ID_Code, Title, Slug, Author, Start_Date, Text_Date, Views, Likes, Dislikes, Language, Reported, Situation";
+
+		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, NULL, $order, $limit);
+	}
+
+	public function found($query, $order, $own = FALSE) {
+		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
+	}
+
+	public function records($action, $start = 0, $end = _maxLimit, $order = NULL, $search = FALSE) {
+		if(is_null($order)) {
+			$order = "ID_Code DESC";
+		}
+
+		if($action === "all") {
+			return $this->all(FALSE, $order, "$start, $end", TRUE);
+		} elseif($action === "records") {
+			$data = $this->all(FALSE, $order, "$start, $end", TRUE);
+
+			return $this->processRecords($data);
+		} else {
+			$data = $this->find($action, $order, "$start, $end", TRUE);
+			$data = $this->processRecords($data);
+
+			if($start === 0) {
+				$total = $this->found($action, $order, TRUE);
+
+				if($data) {
+					array_unshift($data, $total[0]);
+				} else {
+					$data = array("0");
+				}
+			}
+
+			return $data;
+		}
+	}
+
+	private function processRecords($data) {
+		if(is_array($data)) {
+			foreach($data as $key => $record) {
+				if(isset($record["Language"])) {
+					$data[$key]["Language"] = getLanguage($record["Language"], TRUE);
+				}
+
+				if(isset($record["Start_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["Start_Date"] = ucfirst(howLong($record["Start_Date"]));
+				}
+
+				if(isset($record["End_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["End_Date"] = ucfirst(howLong($record["End_Date"]));
+				}
+
+				if(isset($record["Modified_Date"])) {
+					$this->helper("time");
+
+					$data[$key]["Modified_Date"] = ucfirst(howLong($record["Modified_Date"]));
+				}
+
+				if(isset($record["Situation"])) {
+					$data[$key]["Situation"] = __($record["Situation"]);
+				}
+
+				if(isset($record["Views"])) {
+					$data[$key]["Views"] = (int)$record["Views"];
+				}
+			}
+		}
+
+		return $data;
 	}
 }

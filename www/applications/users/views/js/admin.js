@@ -47,6 +47,11 @@
 				if (!requesting) {
 					shadow(true);
 
+					if (loading_more !== false) {
+						loading_more.abort();
+						loading_more = false;
+					}
+
 					var uri = "?start=" + records + "&records[]=" + elems.join("&records[]=");
 
 					if (order_by) {
@@ -60,7 +65,8 @@
 					$.ajax({
 						"type" 	  : "json",
 						"url"  	  : path + "/" + application + "/admin/delete/" + uri,
-						"success" : deleted
+						"success" : deleted,
+						"error"	  : error
 					});
 				}
 			}
@@ -72,7 +78,7 @@
 	});
 
 	$("#more").appear(function () {
-		if (!loading_more && !requesting) {
+		if (loading_more === false && !requesting) {
 			var uri = "?start=" + records;
 
 			if (order_by) {
@@ -83,13 +89,16 @@
 				uri += "&query=" + search_by;
 			}
 
-			$.ajax({
+			loading_more = $.ajax({
 				"type" 	 : "json",
 				"url" 	 : path + "/" + application + "/admin/data/" + uri,
-				"success": loaded
+				"success": loaded,
+				"error"  : function () {
+					alert($("#ajax-error").val());
+					
+					loading_more = false;
+				}
 			});
-
-			loading_more = true;
 		}
 	});
 
@@ -116,6 +125,11 @@
 			if (!requesting) {
 				shadow(true);
 
+				if (loading_more !== false) {
+					loading_more.abort();
+					loading_more = false;
+				}
+
 				var uri = "?start=" + records + "&records[]=" + id;
 
 				if (order_by) {
@@ -131,7 +145,8 @@
 					"url"  	  : path + "/" + application + "/admin/delete/" + uri,
 					"success" : function (data) {
 						!$.proxy(deleted, obj)(data, id);
-					}
+					},
+					"error"   : error
 				});
 			}
 		}
@@ -167,6 +182,12 @@
 		} else {
 			$("#more").show();
 		}
+	}
+
+	function error() {
+		alert($("#ajax-error").val());
+
+		shadow(false);
 	}
 
 	function loaded(data) {
@@ -250,8 +271,8 @@
 		
 		if (application === "blog") {
 			column.append('<td><a href="' + path + '/blog/' + data.Year + '/' + data.Month + '/' + data.Day + '/' + data.Slug + '" target="_blank">' + data.Title + '</a></td>');
-		} else if (application === "bookmarks") {
-			column.append('<td><a href="' + path + '/bookmarks/' + data.ID_Bookmark + '/' + data.Slug + '" target="_blank">' + data.Title + '</a></td>');
+		} else if (application === "bookmarks" || application === "codes") {
+			column.append('<td><a href="' + path + '/' + application + '/' + ID_Column + '/' + data.Slug + '" target="_blank">' + data.Title + '</a></td>');
 		}
 
 		column.append('<td data-center>' + data.Views + '</td>');
@@ -307,6 +328,11 @@
 		if (!requesting && total > 0) {
 			shadow(true);
 
+			if (loading_more !== false) {
+				loading_more.abort();
+				loading_more = false;
+			}
+
 			var field = $(this).parent().data("field"),
 				order = $(this).parent().attr("data-order");
 
@@ -329,7 +355,8 @@
 			$.ajax({
 				"type" 	  : "json",
 				"url"  	  : path + "/" + application + "/admin/data/" + uri,
-				"success" : search_by ? found : ordered
+				"success" : search_by ? found : ordered,
+				"error"   : error
 			});
 
 			order_by = [field, order];
@@ -341,23 +368,32 @@
 	function search(query) {
 		if (query) {
 			if (!requesting) {
-				shadow(true);
 
 				$("#query").text(search_by = query);
-				$("#subtitle").slideDown();
 				$("#search-input").val("").blur();
+				
+				$("#subtitle").slideDown("fast", function () {
+					shadow(true);
 
-				var uri = "?start=0&query=" + query;
+					if (loading_more !== false) {
+						loading_more.abort();
+						loading_more = false;
+					}
+					
+					var uri = "?start=0&query=" + query;
 
-				if (order_by) {
-					uri += "&field=" + order_by[0] + "&order=" + order_by[1];
-				}
+					if (order_by) {
+						uri += "&field=" + order_by[0] + "&order=" + order_by[1];
+					}
 
-				$.ajax({
-					"type" 	  : "json",
-					"url"  	  : path + "/" + application + "/admin/data/" + uri,
-					"success" : found
+					$.ajax({
+						"type" 	  : "json",
+						"url"  	  : path + "/" + application + "/admin/data/" + uri,
+						"success" : found,
+						"error"   : error
+					});
 				});
+
 			}
 		}
 	}
@@ -367,10 +403,16 @@
 		event.preventDefault();
 
 		if (!requesting) {
-			shadow(true);
-
 			$("#query").text("");
 			$("#subtitle").hide();
+			
+			shadow(true);
+
+			if (loading_more !== false) {
+				loading_more.abort();
+				loading_more = false;
+			}
+			
 			$("#search-input").val("").blur();
 
 			var uri = "?start=0";
@@ -382,7 +424,8 @@
 			$.ajax({
 				"type" 	  : "json",
 				"url"  	  : path + "/" + application + "/admin/data/" + uri,
-				"success" : restored
+				"success" : restored,
+				"error"   : error
 			});
 		}
 

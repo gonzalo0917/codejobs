@@ -76,7 +76,7 @@
 				} else {
 			?>
 			<tr>
-				<td data-center class="no-data" colspan="7"><?php echo __("You still have not published a post"); ?></td>
+				<td data-center class="no-data" colspan="7"><?php echo __("You still have not published a bookmark"); ?></td>
 			</tr>
 			<?php
 				}
@@ -85,7 +85,7 @@
 	</table>
 
 	<p style="text-align: center">
-		<a id="more" disabled class="btn no-decoration" <?php echo ($count < $total ? '' : 'style="display:none"'); ?>>Cargando...</a>
+		<a id="more" disabled class="btn no-decoration" <?php echo (($count < $total and $count > 0) ? '' : 'style="display:none"'); ?>>Cargando...</a>
 	</p>
 
 	<input type="hidden" id="order-desc" value="<?php echo __("Sort descending"); ?>">
@@ -98,6 +98,7 @@
 	<input type="hidden" id="edit-label" value="<?php echo __("Edit"); ?>">
 	<input type="hidden" id="delete-label" value="<?php echo __("Delete"); ?>">
 	<input type="hidden" id="no-results" value="<?php echo __("No records were found"); ?>">
+	<input type="hidden" id="ajax-error" value="<?php echo __("An error has occurred"); ?>">
 
 </form>
 
