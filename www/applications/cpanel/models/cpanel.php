@@ -312,13 +312,13 @@ class CPanel_Model extends ZP_Load {
 		
 		if(POST("seek")) {
 			if(POST("field") === "ID") {
-				if(SESSION("ZanUserPrivilegeID") === 1) {
+				if((int) SESSION("ZanUserPrivilegeID") === 1) {
 					$total = $this->Db->countBySQL("$primaryKey = '". POST("search") ."'", $this->application);
 				} else {
 					$total = $this->Db->countBySQL("ID_User = '". SESSION("ZanUserID") ."' AND $primaryKey = '". POST("search") ."'", $this->application);
 				}
 			} else {
-				if(SESSION("ZanUserPrivilegeID") === 1) {
+				if((int) SESSION("ZanUserPrivilegeID") === 1) {
 					$total = $this->Db->countBySQL("". POST("field") ." LIKE '%". POST("search") ."%'", $this->application);
 				} else {
 					$total = $this->Db->countBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ". POST("field") ." LIKE '%". POST("search") ."%'", $this->application);
@@ -335,13 +335,13 @@ class CPanel_Model extends ZP_Load {
 			
 			return $total;
 		} elseif(!$trash) { 
-			if(SESSION("ZanUserPrivilegeID") === 1) {
+			if((int) SESSION("ZanUserPrivilegeID") === 1) {
 				$total = $this->Db->countBySQL("Situation != 'Deleted'", $this->application);
 			} else {
 				$total = $this->Db->countBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->application);
 			}
 		} else {
-			if(SESSION("ZanUserPrivilegeID") === 1) {
+			if((int) SESSION("ZanUserPrivilegeID") === 1) {
 				$total = $this->Db->countBySQL("Situation = 'Deleted'", $this->application);
 			} else {
 				$total = $this->Db->countBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->application);
