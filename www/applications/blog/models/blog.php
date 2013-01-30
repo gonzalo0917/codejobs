@@ -46,9 +46,9 @@ class Blog_Model extends ZP_Load {
 	
 	private function all($trash, $order, $limit, $own = FALSE) {	
 		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
 		}
 	}
 	
@@ -116,7 +116,6 @@ class Blog_Model extends ZP_Load {
 		}
 
 		$data = array(
-			"ID_User"         => SESSION("ZanUserID"),
 			"Slug"            => slug(POST("title", "clean")),
 			"Content"         => setCode(decode(POST("content", "clean")), FALSE),
 			"Author"          => POST("author") ? POST("author") : SESSION("ZanUser"),
@@ -132,6 +131,7 @@ class Blog_Model extends ZP_Load {
 		);
 
 		if($action === "save") {
+			$data["ID_User"]    = SESSION("ZanUserID");
 			$data["Start_Date"] = now(4);
 			$data["Text_Date"]  = decode(now(2));
 			$data["Year"]	    = date("Y");
@@ -167,7 +167,7 @@ class Blog_Model extends ZP_Load {
 	}
 
 	public function saveDraft() {
-		$this->helper("time");
+		$this->helper(array("alerts", "time"));
 		
 		$postID	= POST("postID");
 
@@ -190,7 +190,7 @@ class Blog_Model extends ZP_Load {
 			
 			$this->Db->update($this->table, $data, $postID);			
 
-			echo __("Last update on") ." ". now(6);
+			echo getAlert(__("Last update on") ." ". now(6), "success");
 		} else {
 			$data = array(
 				"ID_User"    => SESSION("ZanUserID"),
@@ -213,7 +213,7 @@ class Blog_Model extends ZP_Load {
 			
 			$insertID = $this->Db->insert($this->table, $data);
 
-			echo __("Saved draft on") ." ". now(6);
+			echo getAlert(__("Saved draft on") ." ". now(6), "success");
 		}
 
 	}

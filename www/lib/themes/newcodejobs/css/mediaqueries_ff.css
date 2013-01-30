@@ -81,6 +81,7 @@
 	.comments-editor {
 		margin-left: 106px;
 	}
+
 }
 
 /* Kindle landscape 1600x1680 */
@@ -169,7 +170,6 @@
 
 /* Kindle landscape 1440x1536 */
 @media (max-width: 1440px), (max-device-width: 1440px) {
-
 	header #wrapper {
 		width: 1440px;
 	}
@@ -253,7 +253,7 @@
 
 /* Kindle landscape 1280x1391 */
 @media (max-width: 1280px), (max-device-width: 1280px) {
-	
+
 	header #wrapper {
 		width: 1200px;
 	}
@@ -262,14 +262,15 @@
 		width: 700px;
 		float: left;
 		margin-top: -85px;
-		margin-left: 265px;
+		margin-left: 450px;
 	}
 
 	header #wrapper nav ul {
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-		margin-left: 23.5%;
+		margqin-left: 23.5%;
+		width: 550px !important;
 	}
 
 	header #topbar {
@@ -277,7 +278,7 @@
 	}
 	
 	header #topbar nav ul {
-		margin-left: -30px !important;
+		margin-left: 30px !important;
 	}
 
 	aside .transmission ul {
@@ -333,13 +334,12 @@
 
 /* Kindle landscape 1024x600 */
 @media (max-width: 1024px), (max-device-width: 1024px) {
-
 	header #wrapper {
 		width: 1024px;
 	}
 
 	header #wrapper nav {
-		width: 700px;
+		width: 700px !important;
 		float: left;
 		margin-top: -85px;
 		margin-left: 265px;
@@ -349,7 +349,8 @@
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-		margin-left: 2.5%;
+		margin-left: 90px;
+		width: 600px !important;
 	}
 
 	header #topbar {
@@ -409,7 +410,6 @@
 /* iPad portrait 768x1024 */
 
 @media (max-width: 768px), (max-device-width: 768px) {
-
 	header #wrapper {
 		width: 768px;
 	}

@@ -35,7 +35,7 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 		<![CDATA[<?php echo $URL; ?>]]>
 		</link>
 		<description>
-		<![CDATA[<?php echo $post["Content"]; ?>]]>
+		<![CDATA[<?php echo showContent(pagebreak($post["Content"]), TRUE); ?>]]>
 		</description>
 		<guid isPermaLink="true">
 		<![CDATA[<?php echo $URL; ?>]]>

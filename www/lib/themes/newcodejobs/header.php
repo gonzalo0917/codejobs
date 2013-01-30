@@ -22,8 +22,17 @@
 	
     <?php
     	$this->CSS("www/lib/css/default.css", NULL, FALSE, TRUE);
-    	$this->CSS("$this->themeRoute/css/style.css", NULL, FALSE, TRUE);
-    	$this->CSS("$this->themeRoute/css/mediaqueries.css", NULL, FALSE, TRUE);
+    	
+    	$browser  = browser();
+    	$browsers = array("ff", "ie", "sf", "op");
+
+	    if(in_array($browser, $browsers)) {
+	    	$this->CSS("$this->themeRoute/css/style_$browser.css", NULL, FALSE, TRUE);
+	    	$this->CSS("$this->themeRoute/css/mediaqueries_$browser.css", NULL, FALSE, TRUE);
+	    } else {
+	    	$this->CSS("$this->themeRoute/css/style.css", NULL, FALSE, TRUE);
+	    	$this->CSS("$this->themeRoute/css/mediaqueries.css", NULL, FALSE, TRUE);
+	    }
 
     	if(segment(0, isLang()) !== "polls") {
     		$this->CSS("polls", "polls", FALSE, TRUE);
