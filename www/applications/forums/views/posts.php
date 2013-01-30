@@ -80,6 +80,7 @@
 		if(SESSION("ZanUser")) {
 		?>				
 			<div class="comments-editor">	
+				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 				<textarea id="ccontent" class="markItUp" name="comment" style="height:200px"></textarea> <br />
 				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
 				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />

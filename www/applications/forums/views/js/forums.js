@@ -14,10 +14,16 @@ $(document).on("ready", function() {
 	$("#cpublish").on("click", function() {
 		var content = $('#ccontent').val();
 		var fid = $('#fid').val();
+		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
+			if(content.length == 0 /*|| content == $("#ccontent-temp").val()*/) {
+				$("#comment-alert").html(needContent);
+				$("#comment-alert").show();
+				$("#comment-alert").hide(4000);
+			}
 
 		if(content != '' && fid > 0) {
 			var newComment = '';
-
+			
 			$.ajax({
 				type: 'POST',
 				url:   PATH + '/forums/publishComment',
@@ -65,10 +71,16 @@ $(document).on("ready", function() {
 
 		if(title.length == 0 || title == $("#ftitle-temp").val()) { 
 			$("#fmessage").html(needTitle);
+			$("#fmessage").show();
+			$("#fmessage").hide(4000);
 		} else if(content.length == 0 || content == $("#fcontent-temp").val()) { 
 			$("#fmessage").html(needContent);
+			$("#fmessage").show();
+			$("#fmessage").hide(4000);
 		} else if(tags.length == 0 || tags == $("#ftags-temp").val()) { 
 			$("#fmessage").html(needTags);
+			$("#fmessage").show();
+			$("#fmessage").hide(4000);
 		} else {
 			var newPost = '';
 
