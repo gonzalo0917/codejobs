@@ -46,9 +46,9 @@ class Blog_Model extends ZP_Load {
 	
 	private function all($trash, $order, $limit, $own = FALSE) {	
 		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", NULL, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
 		}
 	}
 	
