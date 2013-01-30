@@ -1,0 +1,1096 @@
+@media (max-width: 1920px), (max-device-width: 1920px) {
+
+	header #wrapper {
+		width: 1500px;
+	}
+
+	header #wrapper nav {
+		width: 800px;
+		float: right;
+		margin-top: -85px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 2.5%;
+	}
+
+	header #topbar {
+		max-width: 1500px;
+	}
+
+	#top-box-languages {
+		left: 1450px;
+	}
+
+	#top-box-register {
+		left: 1340px;
+	}
+
+	#top-box-login {
+		left: 1400px;
+	}	
+
+	#top-box-profile {
+		left: 1450px;
+	}	
+
+	aside .transmission ul {
+	    margin-left: 26%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 38%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 90px;
+	}
+
+	.ads {
+		margin-left: 20%;
+	}	
+
+	.popular ul {		
+		margin-left: 100px;
+	}
+
+	aside .polls {
+		margin-left: 78px;
+	}	
+
+	aside .facebook-like {
+		margin-left: 90px;
+	}
+
+	#tweet-container {
+    	margin-left: 15%;
+	}
+
+	.comments-content {
+		max-width: 820px !important;
+	}
+	
+	.comments-editor {
+		margin-left: 106px;
+	}
+
+}
+
+/* Kindle landscape 1600x1680 */
+@media (max-width: 1600px), (max-device-width: 1600px) {
+
+	header #wrapper {
+		width: 1580px;
+	}
+
+	header #wrapper nav {
+		width: 980px;
+		float: left;
+		margin-top: -85px;
+		margin-left: 665px;
+	}
+
+	header #wrapper nav ul {
+		margin: 10px;
+		padding: 0px;
+		z-index: 2;
+		margin-left: 5.5%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	header #topbar {
+		max-width: 1024px;
+	}
+	
+	header #topbar nav ul {
+		margin-left: -125px;
+	}
+
+	aside .transmission ul {
+	    margin-left: 25%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 35%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 25%;
+	}
+
+	.ads {
+		margin-left: 6%;
+	}	
+
+	.popular ul {		
+		margin-left: 6%;
+	}
+
+	aside .polls {
+		margin-left: 6%;
+	}	
+
+	aside .facebook-like {
+		margin-left: 6%;
+	}
+
+	#tweet-container {
+    	margin-left: 6%;
+	}
+
+	div #forum-content {
+		max-width: 820px !important;
+		margin-left: 5.2%;
+	}
+
+	.comments-content {
+		max-width: 620px !important;
+	}
+
+	.comments-editor {
+		margin-left: 106px;
+	}
+}
+
+
+/* Kindle landscape 1440x1536 */
+@media (max-width: 1440px), (max-device-width: 1440px) {
+	header #wrapper {
+		width: 1440px;
+	}
+
+	header #wrapper nav {
+		width: 700px;
+		float: left;
+		margin-top: -85px;
+		margin-left: 265px;
+	}
+
+	header #wrapper nav ul {
+		margin: 10px;
+		padding: 0px;
+		z-index: 2;
+		margin-left: 55%;
+	}
+
+	header #logo {
+		margin-left: 5%;
+	}
+
+	header #topbar {
+		max-width: 1024px;
+	}
+	
+	header #topbar nav ul {
+		margin-left: -55px !important;
+	}
+
+	aside .transmission ul {
+	    margin-left: 20%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 35%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 18%;
+	}
+
+	.ads {
+		margin-left: 20%;
+	}	
+
+	.popular ul {		
+		margin-left: 20%;
+	}
+
+	aside .polls {
+		margin-left: 6%;
+	}	
+
+	aside .facebook-like {
+		margin-left: 6%;
+	}
+
+	#tweet-container {
+    	margin-left: 6%;
+	}
+
+	div #forum-content {
+		max-width: 820px !important;
+		margin-left: 5.2%;
+	}
+
+	.comments-content {
+		max-width: 620px !important;
+	}
+
+	.comments-editor {
+		margin-left: 106px;
+	}
+}
+
+
+/* Kindle landscape 1280x1391 */
+@media (max-width: 1280px), (max-device-width: 1280px) {
+
+	header #wrapper {
+		width: 1200px;
+	}
+
+	header #wrapper nav {
+		width: 700px;
+		float: left;
+		margin-top: -85px;
+		margin-left: 450px;
+	}
+
+	header #wrapper nav ul {
+		margin: 10px;
+		padding: 0px;
+		z-index: 2;
+		margqin-left: 23.5%;
+		width: 550px !important;
+	}
+
+	header #topbar {
+		max-width: 1024px;
+	}
+	
+	header #topbar nav ul {
+		margin-left: 30px !important;
+	}
+
+	aside .transmission ul {
+	    margin-left: 20%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 30%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 16%;
+	}
+
+	.ads {
+		margin-left: 6%;
+	}	
+
+	.popular ul {		
+		margin-left: 20%;
+	}
+
+	aside .polls {
+		margin-left: 6%;
+	}	
+
+	aside .facebook-like {
+		margin-left: 6%;
+	}
+
+	#tweet-container {
+    	margin-left: 6%;
+	}
+
+	div #forum-content {
+		max-width: 820px !important;
+		margin-left: 5.2%;
+	}
+
+	.comments-content {
+		max-width: 620px !important;
+	}
+
+	.comments-editor {
+		margin-left: 106px;
+	}
+}
+
+
+/* Kindle landscape 1024x600 */
+@media (max-width: 1024px), (max-device-width: 1024px) {
+	header #wrapper {
+		width: 1024px;
+	}
+
+	header #wrapper nav {
+		width: 700px !important;
+		float: left;
+		margin-top: -85px;
+		margin-left: 265px;
+	}
+
+	header #wrapper nav ul {
+		margin: 10px;
+		padding: 0px;
+		z-index: 2;
+		margin-left: 90px;
+		width: 600px !important;
+	}
+
+	header #topbar {
+		max-width: 1024px;
+	}
+	
+	aside .transmission ul {
+	    margin-left: 6%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 6%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 6%
+	}
+
+	.ads {
+		margin-left: 6%;
+	}	
+
+	.popular ul {		
+		margin-left: 6%;
+	}
+
+	aside .polls {
+		margin-left: 6%;
+	}	
+
+	aside .facebook-like {
+		margin-left: 6%;
+	}
+
+	#tweet-container {
+    	margin-left: 6%;
+	}
+
+	div #forum-content {
+		max-width: 820px !important;
+		margin-left: 5.2%;
+	}
+
+	.comments-content {
+		max-width: 620px !important;
+	}
+
+	.comments-editor {
+		margin-left: 106px;
+	}
+}
+
+/* iPad portrait 768x1024 */
+
+@media (max-width: 768px), (max-device-width: 768px) {
+	header #wrapper {
+		width: 768px;
+	}
+	
+	header #wrapper nav {
+		width: 550px;
+		float: left;
+		margin-top: 10px;
+		margin-left: 20px;
+	}
+
+	header #wrapper nav ul {
+		margin: 10px;
+		padding: 0px;
+		z-index: 2;
+		margin-left: 2.5%;
+	}
+
+	header #topbar {
+		max-width: 1024px;
+	}
+	
+	aside .transmission ul {
+	    margin-left: 6%;
+	}
+
+	.line {
+		display: none;
+	}
+
+	aside .social {
+		margin-left: 6%;
+	}	
+
+	.sponsors ul {		
+		margin-left: 6%
+	}
+
+	.ads {
+		margin-left: 6%;
+	}	
+
+	.popular ul {		
+		margin-left: 6%;
+	}
+
+	aside .polls {
+		margin-left: 6%;
+	}	
+
+	aside .facebook-like {
+		margin-left: 6%;
+	}
+
+	#tweet-container {
+    	margin-left: 6%;
+	}
+
+	div #forum-content {
+		max-width: 720px !important;
+		margin-left: -46px;
+	}
+
+	.comments-content {
+		max-width: 520px !important;
+	}
+
+	.comments-editor {
+		margin-left: 46px;
+	}
+
+	.markItUpContainer {
+		max-width: 520px !important;
+	}
+
+	.markItUp {
+		max-width: 520px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 465px !important;
+	}
+
+	
+}
+
+/* Android (Samsung Galaxy) landscape 685 by 380  */
+@media (max-width: 685px), (max-device-width: 685px) {
+	body {
+		width: 685px;
+	}
+
+	header #topbar-wrapper {
+		width: 685px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 20px;
+		width: 500px;
+		font-size: 0.95em;
+	}
+
+	header #topbar nav ul {
+		width: 400px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.post .post-content {
+		width: 550px;	
+	}
+
+	.post .post-content img {
+		width: 450px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 550px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 685px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 685px;
+	}
+
+
+	div #forum-content {
+		max-width: 640px !important;
+		margin-left: -46px;
+	}
+
+	.comments-content {
+		max-width: 480px !important;
+		margin-left: 6px;
+	}
+
+	.comments-editor {
+		margin-left: -16px;
+	}
+
+	.markItUpContainer {
+		max-width: 520px !important;
+	}
+
+	.markItUp {
+		max-width: 520px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 465px !important;
+	}
+
+}
+
+/* iPhone 5 landscape portrait 568x380 */
+@media (max-width: 568px), (max-device-width: 568px) {
+	body {
+		width: 568px;
+	}
+
+	header #topbar-wrapper {
+		width: 568px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 550px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -40px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 500px;
+		font-size: 0.95em;
+	}
+
+	header #topbar nav ul {
+		width: 400px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.post .post-content {
+		width: 450px;	
+	}
+
+	.post .post-content img {
+		width: 400px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 550px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 568px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 568px;
+	}
+
+
+	.comments-content {
+		max-width: 380px !important;
+		margin-left: 6px;
+	}
+
+	.comments-editor {
+		margin-left: -25px;
+	}
+
+	.markItUpContainer {
+		max-width: 480px !important;
+	}
+
+	.markItUp {
+		max-width: 480px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 425px !important;
+	}
+}
+
+/* iPhone landscape landscape 480x320 */
+@media (max-width: 480px), (max-device-width: 480px) {
+	body {
+		width: 480px;
+	}
+
+	header #topbar-wrapper {
+		width: 480px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 460px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -40px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 440px;
+		font-size: 0.95em;
+	}
+
+	header #topbar nav ul {
+		width: 400px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+	}
+
+	.post .post-content {
+		width: 440px;	
+	}
+
+	.post .post-content img {
+		width: 350px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 450px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 480px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 480px;
+		height: 60px;
+	}
+
+	.comments-content {
+		max-width: 360px !important;
+		margin-left: 6px;
+	}
+
+	.comments-editor {
+		margin-left: -25px;
+	}
+
+	.markItUpContainer {
+		max-width: 420px !important;
+	}
+
+	.markItUp {
+		max-width: 420px !important;
+	}
+	.markItUp .markItUpEditor {
+		max-width: 365px !important;
+	}
+}
+
+/* Android portrait 380x568 */
+@media (max-width: 380px), (max-device-width: 380px) {
+	body {
+		width: 380px;
+	}
+
+	header #topbar-wrapper {
+		width: 380px;
+		height: 40px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 380px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -40px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 350px;
+		font-size: .9em;
+	}
+
+	header #topbar nav ul {
+		width: 380px;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		width: 350px;
+	}
+
+	.post .post-content {
+		width: 330px;	
+	}
+
+	.post .post-content img {
+		width: 250px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 300px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 380px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 380px;
+		height: 70px;
+	}
+}
+
+
+/* Crappy Android Landscape 320x568 */
+@media (max-width: 320px), (max-device-width: 320px) {
+	body {
+		width: 320px;
+	}
+
+	header #topbar-wrapper {
+		width: 320px;
+		height: 50px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 320px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -40px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 320px;
+		font-size: .9em;
+	}
+
+	header #topbar nav ul {
+		width: 320px;
+		margin: 0px;
+		padding: 0px;
+		line-height: 20px !important;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		width: 290px;
+	}
+
+	.post .post-content {
+		width: 290px;	
+	}
+
+	.post .post-content img {
+		width: 250px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 300px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 320px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo {
+		margin-left: 2.5%;
+	}
+
+	footer p {
+		width: 320px;
+		height: 70px;
+	}
+}
+
+/* Crappy Android 240x320 */
+@media (max-width: 240px), (max-device-width: 240px) {
+	body {
+		width: 240px;
+	}
+
+	header #topbar-wrapper {
+		width: 240px;
+		height: 50px;
+		background-color: #292929;
+	}
+
+	header #wrapper nav {
+		width: 220px;
+		float: left;
+		margin-top: 10px;
+		margin-left: -20px;
+	}
+
+	header #wrapper nav ul {
+		margin: 0px;
+		padding: 0px;
+		position: relative;
+		z-index: 2;
+		margin-left: 15%;
+		width: 220px;
+		font-size: .9em;
+	}
+
+	header #topbar nav ul {
+		width: 240px;
+		margin: 0px;
+		padding: 0px;
+		line-height: 20px !important;
+	}
+
+	header #topbar nav ul a {	
+		font-size: 1.2em;	
+	}
+
+	header #topbar .toggle {
+		display: none;
+	}
+
+	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+		display: none;
+	}
+
+
+	.post .post-title {
+		font-size: 16px;
+		color: #333;
+		font-weight: bold;
+		width: 200px;
+	}
+
+	.post .post-content {
+		width: 220px;	
+	}
+
+	.post .post-content img {
+		width: 200px;
+	}
+
+	#pagination {
+		font-size: 12px;
+	}
+
+	iframe {
+		width: 200px;
+		height: 160px;
+	}
+
+	header #topbar {
+		width: 220px;
+	}
+
+	header #topbar nav ul li {
+    	font-size: 55%;
+	}
+
+	header #logo img {
+		margin-left: -15px;
+		width:220px; 
+	}
+
+	footer p {
+		width: 240px;
+		height: 70px;
+	}
+}
