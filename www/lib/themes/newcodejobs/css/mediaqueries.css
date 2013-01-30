@@ -277,7 +277,7 @@
 	}
 	
 	header #topbar nav ul {
-		margin-left: 2px !important;
+		margin-left: -35px !important;
 	}
 
 	aside .transmission ul {
