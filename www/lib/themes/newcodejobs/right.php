@@ -2,7 +2,7 @@
     if((segment(0, isLang()) !== "live" and segment(0, isLang()) !== "forums" and segment(1, isLang()) !== "add") and !defined("_hideRight")) { 
 ?>
         <aside>
-        <?php
+            <?php
             echo display('<section class="ads">
                                 <script type="text/javascript">
                                 google_ad_client = "ca-pub-4006994369722584";
@@ -14,7 +14,7 @@
                                 src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
                                 </script>
                             </section>', 4);
-        ?>
+            ?>
             <div class="line"></div>
 
             <section class="facebook-like">
