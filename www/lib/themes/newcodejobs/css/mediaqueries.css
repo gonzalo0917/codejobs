@@ -196,6 +196,10 @@
 		max-width: 1024px;
 	}
 	
+	header #topbar nav ul {
+		margin-left: -55px !important;
+	}
+
 	aside .transmission ul {
 	    margin-left: 20%;
 	}
@@ -249,7 +253,7 @@
 
 /* Kindle landscape 1280x1391 */
 @media (max-width: 1280px), (max-device-width: 1280px) {
-
+	
 	header #wrapper {
 		width: 1200px;
 	}
@@ -272,6 +276,10 @@
 		max-width: 1024px;
 	}
 	
+	header #topbar nav ul {
+		margin-left: 2px !important;
+	}
+
 	aside .transmission ul {
 	    margin-left: 20%;
 	}
