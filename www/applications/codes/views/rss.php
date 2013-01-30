@@ -23,10 +23,7 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 	if(is_array($codes)) {	
 	
 	foreach($codes as $code) {
-
-		
-	?>
-			
+	?>			
 		<item>
 		<title>
 		<![CDATA[<?php echo $code["Title"]; ?>]]>
@@ -35,7 +32,7 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 		<![CDATA[<?php echo path("codes/" . $code["ID_Code"] . "/" . $code["Title"]); ?>]]>
 		</link>
 		<description>
-		<![CDATA[<?php echo nl2br(htmlentities(decode(linesWrap($code["Code"])))); ?>]]>
+		<![CDATA[<?php echo stripslashes(getCode(linesWrap($code["Code"]))); ?>]]>
 		</description>
 		<guid isPermaLink="true">
 		<![CDATA[]]>
