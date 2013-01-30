@@ -72,6 +72,18 @@ define("_fbAppFields", "id,name,email,birthday,picture,username");
 define("_fbAppURL", "Your Facebook App URL");
 
 /**
+ * Google Adsense
+ */                  
+define("_adClient", "");
+define("_adSlot336", "");
+define("_adWidth336", "336");
+define("_adHeight336", "280");
+define("_adSlot728", "");
+define("_adWidth728", "728");
+define("_adHeight728", "90");
+
+
+/**
  * Cache
  */
 define("_cacheStatus", FALSE);
