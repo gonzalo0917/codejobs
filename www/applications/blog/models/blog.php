@@ -116,7 +116,6 @@ class Blog_Model extends ZP_Load {
 		}
 
 		$data = array(
-			"ID_User"         => SESSION("ZanUserID"),
 			"Slug"            => slug(POST("title", "clean")),
 			"Content"         => setCode(decode(POST("content", "clean")), FALSE),
 			"Author"          => POST("author") ? POST("author") : SESSION("ZanUser"),
@@ -132,6 +131,7 @@ class Blog_Model extends ZP_Load {
 		);
 
 		if($action === "save") {
+			$data["ID_User"]    = SESSION("ZanUserID");
 			$data["Start_Date"] = now(4);
 			$data["Text_Date"]  = decode(now(2));
 			$data["Year"]	    = date("Y");
