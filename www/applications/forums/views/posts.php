@@ -60,11 +60,22 @@
 					?>
 					<div class="comments">
 						<div class="comments-author">
-							<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> 
+							<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" />
 						</div>
 
 						<div class="comments-content">
-							<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?></p>
+							<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?>
+							
+							<?php
+							if(SESSION("ZanUserPrivilegeID") !== FALSE){
+								if(SESSION("ZanUserPrivilegeID") <= 3) {
+									echo '| <a href=""> Edit </a> | <a href=""> Delete </a>';
+								}
+							}//elseif(SESSION("ZanUserPrivilegeID") == 4){
+								//echo '| <a href=""> Delete </a>';
+							//}
+							?>
+						</p>
 							<p class="comment-post"><?php echo $post["Content"]; ?></p>
 						</div>
 					</div>
