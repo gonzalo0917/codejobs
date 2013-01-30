@@ -28,7 +28,6 @@ function saveDraft() {
 	var situation 	 = $('#situation').val();
 	var temp_title   = stripslashes($('#temp_title').val());
 	var temp_tags    = stripslashes($('#temp_tags').val());
-	var temp_content = stripslashes($('#temp_content').val());
 
 	if(editor == 1) {
 		var content = $('#redactor').getCode();
@@ -36,7 +35,7 @@ function saveDraft() {
 		var content = $('#redactor').val();
 	}
 
-	if(title.length > 5 && content.length > 30 && (content != temp_content || title != temp_title || tags != temp_tags)) {		
+	if(title.length > 5 && content.length > 30) {	
 		$.ajax({
 			type: 'POST',
 			url:   PATH + '/blog/cpanel/draft',
@@ -45,10 +44,9 @@ function saveDraft() {
 				$('#alert-message').show();
 				$('#alert-message').removeClass('no-display');
 				$('#alert-message').html(response);
-				$('#alert-message').fadeOut(10000);
+				$('#alert-message').fadeOut('slow');
 				$('#temp_title').val(addslashes(title));
 				$('#temp_tags').val(addslashes(tags));
-				$('#temp_content').val(addslashes(content));
 			}
 		});
 	}		
@@ -56,4 +54,4 @@ function saveDraft() {
 
 setInterval(function() {
     saveDraft();
-}, 5 * 60 * 1000);
+}, 3 * 60 * 1000);

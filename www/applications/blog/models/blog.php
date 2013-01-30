@@ -167,7 +167,7 @@ class Blog_Model extends ZP_Load {
 	}
 
 	public function saveDraft() {
-		$this->helper("time");
+		$this->helper(array("alerts", "time"));
 		
 		$postID	= POST("postID");
 
@@ -190,7 +190,7 @@ class Blog_Model extends ZP_Load {
 			
 			$this->Db->update($this->table, $data, $postID);			
 
-			echo __("Last update on") ." ". now(6);
+			echo getAlert(__("Last update on") ." ". now(6), "success");
 		} else {
 			$data = array(
 				"ID_User"    => SESSION("ZanUserID"),
@@ -213,7 +213,7 @@ class Blog_Model extends ZP_Load {
 			
 			$insertID = $this->Db->insert($this->table, $data);
 
-			echo __("Saved draft on") ." ". now(6);
+			echo getAlert(__("Saved draft on") ." ". now(6), "success");
 		}
 
 	}
