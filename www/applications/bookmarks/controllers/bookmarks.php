@@ -93,6 +93,8 @@ class Bookmarks_Controller extends ZP_Load {
 			}
 
 			$this->CSS("forms", "cpanel");
+			$this->CSS("add", "bookmarks");
+			$this->js("add", "bookmarks");
 
 			$this->helper(array("html", "forms"));
 
@@ -265,6 +267,56 @@ class Bookmarks_Controller extends ZP_Load {
 		} else {
 			redirect();	
 		} 
+	}
+
+	function request() {
+		$URL = GET("url");
+
+		if(!is_null($URL) and in_array("curl", get_loaded_extensions()) and SESSION("ZanUser")) {
+			$title 		 = "";
+			$description = "";
+			$keywords 	 = "";
+
+		    $ch = curl_init();
+
+		    curl_setopt($ch, CURLOPT_HEADER, 0);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		    curl_setopt($ch, CURLOPT_URL, $URL);
+		    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+
+		    $html = curl_exec($ch);
+		    curl_close($ch);
+
+		    $doc = new DOMDocument();
+			@$doc->loadHTML($html);
+
+			$nodes = $doc->getElementsByTagName('title');
+			$title = @$nodes->item(0)->nodeValue;
+
+			$metas = $doc->getElementsByTagName('meta');
+
+			for($i = 0; $i < $metas->length; $i++) {
+			    $meta = $metas->item($i);
+
+			    if($meta->getAttribute('name') == 'description') {
+			        $description = $meta->getAttribute('content');
+			    }
+
+			    if($meta->getAttribute('name') == 'keywords') {
+			        $keywords = $meta->getAttribute('content');
+			    }
+			}
+
+			$data = array(
+				"Title" 	  => $title,
+				"Description" => $description,
+				"Keywords" 	  => $keywords
+			);
+
+			exit(json($data));
+		}
+
+		exit('{"Title": "", "Description": "", "Keywords": ""}');
 	}
 
 	private function limit($type = NULL) {

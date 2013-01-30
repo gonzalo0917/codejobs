@@ -21,15 +21,6 @@
 			echo isset($alert) ? $alert : NULL;
 
 			echo formInput(array(	
-				"name" 	=> "title", 
-				"class" => "required",
-				"style" => "width: 100%;", 
-				"field" => __("Title"), 
-				"p" 	=> TRUE, 
-				"value" => stripslashes($title)
-			));
-
-			echo formInput(array(	
 				"name" 	=> "URL", 
 				"class" => "required",
 				"style" => "width: 100%;", 
@@ -37,6 +28,15 @@
 				"p" 	=> TRUE, 
 				"value" => $URL,
 				"type"  => "url"
+			));
+
+			echo formInput(array(	
+				"name" 	=> "title", 
+				"class" => "required",
+				"style" => "width: 100%;", 
+				"field" => __("Title"), 
+				"p" 	=> TRUE, 
+				"value" => stripslashes($title)
 			));
 			
 			echo formTextarea(array(	
