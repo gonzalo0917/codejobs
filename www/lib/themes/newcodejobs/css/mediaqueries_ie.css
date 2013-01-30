@@ -81,6 +81,7 @@
 	.comments-editor {
 		margin-left: 106px;
 	}
+
 }
 
 /* Kindle landscape 1600x1680 */
@@ -105,7 +106,7 @@
 	}
 
 	header #logo {
-		margin-left: 2.5%;
+		margin-left: 10%;
 	}
 
 	header #topbar {
@@ -189,7 +190,7 @@
 	}
 
 	header #logo {
-		margin-left: 5%;
+		margin-left: 11%;
 	}
 
 	header #topbar {
@@ -250,10 +251,8 @@
 	}
 }
 
-
 /* Kindle landscape 1366x786 */
 @media (max-width: 1366px), (max-device-width: 1366px) {
-
 	header #wrapper {
 		width: 1366px;
 	}
@@ -333,9 +332,10 @@
 	}
 }
 
+
 /* Kindle landscape 1280x1391 */
 @media (max-width: 1280px), (max-device-width: 1280px) {
-	
+
 	header #wrapper {
 		width: 1200px;
 	}
@@ -344,14 +344,19 @@
 		width: 700px;
 		float: left;
 		margin-top: -85px;
-		margin-left: 265px;
+		margin-left: 450px;
 	}
 
 	header #wrapper nav ul {
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-		margin-left: 23.5%;
+		margin-left: 23%;
+		width: 550px !important;
+	}
+
+	header #logo {
+		margin-left: 8%;
 	}
 
 	header #topbar {
@@ -359,7 +364,7 @@
 	}
 	
 	header #topbar nav ul {
-		margin-left: -30px !important;
+		margin-left: 10px !important;
 	}
 
 	aside .transmission ul {
@@ -421,7 +426,7 @@
 	}
 
 	header #wrapper nav {
-		width: 700px;
+		width: 700px !important;
 		float: left;
 		margin-top: -85px;
 		margin-left: 265px;
@@ -431,15 +436,12 @@
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-		margin-left: 2.5%;
+		margin-left: 90px;
+		width: 600px !important;
 	}
 
 	header #topbar {
 		max-width: 1024px;
-	}
-
-	header #topbar nav ul {
-		margin-left: 10px !important;
 	}
 	
 	aside .transmission ul {
@@ -495,7 +497,6 @@
 /* iPad portrait 768x1024 */
 
 @media (max-width: 768px), (max-device-width: 768px) {
-
 	header #wrapper {
 		width: 768px;
 	}
@@ -1032,7 +1033,6 @@
 		margin: 0px;
 		padding: 0px;
 		line-height: 20px !important;
-		margin-left: 5px !important;
 	}
 
 	header #topbar nav ul a {	
@@ -1053,13 +1053,10 @@
 		color: #333;
 		font-weight: bold;
 		width: 290px;
-
-		margin-left: -25px !important;
 	}
 
 	.post .post-content {
 		width: 290px;	
-		margin-left: -25px !important;
 	}
 
 	.post .post-content img {
