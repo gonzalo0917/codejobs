@@ -26,8 +26,10 @@ class Search_Controller extends ZP_Load {
 		setURL();
 	}
 	
-	public function index() { 
-		if(POST("app") and POST("term")) {			
+	public function index($search = FALSE) {
+		if($search) {
+			die($search);
+		} elseif(POST("app") and POST("term")) {			
 			$app  = POST("app");
 			$term = POST("term");
 

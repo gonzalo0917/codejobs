@@ -27,7 +27,7 @@ body {
 }
  
 #tagcloud a:hover {
-    text-decoration: underline;
+    color: #045c98;
 }
  
 #tagcloud span {
@@ -35,23 +35,23 @@ body {
 }
  
 #tagcloud .smallest {
-    font-size: x-small;
+    font-size: 0.7em;
 }
  
 #tagcloud .small {
-    font-size: small;
+    font-size: 0.85em
 }
  
 #tagcloud .medium {
-    font-size:medium;
+    font-size: 1em;
 }
  
 #tagcloud .large {
-    font-size:large;
+    font-size: 1.2em;
 }
  
 #tagcloud .largest {
-    font-size:larger;
+    font-size: 1.5em;
 }
 
 .search-results {

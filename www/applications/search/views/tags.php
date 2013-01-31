@@ -19,7 +19,7 @@
 		}
 		?>
 		<span class="<?php echo $class; ?>">
-	  		<a href="search.php?search=<?php echo $tag["tag"]; ?>"><?php echo $tag["tag"]; ?></a>
+	  		<a href="<?php echo path("search/". encode($tag["tag"], TRUE)); ?>"><?php echo $tag["tag"]; ?></a>
 		</span>
 <?php  	
 	} 
