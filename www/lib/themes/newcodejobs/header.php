@@ -229,11 +229,15 @@
 								</select> 
 
 							  	<input id="search-term" class="span2" id="appendedInputButton" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
-							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>
+							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 3px;"><?php echo __("Search"); ?></button>
 							</div> 
 						</li>
 					</ul>
 				</div>
+			</div>
+
+			<div id="search-results" class="search-results">
+				<div id="search-results-wrapper" class="search-results-wrapper"></div>
 			</div>
 
 			<div class="clear"></div>

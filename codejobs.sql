@@ -1296,6 +1296,14 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_followers` (
 
 -- --------------------------------------------------------
 
+CREATE TABLE muu_search (
+ID_Search mediumint(8) unsigned default null auto_increment,
+Term varchar(255) not null,
+Counter mediumint(8) unsigned default '0' not null,
+Last_Search datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+PRIMARY KEY (ID_Search)
+) ENGINE=InnoDB;
+
 --
 -- Table structure for table `muu_support`
 --

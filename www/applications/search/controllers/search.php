@@ -33,17 +33,21 @@ class Search_Controller extends ZP_Load {
 
 			$apps = array("blog", "codes", "bookmarks");
 
+			$this->helper("time");
+
 			if(in_array($app, $apps)) {
-				$this->Search_Model->search($term);
+				$this->Search_Model->search($term, $app);
 			}
+		}
+	}
 
-			$term = slug($term);
+	public function getPopularSearches() {
+		$data = $this->Cache->data("tags", "search", $this->Search_Model, "getTags");
 
-			if($app === "codes") {
-				echo path("$app/language/". $term);
-			} else {
-				echo path("$app/tag/". $term);
-			}
+		if($data) {
+			$vars["tags"] = $data;
+			
+			$this->view("tags", $vars, "search");			
 		}
 	}
 

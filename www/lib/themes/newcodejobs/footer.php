@@ -26,6 +26,7 @@
                         URL  = "<?php echo _get('webURL'); ?>",
                         ZAN  = "<?php echo path("", "zan");?>",
                         APP  = "<?php echo whichApplication(); ?>";
+                        THEME = "<?php echo _get("webTheme"); ?>";
                 </script>
         
                 <?php 
