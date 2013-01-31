@@ -33,6 +33,7 @@
                 
                 $this->js("jquery", NULL, FALSE, TRUE);
                 $this->js("$this->themeRoute/js/porlets.js", NULL, FALSE, TRUE);
+                $this->js("$this->themeRoute/js/search.js", NULL, FALSE, TRUE);
 
                 if(_get("environment") > 3) {
                     $this->js("$this->themeRoute/js/social.js", NULL, FALSE, TRUE);

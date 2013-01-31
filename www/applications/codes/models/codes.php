@@ -333,6 +333,7 @@ class Codes_Model extends ZP_Load {
 
 	public function getByLanguage($language, $limit) {
 		$language = str_replace("-", " ", $language);
+		
 		return $this->Db->findBySQL("(Title LIKE '%$language%' OR Description LIKE '%$language%' OR Languages LIKE '%$language%') AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", $limit);
 	}
 	

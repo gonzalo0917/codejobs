@@ -1,0 +1,122 @@
+.post-image a {
+	display: block;
+	float: left;
+	width: 320px;
+	margin-left: 35px;
+	margin-bottom: 10px;
+}
+
+.post-image a {
+	color: #2080b9;
+	text-decoration: none;
+}
+
+.post-image a:hover {
+	color: #FFF;
+	background-color: #000;
+}
+
+.margin-left {
+	margin-left: 45px;
+}
+
+.post {
+	width: 98%;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+.post a {
+	color: #2080b9;
+	text-decoration: none;
+}
+
+.post a:hover {
+	color: #333;
+}
+
+.post-title {
+	font-size: 1.8em;
+	font-weight: bold;
+	line-height: 30px;
+}
+
+.post-title a {
+	text-decoration: none;
+	color: #252525;
+}
+
+.post-title a:hover {
+	color: #045c98;
+}
+
+.post-left {
+	float: left;
+	font-size: 0.75em;
+	color: #666;
+}
+
+.post-right {
+	float: right;
+	font-size: 0.75em;
+	color: #666;
+}
+
+.social {
+	margin-bottom: 8px;
+}
+
+.post-content {
+	margin-bottom: 20px;
+	font-size: 14px;
+	color: #252525;
+}
+
+.post-image {
+	width: 300px;
+	float: left;
+	text-align: center;
+}
+
+.blog-access fieldset {
+	border: 0px;
+}
+
+.blog-access .input {
+	border: 1px solid #333;
+	font-size: 1.2em;
+}
+
+.blog-access .submit {
+	border: 1px solid #333;
+	background-color: #CCC;
+}
+.preview {
+	background: rgb(255,255,255);
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	box-shadow:  0px 5px 8px 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow:  0px 5px 8px 5px rgba(0, 0, 0, 0.5);
+	-o-box-shadow:  0px 5px 8px 5px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow:  0px 5px 8px 5px rgba(0, 0, 0, 0.5);
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	color: rgb(0,0,0);
+	cursor: pointer;
+	display: none;
+	height: 80px;
+	left: 50%;
+	line-height: 80px;
+	font-size: 2em;
+	margin-left: -140px;
+	margin-top: -120px;
+	position: fixed;
+	text-align: center;
+	top: 50%;
+	width: 280px;
+}

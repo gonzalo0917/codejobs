@@ -44,9 +44,9 @@
 			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/bbcode/style.css", NULL, FALSE, TRUE);
         }
 
-        if(defined("_bootstrap")) {
-			$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
-		}
+        
+		$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
+		
 
 		if(defined("_codemirror")) {
             $this->CSS("codemirror", NULL, FALSE, TRUE);
@@ -76,9 +76,10 @@
 						<!--<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>-->
 						<li><a href="http://www.youtube.com/codejobs" target="_blank"><?php echo __("Videos"); ?></a></li>
 						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>
-						<li><a href="<?php echo path("live"); ?>"><?php echo __("Community"); ?></a></li>						
+						<li><a href="<?php echo path("live"); ?>"><?php echo __("Community"); ?></a></li>		
+						<li>				
 					</ul>
-				</nav>
+				</nav>				
 
 				<div id="top-box-languages" class="toggle">
 					<a href="<?php echo path("es"); ?>" title="<?php echo __("Spanish"); ?>" class="flag es-flag"></a>
@@ -183,7 +184,7 @@
 
 						<div class="clear"></div>
 					</div>
-				</div>
+				</div>				
 
 				<div id="top-box">
 					<ul class="top-box-ul">
@@ -217,6 +218,19 @@
 							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
 								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
 							</a>
+						</li>
+
+						<li class="float-left" style="margin-right: 10px;">
+							<div class="input-append">
+								<select id="search-app" class="info" style="width:115px; margin-top: 3px; margin-right: 5px;">
+								  	<option value="blog"><?php echo __("Blog"); ?></option>
+								  	<option value="codes"><?php echo __("Codes"); ?></option>
+								  	<option value="bookmarks"><?php echo __("Bookmarks"); ?></option>								  	
+								</select> 
+
+							  	<input id="search-term" class="span2" id="appendedInputButton" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
+							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>
+							</div> 
 						</li>
 					</ul>
 				</div>
