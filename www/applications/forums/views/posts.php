@@ -76,7 +76,7 @@
 							//}
 							?>
 						</p>
-							<p class="comment-post"><?php echo $post["Content"]; ?></p>
+							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
 						</div>
 					</div>
 				<?php

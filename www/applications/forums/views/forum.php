@@ -2,11 +2,11 @@
 if(!defined("_access")) { 
 	die("Error: You don't have permission to access here..."); 
 } 
-
-if(is_array($posts)) { 
+##if(is_array($posts)) { 
 	$i = 1;
 	$rand2 = rand(6, 10);
 	if(SESSION("ZanUser")) {
+		$forum = str_replace("-", " ", $forum);
 	?>
 		<h1><?php echo strtoupper($forum); ?></h1>
 		<div class="forums-options">
@@ -69,4 +69,4 @@ if(is_array($posts)) {
 	</div>
 	<?php		
 		echo isset($pagination) ? $pagination : NULL;
-}
+##}

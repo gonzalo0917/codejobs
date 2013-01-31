@@ -180,6 +180,7 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function getForum($forum) {
+
 		$this->CSS("pagination");
 
 		$limit = $this->limit();
@@ -200,7 +201,18 @@ class Forums_Controller extends ZP_Load {
 
 			$this->render("content", $vars);
 		} else {
-			redirect();
+			$data = $this->Forums_Model->getIDByForum($forum);
+
+			$this->helper("time");
+			$this->js("forums", "forums");
+			$this->css("posts", "blog");
+			$this->css("forums", "forums");
+
+			$vars["forumID"] = $data[0]["ID_Forum"];
+			$vars["forum"] 	 = segment(1, isLang());
+			$vars["view"]    = $this->view("forum", TRUE);
+
+			$this->render("content", $vars);
 		}
 	}
 

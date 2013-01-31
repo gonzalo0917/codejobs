@@ -245,11 +245,13 @@ class Forums_Model extends ZP_Load {
 
 
 			if($this->Db->insert("forums_posts", $data)) {
+				
+				$content = BBCode($data["Content"]);
 
 				$json =  array(
 					"alert" => getAlert(__("The comment has been saved correctly"), "success"),
 					"date"  => '<a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]),
-					"content" => stripslashes($data["Content"])
+					"content" => stripslashes($content)
 				);
 
 				echo json($json);
