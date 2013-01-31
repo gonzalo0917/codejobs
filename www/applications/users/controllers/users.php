@@ -186,9 +186,12 @@ class Users_Controller extends ZP_Load {
 				}
 			}		
 
-			$vars["view"] = $this->view("loginuser", TRUE);
+			$this->CSS("user_login", $this->application);
+
+			$vars["view"] = $this->view("user_login", TRUE);
 			
-			$this->render("content", $vars);
+			$this->render("include", $vars);
+			$this->rendering("header", "footer");
 		} else {
 			redirect();
 		} 

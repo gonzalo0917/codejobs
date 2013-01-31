@@ -1,0 +1,24 @@
+.resalt {
+	clear: both;
+	margin-top: 1.5em;
+}
+
+.login-form {
+	display: block;
+	margin: 0 auto;
+	height: 300px;
+	width: 350px;
+}
+
+#username, #password {
+	-moz-box-sizing: border-box;
+	height: 37px;
+}
+
+#username {
+	width: 100%;
+}
+
+#password {
+	width: 100%;
+}

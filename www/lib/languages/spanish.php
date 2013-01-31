@@ -384,6 +384,7 @@ $phrase["send_to_trash"] 								= "Enviar a papelera";
 $phrase["september"] 									= "Septiembre";
 $phrase["seven"] 										= "siete";
 $phrase["sign_up"]										= "Registrarse";
+$phrase["sign_in"]										= "Iniciar sesión";
 $phrase["sign_in_with_facebook"]						= "Registrarse con Facebook";
 $phrase["sign_in_with_twitter"]							= "Registrarse con Twitter";
 $phrase["situation"]									= "Situación";
