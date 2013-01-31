@@ -162,7 +162,13 @@ class Forums_Controller extends ZP_Load {
 
 	public function publish() {
 		if(POST("title") and POST("content")) {
-			$this->Forums_Model->savePost();
+			$data = $this->Forums_Model->savePost();
+
+			if($data) {
+				echo $data;
+			} else {
+				echo path();
+			}
 		}
 	}
 	

@@ -82,41 +82,12 @@ $(document).on("ready", function() {
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
 		} else {
-			var newPost = '';
-
 			$.ajax({
 				type: 'POST',
 				url:   PATH + '/forums/publish',
-				dataType: 'json',
 				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&forumID=' + fid + '&fname=' + forumName,
 				success: function(response) {	
-					console.log(response);				
-					$("#fmessage").html(response.alert);
-					var oldPosts = $("#fposts").html();
-
-					newPost = newPost + '<div class="post">';
-					newPost = newPost + '	<div class="post-title">';
-					newPost = newPost + '		' + response.title;
-					newPost = newPost + '	</div>';
-					newPost = newPost + '	<div class="post-left">';
-					newPost = newPost + '		' + response.date;
-					newPost = newPost + '	</div>';
-					newPost = newPost + '	<div class="clear">';
-					newPost = newPost + '		' + response.description;
-					newPost = newPost + '   </div>';
-					newPost = newPost + '</div>';
-
-					$("#fposts").html(newPost + oldPosts);	
-
-					$("#ftitle").val($("#ftitle-temp").val());
-					$("#ftags").val($("#ftags-temp").val());
-					
-
-					$("#ftags").hide();
-					$("#fcontent").hide();
-					$("#fpublish").hide();
-					$("#fcancel").hide();
-
+					window.location.href = response;
 				}
 			});
 		}
