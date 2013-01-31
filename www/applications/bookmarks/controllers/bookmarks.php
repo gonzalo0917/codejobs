@@ -270,6 +270,8 @@ class Bookmarks_Controller extends ZP_Load {
 	}
 
 	function request() {
+		setURL(path());
+
 		$URL = GET("url");
 
 		if(!is_null($URL) and in_array("curl", get_loaded_extensions()) and SESSION("ZanUser")) {
