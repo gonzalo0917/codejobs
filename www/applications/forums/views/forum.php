@@ -33,11 +33,11 @@ if(!defined("_access")) {
 	<div id="fposts">
 	<?php
 		foreach($posts as $post) {		
-			$slug = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
-			$URL = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
-			$URLEdit = path("forums/". $forum ."/edit/". $post["ID_Post"]);
-			$URLDelete = '';
-			$in = ($forum !== "") ? __("in") : NULL;	
+			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
+			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
+			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
+			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+			$in        = ($forum !== "") ? __("in") : NULL;	
 			?>		
 			
 			<div class="post">
@@ -53,7 +53,7 @@ if(!defined("_access")) {
 					<?php
 					if(SESSION("ZanUserPrivilegeID") !== FALSE){
 						if(SESSION("ZanUserPrivilegeID") <= 3) {
-							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href=""> Delete </a>';
+							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href="'. $URLDelete .'"> Delete </a>';
 						}
 					}
 					?>

@@ -145,15 +145,4 @@ $(document).on("ready", function() {
 			});
 		}
 	});
-
-	$("#fcancel").on("click", function() {
-		$("#ftitle").val($("#ftitle-temp").val());
-
-		$("#ftags").val($("#ftags-temp").val());
-		
-		$("#ftags").hide();
-		$("#fcontent").hide();
-		$("#fpublish").hide();
-		$("#fcancel").hide();
-	});
 });
