@@ -36,7 +36,7 @@ class Forums_Controller extends ZP_Load {
 			$postID = segment(3, isLang());
 			$forum  = segment(1, isLang()); 
 
-			$this->editPost($postID);
+			$this->getEditPost($postID, $forum);
 		} elseif(segment(1, isLang()) and segment(2, isLang()) === "tag" and segment(3, isLang())) {	
 			$tag = segment(3, isLang());
 
@@ -172,6 +172,19 @@ class Forums_Controller extends ZP_Load {
 			}
 		}
 	}
+
+	public function updatePost() {
+
+		if(POST("title") and POST("content")) {
+			$data = $this->Forums_Model->updatePost();
+
+			if($data) {
+				echo $data;
+			} else {
+				echo path();
+			}
+		}
+	}
 	
 	public function getForums() {
 		$data = $this->Forums_Model->getForums($this->language);
@@ -240,9 +253,9 @@ class Forums_Controller extends ZP_Load {
 		}
 	}
 
-	public function editPost($postID, $forum) {
+	public function getEditPost($postID, $forum) {
 		$data = $this->Forums_Model->getPostToEdit($postID);
-		
+
 		if($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");

@@ -55,6 +55,7 @@ $(document).on("ready", function() {
 	});
 
 	$("#fpublish").on("click", function() {
+
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();
 		var title = $("#ftitle").val();
@@ -86,6 +87,58 @@ $(document).on("ready", function() {
 				type: 'POST',
 				url:   PATH + '/forums/publish',
 				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&forumID=' + fid + '&fname=' + forumName,
+				success: function(response) {	
+					window.location.href = response;
+				}
+			});
+		}
+	});
+
+	$("#fcancel").on("click", function() {
+		$("#ftitle").val($("#ftitle-temp").val());
+
+		$("#ftags").val($("#ftags-temp").val());
+		
+		$("#ftags").hide();
+		$("#fcontent").hide();
+		$("#fpublish").hide();
+		$("#fcancel").hide();
+	});
+
+	$("#ppublish").on("click", function() {
+
+		var pid = $("#pid").val();
+		var fid = $("#fid").val();
+		var forumName = $("#fname").val();
+		var title = $("#ftitle").val();
+		var tags = $("#ftags").val();
+		var content = $("#fcontent").val();
+
+		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
+		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
+		var needTags = '<div id="alert-message" class="alert alert-error">' + $("#needtags").val() + '</div>';			
+				
+		if(tags == $("#ftags-temp").val()) {
+			tags = "";
+		}
+
+		if(title.length == 0 || title == $("#ftitle-temp").val()) { 
+			$("#fmessage").html(needTitle);
+			$("#fmessage").show();
+			$("#fmessage").hide(4000);
+		} else if(content.length == 0 || content == $("#fcontent-temp").val()) { 
+			$("#fmessage").html(needContent);
+			$("#fmessage").show();
+			$("#fmessage").hide(4000);
+		} else if(tags.length == 0 || tags == $("#ftags-temp").val()) { 
+			$("#fmessage").html(needTags);
+			$("#fmessage").show();
+			$("#fmessage").hide(4000);
+		} else {
+			$.ajax({
+				type: 'POST',
+				url:   PATH + '/forums/updatePost',
+				data: 'title=' + title + '&content=' + content + '&tags=' + tags + '&postID=' + pid + '&forumID=' + fid + '&fname=' + forumName,
 				success: function(response) {	
 					window.location.href = response;
 				}

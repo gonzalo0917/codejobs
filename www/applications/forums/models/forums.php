@@ -99,8 +99,33 @@ class Forums_Model extends ZP_Load {
 		$URL = path("forums/". slug(POST("fname")) ."/". $lastID ."/". $data["Slug"]);
 
 		return $URL;
+	}
 
+	public function updatePost() {
+		$this->helper(array("alerts", "time"));
+        
+        $id = POST("postID");
+
+		$data = array(
+			"ID_User"     => SESSION("ZanUserID"),
+			"ID_Forum"    => (int) POST("forumID"),
+			"ID_Parent"   => 0,
+            "Title"       => POST("title"),
+			"Slug"        => slug(POST("title", "clean")),
+			"Content"     => POST("content"),
+			"Author" 	  => SESSION("ZanUser"),
+			"Start_Date"  => now(4),
+			"Text_Date"   => decode(now(2)),
+			"Tags" 		  => POST("tags") ? POST("tags") : "",
+			"Language"    => whichLanguage(),
+            "Situation"   => "Active"
+		);		
+
+		$this->Db->update("forums_posts", $data, $id);
 		
+		$URL = path("forums/". slug(POST("fname")) ."/". $id ."/". $data["Slug"]);
+
+		return $URL;
 	}
 	
 	private function save() {
@@ -153,7 +178,7 @@ class Forums_Model extends ZP_Load {
 	}
 
 	public function getPostToEdit($postID) {
-		$query = "SELECT ID_Post, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
+		$query = "SELECT ID_Post, ID_Forum, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
 		
 		return $this->Db->query($query);	
 	}
