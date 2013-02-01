@@ -152,6 +152,12 @@ class Forums_Model extends ZP_Load {
 		return $this->Db->query($query);		
 	}
 
+	public function getPostToEdit($postID) {
+		$query = "SELECT ID_Post, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
+		
+		return $this->Db->query($query);	
+	}
+
 	public function getIDByForum($slug) {
 		return $this->Db->findBy("Slug", $slug, $this->table, $this->fields);
 	}

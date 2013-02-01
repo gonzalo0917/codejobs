@@ -31,8 +31,13 @@ class Forums_Controller extends ZP_Load {
 	
 	public function index() { 
 		$this->title("Forums");				
+		
+		if(segment(1, isLang()) and segment(2, isLang()) == "edit" and segment(3, isLang())) {
+			$postID = segment(3, isLang());
+			$forum  = segment(1, isLang()); 
 
-		if(segment(1, isLang()) and segment(2, isLang()) === "tag" and segment(3, isLang())) {	
+			$this->editPost($postID);
+		} elseif(segment(1, isLang()) and segment(2, isLang()) === "tag" and segment(3, isLang())) {	
 			$tag = segment(3, isLang());
 
 			$this->tag($tag);
@@ -49,10 +54,6 @@ class Forums_Controller extends ZP_Load {
 			$author = segment(3, isLang());
 
 			$this->author($author);
-		} elseif(segment(1, isLang()) and segment(2, isLang()) > 0 and segment(3, isLang()) === "edit") {
-			$postID = segment(2, isLang());
-
-			$this->editPost($postID);
 		} elseif(segment(1, isLang()) and segment(2, isLang()) > 0 and segment(3, isLang())) {
 			$postID = segment(2, isLang());
 
@@ -239,8 +240,22 @@ class Forums_Controller extends ZP_Load {
 		}
 	}
 
-	public function editPost($PostID) {
-		$this->Forums_Model->editPost($postID);
+	public function editPost($postID, $forum) {
+		$data = $this->Forums_Model->getPostToEdit($postID);
+
+		if($data) {
+			$this->helper("time");
+			$this->css("posts", "blog");
+			$this->js("forums", "forums");
+
+			$vars["forum"] = $forum;
+			$vars["data"]  = $data; 
+			$vars["view"]  = $this->view("edit", TRUE);
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
 	}
 
 	public function publishComment() {
