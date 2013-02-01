@@ -1,15 +1,12 @@
-
 <?php 
-
-die(var_dump(345));
 if(!defined("_access")) { 
 	die("Error: You don't have permission to access here..."); 
 }
-
-	$fid     = isset($data) ? recoverPOST("fid", $data[0]["ID_Post"]);
-	$title   = isset($data) ? recoverPOST("title", $data[0]["Title"]);
-	$tags    = isset($data) ? recoverPOST("tags", $data[0]["Tags"]);
-	$content = isset($data) ? recoverPOST("content", $data[0]["Content"]);
+	
+	$fid     = isset($data) ? recoverPOST("fid", $data[0]["ID_Post"]) : recoverPOST("fid");
+	$title   = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("fid");;
+	$tags    = isset($data) ? recoverPOST("tags", $data[0]["Tags"])   : recoverPOST("fid");;
+	$content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverPOST("fid");;
 ?>
 	<div class="forums-options">
 		<span class="forums-create"><?php echo __("Create new topic"); ?></span>

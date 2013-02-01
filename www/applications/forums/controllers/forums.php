@@ -242,7 +242,7 @@ class Forums_Controller extends ZP_Load {
 
 	public function editPost($postID, $forum) {
 		$data = $this->Forums_Model->getPostToEdit($postID);
-
+		
 		if($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");
@@ -251,7 +251,7 @@ class Forums_Controller extends ZP_Load {
 			$vars["forum"] = $forum;
 			$vars["data"]  = $data; 
 			$vars["view"]  = $this->view("edit", TRUE);
-
+			
 			$this->render("content", $vars);
 		} else {
 			redirect();

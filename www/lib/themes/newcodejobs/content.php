@@ -39,6 +39,6 @@
 								</script>
 							</p>', 4);
 			}
-
+		
 		$this->load(isset($view) ? $view : NULL, TRUE); ?>
 	</div>
