@@ -24,7 +24,7 @@ if(!defined("_access")) {
 			<input id="edit" name="edit" type="hidden" value="edit" />
 			<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 			<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
-			<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
+			<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 90 characters..."); ?>" />
 			<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
 		</form>
 	</div>

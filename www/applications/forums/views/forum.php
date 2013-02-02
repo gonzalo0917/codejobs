@@ -9,9 +9,9 @@ if(!defined("_access")) {
 		$forum = str_replace("-", " ", $forum);
 	?>
 		<h1><?php echo strtoupper($forum); ?></h1>
+		<p id="fmessage"></p>
 		<div class="forums-options">
 			<span class="forums-create"><?php echo __("Create new topic"); ?></span>
-			<span id="fmessage"></span>
 			<br />
 			<form action="#" method="post">
 				<input id="ftitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="" /> <br />
@@ -23,7 +23,7 @@ if(!defined("_access")) {
 				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
-				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
+				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 90 characters..."); ?>" />
 				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
 			</form>
 		</div>	
