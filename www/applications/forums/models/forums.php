@@ -148,6 +148,10 @@ class Forums_Model extends ZP_Load {
 	
 	public function deletePost($postID) {
 		$this->Db->delete($postID, "muu_forums_posts");
+
+		$query = "DELETE FROM muu_forums_posts WHERE ID_Parent = $postID ";
+
+		return $this->Db->query($query);
 	}
 
 	public function editPost($postID) {
