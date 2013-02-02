@@ -52,8 +52,9 @@ if(!defined("_access")) {
 					
 					<?php
 					if(SESSION("ZanUserPrivilegeID") !== FALSE){
+						$confirm = " return confirm('Do you want to delete this post?') ";
 						if(SESSION("ZanUserPrivilegeID") <= 3) {
-							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href="'. $URLDelete .'"> Delete </a>';
+							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'"> Delete </a>';
 						}
 					}
 					?>

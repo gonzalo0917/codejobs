@@ -31,8 +31,13 @@ class Forums_Controller extends ZP_Load {
 	
 	public function index() { 
 		$this->title("Forums");				
-		
-		if(segment(1, isLang()) and segment(2, isLang()) == "edit" and segment(3, isLang())) {
+
+		if(segment(1, isLang()) and segment(2, isLang()) == "delete" and segment(3, isLang())) {
+			$forum  = segment(1, isLang());
+			$idPost = segment(3, isLang());
+
+			$this->deletePost($idPost, $forum);
+		} elseif(segment(1, isLang()) and segment(2, isLang()) == "edit" and segment(3, isLang())) {
 			$postID = segment(3, isLang());
 			$forum  = segment(1, isLang()); 
 
@@ -184,6 +189,12 @@ class Forums_Controller extends ZP_Load {
 				echo path();
 			}
 		}
+	}
+
+	public function deletePost($postID, $forum) {
+		$i = $this->Forums_Model->deletePost($postID);
+
+		$this->getForum($forum);
 	}
 	
 	public function getForums() {

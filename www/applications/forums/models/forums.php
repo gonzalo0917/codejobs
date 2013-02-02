@@ -146,8 +146,12 @@ class Forums_Model extends ZP_Load {
         return getAlert(__("Update error"));
 	}
 	
-	public function editPost($PostID) {
-		if($this->Db->update($this->table, $this->data, $PostID)) {
+	public function deletePost($postID) {
+		$this->Db->delete($postID, "muu_forums_posts");
+	}
+
+	public function editPost($postID) {
+		if($this->Db->update($this->table, $this->data, $postID)) {
             return getAlert(__("The work has been edit correctly"), "success");
         }
         
