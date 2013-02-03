@@ -34,8 +34,8 @@
     font-size: 0.75em;
 }
 
-a.download, a.download:active, a.download:hover {
-	color: rgb(0,0,0);
+a.download, a.download:active, a.download:hover, a.download[target] {
+	color: rgb(0,0,0) !important;
 	margin-bottom: 15px;
 	text-decoration: none;
 }

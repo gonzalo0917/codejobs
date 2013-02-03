@@ -108,7 +108,7 @@
 				<div id="top-box-login" class="toggle">
 					<span class="bold"><?php echo __("Do you Have an account?, Login!"); ?></span><br />
 
-					<form action="<?php echo path("users/login"); ?>" method="post" class="form-login">
+					<form action="<?php echo (segment(0, isLang()) !== "users" or segment(1, isLang()) !== "login") ? path("users/login/?return_to=". urlencode(getURL())) : getURL(); ?>" method="post" class="form-login">
 						<fieldset>
 							<input id="login-username" name="username" class="login-input" type="text" required placeholder="<?php echo __("Username or Email"); ?>" /> <br />
 							<input id="login-password" name="password" class="login-input" type="password" required placeholder="<?php echo __("Password"); ?>" /> 
@@ -242,7 +242,9 @@
 
 			<div class="clear"></div>
 		</div>
-
+		<?php
+			if(!defined("_hideWrapper")) {
+		?>
 		<div id="wrapper">
 			<div id="logo">
 				<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE); ?>" alt="CodeJobs" class="noborder" /></a>
@@ -282,4 +284,7 @@
 				</ul>
 			</nav>
 		</div>
+		<?php
+			}
+		?>
 	</header>

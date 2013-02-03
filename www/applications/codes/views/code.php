@@ -60,13 +60,19 @@
 			<p class="small italic">
 				<?php  echo like($code["ID_Code"], "codes", $code["Likes"]) ." ". dislike($code["ID_Code"], "codes", $code["Dislikes"]) ." ". report($code["ID_Code"], "codes"); ?>
 			</p>
-
-            <p>
-                <a href="<?php echo path("codes/download/". $code['ID_Code'] ."/". $code['Slug']); ?>" class="btn download"><?php echo __("Download code"); ?></a>
-            </p>
-	    <?php
-		}
+        <?php
+        }
         ?>
+    
+        <p>
+            <a <?php
+                if(SESSION("ZanUser")) {
+                    echo 'href="'. path("codes/download/". $code['ID_Code'] ."/". $code['Slug']) .'" target="_blank"';
+                } else {
+                    echo 'href="'. path("users/login") .'/?type=1&return_to='. urlencode(path("codes/". $code['ID_Code'] ."/". $code['Slug'] ."/download")) .'"';
+                }
+            ?>class="btn download"><?php echo __("Download code"); ?></a>
+        </p>
     
         <br />
     
