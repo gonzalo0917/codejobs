@@ -77,7 +77,6 @@
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
-			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a><br />
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
