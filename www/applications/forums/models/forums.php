@@ -98,34 +98,14 @@ class Forums_Model extends ZP_Load {
 		
 		$URL = path("forums/". slug(POST("fname")) ."/". $lastID ."/". $data["Slug"]);
 
-		return $URL;
-	}
+		$json =  array(
+			"alert" => getAlert(__("The post has been saved correctly"), "success"),
+			"title" => '<a href="'. $URL .'" title="'. stripslashes($data["Title"]) .'">'. stripslashes($data["Title"]) .'</a>',
+			"date"  => __("Published") ." ". howLong($data["Start_Date"]) ." ". __("in") ." ". exploding($data["Tags"], "forums/tag/") ." ". __("by") .' <a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a>',
+			"description" => stripslashes($data["Content"])
+		);
 
-	public function updatePost() {
-		$this->helper(array("alerts", "time"));
-        
-        $id = POST("postID");
-
-		$data = array(
-			"ID_User"     => SESSION("ZanUserID"),
-			"ID_Forum"    => (int) POST("forumID"),
-			"ID_Parent"   => 0,
-            "Title"       => POST("title"),
-			"Slug"        => slug(POST("title", "clean")),
-			"Content"     => POST("content"),
-			"Author" 	  => SESSION("ZanUser"),
-			"Start_Date"  => now(4),
-			"Text_Date"   => decode(now(2)),
-			"Tags" 		  => POST("tags") ? POST("tags") : "",
-			"Language"    => whichLanguage(),
-            "Situation"   => "Active"
-		);		
-
-		$this->Db->update("forums_posts", $data, $id);
-		
-		$URL = path("forums/". slug(POST("fname")) ."/". $id ."/". $data["Slug"]);
-
-		return $URL;
+		echo json($json);
 	}
 	
 	private function save() {
@@ -146,16 +126,8 @@ class Forums_Model extends ZP_Load {
         return getAlert(__("Update error"));
 	}
 	
-	public function deletePost($postID) {
-		$this->Db->delete($postID, "muu_forums_posts");
-
-		$query = "DELETE FROM muu_forums_posts WHERE ID_Parent = $postID ";
-
-		return $this->Db->query($query);
-	}
-
-	public function editPost($postID) {
-		if($this->Db->update($this->table, $this->data, $postID)) {
+	public function editPost($PostID) {
+		if($this->Db->update($this->table, $this->data, $PostID)) {
             return getAlert(__("The work has been edit correctly"), "success");
         }
         
@@ -171,7 +143,7 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	public function getByForum($slug, $language = "Spanish", $limit = FALSE) {	
-		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
+		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.ID_User, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
 				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC LIMIT ". $limit;
@@ -183,12 +155,6 @@ class Forums_Model extends ZP_Load {
 		$query = "SELECT ID_Post, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post";
 		
 		return $this->Db->query($query);		
-	}
-
-	public function getPostToEdit($postID) {
-		$query = "SELECT ID_Post, ID_Forum, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
-		
-		return $this->Db->query($query);	
 	}
 
 	public function getIDByForum($slug) {
@@ -279,13 +245,11 @@ class Forums_Model extends ZP_Load {
 
 
 			if($this->Db->insert("forums_posts", $data)) {
-				
-				$content = BBCode($data["Content"]);
 
 				$json =  array(
 					"alert" => getAlert(__("The comment has been saved correctly"), "success"),
 					"date"  => '<a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]),
-					"content" => stripslashes($content)
+					"content" => stripslashes($data["Content"])
 				);
 
 				echo json($json);

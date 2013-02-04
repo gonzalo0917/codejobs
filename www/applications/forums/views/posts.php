@@ -4,8 +4,9 @@
 		?>
 
 		<div id="forum-content">
-
 			<?php
+			$id_user  	     = isset($data) ? recoverPOST("id_user", $data[0]["ID_User"]) 			  : NULL;
+			var_dump($id_user);
 			foreach($posts as $post) {
 				if($post["ID_Parent"] === 0) {
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
@@ -70,10 +71,11 @@
 							if(SESSION("ZanUserPrivilegeID") !== FALSE){
 								if(SESSION("ZanUserPrivilegeID") <= 3) {
 									echo '| <a href=""> Edit </a> | <a href=""> Delete </a>';
-								}
+								}elseif(SESSION("ZanUserID") == $id_user){
+									echo '| <a href=""> Edit </a> | <a href=""> Delete </a>';
 							}//elseif(SESSION("ZanUserPrivilegeID") == 4){
 								//echo '| <a href=""> Delete </a>';
-							//}
+							}
 							?>
 						</p>
 							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
@@ -103,3 +105,4 @@
 		<?php
 		}				
 	}	
+##}	

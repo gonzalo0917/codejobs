@@ -2,7 +2,6 @@
 if(!defined("_access")) { 
 	die("Error: You don't have permission to access here..."); 
 } 
-##if(is_array($posts)) { 
 	$i = 1;
 	$rand2 = rand(6, 10);
 	if(SESSION("ZanUser")) {
@@ -25,6 +24,7 @@ if(!defined("_access")) {
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
 				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 90 characters..."); ?>" />
 				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
+				<input id="id_user" type="hidden" value="<?php echo $id_user; ?>" />
 			</form>
 		</div>	
 	<?php 
@@ -55,8 +55,10 @@ if(!defined("_access")) {
 						$confirm = " return confirm('Do you want to delete this post?') ";
 						if(SESSION("ZanUserPrivilegeID") <= 3) {
 							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'"> Delete </a>';
-						}
+						}elseif(SESSION("ZanUserID") == $id_user){
+									echo '| <a href=""> Edit </a> | <a href=""> Delete </a>';
 					}
+				}
 					?>
 				</div>
 				
@@ -70,4 +72,3 @@ if(!defined("_access")) {
 	</div>
 	<?php		
 		echo isset($pagination) ? $pagination : NULL;
-##}
