@@ -22,7 +22,7 @@ if(!defined("_access")) {
 				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
-				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 90 characters..."); ?>" />
+				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 30 characters..."); ?>" />
 				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
 				<input id="id_user" type="hidden" value="<?php echo $id_user; ?>" />
 			</form>

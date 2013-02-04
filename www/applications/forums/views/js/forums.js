@@ -74,7 +74,7 @@ $(document).on("ready", function() {
 			$("#fmessage").html(needTitle);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
-		} else if(content.length < 90 || content == $("#fcontent-temp").val()) { 
+		} else if(content.length < 30 || content == $("#fcontent-temp").val()) { 
 			$("#fmessage").html(needContent);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
