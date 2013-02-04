@@ -9,9 +9,9 @@ if(!defined("_access")) {
 		$forum = str_replace("-", " ", $forum);
 	?>
 		<h1><?php echo strtoupper($forum); ?></h1>
+		<p id="fmessage"></p>
 		<div class="forums-options">
 			<span class="forums-create"><?php echo __("Create new topic"); ?></span>
-			<span id="fmessage"></span>
 			<br />
 			<form action="#" method="post">
 				<input id="ftitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="" /> <br />
@@ -23,7 +23,7 @@ if(!defined("_access")) {
 				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
-				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
+				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 90 characters..."); ?>" />
 				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
 			</form>
 		</div>	
@@ -33,11 +33,11 @@ if(!defined("_access")) {
 	<div id="fposts">
 	<?php
 		foreach($posts as $post) {		
-			$slug = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
-			$URL = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
-			$URLEdit = path("forums/". $forum ."/edit/". $post["ID_Post"]);
-			$URLDelete = '';
-			$in = ($forum !== "") ? __("in") : NULL;	
+			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
+			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
+			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
+			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+			$in        = ($forum !== "") ? __("in") : NULL;	
 			?>		
 			
 			<div class="post">
@@ -52,8 +52,9 @@ if(!defined("_access")) {
 					
 					<?php
 					if(SESSION("ZanUserPrivilegeID") !== FALSE){
+						$confirm = " return confirm('Do you want to delete this post?') ";
 						if(SESSION("ZanUserPrivilegeID") <= 3) {
-							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href=""> Delete </a>';
+							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'"> Delete </a>';
 						}
 					}
 					?>

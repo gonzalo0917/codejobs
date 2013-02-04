@@ -26,11 +26,15 @@ class Codes_Controller extends ZP_Load {
 		setURL();
 	}
 	
-	public function index($codeID = 0) {
+	public function index($codeID = 0, $slug = NULL, $download = NULL) {
 		$this->meta("language", whichLanguage(FALSE));		
 
 		if($codeID > 0) {
 			$this->go($codeID);
+
+			if($download === "download" and SESSION("ZanUser")) {
+				header('Refresh: 1; url='. path("codes/download/$codeID/$slug"));
+			}
 		} else {
 			$this->getCodes();
 		}
@@ -333,7 +337,9 @@ class Codes_Controller extends ZP_Load {
 	}
 
 	public function download($ID = 0, $slug = "code") {
-		isConnected();
+		$codePath = "codes/$ID/$slug";
+
+		isConnected(path("users/login") .'/?type=1&return_to='. urlencode(path("$codePath/download")));
 
 		if($ID > 0) {
 			$Zip 	  = new ZipArchive;
@@ -357,6 +363,8 @@ class Codes_Controller extends ZP_Load {
 			readfile($filename);
 			unlink($filename);
 		}
+
+		setURL(path("$codePath"));
 	}
         
 	private function limit($type = NULL) {

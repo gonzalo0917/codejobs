@@ -25,7 +25,7 @@ class Admin_Controller extends ZP_Load {
 	}
 
 	public function index() {
-		isConnected($this->application);
+		isConnected();
 
 		$this->helper("time");
 

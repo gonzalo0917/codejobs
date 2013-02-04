@@ -165,27 +165,38 @@ class Users_Controller extends ZP_Load {
 		$this->helper(array("html", "alerts"));
 				
 		if(!SESSION("ZanUser")) {
-			$this->title(decode(__("Login")));
+			$this->title(decode(__("Sign in")));
 
 			$this->helper("forms");
+			$this->config("login", $this->application);
 
 			$vars["href"] = path("users/login");
 
 			$data = FALSE;
 
 			if(POST("login")) {
-				if($this->Users_Model->isAdmin() or $this->Users_Model->isMember()) {
+				if($this->Users_Model->isMember()) {
 					$data = $this->Users_Model->getUserData();
 				} 
 				
 				if($data) {
-					createLoginSessions($data[0]);					
+					createLoginSessions($data[0], FALSE);
+
+					redirect(GET("return_to") ? GET("return_to") : FALSE);					
 				} else { 
 					$this->helper("alerts");
-					showAlert(__("Incorrect Login")."!", path("users/login"));
-				}
-			}		
 
+					$vars["alert"] = getAlert(__("Username or password incorrect"));
+				}
+			}
+
+			if(GET("type") === "1") {
+				$this->helper("alerts");
+
+				$vars["alert"] = getAlert(__("You must be logged in"), "notice");
+			}
+
+			$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 			$this->CSS("user_login", $this->application);
 
 			$vars["view"] = $this->view("user_login", TRUE);
@@ -193,7 +204,7 @@ class Users_Controller extends ZP_Load {
 			$this->render("include", $vars);
 			$this->rendering("header", "footer");
 		} else {
-			redirect();
+			redirect(GET("return_to") ? GET("return_to") : FALSE);
 		} 
 	}
 	
