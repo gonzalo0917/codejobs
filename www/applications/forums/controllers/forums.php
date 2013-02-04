@@ -225,7 +225,6 @@ class Forums_Controller extends ZP_Load {
 			$this->css("forums", "forums");
 
 			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["id_user"] = $data[0]["ID_User"];
 			$vars["forum"] 	 = segment(1, isLang());
 			$vars["posts"]   = $data;
 			$vars["pagination"] = $this->pagination;
@@ -241,7 +240,6 @@ class Forums_Controller extends ZP_Load {
 			$this->css("forums", "forums");
 
 			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["id_user"] = $data[0]["ID_User"];
 			$vars["forum"] 	 = segment(1, isLang());
 			$vars["view"]    = $this->view("forum", TRUE);
 

@@ -23,8 +23,7 @@ if(!defined("_access")) {
 				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
 				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 30 characters..."); ?>" />
-				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
-				<input id="id_user" type="hidden" value="<?php echo $id_user; ?>" />
+				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />
 			</form>
 		</div>	
 	<?php 
@@ -51,14 +50,13 @@ if(!defined("_access")) {
 					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';?>					
 					
 					<?php
-					if(SESSION("ZanUserPrivilegeID") !== FALSE){
+					if(SESSION("ZanUserPrivilegeID")) {
 						$confirm = " return confirm('Do you want to delete this post?') ";
-						if(SESSION("ZanUserPrivilegeID") <= 3) {
-							echo '| <a href="'. $URLEdit .'"> Edit </a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'"> Delete </a>';
-						}elseif(SESSION("ZanUserID") == $id_user){
-									echo '| <a href=""> Edit </a> | <a href=""> Delete </a>';
+
+						if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
+							echo '| <a href="'. $URLEdit .'">Edit</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">Delete</a>';
+						}
 					}
-				}
 					?>
 				</div>
 				
