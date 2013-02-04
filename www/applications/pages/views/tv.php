@@ -69,7 +69,8 @@
         
 		<div class="sponsors" style="text-align: center; margin-top: 0px;">			
 			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>						
-			<a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_small.png", TRUE); ?>" alt="Crowd Int" /></a>			
+			<a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_small.png", TRUE); ?>" alt="Crowd Int" /></a>
+			<a rel="nofollow" target="_blank" href="http://www.bigcoders.com"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/bigcoders_small.png", TRUE); ?>" alt="" /></a>		
 			<a rel="nofollow" target="_blank" href="http://www.autodidact.as/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/autodidactas_small.png", TRUE); ?>" alt="Autodidactas" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
