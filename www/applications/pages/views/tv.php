@@ -67,11 +67,10 @@
 			</div>
 		</div>    
         
-		<div class="sponsors" style="text-align: center; margin-top: 0px;">
-			<div style="width: 400px; margin: 0 auto;"><a rel="nofollow" href="http://vincoorbis.com/unete-al-equipo/" target="_blank"><img src="<?=$path; ?>/images/patrocinadores/vacantes.gif" /></a></div>
-			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>			
-			<a rel="nofollow" href="http://www.vangtel.com" target="_blank" title="Vangtel"><img src="<?=$path; ?>/images/patrocinadores/vangtel.png" width="100" height="31" /></a>
+		<div class="sponsors" style="text-align: center; margin-top: 0px;">			
+			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>						
 			<a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_small.png", TRUE); ?>" alt="Crowd Int" /></a>			
+			<a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/autodidactas_small.png", TRUE); ?>" alt="Autodidactas" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>

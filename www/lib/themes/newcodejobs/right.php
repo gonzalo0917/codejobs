@@ -84,7 +84,8 @@
                 </header>
 
                 <ul>
-                    <li><a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_large.png", TRUE); ?>" alt="Crowd Int" /></a></li>                        
+                    <li><a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_large.png", TRUE); ?>" alt="Crowd Int" /></a></li>
+                    <li><a rel="nofollow" target="_blank" href="http://www.autodidact.as/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/autodidactas.png", TRUE); ?>" alt="Autodidactas" /></a></li>
                     <li><a rel="nofollow" href="http://www.codejobs.biz/publicidad"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/space.png", TRUE); ?>" /></a></li>
                 </ul>
             </section>
