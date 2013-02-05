@@ -145,4 +145,31 @@ $(document).on("ready", function() {
 			});
 		}
 	});
+	
+	$("#cedit").on("click", function() {
+
+		var pid = $("#pid").val();
+		var fid = $("#fid").val();
+		var forumName = $("#fname").val();
+		var content = $("#pcontent").val();
+
+		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
+
+		if(content.length == 0 || content == $("#pcontent-temp").val()) { 
+			$("#fmessage").html(needContent);
+			$("#fmessage").show();
+			$("#fmessage").hide(4000);
+		} else {
+			$.ajax({
+				type: 'POST',
+				url:   PATH + '/forums/updateComment',
+				data: 'content=' + content + '&postID=' + pid + '&forumID=' + fid + '&fname=' + forumName,
+				success: function(response) {	
+					console.log(response);
+					window.location.href = response;
+				}
+			});
+		}
+	});
+	
 });

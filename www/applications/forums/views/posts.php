@@ -56,6 +56,7 @@
 					<?php							
 				} else {
 					?>
+					<a name="<?php echo 'id'. $post["ID_Post"] ?>"></a>
 					<div class="comments">
 						<div class="comments-author">
 							<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" />
@@ -66,7 +67,7 @@
 							
 							<?php
 							if(SESSION("ZanUserPrivilegeID")){
-								$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
+								$URLEdit   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
 								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 								$confirm = " return confirm('Do you want to delete this post?') ";
 								if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
