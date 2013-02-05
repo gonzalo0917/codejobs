@@ -7,6 +7,10 @@ body {
 	background-color: #E2F7FF;
 }
 
+#cke_editor {
+	width: 780px;
+}
+
 .caption {
 	background-color: #50ADEA; 
 	border-bottom: 5px solid #1975D7; 
@@ -37,7 +41,7 @@ a:hover {
 }
 
 #header {
-	width: 1030px;
+	width: 1020px;
 	margin-left: -10px;
 }
 

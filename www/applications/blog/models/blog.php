@@ -103,6 +103,7 @@ class Blog_Model extends ZP_Load {
 		
 		if(POST("delete_image") === "on") {
 			$this->Files->deleteFiles(array($currentOriginalImg, $currentSmallImg, $currentMediumImg, $currentThumbnailImg));
+
 			$this->postImage = NULL;
 		} else {
 			if(!$this->postImage and $action == "edit") {
@@ -117,7 +118,7 @@ class Blog_Model extends ZP_Load {
 
 		$data = array(
 			"Slug"            => slug(POST("title", "clean")),
-			"Content"         => setCode(decode(POST("content", "clean")), FALSE),
+			"Content"         => decode(POST("content", "clean")),
 			"Author"          => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Image_Original"  => isset($this->postImage["original"]) ? $this->postImage["original"] : NULL,
 			"Image_Small"  	  => isset($this->postImage["small"])  ? $this->postImage["small"]  : NULL,

@@ -63,25 +63,11 @@
 				)) . " " . __("Delete Mural")  . "<br /><br />";
 			} 
 
-			$options = array(
-				array("value" => 1, "option" => "Redactor", "selected" => ($editor === 1 ? TRUE : FALSE)),
-				array("value" => 2, "option" => "markItUp!", "selected" => ($editor === 2 ? TRUE : FALSE))
-			);
-
-			echo formSelect(array(
-				"id"		=> "editor",
-				"name" 		=> "editor", 
-				"p" 		=> TRUE, 
-				"field" 	=> __("Editor"), 
-				"onchange" 	=> 'switchEditor($(this).val())'),
-				$options
-			);
-
 			echo formTextarea(array(	 
-				"id"     => "redactor",
+				"id"     => "editor",
 				"name" 	 => "content", 
-				"class"  => "markItUp", 
-				"style"  => "height: 240px;", 
+				"class"  => "ckeditor", 
+				"style"  => "max-width: 750px;height: 240px;", 
 				"field"  => __("Content"), 
 				"p" 	 => TRUE, 
 				"value"  => stripslashes($content)
@@ -175,4 +161,6 @@
 			
 		echo formClose();
 	echo div(FALSE);
+
+	echo $ckeditor;
 ?>
