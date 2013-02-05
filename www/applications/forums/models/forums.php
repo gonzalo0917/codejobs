@@ -127,7 +127,26 @@ class Forums_Model extends ZP_Load {
 
 		return $URL;
 	}
-	
+
+	public function updateComment() {
+		$this->helper(array("alerts", "time"));
+        
+        $id = POST("postID");
+        $forumID = POST("forumID");
+
+		$data = array(
+			"Content"     => POST("content"),
+			"Text_Date"   => decode(now(2))
+		);		
+
+		$this->Db->update("forums_posts", $data, $id);
+
+		$URL = path("forums/". slug(POST("fname")) ."/". $forumID ."/#id". $id);
+
+		return $URL;
+	}
+
+
 	private function save() {
         if($this->getByForum($this->data["Slug"], POST("language"))) {
             return getAlert(__("This forum already exists"), "error", $this->URL);
@@ -187,9 +206,16 @@ class Forums_Model extends ZP_Load {
 
 	public function getPostToEdit($postID) {
 		$query = "SELECT ID_Post, ID_Forum, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
-		
+ 
 		return $this->Db->query($query);	
 	}
+
+	public function getCommentToEdit($postID) {
+		$query = "SELECT ID_Post, ID_Forum, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID";
+
+		return $this->Db->query($query);	
+	}
+
 
 	public function getIDByForum($slug) {
 		return $this->Db->findBy("Slug", $slug, $this->table, $this->fields);
