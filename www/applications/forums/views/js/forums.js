@@ -14,8 +14,9 @@ $(document).on("ready", function() {
 	$("#cpublish").on("click", function() {
 		var content = $('#ccontent').val();
 		var fid = $('#fid').val();
+		var fname = $('#fname').val();
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
-			if(content.length == 0 /*|| content == $("#ccontent-temp").val()*/) {
+			if(content.length == 0) {
 				$("#comment-alert").html(needContent);
 				$("#comment-alert").show();
 				$("#comment-alert").hide(4000);
@@ -23,12 +24,12 @@ $(document).on("ready", function() {
 
 		if(content != '' && fid > 0) {
 			var newComment = '';
-			
+
 			$.ajax({
 				type: 'POST',
 				url:   PATH + '/forums/publishComment',
 				dataType: 'json',
-				data: 'fid=' + fid + '&content=' + content,
+				data: 'fid=' + fid + '&content=' + content + '&fname=' + fname,
 				success: function(response) {	
 					console.log(response);
 
@@ -55,7 +56,6 @@ $(document).on("ready", function() {
 	});
 
 	$("#fpublish").on("click", function() {
-
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();
 		var title = $("#ftitle").val();
@@ -126,7 +126,7 @@ $(document).on("ready", function() {
 			$("#fmessage").html(needTitle);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
-		} else if(content.length < 90 || content == $("#pcontent-temp").val()) { 
+		} else if(content.length < 30 || content == $("#pcontent-temp").val()) { 
 			$("#fmessage").html(needContent);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
