@@ -17,11 +17,6 @@
             $this->CSS("codemirror", NULL, FALSE, TRUE);
         }
 
-		if($application !== "codes" and $application !== "blog") {
-			$this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, FALSE, TRUE);
-			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/html/style.css", NULL, FALSE, TRUE);
-		}
-
 	 	echo $this->getCSS();
 	?>			
 </head>

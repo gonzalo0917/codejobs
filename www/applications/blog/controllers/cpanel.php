@@ -134,10 +134,7 @@ class CPanel_Controller extends ZP_Load {
 		}
 
 		$this->helper(array("forms", "files"));
-
-		$this->js("redactorjs");
-		$this->js("markitup");
-		$this->js("switch-editor");
+		
 		$this->js("new", "blog");
 		$this->js("save", "blog");
 		
@@ -165,6 +162,7 @@ class CPanel_Controller extends ZP_Load {
 			redirect("cpanel");
 		}
 
+		$this->vars["ckeditor"]	   = $this->js("ckeditor", "full", TRUE);
 		$this->vars["multimedia"]  = $multimedia;
 		$this->vars["application"] = $this->CPanel->getApplicationID();
 		$this->vars["view"] 	   = $this->view("add", TRUE, $this->application);
@@ -181,9 +179,6 @@ class CPanel_Controller extends ZP_Load {
 			redirect("$this->application/cpanel/results");
 		}
 
-		$this->js("redactorjs");
-		$this->js("markitup");
-		$this->js("switch-editor");
 		$this->js("new", "blog");
 		$this->js("save", "blog");
 
@@ -213,7 +208,8 @@ class CPanel_Controller extends ZP_Load {
 		
 		$data = $this->{"$this->Model"}->getByID($ID);
 		
-		if($data) {			
+		if($data) {		
+			$this->vars["ckeditor"]	   	  = $this->js("ckeditor", "full", TRUE);	
 			$this->vars["multimedia"]  	  = $multimedia;
 			$this->vars["data"]			  = $data;
 			$this->vars["muralImage"] 	  = $this->{"$this->Model"}->getMuralByID(segment(3, isLang()));
