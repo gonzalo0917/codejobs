@@ -74,7 +74,7 @@ $(document).on("ready", function() {
 			$("#fmessage").html(needTitle);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
-		} else if(content.length < 90 || content == $("#fcontent-temp").val()) { 
+		} else if(content.length < 30 || content == $("#fcontent-temp").val()) { 
 			$("#fmessage").html(needContent);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
@@ -110,9 +110,9 @@ $(document).on("ready", function() {
 		var pid = $("#pid").val();
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();
-		var title = $("#ftitle").val();
-		var tags = $("#ftags").val();
-		var content = $("#fcontent").val();
+		var title = $("#ptitle").val();
+		var tags = $("#ptags").val();
+		var content = $("#pcontent").val();
 
 		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
@@ -122,15 +122,15 @@ $(document).on("ready", function() {
 			tags = "";
 		}
 
-		if(title.length == 0 || title == $("#ftitle-temp").val()) { 
+		if(title.length == 0 || title == $("#ptitle-temp").val()) { 
 			$("#fmessage").html(needTitle);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
-		} else if(content.length < 90 || content == $("#fcontent-temp").val()) { 
+		} else if(content.length < 90 || content == $("#pcontent-temp").val()) { 
 			$("#fmessage").html(needContent);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);
-		} else if(tags.length == 0 || tags == $("#ftags-temp").val()) { 
+		} else if(tags.length == 0 || tags == $("#ptags-temp").val()) { 
 			$("#fmessage").html(needTags);
 			$("#fmessage").show();
 			$("#fmessage").hide(4000);

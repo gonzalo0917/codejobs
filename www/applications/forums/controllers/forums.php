@@ -192,7 +192,7 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function deletePost($postID, $forum) {
-		$i = $this->Forums_Model->deletePost($postID);
+		$this->Forums_Model->deletePost($postID);
 
 		$this->getForum($forum);
 	}
@@ -254,7 +254,7 @@ class Forums_Controller extends ZP_Load {
 			$this->helper("time");
 			$this->css("posts", "blog");
 			$this->js("forums", "forums");
-
+			$vars["forum"] 	 = segment(1, isLang());
 			$vars["posts"] = $data;
 			$vars["view"]  = $this->view("posts", TRUE);
 

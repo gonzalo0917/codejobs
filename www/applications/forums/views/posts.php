@@ -2,9 +2,7 @@
 	if(is_array($posts)) {
 		$count = count($posts) - 1;
 		?>
-
 		<div id="forum-content">
-
 			<?php
 			foreach($posts as $post) {
 				if($post["ID_Parent"] === 0) {
@@ -67,13 +65,14 @@
 							<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?>
 							
 							<?php
-							if(SESSION("ZanUserPrivilegeID") !== FALSE){
-								if(SESSION("ZanUserPrivilegeID") <= 3) {
-									echo '| <a href=""> Edit </a> | <a href=""> Delete </a>';
+							if(SESSION("ZanUserPrivilegeID")){
+								$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
+								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+								$confirm = " return confirm('Do you want to delete this post?') ";
+								if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
+									echo '| <a href="'. $URLEdit .'">Edit</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">Delete</a>';
 								}
-							}//elseif(SESSION("ZanUserPrivilegeID") == 4){
-								//echo '| <a href=""> Delete </a>';
-							//}
+							}
 							?>
 						</p>
 							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
@@ -103,3 +102,4 @@
 		<?php
 		}				
 	}	
+##}	
