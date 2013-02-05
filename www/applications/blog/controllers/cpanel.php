@@ -134,8 +134,7 @@ class CPanel_Controller extends ZP_Load {
 		}
 
 		$this->helper(array("forms", "files"));
-		
-		$this->js("new", "blog");
+				
 		$this->js("save", "blog");
 		
 		$this->title("Add");
