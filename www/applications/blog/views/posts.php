@@ -44,7 +44,7 @@ if(is_array($posts)) {
 			<div class="post-content">	
 				<?php 
 					echo display(social($URL, $post["Title"], FALSE), 4);
-					echo pagebreak($post["Content"], $URL); 
+					echo showContent(pagebreak($post["Content"], $URL)); 
 				?>	
 
 				<br /><br />
