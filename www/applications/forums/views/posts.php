@@ -63,7 +63,10 @@
 						</div>
 
 						<div class="comments-content">
-							<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?>
+							<?php
+							$authorUrl   = path("forums/". $forum ."/author/". $post["Author"]);
+							?>
+							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
 							
 							<?php
 							if(SESSION("ZanUserPrivilegeID")){
@@ -76,6 +79,8 @@
 							}
 							?>
 						</p>
+							<input id="urlEdit" name="urlEdit" type="hidden" value="<?php echo $URLEdit; ?>" />
+							<input id="urlDelete" name="urlDelete" type="hidden" value="<?php echo $URLDelete; ?>" />
 							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
 						</div>
 					</div>
