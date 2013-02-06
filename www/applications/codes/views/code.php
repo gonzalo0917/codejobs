@@ -50,7 +50,7 @@
                     ?>
                 </div>
 
-                <textarea name="code" data-syntax="<?php echo $file["ID_Syntax"];?>"><?php echo stripslashes($file["Code"]); ?></textarea>
+                <pre class="prettyprint linenums"><?php echo stripslashes($file["Code"]); ?></pre>
             </p>
         <?php
         }
@@ -90,14 +90,3 @@
 		<a href="<?php echo path("codes"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
 </div>
-
-<script type="text/javascript">
-    var syntax = [];
-    <?php
-        $data = getSyntax();
-        
-        foreach($data as $language) {
-        ?>syntax[<?php echo $language["ID_Syntax"]; ?>] = <?php echo json($language); ?>;<?php
-        }
-    ?>
-</script>
