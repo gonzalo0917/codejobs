@@ -257,7 +257,6 @@ class Forums_Controller extends ZP_Load {
 			$this->css("forums", "forums");
 
 			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = $data[0]["Forum_Name"];
 			$vars["view"]    = $this->view("forum", TRUE);
 
 			$this->render("content", $vars);
