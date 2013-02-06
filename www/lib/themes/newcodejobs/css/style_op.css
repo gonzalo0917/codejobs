@@ -8,6 +8,53 @@ body {
    	overflow-x: hidden;
 }
 
+.search-results {
+	border: 1px solid #CCC;
+	background-color: #EEE;
+	color: #000;
+	position: relative;
+	z-index: 10;
+	width: 100%;
+	display: none;
+}
+
+.search-results a {
+	color: #045c98;
+	text-decoration: none;
+}
+
+.search-results a:hover {
+	color: #000;
+}
+
+.search-results-wrapper {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.search-title {
+	font-size: 1.8em;
+	font-weight: bold;
+	line-height: 30px;
+}
+
+.search-title a {
+	text-decoration: none;
+	color: #252525;
+}
+
+.search-title a:hover {
+	color: #045c98;
+}
+
+.margintop-42 {
+	margin-top: -42px;
+}
+
+.marginoption1 {
+	float: left;
+}
+
 .polls h3 a, .polls-special h3 a {
 	color: #292929;
 	text-decoration: none;

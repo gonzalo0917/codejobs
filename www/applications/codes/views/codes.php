@@ -42,7 +42,7 @@
 			?>
 
             <p>
-            	<textarea name="code" data-syntax="<?php echo $code["File"]["ID_Syntax"];?>"><?php echo stripslashes(linesWrap($code["File"]["Code"])); ?></textarea>
+            	<pre class="prettyprint linenums"><?php echo stripslashes(linesWrap($code["File"]["Code"])); ?></pre>
             </p>
 
 			<?php 
@@ -71,14 +71,3 @@
 
 	<?php echo $pagination; ?>
 </div>
-
-<script type="text/javascript">
-    var syntax = [];
-    <?php
-        $data = getSyntax();
-
-        foreach ($data as $language) {
-    		?>syntax[<?php echo $language["ID_Syntax"]; ?>] = <?php echo json($language); ?>;<?php
-        }
-    ?>
-</script>

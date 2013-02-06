@@ -833,7 +833,7 @@
 
 	header #topbar nav ul {
 		width: 400px;
-		margin: 0px;
+		margin-left: 20px;
 		padding: 0px;
 	}
 
@@ -848,7 +848,6 @@
 	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
 		display: none;
 	}
-
 
 	.post .post-title {
 		font-size: 16px;
@@ -1036,7 +1035,7 @@
 		margin: 0px;
 		padding: 0px;
 		line-height: 20px !important;
-		margin-left: 5px !important;
+		margin-left: 15px !important;
 	}
 
 	header #topbar nav ul a {	
