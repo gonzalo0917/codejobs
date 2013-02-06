@@ -4,11 +4,16 @@
 	$avatar 	= recoverPOST("avatar", encode($data[0]["Avatar"]));
 	$coordinate = recoverPOST("coordinate", encode($data[0]["Avatar_Coordinate"]));
 
+	if($avatar !== "default.png") {
+		$info 	= pathinfo($avatar);
+		$avatar = sha1(SESSION("ZanUser")) .".". $info["extension"];
+	}
+
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
 			echo isset($alert) ? $alert : NULL;
 			
-			echo p(span("field", "&raquo; " . __("Select a file or use drag & drop")), "");
+			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 
 			echo formInput(array(
 				"class" => "avatar-file",
@@ -57,6 +62,13 @@
 			echo formInput(array(
 				"id" 	=> "file",
 				"name"  => "file",
+				"type" 	=> "hidden",
+				"value" => ""
+			));
+
+			echo formInput(array(
+				"id" 	=> "resized",
+				"name"  => "resized",
 				"type" 	=> "hidden",
 				"value" => ""
 			));

@@ -17,6 +17,10 @@
 		return removeImage();
 	});
 
+	$('#form-add').submit(function (event) {
+		createAvatar();
+	});
+
 	avatar_file 	  = $("#avatar-image").attr("src");
 	avatar_coordinate = $("#coordinate").val();
 
@@ -73,6 +77,28 @@
 			} else {
 				markImage();
 			}
+		}
+	}
+
+	function createAvatar() {
+		if ($("#file").val()) {
+			var cnv1, ctx1, cnv2, ctx2, coor;
+
+			cnv1 = document.createElement("canvas");
+			cnv2 = document.createElement("canvas");
+			ctx1 = cnv1.getContext("2d");
+			ctx2 = cnv2.getContext("2d");
+			coor = $("#coordinate").val().split(",");
+
+			cnv1.width  = $("img.avatar").width();
+			cnv1.height = $("img.avatar").height();
+
+			cnv2.width = cnv2.height = "90";
+
+			ctx1.drawImage($("img.avatar").get(0), 0, 0, cnv1.width, cnv1.height);
+			ctx2.drawImage(cnv1, coor[0], coor[1], coor[2], coor[3], 0, 0, 90, 90);
+
+			$("#resized").val(cnv2.toDataURL());
 		}
 	}
 
