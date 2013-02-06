@@ -64,14 +64,6 @@
                 <?php $this->execute("Blog_Controller", "relevant"); ?>
             </section>
 
-            <section class="searches">
-                <header>
-                    <h3><?php echo __("Popular searches"); ?></h3>
-                </header>
-
-                <?php $this->execute("Search_Controller", "getPopularSearches"); ?>
-            </section>
-
             <?php if(segment(0, isLang()) !== "polls") { ?>
             <section class="polls">
                 <?php $this->execute("Polls_Controller", "last"); ?>

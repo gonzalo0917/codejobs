@@ -708,15 +708,15 @@ class Users_Model extends ZP_Load {
 
 	public function saveAvatar() {
 		if(POST("file")) {
-			$this->Files = $this->core("Files");
+			$avatar = $this->createAvatar();
 
-			$files = $this->Files->createFiles(array(POST("name")), array(POST("file")), array(POST("type")), array(POST("size")));
-
-			if(is_array($files)) {
-				
-			} else {
-				return getAlert(__("Error while tried to upload the files"));
+			if(is_array($avatar)) {
+				if($this->Db->update($this->table, array("Avatar" => current($avatar), "Avatar_Coordinate" => next($avatar)), SESSION("ZanUserID"))) {
+					return getAlert(__("The avatar has been saved correctly"), "success");	
+				}
 			}
+
+			return getAlert(__("Error while tried to upload the files"));
 		}
 	}
 
@@ -795,6 +795,55 @@ class Users_Model extends ZP_Load {
 		}
 
 		return $data;
+	}
+
+	private function createAvatar() {
+		$username 	= SESSION("ZanUser");
+		$filename 	= POST("name");
+		$file 		= POST("file");
+		$resized 	= POST("resized");
+		$filetype 	= POST("type");
+		$coordinate = POST("coordinate");
+
+		if(!is_string($username) or !is_string($file) or !is_string($resized) or !is_string($filetype) or !is_string($coordinate)) {
+			return FALSE;
+		}
+
+		if(!preg_match('/^\d+,\d+,\d+,\d+$/', $coordinate)) {
+			$coordinate = "0,0,90,90";
+		}
+
+		$info = pathinfo($filename);
+		$ext  = $info["extension"];
+
+		$dataO = str_replace("data:$filetype;base64,", "", $file);
+        $dataO = str_replace(" ", "+", $dataO);
+        $dataO = base64_decode($dataO);
+
+		$dataR = str_replace("data:$filetype;base64,", "", $resized);
+        $dataR = str_replace(" ", "+", $dataR);
+        $dataR = base64_decode($dataR);
+
+        $path  = "www/lib/files/images/users/";
+        $fileO = $path . sha1($username ."_O") .".$ext";
+        $nameR = sha1($username) .".$ext";
+        $fileR = $path . $nameR;
+
+        ini_set("upload_max_filesize", "50M");
+        ini_set("memory_limit", "256M");
+        ini_set("max_execution_time", 300);
+
+        file_put_contents($fileO, $dataO, LOCK_EX);
+        file_put_contents($fileR, $dataR, LOCK_EX);
+
+        if(file_exists($fileO) and file_exists($fileR)) {
+        	return array(
+        		$nameR,
+        		$coordinate
+        	);
+        } else {
+        	return FALSE;
+        }
 	}
 
 }

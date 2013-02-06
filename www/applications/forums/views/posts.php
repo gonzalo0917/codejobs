@@ -2,10 +2,9 @@
 	if(is_array($posts)) {
 		$count = count($posts) - 1;
 		?>
-
 		<div id="forum-content">
-
 			<?php
+			$forum = segment(1, islang());
 			foreach($posts as $post) {
 				if($post["ID_Parent"] === 0) {
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
@@ -58,24 +57,31 @@
 					<?php							
 				} else {
 					?>
+					<a name="<?php echo 'id'. $post["ID_Post"] ?>"></a>
 					<div class="comments">
 						<div class="comments-author">
 							<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" />
 						</div>
 
 						<div class="comments-content">
-							<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?>
+							<?php
+							$authorUrl   = path("forums/". $forum ."/author/". $post["Author"]);
+							?>
+							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
 							
 							<?php
-							if(SESSION("ZanUserPrivilegeID") !== FALSE){
-								if(SESSION("ZanUserPrivilegeID") <= 3) {
-									echo '| <a href=""> Edit </a> | <a href=""> Delete </a>';
+							if(SESSION("ZanUserPrivilegeID")){
+								$URLEdit   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
+								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+								$confirm = " return confirm('Do you want to delete this post?') ";
+								if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
+									echo '| <a href="'. $URLEdit .'">Edit</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">Delete</a>';
 								}
-							}//elseif(SESSION("ZanUserPrivilegeID") == 4){
-								//echo '| <a href=""> Delete </a>';
-							//}
+							}
 							?>
 						</p>
+							<input id="urlEdit" name="urlEdit" type="hidden" value="<?php echo $URLEdit; ?>" />
+							<input id="urlDelete" name="urlDelete" type="hidden" value="<?php echo $URLDelete; ?>" />
 							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
 						</div>
 					</div>
@@ -94,6 +100,7 @@
 				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 				<textarea id="ccontent" class="markItUp" name="comment" style="height:200px"></textarea> <br />
 				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
+				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
 			</div>		
 		<?php
@@ -103,3 +110,4 @@
 		<?php
 		}				
 	}	
+##}	

@@ -78,11 +78,12 @@ class Forums_Model extends ZP_Load {
 
 	public function savePost() {
 		$this->helper(array("alerts", "time"));
-            	
+		
 		$data = array(
 			"ID_User"     => SESSION("ZanUserID"),
 			"ID_Forum"    => (int) POST("forumID"),
 			"ID_Parent"   => 0,
+			"Forum_Name"  => POST("fname"),
             "Title"       => POST("title"),
 			"Slug"        => slug(POST("title", "clean")),
 			"Content"     => POST("content"),
@@ -96,7 +97,7 @@ class Forums_Model extends ZP_Load {
 		
 		$lastID = $this->Db->insert("forums_posts", $data);
 		
-		$URL = path("forums/". slug(POST("fname")) ."/". $lastID ."/". $data["Slug"]);
+		$URL = path("forums/". slug(POST("fname", "clean")) ."/". $lastID ."/". $data["Slug"]);
 
 		return $URL;
 	}
@@ -127,7 +128,26 @@ class Forums_Model extends ZP_Load {
 
 		return $URL;
 	}
-	
+
+	public function updateComment() {
+		$this->helper(array("alerts", "time"));
+        
+        $id = POST("postID");
+        $forumID = POST("forumID");
+
+		$data = array(
+			"Content"     => POST("content"),
+			"Text_Date"   => decode(now(2))
+		);		
+
+		$this->Db->update("forums_posts", $data, $id);
+
+		$URL = path("forums/". slug(POST("fname")) ."/". $forumID ."/#id". $id);
+
+		return $URL;
+	}
+
+
 	private function save() {
         if($this->getByForum($this->data["Slug"], POST("language"))) {
             return getAlert(__("This forum already exists"), "error", $this->URL);
@@ -171,12 +191,22 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	public function getByForum($slug, $language = "Spanish", $limit = FALSE) {	
-		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
+		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.ID_User, muu_forums_posts.Forum_Name, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
 				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC LIMIT ". $limit;
-		
-		return $this->Db->query($query);
+
+		$data = $this->Db->query($query);
+
+		if($data) {
+			return $data;
+		} else {
+			$query = "SELECT ID_Forum, Title, Slug
+		          FROM muu_forums 
+				  WHERE Slug = '$slug' AND Language = '$language' AND Situation = 'Active'";
+
+		  	return $this->Db->query($query);
+		}
 	}
 
 	public function getPost($postID) {
@@ -187,11 +217,18 @@ class Forums_Model extends ZP_Load {
 
 	public function getPostToEdit($postID) {
 		$query = "SELECT ID_Post, ID_Forum, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
-		
+ 
 		return $this->Db->query($query);	
 	}
 
-	public function getIDByForum($slug) {
+	public function getCommentToEdit($postID) {
+		$query = "SELECT ID_Post, ID_Forum, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID";
+
+		return $this->Db->query($query);	
+	}
+
+
+	public function getForumBySlug($slug) {
 		return $this->Db->findBy("Slug", $slug, $this->table, $this->fields);
 	}
 
@@ -257,7 +294,7 @@ class Forums_Model extends ZP_Load {
 		} 
 	}
 
-	public function saveComment($fid, $content) {
+	public function saveComment($fid, $content, $fname) {
 		$this->helper(array("alerts", "time"));
 
 		if($fid and $content) {
@@ -284,7 +321,7 @@ class Forums_Model extends ZP_Load {
 
 				$json =  array(
 					"alert" => getAlert(__("The comment has been saved correctly"), "success"),
-					"date"  => '<a href="'. path("forums/author/". $data["Author"]) .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]),
+					"date"  => '<a href="'. path("forums/". $fname ."/author/". $data["Author"]) .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]),
 					"content" => stripslashes($content)
 				);
 

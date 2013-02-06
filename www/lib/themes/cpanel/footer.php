@@ -25,22 +25,7 @@
 	        
 			$this->js("www/lib/scripts/js/main.js", NULL, FALSE, TRUE); 
 
-			if(segment(0, isLang()) !== "codes" and segment(0, isLang()) !== "blog") {
-				$this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, FALSE, TRUE); 
-				$this->js(_corePath ."/vendors/js/editors/markitup/sets/html/set.js", NULL, FALSE, TRUE); 
-			}
-
 			echo $this->getJs();
-
-			if(segment(0, isLang()) !== "codes" and segment(0, isLang()) !== "blog" and segment(2, isLang()) !== "minifier" and segment(2, isLang()) !== "tv") {
-				?>
-				<script type="text/javascript">
-					$(window).on("ready", function() {
-			      		$("textarea").markItUp(mySettings);
-			   		});
-			   	</script>
-				<?php
-			}
 		?>
 
     </body>

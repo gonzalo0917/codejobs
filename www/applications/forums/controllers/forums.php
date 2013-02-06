@@ -42,6 +42,11 @@ class Forums_Controller extends ZP_Load {
 			$forum  = segment(1, isLang()); 
 
 			$this->getEditPost($postID, $forum);
+		} elseif(segment(1, isLang()) and segment(2, isLang()) == "editComment" and segment(3, isLang())) {
+			$postID = segment(3, isLang());
+			$forum  = segment(1, isLang()); 
+
+			$this->getEditComment($postID, $forum);
 		} elseif(segment(1, isLang()) and segment(2, isLang()) === "tag" and segment(3, isLang())) {	
 			$tag = segment(3, isLang());
 
@@ -59,7 +64,7 @@ class Forums_Controller extends ZP_Load {
 			$author = segment(3, isLang());
 
 			$this->author($author);
-		} elseif(segment(1, isLang()) and segment(2, isLang()) > 0 and segment(3, isLang())) {
+		} elseif(segment(1, isLang()) and segment(2, isLang()) > 0) {
 			$postID = segment(2, isLang());
 
 			$this->getPost($postID);
@@ -167,9 +172,9 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function publish() {
-		if(POST("title") and POST("content")) {
+		if(POST("title") and POST("content") and POST("fname")) {
 			$data = $this->Forums_Model->savePost();
-
+			
 			if($data) {
 				echo $data;
 			} else {
@@ -191,8 +196,20 @@ class Forums_Controller extends ZP_Load {
 		}
 	}
 
+	public function updateComment() {
+		if(POST("content")) {
+			$data = $this->Forums_Model->updateComment();
+
+			if($data) {
+				echo $data;
+			} else {
+				echo path();
+			}
+		}
+	}
+
 	public function deletePost($postID, $forum) {
-		$i = $this->Forums_Model->deletePost($postID);
+		$this->Forums_Model->deletePost($postID);
 
 		$this->getForum($forum);
 	}
@@ -225,22 +242,9 @@ class Forums_Controller extends ZP_Load {
 			$this->css("forums", "forums");
 
 			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = segment(1, isLang());
-			$vars["posts"]   = $data;
+			$vars["forum"] 	 = isset($data[0]["Forum_Name"]) ? $data[0]["Forum_Name"] : $data[0]["Title"];
+			$vars["posts"]   = isset($data[0]["Forum_Name"]) ? $data : FALSE;
 			$vars["pagination"] = $this->pagination;
-			$vars["view"]    = $this->view("forum", TRUE);
-
-			$this->render("content", $vars);
-		} else {
-			$data = $this->Forums_Model->getIDByForum($forum);
-
-			$this->helper("time");
-			$this->js("forums", "forums");
-			$this->css("posts", "blog");
-			$this->css("forums", "forums");
-
-			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = segment(1, isLang());
 			$vars["view"]    = $this->view("forum", TRUE);
 
 			$this->render("content", $vars);
@@ -254,7 +258,7 @@ class Forums_Controller extends ZP_Load {
 			$this->helper("time");
 			$this->css("posts", "blog");
 			$this->js("forums", "forums");
-
+			$vars["forum"] 	 = segment(1, isLang());
 			$vars["posts"] = $data;
 			$vars["view"]  = $this->view("posts", TRUE);
 
@@ -282,7 +286,26 @@ class Forums_Controller extends ZP_Load {
 		}
 	}
 
+	public function getEditComment($postID, $forum) {
+
+		$data = $this->Forums_Model->getCommentToEdit($postID);
+
+		if($data) {
+			$this->helper("time");
+			$this->css("posts", "blog");
+			$this->js("forums", "forums");
+
+			$vars["forum"] = $forum;
+			$vars["data"]  = $data; 
+			$vars["view"]  = $this->view("editComment", TRUE);
+			
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
+	}
+
 	public function publishComment() {
-		$this->Forums_Model->saveComment(POST("fid"), POST("content"));
+		$this->Forums_Model->saveComment(POST("fid"), POST("content"), POST("fname"));
 	}
 }

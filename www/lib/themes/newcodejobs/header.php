@@ -18,7 +18,11 @@
 	<link href="<?php echo path("blog/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Blog"); ?>" />
 	<link href="<?php echo path("bookmarks/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Bookmarks"); ?>" >
 	<link href="<?php echo path("codes/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Codes"); ?>" >
-	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >
+	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >	
+	<script type="text/javascript" src="<?php echo path("vendors/js/prettify/prettify.js", "zan"); ?>"></script>
+	<script>
+		addEventListener('load', prettyPrint, false); 
+	</script>
 	
     <?php
     	$this->CSS("www/lib/css/default.css", NULL, FALSE, TRUE);
@@ -60,6 +64,7 @@
 
 		echo $this->getCSS(); 		
     ?>
+    <link href="<?php echo path("vendors/js/prettify/prettify.css", "zan"); ?>" type="text/css" rel="stylesheet" />
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 </head>
 
@@ -99,8 +104,7 @@
 							<input id="register-password" name="password" class="register-input" type="password" required placeholder="<?php echo __("Password"); ?>" /> <br />
 							<input name="register" class="register-submit" type="submit" value="<?php echo __("Register on CodeJobs!"); ?>" />
 							<br />
-							<br />
-							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /></a>
+							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="<?php echo path("users/service/twitter"); ?>" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>
 						</fieldset>
 					</form>
 				</div>
@@ -220,7 +224,7 @@
 							</a>
 						</li>
 
-						<li class="float-left" style="margin-right: 10px;">
+						<li class="float-right" style="margin-right:10px;">
 							<div class="input-append">
 								<select id="search-app" class="info" style="width:115px; margin-top: 3px; margin-right: 5px;">
 								  	<option value="blog"><?php echo __("Blog"); ?></option>
@@ -228,8 +232,10 @@
 								  	<option value="bookmarks"><?php echo __("Bookmarks"); ?></option>								  	
 								</select> 
 
-							  	<input id="search-term" class="span2" id="appendedInputButton" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
-							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 3px;"><?php echo __("Search"); ?></button>
+							  	<input id="search-term" class="span2" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
+							  	<input id="search-app-hidden" type="hidden">
+							  	<input id="search-term-hidden" type="hidden">
+							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>
 							</div> 
 						</li>
 					</ul>

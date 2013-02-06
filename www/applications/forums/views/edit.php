@@ -9,22 +9,22 @@ if(!defined("_access")) {
 	$content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverPOST("content");
 ?>
 	<p id="fmessage"></p>
-	<div class="forums-options">
+	<div class="post-title">
 		<span class="forums-create"><?php echo __("Edit topic"); ?></span>	
 		<br />
+		<br />
 		<form action="#" method="post">
-			<input id="ftitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="<?php echo $title; ?>" /> <br />
-			<input id="ftags" placeholder="Write the tags separated by commas..." class="span8 forums-title" name="tags" type="text" value="<?php echo $tags; ?>" /> <br />
-			<textarea id="fcontent" name="content" placeholder="Write the content here..." class="span8 forums-textarea"><?php echo $content ?></textarea> <br />
-			<input id="ppublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Publish"); ?>" />
+			<input id="ptitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="<?php echo $title; ?>" /> <br />
+			<input id="ptags" placeholder="Write the tags separated by commas..." class="span8 forums-title" name="tags" type="text" value="<?php echo $tags; ?>" /> <br />
+			<textarea id="pcontent" name="content" placeholder="Write the content here..." class="span8 forums-textarea" rows="20"><?php echo $content ?></textarea> <br />
+			<input id="ppublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Edit"); ?>" />
 			<input id="pcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
 
 			<input id="pid" name="pid" type="hidden" value="<?php echo $pid; ?>" />
 			<input id="fid" name="fid" type="hidden" value="<?php echo $fid; ?>" />
-			<input id="edit" name="edit" type="hidden" value="edit" />
 			<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 			<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
-			<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 90 characters..."); ?>" />
+			<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 30 characters..."); ?>" />
 			<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />				
 		</form>
 	</div>
