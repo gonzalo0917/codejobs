@@ -86,7 +86,6 @@
 				}		
 			}
 			?>
-			
 		</div>
 		<div id="comment-alert">
 		</div>

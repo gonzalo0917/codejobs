@@ -108,26 +108,26 @@ $(document).on("ready", function() {
 	$("#pcancel").on("click", function() {
 		var fname = $("#fname").val();
 		$.ajax({
-				type: 'POST',
-				url:   PATH + '/forums/cancelEdit',
-				data: 'fname=' + fname,
-				success: function(response) {	
-					window.location.href = response;
-				}
-			});
+			type: 'POST',
+			url:   PATH + '/forums/cancelEdit',
+			data: 'fname=' + fname,
+			success: function(response) {	
+				window.location.href = response;
+			}
+		});
 	});
 
 	$("#commentCancel").on("click", function() {
 		var fname = $("#fname").val();
 		var fid = $("#fid").val();
 		$.ajax({
-				type: 'POST',
-				url:   PATH + '/forums/cancelComment',
-				data: 'fname=' + fname '&pid=' + pid,
-				success: function(response) {	
-					window.location.href = response;
-				}
-			});
+			type: 'POST',
+			url:   PATH + '/forums/cancelComment',
+			data: 'fname=' + fname + '&pid=' + pid,
+			success: function(response) {	
+				window.location.href = response;
+			}
+		});
 	});
 
 	$("#ppublish").on("click", function() {

@@ -88,6 +88,7 @@ class Forums_Model extends ZP_Load {
 			"Slug"        => slug(POST("title", "clean")),
 			"Content"     => POST("content"),
 			"Author" 	  => SESSION("ZanUser"),
+			"Last_Reply"  => now(4),
 			"Start_Date"  => now(4),
 			"Text_Date"   => decode(now(2)),
 			"Tags" 		  => POST("tags") ? POST("tags") : "",
@@ -194,7 +195,7 @@ class Forums_Model extends ZP_Load {
 		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.ID_User, muu_forums_posts.Forum_Name, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
-				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC LIMIT ". $limit;
+				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY muu_forums_posts.Last_Reply DESC LIMIT ". $limit;
 
 		$data = $this->Db->query($query);
 
@@ -294,30 +295,32 @@ class Forums_Model extends ZP_Load {
 		} 
 	}
 
-	public function saveComment($fid, $content, $fname) {
+	public function saveComment($pid, $content, $fname) {
 		$this->helper(array("alerts", "time"));
 
-		if($fid and $content) {
+		$now = now(4);
+
+		if($pid and $content) {
 			$data = array(
 				"ID_User" => SESSION("ZanUserID"),
-				"ID_Parent" => $fid, 
+				"ID_Parent" => $pid, 
 				"Title" => NULL,
 				"Slug" => NULL,
 				"Text_Date" => decode(now(2)),
 				"Tags" => NULL,
 				"Content" => $content,
 				"Author" => SESSION("ZanUser"),
-				"Start_Date" => now(4), 
+				"Start_Date" => $now, 
 				"Topic" => 0,
 				"Language" => $this->language,
 				"Situation" => "Active"
 			);			
 
-
-
 			if($this->Db->insert("forums_posts", $data)) {
 				
-				$content = BBCode($data["Content"]);
+				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now' WHERE ID_Post = '$pid'");
+
+				$content = $data["Content"];
 
 				$json =  array(
 					"alert" => getAlert(__("The comment has been saved correctly"), "success"),
