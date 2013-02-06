@@ -415,7 +415,6 @@
 
 /* Kindle landscape 1024x600 */
 @media (max-width: 1024px), (max-device-width: 1024px) {
-
 	header #wrapper {
 		width: 1024px;
 	}
@@ -424,14 +423,14 @@
 		width: 700px;
 		float: left;
 		margin-top: -85px;
-		margin-left: 265px;
+		margin-left: 380px;
 	}
 
 	header #wrapper nav ul {
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-		margin-left: 2.5%;
+		max-width: 550px;
 	}
 
 	header #topbar {
@@ -492,10 +491,10 @@
 	}
 }
 
+
 /* iPad portrait 768x1024 */
 
 @media (max-width: 768px), (max-device-width: 768px) {
-
 	header #wrapper {
 		width: 768px;
 	}
@@ -503,7 +502,6 @@
 	header #wrapper nav {
 		width: 550px;
 		float: left;
-		margin-top: 10px;
 		margin-left: 20px;
 	}
 
@@ -511,13 +509,14 @@
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-		margin-left: 2.5%;
+		margin-left: 9.5%;
+		margin-top: 15.5%;
 	}
 
 	header #topbar {
 		max-width: 1024px;
 	}
-	
+
 	aside .transmission ul {
 	    margin-left: 6%;
 	}
@@ -559,6 +558,10 @@
 		margin-left: -46px;
 	}
 
+	.top-box-ul{
+		display: none;
+	}
+
 	.comments-content {
 		max-width: 520px !important;
 	}
@@ -598,9 +601,10 @@
 		padding: 0px;
 		position: relative;
 		z-index: 2;
-		margin-left: 20px;
+		margin-left: 9.5%;
 		width: 500px;
 		font-size: 0.95em;
+		margin-top: 15.5%;
 	}
 
 	header #topbar nav ul {
@@ -654,7 +658,7 @@
 	}
 
 	header #logo {
-		margin-left: 2.5%;
+		margin-left: 9.5%;
 	}
 
 	footer p {
@@ -713,7 +717,7 @@
 		padding: 0px;
 		position: relative;
 		z-index: 2;
-		margin-left: 15%;
+		margin-left: 18.5%;
 		width: 500px;
 		font-size: 0.95em;
 	}
@@ -769,7 +773,7 @@
 	}
 
 	header #logo {
-		margin-left: 2.5%;
+		margin-left: 8%;
 	}
 
 	footer p {
