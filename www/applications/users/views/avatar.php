@@ -6,7 +6,7 @@
 
 	if($avatar !== "default.png") {
 		$info 	= pathinfo($avatar);
-		$avatar = sha1(SESSION("ZanUser")) .".". $info["extension"];
+		$avatar = sha1(SESSION("ZanUser") ."_O") .".". $info["extension"];
 	}
 
 	echo div("edit-profile", "class");
