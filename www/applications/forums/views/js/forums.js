@@ -117,9 +117,9 @@ $(document).on("ready", function() {
 		});
 	});
 
-	$("#commentCancel").on("click", function() {
+	$("#ccancel").on("click", function() {
 		var fname = $("#fname").val();
-		var fid = $("#fid").val();
+		var pid = $("#pid").val();
 		$.ajax({
 			type: 'POST',
 			url:   PATH + '/forums/cancelComment',
