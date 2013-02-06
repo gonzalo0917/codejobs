@@ -65,23 +65,20 @@
 
 						<div class="comments-content">
 							<?php
-							$authorUrl   = path("forums/". $forum ."/author/". $post["Author"]);
+							$authorUrl = path("forums/". $forum ."/author/". $post["Author"]);
 							?>
 							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
-							
 							<?php
 							if(SESSION("ZanUserPrivilegeID")){
 								$URLEdit   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
 								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
-								$confirm = " return confirm('Do you want to delete this post?') ";
+								$confirm   = " return confirm('Do you want to delete this post?') ";
 								if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
 									echo '| <a href="'. $URLEdit .'">Edit</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">Delete</a>';
 								}
 							}
 							?>
-						</p>
-							<input id="urlEdit" name="urlEdit" type="hidden" value="<?php echo $URLEdit; ?>" />
-							<input id="urlDelete" name="urlDelete" type="hidden" value="<?php echo $URLDelete; ?>" />
+							</p>
 							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
 						</div>
 					</div>
