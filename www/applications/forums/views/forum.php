@@ -37,6 +37,7 @@ if(!defined("_access")) {
 			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
 			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 			$in        = ($forum !== "") ? __("in") : NULL;	
+			
 			?>		
 			
 			<div class="post">
