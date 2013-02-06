@@ -40,16 +40,6 @@
                     $this->js("$this->themeRoute/js/social.js", NULL, FALSE, TRUE);
                 }
 
-                if(segment(0, isLang()) !== "forums") {         
-                    if(defined("_codemirror")) {
-                        $this->js("codemirror", NULL, FALSE, TRUE);
-                    }
-                    
-                    if(defined("_angularjs")) {
-                        $this->js("angular", NULL, FALSE, TRUE);
-                    }
-                }
-
                 if(segment(0, isLang()) === "live") {
                     $this->js("www/lib/scripts/js/tweetscroller/js/handlebars.js", NULL, FALSE, TRUE);
                     $this->js("www/lib/scripts/js/tweetscroller/js/moment.js", NULL, FALSE, TRUE);

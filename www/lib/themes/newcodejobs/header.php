@@ -41,13 +41,6 @@
     	if(segment(0, isLang()) !== "polls") {
     		$this->CSS("polls", "polls", FALSE, TRUE);
     	}
-
-    	if(segment(0, isLang()) === "forums") {
-            $this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
-            $this->CSS(_corePath ."/vendors/js/editors/markitup/skins/markitup/style.css", NULL, FALSE, TRUE);
-			$this->CSS(_corePath ."/vendors/js/editors/markitup/sets/bbcode/style.css", NULL, FALSE, TRUE);
-        }
-
         
 		$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 		
