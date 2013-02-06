@@ -196,6 +196,16 @@ class Forums_Controller extends ZP_Load {
 		}
 	}
 
+	public function cancelEdit() {
+		$UrlEdit = path("forums/". POST("fname"));
+		echo $UrlEdit;
+	}
+
+	public function cancelComment() {
+		$UrlEdit = path("forums/". POST("fname") ."/". POST("pid"));
+		echo $UrlEdit;
+	}
+
 	public function updateComment() {
 		if(POST("content")) {
 			$data = $this->Forums_Model->updateComment();

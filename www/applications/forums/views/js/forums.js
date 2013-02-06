@@ -43,7 +43,7 @@ $(document).on("ready", function() {
 					newComment = newComment + '	  <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> ';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
-					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="'+ urlEdit +'">Edit</a> | <a href="' + urlDelete + '">Delete</a></p>';
+					newComment = newComment + '   <p class="comment-data">' + response.date + '</p>';//' | <a href="'+ urlEdit +'">Edit</a> | <a href="' + urlDelete + '">Delete</a></p>';
 					newComment = newComment + '   <p class="comment-post">' + response.content + '</p>';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '</div>';	
@@ -105,6 +105,31 @@ $(document).on("ready", function() {
 		$("#fcontent").hide();
 		$("#fpublish").hide();
 		$("#fcancel").hide();
+	});
+
+	$("#pcancel").on("click", function() {
+		var fname = $("#fname").val();
+		$.ajax({
+				type: 'POST',
+				url:   PATH + '/forums/cancelEdit',
+				data: 'fname=' + fname,
+				success: function(response) {	
+					window.location.href = response;
+				}
+			});
+	});
+
+	$("#commentCancel").on("click", function() {
+		var fname = $("#fname").val();
+		var fid = $("#fid").val();
+		$.ajax({
+				type: 'POST',
+				url:   PATH + '/forums/cancelComment',
+				data: 'fname=' + fname '&pid=' + pid,
+				success: function(response) {	
+					window.location.href = response;
+				}
+			});
 	});
 
 	$("#ppublish").on("click", function() {
