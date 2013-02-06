@@ -5,7 +5,6 @@ if(!defined("_access")) {
 	$i = 1;
 	$rand2 = rand(6, 10);
 	if(SESSION("ZanUser")) {
-		$forum = str_replace("-", " ", $forum);
 	?>
 		<h1><?php echo strtoupper($forum); ?></h1>
 		<p id="fmessage"></p>
@@ -31,12 +30,14 @@ if(!defined("_access")) {
 	?>
 	<div id="fposts">
 	<?php
+		$forum = slug($forum, "clean");
 		foreach($posts as $post) {		
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
 			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
 			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 			$in        = ($forum !== "") ? __("in") : NULL;	
+			
 			?>		
 			
 			<div class="post">

@@ -172,9 +172,9 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function publish() {
-		if(POST("title") and POST("content")) {
+		if(POST("title") and POST("content") and POST("fname")) {
 			$data = $this->Forums_Model->savePost();
-
+			
 			if($data) {
 				echo $data;
 			} else {
@@ -242,14 +242,14 @@ class Forums_Controller extends ZP_Load {
 			$this->css("forums", "forums");
 
 			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = segment(1, isLang());
+			$vars["forum"] 	 = $data[0]["Forum_Name"];
 			$vars["posts"]   = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"]    = $this->view("forum", TRUE);
 
 			$this->render("content", $vars);
 		} else {
-			$data = $this->Forums_Model->getIDByForum($forum);
+			$data = $this->Forums_Model->getForumBySlug($forum);
 
 			$this->helper("time");
 			$this->js("forums", "forums");
@@ -257,7 +257,7 @@ class Forums_Controller extends ZP_Load {
 			$this->css("forums", "forums");
 
 			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = segment(1, isLang());
+			$vars["forum"] 	 = $data[0]["Forum_Name"];
 			$vars["view"]    = $this->view("forum", TRUE);
 
 			$this->render("content", $vars);
@@ -319,6 +319,6 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function publishComment() {
-		$this->Forums_Model->saveComment(POST("fid"), POST("content"));
+		$this->Forums_Model->saveComment(POST("fid"), POST("content"), POST("fname"));
 	}
 }

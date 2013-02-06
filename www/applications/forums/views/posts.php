@@ -4,6 +4,7 @@
 		?>
 		<div id="forum-content">
 			<?php
+			$forum = segment(1, islang());
 			foreach($posts as $post) {
 				if($post["ID_Parent"] === 0) {
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
@@ -63,7 +64,10 @@
 						</div>
 
 						<div class="comments-content">
-							<p class="comment-data"><?php echo $post["Author"] ." ". __("Published") ." ". howLong($post["Start_Date"]); ?>
+							<?php
+							$authorUrl   = path("forums/". $forum ."/author/". $post["Author"]);
+							?>
+							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
 							
 							<?php
 							if(SESSION("ZanUserPrivilegeID")){
@@ -76,6 +80,8 @@
 							}
 							?>
 						</p>
+							<input id="urlEdit" name="urlEdit" type="hidden" value="<?php echo $URLEdit; ?>" />
+							<input id="urlDelete" name="urlDelete" type="hidden" value="<?php echo $URLDelete; ?>" />
 							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
 						</div>
 					</div>
@@ -94,6 +100,7 @@
 				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 				<textarea id="ccontent" class="markItUp" name="comment" style="height:200px"></textarea> <br />
 				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
+				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
 				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
 			</div>		
 		<?php
