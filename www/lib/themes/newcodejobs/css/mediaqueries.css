@@ -845,7 +845,6 @@
 		display: none;
 	}
 
-
 	.post .post-title {
 		font-size: 16px;
 		color: #333;
@@ -1032,7 +1031,7 @@
 		margin: 0px;
 		padding: 0px;
 		line-height: 20px !important;
-		margin-left: 5px !important;
+		margin-left: 15px !important;
 	}
 
 	header #topbar nav ul a {	
