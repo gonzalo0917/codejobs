@@ -42,7 +42,7 @@
 			?>
 
             <p>
-            	<pre class="prettyprint linenums"><?php echo stripslashes(linesWrap($code["File"]["Code"])); ?></pre>
+            	<pre class="prettyprint linenums"><?php echo htmlentities(stripslashes((linesWrap($code["File"]["Code"])))); ?></pre>
             </p>
 
 			<?php 
