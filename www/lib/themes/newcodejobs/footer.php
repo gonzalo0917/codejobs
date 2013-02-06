@@ -40,18 +40,6 @@
                     $this->js("$this->themeRoute/js/social.js", NULL, FALSE, TRUE);
                 }
 
-                if(segment(0, isLang()) === "jobs" or segment(0, isLang()) === "forums") {    
-                    $this->js(_corePath ."/vendors/js/editors/markitup/jquery.markitup.js", NULL, FALSE, TRUE);
-                    $this->js(_corePath ."/vendors/js/editors/markitup/sets/html/set.js", NULL, FALSE, TRUE);
-                    ?>
-                        <script type="text/javascript">
-                            $(document).on("ready", function() {
-                                $("textarea").markItUp(mySettings);
-                            });
-                        </script>
-                    <?php
-                }
-
                 if(segment(0, isLang()) !== "forums") {         
                     if(defined("_codemirror")) {
                         $this->js("codemirror", NULL, FALSE, TRUE);
@@ -85,16 +73,6 @@
                     </script>
                 <?php
                 }
-
-                if(segment(0, isLang()) === "forums") {
-                ?>
-                    <script type="text/javascript">
-                        $(window).on("ready", function() {
-                           $("#ccontent").markItUp(mySettings);
-                        });
-                    </script>
-                <?php
-               }
 
                 echo display('<script type="text/javascript">var sc_project = 7655788;var sc_invisible = 1;var sc_security = "f167f55b";</script><script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);
                 echo display('<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>', 4);
