@@ -208,7 +208,7 @@ class Search_Model extends ZP_Load {
 	}
 
 	public function search($term, $app) {
-		if(strlen($term) < 3) {
+		if(strlen($term) < 2) {
 			die(__("Your search is too short") . "<br />");
 		}
 

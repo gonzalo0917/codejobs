@@ -1,5 +1,4 @@
 @media (max-width: 1920px), (max-device-width: 1920px) {
-
 	header #wrapper {
 		width: 1500px;
 	}
@@ -253,9 +252,12 @@
 
 /* Kindle landscape 1280x1391 */
 @media (max-width: 1280px), (max-device-width: 1280px) {
-
 	header #wrapper {
 		width: 1200px;
+	}
+
+	header #logo {
+		margin-left: 100px;
 	}
 
 	header #wrapper nav {
@@ -269,8 +271,8 @@
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-		margqin-left: 23.5%;
-		width: 550px !important;
+		margin-left: 4%;
+		width: 720px !important;
 	}
 
 	header #topbar {
@@ -278,7 +280,7 @@
 	}
 	
 	header #topbar nav ul {
-		margin-left: 30px !important;
+		margin-left: -20px !important;
 	}
 
 	aside .transmission ul {
