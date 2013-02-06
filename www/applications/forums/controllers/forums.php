@@ -242,21 +242,9 @@ class Forums_Controller extends ZP_Load {
 			$this->css("forums", "forums");
 
 			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = $data[0]["Forum_Name"];
-			$vars["posts"]   = $data;
+			$vars["forum"] 	 = isset($data[0]["Forum_Name"]) ? $data[0]["Forum_Name"] : $data[0]["Title"];
+			$vars["posts"]   = isset($data[0]["Forum_Name"]) ? $data : FALSE;
 			$vars["pagination"] = $this->pagination;
-			$vars["view"]    = $this->view("forum", TRUE);
-
-			$this->render("content", $vars);
-		} else {
-			$data = $this->Forums_Model->getForumBySlug($forum);
-
-			$this->helper("time");
-			$this->js("forums", "forums");
-			$this->css("posts", "blog");
-			$this->css("forums", "forums");
-
-			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["view"]    = $this->view("forum", TRUE);
 
 			$this->render("content", $vars);

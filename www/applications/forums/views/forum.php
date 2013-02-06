@@ -6,7 +6,7 @@ if(!defined("_access")) {
 	$rand2 = rand(6, 10);
 	if(SESSION("ZanUser")) {
 	?>
-		<h1><?php echo strtoupper($forum); ?></h1>
+		<h1><?php echo $forum; ?></h1>
 		<p id="fmessage"></p>
 		<div class="forums-options">
 			<span class="forums-create"><?php echo __("Create new topic"); ?></span>
@@ -30,7 +30,8 @@ if(!defined("_access")) {
 	?>
 	<div id="fposts">
 	<?php
-		$forum = slug($forum, "clean");
+	if($posts) {
+		$forum = slug($forum);
 		foreach($posts as $post) {		
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
@@ -67,6 +68,7 @@ if(!defined("_access")) {
 			<?php
 			$i++;
 		}
+	}
 	?>
 	</div>
 	<?php		

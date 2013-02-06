@@ -97,7 +97,7 @@ class Forums_Model extends ZP_Load {
 		
 		$lastID = $this->Db->insert("forums_posts", $data);
 		
-		$URL = path("forums/". slug(POST("fname")) ."/". $lastID ."/". $data["Slug"]);
+		$URL = path("forums/". slug(POST("fname", "clean")) ."/". $lastID ."/". $data["Slug"]);
 
 		return $URL;
 	}
@@ -195,8 +195,18 @@ class Forums_Model extends ZP_Load {
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
 				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC LIMIT ". $limit;
-		
-		return $this->Db->query($query);
+
+		$data = $this->Db->query($query);
+
+		if($data) {
+			return $data;
+		} else {
+			$query = "SELECT ID_Forum, Title, Slug
+		          FROM muu_forums 
+				  WHERE Slug = '$slug' AND Language = '$language' AND Situation = 'Active'";
+
+		  	return $this->Db->query($query);
+		}
 	}
 
 	public function getPost($postID) {
