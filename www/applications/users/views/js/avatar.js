@@ -1,5 +1,5 @@
-!function($) {
 	var jcrop_api, avatar_file, avatar_coordinate;
+!function($) {
 
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();
@@ -96,9 +96,14 @@
 			cnv2.width = cnv2.height = "90";
 
 			ctx1.drawImage($("img.avatar").get(0), 0, 0, cnv1.width, cnv1.height);
-			ctx2.drawImage(cnv1, coor[0], coor[1], coor[2], coor[3], 0, 0, 90, 90);
+			ctx2.drawImage(cnv1, coor[0], coor[1], coor[2] - coor[0], coor[3] - coor[1], 0, 0, 90, 90);
 
 			$("#resized").val(cnv2.toDataURL($("#type").val()));
+
+			document.appendChild(cnv2);
+			alert("hola");
+			return false;
+
 		}
 	}
 
@@ -111,6 +116,7 @@
 
 	function markImage(coordinate) {
 		if(jcrop_api === undefined) {
+			console.log("Se creará el objeto jCrop");
 			$("#avatar-image").Jcrop({
 				minSize: 	 [90, 90],
 				aspectRatio: 1,
@@ -126,22 +132,28 @@
 			height = $("#avatar-image").height(),
 			small  = (width <= 90 && height <= 90),
 			square = (width === height);
-
+console.log("Es pequeño? " + (small ? "SI" : "NO"));
+console.log("Es cuadrado? " + (square ? "SI" : "NO"));
 		if(!square || !small) {
 			if(coordinate === undefined) {
 				if(square) {
+					console.log("Se seleccionará: 0,0," + width + "," + height);
 					jcrop_api.setSelect([0, 0, width, width]);
 				} else if(width > height) {
 					var pos_left = parseInt((width - height)/2) + 10;
+					console.log("Se seleccionará: " + pos_left + ",0," + height + "," + height);
 					jcrop_api.setSelect([pos_left, 0, height, height]);
 				} else {
 					var pos_top = parseInt((height - width)/2) + 10;
+					console.log("Se seleccionará: 0," + pos_top + "," + width + "," + width);
 					jcrop_api.setSelect([0, pos_top, width, width]);
 				}
 			} else {
+				console.log("Se seleccionará el split: " + coordinate);
 				jcrop_api.setSelect(coordinate.split(","));
 			}
 		} else {
+			console.log("Se destuira la marca");
 			destroyMark();
 		}
 	}
@@ -181,14 +193,17 @@
 	}
 
 	function setCoords(coor) {
-		$("#coordinate").val(parseInt(coor.x) + "," + parseInt(coor.y) + "," + parseInt(coor.w) + "," + parseInt(coor.h));
+		$("#coordinate").val(parseInt(coor.x) + "," + parseInt(coor.y) + "," + parseInt(coor.x2) + "," + parseInt(coor.y2));
 	}
 
 	function delCoords(coor) {
 		$("#coordinate").val("");
 	}
 
-	markImage(avatar_coordinate);
+	$(window).load(function() {
+		markImage(avatar_coordinate);
+
+	});
 
 	$(document).on("dragover", function (event) {
 		event.stopPropagation();
