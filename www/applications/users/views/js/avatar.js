@@ -103,8 +103,6 @@
 	}
 
 	function setFile(file, name, type, size) {
-		$("input[name='avatar']").val(file || "");
-		
 		$("#file").val(file || "");
 		$("#name").val(name || "");
 		$("#type").val(type || "");

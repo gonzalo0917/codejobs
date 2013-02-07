@@ -1,16 +1,4 @@
 $(document).on("ready", function() {
-	$("#ftags").hide();
-	$("#fcontent").hide();
-	$("#fpublish").hide();
-	$("#fcancel").hide();
-
-	$("#ftitle").on("focus", function() {
-		$("#ftags").show();
-		$("#fcontent").show();
-		$("#fpublish").show();
-		$("#fcancel").show();
-	});
-
 	$("#cpublish").on("click", function() {
 		var content = $('#ccontent').val();
 		var fid = $('#fid').val();
@@ -61,7 +49,7 @@ $(document).on("ready", function() {
 		var forumName = $("#fname").val();
 		var title = $("#ftitle").val();
 		var tags = $("#ftags").val();
-		var content = $("#fcontent").val();
+		var content = $(".cke_wysiwyg_frame").contents().find('body').html();
 
 		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
