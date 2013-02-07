@@ -19,7 +19,7 @@ if(!defined("_access")) {
 				<input id="fcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
 
 				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
-				<input id="fname" type="hidden" value="<?php echo $forum ?>" />
+				<input id="fname" type="hidden" value="<?php echo $forum; ?>" />
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
 				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 30 characters..."); ?>" />
 				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />

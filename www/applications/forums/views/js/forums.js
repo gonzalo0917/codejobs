@@ -15,6 +15,7 @@ $(document).on("ready", function() {
 		var content = $('#ccontent').val();
 		var fid = $('#fid').val();
 		var fname = $('#fname').val();
+		var avatar = $('#avatar').val();
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 			if(content.length == 0) {
 				$("#comment-alert").html(needContent);
@@ -38,7 +39,7 @@ $(document).on("ready", function() {
 
 					newComment = newComment + '<div class="comments">';
 					newComment = newComment + '	<div class="comments-author">';
-					newComment = newComment + '	  <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash4/372155_100002559760317_1123013291_q.jpg" /> ';
+					newComment = newComment + '	  <img src="' + avatar + '" /> ';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
 					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="">Edit</a> | <a href="">Delete</a></p>';

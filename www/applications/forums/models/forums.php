@@ -88,6 +88,7 @@ class Forums_Model extends ZP_Load {
 			"Slug"        => slug(POST("title", "clean")),
 			"Content"     => POST("content"),
 			"Author" 	  => SESSION("ZanUser"),
+			"Avatar" 	  => SESSION("ZanUserAvatar"),
 			"Last_Reply"  => now(4),
 			"Start_Date"  => now(4),
 			"Text_Date"   => decode(now(2)),
@@ -211,7 +212,7 @@ class Forums_Model extends ZP_Load {
 	}
 
 	public function getPost($postID) {
-		$query = "SELECT ID_Post, ID_User, ID_Parent, Title, Slug, Content, Author, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post";
+		$query = "SELECT ID_Post, ID_User, ID_Parent, Title, Slug, Content, Author, Avatar, Start_Date, Tags FROM muu_forums_posts WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post";
 		
 		return $this->Db->query($query);		
 	}
@@ -310,6 +311,7 @@ class Forums_Model extends ZP_Load {
 				"Tags" => NULL,
 				"Content" => $content,
 				"Author" => SESSION("ZanUser"),
+				"Avatar" => SESSION("ZanUserAvatar"),
 				"Start_Date" => $now, 
 				"Topic" => 0,
 				"Language" => $this->language,
