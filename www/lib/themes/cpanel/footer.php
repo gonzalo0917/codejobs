@@ -14,19 +14,10 @@
 
 		<?php
 			$this->js("jquery", NULL, FALSE, TRUE); 
-
-			if(defined("_angularjs")) {
-	            $this->js("angular", NULL, FALSE, TRUE); 
-	        }
-	        
-	        if(defined("_codemirror")) {
-	            $this->js("codemirror", NULL, FALSE, TRUE); 
-	        }
 	        
 			$this->js("www/lib/scripts/js/main.js", NULL, FALSE, TRUE); 
 
 			echo $this->getJs();
 		?>
-
     </body>
 </html>

@@ -86,7 +86,7 @@ class Forums_Model extends ZP_Load {
 			"Forum_Name"  => POST("fname"),
             "Title"       => POST("title"),
 			"Slug"        => slug(POST("title", "clean")),
-			"Content"     => POST("content"),
+			"Content"     => POST("content", "clean"),
 			"Author" 	  => SESSION("ZanUser"),
 			"Avatar" 	  => SESSION("ZanUserAvatar"),
 			"Last_Reply"  => now(4),

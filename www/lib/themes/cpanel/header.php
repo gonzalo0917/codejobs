@@ -13,10 +13,6 @@
 		
 		$this->CSS("$this->themeRoute/css/style.css", NULL, FALSE, TRUE);
 
-		if(defined("_codemirror")) {
-            $this->CSS("codemirror", NULL, FALSE, TRUE);
-        }
-
 	 	echo $this->getCSS();
 	?>			
 </head>

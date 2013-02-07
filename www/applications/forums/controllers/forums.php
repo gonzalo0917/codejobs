@@ -227,9 +227,9 @@ class Forums_Controller extends ZP_Load {
 	public function getForums() {
 		$data = $this->Forums_Model->getForums($this->language);
 
-		if($data) {
-			$vars["forums"] = $data;
-			$vars["view"]   = $this->view("forums", TRUE);
+		if($data) {			
+			$vars["forums"]   = $data;
+			$vars["view"]     = $this->view("forums", TRUE);
 
 			$this->render("content", $vars);
 		} else {
@@ -238,7 +238,6 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function getForum($forum) {
-
 		$this->CSS("pagination");
 
 		$limit = $this->limit();
@@ -251,11 +250,12 @@ class Forums_Controller extends ZP_Load {
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
-			$vars["forumID"] = $data[0]["ID_Forum"];
-			$vars["forum"] 	 = isset($data[0]["Forum_Name"]) ? $data[0]["Forum_Name"] : $data[0]["Title"];
-			$vars["posts"]   = isset($data[0]["Forum_Name"]) ? $data : FALSE;
+			$vars["ckeditor"] 	= $this->js("ckeditor", "basic", TRUE);
+			$vars["forumID"] 	= $data[0]["ID_Forum"];
+			$vars["forum"] 	 	= isset($data[0]["Forum_Name"]) ? $data[0]["Forum_Name"] : $data[0]["Title"];
+			$vars["posts"]   	= isset($data[0]["Forum_Name"]) ? $data : FALSE;
 			$vars["pagination"] = $this->pagination;
-			$vars["view"]    = $this->view("forum", TRUE);
+			$vars["view"]    	= $this->view("forum", TRUE);
 
 			$this->render("content", $vars);
 		}
