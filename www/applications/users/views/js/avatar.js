@@ -98,11 +98,13 @@
 			ctx1.drawImage($("img.avatar").get(0), 0, 0, cnv1.width, cnv1.height);
 			ctx2.drawImage(cnv1, coor[0], coor[1], coor[2], coor[3], 0, 0, 90, 90);
 
-			$("#resized").val(cnv2.toDataURL());
+			$("#resized").val(cnv2.toDataURL($("#type").val()));
 		}
 	}
 
 	function setFile(file, name, type, size) {
+		$("input[name='avatar']").val(file || "");
+		
 		$("#file").val(file || "");
 		$("#name").val(name || "");
 		$("#type").val(type || "");

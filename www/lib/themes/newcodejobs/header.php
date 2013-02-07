@@ -133,7 +133,7 @@
 							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" />
 						</div>
 
-						<div style="float: left; width: 170px; line-height: 15px;">
+						<div style="float: left; width: 170px; line-height: 15px; margin-left: 10px;">
 							<span class="bold"><?php echo SESSION("ZanUserName"); ?></span> <br />
 							<!--span class="small grey"><a href="#"><?php echo __("See my profile page"); ?></a></span><br />
 

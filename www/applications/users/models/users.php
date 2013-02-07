@@ -709,9 +709,16 @@ class Users_Model extends ZP_Load {
 	public function saveAvatar() {
 		if(POST("file")) {
 			$avatar = $this->createAvatar();
+			$data   = $this->Db->find(SESSION("ZanUserID"), $this->table, "Avatar");
 
-			if(is_array($avatar)) {
+			if(is_array($avatar) and $data) {
+				if(current($avatar) !== $data[0]["Avatar"]) {
+					$this->removeAvatar($data[0]["Avatar"]);
+				}
+
 				if($this->Db->update($this->table, array("Avatar" => current($avatar), "Avatar_Coordinate" => next($avatar)), SESSION("ZanUserID"))) {
+					SESSION("ZanUserAvatar", prev($avatar) ."?". time());
+
 					return getAlert(__("The avatar has been saved correctly"), "success");	
 				}
 			}
@@ -721,7 +728,16 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function deleteAvatar() {
+		$data = $this->Db->find(SESSION("ZanUserID"), $this->table, "Avatar");
+		
 		if($this->Db->update($this->table, array("Avatar" => NULL, "Avatar_Coordinate" => NULL), SESSION("ZanUserID"))) {
+			
+			SESSION("ZanUserAvatar", "default.png");
+
+			if($data) {
+				$this->removeAvatar($data[0]["Avatar"]);
+			}
+
 			return getAlert(__("The avatar has been deleted successfully"), "success");
 		}
 
@@ -813,8 +829,8 @@ class Users_Model extends ZP_Load {
 			$coordinate = "0,0,90,90";
 		}
 
-		$info = pathinfo($filename);
-		$ext  = $info["extension"];
+		$parts = explode(".", $filename);
+		$ext   = end($parts);
 
 		$dataO = str_replace("data:$filetype;base64,", "", $file);
         $dataO = str_replace(" ", "+", $dataO);
@@ -826,6 +842,7 @@ class Users_Model extends ZP_Load {
 
         $path  = "www/lib/files/images/users/";
         $fileO = $path . sha1($username ."_O") .".$ext";
+
         $nameR = sha1($username) .".$ext";
         $fileR = $path . $nameR;
 
@@ -844,6 +861,16 @@ class Users_Model extends ZP_Load {
         } else {
         	return FALSE;
         }
+	}
+
+	private function removeAvatar($filename) {
+		if($filename !== "default.png") {
+			$parts = explode(".", $filename);
+			$ext   = end($parts);
+
+			@unlink("www/lib/files/images/users/". sha1(SESSION("ZanUser")) .".$ext");
+			@unlink("www/lib/files/images/users/". sha1(SESSION("ZanUser") ."_O") .".$ext");
+		}
 	}
 
 }

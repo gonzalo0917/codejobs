@@ -1,7 +1,7 @@
 <?php
 	if(!defined("_access")) die("Error: You don't have permission to access here...");
 
-	$avatar 	= recoverPOST("avatar", encode($data[0]["Avatar"]));
+	$avatar 	= encode($data[0]["Avatar"]);
 	$coordinate = recoverPOST("coordinate", encode($data[0]["Avatar_Coordinate"]));
 
 	if($avatar !== "default.png") {
@@ -41,7 +41,7 @@
 			echo div("avatar", "class");
 				echo div("avatar-container", "id/class", "avatar-image well");
 
-					echo image(path("www/lib/files/images/users/$avatar", TRUE), "avatar", "avatar-image");
+					echo image(path("www/lib/files/images/users/$avatar?". time(), TRUE), "avatar", "avatar-image");
 
 				echo div(FALSE);
 			echo div(FALSE);
