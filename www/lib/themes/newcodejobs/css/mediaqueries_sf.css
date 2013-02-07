@@ -605,7 +605,7 @@
 
 }
 
-/* iPhone 5 landscape portrait 568x380 */
+/* iPhone 5 landscape 568x380 */
 @media (max-width: 568px), (max-device-width: 568px) {
 	body {
 		width: 568px;
@@ -680,12 +680,16 @@
 		width: 568px;
 	}
 
+	header #topbar nav ul {
+    	margin-left: 12.5% !important; 
+	}
+
 	header #topbar nav ul li {
     	font-size: 55%;
 	}
 
 	header #logo {
-		margin-left: 2.5%;
+		margin-left: 7.5%;
 	}
 
 	footer p {
@@ -927,7 +931,7 @@
 	}
 
 	header #wrapper nav {
-		width: 320px;
+		width: 100px;
 		float: left;
 		margin-top: 10px;
 		margin-left: -40px;
@@ -938,14 +942,14 @@
 		padding: 0px;
 		position: relative;
 		z-index: 2;
-		margin-left: 15%;
-		width: 320px;
+		margin-left: 7%;
+		max-width: 280px;
 		font-size: .9em;
 	}
-
+	
 	header #topbar nav ul {
 		width: 320px;
-		margin-left: 40px;
+		margin-left: 10px !important;
 		padding: 0px;
 		line-height: 20px !important;
 	}
@@ -962,16 +966,20 @@
 		display: none;
 	}
 
+	#content {
+		margin-left: 10px !important; 
+		max-width: 295px !important;
+	}
 
 	.post .post-title {
 		font-size: 16px;
 		color: #333;
 		font-weight: bold;
-		width: 290px;
+		max-width: 290px;
 	}
 
 	.post .post-content {
-		width: 290px;	
+		width: 300px;	
 	}
 
 	.post .post-content img {

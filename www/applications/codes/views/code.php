@@ -50,7 +50,7 @@
                     ?>
                 </div>
 
-                <pre class="prettyprint linenums"><?php echo stripslashes($file["Code"]); ?></pre>
+                <pre class="prettyprint linenums"><?php echo htmlentities(stripslashes($file["Code"])); ?></pre>
             </p>
         <?php
         }
