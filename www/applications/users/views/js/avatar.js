@@ -116,7 +116,6 @@
 
 	function markImage(coordinate) {
 		if(jcrop_api === undefined) {
-			console.log("Se creará el objeto jCrop");
 			$("#avatar-image").Jcrop({
 				minSize: 	 [90, 90],
 				aspectRatio: 1,
@@ -132,28 +131,22 @@
 			height = $("#avatar-image").height(),
 			small  = (width <= 90 && height <= 90),
 			square = (width === height);
-console.log("Es pequeño? " + (small ? "SI" : "NO"));
-console.log("Es cuadrado? " + (square ? "SI" : "NO"));
+
 		if(!square || !small) {
 			if(coordinate === undefined) {
 				if(square) {
-					console.log("Se seleccionará: 0,0," + width + "," + height);
 					jcrop_api.setSelect([0, 0, width, width]);
 				} else if(width > height) {
 					var pos_left = parseInt((width - height)/2) + 10;
-					console.log("Se seleccionará: " + pos_left + ",0," + height + "," + height);
 					jcrop_api.setSelect([pos_left, 0, height, height]);
 				} else {
 					var pos_top = parseInt((height - width)/2) + 10;
-					console.log("Se seleccionará: 0," + pos_top + "," + width + "," + width);
 					jcrop_api.setSelect([0, pos_top, width, width]);
 				}
 			} else {
-				console.log("Se seleccionará el split: " + coordinate);
 				jcrop_api.setSelect(coordinate.split(","));
 			}
 		} else {
-			console.log("Se destuira la marca");
 			destroyMark();
 		}
 	}
@@ -167,8 +160,6 @@ console.log("Es cuadrado? " + (square ? "SI" : "NO"));
 	}
 
 	function resizeFont() {
-		console.log ("Se resizeara la fuente");
-
 		var width = $("#avatar-image").width(), size = 1;
 
 		if (width > 150 && width <= 350) {
