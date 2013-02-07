@@ -14,7 +14,7 @@ if(!defined("_access")) {
 			<form action="#" method="post">
 				<input id="ftitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="" /> <br />
 				<input id="ftags" placeholder="Write the tags separated by commas..." class="span8 forums-title" name="tags" type="text" value="" /> <br />
-				<textarea id="fcontent" placeholder="Write the content here..." class="span8 forums-textarea"></textarea> <br />
+				<textarea id="editor" placeholder="Write the content here..." class="ckeditor"></textarea> <br />
 				<input id="fpublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Publish"); ?>" />
 				<input id="fcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
 
@@ -73,3 +73,5 @@ if(!defined("_access")) {
 	</div>
 	<?php		
 		echo isset($pagination) ? $pagination : NULL;
+
+		echo $ckeditor;

@@ -11,3 +11,7 @@
 	color: #999 !important;
 	background-color: #000;
 }
+
+#cke_editor {
+	width: 600px;
+}

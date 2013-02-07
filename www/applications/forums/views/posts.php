@@ -97,7 +97,7 @@
 				<textarea id="ccontent" name="comment" style="height:200px"></textarea> <br />
 				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum; ?>" />
-				<input id="avatar" type="hidden" value="<?php echo SESSION("ZanUserAvatar"); ?>" />
+				<input id="avatar" type="hidden" value="<?php echo $post["Avatar"]; ?>" />
 				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
 			</div>		
 		<?php

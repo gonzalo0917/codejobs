@@ -78,7 +78,13 @@ class Forums_Model extends ZP_Load {
 
 	public function savePost() {
 		$this->helper(array("alerts", "time"));
-		
+
+		if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http"){
+			$avatar = SESSION("ZanUserAvatar");
+		} else {
+			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
+		}
+
 		$data = array(
 			"ID_User"     => SESSION("ZanUserID"),
 			"ID_Forum"    => (int) POST("forumID"),
@@ -86,9 +92,9 @@ class Forums_Model extends ZP_Load {
 			"Forum_Name"  => POST("fname"),
             "Title"       => POST("title"),
 			"Slug"        => slug(POST("title", "clean")),
-			"Content"     => POST("content"),
+			"Content"     => POST("content", "clean"),
 			"Author" 	  => SESSION("ZanUser"),
-			"Avatar" 	  => SESSION("ZanUserAvatar"),
+			"Avatar" 	  => $avatar,
 			"Last_Reply"  => now(4),
 			"Start_Date"  => now(4),
 			"Text_Date"   => decode(now(2)),
@@ -301,6 +307,12 @@ class Forums_Model extends ZP_Load {
 
 		$now = now(4);
 
+		if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http"){
+			$avatar = SESSION("ZanUserAvatar");
+		} else {
+			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
+		}
+
 		if($pid and $content) {
 			$data = array(
 				"ID_User" => SESSION("ZanUserID"),
@@ -311,7 +323,7 @@ class Forums_Model extends ZP_Load {
 				"Tags" => NULL,
 				"Content" => $content,
 				"Author" => SESSION("ZanUser"),
-				"Avatar" => SESSION("ZanUserAvatar"),
+				"Avatar" => $avatar,
 				"Start_Date" => $now, 
 				"Topic" => 0,
 				"Language" => $this->language,
