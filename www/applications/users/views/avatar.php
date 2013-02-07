@@ -15,20 +15,12 @@
 			
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 
-			echo formInput(array(
-				"class" => "avatar-file",
-				"name"  => "avatar",
-				"type"  => "file"
-			));
-
-
 			echo div("avatar", "class");
-				echo formInput(array(
-					"name" => "browse",
-					"type" => "button",
-					"class" => "btn",
-					"value" => __("Browse") ."..."
-				));
+				echo span(
+					"btn",
+					__("Browse") ."...". formInput(array("class" => "avatar-file", "name"  => "avatar", "type"  => "file")),
+					"filebrowser"
+				);
 
 				echo formInput(array(
 					"name" => "resume",

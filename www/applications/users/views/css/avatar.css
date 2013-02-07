@@ -18,10 +18,6 @@ span.field {
 	display: block;
 }
 
-input.avatar-file {
-	display: none;
-}
-
 p.left {
 	margin: 0;
 	text-align: center;
@@ -69,4 +65,30 @@ div.marker {
 
 #filedrag:hover {
 	border-color: black;
+}
+
+#filebrowser {
+	margin-right: 5px;
+	overflow: hidden;
+	position: relative;
+}
+
+#filebrowser, input[name='resume'] {
+	line-height: 16px;
+	vertical-align: bottom;
+}
+
+#filebrowser input {
+	height: 100%;
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+@-moz-document url-prefix() { 
+	#filebrowser {
+		line-height: 18px;
+	}
 }
