@@ -268,9 +268,11 @@ class Forums_Controller extends ZP_Load {
 			$this->helper("time");
 			$this->css("posts", "blog");
 			$this->js("forums", "forums");
-			$vars["forum"] 	 = segment(1, isLang());
-			$vars["posts"] = $data;
-			$vars["view"]  = $this->view("posts", TRUE);
+
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", TRUE);
+			$vars["forum"]    = segment(1, isLang());
+			$vars["posts"]    = $data;
+			$vars["view"]     = $this->view("posts", TRUE);
 
 			$this->render("content", $vars);
 		} else {

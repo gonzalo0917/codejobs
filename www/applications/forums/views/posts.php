@@ -60,7 +60,7 @@
 					<a name="<?php echo 'id'. $post["ID_Post"]; ?>"></a>
 					<div class="comments">
 						<div class="comments-author">
-							<img src="<?php echo $post["Avatar"] ?>"/>
+							<img src="<?php echo $post["Avatar"] ?>" style="max-width: 70px;" class="dotted"/>
 						</div>
 
 						<div class="comments-content">
@@ -94,7 +94,7 @@
 		?>				
 			<div class="comments-editor">	
 				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
-				<textarea id="ccontent" name="comment" style="height:200px"></textarea> <br />
+				<textarea id="editor" class="ckeditor" name="comment" style="height:200px"></textarea> <br />
 				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum; ?>" />
 				<input id="avatar" type="hidden" value="<?php echo $post["Avatar"]; ?>" />
@@ -107,4 +107,5 @@
 		<?php
 		}				
 	}	
-##}	
+
+	echo $ckeditor;

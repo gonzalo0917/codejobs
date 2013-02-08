@@ -130,7 +130,7 @@
 									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
 								}
 							?>
-							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" />
+							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" style="max-width: 70px;" />
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px; margin-left: 10px;">

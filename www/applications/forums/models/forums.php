@@ -329,7 +329,7 @@ class Forums_Model extends ZP_Load {
 				"Language" => $this->language,
 				"Situation" => "Active"
 			);			
-
+			
 			if($this->Db->insert("forums_posts", $data)) {
 				
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now' WHERE ID_Post = '$pid'");

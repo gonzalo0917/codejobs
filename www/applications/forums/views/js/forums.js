@@ -1,6 +1,6 @@
 $(document).on("ready", function() {
 	$("#cpublish").on("click", function() {
-		var content = $('#ccontent').val();
+		var content = $(".cke_wysiwyg_frame").contents().find('body').html();
 		var fid = $('#fid').val();
 		var fname = $('#fname').val();
 		var avatar = $('#avatar').val();
@@ -27,7 +27,7 @@ $(document).on("ready", function() {
 
 					newComment = newComment + '<div class="comments">';
 					newComment = newComment + '	<div class="comments-author">';
-					newComment = newComment + '	  <img src="' + avatar + '" /> ';
+					newComment = newComment + '	  <img src="' + avatar + '" class="dotted" style="max-width: 70px;" /> ';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
 					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="">Edit</a> | <a href="">Delete</a></p>';
@@ -38,7 +38,7 @@ $(document).on("ready", function() {
 					$("#forum-content").html(oldComments + newComment);
 					$("#comment-alert").show();
 					$("#comment-alert").hide(4000);
-					$("#ccontent").val("");
+					$("#editor").val("");
 				}
 			});
 		}
