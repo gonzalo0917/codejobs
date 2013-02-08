@@ -79,7 +79,7 @@
 							}
 							?>
 							</p>
-							<p class="comment-post"><?php echo BBCode($post["Content"]); ?></p>
+							<p class="comment-post"><?php echo showContent($post["Content"]); ?></p>
 						</div>
 					</div>
 				<?php

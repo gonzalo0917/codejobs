@@ -330,8 +330,9 @@ class Forums_Model extends ZP_Load {
 				"Situation" => "Active"
 			);			
 			
-			if($this->Db->insert("forums_posts", $data)) {
-				
+			$lastID = $this->Db->insert("forums_posts", $data);
+
+			if($lastID) {
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now' WHERE ID_Post = '$pid'");
 
 				$content = $data["Content"];
@@ -339,11 +340,11 @@ class Forums_Model extends ZP_Load {
 				$json =  array(
 					"alert" => getAlert(__("The comment has been saved correctly"), "success"),
 					"date"  => '<a href="'. path("forums/". $fname ."/author/". $data["Author"]) .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]),
-					"content" => stripslashes($content)
+					"content" => stripslashes($content),
+					"id" => $lastID
 				);
 
-				echo json($json);
-
+				echo json_encode($json);
 			} else {			
 				return FALSE;
 			}

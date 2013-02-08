@@ -30,7 +30,7 @@ $(document).on("ready", function() {
 					newComment = newComment + '	  <img src="' + avatar + '" class="dotted" style="max-width: 70px;" /> ';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
-					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="">Edit</a> | <a href="">Delete</a></p>';
+					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="' + response.id + '">Edit</a> | <a href="">Delete</a></p>';
 					newComment = newComment + '   <p class="comment-post">' + response.content + '</p>';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '</div>';	
