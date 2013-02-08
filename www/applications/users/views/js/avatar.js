@@ -1,5 +1,5 @@
-!function($) {
 	var jcrop_api, avatar_file, avatar_coordinate;
+!function($) {
 
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();
@@ -96,9 +96,14 @@
 			cnv2.width = cnv2.height = "90";
 
 			ctx1.drawImage($("img.avatar").get(0), 0, 0, cnv1.width, cnv1.height);
-			ctx2.drawImage(cnv1, coor[0], coor[1], coor[2], coor[3], 0, 0, 90, 90);
+			ctx2.drawImage(cnv1, coor[0], coor[1], coor[2] - coor[0], coor[3] - coor[1], 0, 0, 90, 90);
 
 			$("#resized").val(cnv2.toDataURL($("#type").val()));
+
+			document.appendChild(cnv2);
+			alert("hola");
+			return false;
+
 		}
 	}
 
@@ -155,8 +160,6 @@
 	}
 
 	function resizeFont() {
-		console.log ("Se resizeara la fuente");
-
 		var width = $("#avatar-image").width(), size = 1;
 
 		if (width > 150 && width <= 350) {
@@ -181,14 +184,17 @@
 	}
 
 	function setCoords(coor) {
-		$("#coordinate").val(parseInt(coor.x) + "," + parseInt(coor.y) + "," + parseInt(coor.w) + "," + parseInt(coor.h));
+		$("#coordinate").val(parseInt(coor.x) + "," + parseInt(coor.y) + "," + parseInt(coor.x2) + "," + parseInt(coor.y2));
 	}
 
 	function delCoords(coor) {
 		$("#coordinate").val("");
 	}
 
-	markImage(avatar_coordinate);
+	$(window).load(function() {
+		markImage(avatar_coordinate);
+
+	});
 
 	$(document).on("dragover", function (event) {
 		event.stopPropagation();

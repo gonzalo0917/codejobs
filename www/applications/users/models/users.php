@@ -712,7 +712,7 @@ class Users_Model extends ZP_Load {
 			$data   = $this->Db->find(SESSION("ZanUserID"), $this->table, "Avatar");
 
 			if(is_array($avatar) and $data) {
-				if(current($avatar) !== $data[0]["Avatar"]) {
+				if(strtolower(current($avatar)) !== strtolower($data[0]["Avatar"])) {
 					$this->removeAvatar($data[0]["Avatar"]);
 				}
 
