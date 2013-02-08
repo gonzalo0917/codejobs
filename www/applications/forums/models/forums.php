@@ -199,7 +199,7 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	public function getByForum($slug, $language = "Spanish", $limit = FALSE) {	
-		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.ID_User, muu_forums_posts.Forum_Name, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
+		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.ID_User, muu_forums_posts.Forum_Name, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Last_Author, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
 				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY muu_forums_posts.Last_Reply DESC LIMIT ". $limit;
@@ -302,10 +302,11 @@ class Forums_Model extends ZP_Load {
 		} 
 	}
 
-	public function saveComment($pid, $content, $fname) {
+	public function saveComment($fid, $content, $fname) {
 		$this->helper(array("alerts", "time"));
 
-		$now = now(4);
+		$now    = now(4);
+		$author = SESSION("ZanUser");
 
 		if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http"){
 			$avatar = SESSION("ZanUserAvatar");
@@ -313,16 +314,16 @@ class Forums_Model extends ZP_Load {
 			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
 		}
 
-		if($pid and $content) {
+		if($fid and $content) {
 			$data = array(
 				"ID_User" => SESSION("ZanUserID"),
-				"ID_Parent" => $pid, 
+				"ID_Parent" => $fid, 
 				"Title" => NULL,
 				"Slug" => NULL,
 				"Text_Date" => decode(now(2)),
 				"Tags" => NULL,
 				"Content" => $content,
-				"Author" => SESSION("ZanUser"),
+				"Author" => $author,
 				"Avatar" => $avatar,
 				"Start_Date" => $now, 
 				"Topic" => 0,
@@ -333,7 +334,7 @@ class Forums_Model extends ZP_Load {
 			$lastID = $this->Db->insert("forums_posts", $data);
 
 			if($lastID) {
-				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now' WHERE ID_Post = '$pid'");
+				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author' WHERE ID_Post = '$fid'");
 
 				$content   = $data["Content"];
 				$urlEdit   = path("forums/". $fname ."/editComment/". $lastID);
