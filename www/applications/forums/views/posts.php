@@ -74,7 +74,7 @@
 								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 								$confirm   = " return confirm('Do you want to delete this post?') ";
 								if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
-									echo '| <a href="'. $URLEdit .'">Edit</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">Delete</a>';
+									echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
 								}
 							}
 							?>
