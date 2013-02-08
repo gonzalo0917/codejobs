@@ -14,8 +14,8 @@ if(!defined("_access")) {
 		<br />
 		<br />
 		<form action="#" method="post">
-			<input id="ptitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="<?php echo $title; ?>" /> <br />
-			<input id="ptags" placeholder="Write the tags separated by commas..." class="span8 forums-title" name="tags" type="text" value="<?php echo $tags; ?>" /> <br />
+			<input id="ptitle" placeholder="<?php echo __("Write the title of the new topic..."); ?>" class="span8 forums-title" name="title" type="text" value="<?php echo $title; ?>" /> <br />
+			<input id="ptags" placeholder="<?php echo __("Write the tags separated by commas..."); ?>" class="span8 forums-title" name="tags" type="text" value="<?php echo $tags; ?>" /> <br />
 			<textarea id="pcontent" name="content" placeholder="Write the content here..." class="span8 forums-textarea" rows="20"><?php echo $content ?></textarea> <br />
 			<input id="ppublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Edit"); ?>" />
 			<input id="pcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />

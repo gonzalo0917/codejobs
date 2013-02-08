@@ -12,8 +12,8 @@ if(!defined("_access")) {
 			<span class="forums-create"><?php echo __("Create new topic"); ?></span>
 			<br />
 			<form action="#" method="post">
-				<input id="ftitle" placeholder="Write the title of the new topic..." class="span8 forums-title" name="title" type="text" value="" /> <br />
-				<input id="ftags" placeholder="Write the tags separated by commas..." class="span8 forums-title" name="tags" type="text" value="" /> <br />
+				<input id="ftitle" placeholder="<?php echo __("Write the title of the new topic..."); ?>" class="span8 forums-title" name="title" type="text" value="" /> <br />
+				<input id="ftags" placeholder="<?php echo __("Write the tags separated by commas..."); ?>" class="span8 forums-title" name="tags" type="text" value="" /> <br />
 				<textarea id="editor" placeholder="Write the content here..." class="ckeditor"></textarea> <br />
 				<input id="fpublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Publish"); ?>" />
 				<input id="fcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
@@ -56,7 +56,7 @@ if(!defined("_access")) {
 						$confirm = " return confirm('Do you want to delete this post?') ";
 
 						if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
-							echo '| <a href="'. $URLEdit .'">Edit</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">Delete</a>';
+							echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
 						}
 					}
 					?>
