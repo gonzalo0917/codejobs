@@ -335,13 +335,16 @@ class Forums_Model extends ZP_Load {
 			if($lastID) {
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now' WHERE ID_Post = '$pid'");
 
-				$content = $data["Content"];
+				$content   = $data["Content"];
+				$urlEdit   = path("forums/". $fname ."/editComment/". $lastID);
+				$urlDelete = path("forums/". $fname ."/delete/". $lastID);
 
 				$json =  array(
 					"alert" => getAlert(__("The comment has been saved correctly"), "success"),
 					"date"  => '<a href="'. path("forums/". $fname ."/author/". $data["Author"]) .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]),
 					"content" => stripslashes($content),
-					"id" => $lastID
+					"edit" => $urlEdit,
+					"delete" => $urlDelete
 				);
 
 				echo json_encode($json);

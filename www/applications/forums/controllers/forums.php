@@ -202,7 +202,7 @@ class Forums_Controller extends ZP_Load {
 	}
 
 	public function cancelComment() {
-		$UrlCancel = path("forums/". POST("fname") ."/". POST("pid"));
+		$UrlCancel = path("forums/". POST("fname") ."/". POST("fid"));
 		echo $UrlCancel;
 	}
 

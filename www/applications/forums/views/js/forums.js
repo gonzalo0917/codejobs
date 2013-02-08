@@ -30,7 +30,7 @@ $(document).on("ready", function() {
 					newComment = newComment + '	  <img src="' + avatar + '" class="dotted" style="max-width: 70px;" /> ';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
-					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="' + response.id + '">Edit</a> | <a href="">Delete</a></p>';
+					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="' + response.edit + '">Edit</a> | <a href="' + response.delete +'">Delete</a></p>';
 					newComment = newComment + '   <p class="comment-post">' + response.content + '</p>';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '</div>';	
@@ -108,11 +108,11 @@ $(document).on("ready", function() {
 
 	$("#ccancel").on("click", function() {
 		var fname = $("#fname").val();
-		var pid = $("#pid").val();
+		var fid = $("#fid").val();
 		$.ajax({
 			type: 'POST',
 			url:   PATH + '/forums/cancelComment',
-			data: 'fname=' + fname + '&pid=' + pid,
+			data: 'fname=' + fname + '&fid=' + fid,
 			success: function(response) {	
 				window.location.href = response;
 			}
