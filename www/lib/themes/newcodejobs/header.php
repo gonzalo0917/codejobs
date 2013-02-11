@@ -42,7 +42,7 @@
     		$this->CSS("polls", "polls", FALSE, TRUE);
     	}
         
-		$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
+		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 		
 
 		if(defined("_codemirror")) {
