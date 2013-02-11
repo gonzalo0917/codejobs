@@ -1,5 +1,8 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
-
+<?php
+if(!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
+?>
 <div class="post">
 	<div class="post-title">
 		<?php echo a($hello, _get("webBase")); ?>

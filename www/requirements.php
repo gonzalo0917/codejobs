@@ -11,13 +11,13 @@ session_start();
 
 defined('__DIR__') or define('__DIR__', dirname(__FILE__));
 
-define("_dir", __DIR__);
+define("DIR", __DIR__);
 
 if(!version_compare(PHP_VERSION, "5.1.0", ">=")) {
 	die("ZanPHP needs PHP 5.1.X or higher to run.");
 }
 
-if(file_exists(_dir ."/config/config.php")) { 
+if(file_exists(DIR ."/config/config.php")) { 
 	include "config/config.php";
 } else { 
 	die("Error: config.php doesn't exists");
@@ -37,4 +37,4 @@ if($ZP["environment"] > 2) {
 	error_reporting(E_ALL);
 }
 
-include _corePath ."/classes/load.php"; 
+include CORE_PATH ."/classes/load.php"; 

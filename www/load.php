@@ -1,15 +1,11 @@
 <?php 
-/**
- * Access from index.php:
- */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
 include "requirements.php";
 
 $Load = new ZP_Load(); 
-
 $Load->helper("users", "users");
 $Load->helper(array("i18n", "sessions", "router"));
 
@@ -19,7 +15,6 @@ getOnlineUsers();
 
 if($ZP["benchMark"]) {
 	$Load->helper("benchmark");
-	
 	benchMarkStart();
 }
 

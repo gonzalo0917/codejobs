@@ -1,8 +1,5 @@
 <?php
-/**
- * Access from index.php:
- */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -10,13 +7,10 @@ class Blog_Model extends ZP_Load {
 	
 	public function __construct() {
 		$this->Db = $this->db();
-		
 		$this->language = whichLanguage();
-		$this->table 	= "blog";
-		$this->fields   = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Mural, Image_Thumbnail, Image_Small, Image_Medium, Image_Original, Comments, Enable_Comments, Language, Pwd, Buffer, Code, Situation";
-
+		$this->table = "blog";
+		$this->fields = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, Image_Mural, Image_Thumbnail, Image_Small, Image_Medium, Image_Original, Comments, Enable_Comments, Language, Pwd, Buffer, Code, Situation";
 		$this->Data = $this->core("Data");
-
 		$this->Data->table($this->table);
 	}
 

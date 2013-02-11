@@ -1,4 +1,4 @@
 <?php
-define("_access", TRUE); 
+define("ACCESS", TRUE); 
 
 include "www/load.php"; 

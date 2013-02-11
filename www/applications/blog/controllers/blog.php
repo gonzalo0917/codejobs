@@ -1,8 +1,5 @@
 <?php
-/**
- * Access from index.php:
- */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -11,18 +8,12 @@ class Blog_Controller extends ZP_Load {
 	public function __construct() {		
 		$this->application = $this->app("blog");
 		$this->config($this->application);
-		
-		$this->Templates  = $this->core("Templates");
-		$this->Cache 	  = $this->core("Cache");
-		
+		$this->Templates = $this->core("Templates");
+		$this->Cache = $this->core("Cache");
 		$this->Blog_Model = $this->model("Blog_Model");
-				
 		$this->Templates->theme();
-
 		$this->language = whichLanguage();
-
 		$this->helper("router");
-
 		setURL();
 	}
 	

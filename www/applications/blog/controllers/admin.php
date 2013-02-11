@@ -1,26 +1,16 @@
 <?php
-/**
- * Access from index.php:
- */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
 class Admin_Controller extends ZP_Load {
-
 	public function __construct() {
 		$this->app(whichApplication());
-
 		$this->config($this->application);
-
 		$this->Users_Model = $this->model("Users_Model");
-
 		$this->Templates = $this->core("Templates");
-		
 		$this->Templates->theme();
-		
 		$this->Model = ucfirst($this->application) ."_Model";
-		
 		$this->{$this->Model} = $this->model($this->Model);
 	}
 

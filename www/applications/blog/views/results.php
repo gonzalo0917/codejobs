@@ -1,6 +1,6 @@
-<?php 
-if(!defined("_access")) {
-	die("Error: You don't have permission to access here..."); 
+<?php
+if(!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
 }
 
 $caption = __("Manage Blog");
@@ -8,11 +8,11 @@ $colspan = 8;
 
 echo $search;
 
-$colors[0] = _color1;
-$colors[1] = _color2;
-$colors[2] = _color3;
-$colors[3] = _color4;
-$colors[4] = _color5;		
+$colors[0] = COLOR1;
+$colors[1] = COLOR2;
+$colors[2] = COLOR3;
+$colors[3] = COLOR4;
+$colors[4] = COLOR5;		
 
 $i = 0;
 $j = 2;	

@@ -1,8 +1,9 @@
-<?php 
-	if(!defined("_access")) {
-		die("Error: You don't have permission to access here..."); 
-	}
-	$in  = ($post["Tags"] !== "") ? __("in") : NULL;
+<?php
+if(!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
+
+$in = ($post["Tags"] !== "") ? __("in") : NULL;
 ?>
 <div class="post">
 	<div class="post-title">

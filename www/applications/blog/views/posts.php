@@ -1,7 +1,7 @@
-<?php 
-if(!defined("_access")) { 
-	die("Error: You don't have permission to access here..."); 
-} 
+<?php
+if(!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
 
 if(is_array($posts)) {
 	$i = 1;
@@ -9,14 +9,12 @@ if(is_array($posts)) {
 	
 	foreach($posts as $post) {			
 		if(isset($post["post"])) {
-			$post = array_shift($post);
+			$post = arraySHift($post);
 		}
 			
-		$URL  = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);	
-		
+		$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);	
 		$in = ($post["Tags"] !== "") ? __("in") : NULL;	
-
-		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . _sh . _lock, array("alt" => __("Private"), "class" => "no-border")) : NULL;
+		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . SH . LOCK, array("alt" => __("Private"), "class" => "no-border")) : NULL;
 ?>		
 			
 		<div class="post">
