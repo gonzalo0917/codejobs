@@ -39,12 +39,10 @@ class Blog_Controller extends ZP_Load
 	public function rss() 
 	{
 		$this->helper("time");
-
 		$data = $this->Cache->data("rss-$this->language", "blog", $this->Blog_Model, "getRSS", array(), 86400);
 		
 		if($data) {
-			$vars["posts"]= $data;	
-
+			$vars["posts"]= $data;
 			$this->view("rss", $vars, $this->application);
 		} else {
 			redirect();
@@ -58,7 +56,6 @@ class Blog_Controller extends ZP_Load
 
 		if(POST("save")) {
 			$action = ((int) POST("ID") !== 0) ? "edit" : "save";
-			
 			$vars["alert"] = $this->Blog_Model->add($action);
 		} 
 		
@@ -128,12 +125,10 @@ class Blog_Controller extends ZP_Load
 	public function archive() 
 	{		
 		$this->CSS("archive", TRUE);
-		
 		$date = $this->Blog_Model->getArchive();		
 		
 		if($date) {
 			$vars["date"] = $date;
-			
 			$this->view("archive", $vars, $this->application);
 		}				
 		
@@ -144,12 +139,10 @@ class Blog_Controller extends ZP_Load
 	{
 		$this->CSS("mural", $this->application, TRUE);
 		$this->CSS("slides", NULL, TRUE);
-		
 		$data = $this->Cache->data("mural-$limit-". $this->language, "blog", $this->Blog_Model, "getMural", array($limit));
 
 		if($data) {
-			$vars["mural"] = $data;				
-			
+			$vars["mural"] = $data;
 			$this->view("mural", $vars, $this->application);
 		} else {
 			return FALSE;
@@ -205,7 +198,6 @@ class Blog_Controller extends ZP_Load
 		$this->helper("time");
 		
 		$limit = $this->limit("author");
-
 		$data = $this->Cache->data("$limit-author-$author-". $this->language, "blog", $this->Blog_Model, "getAllByAuthor", array($author, $limit));
 	
 		if($data) {
