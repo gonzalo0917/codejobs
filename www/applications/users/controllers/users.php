@@ -35,7 +35,7 @@ class Users_Controller extends ZP_Load {
 	public function twitterLogin() {
 		$this->helper(array("alerts", "twitter", "forms", "html"));
 
-		$this->Twitter = $this->library("twitter", "EpiTwitter", array(_twConsumerKey, _twConsumerSecret));		
+		$this->Twitter = $this->library("twitter", "EpiTwitter", array(TW_CONSUMER_KEY, TW_CONSUMER_SECRET));		
 		
 		$oauthToken = GET("oauth_token");
 
@@ -196,7 +196,7 @@ class Users_Controller extends ZP_Load {
 				$vars["alert"] = getAlert(__("You must be logged in"), "notice");
 			}
 
-			$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
+			$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 			$this->CSS("user_login", $this->application);
 
 			$vars["view"] = $this->view("user_login", TRUE);
