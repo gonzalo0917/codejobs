@@ -6,8 +6,8 @@ if(!defined("_access")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Users_Controller extends ZP_Load {
-	
+class Users_Controller extends ZP_Load
+{
 	public function __construct() {		
 		$this->Templates   = $this->core("Templates");
 		$this->Users_Model = $this->model("Users_Model");

@@ -5,7 +5,7 @@
 		$('input.avatar-file').click();
 	});
 
-	$('input.avatar-file').change(function() {
+	$('input.avatar-file').change(function () {
 		selectFile(this.files);
 	});
 
@@ -96,13 +96,11 @@
 			cnv2.width = cnv2.height = "90";
 
 			ctx1.drawImage($("img.avatar").get(0), 0, 0, cnv1.width, cnv1.height);
-			ctx2.drawImage(cnv1, coor[0], coor[1], coor[2] - coor[0], coor[3] - coor[1], 0, 0, 90, 90);
+			ctx2.drawImage(cnv1, parseInt(coor[0]), parseInt(coor[1]), parseInt(coor[2]) - parseInt(coor[0]), parseInt(coor[3]) - parseInt(coor[1]), 0, 0, 90, 90);
 
 			$("#resized").val(cnv2.toDataURL($("#type").val()));
 
-			document.appendChild(cnv2);
-			alert("hola");
-			return false;
+			document.body.appendChild(cnv2);
 
 		}
 	}
@@ -116,14 +114,12 @@
 
 	function markImage(coordinate) {
 		if(jcrop_api === undefined) {
-			$("#avatar-image").Jcrop({
+			jcrop_api = $.Jcrop("#avatar-image", {
 				minSize: 	 [90, 90],
 				aspectRatio: 1,
 				onChange:    setCoords,
 		        onSelect:    setCoords,
 		        onRelease:   delCoords
-			}, function() {
-				jcrop_api = this;
 			});
 		}
 
@@ -191,7 +187,7 @@
 		$("#coordinate").val("");
 	}
 
-	$(window).load(function() {
+	$(window).load(function () {
 		markImage(avatar_coordinate);
 
 	});
