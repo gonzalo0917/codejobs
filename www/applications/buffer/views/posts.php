@@ -1,5 +1,5 @@
 <?php 
-if(!defined("_access")) { 
+if(!defined("ACCESS")) { 
 	die("Error: You don't have permission to access here..."); 
 } 
 
@@ -17,7 +17,7 @@ if(is_array($posts)) {
 
 		$in = ($post["Tags"] !== "") ? __("in") : NULL;	
 
-		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . _sh . _lock, array("alt" => __("Private"), "class" => "no-border")) : NULL;
+		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . _sh . LOCK, array("alt" => __("Private"), "class" => "no-border")) : NULL;
 ?>		
 			
 		<div class="post">

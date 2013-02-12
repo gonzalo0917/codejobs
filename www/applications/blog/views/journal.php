@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("_access")) {
+	if(!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -19,21 +19,21 @@
 						echo '<div class="news-wrapper">';	
 					}
 					
-					$URL = _webBase . _sh . _webLang . _sh . _blog . _sh;
+					$URL = WEB_BASE . SH . WEB_LANG . SH . _blog . SH;
 
 					if(isset($post["categories"][0]["Title"])) {
-						$category = '<span class="new-category">'. a($post["categories"][0]["Title"], $URL . _category . _sh . $post["categories"][0]["Slug"]) . '</span> ';
+						$category = '<span class="new-category">'. a($post["categories"][0]["Title"], $URL . _category . SH . $post["categories"][0]["Slug"]) . '</span> ';
 					} else {
 						$category = NULL;
 					}
 
-					$URL = _webBase . _sh . _webLang . _sh . _blog . _sh . $post["post"]["Year"] . _sh . $post["post"]["Month"] . _sh . $post["post"]["Day"] . _sh;
+					$URL = WEB_BASE . SH . WEB_LANG . SH . _blog . SH . $post["post"]["Year"] . SH . $post["post"]["Month"] . SH . $post["post"]["Day"] . SH;
 
 					echo '<div class="new">';
 						echo $category;
 						
 						if($post["post"]["Image_Medium"] !== "") {
-							echo a(img(_webURL . _sh . $post["post"]["Image_Medium"], $post["categories"][0]["Title"], "new-image"), $URL . $post["post"]["Slug"]) ."<br />";
+							echo a(img(WEB_URL . SH . $post["post"]["Image_Medium"], $post["categories"][0]["Title"], "new-image"), $URL . $post["post"]["Slug"]) ."<br />";
 						} else {
 							echo '<br />';
 						}

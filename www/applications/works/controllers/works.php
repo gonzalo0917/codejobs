@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -182,26 +182,26 @@ class Works_Controller extends ZP_Load {
 		$count = $this->Works_Model->count($type);	
 		
 		if(is_null($type)) {
-			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("works/page/");
 		} elseif($type === "tag") {
 			$tag   = segment(2, isLang());
-			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("works/tag/$tag/page/");
 		} elseif($type === "author") {
 			$user  = segment(2, isLang());
-			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("works/author/$user/page/");
 		} elseif($type === "author-tag") {
 			$user  = segment(2, isLang());
 			$tag   = segment(4, isLang());
-			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("works/author/$user/tag/$tag/page/");
 		}
 
-		$limit = $start .", ". _maxLimit;
+		$limit = $start .", ". MAX_LIMIT;
 		
-		$this->pagination = ($count > _maxLimit) ? paginate($count, _maxLimit, $start, $URL) : NULL;
+		$this->pagination = ($count > MAX_LIMIT) ? paginate($count, MAX_LIMIT, $start, $URL) : NULL;
 
 		return $limit;
 	}
@@ -218,18 +218,18 @@ class Works_Controller extends ZP_Load {
 
 		if($this->page == 0) $this->start = 0; else $this->start = ($this->page * $this->end) - $this->end;
 		$this->limit = $this->start.", ".$this->end;
-		$this->URL   = _webBase . _sh . getXMLang(whichLanguage()) . _sh . _gallery . _sh . _page . _sh;					
+		$this->URL   = WEB_BASE . _sh . getXMLang(whichLanguage()) . _sh . _gallery . _sh . _page . _sh;					
 		$this->count = $this->Gallery_Model->getCount();
 		
 						
 		if($this->count > $this->end) {
-			 $this->paginate = $this->Pagination->paginate($this->count, _maxLimitGallery, $this->start, $this->URL);
+			 $this->paginate = $this->Pagination->paginate($this->count, MAX_LIMITGallery, $this->start, $this->URL);
 		}		
 		
 		$data = $this->Gallery_Model->getByAlbum(FALSE, $this->limit);
 	
 		if($data === FALSE) {				
-			redirect(_webBase);	
+			redirect(WEB_BASE);	
 		//Agregar comparación para ver si hay efectos activos, de mientras la quitaré.		
 		} else {										
 			
@@ -249,7 +249,7 @@ class Works_Controller extends ZP_Load {
 		$data = $this->Gallery_Model->getByID(segment(3), TRUE);
 	
 		if(!$data) {
-			redirect(_webBase . _sh . getXMLang(whichLanguage()) . _sh . _gallery);
+			redirect(WEB_BASE . _sh . getXMLang(whichLanguage()) . _sh . _gallery);
 		}
 		
 		if($data["Album"] !== "None") {

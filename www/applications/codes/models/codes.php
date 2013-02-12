@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -252,7 +252,7 @@ class Codes_Model extends ZP_Load {
 	}
         
     public function getRSS() {	
-        return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", _maxLimit);
+        return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Code DESC", MAX_LIMIT);
 	}
 
 	public function getBufferCodes($language = "all") {
@@ -415,7 +415,7 @@ class Codes_Model extends ZP_Load {
 		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
 	}
 
-	public function records($action, $start = 0, $end = _maxLimit, $order = NULL, $search = FALSE) {
+	public function records($action, $start = 0, $end = MAX_LIMIT, $order = NULL, $search = FALSE) {
 		if(is_null($order)) {
 			$order = "ID_Code DESC";
 		}

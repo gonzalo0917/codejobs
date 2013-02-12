@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -18,15 +18,15 @@ function getAction($type, $files = FALSE, $dir = FALSE, $name = FALSE) {
 	
 	if($type === "make") {	
 		if(is_dir($dir)) {
-			if(!file_exists($dir . $data($name) . _sh)) {
-				mkdir($dir . $data($name) . _sh); 				
+			if(!file_exists($dir . $data($name) . SH)) {
+				mkdir($dir . $data($name) . SH); 				
 			}
 		} 
 		
 		return TRUE;			
 	} elseif($type === "iDelete") {						
 		for($i = 0; $i <= count($files) - 1; $i++) {
-			$file = str_replace(_webURL . _sh, "", $files[$i]);
+			$file = str_replace(WEB_URL . SH, "", $files[$i]);
 			
 			if(file_exists($file)) {
 				@unlink($file);
@@ -34,7 +34,7 @@ function getAction($type, $files = FALSE, $dir = FALSE, $name = FALSE) {
 		}								
 	} elseif($type === "dDelete") {	
 		for($i = 0; $i <= count($files) - 1; $i++) {
-			$file       = str_replace(_webURL . _sh, "", $files[$i]);
+			$file       = str_replace(WEB_URL . SH, "", $files[$i]);
 			$icon = $Files->getType(str_replace("lib/files/documents/uploaded/", "", $file), TRUE, TRUE, TRUE);
 			
 			if(file_exists($file)) {
@@ -78,7 +78,7 @@ function getLibrary($type) {
 	}
 			
 	if(segment(4) === "edit") {
-		$action = segment(3) . _sh . segment(4) . _sh . segment(5);	
+		$action = segment(3) . SH . segment(4) . SH . segment(5);	
 	} elseif(segment(3) === "add") {
 		$action = segment(3);	
 	}						
@@ -90,7 +90,7 @@ function getLibrary($type) {
 	$alert .= 'return confirm(\''. __("Do you want to delete the file?") .'\');"'; 		
 	
 	$event 		  = "onclick=\"document.getElementById('". ucfirst(whichApplication()) ."').target=''; ";
-	$event 		 .= "document.getElementById('". ucfirst(whichApplication()) ."').action='". $URL . _sh . $action . _sh ."#". $px . "Library';\""; 
+	$event 		 .= "document.getElementById('". ucfirst(whichApplication()) ."').action='". $URL . SH . $action . SH ."#". $px . "Library';\""; 
 	$eventUpload  = "onclick=\"document.getElementById('". ucfirst(whichApplication()) ."').target='". $px ."Upload';";
 	$eventUpload .= "document.getElementById('". ucfirst(whichApplication()) ."').action='". path("/cpanel/upload/library/". strtolower($type) ."/#". $px ."Library") ."';";
 	$eventUpload .= "javascript:submit();\"";
@@ -176,7 +176,7 @@ function getLibrary($type) {
 	$HTML .= '<input name="'. $px .'Application" type="hidden" value="'. $application .'" />';
 	$HTML .= '<input name="'. $px .'Path" type="hidden" value="'. $path .'" />';
 	
-	$part = _webURL . _sh . $part;
+	$part = WEB_URL . SH . $part;
 	
 	if(SESSION("ZanUserPrivilegeID") < 3) {
 		$HTML .= '<input name="'. $px .'Dirname" type="text" class="input" />';
@@ -263,7 +263,7 @@ function uploading($dir = FALSE) {
 		} else {
 			$Images = $core("images");
 			
-			$original = $Images->getResize("Original", $dir, $upload, _minOriginal, _maxOriginal, FALSE, FALSE);
+			$original = $Images->getResize("Original", $dir, $upload, MIN_ORIGINAL, MAX_ORIGINAL, FALSE, FALSE);
 			$original = str_replace($dir, "", $original);
 			
 			print "<script>window.parent.uploadResponse('6', '". $original ."');</script>";			
@@ -305,7 +305,7 @@ function getFiles($type) {
 	if(is_array($files)) {
 		for($i = 0; $i <= count($files) - 1; $i++) {										
 			if($type == "images") {
-				$HTML = '\'<img src=\\\''. _webURL . _sh . $path . $files[$i] .'\\\' alt=\\\''. $files[$i] .'\\\' />\'';
+				$HTML = '\'<img src=\\\''. WEB_URL . SH . $path . $files[$i] .'\\\' alt=\\\''. $files[$i] .'\\\' />\'';
 				
 				if($i < 9) {
 					$num = "0" . ($i + 1); 
@@ -316,7 +316,7 @@ function getFiles($type) {
 				$HTML .= '	<li>
 								<input name="'. $px .'Library[]" value="'. $path . $files[$i] .'" /> <span class="small">'. $num .'</span>
 								
-								<a href="'. _webURL . _sh . $path . $files[$i] .'" title="'. __("Preview image") .'">
+								<a href="'. WEB_URL . SH . $path . $files[$i] .'" title="'. __("Preview image") .'">
 									'. span("tiny-image tiny-search", "&nbsp;&nbsp;&nbsp;&nbsp;") .'
 								</a>
 								
@@ -326,7 +326,7 @@ function getFiles($type) {
 							</li>';
 			} elseif($type == "documents") {												
 				$icon = $Files->getType($files[$i], TRUE, TRUE, TRUE);
-				$HTML  = '\'<a href=\\\''. _webURL . _sh . $path . $files[$i] .'\\\' title=\\\''. $files[$i] .'\\\'>';
+				$HTML  = '\'<a href=\\\''. WEB_URL . SH . $path . $files[$i] .'\\\' title=\\\''. $files[$i] .'\\\'>';
 				$HTML .= '<img src=\\\''. $icon[0] .'\\\' alt=\\\''. $files[$i] .'\\\' /></a>\'';
 				
 				if($i < 9) {
@@ -338,7 +338,7 @@ function getFiles($type) {
 				$HTML .= '	<li>
 								<input name="'. $px .'Library[]" value="'. $path . $files[$i] .'" type="checkbox" /> <span class="small">'. $num .'</span>
 
-								<a href="'. _webURL . _sh . $path . $files[$i] .'" title="'. __("Download file") .'">
+								<a href="'. WEB_URL . SH . $path . $files[$i] .'" title="'. __("Download file") .'">
 									'. span("tiny-image tiny-file", "&nbsp;&nbsp;&nbsp;&nbsp;") .'
 								</a>
 								
@@ -365,8 +365,8 @@ function getDirs($dirPath, $i = 1) {
 	if(is_dir($dirPath)) {			
 		if($dh = opendir($dirPath)) {				
 			while(($file = readdir($dh)) !== FALSE) {					
-				if(is_dir($dirPath . $file . _sh) and $file !== "." and $file !== "..") {
-					$dir = $dirPath . $file . _sh;
+				if(is_dir($dirPath . $file . SH) and $file !== "." and $file !== "..") {
+					$dir = $dirPath . $file . SH;
 					
 					$options[$i] .= '<option value="'. $dir .'">'. str_replace($path, "/", $dirPath . $file) .'</option>';					
 					$i++;
@@ -392,7 +392,7 @@ function getPath($path, $element = NULL, $type = FALSE) {
 	}
 	
 	while($element = $dir->read()) {			
-		$directory = $path . $element . _sh;						
+		$directory = $path . $element . SH;						
 
 		if($element !== "." and $element !== ".." and !is_dir($directory)) {
 			if($element !== "cpanel" and $element !== "config") {

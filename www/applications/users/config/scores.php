@@ -1,12 +1,12 @@
 <?php
 
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_blogCredits", 3);
-define("_blogRecommendations", 5);
-define("_codesCredits", 2);
-define("_codesRecommendations", 3);
-define("_bookmarksCredits", 1);
-define("_bookmarksRecommendations", 1);
+define("BLOG_CREDITS", 3);
+define("BLOG_RECOMMENDATIONS", 5);
+define("CODES_CREDITS", 2);
+define("CODES_RECOMMENDATIONS", 3);
+define("BOOKMARKS_CREDITS", 1);
+define("BOOKMARKS_RECOMMENDATIONS", 1);

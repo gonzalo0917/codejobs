@@ -1,5 +1,5 @@
 <?php 
-if(!defined("_access")) die("Error: You don't have permission to access here..."); 
+if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
 		
 if(isset($message)) {
 	echo '<div class="error-box">';

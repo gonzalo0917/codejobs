@@ -2,9 +2,9 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_maxLimit", 10);
-define("_codemirror", TRUE);
+define("MAX_LIMIT", 10);
+define("CODE_MIRROR", TRUE);

@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -29,15 +29,15 @@ class Library extends ZP_Load {
 	public function getAction($type, $files = FALSE, $dir = FALSE, $name = FALSE) {	
 		if($type === "make") {	
 			if(is_dir($dir)) {
-				if(!file_exists($dir . slug($name) . _sh)) {
-					mkdir($dir . slug($name) . _sh); 				
+				if(!file_exists($dir . slug($name) . SH)) {
+					mkdir($dir . slug($name) . SH); 				
 				}
 			} 
 			
 			return TRUE;			
 		} elseif($type === "iDelete") {		
 			for($i = 0; $i <= count($files) - 1; $i++) {
-				$file = str_replace(_webURL . _sh, "", $files[$i]);
+				$file = str_replace(WEB_URL . SH, "", $files[$i]);
 				
 				if(file_exists($file)) {
 					@unlink($file);
@@ -45,7 +45,7 @@ class Library extends ZP_Load {
 			}								
 		} elseif($type === "dDelete") {	
 			for($i = 0; $i <= count($files) - 1; $i++) {
-				$file       = str_replace(_webURL . _sh, "", $files[$i]);
+				$file       = str_replace(WEB_URL . SH, "", $files[$i]);
 				$this->icon = $this->Files->getType(str_replace("lib/files/documents/uploaded/", "", $file), TRUE, TRUE, TRUE);
 				
 				if(file_exists($file)) {
@@ -79,8 +79,8 @@ class Library extends ZP_Load {
 			$text = __("Documents library");
 		}
 				
-		$action = segment(0, isLang()) . _sh . segment(1, isLang()) . _sh . segment(2, isLang());
-		$href   = segment(0, isLang()) . _sh . segment(1, isLang());
+		$action = segment(0, isLang()) . SH . segment(1, isLang()) . SH . segment(2, isLang());
+		$href   = segment(0, isLang()) . SH . segment(1, isLang());
 		
 		$URL = path();
 		
@@ -89,7 +89,7 @@ class Library extends ZP_Load {
 		$alert .= "return confirm('". __("Do you want to delete the file?") ."');\""; 		
 		
 		$event  = "onclick=\"document.getElementById('form-add').target=''; ";
-		$event .= "document.getElementById('form-add').action='". $URL . $action . _sh ."#". $this->px ."Library';\""; 
+		$event .= "document.getElementById('form-add').action='". $URL . $action . SH ."#". $this->px ."Library';\""; 
 		
 		$path   = path($href ."/upload/". strtolower($this->type) ."/#". $this->px ."Library");
 		$target = "document.getElementById('form-add').target='". $this->px ."Upload'; ";
@@ -299,7 +299,7 @@ class Library extends ZP_Load {
 			$part = NULL;
 			
 			for($i = 0; $i <= count($parts) - 1; $i++) {
-				$part .= slug($parts[$i]) . _sh;	
+				$part .= slug($parts[$i]) . SH;	
 			}		
 					
 			$part = str_replace("//", "/", $part);
@@ -362,7 +362,7 @@ class Library extends ZP_Load {
 				if($this->Files->fileType !== "image/gif") {
 					$this->Images = $this->core("Images");
 				
-					$original = $this->Images->getResize("original", $dir, $upload["filename"], _minOriginal, _maxOriginal);
+					$original = $this->Images->getResize("original", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
 					$original = str_replace($dir, "", $original);			
 					
 					@unlink($dir . $upload["filename"]);
@@ -411,7 +411,7 @@ class Library extends ZP_Load {
 		if(is_array($files)) {
 			for($i = 0; $i <= count($files) - 1; $i++) {										
 				if($type === "images") {
-					$img = '\'<img src=\\\''. _webURL . _sh . $path . $files[$i] .'\\\' alt=\\\''. $files[$i] .'\\\' />\'';
+					$img = '\'<img src=\\\''. WEB_URL . SH . $path . $files[$i] .'\\\' alt=\\\''. $files[$i] .'\\\' />\'';
 					
 					if($i < 9) {
 						$num = "0" . ($i + 1); 
@@ -433,12 +433,12 @@ class Library extends ZP_Load {
 					);
 					
 					$HTML .= li(formCheckbox($attributes) ." ". small($num) .
-								a(span("tiny-image tiny-search", "&nbsp;&nbsp;&nbsp;&nbsp;"), _webURL . _sh . $path . $files[$i], FALSE, array("title" => __("Preview image"))) .														
+								a(span("tiny-image tiny-search", "&nbsp;&nbsp;&nbsp;&nbsp;"), WEB_URL . SH . $path . $files[$i], FALSE, array("title" => __("Preview image"))) .														
 								a(span("tiny-image tiny-add", "&nbsp;&nbsp;&nbsp;&nbsp;") . $files[$i], FALSE, FALSE, $attrs));								
 				} elseif($type == "documents") {												
 					$file = $this->Files->getFileInformation($files[$i]);
 					
-					$img = '\'<a href=\\\''. _webURL . _sh . $path . $files[$i] .'\\\' title=\\\''.$files[$i].'\\\'><img src=\\\''. $file["icon"][0] .'\\\' alt=\\\''. $files[$i] .'\\\' /></a>\'';
+					$img = '\'<a href=\\\''. WEB_URL . SH . $path . $files[$i] .'\\\' title=\\\''.$files[$i].'\\\'><img src=\\\''. $file["icon"][0] .'\\\' alt=\\\''. $files[$i] .'\\\' /></a>\'';
 					
 					if($i < 9) {
 						$num = "0" . ($i + 1); 
@@ -462,7 +462,7 @@ class Library extends ZP_Load {
 					$span  = span("tiny-image tiny-file", "&nbsp;&nbsp;&nbsp;&nbsp;");
 
 					$HTML .= li(formCheckbox($attributes) ." ". small($num) .
-								a($span, _webURL . _sh . $path . $files[$i], FALSE, array("title" => __("Download file"))).
+								a($span, WEB_URL . SH . $path . $files[$i], FALSE, array("title" => __("Download file"))).
 								a(span("tiny-image tiny-add", "&nbsp;&nbsp;&nbsp;&nbsp;") . $files[$i], FALSE, FALSE, $attrs));							
 				}
 			}	
@@ -484,8 +484,8 @@ class Library extends ZP_Load {
    		if(is_dir($dirPath)) {			
       		if($dh = opendir($dirPath)) {				
          		while(($file = readdir($dh)) !== FALSE) {					
-            		if(is_dir($dirPath . $file . _sh) and $file !== "." and $file !== "..") {
-						$dir = $dirPath . $file . _sh;
+            		if(is_dir($dirPath . $file . SH) and $file !== "." and $file !== "..") {
+						$dir = $dirPath . $file . SH;
 						
 						$this->options[$i]["value"]  = $dir;
 						$this->options[$i]["option"] = str_replace($this->path, "/", $dirPath . $file);
@@ -514,7 +514,7 @@ class Library extends ZP_Load {
 		}
 		
 		while($element = $dir->read()) {			
-			$directory = $path . $element . _sh;						
+			$directory = $path . $element . SH;						
 			
 			if($element !== "." and $element !== ".." and !is_dir($directory)) { 
 				if($element !== "cpanel" and $element !== "config") {

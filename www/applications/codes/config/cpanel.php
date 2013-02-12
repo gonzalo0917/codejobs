@@ -2,9 +2,9 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_angularjs", TRUE);
-define("_codemirror", TRUE);
+define("ANGULAR_JS", TRUE);
+define("CODE_MIRROR", TRUE);

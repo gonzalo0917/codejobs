@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -270,26 +270,26 @@ class Jobs_Controller extends ZP_Load {
 		$count = $this->Jobs_Model->count($type);	
 		
 		if(is_null($type)) {
-			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("jobs/page/");
 		} elseif($type === "tag") {
 			$tag   = segment(2, isLang());
-			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("jobs/tag/$tag/page/");
 		} elseif($type === "author") {
 			$user  = segment(2, isLang());
-			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("jobs/author/$user/page/");
 		} elseif($type === "author-tag") {
 			$user  = segment(2, isLang());
 			$tag   = segment(4, isLang());
-			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("jobs/author/$user/tag/$tag/page/");
 		}
 
-		$limit = $start .", ". _maxLimit;
+		$limit = $start .", ". MAX_LIMIT;
 		
-		$this->pagination = ($count > _maxLimit) ? paginate($count, _maxLimit, $start, $URL) : NULL;
+		$this->pagination = ($count > MAX_LIMIT) ? paginate($count, MAX_LIMIT, $start, $URL) : NULL;
 
 		return $limit;
 	}

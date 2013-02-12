@@ -2,8 +2,8 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_maxLimit", 10);
+define("MAX_LIMIT", 10);

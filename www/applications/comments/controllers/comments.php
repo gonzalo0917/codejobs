@@ -2,7 +2,7 @@ C<?php
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -19,7 +19,7 @@ class Comments_Controller extends ZP_Load {
 		
 		$this->application = "comments";	
 		
-		$this->Templates->theme(_webTheme);
+		$this->Templates->theme(WEB_THEME);
 	}
 	
 	public function index() {

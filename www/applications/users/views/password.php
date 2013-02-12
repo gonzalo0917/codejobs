@@ -1,5 +1,5 @@
 <?php
-	if(!defined("_access")) die("Error: You don't have permission to access here...");
+	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");

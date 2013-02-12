@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -23,7 +23,7 @@ class Bookmarks_Model extends ZP_Load {
 	}
 
 	public function getRSS() {	
-		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", _maxLimit);
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Bookmark DESC", MAX_LIMIT);
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "ID_Bookmark DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
@@ -278,7 +278,7 @@ class Bookmarks_Model extends ZP_Load {
 		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
 	}
 
-	public function records($action, $start = 0, $end = _maxLimit, $order = NULL, $search = FALSE) {
+	public function records($action, $start = 0, $end = MAX_LIMIT, $order = NULL, $search = FALSE) {
 		if(is_null($order)) {
 			$order = "ID_Bookmark DESC";
 		}

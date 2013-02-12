@@ -2,17 +2,17 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_color1", "#EEEEEE");
-define("_color2", "#DDDDDD");
-define("_color3", "#FFCCCC");
-define("_color4", "#FFAAAA");
-define("_color5", "#BBBBBB");
-define("_maxLimit", 50);
+define("COLOR1", "#EEEEEE");
+define("COLOR2", "#DDDDDD");
+define("COLOR3", "#FFCCCC");
+define("COLOR4", "#FFAAAA");
+define("COLOR5", "#BBBBBB");
+define("MAX_LIMIT", 50);
 
-define("_muralSize", "960x300px");
-define("_muralWidth", 940);
-define("_muralHeight", 320);
+define("MURAL_SIZE", "960x300px");
+define("MURAL_WIDTH", 940);
+define("MURAL_HEIGHT", 320);
