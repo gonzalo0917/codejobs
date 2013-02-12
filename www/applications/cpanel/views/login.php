@@ -1,4 +1,4 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
+<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 
 <form class="login" action="<?php echo path("cpanel/login"); ?>" method="post">
 	<fieldset>

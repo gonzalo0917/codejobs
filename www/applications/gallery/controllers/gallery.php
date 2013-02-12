@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -21,7 +21,7 @@ class Gallery_Controller extends ZP_Load {
 		
 		$this->application   = $this->app("gallery");
 		
-		$this->Templates->theme(_webTheme);
+		$this->Templates->theme(WEB_THEME);
 		
 		$this->CSS("style", $this->application);
 	}
@@ -60,7 +60,7 @@ class Gallery_Controller extends ZP_Load {
 			$page = 0;
 		}
 										
-		$end = _maxLimit;	
+		$end = MAX_LIMIT;	
 		
 		if($page === 0) {
 			$start = 0; 
@@ -83,11 +83,11 @@ class Gallery_Controller extends ZP_Load {
 		}
 		
 		if($count > $end) {
-			 $pagination = paginate($count, _maxLimit, $start, $URL);
+			 $pagination = paginate($count, MAX_LIMIT, $start, $URL);
 		}
 	
 		if(!$data) {				
-			redirect(_webBase);	
+			redirect(WEB_BASE);	
 			//Agregar comparación para ver si hay efectos activos, de mientras la quitaré.		
 		} else {													
 			if(isset($pagination)) {

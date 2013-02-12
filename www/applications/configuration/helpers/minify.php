@@ -1,5 +1,5 @@
 <?php
-	if(!defined("_access")) {
+	if(!defined("ACCESS")) {
 		die("Error: You don't have permission to access here...");
 	}
 
@@ -15,7 +15,7 @@
 		}
 
 		if($js) {
-			$path = _cacheDir .'/js';
+			$path = CACHE_DIR .'/js';
 
 			if($handle = opendir($path)) {
 			    while(FALSE !== ($entry = readdir($handle))) {
@@ -29,7 +29,7 @@
 		}
 
 		if($css) {
-			$path = _cacheDir .'/css';
+			$path = CACHE_DIR .'/css';
 
 			if($handle = opendir($path)) {
 			    while(FALSE !== ($entry = readdir($handle))) {

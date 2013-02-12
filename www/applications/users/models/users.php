@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -592,24 +592,24 @@ class Users_Model extends ZP_Load {
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + $factor);
 				
 				$additional 	= ", Bookmarks = (Bookmarks) $sign";
-				$credits 		= $prefix . (_bookmarksCredits * $factor);
-				$recommendation = $prefix . (_bookmarksRecommendations * $factor);
+				$credits 		= $prefix . (BOOKMARKS_CREDITS * $factor);
+				$recommendation = $prefix . (BOOKMARKS_RECOMMENDATIONS * $factor);
 			break;
 			
 			case 17: case "codes":
 				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + $factor);
 
 				$additional 	= ", Codes = (Codes) $sign";
-				$credits 		= $prefix . (_codesCredits * $factor);
-				$recommendation = $prefix . (_codesRecommendations * $factor);
+				$credits 		= $prefix . (CODES_CREDITS * $factor);
+				$recommendation = $prefix . (CODES_RECOMMENDATIONS * $factor);
 			break;
 			
 			case 3: case "blog":
 				SESSION("ZanUserPosts", SESSION("ZanUserPosts") + $factor);
 
 				$additional 	= ", Posts = (Posts) $sign";
-				$credits 		= $prefix . (_blogCredits * $factor);
-				$recommendation = $prefix . (_blogRecommendations * $factor);
+				$credits 		= $prefix . (BLOG_CREDITS * $factor);
+				$recommendation = $prefix . (BLOG_RECOMMENDATIONS * $factor);
 			break;
 			
 			default:
@@ -771,9 +771,9 @@ class Users_Model extends ZP_Load {
 		$this->$Model = $this->model($Model);
 
 		if(!$search) {
-			$data = $this->$Model->records(!$only ? "all" : "records", $start, _maxLimit, $order);
+			$data = $this->$Model->records(!$only ? "all" : "records", $start, MAX_LIMIT, $order);
 		} else {
-			$data = $this->$Model->records($search, $start, _maxLimit, $order);
+			$data = $this->$Model->records($search, $start, MAX_LIMIT, $order);
 		}
 
 		return $data;

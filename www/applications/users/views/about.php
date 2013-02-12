@@ -1,5 +1,5 @@
 <?php
-	if(!defined("_access")) die("Error: You don't have permission to access here...");
+	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	$name        = recoverPOST("name", encode($data[0]["Name"]));
 	$gender      = recoverPOST("gender", $data[0]["Gender"]);

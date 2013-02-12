@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -57,7 +57,7 @@ class Gallery_Model extends ZP_Load {
 				$this->category = POST("category");
 				$categorynice   = nice($this->category);
 				
-				$data           = $this->Db->call("setCategory('$this->category', '$categorynice', '". getXMLang(_webLang, TRUE) . "', 'Active')");
+				$data           = $this->Db->call("setCategory('$this->category', '$categorynice', '". getXMLang(WEB_LANG, TRUE) . "', 'Active')");
 				$this->category = $data[0]["ID_Category"];
 			} else {
 				$this->category = POST("ID_Category");
@@ -91,9 +91,9 @@ class Gallery_Model extends ZP_Load {
 				if($upload["upload"]) {
 					$this->Images   = $this->core("Images");
 					
-					$this->original = $this->Images->getResize("original", $dir, $upload["filename"], _minOriginal, _maxOriginal);
-					$this->medium   = $this->Images->getResize("medium", $dir, $upload["filename"], _minOriginal, _maxOriginal);
-					$this->small    = $this->Images->getResize("small", $dir, $upload["filename"], _minOriginal, _maxOriginal);
+					$this->original = $this->Images->getResize("original", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
+					$this->medium   = $this->Images->getResize("medium", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
+					$this->small    = $this->Images->getResize("small", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
 				} else {
 					return getAlert(__($upload["message"]));
 				}
@@ -151,9 +151,9 @@ class Gallery_Model extends ZP_Load {
 					if($upload["upload"]) {
 						$this->Images   = $this->core("Images");
 						
-						$this->original = $this->Images->getResize("original", $dir, $upload["filename"], _minOriginal, _maxOriginal);
-						$this->medium   = $this->Images->getResize("medium", $dir, $upload["filename"], _minOriginal, _maxOriginal);
-						$this->small    = $this->Images->getResize("small", $dir, $upload["filename"], _minOriginal, _maxOriginal);
+						$this->original = $this->Images->getResize("original", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
+						$this->medium   = $this->Images->getResize("medium", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
+						$this->small    = $this->Images->getResize("small", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
 					} else {
 						return getAlert(__($upload["message"]));
 					}	
@@ -209,7 +209,7 @@ class Gallery_Model extends ZP_Load {
 				$data["Album"] 		 = $record[0]["Album"];
 				$data["Album_Nice"]  = $record[0]["Album_Nice"];
 				$data["Description"] = $record[0]["Description"];
-				$data["Original"]    = _webURL . _sh . $record[0]["Original"];
+				$data["Original"]    = WEB_URL . SH . $record[0]["Original"];
 
 				$data["prev"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/prev/#image");
 				$data["next"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/next/#image");
@@ -297,7 +297,7 @@ class Gallery_Model extends ZP_Load {
 			$data["Album"] 		 = $record[0]["Album"];
 			$data["Album_Nice"]  = $record[0]["Album_Nice"];
 			$data["Description"] = $record[0]["Description"];
-			$data["Original"] 	 = _webURL . _sh . $record[0]["Original"];
+			$data["Original"] 	 = WEB_URL . SH . $record[0]["Original"];
 			$data["prev"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/prev/#image");
 			$data["next"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/next/#image");
 			$data["home"] 		 = path("gallery");
@@ -319,7 +319,7 @@ class Gallery_Model extends ZP_Load {
 			$data["Album"] 		 = $record[0]["Album"];
 			$data["Album_Nice"]  = $record[0]["Album_Nice"];
 			$data["Description"] = $record[0]["Description"];
-			$data["Original"] 	 = _webURL . _sh . $record[0]["Original"];
+			$data["Original"] 	 = WEB_URL . _sh . $record[0]["Original"];
 
 			$data["prev"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/prev/#image");
 			$data["next"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/next/#image");
@@ -342,7 +342,7 @@ class Gallery_Model extends ZP_Load {
 			$data["Album"] 		 = $record[0]["Album"];
 			$data["Album_Nice"]  = $record[0]["Album_Nice"];
 			$data["Description"] = $record[0]["Description"];
-			$data["Original"] 	 = _webURL . _sh . $record[0]["Original"];
+			$data["Original"] 	 = WEB_URL . SH . $record[0]["Original"];
 
 			$data["prev"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/prev/#image");
 			$data["next"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/next/#image");
@@ -365,7 +365,7 @@ class Gallery_Model extends ZP_Load {
 			$data["Album"] 		 = $record[0]["Album"];
 			$data["Album_Nice"]  = $record[0]["Album_Nice"];
 			$data["Description"] = $record[0]["Description"];
-			$data["Original"] 	 = _webURL . _sh . $record[0]["Original"];
+			$data["Original"] 	 = WEB_URL . SH . $record[0]["Original"];
 
 			$data["prev"] 		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/prev/#image");
 			$data["next"]  		 = path("gallery/image/". $data["ID"] ."/". $data["Album_Nice"] ."/next/#image");

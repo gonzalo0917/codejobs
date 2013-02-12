@@ -2,9 +2,9 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_webGalleryComments", FALSE);
-define("_maxLimit", 15);
+define("WEB_GALLERY_COMMENTS", FALSE);
+define("MAX_LIMIT", 15);

@@ -2,9 +2,9 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_userYouTube", "codejobs");
-define("_maxLimitVideos", 15);
+define("USER_YOUTUBE", "codejobs");
+define("MAX_LIMIT_VIDEOS", 15);

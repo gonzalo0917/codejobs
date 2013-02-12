@@ -1,4 +1,4 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
+<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 		
 <?php
 	if(isset($data)) {
@@ -12,7 +12,7 @@
 		$state 	  = recoverPOST("state",    $data[0]["State"]);
 		$edit     = TRUE;
 		$action	  = "edit";
-		$href	  = _webBase . _sh . _webLang . _sh . _cpanel . _sh . segment(2) . _sh . _action . _sh . $action . _sh . $ID . _sh;
+		$href	  = WEB_BASE . SH . WEB_LANG . SH . _cpanel . SH . segment(2) . SH . _action . SH . $action . SH . $ID . SH;
 	} else {
 		
 		$ID       = 0;
@@ -25,7 +25,7 @@
 		$state 	  = recoverPOST("state");
 		$edit     = FALSE;
 		$action	  = "save";
-		$href	  = _webBase . _sh . _webLang . _sh . _cpanel . _sh . segment(2) . _sh . _action . _sh . $action . _sh;
+		$href	  = WEB_BASE . SH . WEB_LANG . SH . _cpanel . SH . segment(2) . SH . _action . SH . $action . SH;
 	}
 ?>
 

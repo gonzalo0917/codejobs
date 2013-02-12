@@ -15,7 +15,7 @@ class Blog_Model extends ZP_Load {
 	}
 
 	public function getRSS() {	
-		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", _maxLimit);
+		return $this->Db->findBySQL("Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Post DESC", MAX_LIMIT);
 	}
 	
 	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {
@@ -434,7 +434,7 @@ class Blog_Model extends ZP_Load {
 		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", NULL, $order);
 	}
 
-	public function records($action, $start = 0, $end = _maxLimit, $order = NULL, $search = FALSE) {
+	public function records($action, $start = 0, $end = MAX_LIMIT, $order = NULL, $search = FALSE) {
 		if(is_null($order)) {
 			$order = "ID_Post DESC";
 		}

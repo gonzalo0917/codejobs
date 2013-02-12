@@ -20,7 +20,7 @@ class Admin_Controller extends ZP_Load {
 		$this->helper("time");
 
 		$this->CSS("admin", "users");
-		$this->CSS(_corePath ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
+		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
 
 		$this->js("jquery.appear.js");
 		$this->js("admin", "users");

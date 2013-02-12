@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -97,7 +97,7 @@ class CPanel_Model extends ZP_Load {
 			$fields = "ID_Bookmark, Title, Slug, Language";
 		}
 
-		$data = $this->Db->findAll($application, $fields, NULL, "DESC", _maxLimit);
+		$data = $this->Db->findAll($application, $fields, NULL, "DESC", MAX_LIMIT);
 
 		if($data) {
 			$i = 1;	
@@ -140,12 +140,12 @@ class CPanel_Model extends ZP_Load {
 		$start = 0;
 		
 		if($trash) {	
-			$start = (segment(4, isLang()) === "page" and segment(5, isLang()) > 0) ? (segment(5, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(4, isLang()) === "page" and segment(5, isLang()) > 0) ? (segment(5, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 		} else {
-			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;	
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;	
 		}	
 
-		$limit = $start .", ". _maxLimit;			
+		$limit = $start .", ". MAX_LIMIT;			
 		
 		if(POST("seek")) {
 			if(POST("field") === "ID") {
@@ -185,7 +185,7 @@ class CPanel_Model extends ZP_Load {
 
 		$this->helper("pagination");
 					
-		$pagination = ($count > _maxLimit) ? paginate($count, _maxLimit, $start, $URL) : NULL;				
+		$pagination = ($count > MAX_LIMIT) ? paginate($count, MAX_LIMIT, $start, $URL) : NULL;				
 		
 		return $pagination;		
 	}
@@ -209,12 +209,12 @@ class CPanel_Model extends ZP_Load {
 				$start = 0;
 				
 				if($trash) {		
-					$start = (segment(4, isLang()) === "page" and segment(5, isLang()) > 0) ? (segment(5, isLang()) * _maxLimit) - _maxLimit : 0;
+					$start = (segment(4, isLang()) === "page" and segment(5, isLang()) > 0) ? (segment(5, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 				} else {	 
-					$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * _maxLimit) - _maxLimit : 0;
+					$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 				}			
 
-				$limit = $start .", ". _maxLimit;
+				$limit = $start .", ". MAX_LIMIT;
 				
 				if(segment(3, isLang()) === "order") {
 					$i = (segment(4)) ? 3 : 4; 

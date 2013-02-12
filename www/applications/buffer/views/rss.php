@@ -1,4 +1,4 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); 		
+<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 		
 	
 header("Content-Type: application/rss+xml"); 
 echo "<?xml version='1.0' encoding='utf-8'?>";
@@ -23,7 +23,7 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 	if(is_array($posts)) {		
 	foreach($posts as $post) {
 
-		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . _sh . _lock, array("alt" => __("Private"), "class" => "no-border")) : NULL;
+		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . _sh . LOCK, array("alt" => __("Private"), "class" => "no-border")) : NULL;
 		$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);
 	?>
 			

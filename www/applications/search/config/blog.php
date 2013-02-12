@@ -2,14 +2,14 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_muralSize", "940x320px");
+define("MURAL_SIZE", "940x320px");
 
-if(!defined("_maxLimit")) {
-	define("_maxLimit", 10);
+if(!defined("MAX_LIMIT")) {
+	define("MAX_LIMIT", 10);
 }
 
-define("_lock", "www/lib/images/icons/blog/lock.png");
+define("LOCK", "www/lib/images/icons/blog/lock.png");

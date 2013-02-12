@@ -1,4 +1,4 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
+<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 
 <div id="blog-access">
 	<form class="blog-access" action="" method="post">

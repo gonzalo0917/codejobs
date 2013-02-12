@@ -1,5 +1,5 @@
 <?php
-	if(!defined("_access")) die("Error: You don't have permission to access here...");
+	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	$email 		= recoverPOST("email", encode($data[0]["Email"]));
 	$subscribed = (boolean) recoverPOST("subscribed", encode($data[0]["Subscribed"]));

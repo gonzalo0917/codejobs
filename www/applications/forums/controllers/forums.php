@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -137,7 +137,7 @@ class Forums_Controller extends ZP_Load {
 
 		if($type === "author") {
 			if(segment(2, isLang()) === "author" and segment(3, isLang()) and segment(4, isLang()) === "page" and segment(5, isLang()) > 0) {
-				$start = (segment(5, isLang()) * _maxLimit) - _maxLimit;
+				$start = (segment(5, isLang()) * MAX_LIMIT) - MAX_LIMIT;
 			}
 
 			$count = $this->Forums_Model->count("author");
@@ -145,7 +145,7 @@ class Forums_Controller extends ZP_Load {
 			$URL   = path("forums/". segment(1, isLang()). "/author/". segment(3, isLang()) ."/page/");
 		} elseif($type === "tag") {	
 			if(segment(2, isLang()) === "tag" and segment(3, isLang()) and segment(4, isLang()) === "page" and segment(5, isLang()) > 0) {
-				$start = (segment(5, isLang()) * _maxLimit) - _maxLimit;
+				$start = (segment(5, isLang()) * MAX_LIMIT) - MAX_LIMIT;
 			}
 
 			$count = $this->Forums_Model->count("tag");
@@ -154,18 +154,18 @@ class Forums_Controller extends ZP_Load {
 		} elseif($type === "author-tag") { 
 			$user  = segment(3, isLang());
 			$tag   = segment(5, isLang());
-			$start = (segment(6, isLang()) === "page" and segment(7, isLang()) > 0) ? (segment(7, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(6, isLang()) === "page" and segment(7, isLang()) > 0) ? (segment(7, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("forums/". segment(1, isLang()). "/author/$user/tag/$tag/page/");
 			$count = $this->Forums_Model->count("author-tag");
 		} elseif($type === "posts") { 
-			$start = (segment(2, isLang()) === "page" and segment(3, isLang()) > 0) ? (segment(3, isLang()) * _maxLimit) - _maxLimit : 0;
+			$start = (segment(2, isLang()) === "page" and segment(3, isLang()) > 0) ? (segment(3, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL   = path("forums/". segment(1, isLang()). "/page/");
 			$count = $this->Forums_Model->count();
 		}
 
-		$limit = $start .", ". _maxLimit;
+		$limit = $start .", ". MAX_LIMIT;
 		$this->helper("pagination");
-		$this->pagination = ($count > _maxLimit) ? paginate($count, _maxLimit, $start, $URL) : NULL;
+		$this->pagination = ($count > MAX_LIMIT) ? paginate($count, MAX_LIMIT, $start, $URL) : NULL;
 
 		
 		return $limit;

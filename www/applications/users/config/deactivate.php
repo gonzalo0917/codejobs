@@ -1,8 +1,8 @@
 <?php
 
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("_bootstrap", TRUE);
-define("_hideRight", TRUE);
+define("BOOTSTRAP", TRUE);
+define("HIDE_RIGHT", TRUE);

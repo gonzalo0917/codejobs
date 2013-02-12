@@ -1,4 +1,4 @@
-<?php if(!defined("_access"))) die("Error: You don't have permission to access here..."); ?>
+<?php if(!defined("ACCESS"))) die("Error: You don't have permission to access here..."); ?>
 
 <div class="full-container">
 	<a name="top"></a>
@@ -40,7 +40,7 @@
 						<?php $link =  path("gallery/image/". $picture["ID_Image"] ."/#image")); ?>
 						
 						<a href="<?php echo $link;?>" title="<?php echo $picture["Title"];?>">
-							<img id="<?php echo $picture["Title"];?>" src="<?php echo _webURL . _sh . $picture["Small"];?>" class="imgage-center" />
+							<img id="<?php echo $picture["Title"];?>" src="<?php echo WEB_URL . _sh . $picture["Small"];?>" class="imgage-center" />
 						</a>
 					</div>
 		<?php 	} 

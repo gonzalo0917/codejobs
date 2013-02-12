@@ -1,4 +1,4 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
+<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 
 <div class="editProfile">
 	<form id="editUserProfile" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
