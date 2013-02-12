@@ -9,7 +9,7 @@ echo '<div id="column">';
 
 		if (isset($post["categories"][0]["Title"])) {
 			$category  = '<span class="new-category">'. repeat("&nbsp;", 20); 
-			$category .= a('"'. $post["categories"][0]["Title"] .'"', $URL . "category" . _sh . $post["categories"][0]["Slug"]) . '</span> ';
+			$category .= a('"'. $post["categories"][0]["Title"] .'"', $URL . "category" . SH . $post["categories"][0]["Slug"]) . '</span> ';
 		} else {
 			$category = null;
 		}

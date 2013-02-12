@@ -1,11 +1,10 @@
 <?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 		
 	echo $css;
 	
-	$firstYear  = (int) $date["year"];
+	$firstYear = (int) $date["year"];
 	$firstMonth = (int) $date["month"];
-	
-	$lastYear   = (int) date("Y");
-	$lastMonth  = (int) date("m");
+	$lastYear = (int) date("Y");
+	$lastMonth = (int) date("m");
 ?>
 
 	<div id="blog-archive">

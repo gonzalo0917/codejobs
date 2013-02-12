@@ -51,30 +51,30 @@ if (!defined("ACCESS")) {
 				echo ($alert) ? $alert : null; 			
 
 				echo formTextarea(array(
-					"id"	   => "editor",
-					"name" 	   => "comment",	
-					"style"    => "width: 400px",							
-					"field"    => __("Comment"), 
-					"p" 	   => true, 
-					"value"    => recoverPOST("comment")
+					"id" => "editor",
+					"name" => "comment",	
+					"style" => "width: 400px",							
+					"field" => __("Comment"), 
+					"p" => true, 
+					"value" => recoverPOST("comment")
 				));
 						
 				echo formInput(array(	
-					"name" 	=> "publish",
-					"type"  => "submit",
+					"name" => "publish",
+					"type" => "submit",
 					"class" => "submit",
 					"value" => __("Post my comment")
 				));
 
 				echo formInput(array(	
-					"name" 	=> "URL",
-					"type"  => "hidden",
+					"name" => "URL",
+					"type" => "hidden",
 					"value" => $URL
 				));
 
 				echo formInput(array(	
-					"name" 	=> "recordID",
-					"type"  => "hidden",
+					"name" => "recordID",
+					"type" => "hidden",
 					"value" => $post["ID_Post"]
 				));
 		

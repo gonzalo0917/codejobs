@@ -6,27 +6,23 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class CPanel_Controller extends ZP_Load {
+class CPanel_Controller extends ZP_Load 
+{
 		
-	public function __construct() {		
+	public function __construct() 
+	{		
 		$this->app("cpanel");
-		
 		$this->application = whichApplication();
-		
 		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");
-		
 		$this->isAdmin = $this->CPanel->load();
-		
 		$this->vars = $this->CPanel->notifications();
-		
 		$this->CPanel_Model = $this->model("CPanel_Model");
-		
 		$this->Templates = $this->core("Templates");
-		
 		$this->Templates->theme("cpanel");
 	}
 	
-	public function index() {
+	public function index() 
+	{
 		if ($this->isAdmin) {
 			redirect("cpanel");
 		} else {
@@ -34,18 +30,16 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 	
-	public function edit() {
+	public function edit() 
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 
-		$this->helper("forms");		
+		$this->helper("forms");
 		$this->title("Edit");
-		
 		$this->CSS("forms", "cpanel");
-		
 		$Model = ucfirst($this->application) ."_Model";
-		
 		$this->$Model = $this->model($Model);
 		
 		if (POST("edit")) {
@@ -85,41 +79,36 @@ class CPanel_Controller extends ZP_Load {
 	
 		if ($data) {
 			$this->Applications_Model = $this->model("Applications_Model");
-			
-			$this->vars["themes"]		       = $this->Templates->getThemes($data[0]["Theme"]);
+			$this->vars["themes"] = $this->Templates->getThemes($data[0]["Theme"]);
 			$this->vars["defaultApplications"] = $this->Applications_Model->getDefaultApplications($data[0]["Application"]);
-			$this->vars["data"]		   		   = $data;
-		
+			$this->vars["data"]	= $data;
 			$this->vars["view"] = $this->view("edit", true, $this->application);
-			
 			$this->render("content", $this->vars);
 		} else {
 			redirect(path($this->application ."/cpanel/results"));
 		}
 	}
 
-	public function minifier() {
+	public function minifier() 
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 
-		$this->helper("forms");		
+		$this->helper("forms");
 		$this->title(__("Minifier"));
-		
 		$this->CSS("forms", "cpanel");
 		
 		if (POST("minify") and POST("code") and POST("type")) {
 			$this->helper(array("html", "alerts"));
-
 			$type = POST("type");
 			$code = POST("code", "clean");
-
-   			$this->vars["code"]  = compress($code, $type);
-	   		$this->vars["type"]  = $type;
+   			$this->vars["code"] = compress($code, $type);
+	   		$this->vars["type"] = $type;
 	   		$this->vars["alert"] = getAlert(__("The code has been minified"), "success");
 		}
 
-		$this->vars["view"] = $this->view("minifier", true, $this->application);	
+		$this->vars["view"] = $this->view("minifier", true, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
@@ -129,13 +118,10 @@ class CPanel_Controller extends ZP_Load {
 			$this->login();
 		}
 
-		$this->helper(array("forms", "html"));		
+		$this->helper(array("forms", "html"));
 		$this->title(__("TV"));
-		
 		$this->CSS("forms", "cpanel");
-		
 		$Model = ucfirst($this->application) ."_Model";
-		
 		$this->$Model = $this->model($Model);
 		$this->Cache  = $this->core("Cache");
 		
@@ -148,23 +134,22 @@ class CPanel_Controller extends ZP_Load {
 		$data = $this->Cache->data("settings", "tv", $this->$Model, "getTV", array(), 86400);
 	
 		if ($data) {
-			$this->vars["data"] = $data;		
-			$this->vars["view"] = $this->view("tv", true, $this->application);	
-			
+			$this->vars["data"] = $data;
+			$this->vars["view"] = $this->view("tv", true, $this->application);
 			$this->render("content", $this->vars);
 		} else {
 			redirect(path($this->application ."/cpanel/edit"));
 		}
 	}
 	
-	public function login() {
+	public function login() 
+	{
 		
 		$this->title("Login");
 		$this->CSS("login", "users");
 		
 		if (POST("connect")) {	
 			$this->Users_Controller = $this->controller("Users_Controller");
-			
 			$this->Users_Controller->login("cpanel");
 		} else {
 			$this->vars["URL"]  = getURL();
@@ -173,7 +158,6 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->render("include", $this->vars);
 		$this->rendering("header", "footer");
-		
 		exit;
 	}
 }

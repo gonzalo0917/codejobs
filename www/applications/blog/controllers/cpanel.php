@@ -3,11 +3,13 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class CPanel_Controller extends ZP_Load {
+class CPanel_Controller extends ZP_Load 
+{
 	
 	private $vars = array();
 	
-	public function __construct() {		
+	public function __construct() 
+	{		
 		$this->app("cpanel");
 		$this->application = whichApplication();
 		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");
@@ -20,7 +22,8 @@ class CPanel_Controller extends ZP_Load {
 		$this->{"$this->Model"} = $this->model($this->Model);		
 	}
 	
-	public function index() {
+	public function index() 
+	{
 		if ($this->isAdmin) {
 			redirect("cpanel");
 		} else {
@@ -28,11 +31,13 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function draft() {
+	public function draft() 
+	{
 		$this->{"$this->Model"}->saveDraft();
 	}
 
-	public function check() {
+	public function check() 
+	{
 		if (POST("trash") and is_array(POST("records"))) { 
 			foreach (POST("records") as $record) {
 				$this->trash($record, true); 
@@ -56,7 +61,8 @@ class CPanel_Controller extends ZP_Load {
 		return false;
 	}
 
-	public function delete($ID = 0, $return = false) {
+	public function delete($ID = 0, $return = false) 
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -76,7 +82,8 @@ class CPanel_Controller extends ZP_Load {
 		}	
 	}
 
-	public function restore($ID = 0, $return = false) { 
+	public function restore($ID = 0, $return = false) 
+	{ 
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -96,7 +103,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function trash($ID = 0, $return = false) {
+	public function trash($ID = 0, $return = false) 
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -116,30 +124,28 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 	
-	public function add() { 
+	public function add() 
+	{ 
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 
-		$this->helper(array("forms", "files"));
-				
+		$this->helper(array("forms", "files"));		
 		$this->js("save", "blog");
-		
 		$this->title("Add");
-		
 		$this->CSS("forms", "cpanel");
 		$this->CSS("add", "blog");
 		$this->CSS("multimedia");
 
 		$this->Multimedia_Model = $this->model("Multimedia_Model");
 
-		$multimedia[0]["audio"]     = $this->Multimedia_Model->getMultimedia("audio");
-		$multimedia[0]["codes"] 	= $this->Multimedia_Model->getMultimedia("codes");
+		$multimedia[0]["audio"] = $this->Multimedia_Model->getMultimedia("audio");
+		$multimedia[0]["codes"] = $this->Multimedia_Model->getMultimedia("codes");
 		$multimedia[0]["documents"] = $this->Multimedia_Model->getMultimedia("documents");
-		$multimedia[0]["images"]    = $this->Multimedia_Model->getMultimedia("images");
-		$multimedia[0]["programs"]  = $this->Multimedia_Model->getMultimedia("programs");
-		$multimedia[0]["unknown"]   = $this->Multimedia_Model->getMultimedia("unknown");
-		$multimedia[0]["videos"]    = $this->Multimedia_Model->getMultimedia("videos");
+		$multimedia[0]["images"] = $this->Multimedia_Model->getMultimedia("images");
+		$multimedia[0]["programs"] = $this->Multimedia_Model->getMultimedia("programs");
+		$multimedia[0]["unknown"] = $this->Multimedia_Model->getMultimedia("unknown");
+		$multimedia[0]["videos"] = $this->Multimedia_Model->getMultimedia("videos");
 		
 		if (POST("save")) {
 			$save = $this->{"$this->Model"}->cpanel("save");
@@ -149,15 +155,16 @@ class CPanel_Controller extends ZP_Load {
 			redirect("cpanel");
 		}
 
-		$this->vars["ckeditor"]	   = $this->js("ckeditor", "full", true);
-		$this->vars["multimedia"]  = $multimedia;
+		$this->vars["ckeditor"]	= $this->js("ckeditor", "full", true);
+		$this->vars["multimedia"] = $multimedia;
 		$this->vars["application"] = $this->CPanel->getApplicationID();
-		$this->vars["view"] 	   = $this->view("add", true, $this->application);
+		$this->vars["view"] = $this->view("add", true, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
 	
-	public function edit($ID = 0) {
+	public function edit($ID = 0) 
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -168,24 +175,21 @@ class CPanel_Controller extends ZP_Load {
 
 		$this->js("new", "blog");
 		$this->js("save", "blog");
-
 		$this->title("Edit");
-		
 		$this->helper(array("forms", "files"));
-		
 		$this->CSS("forms", "cpanel");
 		$this->CSS("add", "blog");
 		$this->CSS("multimedia");
 
 		$this->Multimedia_Model = $this->model("Multimedia_Model");
 
-		$multimedia[0]["audio"]     = $this->Multimedia_Model->getMultimedia("audio");
-		$multimedia[0]["codes"] 	= $this->Multimedia_Model->getMultimedia("codes");
+		$multimedia[0]["audio"] = $this->Multimedia_Model->getMultimedia("audio");
+		$multimedia[0]["codes"] = $this->Multimedia_Model->getMultimedia("codes");
 		$multimedia[0]["documents"] = $this->Multimedia_Model->getMultimedia("documents");
-		$multimedia[0]["images"]    = $this->Multimedia_Model->getMultimedia("images");
-		$multimedia[0]["programs"]  = $this->Multimedia_Model->getMultimedia("programs");
-		$multimedia[0]["unknown"]   = $this->Multimedia_Model->getMultimedia("unknown");
-		$multimedia[0]["videos"]    = $this->Multimedia_Model->getMultimedia("videos");
+		$multimedia[0]["images"] = $this->Multimedia_Model->getMultimedia("images");
+		$multimedia[0]["programs"] = $this->Multimedia_Model->getMultimedia("programs");
+		$multimedia[0]["unknown"] = $this->Multimedia_Model->getMultimedia("unknown");
+		$multimedia[0]["videos"] = $this->Multimedia_Model->getMultimedia("videos");
 		
 		if (POST("edit")) { 
 			$this->vars["alert"] = $this->{"$this->Model"}->cpanel("edit");
@@ -196,25 +200,24 @@ class CPanel_Controller extends ZP_Load {
 		$data = $this->{"$this->Model"}->getByID($ID);
 		
 		if ($data) {		
-			$this->vars["ckeditor"]	   	  = $this->js("ckeditor", "full", true);	
-			$this->vars["multimedia"]  	  = $multimedia;
-			$this->vars["data"]			  = $data;
-			$this->vars["muralImage"] 	  = $this->{"$this->Model"}->getMuralByID(segment(3, isLang()));
+			$this->vars["ckeditor"]	= $this->js("ckeditor", "full", true);	
+			$this->vars["multimedia"] = $multimedia;
+			$this->vars["data"] = $data;
+			$this->vars["muralImage"] = $this->{"$this->Model"}->getMuralByID(segment(3, isLang()));
 			$this->vars["muralDeleteURL"] = ($this->vars["muralImage"]) ? path("$this->application/cpanel/delete-mural/$ID")  : null;
-			$this->vars["application"]	  = $this->CPanel->getApplicationID($this->application);
+			$this->vars["application"] = $this->CPanel->getApplicationID($this->application);
 			
 			$this->js("www/lib/scripts/ajax/password.js", true);
-			$this->js("jquery-ui.min", "cpanel");
-					
+			$this->js("jquery-ui.min", "cpanel");	
 			$this->vars["view"] = $this->view("add", true, $this->application);
-			
 			$this->render("content", $this->vars);
 		} else {
 			redirect("$this->application/cpanel/results");
 		}
 	}
 	
-	public function login() {
+	public function login() 
+	{
 		$this->title("Login");
 		$this->CSS("login", "users");
 		
@@ -223,7 +226,7 @@ class CPanel_Controller extends ZP_Load {
 			
 			$this->Users_Controller->login("cpanel");
 		} else {
-			$this->vars["URL"]  = getURL();
+			$this->vars["URL"] = getURL();
 			$this->vars["view"] = $this->view("login", true, "cpanel");
 		}
 		
@@ -233,30 +236,27 @@ class CPanel_Controller extends ZP_Load {
 		exit;
 	}
 	
-	public function results() {
+	public function results() 
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 
 		$this->check();
-		
 		$this->title("Manage ". ucfirst($this->application));
-
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
-		
 		$this->js("checkbox");
 			
 		$trash = (segment(3, isLang()) === "trash") ? true : false;
 		
-		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
-		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
-		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : null;
+		$this->vars["total"] = $this->CPanel_Model->total($trash);
+		$this->vars["tFoot"] = $this->CPanel_Model->records($trash);
+		$this->vars["message"] = (!$this->vars["tFoot"]) ? "Error" : null;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
-		$this->vars["trash"]  	  = $trash;	
-		$this->vars["search"] 	  = getSearch(); 			
-		$this->vars["view"]       = $this->view("results", true, $this->application);
-		
+		$this->vars["trash"] = $trash;	
+		$this->vars["search"] = getSearch(); 			
+		$this->vars["view"] = $this->view("results", true, $this->application);
 		$this->render("content", $this->vars);
 	}
 

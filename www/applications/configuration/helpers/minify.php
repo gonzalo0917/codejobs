@@ -3,13 +3,14 @@
 		die("Error: You don't have permission to access here...");
 	}
 
-	function minify($ext = null) {
+	function minify($ext = null) 
+	{
 		$css = false; 
-		$js  = false;
+		$js = false;
 
 		if (is_null($ext)) {
 			$css = true; 
-			$js  = true;
+			$js = true;
 		} else {
 			$$ext = true;
 		}
@@ -23,7 +24,6 @@
 			    		unlink("$path/$entry");
 			    	}
 			    }
-
 			    closedir($handle);
 			}
 		}
@@ -37,7 +37,6 @@
 			    		unlink("$path/$entry");
 			    	}
 			    }
-
 			    closedir($handle);
 			}
 		}

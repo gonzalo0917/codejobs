@@ -106,12 +106,15 @@ $j = 2;
 	<?php				
 	if (segment(3, isLang()) === "trash") { 
 	?>
-		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
-		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" 
+				name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" 
+				name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
 	<?php
 	} else { 
 	?>
-		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" 
+				name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
 	<?php
 	}
 	?>					
