@@ -1,12 +1,14 @@
-	var jcrop_api, avatar_file, avatar_coordinate;
 !function($) {
+	var jcrop_api, avatar_file, avatar_coordinate;
 
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();
 	});
 
 	$('input.avatar-file').change(function () {
-		selectFile(this.files);
+		if ('files' in this) {
+			selectFile(this.files);
+		}
 	});
 
 	$('input[name="resume"]').click(function () {
@@ -81,7 +83,7 @@
 	}
 
 	function createAvatar() {
-		if ($("#file").val()) {
+		if (! /default\.png$/ .test($("img.avatar").attr("src"))) {
 			var cnv1, ctx1, cnv2, ctx2, coor;
 
 			cnv1 = document.createElement("canvas");
@@ -102,6 +104,8 @@
 
 			document.body.appendChild(cnv2);
 
+		} else {
+			alert("El src del avatar es: " + $("img.avatar").attr("src"));
 		}
 	}
 

@@ -707,7 +707,7 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function saveAvatar() {
-		if(POST("file")) {
+		if(POST("file") or POST("coordinate")) {
 			$avatar = $this->createAvatar();
 			$data   = $this->Db->find(SESSION("ZanUserID"), $this->table, "Avatar");
 
@@ -821,46 +821,70 @@ class Users_Model extends ZP_Load {
 		$filetype 	= POST("type");
 		$coordinate = POST("coordinate");
 
-		if(!is_string($username) or !is_string($file) or !is_string($resized) or !is_string($filetype) or !is_string($coordinate)) {
-			return FALSE;
-		}
-
 		if(!preg_match('/^\d+,\d+,\d+,\d+$/', $coordinate)) {
 			$coordinate = "0,0,90,90";
 		}
 
-		$parts = explode(".", $filename);
-		$ext   = end($parts);
+		if($file) {
+			if(!is_string($username) or !is_string($resized) or !is_string($filetype)) {
+				return FALSE;
+			}
 
-		$dataO = str_replace("data:$filetype;base64,", "", $file);
-        $dataO = str_replace(" ", "+", $dataO);
-        $dataO = base64_decode($dataO);
+			$parts = explode(".", $filename);
+			$ext   = end($parts);
 
-		$dataR = str_replace("data:$filetype;base64,", "", $resized);
-        $dataR = str_replace(" ", "+", $dataR);
-        $dataR = base64_decode($dataR);
+			$dataO = str_replace("data:$filetype;base64,", "", $file);
+	        $dataO = str_replace(" ", "+", $dataO);
+	        $dataO = base64_decode($dataO);
 
-        $path  = "www/lib/files/images/users/";
-        $fileO = $path . sha1($username ."_O") .".$ext";
+			$dataR = str_replace("data:$filetype;base64,", "", $resized);
+	        $dataR = str_replace(" ", "+", $dataR);
+	        $dataR = base64_decode($dataR);
 
-        $nameR = sha1($username) .".$ext";
-        $fileR = $path . $nameR;
+	        $path  = "www/lib/files/images/users/";
+	        $fileO = $path . sha1($username ."_O") .".$ext";
 
-        ini_set("upload_max_filesize", "50M");
-        ini_set("memory_limit", "256M");
-        ini_set("max_execution_time", 300);
+	        $nameR = sha1($username) .".$ext";
+	        $fileR = $path . $nameR;
 
-        file_put_contents($fileO, $dataO, LOCK_EX);
-        file_put_contents($fileR, $dataR, LOCK_EX);
+	        file_put_contents($fileO, $dataO, LOCK_EX);
+	        file_put_contents($fileR, $dataR, LOCK_EX);
 
-        if(file_exists($fileO) and file_exists($fileR)) {
-        	return array(
-        		$nameR,
-        		$coordinate
-        	);
-        } else {
-        	return FALSE;
-        }
+	        if(file_exists($fileO) and file_exists($fileR)) {
+	        	return array(
+	        		$nameR,
+	        		$coordinate
+	        	);
+	        } else {
+	        	return FALSE;
+	        }
+		} else {
+			if(!is_string($resized)) {
+				return FALSE;
+			}
+
+			$parts = explode(".", $filename);
+			$ext   = end($parts);
+
+			$data = str_replace("data:$filetype;base64,", "", $resized);
+	        $data = str_replace(" ", "+", $data);
+	        $data = base64_decode($data);
+
+	        $path  = "www/lib/files/images/users/";
+	        $name  = sha1($username) .".$ext";
+	        $file  = $path . $name;
+
+	        file_put_contents($file, $data, LOCK_EX);
+
+	        if(file_exists($file)) {
+	        	return array(
+					$name,
+					$coordinate
+				);
+	        } else {
+	        	return FALSE;
+	        }
+		}
 	}
 
 	private function removeAvatar($filename) {
