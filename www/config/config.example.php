@@ -14,7 +14,7 @@ $ZP["webName"] 	    = "ZanPHP";
 $ZP["webTheme"]     = "default";
 $ZP["webSituation"] = "Active";
 $ZP["webMessage"]   = "";
-$ZP["benchMark"]	= FALSE;
+$ZP["benchMark"]	= false;
 
 /**
  * Server
@@ -26,10 +26,10 @@ $ZP["benchMark"]	= FALSE;
  *  4. Production
  */
 $ZP["environment"]  = 1;
-$ZP["optimization"] = TRUE;
-$ZP["domain"] 	    = FALSE;
-$ZP["modRewrite"]   = FALSE;
-$ZP["autoRender"]   = TRUE;
+$ZP["optimization"] = true;
+$ZP["domain"] 	    = false;
+$ZP["modRewrite"]   = false;
+$ZP["autoRender"]   = true;
 $ZP["allowIP"]      = array("127.0.0.1");
 
 /**
@@ -86,7 +86,7 @@ define("AD_HEIGHT_728", "90");
 /**
  * Cache
  */
-define("CACHE_STATUS", FALSE);
+define("CACHE_STATUS", false);
 define("CACHE_DRIVER", "File");
 define("CACHE_HOST", "localhost"); 
 define("CACHE_PORT", "11211");
