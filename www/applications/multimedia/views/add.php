@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -9,7 +9,7 @@
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"])  : recoverPOST("situation");
 	$language  = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 : recoverPOST("language");
 	$pwd   	   = isset($data) ? recoverPOST("pwd", $data[0]["Pwd"])				 : recoverPOST("pwd");
-	$edit      = isset($data) ? TRUE											 : FALSE;
+	$edit      = isset($data) ? true											 : false;
 	$action	   = isset($data) ? "edit"											 : "save";
 	$href 	   = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
 	
@@ -17,7 +17,7 @@
 		print formOpen($href, "form-add", "multimedia");
 			print p(__(ucfirst(whichApplication())), "resalt");
 			
-			print isset($alert) ? $alert : NULL;
+			print isset($alert) ? $alert : null;
 
 			print formInput(array(
 				"type" 		=> "file", 
@@ -25,16 +25,16 @@
 				"name" 		=> "fileselect[]",
 				"multiple" 	=> "multiple",  
 				"field" 	=> __("Upload files"), 
-				"p" 		=> TRUE
+				"p" 		=> true
 			));
 
 			print div("filedrag"); 
 				print __("Drag & drop your files here");
-			print div(FALSE);
+			print div(false);
 
-			print div("progress") . div(FALSE);
+			print div("progress") . div(false);
 
-			print div("response") . div(FALSE);
+			print div("response") . div(false);
 
 			print '<div class="clear"></div>';
 
@@ -44,4 +44,4 @@
 			print formInput(array("name" => "MAX_FILE_SIZE", "type" => "hidden", "value" => "MAX_FILE_SIZE", "id" => "upload"));
 			print formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));
 		print formClose();
-	print div(FALSE);
+	print div(false);

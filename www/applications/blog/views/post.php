@@ -1,10 +1,10 @@
 <?php
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
 $URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);		
-$in  = ($post["Tags"] !== "") ? __("in") : NULL;
+$in  = ($post["Tags"] !== "") ? __("in") : null;
 ?>
 <div class="post">
 	<div class="post-title">
@@ -20,8 +20,8 @@ $in  = ($post["Tags"] !== "") ? __("in") : NULL;
 	
 	<div class="post-right">
 		<?php
-			if($post["Enable_Comments"]) {
-            	echo fbComments($URL, TRUE);
+			if ($post["Enable_Comments"]) {
+            	echo fbComments($URL, true);
 			}
 		?>
 	</div>
@@ -30,7 +30,7 @@ $in  = ($post["Tags"] !== "") ? __("in") : NULL;
 		
 	<div class="post-content">
 		<?php
-			echo display(social($URL, $post["Title"], FALSE), 4); 
+			echo display(social($URL, $post["Title"], false), 4); 
 			echo showContent($post["Content"]); 
 		?>
 
@@ -43,7 +43,7 @@ $in  = ($post["Tags"] !== "") ? __("in") : NULL;
 </div>
 <br /></br />
 <?php
-	if($post["Enable_Comments"]) {
+	if ($post["Enable_Comments"]) {
 		echo fbComments($URL);
 	}
 ?>

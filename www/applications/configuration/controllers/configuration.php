@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -18,7 +18,7 @@ class Configuration_Controller extends ZP_Load {
 	}
 	
 	public function world() {
-		if(GET("country")) {
+		if (GET("country")) {
 			$country = GET("country");
 
 			$vars["data"] = $this->Cache->data("cities-$country", "world", $this->Configuration_Model, "getCities", array($country), 86400);

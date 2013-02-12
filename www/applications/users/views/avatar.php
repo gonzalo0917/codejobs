@@ -1,17 +1,17 @@
 <?php
-	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
+	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	$avatar 	= encode($data[0]["Avatar"]);
 	$coordinate = recoverPOST("coordinate", encode($data[0]["Avatar_Coordinate"]));
 
-	if($avatar !== "default.png") {
+	if ($avatar !== "default.png") {
 		$info 	= pathinfo($avatar);
 		$avatar = sha1(SESSION("ZanUser") ."_O") .".". $info["extension"];
 	}
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 			
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 
@@ -28,21 +28,21 @@
 					"class" => "btn",
 					"value" => __("Restore image")
 				));
-			echo div(FALSE);
+			echo div(false);
 
 			echo div("avatar", "class");
 				echo div("avatar-container", "id/class", "avatar-image well");
 
-					echo image(path("www/lib/files/images/users/$avatar?". time(), TRUE), "avatar", "avatar-image");
+					echo image(path("www/lib/files/images/users/$avatar?". time(), true), "avatar", "avatar-image");
 
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo div("filedrag"); 
 				echo div("textdrag", "class");
 					echo __("Drag & drop your file here");
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo formInput(array(
 				"id"	=> "coordinate",
@@ -124,6 +124,6 @@
 					"class" => "btn btn-danger",
 					"value" => __("Delete")
 				));
-			echo div(FALSE);
+			echo div(false);
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

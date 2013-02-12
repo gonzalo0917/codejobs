@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -22,7 +22,7 @@ class Captcha_Controller extends ZP_Load {
 	public function index($token) {
 		$text = SESSION("ZanCaptcha$token");
 
-		if(!$this->generate($text)) {
+		if (!$this->generate($text)) {
 			header( "Content-Type: image/gif" );
 		    header("Expires: Mon, 21 Jul 2010 05:00:00 GMT");
 		    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -35,7 +35,7 @@ class Captcha_Controller extends ZP_Load {
 	}
 
 	private function generate($text) {
-		if(!$text) return FALSE;
+		if (!$text) return false;
 
 	    $textLength 	   = strlen($text);
 	    $backgroundOffsetX = rand(0, self::backgroundSizeX - self::sizeX - 1);
@@ -49,7 +49,7 @@ class Captcha_Controller extends ZP_Load {
 	    $textY 			   = rand((int)(1.25 * $fontSize), (int)(self::sizeY - 0.2 * $fontSize));
 	    $src_im 		   = imagecreatefrompng(self::backgroundFile);
 
-	    if(function_exists('imagecreatetruecolor')) {
+	    if (function_exists('imagecreatetruecolor')) {
 	        $dst_im 	  = imagecreatetruecolor(self::sizeX, self::sizeY);
 	        $resizeResult = imagecopyresampled($dst_im, $src_im, 0, 0, $backgroundOffsetX, $backgroundOffsetY, self::sizeX, self::sizeY, self::sizeX, self::sizeY);
 	    } else {
@@ -57,8 +57,8 @@ class Captcha_Controller extends ZP_Load {
 	        $resizeResult = imagecopyresized($dst_im, $src_im, 0, 0, $backgroundOffsetX, $backgroundOffsetY, self::sizeX, self::sizeY, self::sizeX, self::sizeY);
 	    }
 
-	    if(!$resizeResult)
-	        return FALSE;
+	    if (!$resizeResult)
+	        return false;
 
 	    $color = imagecolorallocate($dst_im, $fontColorR, $fontColorG, $fontColorB);
 
@@ -71,6 +71,6 @@ class Captcha_Controller extends ZP_Load {
 	    imagedestroy($src_im);
 	    imagedestroy($dst_im);
 
-	    return TRUE;
+	    return true;
 	}
 }

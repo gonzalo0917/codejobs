@@ -1,5 +1,5 @@
 <?php
-	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
+	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	$name        = recoverPOST("name", encode($data[0]["Name"]));
 	$gender      = recoverPOST("gender", $data[0]["Gender"]);
@@ -13,25 +13,25 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
 				"name" 	=> "name", 
 				"class" => "field-title field-full-size",
 				"field" => __("Full name") ."*", 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "150",
 				"value" => $name
 			));
 
 			$options = array(
-				array("value" => 'M', "option" => __("Male"), "selected" => $gender === 'M' ? TRUE : FALSE),
-				array("value" => 'F', "option" => __("Female"), "selected" => $gender === 'F' ? TRUE : FALSE)
+				array("value" => 'M', "option" => __("Male"), "selected" => $gender === 'M' ? true : false),
+				array("value" => 'F', "option" => __("Female"), "selected" => $gender === 'F' ? true : false)
 			);
 
 			echo formSelect(array(
 				"name" 		=> "gender", 
-				"p" 		=> TRUE, 
+				"p" 		=> true, 
 				"field" 	=> __("Gender") ."*"),
 				$options
 			);
@@ -42,7 +42,7 @@
 				"name" 	=> "birthday", 
 				"class" => "field-title span3 jdpicker",
 				"field" => __("Date of birth") ."*", 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"value" => $birthday,
 				"type"  => "hidden",
 				"maxlength" => "10",
@@ -53,28 +53,28 @@
 
 			$country_selected = array_search(array("option" => $country, "value" => $country), $countries);
 
-			if ($country_selected !== FALSE) {
-				$countries[$country_selected]["selected"] = TRUE;
+			if ($country_selected !== false) {
+				$countries[$country_selected]["selected"] = true;
 			}
 
 			echo formSelect(array(
 				"name" 		=> "country", 
-				"p" 		=> TRUE, 
+				"p" 		=> true, 
 				"field" 	=> __("Country") ."*"),
 				$countries
 			);
 
-			if(isset($cities)) {
+			if (isset($cities)) {
 				$city_index = array_search(array("option" => $city, "value" => $city), $cities);
 
-				if($city_index !== FALSE) {
-					$cities[$city_index]["selected"] = TRUE;
+				if ($city_index !== false) {
+					$cities[$city_index]["selected"] = true;
 				}
 			}
 
 			echo formSelect(array(
 				"name" 		=> "city", 
-				"p" 		=> TRUE, 
+				"p" 		=> true, 
 				"field" 	=> __("City") ."*",
 				"disabled"  => !isset($cities)
 				), isset($cities) ? $cities : array()
@@ -84,7 +84,7 @@
 				"name" 	=> "district", 
 				"class" => "field-title span3",
 				"field" => __("District"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"maxlength" => "100",
 				"value" => $district
 			));
@@ -93,7 +93,7 @@
 				"name" 	=> "phone", 
 				"class" => "field-title span3",
 				"field" => __("Phone"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"maxlength" => "15",
 				"value" => $phone
 			));
@@ -102,7 +102,7 @@
 				"name" 	=> "mobile", 
 				"class" => "field-title span3",
 				"field" => __("Mobile phone"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"maxlength" => "15",
 				"value" => $mobile
 			));
@@ -112,7 +112,7 @@
 				"class" => "field-title field-full-size",
 				"field" => __("Website"),
 				"value" => $website, 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "100"
 			));
 
@@ -124,4 +124,4 @@
 			));
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

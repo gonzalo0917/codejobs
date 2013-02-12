@@ -1,10 +1,10 @@
 <?php 
-if(!defined("ACCESS")) { 
+if (!defined("ACCESS")) { 
 	die("Error: You don't have permission to access here..."); 
 } 
 	$i = 1;
 	$rand2 = rand(6, 10);
-	if(SESSION("ZanUser")) {
+	if (SESSION("ZanUser")) {
 	?>
 		<h1><?php echo $forum; ?></h1>
 		<p id="fmessage"></p>
@@ -30,14 +30,14 @@ if(!defined("ACCESS")) {
 	?>
 	<div id="fposts">
 	<?php
-	if($posts) {
+	if ($posts) {
 		$forum = slug($forum);
-		foreach($posts as $post) {		
+		foreach ($posts as $post) {		
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
 			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
 			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
-			$in        = ($forum !== "") ? __("in") : NULL;	
+			$in        = ($forum !== "") ? __("in") : null;	
 			
 			?>		
 			
@@ -52,10 +52,10 @@ if(!defined("ACCESS")) {
 					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';?>					
 					
 					<?php
-					if(SESSION("ZanUserPrivilegeID")) {
+					if (SESSION("ZanUserPrivilegeID")) {
 						$confirm = " return confirm('Do you want to delete this post?') ";
 
-						if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
+						if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
 							echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
 						}
 					}
@@ -75,6 +75,6 @@ if(!defined("ACCESS")) {
 	?>
 	</div>
 	<?php		
-		echo isset($pagination) ? $pagination : NULL;
+		echo isset($pagination) ? $pagination : null;
 
 		echo $ckeditor;

@@ -1,7 +1,7 @@
 <?php 
-	if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+	if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
 
-	if(is_array($records)) {
+	if (is_array($records)) {
 		$count = count($records);
 	} else {
 		$count = 0;
@@ -20,7 +20,7 @@
 		<div class="pull-left">
 			<a id="new" class="btn no-decoration black-a" href="<?php echo $path ."add"; ?>"><?php echo __("New"); ?></a>
 			<?php
-				if($count > 0) {
+				if ($count > 0) {
 			?>
 			<a id="delete" class="btn btn-danger no-decoration white-a" href="#"><?php echo __("Delete"); ?></a>
 			<?php
@@ -28,7 +28,7 @@
 			?>
 		</div>
 		<?php
-			if($count > 0) {
+			if ($count > 0) {
 		?>
 		<div class="pull-right">
 			<form class="form-search">
@@ -54,8 +54,8 @@
 		</thead>
 		<tbody>
 			<?php
-				if($count > 0) {
-					foreach($records as $column) {
+				if ($count > 0) {
+					foreach ($records as $column) {
 						$URL  	   = $path . $column[$ID_Column] ."/". $column["Slug"];
 						$text_date = ucfirst(howLong($column["Start_Date"]));
 			?>
@@ -63,7 +63,7 @@
 				<td data-center><input name="records[]" value="<?php echo $column[$ID_Column]; ?>" type="checkbox" /></td>
 				<td><a title="<?php echo $column["Title"]; ?>" href="<?php echo $URL; ?>" target="_blank"><?php echo $column["Title"]; ?></a></td>
 				<td data-center><?php echo $column["Views"]; ?></td>
-				<td data-center><?php echo getLanguage($column["Language"], TRUE); ?></td>
+				<td data-center><?php echo getLanguage($column["Language"], true); ?></td>
 				<td data-center><?php echo __($column["Situation"]); ?></td>
 				<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
 				<td data-center>

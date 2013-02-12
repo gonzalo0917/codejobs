@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -23,32 +23,32 @@ class Workshop_Model extends ZP_Load {
 		$this->Email->fromEmail = _get("webEmailSend");
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {
+	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false) {
 		$this->helper("time");
-		if($action === "edit" or $action === "save") {
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 		
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all($trash, "ID_Workshop DESC", $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 	
 	private function all($trash, $order, $limit) {	
-		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Workshop, Title, File, Email, Start_Date, Situation", NULL, $order, $limit) : NULL;
+		if (!$trash) { 
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Workshop, Title, File, Email, Start_Date, Situation", null, $order, $limit) : null;
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Workshop, Title, File, Email, Start_Date, Situation", NULL, $order, $limit) : NULL;
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Workshop, Title, File, Email, Start_Date, Situation", null, $order, $limit) : null;
 		}
   	}
 
@@ -68,15 +68,15 @@ class Workshop_Model extends ZP_Load {
 
 		$this->helper(array("alerts", "time", "files"));
 
-		$data = $this->Data->proccess(NULL, $validations);
+		$data = $this->Data->proccess(null, $validations);
 
-		if(isset($data["error"])) {
+		if (isset($data["error"])) {
 			return $data["error"];
 		}
 		
 		$slides = $this->uploadSlides();
 
-		if(!$slides) {
+		if (!$slides) {
 			return getAlert($this->uploadStatus["message"]);
 		}
 
@@ -97,9 +97,9 @@ class Workshop_Model extends ZP_Load {
 			"Situation"     => "Active"
 		);
 
-		if($this->Db->findBySQL("Proposal_Day = '" . POST("day") . "' and Proposal_Time = '" . POST("time") . "'", $this->table, "ID_Workshop")) {
+		if ($this->Db->findBySQL("Proposal_Day = '" . POST("day") . "' and Proposal_Time = '" . POST("time") . "'", $this->table, "ID_Workshop")) {
 			return getAlert(__("There is other proposal with the same day and time"));
-		} elseif(!$this->Db->insert($this->table, $values)) {
+		} elseif (!$this->Db->insert($this->table, $values)) {
 			return getAlert(__("An error has happened."));
 		} else {
 			$this->sendMail($values);
@@ -107,10 +107,10 @@ class Workshop_Model extends ZP_Load {
 		}
   	}
 
-  	private function sendMail($values = NULL) {
+  	private function sendMail($values = null) {
   		$this->Email->email   = _get("webEmailRecieve");
   		$this->Email->subject = __("New Proposal") . " - " . _get("webName");
-  		$this->Email->message = $this->view("mail", $values, "workshop", TRUE);
+  		$this->Email->message = $this->view("mail", $values, "workshop", true);
 
 		$this->Email->send();
   	}
@@ -118,7 +118,7 @@ class Workshop_Model extends ZP_Load {
   	private function uploadSlides() {
   		$dir = "www/lib/files/workshops/";
 
-		if(!is_dir($dir)) {
+		if (!is_dir($dir)) {
 			@mkdir($dir, 0777);
 		}
 
@@ -132,10 +132,10 @@ class Workshop_Model extends ZP_Load {
 
 		$this->uploadStatus = $this->Files->upload($dir, "document");
 		
-		if(is_array($this->uploadStatus) and $this->uploadStatus["upload"]) {
+		if (is_array($this->uploadStatus) and $this->uploadStatus["upload"]) {
 			return  $dir . $this->uploadStatus["filename"];
 		} else {
-			return  FALSE;
+			return  false;
 		}		
   	}
 }

@@ -1,5 +1,5 @@
 <?php
-	$path = path("www/applications/pages/views/", TRUE);
+	$path = path("www/applications/pages/views/", true);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -10,7 +10,7 @@
 		<title>Codejobs TV!</title>
 		
 		<link rel="stylesheet" href="http://www.codejobs.biz/web/www/lib/css/default.css" type="text/css">
-		<link rel="stylesheet" href="<?php echo path("www/applications/pages/views/css/style.css", TRUE); ?>" type="text/css">
+		<link rel="stylesheet" href="<?php echo path("www/applications/pages/views/css/style.css", true); ?>" type="text/css">
 
 		<style>
 			.videos {
@@ -38,7 +38,7 @@
 			<?php
 				echo $tv;
 
-				if($chat) {
+				if ($chat) {
 			?>
 				<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://macromedia.com/cabs/swflash.cab#version=6,0,0,0" width="250" height="420">
 				  <param name="movie" value="http://cdn.livestream.com/chat/LivestreamChat.swf">
@@ -69,9 +69,9 @@
         
 		<div class="sponsors" style="text-align: center; margin-top: 0px;">			
 			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>						
-			<a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_small.png", TRUE); ?>" alt="Crowd Int" /></a>
-			<a rel="nofollow" target="_blank" href="http://www.bigcoders.com"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/bigcoders_small.png", TRUE); ?>" alt="" /></a>		
-			<a rel="nofollow" target="_blank" href="http://www.autodidact.as/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/autodidactas_small.png", TRUE); ?>" alt="Autodidactas" /></a>
+			<a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_small.png", true); ?>" alt="Crowd Int" /></a>
+			<a rel="nofollow" target="_blank" href="http://www.bigcoders.com"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/bigcoders_small.png", true); ?>" alt="" /></a>		
+			<a rel="nofollow" target="_blank" href="http://www.autodidact.as/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/autodidactas_small.png", true); ?>" alt="Autodidactas" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>

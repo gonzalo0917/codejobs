@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -26,55 +26,55 @@ class Users_Model extends ZP_Load {
 		$this->application = whichApplication();
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "ID_User DESC", $search = NULL, $field = NULL, $trash = FALSE) {
-		if($action === "edit" or $action === "save") {
+	public function cpanel($action, $limit = null, $order = "ID_User DESC", $search = null, $field = null, $trash = false) {
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 			
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			$order = (is_null($order)) ? "ID_User DESC" : $order;
 
 			return $this->all($trash, $order, $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 	
 	private function all($trash, $order, $limit) {
-		if(!$trash) {
-			return ((int) SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+		if (!$trash) {
+			return ((int) SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
 		} else {
-			return ((int) SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $fields, NULL, $order, $limit);
+			return ((int) SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $fields, null, $order, $limit);
 		}
 	}
 
 	private function search($search, $field) {
-		if($search and $field) {
+		if ($search and $field) {
 			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	private function editOrSave($action) {
 		$this->helper(array("alerts", "time", "files"));
 		
-		if($action === "save") {
+		if ($action === "save") {
 			$validations = array(
 				"username" => "required",
 				"email"	   => "email?",
 				"pwd"	   => "length:6",
 				"exists"   => array(
 					"Username" => POST("username"),
-					"or"       => TRUE,
+					"or"       => true,
 					"Email"    => POST("email"),
 				),
 			);
@@ -87,17 +87,17 @@ class Users_Model extends ZP_Load {
 			);
 		}
 
-		if((int) POST("privilege") === 1) {
+		if ((int) POST("privilege") === 1) {
 			$privilege = "Super Admin";
-		} elseif((int) POST("privielge") === 2) {
+		} elseif ((int) POST("privielge") === 2) {
 			$privilege = "Admin";
-		} elseif((int) POST("privilege") === 3) {
+		} elseif ((int) POST("privilege") === 3) {
 			$privilege = "Moderator";
  		} else {
  			$privilege = "Member";
  		}
 		
-		if(!POST("pwd")) {
+		if (!POST("pwd")) {
 			$data = array(
 				"Username"     	=> POST("username"),
 				"Start_Date"   	=> now(4),
@@ -119,7 +119,7 @@ class Users_Model extends ZP_Load {
 
 		$this->data = $this->Data->proccess($data, $validations);
 	
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 	}
@@ -150,17 +150,17 @@ class Users_Model extends ZP_Load {
 								 WHERE muu_users_services.ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
 	}
 
-	public function addUser($service = FALSE) {
+	public function addUser($service = false) {
 		$this->helper(array("alerts", "time"));
 
-		if(SESSION("UserRegistered")) {
-			return array("inserted" => FALSE, "alert" => getAlert(__("You can't register many times a day")));
+		if (SESSION("UserRegistered")) {
+			return array("inserted" => false, "alert" => getAlert(__("You can't register many times a day")));
 		}
 
 		$validations = array(
 			"exists"   => array(
 				"Username" => POST("username"),
-				"or"       => TRUE,
+				"or"       => true,
 				"Email"    => POST("email"),
 			),
 			"username" => "required",
@@ -179,76 +179,76 @@ class Users_Model extends ZP_Load {
 			"Situation"  => "Inactive"
 		);
 
-		if(!$service) {
+		if (!$service) {
 			$validations["password"] = "length:6";
 
 			$data["Pwd"] = POST("password", "encrypt");
 		} else {
-			$data["Pwd"] = NULL;
+			$data["Pwd"] = null;
 		}
 	
 		$this->Data->ignore(array("password", "register", "name", "serviceID"));
 
 		$data = $this->Data->proccess($data, $validations);
 		
-		if(isset($data["error"])) {
-			return array("inserted" => FALSE, "alert" => $data["error"]);
+		if (isset($data["error"])) {
+			return array("inserted" => false, "alert" => $data["error"]);
 		}
 		
 		$ID_User = $this->Db->insert($this->table, $data);
 	
-		if($ID_User) {
-			if($service === "facebook" or $service === "twitter") {
+		if ($ID_User) {
+			if ($service === "facebook" or $service === "twitter") {
 				$this->Db->insert("users_services", array("ID_User" => $ID_User, "ID_Service" => POST("serviceID"), "Service" => ucfirst($service)));
 			} 
 			
-			$message = $this->view("register_email", array("code" => $code), "users", TRUE);
+			$message = $this->view("register_email", array("code" => $code), "users", true);
 
 			$this->Email->email   = POST("email");
 			$this->Email->subject = __("Account Activation") ." - ". _get("webName");
-			$this->Email->message = $this->view("register_email", array("user" => POST("username"), "code" => $code), "users", TRUE);
+			$this->Email->message = $this->view("register_email", array("user" => POST("username"), "code" => $code), "users", true);
 			
 			$this->Email->send();
 
-			SESSION("UserRegistered", TRUE);
+			SESSION("UserRegistered", true);
 
 			return array(
-				"inserted" => TRUE,
+				"inserted" => true,
 				"alert"    => getAlert(__("The account has been created correctly, we will send you an email so you can activate your account"), "success")
 			);
 		} else {
-			return array("inserted" => FALSE, "alert" => getAlert(__("Insert error")));
+			return array("inserted" => false, "alert" => getAlert(__("Insert error")));
 		}
 	}
 	
 	public function activate($user, $code) {
 		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, ID_Service, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
 		
-		if($data) {
+		if ($data) {
 			$this->Db->update($this->table, array("Situation" => "Active"), $data[0]["ID_User"]);
 
 			return $data;
 		} 
 		
-		return FALSE;
+		return false;
 	}
 	
 	public function change() {
-		if(POST("change")) {
+		if (POST("change")) {
 			$tokenID   = POST("tokenID");
 			$password1 = POST("password1", "decode-encrypt");
 			$password2 = POST("password2", "decode-encrypt");
 			
-			if(POST("password1") === "" or POST("password2") === "") {
+			if (POST("password1") === "" or POST("password2") === "") {
 				return getAlert(__("You need to write the two passwords"));
-			} elseif(strlen(POST("password1")) < 6 or strlen(POST("password2")) < 6) {
+			} elseif (strlen(POST("password1")) < 6 or strlen(POST("password2")) < 6) {
 				return getAlert(__("Your password must contain at least 6 characters"));
-			} elseif($password1 === $password2) {
+			} elseif ($password1 === $password2) {
 				$data = $this->Db->find($tokenID, "tokens");
 				
 				$this->Db->update("tokens", array("Situation" => "Inactive"), $data[0]["ID_Token"]);
 					
-				if(!$data) {
+				if (!$data) {
 					showAlert(__("Invalid Token"), path());
 				} else {			
 					$this->Db->update("users", array("Pwd" => "$password1"), $data[0]["ID_User"]);
@@ -263,11 +263,11 @@ class Users_Model extends ZP_Load {
 		}
 	}
 	
-	public function deactivateOrDelete($action, $username = NULL) {
+	public function deactivateOrDelete($action, $username = null) {
 		$username = $username ? $username : POST("username");
 		$data 	  = $this->Db->findBySQL("Username = '$username' AND Situation = 'Active'", $this->table, "ID_User");
 		
-		if($data) {
+		if ($data) {
 			$situation = $action === "deactivate" ? "Inactive" : "Deleted";
 
 			$this->Db->update($this->table, array("Situation" => $situation), $data[0]["ID_User"]);
@@ -275,15 +275,15 @@ class Users_Model extends ZP_Load {
 			return $data;
 		}
 
-		return FALSE;
+		return false;
 	}
 
-	public function isAdmin($sessions = FALSE) {
-		if(SESSION("ZanUserServiceID") and SESSION("ZanUserPrivilegeID") <= 2) {
-			return TRUE;
+	public function isAdmin($sessions = false) {
+		if (SESSION("ZanUserServiceID") and SESSION("ZanUserPrivilegeID") <= 2) {
+			return true;
 		}
 
-		if($sessions) {		
+		if ($sessions) {		
 			$username = SESSION("ZanUser");
 			$password = SESSION("ZanUserPwd");	
 		} else {			
@@ -294,12 +294,12 @@ class Users_Model extends ZP_Load {
 		return $this->Db->findBySQL("ID_Privilege <= 2 AND (Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'", $this->table, "ID_User");
 	}
 	
-	public function isMember($sessions = FALSE) {
-		if(SESSION("ZanUserServiceID")) {
-			return TRUE;
+	public function isMember($sessions = false) {
+		if (SESSION("ZanUserServiceID")) {
+			return true;
 		}
 
-		if($sessions) {		
+		if ($sessions) {		
 			$username = SESSION("ZanUser");
 			$password = SESSION("ZanUserPwd");					
 		} else {			
@@ -312,8 +312,8 @@ class Users_Model extends ZP_Load {
 		return $this->Db->findBySQL("(Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'", $this->table);
 	}
 	
-	public function getUserData($sessions = FALSE) {		
-		if($sessions) {		
+	public function getUserData($sessions = false) {		
+		if ($sessions) {		
 			$username = SESSION("ZanUser");
 			$password = SESSION("ZanUserPwd");						
 		} else {			
@@ -342,12 +342,12 @@ class Users_Model extends ZP_Load {
 		$this->Db->deleteBySQL("Start_Date < $time", "users_online_anonymous");
 		$this->Db->deleteBySQL("Start_Date < $time", "users_online");
 
-		if($user !== "") {		
+		if ($user !== "") {		
 			$this->Db->select("User, Start_Date");
 
 			$users = $this->Db->findBy("User", $user, "users_online");
 			
-			if(!$users) {			
+			if (!$users) {			
 				$this->Db->insert("users_online", array("User" => $user, "Start_Date" => $date));
 			} else {			
 				$this->Db->updateBySQL("users_online", "Start_Date = '$date' WHERE User = '$user'");						
@@ -357,7 +357,7 @@ class Users_Model extends ZP_Load {
 
 			$users = $this->Db->findBy("IP", $IP, "users_online_anonymous");
 									
-			if(!$users) {						
+			if (!$users) {						
 				$this->Db->insert("users_online_anonymous", array("IP" => $IP, "Start_Date" => $date));	
 			} else {			
 				$this->Db->updateBySQL("users_online_anonymous", "Start_Date = '$date' WHERE IP = '$IP'");		
@@ -365,53 +365,53 @@ class Users_Model extends ZP_Load {
 		}
 	}
 	
-	public function isAllow($permission = "view", $application = NULL) {			
-		if(SESSION("ZanUserPrivilegeID") and !SESSION("ZanUserApplication")) {	
+	public function isAllow($permission = "view", $application = null) {			
+		if (SESSION("ZanUserPrivilegeID") and !SESSION("ZanUserApplication")) {	
 			$this->Applications_Model = $this->model("Applications_Model");
 			
-			if(is_null($application)) {
+			if (is_null($application)) {
 				$application = whichApplication();		
 			}
 			
 			$privilegeID   = SESSION("ZanUserPrivilegeID");
 			$applicationID = $this->Applications_Model->getID($application);
 			
-			if($this->getPermissions($privilegeID, $applicationID, $permission)) {
-				return TRUE;
+			if ($this->getPermissions($privilegeID, $applicationID, $permission)) {
+				return true;
 			} 
 
-			return FALSE;
+			return false;
 		} else {
-			return TRUE;
+			return true;
 		}
 	}
 	
 	public function getPermissions($ID_Privilege, $ID_Application, $permission) {		
 		$data = $this->Db->findBySQL("ID_Privilege = '$ID_Privilege' AND ID_Application = '$ID_Application'", "re_permissions_privileges", "ID_Privilege, ID_Application, Adding, Deleting, Editing, Viewing");
 
-		if($permission === "add") { 
-			return ($data[0]["Adding"])   ? TRUE : FALSE;
-		} elseif($permission === "delete") {
-			return ($data[0]["Deleting"]) ? TRUE : FALSE;
-		} elseif($permission === "edit") {
-			return ($data[0]["Editing"])  ? TRUE : FALSE;
-		} elseif($permission === "view") {
-			return ($data[0]["Viewing"])  ? TRUE : FALSE;
+		if ($permission === "add") { 
+			return ($data[0]["Adding"])   ? true : false;
+		} elseif ($permission === "delete") {
+			return ($data[0]["Deleting"]) ? true : false;
+		} elseif ($permission === "edit") {
+			return ($data[0]["Editing"])  ? true : false;
+		} elseif ($permission === "view") {
+			return ($data[0]["Viewing"])  ? true : false;
 		}
 	}
 	
 	public function recover() {		
-		if(POST("recover")) {
+		if (POST("recover")) {
 			$this->helper(array("alerts", "time"));
 
 			$username = POST("username");
 			$email	  = POST("email");
 			
-			if($username or isEmail($email)) { 
-				if($username) {
+			if ($username or isEmail($email)) { 
+				if ($username) {
 					$data = $this->Db->findBy("Username", $username, $this->table, "ID_User");
 				
-					if(!$data) {
+					if (!$data) {
 						return getAlert(__("There was an error while processing your request, verifies that the information provided is correct"));
 					} else {
 						$userID    = $data[0]["ID_User"];
@@ -421,7 +421,7 @@ class Users_Model extends ZP_Load {
 
 						$data = $this->Db->findBySQL("ID_User = '$userID' AND Action = 'Recover' AND Situation = 'Active'", "tokens", "ID_Token");
 						
-						if(!$data) {
+						if (!$data) {
 							$data = array(
 								"ID_User" 	 => $userID,
 								"Token"		 => $token,
@@ -434,7 +434,7 @@ class Users_Model extends ZP_Load {
 							
 							$this->Email->email	  = $email;
 							$this->Email->subject = __("Recover Password") ." - ". _get("webName");
-							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
+							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", true);
 
 							$this->Email->send();							
 
@@ -443,10 +443,10 @@ class Users_Model extends ZP_Load {
 							return getAlert(__("You can't apply for two password resets in less than 24 hours"));
 						}
 					}
-				} elseif(isEmail($email)) {
+				} elseif (isEmail($email)) {
 					$data = $this->Db->findBy("Email", $email, $this->table, "ID_User");
 					
-					if(!$data) {
+					if (!$data) {
 						return getAlert(__("This e-mail does not exists in our database"));
 					} else {
 						$userID    = $data[0]["ID_User"];
@@ -456,7 +456,7 @@ class Users_Model extends ZP_Load {
 						
 						$data = $this->Db->findBySQL("ID_User = '$userID' AND Action = 'Recover' AND Situation = 'Active'", "tokens", "ID_Token");
 						
-						if(!$data) { 
+						if (!$data) { 
 							$data = array(
 								"ID_User" 	 => $userID,
 								"Token"		 => $token,
@@ -469,7 +469,7 @@ class Users_Model extends ZP_Load {
 							
 							$this->Email->email	  = $email;
 							$this->Email->subject = __("Recover Password") ." - ". _get("webName");
-							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", TRUE);
+							$this->Email->message = $this->view("recovering_email", array("token" => $token), "users", true);
 
 							$this->Email->send();							
 						} else {
@@ -483,14 +483,14 @@ class Users_Model extends ZP_Load {
 				return getAlert(__("You must enter a username or e-mail at least"));					
 			}					
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	public function last() {
 		$last = $this->Db->findLast($this->table, "Username");
 		
-		return ($last) ? $last[0] : NULL;
+		return ($last) ? $last[0] : null;
 	}
 	
 	public function registered() {		
@@ -499,7 +499,7 @@ class Users_Model extends ZP_Load {
 		return $registered;
 	}
 	
-	public function online($all = TRUE) {		
+	public function online($all = true) {		
 		$registered = $this->Db->countAll("users_online");
 		
 		$anonymous = $this->Db->countAll("users_online_anonymous");
@@ -509,11 +509,11 @@ class Users_Model extends ZP_Load {
 		return ($all) ? $total : $anonymous;	
 	}	
 	
-	public function isToken($token = FALSE, $action = NULL) {
-		if($token and isset($action)) {
+	public function isToken($token = false, $action = null) {
+		if ($token and isset($action)) {
 			$data = $this->Db->findBySQL("Token = '$token' AND Action = '$action' AND Situation = 'Active'", "tokens", "ID_Token");
 		
-			if(!$data) {
+			if (!$data) {
 				showAlert(__("Invalid Token"), path());
 			} else {
 				return $data[0]["ID_Token"];
@@ -536,10 +536,10 @@ class Users_Model extends ZP_Load {
 	}
 	
 	public function setLike($ID, $table, $application) {
-		if($this->Db->find($ID, $table)) {
-			if($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
+		if ($this->Db->find($ID, $table)) {
+			if ($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
 				showAlert(__("Already You like this"), path("$table/go/$ID"));
-			} elseif($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
+			} elseif ($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
 				showAlert(__("Already You dislike this"), path("$table/go/$ID"));
 			}
 
@@ -558,12 +558,12 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function setDislike($ID, $table, $application) {
-		if($this->Db->find($ID, $table)) {
+		if ($this->Db->find($ID, $table)) {
 			$this->helper(array("alerts", "time"));
 
-			if($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
+			if ($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
 				showAlert(__("Already You dislike this"), path("$table/go/$ID"));
-			} elseif($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
+			} elseif ($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
 				showAlert(__("Already You like this"), path("$table/go/$ID"));
 			}
 
@@ -587,7 +587,7 @@ class Users_Model extends ZP_Load {
 		$prefix = $factor > 0 ? "+" : "";
 		$sign 	= $prefix . $factor;
 
-		switch($application) {
+		switch ($application) {
 			case 9: case "bookmarks":
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + $factor);
 				
@@ -620,7 +620,7 @@ class Users_Model extends ZP_Load {
 
 		$this->Db->updateBySQL("users", "Credits = (Credits) $credits, Recommendation = (Recommendation) $recommendation $additional WHERE ID_User = '". SESSION("ZanUserID") ."'");
 
-		return FALSE;
+		return false;
 	}
 
 	public function getInformation() {
@@ -636,13 +636,13 @@ class Users_Model extends ZP_Load {
 			"city"	 	=> "required"
 		);
 
-		$this->data = $this->Data->proccess(NULL, $validations);
+		$this->data = $this->Data->proccess(null, $validations);
 
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 
-		if($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
+		if ($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
 			return getAlert(__("The information has been saved correctly"), "success");	
 		}
 		
@@ -650,24 +650,24 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function changePassword() {
-		$this->data = $this->Data->proccess(NULL, array(
+		$this->data = $this->Data->proccess(null, array(
 			"password" 		  => "required",
 			"new_password" 	  => "length:6",
 			"re_new_password" => "length:6"
 		));
 
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		} else{
 			$this->helper("alerts");
 
-			if(POST("new_password", "clean") !== POST("re_new_password", "clean")) {
+			if (POST("new_password", "clean") !== POST("re_new_password", "clean")) {
 				return getAlert(__("The password does not match the confirm password"));
-			} elseif(!$this->isMember()) {
+			} elseif (!$this->isMember()) {
 				return getAlert(__("Incorrect password"));
 			}
 
-			if($this->Db->update($this->table, array("Pwd" => POST("new_password", "encrypt")), SESSION("ZanUserID"))) {
+			if ($this->Db->update($this->table, array("Pwd" => POST("new_password", "encrypt")), SESSION("ZanUserID"))) {
 				return getAlert(__("The password has been changed correctly"), "success");	
 			}
 
@@ -676,21 +676,21 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function changeEmail() {
-		$this->data = $this->Data->proccess(NULL, array(
+		$this->data = $this->Data->proccess(null, array(
 			"password" 		  => "required",
 			"email" 	  	  => "email?"
 		));
 
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		} else{
 			$this->helper("alerts");
 
-			if(!$this->isMember()) {
+			if (!$this->isMember()) {
 				return getAlert(__("Incorrect password"));
 			}
 
-			if($this->Db->update($this->table, array("Email" => POST("email"), "Subscribed" => (int)(POST("subscribed") === "on")), SESSION("ZanUserID"))) {
+			if ($this->Db->update($this->table, array("Email" => POST("email"), "Subscribed" => (int)(POST("subscribed") === "on")), SESSION("ZanUserID"))) {
 				return getAlert(__("The email has been changed correctly"), "success");	
 			}
 
@@ -707,16 +707,16 @@ class Users_Model extends ZP_Load {
 	}
 
 	public function saveAvatar() {
-		if(POST("file") or POST("coordinate")) {
+		if (POST("file") or POST("coordinate")) {
 			$avatar = $this->createAvatar();
 			$data   = $this->Db->find(SESSION("ZanUserID"), $this->table, "Avatar");
 
-			if(is_array($avatar) and $data) {
-				if(strtolower(current($avatar)) !== strtolower($data[0]["Avatar"])) {
+			if (is_array($avatar) and $data) {
+				if (strtolower(current($avatar)) !== strtolower($data[0]["Avatar"])) {
 					$this->removeAvatar($data[0]["Avatar"]);
 				}
 
-				if($this->Db->update($this->table, array("Avatar" => current($avatar), "Avatar_Coordinate" => next($avatar)), SESSION("ZanUserID"))) {
+				if ($this->Db->update($this->table, array("Avatar" => current($avatar), "Avatar_Coordinate" => next($avatar)), SESSION("ZanUserID"))) {
 					SESSION("ZanUserAvatar", prev($avatar) ."?". time());
 
 					return getAlert(__("The avatar has been saved correctly"), "success");	
@@ -730,11 +730,11 @@ class Users_Model extends ZP_Load {
 	public function deleteAvatar() {
 		$data = $this->Db->find(SESSION("ZanUserID"), $this->table, "Avatar");
 		
-		if($this->Db->update($this->table, array("Avatar" => NULL, "Avatar_Coordinate" => NULL), SESSION("ZanUserID"))) {
+		if ($this->Db->update($this->table, array("Avatar" => null, "Avatar_Coordinate" => null), SESSION("ZanUserID"))) {
 			
 			SESSION("ZanUserAvatar", "default.png");
 
-			if($data) {
+			if ($data) {
 				$this->removeAvatar($data[0]["Avatar"]);
 			}
 
@@ -757,20 +757,20 @@ class Users_Model extends ZP_Load {
 			"Viadeo"   => POST("viadeo")
 		);
 
-		if($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
+		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 			return getAlert(__("Data have been saved correctly"), "success");	
 		}
 		
 		return getAlert(__("Update error"));
 	}
 
-	public function records($only = FALSE, $start = 0, $order = NULL, $search = FALSE) {
+	public function records($only = false, $start = 0, $order = null, $search = false) {
 		$application = segment(0, isLang());
 		$Model 		 = ucfirst($application) ."_Model";
 
 		$this->$Model = $this->model($Model);
 
-		if(!$search) {
+		if (!$search) {
 			$data = $this->$Model->records(!$only ? "all" : "records", $start, MAX_LIMIT, $order);
 		} else {
 			$data = $this->$Model->records($search, $start, MAX_LIMIT, $order);
@@ -779,7 +779,7 @@ class Users_Model extends ZP_Load {
 		return $data;
 	}
 
-	public function delete($records, $start = 0, $order = NULL, $search = FALSE) {
+	public function delete($records, $start = 0, $order = null, $search = false) {
 		switch ($this->application) {
 			case "blog":
 				$ID_Column = "ID_Post";
@@ -794,7 +794,7 @@ class Users_Model extends ZP_Load {
 
 		$count = count($records);
 
-		foreach($records as $record) {
+		foreach ($records as $record) {
 			$this->Db->updateBySQL($this->application, "Situation = 'Deleted' WHERE $ID_Column = ". $record ." AND ID_User = ". SESSION("ZanUserID"));
 		}
 
@@ -804,7 +804,7 @@ class Users_Model extends ZP_Load {
 
 		$this->setCredits(-$count, $this->application);
 
-		if(!$search) {
+		if (!$search) {
 			$data = $this->$Model->records("records", $start - $count, $count, $order);
 		} else {
 			$data = $this->$Model->records($search, $start - $count, $count, $order);
@@ -821,13 +821,13 @@ class Users_Model extends ZP_Load {
 		$filetype 	= POST("type");
 		$coordinate = POST("coordinate");
 
-		if(!preg_match('/^\d+,\d+,\d+,\d+$/', $coordinate)) {
+		if (!preg_match('/^\d+,\d+,\d+,\d+$/', $coordinate)) {
 			$coordinate = "0,0,90,90";
 		}
 
-		if($file) {
-			if(!is_string($username) or !is_string($resized) or !is_string($filetype)) {
-				return FALSE;
+		if ($file) {
+			if (!is_string($username) or !is_string($resized) or !is_string($filetype)) {
+				return false;
 			}
 
 			$parts = explode(".", $filename);
@@ -850,17 +850,17 @@ class Users_Model extends ZP_Load {
 	        file_put_contents($fileO, $dataO, LOCK_EX);
 	        file_put_contents($fileR, $dataR, LOCK_EX);
 
-	        if(file_exists($fileO) and file_exists($fileR)) {
+	        if (file_exists($fileO) and file_exists($fileR)) {
 	        	return array(
 	        		$nameR,
 	        		$coordinate
 	        	);
 	        } else {
-	        	return FALSE;
+	        	return false;
 	        }
 		} else {
-			if(!is_string($resized)) {
-				return FALSE;
+			if (!is_string($resized)) {
+				return false;
 			}
 
 			$parts = explode(".", $filename);
@@ -876,19 +876,19 @@ class Users_Model extends ZP_Load {
 
 	        file_put_contents($file, $data, LOCK_EX);
 
-	        if(file_exists($file)) {
+	        if (file_exists($file)) {
 	        	return array(
 					$name,
 					$coordinate
 				);
 	        } else {
-	        	return FALSE;
+	        	return false;
 	        }
 		}
 	}
 
 	private function removeAvatar($filename) {
-		if($filename !== "default.png") {
+		if ($filename !== "default.png") {
 			$parts = explode(".", $filename);
 			$ext   = end($parts);
 

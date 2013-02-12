@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -23,10 +23,10 @@ function getOnlineUsers() {
 			
 	$Db->deleteBySQL("Start_Date < $time", "users_online");
 
-	if($user) {		
+	if ($user) {		
 		$users = $Db->findBy("User", $user, "users_online");
 		
-		if(!$users) {		
+		if (!$users) {		
 			$Db->insert("users_online", array("User" => $user, "Start_Date" => $date));	
 		} else {		
 			$Db->updateBySQL("users_online", "Start_Date = '$date' WHERE User = '$user'");	
@@ -34,7 +34,7 @@ function getOnlineUsers() {
 	} else {
 		$users = $Db->findBy("IP", $IP, "users_online_anonymous");
 								
-		if(!$users) {						
+		if (!$users) {						
 			$Db->insert("users_online_anonymous", array("IP" => $IP, "Start_Date" => $date));
 		} else {			
 			$Db->updateBySQL("users_online", "Start_Date = '$date' WHERE IP = '$IP'");

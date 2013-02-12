@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -29,7 +29,7 @@ class Videos_Controller extends ZP_Load {
 		$this->Videos_Model = $this->model("Videos_Model");
 		$data = $this->Videos_Model->getRSS();
 		
-		if($data) {
+		if ($data) {
 			$vars["videos"]= $data;	
 
 			$this->view("rss", $vars, $this->application);
@@ -50,10 +50,10 @@ class Videos_Controller extends ZP_Load {
 	
 		$videos = $this->Videos_Model->getVideos($limit);	
 				
-		if($videos) {			
+		if ($videos) {			
 			$vars["pagination"] = $this->pagination;
 			$vars["videos"] 	= $videos;			
-			$vars["view"] 		= $this->view("videos", TRUE);
+			$vars["view"] 		= $this->view("videos", true);
 			
 			$this->render("content", $vars);
 		} else {
@@ -64,9 +64,9 @@ class Videos_Controller extends ZP_Load {
 	public function video($id){
 		$this->Videos_Model = $this->model("Videos_Model");
 		$video = $this->Videos_Model->getByID($id);
-		if($video){
+		if ($video){
 			$vars["video"] = $video[0];
-			$vars["view"]  = $this->view("video", TRUE);
+			$vars["view"]  = $this->view("video", true);
 			
 			$this->render("content", $vars);
 		} else{
@@ -81,7 +81,7 @@ class Videos_Controller extends ZP_Load {
 		$count = $this->Videos_Model->count();
 		$URL   = path("videos/");			
 		
-		$this->pagination = ($count > MAX_LIMITVideos) ? paginate($count, MAX_LIMITVideos, $start, $URL) : NULL;	
+		$this->pagination = ($count > MAX_LIMITVideos) ? paginate($count, MAX_LIMITVideos, $start, $URL) : null;	
 
 		return $limit;
 	}

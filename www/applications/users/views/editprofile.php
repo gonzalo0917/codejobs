@@ -1,11 +1,11 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 
 <div class="editProfile">
 	<form id="editUserProfile" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
 		<fieldset>
 			<p class="center2"><?php echo __("Edit Profile"); ?></p>
 		
-			<?php echo isset($alert) ? $alert : NULL; ?>
+			<?php echo isset($alert) ? $alert : null; ?>
 			
 			<div id="box" class="set2 important">
 				<p class="title main"><?php echo __("Profile"); ?></p>
@@ -17,7 +17,7 @@
 					
 					<div class="buttons">
 					<?php 
-						if(SESSION("ZanUserMethod") !== "twitter") { 
+						if (SESSION("ZanUserMethod") !== "twitter") { 
 					?>
 							<input class="upAvatar" value="<?php echo __("Upload"); ?>" type="button" />
 					<?php 
@@ -28,7 +28,7 @@
 				</div>
 
 				<?php 
-					if(SESSION("ZanUserMethod") !== "twitter") { 
+					if (SESSION("ZanUserMethod") !== "twitter") { 
 				?>
 						<input id="file" name="file" type="file" onchange="doUpload();" />
 				<?php 
@@ -41,28 +41,28 @@
 				
 				<div class="social">
 				<?php 
-					if($twitter) { 
+					if ($twitter) { 
 				?>
 						<a class="sn" id="twitter" target="_blank" href="http://twitter.com/<?php echo $user["Twitter"];?>" 
 						title="<?php echo $user["Twitter"];?>"><img src="<?php print $twitter;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
  					
- 					if($facebook) { 
+ 					if ($facebook) { 
 	 			?>
 						<a class="sn" id="facebook" target="_blank" href="http://facebook.com/<?php echo $user["Facebook"];?>" 
 						title="<?php echo $user["Facebook"];?>"><img src="<?php print $facebook;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
 					
-					if($linkedin) { 
+					if ($linkedin) { 
 				?>
 						<a class="sn" id="linkedin" target="_blank" href="http://linkedin.com/<?php echo $user["Linkedin"];?>" 
 						title="<?php echo $user["Linkedin"];?>"><img src="<?php print $linkedin;?>" alt="twitter.com"/></a>
 				<?php 
 					} 
 					
-					if($google) { 
+					if ($google) { 
 				?>
 						<a class="sn" id="google" href="http://plus.google.com/<?php echo $user["Google"];?>/about" target="_blank" 
 						title="<?php echo $user["Google"];?>"><img src="<?php print $google;?>" alt="twitter.com"/></a>
@@ -156,10 +156,10 @@
 					</div>
 					
 					<?php 
-						if($user["Country"] === "" and $user["District"] === "") {
-							$showLocation = FALSE;
+						if ($user["Country"] === "" and $user["District"] === "") {
+							$showLocation = false;
 						} else {
-							$showLocation = TRUE;
+							$showLocation = true;
 						}
 					?>
 					
@@ -187,10 +187,10 @@
 					</div>
 					
 					<?php 
-						if($user["Sign"] === "") {
-							$showOther = FALSE;
+						if ($user["Sign"] === "") {
+							$showOther = false;
 						} else {
-							$showOther = TRUE;
+							$showOther = true;
 						}
 					?>
 

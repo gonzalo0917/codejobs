@@ -1,5 +1,5 @@
 <?php 
-if(!defined("ACCESS")) { 
+if (!defined("ACCESS")) { 
 	die("Error: You don't have permission to access here..."); 
 }
 	$fid     = isset($data) ? recoverPOST("fid", $data[0]["ID_Parent"]) : recoverPOST("fid");

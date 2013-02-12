@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -8,7 +8,7 @@
 	$content 	 = isset($data) ? recoverPOST("content", $data["Content"])		 	: stripslashes(recoverPOST("content"));
 	$tags    	 = isset($data) ? recoverPOST("tags", $data["Tags"]) 				: recoverPOST("tags");
 	$language  	 = isset($data) ? recoverPOST("language", $data["Language"])  	 	: recoverPOST("language");
-	$edit        = isset($data) ? TRUE 												: FALSE;
+	$edit        = isset($data) ? true 												: false;
 	$action	     = isset($data) ? "edit"											: "save";
 	$resalt      = isset($data) ? __("Edit post") 									: __("Add new post");
 	$href	     = path("blog/add/");
@@ -18,25 +18,25 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p($resalt, "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
 				"name" 		=> "title", 
 				"style" 	=> "width: 100%;", 
 				"field" 	=> __("Title"), 
-				"p" 		=> TRUE, 
+				"p" 		=> true, 
 				"autofocus" => "autofocus", 
 				"value" 	=> stripslashes($title)
 			));
 
 			$options = array(
-				array("value" => 1, "option" => "Redactor", "selected" => ($editor === 1 ? TRUE : FALSE)),
-				array("value" => 2, "option" => "markItUp!", "selected" => ($editor === 2 ? TRUE : FALSE))
+				array("value" => 1, "option" => "Redactor", "selected" => ($editor === 1 ? true : false)),
+				array("value" => 2, "option" => "markItUp!", "selected" => ($editor === 2 ? true : false))
 			);
 
 			echo formSelect(array(
 				"name" 		=> "editor", 
-				"p" 		=> TRUE, 
+				"p" 		=> true, 
 				"field" 	=> __("Editor"), 
 				"onchange" 	=> 'switchEditor($(this).val())'),
 				$options
@@ -46,7 +46,7 @@
 				"name" 	 => "content", 
 				"style"  => "height: 240px;", 
 				"field"  => __("Content"), 
-				"p" 	 => TRUE, 
+				"p" 	 => true, 
 				"value"  => stripslashes($content)
 			));
 
@@ -54,7 +54,7 @@
 				"name" 	=> "tags", 
 				"style" => "width: 300px;", 
 				"field" => __("Tags"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $tags
 			));
 
@@ -76,4 +76,4 @@
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

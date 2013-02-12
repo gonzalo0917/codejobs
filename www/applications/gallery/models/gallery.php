@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -15,57 +15,57 @@ class Gallery_Model extends ZP_Load {
 		$this->language = whichLanguage(); 
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "ID_Image DESC", $search = NULL, $field = NULL, $trash = FALSE) {	
-		if($action === "edit" or $action === "save") {
+	public function cpanel($action, $limit = null, $order = "ID_Image DESC", $search = null, $field = null, $trash = false) {	
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 			
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all($trash, $order, $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 
 	private function all($trash, $order, $limit) {	
-		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "*", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
+		if (!$trash) { 
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "*", null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", null, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "*", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "*", null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", null, $order, $limit);
 		}
 	}
 	
 	private function editOrSave($action) {		
 		$this->helper("alerts");
 		
-		if(!POST("title")) {
+		if (!POST("title")) {
 			return getAlert(__("You need to write a title"));
 		}
 				
-		if(!POST("category") and POST("ID_Category") === "0") {
+		if (!POST("category") and POST("ID_Category") === "0") {
 			$this->category = 0;
 		} else {
-			if(POST("category")) {
+			if (POST("category")) {
 				$this->category = POST("category");
 				$categorynice   = nice($this->category);
 				
-				$data           = $this->Db->call("setCategory('$this->category', '$categorynice', '". getXMLang(WEB_LANG, TRUE) . "', 'Active')");
+				$data           = $this->Db->call("setCategory('$this->category', '$categorynice', '". getXMLang(WEB_LANG, true) . "', 'Active')");
 				$this->category = $data[0]["ID_Category"];
 			} else {
 				$this->category = POST("ID_Category");
 			}
 		}
 		
-		if($action === "edit") {
-			if(FILES("file", "name") !== "") {
+		if ($action === "edit") {
+			if (FILES("file", "name") !== "") {
 				$this->Files = $this->core("Files");
 				
 				$this->Files->filename  = FILES("file", "name");
@@ -74,7 +74,7 @@ class Gallery_Model extends ZP_Load {
 				$this->Files->fileError = FILES("file", "error");
 				$this->Files->fileTmp   = FILES("file", "tmp_name");
 				
-				if(!$this->category or $this->category === 0) {
+				if (!$this->category or $this->category === 0) {
 					$dir = "www/lib/files/images/gallery/unknown/";
 				} else {
 					$data = $this->Db->find($this->category, $this->table);
@@ -82,13 +82,13 @@ class Gallery_Model extends ZP_Load {
 					$dir = "www/lib/files/images/gallery/". $data[0]["Nice"] ."/";
 				}
 				
-				if(!file_exists($dir)) {
+				if (!file_exists($dir)) {
 					mkdir($dir, 0777); 				
 				}
 						
 				$upload = $this->Files->upload($dir);
 				
-				if($upload["upload"]) {
+				if ($upload["upload"]) {
 					$this->Images   = $this->core("Images");
 					
 					$this->original = $this->Images->getResize("original", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
@@ -98,7 +98,7 @@ class Gallery_Model extends ZP_Load {
 					return getAlert(__($upload["message"]));
 				}
 			} else {
-				if($action === "edit") {
+				if ($action === "edit") {
 					$this->original = "";
 					$this->medium   = "";
 					$this->small    = "";
@@ -118,7 +118,7 @@ class Gallery_Model extends ZP_Load {
 	}
 	
 	private function save() {
-		if(is_array(FILES("files", "name"))) {
+		if (is_array(FILES("files", "name"))) {
 			$filecount = count(FILES("files", "name"));
 			
 			$this->Files = $this->core("Files");
@@ -126,15 +126,15 @@ class Gallery_Model extends ZP_Load {
 			$i = 0;
 			$noImage = 0;
 			
-			foreach($_FILES["files"]["name"] as $file) {							
-				if(FILES("files", "name", $i) !== "") {				
+			foreach ($_FILES["files"]["name"] as $file) {							
+				if (FILES("files", "name", $i) !== "") {				
 					$this->Files->filename  = FILES("files", "name", $i);
 					$this->Files->fileType  = FILES("files", "type", $i);
 					$this->Files->fileSize  = FILES("files", "size", $i);
 					$this->Files->fileError = FILES("files", "error", $i);
 					$this->Files->fileTmp   = FILES("files", "tmp_name", $i);
 					
-					if(!$this->category or $this->category === 0) {
+					if (!$this->category or $this->category === 0) {
 						$dir = "www/lib/files/images/gallery/unknown/";
 					} else {
 						$data = $this->Db->find($this->category, $this->table);
@@ -142,13 +142,13 @@ class Gallery_Model extends ZP_Load {
 						$dir = "www/lib/files/images/gallery/". $data[0]["Nice"] ."/";
 					}
 					
-					if(!file_exists($dir)) {
+					if (!file_exists($dir)) {
 						mkdir($dir, 0777); 				
 					}
 							
 					$upload = $this->Files->upload($dir);
 					
-					if($upload["upload"]) {
+					if ($upload["upload"]) {
 						$this->Images   = $this->core("Images");
 						
 						$this->original = $this->Images->getResize("original", $dir, $upload["filename"], MIN_ORIGINAL, MAX_ORIGINAL);
@@ -170,7 +170,7 @@ class Gallery_Model extends ZP_Load {
 			}	
 		} 
 
-		if($noImage === $filecount) {
+		if ($noImage === $filecount) {
 			return getAlert(__("Selected Image"));
 		} else {
 			return getAlert(__("The image has been saved correctly"), "success");
@@ -183,18 +183,18 @@ class Gallery_Model extends ZP_Load {
 		
 		$data = $this->Db->call($query);
 							
-		if(isset($data[0]["Image_Not_Exists"])) {
+		if (isset($data[0]["Image_Not_Exists"])) {
 			return getAlert(__("This image not exists"));
 		}
 		
 		return getAlert(__("The image has been edit correctly"), "success");
 	}
 	
-	public function getByID($ID, $mode = FALSE) {
-		if(!$mode) {	
+	public function getByID($ID, $mode = false) {
+		if (!$mode) {	
 			$data = $this->Db->call("getImage('$ID')");
 
-			if(!isset($data[0]["ID_Category"])) {
+			if (!isset($data[0]["ID_Category"])) {
 				$data[0]["ID_Category"] = 0;
 			}
 						
@@ -202,7 +202,7 @@ class Gallery_Model extends ZP_Load {
 		} else {
 			$record = $this->Db->find($ID, $this->table);
 			
-			if($record) {
+			if ($record) {
 				$data["ID"] 		 = $record[0]["ID_Image"];
 				$data["Title"]	 	 = $record[0]["Title"];
 				$data["Nice"] 		 = $record[0]["Nice"];
@@ -229,22 +229,22 @@ class Gallery_Model extends ZP_Load {
 		return $data;	
 	}
 	
-	public function getCount($album = NULL) {		
-		if(!$album) {
+	public function getCount($album = null) {		
+		if (!$album) {
 			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
 		} else {
 			return $this->Db->countBySQL("Situation = 'Active' AND Album_Nice = '$album'", $this->table);
 		}
 	}
 	
-	public function getByAlbum($album = NULL, $limit) {							
-		if(!$album) {
-			$records = $this->Db->findBySQL("Situation = 'Active',", $this->table, NULL, "ID_Image Desc", $limit);
+	public function getByAlbum($album = null, $limit) {							
+		if (!$album) {
+			$records = $this->Db->findBySQL("Situation = 'Active',", $this->table, null, "ID_Image Desc", $limit);
 			
-			if($records) { 
+			if ($records) { 
 				$i = 0;
 
-				foreach($records as $record) {
+				foreach ($records as $record) {
 					$data[$i]["ID_Image"] 	 = $record["ID_Image"];
 					$data[$i]["Title"] 		 = $record["Title"];
 					$data[$i]["Nice"] 		 = $record["Nice"];
@@ -259,12 +259,12 @@ class Gallery_Model extends ZP_Load {
 				}
 			} 
 		} else {
-			$records = $this->Db->findBySQL("Album_Nice = '$album' AND Situation = 'Active'", NULL, "ID_Image Desc", $limit);
+			$records = $this->Db->findBySQL("Album_Nice = '$album' AND Situation = 'Active'", null, "ID_Image Desc", $limit);
 			
-			if($records) { 
+			if ($records) { 
 				$i = 0;
 				
-				foreach($records as $record) {
+				foreach ($records as $record) {
 					$data[$i]["ID_Image"] 	 = $record["ID_Image"];
 					$data[$i]["Title"] 		 = $record["Title"];
 					$data[$i]["Nice"] 		 = $record["Nice"];
@@ -280,17 +280,17 @@ class Gallery_Model extends ZP_Load {
 			} 
 		}
 	
-		if(isset($data)) {
+		if (isset($data)) {
 			return $data;
 		} else {
-			return FALSE;
+			return false;
 		}					
 	}
 	
 	public function getNext($ID, $album = "none") {
 		$record = $this->Db->findBySQL("ID_Image > '$ID' AND Album_Nice = '$album' AND Situation = 'Active' LIMIT 1", $this->table);
 	
-		if($record) {
+		if ($record) {
 			$data["ID"] 		 = $record[0]["ID_Image"];
 			$data["Title"] 		 = $record[0]["Title"];
 			$data["Nice"] 		 = $record[0]["Nice"];
@@ -305,14 +305,14 @@ class Gallery_Model extends ZP_Load {
 		
 			return $data;			
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	public function getPrev($ID, $album = "none") {
 		$record = $this->Db->findBySQL("ID_Image < '$ID' AND Album_Nice = '$album' AND Situation = 'Active' ORDER BY ID_Image Desc LIMIT 1", $this->table);
 		
-		if($record) {
+		if ($record) {
 			$data["ID"] 		 = $record[0]["ID_Image"];
 			$data["Title"] 	 	 = $record[0]["Title"];
 			$data["Nice"] 		 = $record[0]["Nice"];
@@ -328,14 +328,14 @@ class Gallery_Model extends ZP_Load {
 		
 			return $data;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	public function getLast($album = "none") {
 		$record = $this->Db->findBySQL("Situation = 'Active' AND Album_Nice = '$album' ORDER BY ID_Image DESC LIMIT 1", $this->table);
 		
-		if($record) {
+		if ($record) {
 			$data["ID"] 		 = $record[0]["ID_Image"];
 			$data["Title"] 		 = $record[0]["Title"];
 			$data["Nice"] 		 = $record[0]["Nice"];
@@ -351,14 +351,14 @@ class Gallery_Model extends ZP_Load {
 		
 			return $data;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	public function getFirst($album = "none") {
 		$record = $this->Db->findBySQL("Situation = 'Active' AND Album_Nice = '$album' ORDER BY ID_Image ASC LIMIT 1", $this->table);
 		
-		if($record) {
+		if ($record) {
 			$data["ID"] 		 = $record[0]["ID_Image"];
 			$data["Title"] 		 = $record[0]["Title"];
 			$data["Nice"] 		 = $record[0]["Nice"];
@@ -374,17 +374,17 @@ class Gallery_Model extends ZP_Load {
 		
 			return $data;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	public function getAlbums() {	
 		$data = $this->Db->findBySQL("Situation = 'Active' AND Album != 'None' GROUP BY Album", $this->table);	
 		
-		if($data) {
+		if ($data) {
 			return $data;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	

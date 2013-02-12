@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -18,13 +18,13 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "span10 required", 
 				"field" => __("Title"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => stripslashes($title)
 			));
 
@@ -32,7 +32,7 @@
 				"name" 	=> "URL", 
 				"class" => "span10 required", 
 				"field" => __("URL"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $URL
 			));
 			
@@ -42,7 +42,7 @@
 				"class"  => "required",
 				"style"  => "height: 200px;", 
 				"field"  => __("Description"), 
-				"p" 	 => TRUE, 
+				"p" 	 => true, 
 				"value"  => $description
 			));
 
@@ -50,7 +50,7 @@
 				"name" 	=> "tags", 
 				"class" => "span10 required", 
 				"field" => __("Tags"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $tags
 			));
 
@@ -59,21 +59,21 @@
 				"name" 	=> "author", 
 				"class" => "span2 required", 
 				"field" => __("Author"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => stripslashes($author)
 			));
 
-			echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
+			echo formField(null, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 			
 			$options = array(
-				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? true : false),
+				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 			);
 
-			echo formSelect(array("name" => "situation", "class" => "select", "p" => TRUE, "field" => __("Situation")), $options);
+			echo formSelect(array("name" => "situation", "class" => "select", "p" => true, "field" => __("Situation")), $options);
 			
 			echo formSave($action);
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

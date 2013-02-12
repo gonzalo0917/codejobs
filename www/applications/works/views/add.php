@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here...");
 	}
 
@@ -11,22 +11,22 @@
 	$preview1 	 = isset($data) ? recoverPOST("preview1", $data[0]["Preview1"])   		   	: recoverPOST("preview1");
 	$preview2 	 = isset($data) ? recoverPOST("preview2", $data[0]["Preview2"])   		   	: recoverPOST("preview2");
 	$situation 	 = isset($data) ? recoverPOST("situation", $data[0]["Situation"])   		: recoverPOST("situation");
-	$edit        = isset($data) ? TRUE														: FALSE;
+	$edit        = isset($data) ? true														: false;
 	$action	     = isset($data) ? "edit"											 		: "save";
 	$href	     = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") 			: path(whichApplication() ."/cpanel/add");
 
 
 echo div("add-form", "class");
-		echo formOpen($href, "form-add", "form-add", NULL, "post", "multipart/form-data");
+		echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 			
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "span5 required", 
 				"field" => __("Title"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"placeholder" => __("Type the title of the work"),
 				"value" => $title 
 			));
@@ -35,7 +35,7 @@ echo div("add-form", "class");
 				"name" 	=> "URL", 
 				"class" => "span5 required", 
 				"field" => __("URL"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"placeholder" => __("Type the URL of the website"),
 				"value" => $title 
 			));
@@ -46,14 +46,14 @@ echo div("add-form", "class");
 				"class"  => "markItUp", 
 				"style"  => "height: 240px;", 
 				"field"  => __("Description"), 
-				"p"   	 => TRUE, 
+				"p"   	 => true, 
 				"placeholder" => __("Enter the details of the work"),
 				"value"  => stripslashes($description)
 			));
 
-			if(isset($image)) {
+			if (isset($image)) {
 				$imageLast = $image;
-				$image = img(path($image, TRUE), array("alt" => "Image", "class" => "no-border", "style" => "max-width: 200px;"));
+				$image = img(path($image, true), array("alt" => "Image", "class" => "no-border", "style" => "max-width: 200px;"));
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $image;
@@ -64,12 +64,12 @@ echo div("add-form", "class");
 				"type" 	=> "file",
 				"name" 	=> "image",  
 				"field" => __("Image"),
-				"p" 	=> TRUE
+				"p" 	=> true
 			));
 
-			if(isset($preview1)) {
+			if (isset($preview1)) {
 				$preview1Last = $preview1;
-				$preview1 = img(path($preview1, TRUE), array("alt" => "Preview1", "class" => "no-border", "style" => "max-width: 200px;"));
+				$preview1 = img(path($preview1, true), array("alt" => "Preview1", "class" => "no-border", "style" => "max-width: 200px;"));
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $preview1;
@@ -80,12 +80,12 @@ echo div("add-form", "class");
 				"type" 	=> "file", 
 				"name" 	=> "preview1",  
 				"field" => __("Preview1"),
-				"p" 	=> TRUE
+				"p" 	=> true
 			));
 
-			if(isset($preview2)) {
+			if (isset($preview2)) {
 				$preview2Last = $preview2;
-				$preview2 = img(path($preview2, TRUE), array("alt" => "Preview2", "class" => "no-border", "style" => "max-width: 200px;"));
+				$preview2 = img(path($preview2, true), array("alt" => "Preview2", "class" => "no-border", "style" => "max-width: 200px;"));
 			
 				echo __("If you change the image, this image will be deleted") . "<br />";
 				echo $preview2;
@@ -96,19 +96,19 @@ echo div("add-form", "class");
 				"type" 	=> "file", 
 				"name" 	=> "preview2", 
 				"field" => __("Preview2"),
-				"p" 	=> TRUE
+				"p" 	=> true
 			));
 
 			$options = array(
-				0 => array("value" => "Draft",   "option" => __("Draft"),     "selected" => ($situation === "Draft")    ? TRUE : FALSE),
-				1 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				2 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Draft",   "option" => __("Draft"),     "selected" => ($situation === "Draft")    ? true : false),
+				1 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? true : false),
+				2 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 			);
 
 			echo formSelect(array(
 				"id"    => "situation",
 				"name"  => "situation", 
-				"p"  	=> TRUE, 
+				"p"  	=> true, 
 				"class" => "required", 
 				"field" => __("Situation")), 
 				$options
@@ -119,4 +119,4 @@ echo div("add-form", "class");
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Job"));
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

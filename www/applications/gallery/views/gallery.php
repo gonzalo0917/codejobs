@@ -1,4 +1,4 @@
-<?php if(!defined("ACCESS"))) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS"))) die("Error: You don't have permission to access here..."); ?>
 
 <div class="full-container">
 	<a name="top"></a>
@@ -11,13 +11,13 @@
 		<span><?php echo __("Images")?>: <?php echo $count;?></span>
 	</div>
 	
-	<?php if(isset($album) and $album) { ?>
+	<?php if (isset($album) and $album) { ?>
 		<div class="h-link">
 			<a id="previous" href="<?php echo path("gallery/#top"));?>" title="<?php echo __("Gallery"); ?>"><?php echo __("Gallery"); ?></a>
 		</div>
 	<?php } ?>
 	
-	<?php if(isset($pagination)) { ?>
+	<?php if (isset($pagination)) { ?>
 		<div class="paginate"><?php echo $pagination;?></div>
 	<?php } else { ?>
 		<div class="paginate"></div>
@@ -30,12 +30,12 @@
 			$j = 0;
 			$i = 0;
 
-			foreach($pictures as $picture) { 
-				if($i === 0) { ?>
+			foreach ($pictures as $picture) { 
+				if ($i === 0) { ?>
 					<div class="row">
 		<?php 	} 
 				
-				if($i < 5)  { ?>
+				if ($i < 5)  { ?>
 					<div class="gallery-img-cont">	
 						<?php $link =  path("gallery/image/". $picture["ID_Image"] ."/#image")); ?>
 						
@@ -47,17 +47,17 @@
 				
 				$i++;
 				
-				if($i === 5) { ?>
+				if ($i === 5) { ?>
 					</div><div class="clear"></div>
 				<?php 
 					$i = 0;
-					$flag = TRUE;
+					$flag = true;
 				} else {
-					$flag = FALSE;
+					$flag = false;
 				} ?>
 				
 		<?php } 
-			if(!$flag) { ?>
+			if (!$flag) { ?>
 			</div><div class="clear"></div>
 	<?php 	} ?>
 	</div>

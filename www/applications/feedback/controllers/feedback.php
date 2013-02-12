@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -29,11 +29,11 @@ class Feedback_Controller extends ZP_Load {
 
 		$this->helper(array("forms", "html"));
 		
-		$vars["inserted"] = FALSE;
+		$vars["inserted"] = false;
 
-		$vars["view"] = $this->view("send", TRUE);
+		$vars["view"] = $this->view("send", true);
 		
-		if(POST("send")) {						
+		if (POST("send")) {						
 			$vars["alert"] = $this->Feedback_Model->send();			
 		} 
 		

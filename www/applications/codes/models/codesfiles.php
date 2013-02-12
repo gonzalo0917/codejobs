@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -12,13 +12,13 @@ class CodesFiles_Model extends ZP_Load {
 		$this->table  = "codes_files";
 	}
         
-    public function getByCode($code, $limit = NULL) {
-        return $this->Db->findBy("ID_Code", $code, $this->table, NULL, NULL, "ID_File ASC", $limit);
+    public function getByCode($code, $limit = null) {
+        return $this->Db->findBy("ID_Code", $code, $this->table, null, null, "ID_File ASC", $limit);
     }        
     
     public function getCodeOnly($code) {
-        $data = $this->Db->findBy("ID_Code", $code, $this->table, "Code", NULL, "ID_File ASC", 1);
+        $data = $this->Db->findBy("ID_Code", $code, $this->table, "Code", null, "ID_File ASC", 1);
         
-        return ($data) ? $data[0]["Code"] : FALSE;        
+        return ($data) ? $data[0]["Code"] : false;        
     }  
 }

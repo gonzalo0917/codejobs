@@ -1,12 +1,12 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 ?>
 
 <div class="jobs">
 	<h2>
-		<?php echo getLanguage($job["Language"], TRUE); ?> <a href="<?php echo $job["URL"]; ?>" target="_blank" title="<?php echo htmlentities($job["Title"], ENT_QUOTES, "UTF-8"); ?>"><?php echo $job["Title"]; ?></a>
+		<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo $job["URL"]; ?>" target="_blank" title="<?php echo htmlentities($job["Title"], ENT_QUOTES, "UTF-8"); ?>"><?php echo $job["Title"]; ?></a>
 	</h2>
 
 	<span class="small italic grey">
@@ -14,7 +14,7 @@
 			echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
 			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("users/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
 			 
-			if($job["Technologies"] !== "") {
+			if ($job["Technologies"] !== "") {
 				echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
 			}
 		?>			

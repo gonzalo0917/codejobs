@@ -1,5 +1,5 @@
 <?php
-	if(isset($special)) {
+	if (isset($special)) {
 		$class = "polls-special-width";
 	?>
 	<div id="poll-container">
@@ -11,8 +11,8 @@
 		<div class="polls">
 	<?php
 
-	if(isset($poll["answers"])) {
-		if(!COOKIE("ZanPoll") and !$results) {
+	if (isset($poll["answers"])) {
+		if (!COOKIE("ZanPoll") and !$results) {
 			$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
 			?>
 				<form id="polls" method="post" action="<?php echo path("polls/vote"); ?>">			
@@ -23,7 +23,7 @@
 					<?php 
 						$i = 1; 
 						
-						foreach($poll["answers"] as $answer) {
+						foreach ($poll["answers"] as $answer) {
 							echo '	<label for="answer_'. $i .'" class="poll-total">
 										<input id="answer_'. $i .'" name="answer" type="radio" value="'. $answer["ID_Answer"] .'"/> '. $answer["Answer"] .'<br />
 									</label>';
@@ -57,17 +57,17 @@
 				</form>
 			<?php
 		} else {
-			if(isset($poll)) {
+			if (isset($poll)) {
 				$total = 0;
 				$URL = path("polls/". $poll["question"]["ID_Poll"] ."/". slug($poll["question"]["Title"]));
 
-				if(GET("answer")) {
+				if (GET("answer")) {
 					$answer = (int) GET("answer");
 				} else {
-					$answer = FALSE;
+					$answer = false;
 				}
 
-				foreach($poll["answers"] as $answers) {
+				foreach ($poll["answers"] as $answers) {
 					$total = (int) ($total + $answers["Votes"]);
 				}
 				
@@ -81,18 +81,18 @@
 							$i = 0;
 							$percentage = 0;
 							
-							foreach($poll["answers"] as $answers) {
-								if((int) $answers["Votes"] > 0) {								
+							foreach ($poll["answers"] as $answers) {
+								if ((int) $answers["Votes"] > 0) {								
 									$percentage = ($answers["Votes"] * 100) / $total;
 									
-									if($percentage >= 10) {
+									if ($percentage >= 10) {
 										$percentage = substr($percentage, 0, 5);
 									} else {
 										$percentage = substr($percentage, 0, 4);
 									}
 								}			
 
-								if($percentage == 0) {
+								if ($percentage == 0) {
 									$color = "transparent";
 								} else {
 									$color = "#3478E3";
@@ -105,7 +105,7 @@
 								
 								<div class="poll-graphic">
 									<div style="<?php echo $style; ?>"<?php
-										if((int) $answers["ID_Answer"] === $answer) {
+										if ((int) $answers["ID_Answer"] === $answer) {
 											echo ' class="answer-chosen"';
 										}
 									?>>&nbsp;</div>
@@ -125,7 +125,7 @@
 					</p>
 					<?php
 
-				if($already) {
+				if ($already) {
 					?>
 					<script>alert("<?php echo __("You have previously voted on this poll"); ?>");</script>
 					<?php
@@ -136,7 +136,7 @@
 ?>
 </div>
 <?php
-	if(isset($special)) {
+	if (isset($special)) {
 ?>
 </div>
 <?php
@@ -145,10 +145,10 @@
 <br />
 
 <?php 
-	if(isset($special)) {
+	if (isset($special)) {
 		?>
 		<a href="https://twitter.com/codejobs" class="twitter-follow-button" data-show-count="false" data-lang="es" data-size="large"><?php echo __("Follow"); ?> @codejobs</a>
-    	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if (!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		
 		<?php
 			echo display('<p>'. getAd("728px") .'</p>', 4);

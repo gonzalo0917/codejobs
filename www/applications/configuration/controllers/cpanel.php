@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -13,7 +13,7 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->application = whichApplication();
 		
-		$this->CPanel = $this->classes("cpanel", "CPanel", NULL, "cpanel");
+		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");
 		
 		$this->isAdmin = $this->CPanel->load();
 		
@@ -27,7 +27,7 @@ class CPanel_Controller extends ZP_Load {
 	}
 	
 	public function index() {
-		if($this->isAdmin) {
+		if ($this->isAdmin) {
 			redirect("cpanel");
 		} else {
 			$this->login();
@@ -35,7 +35,7 @@ class CPanel_Controller extends ZP_Load {
 	}
 	
 	public function edit() {
-		if(!$this->isAdmin) {
+		if (!$this->isAdmin) {
 			$this->login();
 		}
 
@@ -48,28 +48,28 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->$Model = $this->model($Model);
 		
-		if(POST("edit")) {
+		if (POST("edit")) {
 			$this->vars["alert"] = $this->$Model->cpanel("edit");
-		} elseif(POST("cancel")) {
+		} elseif (POST("cancel")) {
 			redirect("cpanel");
-		} elseif(POST("minify") or POST("minify_css") or POST("minify_js")) {
+		} elseif (POST("minify") or POST("minify_css") or POST("minify_js")) {
 			$this->helper("minify", $this->application);
 			$this->helper("alerts");
 			
-			if(POST("minify_css")) {
+			if (POST("minify_css")) {
 				minify("css");
-			} elseif(POST("minify_js")) {
+			} elseif (POST("minify_js")) {
 				minify("js");
 			} else {
 				minify();
 			}
 
 			$this->vars["alert"] = getAlert(__("Updated successfully"), "success");
-		} elseif(POST("delete_cache")) {
+		} elseif (POST("delete_cache")) {
 			$this->Cache = $this->core("Cache");
 			$this->helper("alerts");
 
-			switch(POST("cache")) {
+			switch (POST("cache")) {
 				case "blog": case "bookmarks": case "codes": case "pages": case "world":
 					$this->Cache->removeAll(POST("cache"));
 					
@@ -83,14 +83,14 @@ class CPanel_Controller extends ZP_Load {
 		
 		$data = $this->$Model->getByID(1);
 	
-		if($data) {
+		if ($data) {
 			$this->Applications_Model = $this->model("Applications_Model");
 			
 			$this->vars["themes"]		       = $this->Templates->getThemes($data[0]["Theme"]);
 			$this->vars["defaultApplications"] = $this->Applications_Model->getDefaultApplications($data[0]["Application"]);
 			$this->vars["data"]		   		   = $data;
 		
-			$this->vars["view"] = $this->view("edit", TRUE, $this->application);
+			$this->vars["view"] = $this->view("edit", true, $this->application);
 			
 			$this->render("content", $this->vars);
 		} else {
@@ -99,7 +99,7 @@ class CPanel_Controller extends ZP_Load {
 	}
 
 	public function minifier() {
-		if(!$this->isAdmin) {
+		if (!$this->isAdmin) {
 			$this->login();
 		}
 
@@ -108,7 +108,7 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->CSS("forms", "cpanel");
 		
-		if(POST("minify") and POST("code") and POST("type")) {
+		if (POST("minify") and POST("code") and POST("type")) {
 			$this->helper(array("html", "alerts"));
 
 			$type = POST("type");
@@ -119,13 +119,13 @@ class CPanel_Controller extends ZP_Load {
 	   		$this->vars["alert"] = getAlert(__("The code has been minified"), "success");
 		}
 
-		$this->vars["view"] = $this->view("minifier", TRUE, $this->application);	
+		$this->vars["view"] = $this->view("minifier", true, $this->application);	
 		
 		$this->render("content", $this->vars);
 	}
 
 	public function tv() {
-		if(!$this->isAdmin) {
+		if (!$this->isAdmin) {
 			$this->login();
 		}
 
@@ -139,7 +139,7 @@ class CPanel_Controller extends ZP_Load {
 		$this->$Model = $this->model($Model);
 		$this->Cache  = $this->core("Cache");
 		
-		if(POST("save")) {
+		if (POST("save")) {
 			$this->Cache->removeAll("tv");
 			
 			$this->vars["alert"] = $this->$Model->cpanel("tv");
@@ -147,9 +147,9 @@ class CPanel_Controller extends ZP_Load {
 
 		$data = $this->Cache->data("settings", "tv", $this->$Model, "getTV", array(), 86400);
 	
-		if($data) {
+		if ($data) {
 			$this->vars["data"] = $data;		
-			$this->vars["view"] = $this->view("tv", TRUE, $this->application);	
+			$this->vars["view"] = $this->view("tv", true, $this->application);	
 			
 			$this->render("content", $this->vars);
 		} else {
@@ -162,13 +162,13 @@ class CPanel_Controller extends ZP_Load {
 		$this->title("Login");
 		$this->CSS("login", "users");
 		
-		if(POST("connect")) {	
+		if (POST("connect")) {	
 			$this->Users_Controller = $this->controller("Users_Controller");
 			
 			$this->Users_Controller->login("cpanel");
 		} else {
 			$this->vars["URL"]  = getURL();
-			$this->vars["view"] = $this->view("login", TRUE, "cpanel");
+			$this->vars["view"] = $this->view("login", true, "cpanel");
 		}
 		
 		$this->render("include", $this->vars);

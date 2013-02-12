@@ -1,17 +1,17 @@
 <?php
-	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
+	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	$email 		= recoverPOST("email", encode($data[0]["Email"]));
 	$subscribed = (boolean) recoverPOST("subscribed", encode($data[0]["Subscribed"]));
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
 				"type"  => "hidden",
 				"name" 	=> "username",
-				"p" 	=> FALSE,
+				"p" 	=> false,
 				"value" => SESSION("ZanUser")
 			));
 
@@ -19,7 +19,7 @@
 				"name" 	=> "email", 
 				"class" => "field-title span4",
 				"field" => __("E-mail"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "45",
 				"pattern"   => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
 				"value" => $email
@@ -29,7 +29,7 @@
 				"name" 	   => "subscribed",
 				"position" => "right",
 				"text"     => __("Subscribe to our free email newsletters"),
-				"checked"  => $subscribed === TRUE
+				"checked"  => $subscribed === true
 			));
 
 			echo formInput(array(	
@@ -40,7 +40,7 @@
 			));
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);
 ?>
 <script>
 	var acceptLabel = "<?php echo __("Accept"); ?>",

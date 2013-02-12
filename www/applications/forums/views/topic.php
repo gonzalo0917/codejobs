@@ -1,9 +1,9 @@
 <?php  
-	if(!defined("ACCESS")) { 
+	if (!defined("ACCESS")) { 
 		die("Error: You don't have permission to access here..."); 
 	} 
 	
-	if(!SESSION("ZanUserID")) { 
+	if (!SESSION("ZanUserID")) { 
 ?>
 		<div class="twitterButton">
 			<?php $this->view("twitter", "twitter", array("action" => $URL, "redirect" => $URL)); ?>
@@ -16,7 +16,7 @@
 
 <div class="actions">
 <?php 
-	if(SESSION("ZanUserID") > 0) { 
+	if (SESSION("ZanUserID") > 0) { 
 ?>
 		<p class="welcome">
 			<?php echo __("Welcome to this topic"); ?>, 
@@ -42,7 +42,7 @@
 <div id="wrapper">
 	<div class="pagination">
 	<?php 
-		if(isset($pagination)) {
+		if (isset($pagination)) {
 			echo $pagination;
 		} 
 	?>
@@ -61,14 +61,14 @@
 			<tr>
 				<td class="profile">
 <?php 
-				if($data["topic"][0]["Avatar"] !== "") {  
+				if ($data["topic"][0]["Avatar"] !== "") {  
 ?>
-					<img src="<?php echo path("www/lib/files/images/users/". $data["topic"][0]["Avatar"] ."", TRUE); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>" /><br />
+					<img src="<?php echo path("www/lib/files/images/users/". $data["topic"][0]["Avatar"] ."", true); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>" /><br />
 <?php 
 
 				} else { 
 ?>
-					<img src="<?php echo path("www/lib/files/images/users/default.png", TRUE); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>" /><br />
+					<img src="<?php echo path("www/lib/files/images/users/default.png", true); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>" /><br />
 <?php 
 				} 
 ?>				
@@ -82,13 +82,13 @@
 						</p>
 						
 <?php 
-						if($data["topic"][0]["Country"]) { 
+						if ($data["topic"][0]["Country"]) { 
 ?>
 							<p><?php echo $data["topic"][0]["Country"]; ?></p>
 <? 	
 						} 
 					
-						if($data["topic"][0]["Website"]) { 
+						if ($data["topic"][0]["Website"]) { 
 ?>
 							<a rel="nofollow" target="_blank" href="<?php echo $data["topic"][0]["Website"]; ?>" title="<?php echo $data["topic"][0]["Website"]; ?>">
 								<?php echo $data["topic"][0]["Website"]; ?>
@@ -104,13 +104,13 @@
 			</tr>
 
 <?php 
-		if(SESSION("ZanUserID")) { 
+		if (SESSION("ZanUserID")) { 
 ?>
 			<tr class="actionsTopic">
 				<td>
 					<ul>
 <?php 
-					if(SESSION("ZanUserID") and (SESSION("ZanUserPrivilege") === "Super Admin" or SESSION("ZanUserID") === $data["topic"][0]["ID_User"])) { 
+					if (SESSION("ZanUserID") and (SESSION("ZanUserPrivilege") === "Super Admin" or SESSION("ZanUserID") === $data["topic"][0]["ID_User"])) { 
 ?>
 						<li><a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("_Reply"); ?>"><?php echo __("_Reply"); ?></a></li>
 						<li>
@@ -126,7 +126,7 @@
 							</a>
 						</li>
 <?php 
-					} elseif(SESSION("ZanUserID")) { 
+					} elseif (SESSION("ZanUserID")) { 
 ?>
 						<li><a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("Reply"); ?>"><?php echo __("Reply"); ?></a></li>
 <?php 
@@ -144,7 +144,7 @@
 						<?php echo BBCode($data["topic"][0]["Content"]); ?>
 						
 <?php 
-						if($data["topic"][0]["Sign"] !== "") { 
+						if ($data["topic"][0]["Sign"] !== "") { 
 ?>
 							<p class="sign"><?php echo $data["topic"][0]["Sign"]; ?></p>
 <?php 
@@ -157,8 +157,8 @@
 <?php 	
 	$i = 0;
 			
-	if(is_array($data["replies"])) { 
-		foreach($data["replies"] as $reply) {
+	if (is_array($data["replies"])) { 
+		foreach ($data["replies"] as $reply) {
 ?>
 			<tr class="space">
 				<?php $i++; ?>
@@ -166,7 +166,7 @@
 					
 			<tr>
 <?php 
-				if($i === $count) { 
+				if ($i === $count) { 
 ?>
 					<a name="bottom"></a>
 <?php 
@@ -176,13 +176,13 @@
 								
 				<td class="profile">
 <?php 
-				if($reply["Avatar"] !== "") { 
+				if ($reply["Avatar"] !== "") { 
 ?>
-					<img src="<?php echo path("www/lib/files/images/users/". $reply["Avatar"] ."", TRUE); ?>" title="<?php echo $reply["Username"]; ?>" /><br />
+					<img src="<?php echo path("www/lib/files/images/users/". $reply["Avatar"] ."", true); ?>" title="<?php echo $reply["Username"]; ?>" /><br />
 <?php  			
 				} else { 
 ?>
-					<img src="<?php echo path("www/lib/files/images/users/default.png", TRUE); ?>" title="<?php echo $reply["Username"]; ?>" /><br />
+					<img src="<?php echo path("www/lib/files/images/users/default.png", true); ?>" title="<?php echo $reply["Username"]; ?>" /><br />
 <?php 
 				} 
 ?>
@@ -196,13 +196,13 @@
 						</p>
 						
 <?php 
-						if($reply["Country"]) { 
+						if ($reply["Country"]) { 
 ?>
 							<p><?php echo $reply["Country"]; ?></p>
 <?php 
 						} 
  						
- 						if($reply["Website"]) { 
+ 						if ($reply["Website"]) { 
 ?>
 							<a href="<?php echo $reply["Website"]; ?>" rel="external" title="<?php echo $reply["Website"]; ?>"><?php echo __("Website"); ?></a>
 <?php 
@@ -213,13 +213,13 @@
 				</td>
 			</tr>
 <?php 
-			if(SESSION("ZanUserID")) { 
+			if (SESSION("ZanUserID")) { 
 ?>
 				<tr class="actionsTopic">
 					<td>
 						<ul>
 <?php 
-							if(SESSION("ZanUserID") and (SESSION("ZanUserPrivilege") === "Super Admin" or SESSION("ZanUserID") === $reply["ID_User"])) { 
+							if (SESSION("ZanUserID") and (SESSION("ZanUserPrivilege") === "Super Admin" or SESSION("ZanUserID") === $reply["ID_User"])) { 
 ?>
 								<li>
 									<a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("Reply"); ?>"><?php echo __("Reply"); ?></a>
@@ -231,7 +231,7 @@
 									<a title="<?php echo __("Delete"); ?>" onclick="return confirm('<?php echo __("Do you want to delete the reply?"); ?>');" href="<?php echo $reply["deleteURL"]; ?>"><?php echo __("Delete"); ?></a>
 								</li>
 <?php 
-							} elseif(SESSION("ZanUserID")) { 
+							} elseif (SESSION("ZanUserID")) { 
 ?>
 								<li><a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("Reply"); ?>"><?php echo __("Reply"); ?></a></li>
 <?php 
@@ -248,7 +248,7 @@
 						<div class="topicData">
 							<p><?php echo BBCode($reply["Content"]); ?></p>
 <?php 						
-							if($data["topic"][0]["Sign"] !== "") { 
+							if ($data["topic"][0]["Sign"] !== "") { 
 ?>
 								<p class="sign"><?php echo $reply["Sign"]; ?></p>
 <?php 
@@ -267,6 +267,6 @@
 
 <div class="pagination2">
 <?php 
-	echo isset($pagination) ? $pagination : NULL;
+	echo isset($pagination) ? $pagination : null;
 ?>
 </div>

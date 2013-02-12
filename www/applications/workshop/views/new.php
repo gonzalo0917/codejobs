@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -13,11 +13,11 @@
 	$facebook    = recoverPOST("facebook");
 
 	echo div("new-proposal", "class");
-		echo formOpen(path("workshop"), "form", "form", NULL, "post", "multipart/form-data");
+		echo formOpen(path("workshop"), "form", "form", null, "post", "multipart/form-data");
 			echo div("row", "class");
 				echo  h2(__("Send us your proposal"));
-				echo isset($alert) ? $alert : NULL;
-			echo div(FALSE);
+				echo isset($alert) ? $alert : null;
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
@@ -25,11 +25,11 @@
 						"id" 	   => "title",
 						"name" 	   => "title",
 						"field"    => __("Title"),
-						"p" 	   => TRUE,
+						"p" 	   => true,
 						"value"    => $title,
-						"required" => TRUE
+						"required" => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
 					$options = getAllDays("Saturday", "+3 months");
@@ -37,12 +37,12 @@
 					echo formSelect(array(
 						"id"		=> "day",
 						"name" 		=> "day", 
-						"p" 		=> TRUE, 
+						"p" 		=> true, 
 						"field" 	=> __("Day")),
 						$options
 					);
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
@@ -50,22 +50,22 @@
 						"id" 	   => "description",
 						"name" 	   => "description",
 						"field"    => __("Description"),
-						"p" 	   => TRUE,
+						"p" 	   => true,
 						"value"    => $description,
-						"required" => TRUE
+						"required" => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
 					$options = array(
-						array("value" => "11 am", "option" => "11 am", "selected" => TRUE),
-						array("value" => "4 pm", "option" => "4 pm", "selected" => FALSE)
+						array("value" => "11 am", "option" => "11 am", "selected" => true),
+						array("value" => "4 pm", "option" => "4 pm", "selected" => false)
 					);
 
 					echo formSelect(array(
 						"id"		=> "time",
 						"name" 		=> "time", 
-						"p" 		=> TRUE, 
+						"p" 		=> true, 
 						"field" 	=> __("Time")),
 						$options
 					);
@@ -75,21 +75,21 @@
 						"name" 	      => "email",
 						"type"		  => "email",
 						"field"       => __("Email"),
-						"p" 	      => TRUE,
+						"p" 	      => true,
 						"value"       => $email,
 						"placeholder" => "me@example.com",
-						"required" 	  => TRUE
+						"required" 	  => true
 					));
 
 					echo formInput(array(
 						"id" 	   => "skype",
 						"name" 	   => "skype",
 						"field"    => __("Skype"),
-						"p" 	   => TRUE,
+						"p" 	   => true,
 						"value"    => $skype
 					));
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
@@ -97,18 +97,18 @@
 						"id" 	   => "topics",
 						"name" 	   => "topics",
 						"field"    => __("Topics"),
-						"p" 	   => TRUE,
+						"p" 	   => true,
 						"value"    => $topics,
-						"required" => TRUE
+						"required" => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
 					echo formInput(array(
 						"id" 	   => "gtalk",
 						"name" 	   => "gtalk",
 						"field"    => __("GTalk"),
-						"p" 	   => TRUE,
+						"p" 	   => true,
 						"value"    => $gtalk
 					));
 
@@ -116,7 +116,7 @@
 						"id" 	   => "twitter",
 						"name" 	   => "twitter",
 						"field"    => __("Twitter"),
-						"p" 	   => TRUE,
+						"p" 	   => true,
 						"value"    => $twitter
 					));
 
@@ -124,11 +124,11 @@
 						"id" 	   => "facebook",
 						"name" 	   => "facebook",
 						"field"    => __("Facebook"),
-						"p" 	   => TRUE,
+						"p" 	   => true,
 						"value"    => $facebook
 					));
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
@@ -136,9 +136,9 @@
 						"name" 	=> "file", 
 						"type"  => "file",
 						"field" => __("Slides"),
-						"p" 	  => TRUE
+						"p" 	  => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
 					echo p(formInput(array(	
@@ -146,19 +146,19 @@
 						"type"  => "submit",
 						"class" => "btn btn-success",
 						"value" => __("Submit my proposal")
-					), (!SESSION("ZanUser")) ? TRUE : FALSE), "submit");
-				echo div(FALSE);
-			echo div(FALSE);		
+					), (!SESSION("ZanUser")) ? true : false), "submit");
+				echo div(false);
+			echo div(false);		
 
 			echo br(2);
 
-			if(!(SESSION("ZanUser"))) {
+			if (!(SESSION("ZanUser"))) {
 				setURL();
 				
-				echo a(__("You need to login to send your proposal"), path("users/login"), FALSE);
+				echo a(__("You need to login to send your proposal"), path("users/login"), false);
 			}
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);
 
 ?>

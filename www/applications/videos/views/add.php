@@ -1,19 +1,19 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
 
-	if(isset($data)) {
+	if (isset($data)) {
 		$ID  	     = recoverPOST("ID", 	      $data[0]["ID_Video"]);
 		$URL         = recoverPOST("URL",         $data[0]["URL"]);
 		$ID_YouTube  = recoverPOST("ID_YouTube",  $data[0]["ID_YouTube"]);
 		$title 	     = recoverPOST("title",       $data[0]["Title"]);
 		$description = recoverPOST("description", $data[0]["Description"]);
 		$situation 	 = recoverPOST("situation",   $data[0]["Situation"]);
-		$edit        = TRUE;
+		$edit        = true;
 		$action		 = "edit";
 	} else {
 		$ID          = 0;
 		$URL         = recoverPOST("URL");
 		$situation 	 = recoverPOST("situation");
-		$edit        = FALSE;
+		$edit        = false;
 		$action		 = "save";
 	}
 	
@@ -29,9 +29,9 @@
 				<?php echo __(ucfirst(whichApplication())); ?>
 			</p>
 			
-			<?php echo isset($alert) ? $alert : NULL; ?>
+			<?php echo isset($alert) ? $alert : null; ?>
 			
-			<?php if($action == "save") { ?>
+			<?php if ($action == "save") { ?>
 				<p class="field">
 					&raquo; <?php echo __("URL"); ?>  <?php echo "(http://www.youtube.com/watch?v=N_1KfUDB1zU)"; ?><br />
 					<input id="URL" name="URL" type="text" value="<?php echo $URL; ?>" tabindex="1" class="span10 required" />
@@ -50,8 +50,8 @@
 				</div>
 			
 				<div id="videos">
-					<?php if($videos) { ?>
-						<?php foreach($videos["videos"] as $video) { ?>
+					<?php if ($videos) { ?>
+						<?php foreach ($videos["videos"] as $video) { ?>
 							<div class="video">
 							
 								<p class="titleVideo">
@@ -77,7 +77,7 @@
 				
 					<div class="controls">
 						<input type="hidden" name="next" value="<?php echo $videos["next"]?>" />
-						<?php if($videos["next"]) { ?>
+						<?php if ($videos["next"]) { ?>
 							<input type="button" name="nextresults" id="nextresults" value="<?php echo __("Next results");?>" class="small-submit"/>
 						<?php } else { ?>
 							<input type="button" name="nextresults" id="nextresults" value="<?php echo __("Next results");?>" class="no-display small-submit"/>
@@ -107,11 +107,11 @@
 			<p class="field">
 				&raquo; <?php echo __("State"); ?><br />
 				<select id="situation" name="situation" size="1" tabindex="5" class="required">
-					<option value="Active" <?php echo ($situation === "Active") ? $selected : NULL; ?>>
+					<option value="Active" <?php echo ($situation === "Active") ? $selected : null; ?>>
 						<?php echo __("Active"); ?>
 					</option>
 					
-					<option value="Inactive" <?php echo ($situation === "Inactive") ? $selected : NULL; ?>>
+					<option value="Inactive" <?php echo ($situation === "Inactive") ? $selected : null; ?>>
 						<?php echo __("Inactive"); ?>
 					</option>
 				</select>

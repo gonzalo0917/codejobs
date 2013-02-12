@@ -10,11 +10,11 @@ class YouTube {
 	public function __construct() {
 		$this->typeRequest = "GET";
 		$this->client      = "http://gdata.youtube.com/feeds/api/";
-		$this->method  	   = NULL;
+		$this->method  	   = null;
 		$this->format  	   = "array";
 	}
 	
-	public function query($query = NULL) {
+	public function query($query = null) {
 		$this->uri = $query;
 
 		return $this->data();
@@ -28,13 +28,13 @@ class YouTube {
 		return $this->data();
 	}
 	
-	public function getByUser($username = NULL, $max = 9, $start = 1) {
+	public function getByUser($username = null, $max = 9, $start = 1) {
 		$this->uri = $this->client ."users/". trim($username) ."/uploads/?start-index=". $start ."&max-results=". $max ."&alt=". strtolower($this->format);
 		
 		return $this->data();
 	}
 	
-	public function getByID($ID = NULL) {
+	public function getByID($ID = null) {
 		$this->uri = $this->client ."videos/". trim($ID) ."?alt=". strtolower($this->format);
 		
 		return $this->data();
@@ -44,29 +44,29 @@ class YouTube {
 		 try {	 
             $this->results = $this->getResult();
             
-            if(!$this->results or is_null($this->results)) {
-                return FALSE;
+            if (!$this->results or is_null($this->results)) {
+                return false;
             } else {
                 return $this->results;
             }
         } catch (Exception $e) {
-            return FALSE;
+            return false;
         }
 	}
 	
 	private function getResult() {
-		switch(strtolower($this->format)) {
+		switch (strtolower($this->format)) {
 			case "json":
-				$results = json_decode(@file_get_contents(str_replace(array("&alt=array", "?alt=array"), array("&alt=json", "?alt=json"), $this->uri), FALSE, stream_context_create(array('http' => array('timeout' => 5, 'method' => $this->typeRequest)))));
+				$results = json_decode(@file_get_contents(str_replace(array("&alt=array", "?alt=array"), array("&alt=json", "?alt=json"), $this->uri), false, stream_context_create(array('http' => array('timeout' => 5, 'method' => $this->typeRequest)))));
 				
-				if($results) {
-					if($results->{'openSearch$totalResults'}->{'$t'} > 0) {
+				if ($results) {
+					if ($results->{'openSearch$totalResults'}->{'$t'} > 0) {
 						return $results;
 					} else {
-						return FALSE;
+						return false;
 					}
 				} else {
-					return FALSE;
+					return false;
 				}
 			
 			break;
@@ -76,10 +76,10 @@ class YouTube {
 			break;
 			
 			case "array":
-				$results = json_decode(@file_get_contents(str_replace(array("&alt=array", "?alt=array"), array("&alt=json", "?alt=json"), $this->uri), FALSE, stream_context_create(array('http' => array('timeout' => 5, 'method' => $this->typeRequest)))));
+				$results = json_decode(@file_get_contents(str_replace(array("&alt=array", "?alt=array"), array("&alt=json", "?alt=json"), $this->uri), false, stream_context_create(array('http' => array('timeout' => 5, 'method' => $this->typeRequest)))));
 				
-				if($results) {
-					if(isset($results->entry) and !isset($results->feed)) {
+				if ($results) {
+					if (isset($results->entry) and !isset($results->feed)) {
 						$entry = $results->entry;
 						
 						$data = array(
@@ -92,8 +92,8 @@ class YouTube {
 						
 						return $data;
 					} else {
-						if($results->feed->{'openSearch$totalResults'}->{'$t'} > 0) {
-							foreach($results->feed->entry as $entry) {
+						if ($results->feed->{'openSearch$totalResults'}->{'$t'} > 0) {
+							foreach ($results->feed->entry as $entry) {
 								$data["videos"][] = array(
 									"id" 	  => $this->id($entry->id->{'$t'}),
 									"title"   => $entry->title->{'$t'},
@@ -109,16 +109,16 @@ class YouTube {
 							
 							return $data;
 						} else {
-							return FALSE;
+							return false;
 						}
 					}
 				} else {
-					return FALSE;
+					return false;
 				}
 			break;
 			
 			default:
-				return json_decode(@file_get_contents($this->uri, FALSE, stream_context_create(array('http'=>array('timeout' => 5, 'method' => $this->typeRequest)))));
+				return json_decode(@file_get_contents($this->uri, false, stream_context_create(array('http'=>array('timeout' => 5, 'method' => $this->typeRequest)))));
 			break;
 		}
 	}
@@ -134,44 +134,44 @@ class YouTube {
 	}
 	
 	private function self($link) {
-		if(is_array($link)) {
-			foreach($link as $value) {
-				if($value->rel == "self") {
+		if (is_array($link)) {
+			foreach ($link as $value) {
+				if ($value->rel == "self") {
 					return $value->href;
 				}
 			}
 			
-			return FALSE;
+			return false;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	private function next($link) {
-		if(is_array($link)) {
-			foreach($link as $value) {
-				if($value->rel == "next") {
+		if (is_array($link)) {
+			foreach ($link as $value) {
+				if ($value->rel == "next") {
 					return $value->href;
 				}
 			}
 			
-			return FALSE;
+			return false;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	private function prev($link) {
-		if(is_array($link)) {
-			foreach($link as $value) {
-				if($value->rel == "prev") {
+		if (is_array($link)) {
+			foreach ($link as $value) {
+				if ($value->rel == "prev") {
 					return $value->href;
 				}
 			}
 			
-			return FALSE;
+			return false;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -183,6 +183,6 @@ class YouTube {
 			return false;
 		}
 		
-		return TRUE;
+		return true;
 	}
 }

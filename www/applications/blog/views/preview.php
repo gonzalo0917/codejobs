@@ -1,9 +1,9 @@
 <?php
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-$in = ($post["Tags"] !== "") ? __("in") : NULL;
+$in = ($post["Tags"] !== "") ? __("in") : null;
 ?>
 <div class="post">
 	<div class="post-title">
@@ -19,7 +19,7 @@ $in = ($post["Tags"] !== "") ? __("in") : NULL;
 	
 	<div class="post-right">
 		<?php
-			if($post["Enable_Comments"]) {
+			if ($post["Enable_Comments"]) {
             ?>
            		<div class="fb-comments-count" data-href="<?php echo $URL; ?>"></div> <span data-singular="<?php echo __("comment"); ?>"><?php echo __("comments"); ?></span>
             <?php

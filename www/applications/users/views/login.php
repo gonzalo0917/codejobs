@@ -2,12 +2,12 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here..."));
 }
 
-$username = (!$inserted) ? recoverPOST("username")) : NULL;
-$password = (!$inserted) ? recoverPOST("password")) : NULL;
+$username = (!$inserted) ? recoverPOST("username")) : null;
+$password = (!$inserted) ? recoverPOST("password")) : null;
 ?>
 <
 <form class="login" action="<?php echo $href;?>" method="post">
@@ -15,7 +15,7 @@ $password = (!$inserted) ? recoverPOST("password")) : NULL;
 		<legend><?php echo __("Login"); ?></legend>
 		
 		<?php
-			if(isset($alert)) {
+			if (isset($alert)) {
 				echo $alert;
 			}
 		?>

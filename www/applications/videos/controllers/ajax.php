@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -17,29 +17,29 @@ class Ajax_Controller extends ZP_Load {
 		redirect();
 	}
 	
-	public function next($next = FALSE) {
-		if(!$next) {
+	public function next($next = false) {
+		if (!$next) {
 			$next = POST("next");
 		}
 
-		if($next) {			
+		if ($next) {			
 			$vars["response"] = $this->Videos_Model->query($next);
 		} else {
-			$vars["response"] = FALSE;
+			$vars["response"] = false;
 		}
 		
 		print json($vars);
 	}
 	
-	public function search($search = FALSE) {
-		if(!$search) {
+	public function search($search = false) {
+		if (!$search) {
 			$search = POST("search");
 		}
 		
-		if($search) {
+		if ($search) {
 			$vars["response"] = $this->Videos_Model->search($search);
 		} else {
-			$vars["response"] = FALSE;
+			$vars["response"] = false;
 		}
 		
 		print json($vars);

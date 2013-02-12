@@ -2,13 +2,13 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here..."));
 }
 
-$username = (!$inserted) ? recoverPOST("username")) : NULL;
-$password = (!$inserted) ? recoverPOST("password")) : NULL;
-$email    = (!$inserted) ? recoverPOST("email"))    : NULL;
+$username = (!$inserted) ? recoverPOST("username")) : null;
+$password = (!$inserted) ? recoverPOST("password")) : null;
+$email    = (!$inserted) ? recoverPOST("email"))    : null;
 ?>
 
 <form class="register" action="<?php echo $href;?>" method="post">
@@ -16,7 +16,7 @@ $email    = (!$inserted) ? recoverPOST("email"))    : NULL;
 		<legend><?php echo __("Register"); ?></legend>
 		
 		<?php
-			if(isset($alert)) {
+			if (isset($alert)) {
 				echo $alert;
 			}
 		?>

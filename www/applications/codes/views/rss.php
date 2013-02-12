@@ -1,4 +1,4 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 		
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 		
 
 header("Content-Type: application/rss+xml"); 
 echo "<?xml version='1.0' encoding='utf-8'?>";
@@ -8,21 +8,21 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
     <title><![CDATA[Codejobs - <?php echo __("Codes") ?> ]]></title> 
     <link><![CDATA[<?php echo path()?>]]></link> 
     <description><![CDATA[RSS Codejobs]]></description>
-    <language><?php echo whichLanguage(FALSE); ?></language> 
+    <language><?php echo whichLanguage(false); ?></language> 
     <copyright><![CDATA[Codejobs]]></copyright>
     <atom:link href="<?php echo path("codes/rss"); ?>" rel="self" type="application/rss+xml" />
     
 
 	<image>
-		<url> <?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE)?></url>
+		<url> <?php echo path("www/lib/themes/newcodejobs/images/logo.png", true)?></url>
 
 		<title>Codejobs - <?php echo __("Codes"); ?></title>
 		<link><?php echo path()?></link>
 	</image>
 	<?php 
-	if(is_array($codes)) {	
+	if (is_array($codes)) {	
 	
-	foreach($codes as $code) {
+	foreach ($codes as $code) {
 	?>			
 		<item>
 		<title>

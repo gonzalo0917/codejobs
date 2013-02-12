@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -17,15 +17,15 @@ class Polls_Controller extends ZP_Load {
 		$this->Templates->theme();
 	}
 	
-	public function index($pollID = NULL, $slug = NULL, $results = NULL) {
-		if(!$pollID) {
+	public function index($pollID = null, $slug = null, $results = null) {
+		if (!$pollID) {
 			redirect();
 		} else {
 			$this->get($pollID, $results);
 		}
 	}
 
-	public function get($pollID, $results = FALSE) {
+	public function get($pollID, $results = false) {
 		$this->config("polls");
 
 		setURL();
@@ -34,16 +34,16 @@ class Polls_Controller extends ZP_Load {
 
 		$data = $this->Polls_Model->getByID($pollID);
 
-		if($data) {		
+		if ($data) {		
 			$this->title(decode($data["question"]["Title"]));
 			$this->CSS("polls", $this->application);
 			$this->js("poll", $this->application);
 
-			$vars["already"] = FALSE;
+			$vars["already"] = false;
 			$vars["results"] = $results;
 			$vars["poll"] 	 = $data;
-			$vars["special"] = TRUE;
-			$vars["view"] 	 = $this->view("poll", TRUE);
+			$vars["special"] = true;
+			$vars["view"] 	 = $this->view("poll", true);
 
 			$this->render("content", $vars);
 		} else {
@@ -51,14 +51,14 @@ class Polls_Controller extends ZP_Load {
 		}
 	}
 	
-	public function last($results = FALSE, $already = FALSE) {	
+	public function last($results = false, $already = false) {	
 		$this->config("polls");
 		
 		$this->Polls_Model = $this->model("Polls_Model");
 		
 		$data = $this->Polls_Model->getLastPoll();
 		
-		if($data) {
+		if ($data) {
 			$this->CSS("polls", $this->application);
 			$this->js("poll", $this->application);
 
@@ -68,15 +68,15 @@ class Polls_Controller extends ZP_Load {
 			
 			$this->view("poll", $vars, "polls");
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	public function vote() {
-		if(GET("answer")) {
+		if (GET("answer")) {
 			$vote = $this->Polls_Model->vote();
 			
-			if($vote === FALSE) {
+			if ($vote === false) {
 				$this->last("results", "already");
 			} else {
 				$this->last("results");

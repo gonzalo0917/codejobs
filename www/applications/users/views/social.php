@@ -1,5 +1,5 @@
 <?php
-	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
+	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	$twitter  = recoverPOST("twitter", encode($data[0]["Twitter"]));
 	$facebook = recoverPOST("facebook", encode($data[0]["Facebook"]));
@@ -10,13 +10,13 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
 				"name" 	=> "twitter", 
 				"class" => "field-title field-full-size",
 				"field" => __("Twitter"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "150",
 				"value" => $twitter
 			));
@@ -25,7 +25,7 @@
 				"name" 	=> "facebook", 
 				"class" => "field-title field-full-size",
 				"field" => __("Facebook"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "150",
 				"value" => $facebook
 			));
@@ -34,7 +34,7 @@
 				"name" 	=> "linkedin", 
 				"class" => "field-title field-full-size",
 				"field" => __("Linkedin"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "150",
 				"value" => $linkedin
 			));
@@ -43,7 +43,7 @@
 				"name" 	=> "google", 
 				"class" => "field-title field-full-size",
 				"field" => __("Google"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "150",
 				"value" => $google
 			));
@@ -52,7 +52,7 @@
 				"name" 	=> "viadeo", 
 				"class" => "field-title field-full-size",
 				"field" => __("Viadeo"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "150",
 				"value" => $viadeo
 			));
@@ -65,7 +65,7 @@
 			));
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);
 ?>
 <script>
 	var acceptLabel = "<?php echo __("Accept"); ?>",

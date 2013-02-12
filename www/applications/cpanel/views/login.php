@@ -1,11 +1,11 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 
 <form class="login" action="<?php echo path("cpanel/login"); ?>" method="post">
 	<fieldset>
 		<legend><?php echo __("Login"); ?></legend>
 		
 		<?php
-			if(isset($error) and $error) {
+			if (isset($error) and $error) {
 				echo showError(__("Incorrect Login"));
 			}
 		?>

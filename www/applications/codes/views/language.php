@@ -1,5 +1,5 @@
 <?php
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -14,13 +14,13 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__("Programming languages"), "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
 				"name" 	=> "name", 
 				"class" => "span10 required", 
 				"field" => __("Name"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $name
 			));
 			
@@ -28,7 +28,7 @@
 				"name" 	=> "mime", 
 				"class" => "span10 required", 
 				"field" => "MIME", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $mime
 			));
 			
@@ -36,7 +36,7 @@
 				"name" 	=> "filename", 
 				"class" => "span10 required", 
 				"field" => __("Filename"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $filename
 			));
 			
@@ -44,7 +44,7 @@
 				"name" 	=> "extension", 
 				"class" => "span10 required", 
 				"field" => __("Extension"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $extension
 			));
 
@@ -58,6 +58,6 @@
 <?php
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);
 
 ?>

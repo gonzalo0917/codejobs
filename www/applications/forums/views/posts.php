@@ -1,14 +1,14 @@
 <?php 		
-	if(is_array($posts)) {
+	if (is_array($posts)) {
 		$count = count($posts) - 1;
 		?>
 		<div id="forum-content">
 			<?php
 			$forum = segment(1, islang());
-			foreach($posts as $post) {
-				if($post["ID_Parent"] === 0) {
+			foreach ($posts as $post) {
+				if ($post["ID_Parent"] === 0) {
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
-					$in  = ($post["Tags"] !== "") ? __("in") : NULL;
+					$in  = ($post["Tags"] !== "") ? __("in") : null;
 
 					?>
 					<div class="post">
@@ -69,11 +69,11 @@
 							?>
 							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
 							<?php
-							if(SESSION("ZanUserPrivilegeID")){
+							if (SESSION("ZanUserPrivilegeID")){
 								$URLEdit   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
 								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 								$confirm   = " return confirm('Do you want to delete this post?') ";
-								if(SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
+								if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
 									echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
 								}
 							}
@@ -90,7 +90,7 @@
 		<div id="comment-alert">
 		</div>
 		<?php
-		if(SESSION("ZanUser")) {
+		if (SESSION("ZanUser")) {
 		?>				
 			<div class="comments-editor">	
 				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />

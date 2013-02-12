@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }		
 	
@@ -15,16 +15,16 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 	    <copyright><![CDATA[Codejobs]]></copyright>
 	    <atom:link href="<?php echo path("blog/rss"); ?>" rel="self" type="application/rss+xml" />
 		<image>
-			<url><?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE)?> </url>
+			<url><?php echo path("www/lib/themes/newcodejobs/images/logo.png", true)?> </url>
 
 			<title>Codejobs - <?php echo __("blog"); ?></title>
 			<link><?php echo path(); ?></link>
 		</image>
 		<?php 
-		if(is_array($posts)) {		
-		foreach($posts as $post) {
+		if (is_array($posts)) {		
+		foreach ($posts as $post) {
 
-			$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . SH . LOCK, array("alt" => __("Private"), "class" => "no-border")) : NULL;
+			$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . SH . LOCK, array("alt" => __("Private"), "class" => "no-border")) : null;
 			$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);
 		?>
 				
@@ -36,7 +36,7 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 			<![CDATA[<?php echo $URL; ?>]]>
 			</link>
 			<description>
-			<![CDATA[<?php echo showContent(pagebreak($post["Content"]), TRUE); ?>]]>
+			<![CDATA[<?php echo showContent(pagebreak($post["Content"]), true); ?>]]>
 			</description>
 			<guid isPermaLink="true">
 			<![CDATA[<?php echo $URL; ?>]]>

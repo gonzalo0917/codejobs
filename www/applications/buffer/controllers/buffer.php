@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -23,14 +23,14 @@ class Buffer_Controller extends ZP_Load {
 		
 		$count = count($this->bufferProfiles) - 1;
 
-		if($app === "sabio") {
+		if ($app === "sabio") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
 			$tweets = $this->Blog_Model->getBufferSabio();
 
-			if(strlen($profile) === 24) {
-				foreach($tweets as $tweet) {
-					if(strlen($tweet["Phrase"]) <= 140) {
+			if (strlen($profile) === 24) {
+				foreach ($tweets as $tweet) {
+					if (strlen($tweet["Phrase"]) <= 140) {
 						$data = array(
 							"text" 			=> stripslashes($tweet["Phrase"]),
 							"profile_ids[]" => $profile
@@ -42,15 +42,15 @@ class Buffer_Controller extends ZP_Load {
 					}
 				}
 			}
-		} elseif($app === "blog") {
+		} elseif ($app === "blog") {
 			$this->Blog_Model = $this->model("Blog_Model");
 
 			$posts = $this->Blog_Model->getBufferPosts($language);			
 
-			if($profile === "all") {
-				for($i = 0; $i <= $count; $i++) {
-					foreach($posts as $post) {
-						$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);					
+			if ($profile === "all") {
+				for ($i = 0; $i <= $count; $i++) {
+					foreach ($posts as $post) {
+						$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], false, $post["Language"]);					
 		
 						$data = array(
 							"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
@@ -64,9 +64,9 @@ class Buffer_Controller extends ZP_Load {
 						$this->RESTClient->POST($data);	
 					}	
 				}
-			} elseif(strlen($profile) === 24) {
-				foreach($posts as $post) {
-					$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], FALSE, $post["Language"]);					
+			} elseif (strlen($profile) === 24) {
+				foreach ($posts as $post) {
+					$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], false, $post["Language"]);					
 	
 					$data = array(
 						"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
@@ -80,15 +80,15 @@ class Buffer_Controller extends ZP_Load {
 					$this->RESTClient->POST($data);
 				}
 			} 				
-		} elseif($app === "bookmarks") {
+		} elseif ($app === "bookmarks") {
 			$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 
 			$bookmarks = $this->Bookmarks_Model->getBufferBookmarks();			
 			
-			if($profile === "all") {
-				for($i = 0; $i <= $count; $i++) {
-					foreach($bookmarks as $bookmark) {
-						$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+			if ($profile === "all") {
+				for ($i = 0; $i <= $count; $i++) {
+					foreach ($bookmarks as $bookmark) {
+						$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], false, $bookmark["Language"]);
 
 						$count = count($this->bufferProfiles) - 1;
 
@@ -104,9 +104,9 @@ class Buffer_Controller extends ZP_Load {
 						$this->RESTClient->POST($data);					
 					}
 				}	
-			} elseif(strlen($profile) === 24) {
-				foreach($bookmarks as $bookmark) {
-					$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+			} elseif (strlen($profile) === 24) {
+				foreach ($bookmarks as $bookmark) {
+					$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], false, $bookmark["Language"]);
 
 					$count = count($this->bufferProfiles) - 1;
 
@@ -122,15 +122,15 @@ class Buffer_Controller extends ZP_Load {
 					$this->RESTClient->POST($data);					
 				}
 			}		
-		} elseif($app === "codes") {
+		} elseif ($app === "codes") {
 			$this->Codes_Model = $this->model("Codes_Model");
 
 			$codes = $this->Codes_Model->getBufferCodes();			
 			
-			if($profile === "all") {
-				for($i = 0; $i <= $count; $i++) {
-					foreach($codes as $code) {
-						$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
+			if ($profile === "all") {
+				for ($i = 0; $i <= $count; $i++) {
+					foreach ($codes as $code) {
+						$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], false, $code["Language"]);
 
 						$count = count($this->bufferProfiles) - 1;
 
@@ -146,9 +146,9 @@ class Buffer_Controller extends ZP_Load {
 						$this->RESTClient->POST($data);
 					}
 				}	
-			} elseif(strlen($profile) === 24) {
-				foreach($codes as $code) {
-					$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
+			} elseif (strlen($profile) === 24) {
+				foreach ($codes as $code) {
+					$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], false, $code["Language"]);
 
 					$count = count($this->bufferProfiles) - 1;
 
@@ -178,23 +178,23 @@ class Buffer_Controller extends ZP_Load {
 
 			shuffle($records);
 
-			foreach($records as $record) {
-				if(isset($record["ID_Post"])) {
-					$URL = path("blog/". $record["Year"] ."/". $record["Month"] ."/". $record["Day"] ."/". $record["Slug"], FALSE, $record["Language"]);
+			foreach ($records as $record) {
+				if (isset($record["ID_Post"])) {
+					$URL = path("blog/". $record["Year"] ."/". $record["Month"] ."/". $record["Day"] ."/". $record["Slug"], false, $record["Language"]);
 
 					$data = array(
 						"text" 			=> stripslashes($record["Title"]) ." ". $URL ." ". _bufferVia,
 						"profile_ids[]" => _bufferProfile
 					);					
-				} elseif(isset($record["ID_Bookmark"])) {
-					$URL = path("bookmarks/". $record["ID_Bookmark"] ."/". $record["Slug"], FALSE, $record["Language"]);
+				} elseif (isset($record["ID_Bookmark"])) {
+					$URL = path("bookmarks/". $record["ID_Bookmark"] ."/". $record["Slug"], false, $record["Language"]);
 
 					$data = array(
 						"text" 			=> stripslashes($record["Title"]) ." ". $URL ." ". _bufferVia,
 						"profile_ids[]" => _bufferProfile
 					);				
-				} elseif(isset($record["ID_Code"])) {
-					$URL = path("codes/". $record["ID_Code"] ."/". $record["Slug"], FALSE, $record["Language"]);
+				} elseif (isset($record["ID_Code"])) {
+					$URL = path("codes/". $record["ID_Code"] ."/". $record["Slug"], false, $record["Language"]);
 
 					$data = array(
 						"text" 			=> stripslashes($record["Title"]) ." ". $URL ." ". _bufferVia,

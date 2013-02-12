@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -16,20 +16,20 @@ class Configuration_Model extends ZP_Load {
 		$this->Data = $this->core("Data");
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
-		if($action === "edit") {
+	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false) {		
+		if ($action === "edit") {
 			$validation = $this->editOrSave();
 			
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all();
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "tv") {
+		} elseif ($action === "tv") {
 			return $this->setTV();
 		}
 	}	
@@ -48,7 +48,7 @@ class Configuration_Model extends ZP_Load {
 
 		$this->data = $this->Data->proccess($data, $validations);
 
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 	}
@@ -70,11 +70,11 @@ class Configuration_Model extends ZP_Load {
 	}	
 
 	public function getCountries() {
-		return $this->Db->findAll("world", "DISTINCT Country", NULL, "Country ASC");
+		return $this->Db->findAll("world", "DISTINCT Country", null, "Country ASC");
 	}
 
 	public function getCities($country) {
-		return $this->Db->findBy("Country", $country, "world", "District", NULL, "District ASC");
+		return $this->Db->findBy("Country", $country, "world", "District", null, "District ASC");
 	}
 
 	public function getTV() {

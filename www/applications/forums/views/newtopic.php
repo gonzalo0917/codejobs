@@ -1,18 +1,18 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$title 	 = isset($title)   ? recoverPOST("title", $title) 		  : NULL;
-	$content = isset($content) ? recoverpost("description", $content) : NULL;
+	$title 	 = isset($title)   ? recoverPOST("title", $title) 		  : null;
+	$content = isset($content) ? recoverpost("description", $content) : null;
  	
-	if(!isset($success)) { 
+	if (!isset($success)) { 
 ?> 	
 		<div class="newTopic" style="margin-left: 15%;">
 			<form id="formNewTopic" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
 			
 			<?php 
-				if($action === "save") { 
+				if ($action === "save") { 
 			?>
 					<legend><?php echo __("New Topic"); ?>
 			<?php 
@@ -22,7 +22,7 @@
 			<?php 
 				} 
 			
-				echo isset($alert) ? $alert : NULL; ?>
+				echo isset($alert) ? $alert : null; ?>
 					
 				<p class="field">
 					&raquo; <?php echo __("Title"); ?><br />
@@ -35,7 +35,7 @@
 				</p>
 					
 			<?php 
-				if(SESSION("ZanUserMethod") and SESSION("ZanUserMethod") === "twitter") { 
+				if (SESSION("ZanUserMethod") and SESSION("ZanUserMethod") === "twitter") { 
 			?>
 					<p class="checkTwitter">
 						<input type="checkbox" value="Yes" name="tweet" checked="checked" />  <?php echo __("Post in Twitter") ; ?>
@@ -52,7 +52,7 @@
 				<input name="URL" type="hidden" value="<?php echo $hrefURL; ?>" />
 					
 			<?php 
-				if($action === "edit") { 
+				if ($action === "edit") { 
 			?>
 					<input name="ID_Post" type="hidden" value="<?php echo $ID_Post; ?>" />
 			<?php 
@@ -65,16 +65,16 @@
 ?>
 		<div class="newTopic">
 			<?php 
-				if($action === "save") {
-					if($success > 0) { 
+				if ($action === "save") {
+					if ($success > 0) { 
 						echo showAlert(__("The new topic has been saved correctly"), $href);
-					} elseif($success === 0) {
+					} elseif ($success === 0) {
 						echo showAlert(__("You need to wait 25 seconds to create a new topic"), $hrefE);
 					} else { 
 						echo showAlert(__("Ooops an unexpected problem has ocurred"), "reload");
 					}
 				} else { 
-					if($success > 0) { 
+					if ($success > 0) { 
 						echo showAlert(__("The topic has been edited correctly"), $href);
 					} else { 
 						echo showAlert(__("Ooops an unexpected problem has ocurred"), "reload");

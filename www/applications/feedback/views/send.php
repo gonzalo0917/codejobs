@@ -1,5 +1,5 @@
 <?php 
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here..."); 
 }
 
@@ -11,16 +11,16 @@ echo div("new-user", "class");
 	echo formOpen(path("feedback"), "form", "form");
 		echo p(__("Contact us today"), "resalt");
 		
-		echo isset($alert) ? $alert : NULL;
+		echo isset($alert) ? $alert : null;
 		
-		if(!is($inserted, TRUE)) {
+		if (!is($inserted, true)) {
 			echo formInput(array(
 				"id"	   => "name",
 				"name" 	   => "name",				
 				"field"    => __("Name"), 
-				"p" 	   => TRUE, 
+				"p" 	   => true, 
 				"value"    => $name,
-				"required" => TRUE
+				"required" => true
 			));
 			
 			echo formInput(array(	
@@ -28,23 +28,23 @@ echo div("new-user", "class");
 				"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
 				"type"     => "email",
 				"field"    => __("Email"), 
-				"p" 	   => TRUE, 
+				"p" 	   => true, 
 				"value"    => $email,
-				"required" => TRUE
+				"required" => true
 			));
 			
 			echo formTextarea(array(
 				"id"	   => "editor",
 				"name" 	   => "message",								
 				"field"    => __("Message"), 
-				"p" 	   => TRUE, 
+				"p" 	   => true, 
 				"value"    => $message,
-				"required" => TRUE
+				"required" => true
 			));
 
 			echo formCaptcha(array(
 				"name" 	   => "captcha",
-				"p"		   => TRUE,
+				"p"		   => true,
 				"field"    => __("Verification") .' ('. __("answer must be a number") .')'
 			));
 			
@@ -57,4 +57,4 @@ echo div("new-user", "class");
 		}
 
 	echo formClose();
-echo div(FALSE);
+echo div(false);

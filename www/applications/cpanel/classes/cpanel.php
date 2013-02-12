@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -21,15 +21,15 @@ class CPanel extends ZP_Load {
 		$this->Comments_Model     = $this->model("Comments_Model");		
 		$this->Feedback_Model     = $this->model("Feedback_Model");	
 				
-		$this->isAdmin = $this->Users_Model->isAdmin(TRUE);
+		$this->isAdmin = $this->Users_Model->isAdmin(true);
 	
 		$this->vars["isAdmin"] = $this->isAdmin;
 				
 		return $this->isAdmin;
 	}
 	
-	public function getApplicationID($application = NULL) {
-		if(is_null($application)) {
+	public function getApplicationID($application = null) {
+		if (is_null($application)) {
 			$application = whichApplication();
 		}
 		

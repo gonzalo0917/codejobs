@@ -1,5 +1,5 @@
 <?php 
-if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
 
 $caption 		= __("My posts");
 $colspan		= 5;
@@ -37,9 +37,9 @@ $j 				= 2;
 
 	<tbody>		
 	<?php
-		if(count($tFoot) > 0) {
+		if (count($tFoot) > 0) {
 			$nro = 0;
-			foreach($tFoot as $column) {
+			foreach ($tFoot as $column) {
 				$nro++;
 				$color = $colors[$i];
 				
@@ -64,7 +64,7 @@ $j 				= 2;
 					</td>
 					
 					<td class="center">
-						<?php echo getLanguage($column["Language"], TRUE); ?>
+						<?php echo getLanguage($column["Language"], true); ?>
 					</td>
 
 					<td class="center">

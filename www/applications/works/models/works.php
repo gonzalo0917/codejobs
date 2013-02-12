@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -20,31 +20,31 @@ class Works_Model extends ZP_Load {
 		$this->Data->table($this->table);
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "ID_Work DESC", $search = NULL, $field = NULL, $trash = FALSE) {		
-		if($action === "edit" or $action === "save") {
+	public function cpanel($action, $limit = null, $order = "ID_Work DESC", $search = null, $field = null, $trash = false) {		
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 			
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all($trash, $order, $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 	
 	private function all($trash, $order, $limit) {
-		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit);
+		if (!$trash) { 
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", null, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Work, Title, Description, URL, Image, Preview1, Preview2, Situation", null, $order, $limit);
 		}
 	}
 	
@@ -68,12 +68,12 @@ class Works_Model extends ZP_Load {
 
  		$this->data = $this->Data->proccess($data, $validations);
 
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 
-		if(FILES("image", "name")) {
-			if(POST("image_last")) {
+		if (FILES("image", "name")) {
+			if (POST("image_last")) {
 				@unlink(POST("image_last"));
 			}
 			
@@ -83,13 +83,13 @@ class Works_Model extends ZP_Load {
 			
 			$this->data["Image"] = $this->Files->uploadImage($dir, "image", "normal");
 
-			if(!$this->data["Image"]) {
+			if (!$this->data["Image"]) {
 				return getAlert(__("Upload error"));
 			}
 		}
 
-		if(FILES("preview1", "name")) {
-			if(POST("preview1_last")) {
+		if (FILES("preview1", "name")) {
+			if (POST("preview1_last")) {
 				@unlink(POST("preview1_last"));
 			}
 			
@@ -99,13 +99,13 @@ class Works_Model extends ZP_Load {
 			
 			$this->data["Preview1"] = $this->Files->uploadImage($dir, "preview1", "normal");
 
-			if(!$this->data["Preview1"]) {
+			if (!$this->data["Preview1"]) {
 				return getAlert(__("Upload error"));
 			}
 		}
 
-		if(FILES("preview2", "name")) {
-			if(POST("preview2_last")) {
+		if (FILES("preview2", "name")) {
+			if (POST("preview2_last")) {
 				@unlink(POST("preview2_last"));
 			}
 			
@@ -115,7 +115,7 @@ class Works_Model extends ZP_Load {
 			
 			$this->data["Preview2"] = $this->Files->uploadImage($dir, "preview2", "normal");
 
-			if(!$this->data["Preview2"]) {
+			if (!$this->data["Preview2"]) {
 				return getAlert(__("Upload error"));
 			}
 		}
@@ -123,7 +123,7 @@ class Works_Model extends ZP_Load {
 	}
 	
 	private function save() {
-		if($this->Db->insert($this->table, $this->data)) {
+		if ($this->Db->insert($this->table, $this->data)) {
 		 	return getAlert(__("The work has been saved correctly"), "success");
 		}
 
@@ -131,7 +131,7 @@ class Works_Model extends ZP_Load {
 	}
 	
 	private function edit() {
-		if($this->Db->update($this->table, $this->data, POST("ID"))) {
+		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
             return getAlert(__("The work has been edit correctly"), "success");
         }
         
@@ -143,34 +143,34 @@ class Works_Model extends ZP_Load {
 	}
 
 	public function getImg1($ID) {
-		return $this->Db->findBySQL("ID_Work = '$ID' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "Image");
+		return $this->Db->findBySQL("ID_Work = '$ID' AND Situation != 'Deleted'", $this->table, $this->fields, null, "Image");
 	}
 
 	private function search($search, $field) {
-		if($search and $field) {
+		if ($search and $field) {
 			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);	      
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 
 	public function getAll($limit) {		
-		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, NULL, "ID_Work DESC", $limit);
+		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, null, "ID_Work DESC", $limit);
 	}
 
 	public function getAllByUser() {
-		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, "ID_Work DESC");
+		return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, "ID_Work DESC");
 	}
 
 	public function updateViews($workID) {
 		$this->Cache = $this->core("Cache");
 
-		$views = $this->Cache->getValue($workID, "works", "Views", TRUE);
+		$views = $this->Cache->getValue($workID, "works", "Views", true);
 
 		return $this->Cache->setValue($workID, $views + 1, "works", "Views", 86400);
 	}
 
-	public function getWorks($position = NULL) {			
+	public function getWorks($position = null) {			
 		$this->Db->select("Title, Slug, Preview1, Preview2, Image, URL, Description");	
 		
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table);

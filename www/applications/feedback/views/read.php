@@ -1,7 +1,7 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 		
 <?php
-	if($data) {
+	if ($data) {
 		$ID      = $data[0]["ID_Feedback"];
 		$name    = $data[0]["Name"];
 		$email   = $data[0]["Email"];
@@ -62,14 +62,14 @@
 		echo formOpen(path("feedback/cpanel/read/$ID"), "form-add", "form-add");
 			echo p(__("Respond"), "resalt");			
 
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
 				"id"    => "email",
 				"name" 	=> "to", 
 				"class" => "required", 
 				"field" => __("To"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $email
 			));
 
@@ -78,7 +78,7 @@
 				"name" 	=> "from", 
 				"class" => "required", 
 				"field" => __("From"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => _get("webEmailSend")
 			));
 
@@ -86,7 +86,7 @@
 				"name" 	=> "subject", 
 				"class" => "required", 
 				"field" => __("Subject"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => __("Respons about your CodeJobs's message")
 			));
 
@@ -96,7 +96,7 @@
 				"class"  => "markItUp", 
 				"style"  => "height: 240px;", 
 				"field"  => __("Content"), 
-				"p" 	 => TRUE				
+				"p" 	 => true				
 			));
 
 			echo formInput(array(					
@@ -107,4 +107,4 @@
 			));
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

@@ -1,14 +1,14 @@
 <?php
-	if(!defined("ACCESS")) die("Error: You don't have permission to access here...");
+	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
 				"type"  => "hidden",
 				"name" 	=> "username",
-				"p" 	=> FALSE,
+				"p" 	=> false,
 				"value" => SESSION("ZanUser")
 			));
 
@@ -17,7 +17,7 @@
 				"name" 	=> "new_password", 
 				"class" => "field-title span4",
 				"field" => __("Password"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "40"
 			));
 
@@ -26,7 +26,7 @@
 				"name" 	=> "re_new_password", 
 				"class" => "field-title span4",
 				"field" => __("Confirm password"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"maxlength" => "40"
 			));
 
@@ -38,7 +38,7 @@
 			));
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);
 ?>
 <script>
 	var acceptLabel = "<?php echo __("Accept"); ?>",

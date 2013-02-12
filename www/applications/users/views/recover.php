@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -10,9 +10,9 @@ echo div("new-user", "class");
 	echo formOpen(path("users/recover"), "form", "form");
 		echo p(__("Recover your password"), "resalt left");
 		
-		echo isset($alert) ? $alert : NULL;
+		echo isset($alert) ? $alert : null;
 
-		if(isset($tokenID)) {
+		if (isset($tokenID)) {
 			echo p(__("Enter your new password twice to change"));
 				
 			echo formInput(array(	
@@ -20,8 +20,8 @@ echo div("new-user", "class");
 				"pattern"  => "^.*(?=.{6,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", 
 				"type"     => "password",
 				"field"    => __("Password"), 
-				"p" 	   => TRUE, 
-				"required" => TRUE
+				"p" 	   => true, 
+				"required" => true
 			));
 
 			echo formInput(array(	
@@ -29,8 +29,8 @@ echo div("new-user", "class");
 				"pattern"  => "^.*(?=.{6,})(?=.*[a-zA-Z])[a-zA-Z0-9]+$", 
 				"type"     => "password",
 				"field"    => __("Confirm your Password"), 
-				"p" 	   => TRUE, 
-				"required" => TRUE
+				"p" 	   => true, 
+				"required" => true
 			));
 
 			echo formInput(array(	
@@ -46,7 +46,7 @@ echo div("new-user", "class");
 				"value"	=> $tokenID
 			));
 		} else {
-			if(!isset($inserted)) {
+			if (!isset($inserted)) {
 				echo p(__("To recover your password, please enter your username or your e-mail"));
 				
 				echo formInput(array(
@@ -54,7 +54,7 @@ echo div("new-user", "class");
 					"name" 	   => "username",
 					"pattern"  => "^[a-z0-9_-]{3,15}$", 
 					"field"    => __("Username"), 
-					"p" 	   => TRUE, 
+					"p" 	   => true, 
 					"value"    => recoverPOST("username")
 				));			
 		
@@ -63,7 +63,7 @@ echo div("new-user", "class");
 					"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
 					"type"     => "email",
 					"field"    => "E-mail", 
-					"p" 	   => TRUE, 
+					"p" 	   => true, 
 					"value"    => recoverPOST("email")
 				));
 
@@ -77,4 +77,4 @@ echo div("new-user", "class");
 		}
 
 	echo formClose();
-echo div(FALSE);
+echo div(false);

@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -11,27 +11,27 @@ $email = isset($email) ? recoverPOST("email", $email)  : recoverPOST("email");
 
 
 echo div("login-form", "class");
-	echo a(img(path("$this->themeRoute/images/logo.png", TRUE), array(
+	echo a(img(path("$this->themeRoute/images/logo.png", true), array(
 		"id"    => "logo",
 		"align" => "center",
 		"alt"   => "CodeJobs",
 		"class" => "noborder"
 	)), path());
 
-	if(isset($alert)) {
+	if (isset($alert)) {
 		echo $alert;
 	}
 
 	echo formOpen(getURL(), "form", "form");
 		
-		if(!isset($inserted) or !$inserted) {
-			if(!SESSION("UserRegistered")) {
+		if (!isset($inserted) or !$inserted) {
+			if (!SESSION("UserRegistered")) {
 				echo formInput(array(
 					"id"	   => "username",
 					"name" 	   => "username",
 					"maxlength" => "30", 
 					"field"    => __("Username"), 
-					"p" 	   => TRUE, 
+					"p" 	   => true, 
 					"value"    => recoverPOST("username")
 				));
 				
@@ -41,13 +41,13 @@ echo div("login-form", "class");
 					"maxlength" => "30",
 					"type"     => "password",
 					"field"    => __("Password"), 
-					"p" 	   => TRUE
+					"p" 	   => true
 				));
 
 				echo a(
 					__("Forgot your password?"),
 					path("users/recover"),
-					FALSE,
+					false,
 					array("class" => "forgot")
 				);
 
@@ -61,11 +61,11 @@ echo div("login-form", "class");
 				echo a(
 					__("Sign up"),
 					path("users/register"),
-					FALSE,
+					false,
 					array("class" => "btn")
 				);
 			}
 		}
 
 	echo formClose();
-echo div(FALSE);
+echo div(false);

@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -22,44 +22,44 @@ class Pages_Model extends ZP_Load {
 		$this->helper("alerts");
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {
-		if($action === "edit" or $action === "save") {
+	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false) {
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 		
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all($trash, $order, $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 	
 	private function all($trash, $order, $limit) {			
-		if(!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
+		if (!$trash) { 
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 		}	
 	}
 
 	private function search($search, $field) {
-		if($search and $field) {
+		if ($search and $field) {
 			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	private function editOrSave($action) {
-		if($action === "save") {
+		if ($action === "save") {
 			$validations = array(
 				"exists"  => array(
 					"Slug" 	   => slug(POST("title", "clean")), 
@@ -87,15 +87,15 @@ class Pages_Model extends ZP_Load {
 		
 		$this->data = $this->Data->proccess($data, $validations);
 		
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 		
-		return FALSE;
+		return false;
 	}
 	
 	private function save() {
-		if(POST("principal") > 0) {
+		if (POST("principal") > 0) {
 			$this->Db->update($this->table, array("Principal" => 0), "Language = '". POST("language") ."'");
 		}
 		
@@ -126,7 +126,7 @@ class Pages_Model extends ZP_Load {
 	public function getBySlug($slug) {		
 		$data = $this->Db->findBySQL("Slug = '$slug' AND Language = '$this->language' AND Situation = 'Active'", $this->table, $this->fields);
 
-		if($data) {
+		if ($data) {
 			$this->Db->updateBySQL("pages", "Views = (Views) + 1 WHERE ID_Page = '". $data[0]["ID_Page"] ."'");
 		}
 
@@ -136,7 +136,7 @@ class Pages_Model extends ZP_Load {
 	public function getID($slug) {		
 		$data = $this->Db->findBy("Slug", $slug, $this->table, $this->fields);
 		
-		return (is_array($data)) ? $data[0][$this->primaryKey] : FALSE;
+		return (is_array($data)) ? $data[0][$this->primaryKey] : false;
 	}
 	
 	public function getByID($ID) {		

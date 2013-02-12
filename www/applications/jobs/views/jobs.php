@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 ?>
@@ -10,11 +10,11 @@
 		$rand1 = rand(1, 5);
 		$rand2 = rand(6, 10);
 		
-		foreach($jobs as $job) { 
-			$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], FALSE, $job["Language"]);
+		foreach ($jobs as $job) { 
+			$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
 	?>
 			<h2>
-				<?php echo getLanguage($job["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
+				<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo $URL; ?>" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
 			</h2>
 
 			<span class="small italic grey">
@@ -22,8 +22,8 @@
 				    echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
 					echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
 					 
-					if($job["Technologies"] !== "") {
-						if(segment(1, isLang()) === "author") {      
+					if ($job["Technologies"] !== "") {
+						if (segment(1, isLang()) === "author") {      
 							echo __("in") ." ". exploding($job["Technologies"], "jobs/". $job["Author"]. "/tag/");
 						} else {
 							echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
@@ -33,18 +33,18 @@
 				<br />
 			</span>
 
-			<?php echo display(social($URL, $job["Title"], FALSE), 4); ?>	
+			<?php echo display(social($URL, $job["Title"], false), 4); ?>	
 
 			<p class="justify">				
 				<?php 
-					echo showContent(pagebreak($job["Requirements"], $URL), TRUE); 
+					echo showContent(pagebreak($job["Requirements"], $URL), true); 
 				?>
 			</p>
 
 			<br />
 
 			<?php					
-				if($i === $rand2) { 
+				if ($i === $rand2) { 
 					echo display('<p>
 									<script type="text/javascript">
 										google_ad_client = "ca-pub-4006994369722584";

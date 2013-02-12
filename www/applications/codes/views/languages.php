@@ -1,5 +1,5 @@
 <?php 
-if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
 
 $application = ucfirst(whichApplication());
 $caption = __("Manage languages");
@@ -42,8 +42,8 @@ $i = 0;
 		
 	<tbody>		
 	<?php
-		if($tFoot) {
-			foreach($tFoot as $column) {
+		if ($tFoot) {
+			foreach ($tFoot as $column) {
 				$ID = $column["ID_Syntax"];
 				$color = $colors[$i];
 				

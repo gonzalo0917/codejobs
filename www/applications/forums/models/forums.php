@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -21,28 +21,28 @@ class Forums_Model extends ZP_Load {
 		$this->Data->table($this->table);
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {
-		if($action === "edit" or $action === "save") {
+	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false) {
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave();
 			
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all($trash, $order, $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 	
 	private function all($trash, $order, $limit) {
-        return ($trash) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);		
+        return ($trash) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);		
 	}
 	
 	private function editOrSave() {
@@ -57,7 +57,7 @@ class Forums_Model extends ZP_Load {
 			"description" => "required"
 		);
             
-        $this->URL = path("forums/". slug(POST("title", "clean")), FALSE, POST("language"));
+        $this->URL = path("forums/". slug(POST("title", "clean")), false, POST("language"));
 				
 		$data = array(
 			"ID_Forum"    => POST("ID"),
@@ -71,7 +71,7 @@ class Forums_Model extends ZP_Load {
 	
 		$this->data = $this->Data->proccess($data, $validations);
 
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 	}
@@ -79,10 +79,10 @@ class Forums_Model extends ZP_Load {
 	public function savePost() {
 		$this->helper(array("alerts", "time"));
 
-		if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http"){
+		if (substr(SESSION("ZanUserAvatar"), 0, 4) === "http"){
 			$avatar = SESSION("ZanUserAvatar");
 		} else {
-			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
+			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), true);
 		}
 
 		$data = array(
@@ -157,7 +157,7 @@ class Forums_Model extends ZP_Load {
 
 
 	private function save() {
-        if($this->getByForum($this->data["Slug"], POST("language"))) {
+        if ($this->getByForum($this->data["Slug"], POST("language"))) {
             return getAlert(__("This forum already exists"), "error", $this->URL);
         } 
         
@@ -167,7 +167,7 @@ class Forums_Model extends ZP_Load {
 	}
 	
 	private function edit() {
-		if($this->Db->update($this->table, $this->data, POST("ID"))) {
+		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
             return getAlert(__("The work has been edit correctly"), "success");
         }
         
@@ -183,7 +183,7 @@ class Forums_Model extends ZP_Load {
 	}
 
 	public function editPost($postID) {
-		if($this->Db->update($this->table, $this->data, $postID)) {
+		if ($this->Db->update($this->table, $this->data, $postID)) {
             return getAlert(__("The work has been edit correctly"), "success");
         }
         
@@ -198,7 +198,7 @@ class Forums_Model extends ZP_Load {
 		return $this->Db->findBySQL("Language = '$language' AND Situation = 'Active'", $this->table);
 	}
 	
-	public function getByForum($slug, $language = "Spanish", $limit = FALSE) {	
+	public function getByForum($slug, $language = "Spanish", $limit = false) {	
 		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, muu_forums_posts.ID_Post, muu_forums_posts.ID_User, muu_forums_posts.Forum_Name, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Last_Author, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
 		          FROM muu_forums 
 				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
@@ -206,7 +206,7 @@ class Forums_Model extends ZP_Load {
 
 		$data = $this->Db->query($query);
 
-		if($data) {
+		if ($data) {
 			return $data;
 		} else {
 			$query = "SELECT ID_Forum, Title, Slug
@@ -241,14 +241,14 @@ class Forums_Model extends ZP_Load {
 	}
 
 	private function search($search, $field) {
-		if($search and $field) {
+		if ($search and $field) {
 			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);	      
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 
-	public function getByAuthor($author, $limit = FALSE) {
+	public function getByAuthor($author, $limit = false) {
 		$author = str_replace("-", " ", $author);
 		
 		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM muu_forums_posts WHERE Author = '$author' AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) ORDER BY ID_Post DESC LIMIT ". $limit);
@@ -260,7 +260,7 @@ class Forums_Model extends ZP_Load {
 		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Author = '$author' AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) ORDER BY ID_Post DESC LIMIT ". $limit);
 	}
 
-	public function getByTag($tag, $limit = FALSE) {
+	public function getByTag($tag, $limit = false) {
 
 		$tag  = str_replace("-", " ", $tag);
 		$slug = segment(1, isLang());
@@ -277,7 +277,7 @@ class Forums_Model extends ZP_Load {
 			$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)");
 
 			return $count[0]["Total"];
-		} elseif($type === "tag") {
+		} elseif ($type === "tag") {
 			$tag = str_replace("-", " ", segment(3, isLang()));
 
 			$a = "SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)";
@@ -285,13 +285,13 @@ class Forums_Model extends ZP_Load {
  	 		$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)");
 
  	 		return $count[0]["Total"];
-		} elseif($type === "author") {
+		} elseif ($type === "author") {
 			$author = str_replace("-", " ", segment(3, isLang()));
 
 			$count = $this->Db->query("SELECT COUNT(*) AS Total FROM muu_forums_posts WHERE (Title LIKE '%$author%' OR Content LIKE '%$author%' OR Author LIKE '%$author%') AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1)");
 
 			return  $count[0]["Total"];
-		} elseif($type === "author-tag") {
+		} elseif ($type === "author-tag") {
 			$author = segment(3, isLang());
 
 			$tag  = str_replace("-", " ", segment(5, isLang()));
@@ -308,20 +308,20 @@ class Forums_Model extends ZP_Load {
 		$now    = now(4);
 		$author = SESSION("ZanUser");
 
-		if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http"){
+		if (substr(SESSION("ZanUserAvatar"), 0, 4) === "http"){
 			$avatar = SESSION("ZanUserAvatar");
 		} else {
-			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
+			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), true);
 		}
 
-		if($fid and $content) {
+		if ($fid and $content) {
 			$data = array(
 				"ID_User" => SESSION("ZanUserID"),
 				"ID_Parent" => $fid, 
-				"Title" => NULL,
-				"Slug" => NULL,
+				"Title" => null,
+				"Slug" => null,
 				"Text_Date" => decode(now(2)),
-				"Tags" => NULL,
+				"Tags" => null,
 				"Content" => $content,
 				"Author" => $author,
 				"Avatar" => $avatar,
@@ -333,7 +333,7 @@ class Forums_Model extends ZP_Load {
 			
 			$lastID = $this->Db->insert("forums_posts", $data);
 
-			if($lastID) {
+			if ($lastID) {
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author' WHERE ID_Post = '$fid'");
 
 				$content   = $data["Content"];
@@ -350,7 +350,7 @@ class Forums_Model extends ZP_Load {
 
 				echo json_encode($json);
 			} else {			
-				return FALSE;
+				return false;
 			}
 		}
 	}
