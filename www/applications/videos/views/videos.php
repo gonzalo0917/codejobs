@@ -1,5 +1,5 @@
-<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here...");  ?>
-		
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+
 <div class="videos">
 	<?php
 		$i = 1;
@@ -25,5 +25,5 @@
 		}
 	?>
 
-	<?php echo $pagination; ?>	
+	<?php echo $pagination; ?>
 </div>

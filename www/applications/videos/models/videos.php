@@ -6,49 +6,54 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Videos_Model extends ZP_Load {
-	
-	public function __construct() {
+class Videos_Model extends ZP_Load
+{
+
+	public function __construct()
+	{
 		$this->Db = $this->db();
-		
-		$this->table  = "videos";
+
+		$this->table = "videos";
 		$this->fields = "ID_Video, ID_YouTube, Title";
 
-		$this->language    = whichLanguage(); 
+		$this->language = whichLanguage(); 
 		$this->application = whichApplication();
-		
+
 		$this->YouTube = $this->library("youtube", "Youtube", null, "videos");
 
 		$this->Data = $this->core("Data");
 	}
-	
-	public function getRSS() {
-		$this->fields = "ID_Video, ID_YouTube, Title, Description, Text_Date";	
+
+	public function getRSS()
+	{
+		$this->fields = "ID_Video, ID_YouTube, Title, Description, Text_Date";
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, null, "ID_Video DESC");
-		
+
 	}
 
-	public function cpanel($action, $limit = null, $order = "ID_Video DESC", $search = null, $field = null, $trash = false) {	
+	public function cpanel($action, $limit = null, $order = "ID_Video DESC", $search = null, $field = null, $trash = false)
+	{
 		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave();
-			
+
 			if ($validation) {
 				return $validation;
 			}
 		}
-		
+
 		if ($action === "all") {
 			return $this->all($trash, "ID_Video DESC", $limit);
 		} elseif ($action === "edit") {
-			return $this->edit();															
+			return $this->edit();
 		} elseif ($action === "save") {
 			return $this->save();
 		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
-	
-	private function all($trash, $order, $limit) {
+
+	private function all($trash, $order, $limit)
+	{
 		if (!$trash) { 
 			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 		} else {
@@ -56,16 +61,17 @@ class Videos_Model extends ZP_Load {
 		}	
 	}
 	
-	private function editOrSave() {
+	private function editOrSave()
+	{
 		if ((!POST("videos") or is_null(POST("videos"))) and (!POST("URL") or is_null(POST("URL"))) and (!POST("ID") or is_null(POST("ID")))) {
 			return getAlert(__("You need select video o write URL"));
 		}
-		
+
 		if (POST("URL")) {
 			$validations = array(
 				"URL"=> "required"
 			);
-			
+
 			$data = array(
 				"URL" => POST("URL")
 			);
@@ -73,17 +79,17 @@ class Videos_Model extends ZP_Load {
 			$validations = array(
 				"videos" => "required"
 			);
-			
+
 			$data = array(
 				"videos" => POST("videos")
 			);
 		}
-			
-		$this->ID 	     = POST("ID");		
-		$this->URL       = POST("URL");
-		$this->videos    = POST("videos");
-		$this->date1  	 = now(4);
-		$this->date2  	 = now(2);
+
+		$this->ID = POST("ID");
+		$this->URL = POST("URL");
+		$this->videos = POST("videos");
+		$this->date1 = now(4);
+		$this->date2 = now(2);
 		$this->situation = POST("situation");
 		
 		$this->data = $this->Data->proccess($data, $validations);
@@ -92,38 +98,39 @@ class Videos_Model extends ZP_Load {
 			return $this->data["error"];
 		}
 	}
-	
-	private function save() {
+
+	private function save()
+	{
 		if ($this->URL and !is_null($this->URL)) {
 			$_array = explode("v=", POST("URL", "decode", false));
-			
+
 			if ($this->find($_array[1])) {
 				return getAlert(__("This video already exists"));
 			}
-			
+
 			$validateVideo = $this->YouTube->validVideo($_array[1]);
-	
+
 			if (is_null($_array[1]) or !$validateVideo) {
 				return getAlert(__("Invalid URL"));
 			}
-			
-			$video  = $this->YouTube->getByID($_array[1]);
-				
-			if ($video and is_array($video) and $validateVideo) {	
+
+			$video = $this->YouTube->getByID($_array[1]);
+
+			if ($video and is_array($video) and $validateVideo) {
 				$values = array(
-					"ID_User"     => SESSION("ZanUserID"),
-					"ID_YouTube"  => $video["id"],
-					"Title"	      => trim($video["title"]),
-					"Slug" 	      => slug($video["title"]),
+					"ID_User" => SESSION("ZanUserID"),
+					"ID_YouTube" => $video["id"],
+					"Title" => trim($video["title"]),
+					"Slug" => slug($video["title"]),
 					"Description" => trim($video["content"]),
-					"URL"    	  => $this->URL,
-					"Start_Date"  => $this->date1,
-					"Text_Date"   => $this->date2,
-					"Situation"   => $this->situation
+					"URL" => $this->URL,
+					"Start_Date" => $this->date1,
+					"Text_Date" => $this->date2,
+					"Situation" => $this->situation
 				);
-				
+
 				$insert = $this->Db->insert($this->table, $values);
-				
+
 				if (!$insert) {
 					return getAlert(__("Insert error"));
 				}
@@ -131,25 +138,25 @@ class Videos_Model extends ZP_Load {
 		}
 		
 		if (($this->videos) and !is_null($this->videos)) {
-			foreach ($this->videos as $value) {		
+			foreach ($this->videos as $value) {
 				if (!$this->find($value)) {
 					$video = $this->YouTube->getByID($value);
 					
 					if ($video and is_array($video)) {
 						$values = array(
-							"ID_User"     => SESSION("ZanUserID"),
-							"ID_YouTube"  => $video["id"],
-							"Title"	      => $video["title"],
-							"Slug" 	      => slug($video["title"]),
+							"ID_User" => SESSION("ZanUserID"),
+							"ID_YouTube" => $video["id"],
+							"Title" => $video["title"],
+							"Slug" => slug($video["title"]),
 							"Description" => $video["content"],
-							"URL"    	  => $this->URL,
-							"Start_Date"  => $this->date1,
-							"Text_Date"   => $this->date2,
-							"Situation"   => $this->situation
+							"URL" => $this->URL,
+							"Start_Date" => $this->date1,
+							"Text_Date" => $this->date2,
+							"Situation" => $this->situation
 						);
-						
+
 						$insert = $this->Db->insert($this->table, $values);
-						
+
 						if (!$insert) {
 							return getAlert(__("Insert error"));
 						}
@@ -159,24 +166,25 @@ class Videos_Model extends ZP_Load {
 				}
 			}
 		}
-		
+
 		return getAlert(__("The videos has been saved correctly"), "success");
 	}
-	
-	private function edit() {
+
+	private function edit()
+	{
 		if (!$this->title or is_null($this->title)) {
 			return getAlert(__("You need write a title"));
 		}
-		
+
 		$values = array(
-			"Title"	      => $this->title,
-			"Slug" 	      => slug($this->title),
+			"Title" => $this->title,
+			"Slug" => slug($this->title),
 			"Description" => $this->description,
-			"Situation"   => $this->situation
+			"Situation" => $this->situation
 		);
-		
+
 		$response = $this->Db->update($this->table, $values, "ID_Video = " . $this->ID);
-		
+
 		if ($response) {
 			return getAlert(__("The video has been edited correctly"), "success");
 		} else {
@@ -184,35 +192,42 @@ class Videos_Model extends ZP_Load {
 		}
 	}
 	
-	public function getByUser($user = null) {
-		return  $this->YouTube->getByUser($user);
+	public function getByUser($user = null)
+	{
+		return $this->YouTube->getByUser($user);
 	}
-	
-	public function query($query = null) {
-		return  $this->YouTube->query($query);
+
+	public function query($query = null)
+	{
+		return $this->YouTube->query($query);
 	}
-	
-	public function search($search) {
-		return  $this->YouTube->search($search);
+
+	public function search($search)
+	{
+		return $this->YouTube->search($search);
 	}
-	
-	public function getByID($ID) {
+
+	public function getByID($ID)
+	{
 		$data = $this->Db->find($ID, $this->table, $this->fields);
 		
 		return $data;
 	}
-	
-	public function getVideos($limit = 10) {		
+
+	public function getVideos($limit = 10)
+	{
 		return $this->Db->findAll($this->table, $this->fields, null, "ID_Video DESC", $limit);
 	}
-	
-	public function count($limit = 10) {
+
+	public function count($limit = 10)
+	{
 		$data = $this->Db->countAll($this->table);
 
 		return $data;
 	}
-	
-	public function find($ID = null) {
+
+	public function find($ID = null)
+	{
 		return ($this->Db->findBY("ID_YouTube", $ID, $this->table, $this->fields)) ? true : false;
 	}
 }
