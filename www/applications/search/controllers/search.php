@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -26,10 +26,10 @@ class Search_Controller extends ZP_Load {
 		setURL();
 	}
 	
-	public function index($search = FALSE) {
-		if($search) {
+	public function index($search = false) {
+		if ($search) {
 			die($search);
-		} elseif(POST("app") and POST("term")) {			
+		} elseif (POST("app") and POST("term")) {			
 			$app  = POST("app");
 			$term = POST("term");
 
@@ -37,7 +37,7 @@ class Search_Controller extends ZP_Load {
 
 			$this->helper("time");
 
-			if(in_array($app, $apps)) {
+			if (in_array($app, $apps)) {
 				$this->Search_Model->search($term, $app);
 			}
 		}
@@ -46,7 +46,7 @@ class Search_Controller extends ZP_Load {
 	public function getPopularSearches() {
 		$data = $this->Cache->data("tags", "search", $this->Search_Model, "getTags");
 
-		if($data) {
+		if ($data) {
 			$vars["tags"] = $data;
 			
 			$this->view("tags", $vars, "search");			

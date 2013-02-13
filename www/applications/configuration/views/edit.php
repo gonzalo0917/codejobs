@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -26,13 +26,13 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
 				"name" 	=> "name", 
 				"class" => "required span10", 
 				"field" => __("Name of the Website"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $name)
 			);
 
@@ -40,39 +40,39 @@
 				"name" 	=> "URL", 
 				"class" => "required span10", 
 				"field" => __("URL of the Website"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $URL)
 			);
 
 			echo formInput(array(
 				"name" 	=> "slogan_spanish", 
 				"class" => "required span10", 
-				"field" => getLanguage("Spanish", TRUE) ." ". __("Slogan of the Website"), 
-				"p" 	=> TRUE, 
+				"field" => getLanguage("Spanish", true) ." ". __("Slogan of the Website"), 
+				"p" 	=> true, 
 				"value" => $sloganEs)
 			);
 			
 			echo formInput(array(
 				"name" 	=> "slogan_english", 
 				"class" => "required span10", 
-				"field" => getLanguage("English", TRUE) ." ". __("Slogan of the Website"), 
-				"p" 	=> TRUE, 
+				"field" => getLanguage("English", true) ." ". __("Slogan of the Website"), 
+				"p" 	=> true, 
 				"value" => $sloganEn)
 			);			
 		
 			echo formInput(array(
 				"name" 	=> "slogan_french", 
 				"class" => "required span10", 
-				"field" => getLanguage("French", TRUE) ." ". __("Slogan of the Website"), 
-				"p" 	=> TRUE, 
+				"field" => getLanguage("French", true) ." ". __("Slogan of the Website"), 
+				"p" 	=> true, 
 				"value" => $sloganFr)
 			);	
 	
 			echo formInput(array(
 				"name" 	=> "slogan_portuguese", 
 				"class" => "required span10", 
-				"field" => getLanguage("Portuguese", TRUE) ." ". __("Slogan of the Website"), 
-				"p" 	=> TRUE, 
+				"field" => getLanguage("Portuguese", true) ." ". __("Slogan of the Website"), 
+				"p" 	=> true, 
 				"value" => $sloganPt)
 			);
 			
@@ -80,7 +80,7 @@
 				"name" 	=> "email_recieve", 
 				"class" => "required span10", 
 				"field" => __("Email for recieve notifications"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $emailRecieve)
 			);
 
@@ -88,21 +88,21 @@
 				"name" 	=> "email_send", 
 				"class" => "required span10", 
 				"field" => __("Email for send notifications"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $emailSend)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "theme", 
 				"class" => "required", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"field" => __("Default theme")), $themes
 			);
 	
 			echo formSelect(array(
 				"name" 	=> "application", 
 				"class" => "required", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"field" => __("Default application")), $defaultApplications
 			);	
 
@@ -110,20 +110,20 @@
 				0 => array(
 					"value"    => "Active",
 					"option"   => __("Active"),
-					"selected" => ($validation === "Active") ? TRUE : FALSE
+					"selected" => ($validation === "Active") ? true : false
 				),
 				
 				1 => array(
 					"value"    => "Inactive",
 					"option"   => __("Inactive"),
-					"selected" => ($validation === "Inactive") ? TRUE : FALSE
+					"selected" => ($validation === "Inactive") ? true : false
 				)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "validation", 
 				"class" => "required", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"field" => __("Comments validations")), $options
 			);
 			
@@ -131,20 +131,20 @@
 				0 => array(
 					"value"    => "User",
 					"option"   => __("User"),
-					"selected" => ($activation === "User") ? TRUE : FALSE
+					"selected" => ($activation === "User") ? true : false
 				),
 				
 				1 => array(
 					"value"    => "Admin",
 					"option"   => __("Administrator"),
-					"selected" => ($activation === "Admin") ? TRUE : FALSE
+					"selected" => ($activation === "Admin") ? true : false
 				)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "activation", 
 				"class" => "required", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"field" => __("Accounts activation")), $options
 			);
 			
@@ -152,20 +152,20 @@
 				0 => array(
 					"value"    => "Active",
 					"option"   => __("Active"),
-					"selected" => ($situation === "Active") ? TRUE : FALSE
+					"selected" => ($situation === "Active") ? true : false
 				),
 				
 				1 => array(
 					"value"    => "Inactive",
 					"option"   => __("Inactive"),
-					"selected" => ($situation === "Inactive") ? TRUE : FALSE
+					"selected" => ($situation === "Inactive") ? true : false
 				)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "situation", 
 				"class" => "required", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"field" => __("Situation")), $options
 			);
 			
@@ -173,38 +173,38 @@
 				0 => array(
 					"value"    => "Redactor",
 					"option"   => "Redactor",
-					"selected" => ($editor === "Redactor") ? TRUE : FALSE
+					"selected" => ($editor === "Redactor") ? true : false
 				),
 				
 				1 => array(
 					"value"    => "MarkItUp",
 					"option"   => "MarkItUp",
-					"selected" => ($editor === "MarkItUp") ? TRUE : FALSE
+					"selected" => ($editor === "MarkItUp") ? true : false
 				)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "editor", 
 				"class" => "required", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"field" => __("Default editor")), $options
 			);			
 
-			echo formField(NULL, __("Update minified files") ."<br />" . 
+			echo formField(null, __("Update minified files") ."<br />" . 
 								 formInput(array("type" => "submit", "value" => "CSS", "name" => "minify_css", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")) .
 								 formInput(array("type" => "submit", "value" => "JS", "name" => "minify_js", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")) .
 								 formInput(array("type" => "submit", "value" => __("All files"), "name" => "minify", "class" => "btn btn-danger", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')"))
 						  );
 			
-			echo formField(NULL, __("Cache") . "<br />" . formSelect(array(
+			echo formField(null, __("Cache") . "<br />" . formSelect(array(
 				"name" 	=> "cache", 
 				"class" => "required", 
-				"p" 	=> FALSE
+				"p" 	=> false
 			), array(
 				array(
 					"value"  => "blog",
 					"option" => __("Blog"),
-					"selected" => TRUE
+					"selected" => true
 				),
 				array(
 					"value"  => "bookmarks",
@@ -229,13 +229,13 @@
 				"name" 	=> "message", 
 				"class" => "required", 
 				"field" => __("Message when the Website is inactive"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $message)
 			);
 			
-			echo formField(NULL, __("Languages") ."<br />". getLanguagesInput($language));
+			echo formField(null, __("Languages") ."<br />". getLanguagesInput($language));
 			
 			echo formSave("edit");
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

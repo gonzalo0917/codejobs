@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -19,31 +19,31 @@ class Polls_Model extends ZP_Load {
 		$this->helper("alerts");
 	}
 	
-	public function cpanel($action, $limit = NULL, $order = "ID_Poll DESC", $search = NULL, $field = NULL, $trash = FALSE) {
-		if($action === "edit" or $action === "save") {
+	public function cpanel($action, $limit = null, $order = "ID_Poll DESC", $search = null, $field = null, $trash = false) {
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave();
 			
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all($trash, $order, $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 	
 	private function all($trash, $order, $limit) {
-		if(!$trash) { 			
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
+		if (!$trash) { 			
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 		}	
 	}
 	
@@ -51,17 +51,17 @@ class Polls_Model extends ZP_Load {
 		$j = 0;
 		$k = 0;
 		
-		foreach(POST("answers") as $key => $answer) {
-			if($answer === "") {
+		foreach (POST("answers") as $key => $answer) {
+			if ($answer === "") {
 				$j += 1; 
 			} else {
 				$k += 1;
 			}
 		}
 		
-		if(count(POST("answers")) === $j) {
+		if (count(POST("answers")) === $j) {
 			return getAlert(__("You need to write a answers"));
-		} elseif($k < 2) {
+		} elseif ($k < 2) {
 			return getAlert(__("You need to write more than one answer"));
 		} else {
 			$this->answers = POST("answers");
@@ -87,9 +87,9 @@ class Polls_Model extends ZP_Load {
 	private function save() {
 		$lastID = $this->Db->insert($this->table, $this->data);
 		
-		if($lastID) {
-			for($i = 0; $i <= count($this->answers) - 1; $i++) {
-				if($this->answers[$i] !== "") {
+		if ($lastID) {
+			for ($i = 0; $i <= count($this->answers) - 1; $i++) {
+				if ($this->answers[$i] !== "") {
 					$answers[$i]["ID_Poll"] = $lastID;
 					$answers[$i]["Answer"]  = decode($this->answers[$i]);
 				}
@@ -108,8 +108,8 @@ class Polls_Model extends ZP_Load {
 		
 		$this->Db->deleteBySQL("ID_Poll = '". POST("ID") ."'", "polls_answers");
 		
-		foreach($this->answers as $key => $answer) {
-			if($answer !== "") {
+		foreach ($this->answers as $key => $answer) {
+			if ($answer !== "") {
 				$this->Db->insert("polls_answers", array("ID_Poll" => POST("ID"), "Answer" => decode($answer)));
 			}
 		}
@@ -120,7 +120,7 @@ class Polls_Model extends ZP_Load {
 	public function getByID($ID) {
 		$data1 = $this->Db->find($ID, $this->table, "ID_Poll, Title, Language, Situation");		
 		
-		if($data1) {
+		if ($data1) {
 			$data2 = $this->Db->findBy("ID_Poll", $data1[0]["ID_Poll"], "polls_answers", "ID_Answer, Answer, Votes");
 			
 			$data["question"] = $data1[0];
@@ -128,16 +128,16 @@ class Polls_Model extends ZP_Load {
 			
 			return $data;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
 	public function getLastPoll() {		
 		$language = whichLanguage();
 
-		$data1 = $this->Db->findBySQL("Language = '$language'", $this->table, $this->fields, NULL, "ID_Poll DESC", 1);
+		$data1 = $this->Db->findBySQL("Language = '$language'", $this->table, $this->fields, null, "ID_Poll DESC", 1);
 		
-		if($data1) {
+		if ($data1) {
 			$data2 = $this->Db->findBy("ID_Poll", $data1[0]["ID_Poll"], "polls_answers", "ID_Answer, Answer, Votes");
 			
 			$data["question"] = $data1[0];
@@ -145,7 +145,7 @@ class Polls_Model extends ZP_Load {
 			
 			return $data;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -160,10 +160,10 @@ class Polls_Model extends ZP_Load {
 
 		$data = $this->Db->findBySQL("ID_Poll = '$ID_Poll' AND IP = '$IP' AND End_Date > $date", "polls_ips", "ID_Poll, IP, Start_Date, End_Date");
 		
-		if($data) {
+		if ($data) {
 			COOKIE("ZanPoll", $ID_Poll, 3600);
 			
-			return FALSE;
+			return false;
 		} else {								
 			$this->Db->updateBySQL("polls_answers", "Votes = (Votes) + 1 WHERE ID_Answer = '$ID_Answer'");								
 			
@@ -179,6 +179,6 @@ class Polls_Model extends ZP_Load {
 			COOKIE("ZanPoll", $ID_Poll, 3600);
 		}
 		
-		return TRUE;
+		return true;
 	}
 }

@@ -1,164 +1,164 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$title  	 = recoverPOST("title");
+	$title = recoverPOST("title");
 	$description = recoverPOST("description");
-	$topics      = recoverPOST("topics");
-	$email 		 = recoverPOST("email");
-	$skype 		 = recoverPOST("skype");
-	$gtalk 		 = recoverPOST("gtalk");
-	$twitter   	 = recoverPOST("twitter");
-	$facebook    = recoverPOST("facebook");
+	$topics = recoverPOST("topics");
+	$email = recoverPOST("email");
+	$skype = recoverPOST("skype");
+	$gtalk = recoverPOST("gtalk");
+	$twitter = recoverPOST("twitter");
+	$facebook = recoverPOST("facebook");
 
 	echo div("new-proposal", "class");
-		echo formOpen(path("workshop"), "form", "form", NULL, "post", "multipart/form-data");
+		echo formOpen(path("workshop"), "form", "form", null, "post", "multipart/form-data");
 			echo div("row", "class");
-				echo  h2(__("Send us your proposal"));
-				echo isset($alert) ? $alert : NULL;
-			echo div(FALSE);
+				echo h2(__("Send us your proposal"));
+				echo isset($alert) ? $alert : null;
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
 					echo formInput(array(
-						"id" 	   => "title",
-						"name" 	   => "title",
-						"field"    => __("Title"),
-						"p" 	   => TRUE,
-						"value"    => $title,
-						"required" => TRUE
+						"id" => "title",
+						"name" => "title",
+						"field" => __("Title"),
+						"p" => true,
+						"value" => $title,
+						"required" => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
 					$options = getAllDays("Saturday", "+3 months");
 
 					echo formSelect(array(
-						"id"		=> "day",
-						"name" 		=> "day", 
-						"p" 		=> TRUE, 
-						"field" 	=> __("Day")),
+						"id" => "day",
+						"name" => "day", 
+						"p" => true, 
+						"field" => __("Day")),
 						$options
 					);
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
 					echo formTextarea(array(
-						"id" 	   => "description",
-						"name" 	   => "description",
-						"field"    => __("Description"),
-						"p" 	   => TRUE,
-						"value"    => $description,
-						"required" => TRUE
+						"id" => "description",
+						"name" => "description",
+						"field" => __("Description"),
+						"p" => true,
+						"value" => $description,
+						"required" => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
 					$options = array(
-						array("value" => "11 am", "option" => "11 am", "selected" => TRUE),
-						array("value" => "4 pm", "option" => "4 pm", "selected" => FALSE)
+						array("value" => "11 am", "option" => "11 am", "selected" => true),
+						array("value" => "4 pm", "option" => "4 pm", "selected" => false)
 					);
 
 					echo formSelect(array(
-						"id"		=> "time",
-						"name" 		=> "time", 
-						"p" 		=> TRUE, 
-						"field" 	=> __("Time")),
+						"id" => "time",
+						"name" => "time", 
+						"p" => true, 
+						"field" => __("Time")),
 						$options
 					);
 
 					echo formInput(array(
-						"id" 	      => "email",
-						"name" 	      => "email",
-						"type"		  => "email",
-						"field"       => __("Email"),
-						"p" 	      => TRUE,
-						"value"       => $email,
+						"id" => "email",
+						"name" => "email",
+						"type" => "email",
+						"field" => __("Email"),
+						"p" => true,
+						"value" => $email,
 						"placeholder" => "me@example.com",
-						"required" 	  => TRUE
+						"required" => true
 					));
 
 					echo formInput(array(
-						"id" 	   => "skype",
-						"name" 	   => "skype",
-						"field"    => __("Skype"),
-						"p" 	   => TRUE,
-						"value"    => $skype
+						"id" => "skype",
+						"name" => "skype",
+						"field" => __("Skype"),
+						"p" => true,
+						"value" => $skype
 					));
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
 					echo formTextarea(array(
-						"id" 	   => "topics",
-						"name" 	   => "topics",
-						"field"    => __("Topics"),
-						"p" 	   => TRUE,
-						"value"    => $topics,
-						"required" => TRUE
+						"id" => "topics",
+						"name" => "topics",
+						"field" => __("Topics"),
+						"p" => true,
+						"value" => $topics,
+						"required" => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
 					echo formInput(array(
-						"id" 	   => "gtalk",
-						"name" 	   => "gtalk",
-						"field"    => __("GTalk"),
-						"p" 	   => TRUE,
-						"value"    => $gtalk
+						"id" => "gtalk",
+						"name" => "gtalk",
+						"field" => __("GTalk"),
+						"p" => true,
+						"value" => $gtalk
 					));
 
 					echo formInput(array(
-						"id" 	   => "twitter",
-						"name" 	   => "twitter",
-						"field"    => __("Twitter"),
-						"p" 	   => TRUE,
-						"value"    => $twitter
+						"id" => "twitter",
+						"name" => "twitter",
+						"field" => __("Twitter"),
+						"p" => true,
+						"value" => $twitter
 					));
 
 					echo formInput(array(
-						"id" 	   => "facebook",
-						"name" 	   => "facebook",
-						"field"    => __("Facebook"),
-						"p" 	   => TRUE,
-						"value"    => $facebook
+						"id" => "facebook",
+						"name" => "facebook",
+						"field" => __("Facebook"),
+						"p" => true,
+						"value" => $facebook
 					));
-				echo div(FALSE);
-			echo div(FALSE);
+				echo div(false);
+			echo div(false);
 
 			echo div("row", "class");
 				echo div("span5", "class");
-					echo formInput(array(	
-						"name" 	=> "file", 
-						"type"  => "file",
+					echo formInput(array(
+						"name" => "file", 
+						"type" => "file",
 						"field" => __("Slides"),
-						"p" 	  => TRUE
+						"p" => true
 					));
-				echo div(FALSE);
+				echo div(false);
 
 				echo div("span4 offset1", "class");
-					echo p(formInput(array(	
-						"name" 	=> "send",
-						"type"  => "submit",
+					echo p(formInput(array(
+						"name" => "send",
+						"type" => "submit",
 						"class" => "btn btn-success",
 						"value" => __("Submit my proposal")
-					), (!SESSION("ZanUser")) ? TRUE : FALSE), "submit");
-				echo div(FALSE);
-			echo div(FALSE);		
+					), (!SESSION("ZanUser")) ? true : false), "submit");
+				echo div(false);
+			echo div(false);
 
 			echo br(2);
 
-			if(!(SESSION("ZanUser"))) {
+			if (!(SESSION("ZanUser"))) {
 				setURL();
 				
-				echo a(__("You need to login to send your proposal"), path("users/login"), FALSE);
+				echo a(__("You need to login to send your proposal"), path("users/login"), false);
 			}
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);
 
 ?>

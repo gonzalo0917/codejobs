@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -21,35 +21,35 @@ class Applications_Model extends ZP_Load {
 	public function getList() {		
 		$this->Db->select("ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
 
-		$data = $this->Db->findAll($this->table, NULL, NULL, "Title ASC");
+		$data = $this->Db->findAll($this->table, null, null, "Title ASC");
 
-		$list  = NULL;		
+		$list  = null;		
 		
-		if($data) { 
+		if ($data) { 
 			$this->helper(array("array", "html"));
 
-			foreach($data as $application) { 
-				if($application["Situation"] === "Active") {
-					if($application["CPanel"]) {
+			foreach ($data as $application) { 
+				if ($application["Situation"] === "Active") {
+					if ($application["CPanel"]) {
 						$count = $this->CPanel_Model->pendingRecords($application["Slug"]);	
 
 						$title = __($application["Title"]) . ($count > 0 ? htmlTag("span", array("style" => "color: #f00"), " ($count)") : "");
 						
-						if($this->Users_Model->isAllow("view", $application["Title"])) {	
-							if($application["Slug"] === "configuration") {
+						if ($this->Users_Model->isAllow("view", $application["Title"])) {	
+							if ($application["Slug"] === "configuration") {
 								$list[]["item"] = span("bold", a($title, path($application["Slug"] . _sh . "cpanel" . _sh . "edit")));															
 							} else {
 								$list[]["item"] = span("bold", a($title, path($application["Slug"] . _sh . "cpanel" . _sh . "results")));
 							}
 							
-							$list[count($list) - 1]["Class"] = FALSE;								
+							$list[count($list) - 1]["Class"] = false;								
 									
-							if($application["Adding"]) {
+							if ($application["Adding"]) {
 								$adding = __("Add");
 								
 								$li[0]["item"] = a($adding, path($application["Slug"] . _sh . "cpanel" . _sh . "add"));
 
-								if($application["Slug"] == "codes") {
+								if ($application["Slug"] == "codes") {
 									$languages = __("Programming languages");
 									$li[]["item"] = a($languages, path($application["Slug"] . _sh . "cpanel" . _sh . "languages"));
 								}
@@ -60,11 +60,11 @@ class Applications_Model extends ZP_Load {
 								
 								$count = $this->CPanel_Model->deletedRecords($application["Slug"]);		
 											
-								if($count > 0) {	
+								if ($count > 0) {	
 									$span  = span("tiny-image tiny-trash", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 									$span .= span("bold italic blue", __("Trash") ." ($count)");
 									
-									$li[]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash"), FALSE, array("title" => __("In trash") .": ". $count));
+									$li[]["item"] = a($span, path($application["Slug"] ."/cpanel/results/trash"), false, array("title" => __("In trash") .": ". $count));
 									
 									$i = count($list) - 1;
 									
@@ -81,7 +81,7 @@ class Applications_Model extends ZP_Load {
 								unset($li);								
 							}
 
-							if($application["Slug"] == "configuration") {
+							if ($application["Slug"] == "configuration") {
 								$li[]["item"] = a(__("Minifier"), path($application["Slug"] . "/cpanel/minifier"));
 								$li[]["item"] = a("TV", path($application["Slug"] . "/cpanel/tv"));
 								
@@ -114,7 +114,7 @@ class Applications_Model extends ZP_Load {
 
 		$applications = $this->Db->findBy("Title", $title, $this->table);
 
-		return (is_array($applications)) ? $applications[0]["ID_Application"] : FALSE;
+		return (is_array($applications)) ? $applications[0]["ID_Application"] : false;
 	}	
 	
 	public function getApplications() {
@@ -123,22 +123,22 @@ class Applications_Model extends ZP_Load {
 		return $this->Db->findBy("Situation", "Active", $this->table);
 	}
 	
-	public function getDefaultApplications($default = FALSE) {	
+	public function getDefaultApplications($default = false) {	
 		$this->Db->select("Title, Slug");
 
 		$applications = $this->Db->findBySQL("BeDefault = 1 AND Situation = 'Active'", $this->table);
 		
 		$i = 0;
 		
-		foreach($applications as $application) {
-			if($application["Slug"] === $default) {
+		foreach ($applications as $application) {
+			if ($application["Slug"] === $default) {
 				$options[$i]["value"]    = $application["Slug"];
 				$options[$i]["option"]   = $application["Title"];
-				$options[$i]["selected"] = TRUE;
+				$options[$i]["selected"] = true;
 			} else {
 				$options[$i]["value"]    = $application["Slug"];
 				$options[$i]["option"]   = $application["Title"];
-				$options[$i]["selected"] = FALSE;
+				$options[$i]["selected"] = false;
 			}
 				
 			$i++;

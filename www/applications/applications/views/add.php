@@ -1,7 +1,7 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 		
 <?php
-	if(isset($data)) {
+	if (isset($data)) {
 		$ID  	  = recoverPOST("ID", 	    $data[0]["ID_Application"]);
 		$title    = recoverPOST("title",    $data[0]["Title"]);
 		$cpanel   = recoverPOST("cpanel",   $data[0]["CPanel"]);
@@ -10,7 +10,7 @@
 		$category = recoverPOST("category", $data[0]["Category"]);
 		$comments = recoverPOST("comments", $data[0]["Comments"]);
 		$state 	  = recoverPOST("state",    $data[0]["State"]);
-		$edit     = TRUE;
+		$edit     = true;
 		$action	  = "edit";
 		$href	  = WEB_BASE . SH . WEB_LANG . SH . _cpanel . SH . segment(2) . SH . _action . SH . $action . SH . $ID . SH;
 	} else {
@@ -23,7 +23,7 @@
 		$category = recoverPOST("category");
 		$comments = recoverPOST("comments");
 		$state 	  = recoverPOST("state");
-		$edit     = FALSE;
+		$edit     = false;
 		$action	  = "save";
 		$href	  = WEB_BASE . SH . WEB_LANG . SH . _cpanel . SH . segment(2) . SH . _action . SH . $action . SH;
 	}
@@ -38,7 +38,7 @@
 				<?php echo __(ucfirst(segment(2))); ?>
 			</p>
 			
-			<?php echo isset($alert) ? $alert : NULL; ?>
+			<?php echo isset($alert) ? $alert : null; ?>
 			
 			<p class="field">
 				&raquo; <?php echo __("Title"); ?><br />
@@ -48,10 +48,10 @@
 			<p class="field">
 				&raquo; <?php echo __("CPanel"); ?><br />
 				<select id="cpanel" name="cpanel" size="1" tabindex="5" class="select">
-					<option value="Yes" <?php echo ($cpanel === "Yes")  ? 'selected="selected"' : NULL; ?>>
+					<option value="Yes" <?php echo ($cpanel === "Yes")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("Yes"); ?>
 					</option>
-					<option value="No" <?php echo ($cpanel === "No")  ? 'selected="selected"' : NULL; ?>>
+					<option value="No" <?php echo ($cpanel === "No")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("No"); ?>
 					</option>
 				</select>
@@ -60,10 +60,10 @@
 			<p class="field">
 				&raquo; <?php echo __("Adding"); ?><br />
 				<select id="adding" name="adding" size="1" tabindex="5" class="select">
-					<option value="Yes" <?php echo ($adding === "Yes")  ? 'selected="selected"' : NULL; ?>>
+					<option value="Yes" <?php echo ($adding === "Yes")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("Yes"); ?>
 					</option>
-					<option value="No" <?php echo ($adding === "No")  ? 'selected="selected"' : NULL; ?>>
+					<option value="No" <?php echo ($adding === "No")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("No"); ?>
 					</option>
 				</select>
@@ -72,10 +72,10 @@
 			<p class="field">
 				&raquo; <?php echo __("BeDefault"); ?><br />
 				<select id="defult" name="defult" size="1" tabindex="5" class="select">
-					<option value="Yes" <?php echo ($defult === "Yes")  ? 'selected="selected"' : NULL; ?>>
+					<option value="Yes" <?php echo ($defult === "Yes")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("Yes"); ?>
 					</option>
-					<option value="No" <?php echo ($defult === "No")  ? 'selected="selected"' : NULL; ?>>
+					<option value="No" <?php echo ($defult === "No")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("No"); ?>
 					</option>
 				</select>
@@ -84,10 +84,10 @@
 			<p class="field">
 				&raquo; <?php echo __("Category"); ?><br />
 				<select id="category" name="category" size="1" tabindex="5" class="select">
-					<option value="Yes" <?php echo ($category === "Yes")  ? 'selected="selected"' : NULL; ?>>
+					<option value="Yes" <?php echo ($category === "Yes")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("Yes"); ?>
 					</option>
-					<option value="No" <?php echo ($category === "No")  ? 'selected="selected"' : NULL; ?>>
+					<option value="No" <?php echo ($category === "No")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("No"); ?>
 					</option>
 				</select>
@@ -96,10 +96,10 @@
 			<p class="field">
 				&raquo; <?php echo __("Comments"); ?><br />
 				<select id="comments" name="comments" size="1" tabindex="5" class="select">
-					<option value="Yes" <?php echo ($comments === "Yes")  ? 'selected="selected"' : NULL; ?>>
+					<option value="Yes" <?php echo ($comments === "Yes")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("Yes"); ?>
 					</option>
-					<option value="No" <?php echo ($comments === "No")  ? 'selected="selected"' : NULL; ?>>
+					<option value="No" <?php echo ($comments === "No")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("No"); ?>
 					</option>
 				</select>
@@ -108,10 +108,10 @@
 			<p class="field">
 				&raquo; <?php echo __("State"); ?><br />
 				<select id="state" name="state" size="1" tabindex="5" class="select">
-					<option value="Active" <?php echo ($state === "Active")  ? 'selected="selected"' : NULL; ?>>
+					<option value="Active" <?php echo ($state === "Active")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("Active"); ?>
 					</option>
-					<option value="Inactive" <?php echo ($state === "Inactive")  ? 'selected="selected"' : NULL; ?>>
+					<option value="Inactive" <?php echo ($state === "Inactive")  ? 'selected="selected"' : null; ?>>
 						<?php echo __("Inactive"); ?>
 					</option>
 				</select>

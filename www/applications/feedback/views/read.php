@@ -1,7 +1,11 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<<<<<<< HEAD
+
+=======
 		
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 <?php
-	if($data) {
+	if ($data) {
 		$ID      = $data[0]["ID_Feedback"];
 		$name    = $data[0]["Name"];
 		$email   = $data[0]["Email"];
@@ -22,37 +26,37 @@
 		<strong><?php echo __("Name"); ?></strong><br />
 		<?php echo $name;?>
 	</p>
-	
+
 	<p class="field">
 		<strong><?php echo __("Email"); ?></strong><br />
 		<?php echo $email;?>
 	</p>
-	
+
 	<p class="field">
 		<strong><?php echo __("Date"); ?></strong><br />
 		<?php echo $date;?>
 	</p>
-	
+
 	<p class="field">
 		<strong><?php echo __("Subject"); ?></strong><br />
 		<?php echo $subject;?>
 	</p>
-	
+
 	<p class="field">
 		<strong><?php echo __("Phone"); ?></strong><br />
 		<?php echo $phone;?>
 	</p>
-	
+
 	<p class="field">
 		<strong><?php echo __("Company"); ?></strong><br />
 		<?php echo $company;?>
 	</p>
-	
+
 	<p class="field">
 		<strong><?php echo __("Message"); ?></strong><br />
 		<?php echo $message;?>
 	</p>
-	
+
 	<p>
 		<a href="<?php echo $back;?>" title="<?php echo __("Back"); ?>"><?php echo __("Back");?></a>
 	</p>
@@ -60,33 +64,59 @@
 <?php
 	echo div("add-form", "class");
 		echo formOpen(path("feedback/cpanel/read/$ID"), "form-add", "form-add");
+<<<<<<< HEAD
+			echo p(__("Respond"), "resalt");
+			echo isset($alert) ? $alert : null;
+=======
 			echo p(__("Respond"), "resalt");			
 
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 			echo formInput(array(	
-				"id"    => "email",
-				"name" 	=> "to", 
+				"id" => "email",
+				"name" => "to", 
 				"class" => "required", 
 				"field" => __("To"), 
-				"p" 	=> TRUE, 
+<<<<<<< HEAD
+				"p" => true, 
+=======
+				"p" 	=> true, 
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 				"value" => $email
 			));
 
-			echo formInput(array(	
-				"id"    => "email",
-				"name" 	=> "from", 
+			echo formInput(array(
+				"id" => "email",
+				"name" => "from", 
 				"class" => "required", 
 				"field" => __("From"), 
-				"p" 	=> TRUE, 
+<<<<<<< HEAD
+				"p" => true, 
+=======
+				"p" 	=> true, 
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 				"value" => _get("webEmailSend")
 			));
 
-			echo formInput(array(					
-				"name" 	=> "subject", 
+			echo formInput(array(
+				"name" => "subject", 
 				"class" => "required", 
 				"field" => __("Subject"), 
-				"p" 	=> TRUE, 
+<<<<<<< HEAD
+				"p" => true, 
+				"value" => __("Respons about your CodeJobs's message")
+			));
+
+			echo formTextarea(array( 
+				"id" => "redactor",
+				"name" => "message", 
+				"class" => "markItUp", 
+				"style" => "height: 240px;", 
+				"field" => __("Content"), 
+				"p" => true
+=======
+				"p" 	=> true, 
 				"value" => __("Respons about your CodeJobs's message")
 			));
 
@@ -96,15 +126,16 @@
 				"class"  => "markItUp", 
 				"style"  => "height: 240px;", 
 				"field"  => __("Content"), 
-				"p" 	 => TRUE				
+				"p" 	 => true				
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 			));
 
-			echo formInput(array(					
-				"name" 	=> "send", 
-				"class" => "btn btn-success", 								
+			echo formInput(array(
+				"name" => "send", 
+				"class" => "btn btn-success", 
 				"value" => __("Send"),
-				"type"  => "submit"
+				"type" => "submit"
 			));
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

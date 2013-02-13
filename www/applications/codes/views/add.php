@@ -1,5 +1,5 @@
 <?php 
-    if(!defined("ACCESS")) {
+    if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
         
@@ -9,11 +9,11 @@
     $author      = isset($data) ? recoverPOST("author", $data[0]["Author"])             : SESSION("ZanUser");
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
 	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
-	$edit        = isset($data) ? TRUE 													: FALSE;
+	$edit        = isset($data) ? true 													: false;
 	$action	     = isset($data) ? "edit"												: "save";
 	$href	     = isset($data) ? path(whichApplication() ."/cpanel/edit/") 			: path(whichApplication() ."/cpanel/add/");
 	
-    if (! ($files = isset($data) ? $data[0]["Files"] : FALSE)) {
+    if (! ($files = isset($data) ? $data[0]["Files"] : false)) {
         $files = recoverFiles();
     }
 	
@@ -26,13 +26,13 @@
 
 		echo p(__(ucfirst(whichApplication())), "resalt");
 		
-		echo isset($alert) ? $alert : NULL;
+		echo isset($alert) ? $alert : null;
 
 		echo formInput(array(	
 			"name" 	=> "title", 
 			"class" => "span10 required",
 			"field" => __("Title"), 
-			"p" 	=> TRUE, 
+			"p" 	=> true, 
 			"value" => $title
 		));
 
@@ -40,7 +40,7 @@
             "name"      => "description",
             "class"     => "span10 required",
             "field"     => __("Description"), 
-            "p"         => TRUE, 
+            "p"         => true, 
             "style"     => "resize: none",
             "value"     => $description
         ));
@@ -62,7 +62,7 @@
                 "name"          => "programming[]",
                 "id"            => "syntax{{\$index}}",
                 "class"         => "required",
-                "p"             => TRUE,
+                "p"             => true,
                 "field"         => __("Programming language"),
                 "ng-model"      => "language",
                 "ng-init"       => "language=languages[getLanguage(file.syntax)]",
@@ -87,7 +87,7 @@
                 "id"        => "name{{\$index}}", 
                 "class"     => "required", 
                 "field"     => __("Filename"), 
-                "p"         => TRUE,
+                "p"         => true,
                 "ng-model"  => "file.name",
                 "onBlur"    => "validateExtension({{\$index}}, '{{languages[getLanguage(language.ID_Syntax)].Extension}}')"
             ));
@@ -98,7 +98,7 @@
                 "class"     => "required",
                 "style"     => "height: 200px;width:100%", 
                 "field"     => __("Code"), 
-                "p"         => TRUE, 
+                "p"         => true, 
                 "value"     => "{{textCode(\$index)}}"
             ));
             
@@ -111,9 +111,9 @@
                 "ng-click"  => "removeFile(\$index)"
             ), __("Remove file"));
             
-            echo htmlTag("div", FALSE);
+            echo htmlTag("div", false);
 
-        echo htmlTag("div", FALSE);
+        echo htmlTag("div", false);
         
         echo htmlTag("div", array(
             "id"        => "add",
@@ -126,18 +126,18 @@
                 "name"  => "author", 
                 "class" => "span2 required", 
                 "field" => __("Author"), 
-                "p"     => TRUE, 
+                "p"     => true, 
                 "value" => stripslashes($author)
             ));
 
-		echo formField(NULL, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
+		echo formField(null, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 		
 		$options = array(
-			0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-			1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+			0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? true : false),
+			1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 		);
 
-		echo formSelect(array("name" => "situation", "class" => "required", "p" => TRUE, "field" => __("Situation")), $options);
+		echo formSelect(array("name" => "situation", "class" => "required", "p" => true, "field" => __("Situation")), $options);
 		
 		echo formSave($action);
 		
@@ -145,7 +145,7 @@
         
 	echo formClose();
 
-	echo htmlTag("div", FALSE);
+	echo htmlTag("div", false);
 ?>
 <script type="text/javascript">
 

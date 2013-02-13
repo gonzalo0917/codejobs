@@ -1,13 +1,13 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 
 <?php 
-	if($albums) { 
+	if ($albums) { 
 ?>
 		<p class="Center"><?php echo __("Albums");?></p>
-	
+
 		<ul id="Albums" class="jcarousel-skin-tango">
 <?php 
-		foreach($albums as $album) { 
+		foreach ($albums as $album) { 
 ?>
 		<?php 
 			$link = path("gallery/album/". $album["Album_Nice"] ."/#top"); 
@@ -15,9 +15,8 @@
 			<li>
 				<a href="<?php echo $link;?>" title="<?php echo $album["Title"];?>">
 					<span class="albumLinks"><?php echo $album["Album"];?></span><br />
-					
 					<img src="<?php echo WEB_URL . SH . $album["Small"];?>">
-				</a>				
+				</a>
 			</li>
 <?php 
 		} 

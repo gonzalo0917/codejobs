@@ -1,20 +1,20 @@
 <?php
-    if(!defined("ACCESS")) {
+    if (!defined("ACCESS")) {
         die("Error: You don't have permission to access here...");
     }
     
-    $URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], FALSE, $code["Language"]);
+    $URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], false, $code["Language"]);
 ?>
 <div class="codes">
 	<h2>
-		<?php echo getLanguage($code["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo quotes($code["Title"]); ?>"><?php echo quotes($code["Title"]); ?></a>
+		<?php echo getLanguage($code["Language"], true); ?> <a href="<?php echo $URL; ?>" title="<?php echo quotes($code["Title"]); ?>"><?php echo quotes($code["Title"]); ?></a>
 	</h2>
 
 	<span class="small italic grey">
 		<?php 
 			echo __("Published") ." ". howLong($code["Start_Date"]) ." ". __("by") .' <a title="'. $code["Author"] .'" href="'. path("codes/author/". $code["Author"]) .'">'. $code["Author"] .'</a> '; 
 			 
-			if($code["Languages"] !== "") {
+			if ($code["Languages"] !== "") {
 				echo __("in") ." ". exploding(implode(", ", array_map("strtolower", explode(", ", $code["Languages"]))), "codes/language/");
 			}
 		?>			
@@ -28,9 +28,9 @@
 	</span>
 
     <?php 
-        echo display(social($URL, $code["Title"], FALSE), 4); 
+        echo display(social($URL, $code["Title"], false), 4); 
 
-        if($code["Description"] !== "") {
+        if ($code["Description"] !== "") {
             echo str_replace("\\", "", htmlTag("p", showLinks($code["Description"])));
         }
 
@@ -55,7 +55,7 @@
         <?php
         }
 		
-        if(SESSION("ZanUser")) {
+        if (SESSION("ZanUser")) {
 	    ?>
 			<p class="small italic">
 				<?php  echo like($code["ID_Code"], "codes", $code["Likes"]) ." ". dislike($code["ID_Code"], "codes", $code["Dislikes"]) ." ". report($code["ID_Code"], "codes"); ?>
@@ -66,7 +66,7 @@
     
         <p>
             <a <?php
-                if(SESSION("ZanUser")) {
+                if (SESSION("ZanUser")) {
                     echo 'href="'. path("codes/download/". $code['ID_Code'] ."/". $code['Slug']) .'" target="_blank"';
                 } else {
                     echo 'href="'. path("users/login") .'/?type=1&return_to='. urlencode(path("codes/". $code['ID_Code'] ."/". $code['Slug'] ."/download")) .'"';

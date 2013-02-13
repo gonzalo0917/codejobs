@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 ?>
@@ -10,18 +10,18 @@
 		$rand1 = rand(1, 5);
 		$rand2 = rand(6, 10);
 		
-		foreach($bookmarks as $bookmark) { 
-			$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], FALSE, $bookmark["Language"]);
+		foreach ($bookmarks as $bookmark) { 
+			$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], false, $bookmark["Language"]);
 	?>
 			<h2>
-				<?php echo getLanguage($bookmark["Language"], TRUE); ?> <a href="<?php echo $URL; ?>" title="<?php echo quotes($bookmark["Title"]); ?>"><?php echo quotes($bookmark["Title"]); ?></a>
+				<?php echo getLanguage($bookmark["Language"], true); ?> <a href="<?php echo $URL; ?>" title="<?php echo quotes($bookmark["Title"]); ?>"><?php echo quotes($bookmark["Title"]); ?></a>
 			</h2>
 
 			<span class="small italic grey">
 				<?php 
 					echo __("Published") ." ". howLong($bookmark["Start_Date"]) ." ". __("by") .' <a title="'. $bookmark["Author"] .'" href="'. path("bookmarks/author/". $bookmark["Author"]) .'">'. $bookmark["Author"] .'</a> '; 
 					 
-					if($bookmark["Tags"] !== "") {
+					if ($bookmark["Tags"] !== "") {
 						echo __("in") ." ". exploding($bookmark["Tags"], "bookmarks/tag/");
 					}
 				?>			
@@ -34,7 +34,7 @@
 				?>
 			</span>
 
-			<?php echo display(social($URL, $bookmark["Title"], FALSE), 4); ?>	
+			<?php echo display(social($URL, $bookmark["Title"], false), 4); ?>	
 
 			<p class="justify">				
 				<?php 
@@ -45,7 +45,7 @@
 			<br />
 
 			<?php 
-				if(SESSION("ZanUser")) { 
+				if (SESSION("ZanUser")) { 
 			?>
 					<p class="small italic">
 						<?php echo like($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Likes"]) ." ". dislike($bookmark["ID_Bookmark"], "bookmarks", $bookmark["Dislikes"]) ." ". report($bookmark["ID_Bookmark"], "bookmarks"); ?>
@@ -55,7 +55,7 @@
 			?>
 			
 			<?php					
-				if($i === $rand2) { 
+				if ($i === $rand2) { 
 					echo display('<p>'. getAd("728px") .'</p>', 4);
 				}
 

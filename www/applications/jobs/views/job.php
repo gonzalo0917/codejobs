@@ -1,35 +1,36 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], FALSE, $job["Language"])
+	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"])
 ;?>
 
 <div class="jobs">
 	<h2>
-		<?php echo getLanguage($job["Language"], TRUE); ?> <a href="<?php echo path("jobs/visit/". $job["ID_Job"], FALSE, $job["Language"]); ?>" target="_blank" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
+		<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo path("jobs/visit/". $job["ID_Job"], false, $job["Language"]); ?>" target="_blank" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
 	</h2>
 
 	<span class="small italic grey">
 		<?php 
 			echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
-			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
-			 
-			if($job["Technologies"] !== "") {
+			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .
+			' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
+
+			if ($job["Technologies"] !== "") {
 				echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
 			}
 		?>
 		<br />
 	</span>
 
-	<?php echo display(social($URL, $job["Title"], FALSE), 4); ?>
+	<?php echo display(social($URL, $job["Title"], false), 4); ?>
 
 
-	<p class="justify">		
+	<p class="justify">
 		<h5><?php echo ("Company Logo")?></h5>
 		<p>
-			<img src="<?php echo path($job["Logo"], TRUE); ?>">
+			<img src="<?php echo path($job["Logo"], true); ?>">
 		</p>
 
 		<h5><?php echo __("Job Description")?></h5>
@@ -56,7 +57,7 @@
 
 		<h5><?php echo __("Contact Information")?></h5>
 		<p>
-			<?php if(SESSION("ZanUserID")) {?>
+			<?php if (SESSION("ZanUserID")) {?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
 				<li><?php echo __("Phone"). ": ". __($job["Phone"]) ?></li>
@@ -64,7 +65,8 @@
 			<?php } else {?>
 				<span class="small italic grey">
 					<?php echo __("You must be registered to display this content"); ?></br/>
-					<?php echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). "</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a>" ; ?>
+					<?php echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
+					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a>" ; ?>
 				</span>
 			<?php }?>
 		</p>

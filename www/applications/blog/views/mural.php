@@ -1,4 +1,4 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
 
 <script type="text/javascript">
 	$(function() {
@@ -15,8 +15,8 @@
 <div id="slides">
 	<div class="slides_container">
 	<?php
-		if(is_array($mural)) {				
-			foreach($mural as $post) {
+		if (is_array($mural)) {				
+			foreach ($mural as $post) {
 	?>
 				<div class="mural-image">
 					<img src="<?php echo WEB_URL . SH . $post["Image"]; ?>" class="no-border">

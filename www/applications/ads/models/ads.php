@@ -2,7 +2,7 @@
 /**
  * Access from index.php:
  */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -17,31 +17,31 @@ class Ads_Model extends ZP_Load {
 		$this->Data = $this->core("Data");
 	}
 
-	public function cpanel($action, $limit = NULL, $order = "Language DESC", $search = NULL, $field = NULL, $trash = FALSE) {	
-		if($action === "edit" or $action === "save") {
+	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false) {	
+		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 		
-			if($validation) {
+			if ($validation) {
 				return $validation;
 			}
 		}
 		
-		if($action === "all") {
+		if ($action === "all") {
 			return $this->all($trash, $order, $limit);
-		} elseif($action === "edit") {
+		} elseif ($action === "edit") {
 			return $this->edit();															
-		} elseif($action === "save") {
+		} elseif ($action === "save") {
 			return $this->save();
-		} elseif($action === "search") {
+		} elseif ($action === "search") {
 			return $this->search($search, $field);
 		}
 	}
 	
 	private function all($trash, $order, $limit) {	
-		if(!$trash) {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);
+		if (!$trash) {
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, NULL, $order, $limit)      : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, NULL, $order, $limit);	
+			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit)      : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);	
 		}	
 	}
 	
@@ -51,7 +51,7 @@ class Ads_Model extends ZP_Load {
 			"URL"   => "ping"
 		);
 
-		if(POST("code")) {
+		if (POST("code")) {
 			unset($validations["URL"]);
 		}
 
@@ -63,18 +63,18 @@ class Ads_Model extends ZP_Load {
 			"End_Date"   => now(4) + 2419200
 		);
 
-		if($action === "edit") {
+		if ($action === "edit") {
 			$this->Data->ignore("banner");
 		}
 
 		$this->data = $this->Data->proccess($data, $validations);
 
-		if(isset($this->data["error"])) {
+		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 
-		if(FILES("image", "name")) {
-			if(POST("banner")) {
+		if (FILES("image", "name")) {
+			if (POST("banner")) {
 				@unlink(POST("banner"));
 			}
 			
@@ -84,23 +84,23 @@ class Ads_Model extends ZP_Load {
 			
 			$this->data["Banner"] = $this->Files->uploadImage($dir, "image", "normal");
 			
-			if(!$this->data["Banner"]) {
+			if (!$this->data["Banner"]) {
 				return getAlert(__("Upload error")); 
 			}
 		} else {
-			if(!isset($this->data["Code"])) {
+			if (!isset($this->data["Code"])) {
 				return getAlert(__("You need to upload an image or write the ad code"));
 			}
 		}		
 	}
 	
 	private function save() {		
-		if($this->data["Principal"] > 0) {
+		if ($this->data["Principal"] > 0) {
 			$this->Db->select("Position");
 
 			$data = $this->Db->findBySQL("Position = '". $this->data["Position"] ."' AND Principal = 1", $this->table);
 					
-			if($data) {
+			if ($data) {
 				$this->Db->updateBySQL($this->table, "Principal = 0 WHERE Position = '". $this->data["Position"] ."'");				
 			}
 		}
@@ -111,10 +111,10 @@ class Ads_Model extends ZP_Load {
 	}
 	
 	private function edit() {	
-		if($this->data["Principal"] > 0) {		
+		if ($this->data["Principal"] > 0) {		
 			$this->Db->select("Position");
 
-			if($this->Db->findBySQL("Position = '". $this->data["Position"] ."' AND Principal = 1", $this->table)) {
+			if ($this->Db->findBySQL("Position = '". $this->data["Position"] ."' AND Principal = 1", $this->table)) {
 				$this->Db->updateBySQL($this->table, "Principal = 0 WHERE Position = '". $this->data["Position"] ."'");				
 			}
 		}
@@ -125,16 +125,16 @@ class Ads_Model extends ZP_Load {
 	}
 	
 	private function search($search, $field) {
-		if($search and $field) {
+		if ($search and $field) {
 			$this->Db->select("ID_Ad, Title, Position, Banner, URL, Code, Start_Date, Principal, Situation");
 
-			if($field === "ID") {
+			if ($field === "ID") {
 				$data = $this->Db->find($search, $this->table);	
 			} else {
 				$data = $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);
 			}
 		} else {
-			return FALSE;
+			return false;
 		}
 		
 		return $data;		
@@ -146,18 +146,18 @@ class Ads_Model extends ZP_Load {
 		return $this->Db->find($ID, $this->table);
 	}
 	
-	public function getAds($position = NULL) {			
+	public function getAds($position = null) {			
 		$this->Db->select("Title, Position, Banner, URL, Code, Time, Principal");	
 		
 		return $this->Db->findBySQL("Position = '$position' AND Situation = 'Active'", $this->table);
 	}
 	
 	public function click($ID) {		
-		if($ID > 0) {
+		if ($ID > 0) {
 			return $this->Db->updateBySQL("ads", "Clicks = (Clicks) + 1", $ID);
 		}
 		
-		return FALSE;
+		return false;
 	}
 	
 }

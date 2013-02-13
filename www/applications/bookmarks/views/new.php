@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -9,7 +9,7 @@
 	$URL         = isset($data) ? recoverPOST("URL", $data["URL"]) 					: recoverPOST("URL", "http://");
 	$tags    	 = isset($data) ? recoverPOST("tags", $data["Tags"]) 				: recoverPOST("tags");
 	$language  	 = isset($data) ? recoverPOST("language", $data["Language"])  	 	: recoverPOST("language");
-	$edit        = isset($data) ? TRUE 												: FALSE;
+	$edit        = isset($data) ? true 												: false;
 	$action	     = isset($data) ? "edit"											: "save";
 	$resalt      = isset($data) ? __("Edit bookmark") 								: __("Add new bookmark");
 	$href	     = path("bookmarks/add/");
@@ -18,14 +18,14 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p($resalt, "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
 				"name" 	=> "URL", 
 				"class" => "required",
 				"style" => "width: 100%;", 
 				"field" => __("URL"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $URL,
 				"type"  => "url"
 			));
@@ -35,7 +35,7 @@
 				"class" => "required",
 				"style" => "width: 100%;", 
 				"field" => __("Title"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => stripslashes($title)
 			));
 			
@@ -45,7 +45,7 @@
 				"class"  => "required",
 				"style"  => "width: 100%; height: 140px;", 
 				"field"  => __("Description"), 
-				"p" 	 => TRUE, 
+				"p" 	 => true, 
 				"value"  => stripslashes($description)
 			));
 
@@ -54,7 +54,7 @@
 				"class" => "required",
 				"style" => "width: 300px;", 
 				"field" => __("Tags"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $tags
 			));
 
@@ -76,4 +76,4 @@
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -15,56 +15,56 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__(ucfirst(whichApplication())), "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
 				"name" 	=> "title", 
 				"class" => "span10 required", 
 				"field" => __("Question"), 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"value" => $title
 			));
 						
 			
-			echo formField(NULL, __("Answers") ." (". __("Empty answers not be added") . ")");
+			echo formField(null, __("Answers") ." (". __("Empty answers not be added") . ")");
 			
-			if(is_array($answers)) { 
+			if (is_array($answers)) { 
 				$count = 1;
 
-				foreach($answers as $answer) { 
-					echo p(TRUE, "field panswer");	
+				foreach ($answers as $answer) { 
+					echo p(true, "field panswer");	
 						echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answer["Answer"]));	
-					echo p(FALSE);
+					echo p(false);
 
 					$count++;
 				}
 
-				for($i = $count; $i <= 6; $i++) {
-					echo p(TRUE, "field panswer");	
+				for ($i = $count; $i <= 6; $i++) {
+					echo p(true, "field panswer");	
 						echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => ""));
-					echo p(FALSE);
+					echo p(false);
 				}
 			} else { 
-				echo p(TRUE, "field panswer");	
+				echo p(true, "field panswer");	
 					echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answers));
 					echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answers));
 					echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answers));
 					echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answers));
 					echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answers));
 					echo formInput(array("name" => "answers[]", "class" => "span10 required", "value" => $answers));	
-				echo p(FALSE);
+				echo p(false);
 			} 	
 
-			echo formField(NULL, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));		
+			echo formField(null, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));		
 			
 			$options = array(
-				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? TRUE : FALSE),
-				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? TRUE : FALSE)
+				0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? true : false),
+				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 			);
 
 			echo formSelect(array(
 				"name" 	=> "situation", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"class" => "required", 
 				"field" => __("Situation")), 
 				$options
@@ -74,4 +74,4 @@
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

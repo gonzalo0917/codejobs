@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -7,12 +7,12 @@
 	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
     $description = isset($data) ? recoverPOST("description", $data[0]["Description"])   : recoverPOST("description");
 	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
-	$edit        = isset($data) ? TRUE 													: FALSE;
+	$edit        = isset($data) ? true 													: false;
 	$action	     = isset($data) ? "edit"												: "save";
 	$href        = isset($data) ? path(whichApplication() ."/add/")                     : path(whichApplication() ."/add/");
     $resalt      = isset($data) ? __("Edit code")                                       : __("Add new code");
 	
-    if (! ($files = isset($data) ? $data[0]["Files"] : FALSE)) {
+    if (! ($files = isset($data) ? $data[0]["Files"] : false)) {
         $files = recoverFiles();
     }
 
@@ -24,13 +24,13 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p($resalt, "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
                 "name" 	=> "title", 
                 "class" => "field-title",
                 "field" => __("Title"), 
-                "p" 	=> TRUE, 
+                "p" 	=> true, 
                 "value" => $title,
                 "autofocus" => "autofocus"
 			));
@@ -39,7 +39,7 @@
                 "name"      => "description",
                 "class"     => "field-title",
                 "field"     => __("Description"), 
-                "p"         => TRUE, 
+                "p"         => true, 
                 "style"     => "resize: none",
                 "value"     => $description
             ));
@@ -64,7 +64,7 @@
                 echo formSelect(array(
                     "name"          => "programming[]",
                     "id"            => "syntax{{\$index}}",
-                    "p"             => TRUE,
+                    "p"             => true,
                     "field"         => __("Programming language"),
                     "ng-model"      => "language",
                     "ng-init"       => "language=languages[getLanguage(file.syntax)]",
@@ -88,7 +88,7 @@
                     "name"      => "name[]", 
                     "id"        => "name{{\$index}}",  
                     "field"     => __("Filename"), 
-                    "p"         => TRUE,
+                    "p"         => true,
                     "ng-model"  => "file.name",
                     "onBlur"    => "validateExtension({{\$index}}, '{{languages[getLanguage(language.ID_Syntax)].Extension}}')"
                 ));
@@ -99,7 +99,7 @@
                     "class"     => "code",
                     "style"     => "-moz-box-sizing:border-box;height: 200px;width:100%", 
                     "field"     => __("Code"), 
-                    "p"         => TRUE, 
+                    "p"         => true, 
                     "value"     => "{{textCode(\$index)}}"
                 ));
 
@@ -112,9 +112,9 @@
                     "ng-click"  => "removeFile(\$index)"
                 ), __("Remove file"));
                 
-                echo htmlTag("div", FALSE);
+                echo htmlTag("div", false);
 
-			echo htmlTag("div", FALSE);
+			echo htmlTag("div", false);
 
             echo htmlTag("div", array(
                 "id"        => "add",
@@ -133,7 +133,7 @@
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
-	echo htmlTag("div", FALSE);
+	echo htmlTag("div", false);
 ?>
 <script type="text/javascript">
 

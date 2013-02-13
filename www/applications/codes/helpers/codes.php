@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -16,7 +16,7 @@ function getSyntax() {
 
     $Db = $Load->core("Db");
     
-    return $Db->findAll("codes_syntax", "ID_Syntax, Name, MIME, Filename, Extension", NULL, "Name ASC");
+    return $Db->findAll("codes_syntax", "ID_Syntax, Name, MIME, Filename, Extension", null, "Name ASC");
 }
 
 function getSyntaxJSON() {
@@ -35,7 +35,7 @@ function recoverFiles() {
     if (is_array($idfiles) and is_array($syntax) and is_array($names) and is_array($codes)) {
         $return = array();
         
-        for($i = 0; $i < count($idfiles); $i++) {
+        for ($i = 0; $i < count($idfiles); $i++) {
             $return[] = array(
                 "ID_File"       => $idfiles[$i],
                 "Name"          => $names[$i],

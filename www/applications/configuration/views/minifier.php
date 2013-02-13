@@ -1,5 +1,5 @@
 <?php 
-	if(!defined("ACCESS")) {
+	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
 
@@ -11,27 +11,27 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__("Minifier"), "resalt");
 			
-			echo isset($alert) ? $alert : NULL;
+			echo isset($alert) ? $alert : null;
 
 			echo formSelect(array(
 				"name" 	=> "type", 
 				"class" => "required", 
-				"p" 	=> TRUE, 
+				"p" 	=> true, 
 				"field" => __("Filetype")), array(
 					array(
 						"value"    => "css",
 						"option"   => __("Stylesheet"),
-						"selected" => $type === "css" ? TRUE : FALSE
+						"selected" => $type === "css" ? true : false
 					),
 					array(
 						"value"    => "js",
 						"option"   => "Javascript",
-						"selected" => $type === "js" ? TRUE : FALSE
+						"selected" => $type === "js" ? true : false
 					),
 					array(
 						"value"    => "php",
 						"option"   => "PHP",
-						"selected" => $type === "php" ? TRUE : FALSE
+						"selected" => $type === "php" ? true : false
 					)
 				)
 			);
@@ -40,7 +40,7 @@
 				"name" 	=> "code", 
 				"class" => "required span10", 
 				"field" => __("Code"), 
-				"p" 	=> TRUE,
+				"p" 	=> true,
 				"rows"  => 15,
 				"value" => stripslashes($code),
 				"onfocus"   => "this.select()"
@@ -49,10 +49,10 @@
 			echo formInput(array(
 				"name" 	=> "minify", 
 				"class" => "btn",
-				"p" 	=> FALSE, 
+				"p" 	=> false, 
 				"value" => __("Minify"),
 				"type"  => "submit")
 			);
 
 		echo formClose();
-	echo div(FALSE);
+	echo div(false);

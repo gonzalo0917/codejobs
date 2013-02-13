@@ -1,4 +1,4 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 		
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 header("Content-Type: application/rss+xml"); 
 echo "<?xml version='1.0' encoding='utf-8'?>";
@@ -11,28 +11,24 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
     <language>es-es</language> 
     <copyright><![CDATA[Codejobs]]></copyright>
     <atom:link href="<?php echo path("jobs/rss"); ?>" rel="self" type="application/rss+xml" />
-    
 
 	<image>
-		<url> <?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE)?></url>
-
+		<url> <?php echo path("www/lib/themes/newcodejobs/images/logo.png", true)?></url>
 		<title>Codejobs - <?php echo __("Jobs"); ?></title>
 		<link><?php echo path()?></link>
 	</image>
 	<?php 
-	if(is_array($jobs)) {	
-	
-	foreach($jobs as $job) {
+	if (is_array($jobs)) {
 
-		
+	foreach ($jobs as $job) {
+
 	?>
-			
 		<item>
 		<title>
 		<![CDATA[<?php echo $job["Title"]; ?>]]>
 		</title>
 		<link>
-		<![CDATA[<?php echo path("jobs/". $job["ID_Job"] ."/". $job["Slug"], FALSE, $job["Language"]); ?>]]>
+		<![CDATA[<?php echo path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]); ?>]]>
 		</link>
 		<description>
 		<![CDATA[<?php echo $job["Description"]; ?>]]>
@@ -50,7 +46,6 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 	<?php
 		}
 	}
-	 ?>	
+	 ?>
   </channel>
-
 </rss>

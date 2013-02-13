@@ -1,10 +1,12 @@
 <?php
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Admin_Controller extends ZP_Load {
-	public function __construct() {
+class Admin_Controller extends ZP_Load 
+{
+	public function __construct() 
+	{
 		$this->app(whichApplication());
 		$this->config($this->application);
 		$this->Users_Model = $this->model("Users_Model");
@@ -14,59 +16,53 @@ class Admin_Controller extends ZP_Load {
 		$this->{$this->Model} = $this->model($this->Model);
 	}
 
-	public function index() {
+	public function index() 
+	{
 		isConnected();
-
 		$this->helper("time");
-
 		$this->CSS("admin", "users");
-		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
-
+		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", null, false, true);
 		$this->js("jquery.appear.js");
 		$this->js("admin", "users");
-
-		$this->vars["path"]	   = path("blog/");
+		$this->vars["path"]	= path("blog/");
 		$this->vars["records"] = $this->Users_Model->records();
-		$this->vars["view"]    = $this->view("admin", TRUE, $this->application, $this->application);
+		$this->vars["view"] = $this->view("admin", true, $this->application, $this->application);
 		$this->vars["caption"] = __("My posts");
-		$this->vars["total"]   = SESSION("ZanUserPosts");
+		$this->vars["total"] = SESSION("ZanUserPosts");
 		$this->vars["ID_Column"] = "ID_Post";
-
 		$this->title($this->vars["caption"]);
-		
 		$this->render("content", $this->vars);
 	}
 
-	public function data() {
+	public function data() 
+	{
 		$this->isMember();
-		
 		$start = (int) GET("start");
 		$field = GET("field") ? GET("field") : "ID_Post";
 		$order = GET("order") ? GET("order") : "DESC";
 		$query = GET("query");
+		$data = $this->Users_Model->records(true, $start, "$field $order", $query);
 
-		$data = $this->Users_Model->records(TRUE, $start, "$field $order", $query);
-
-		if($data) {
+		if ($data) {
 			echo json($data);
 		} else {
 			echo '[]';
 		}
 	}
 
-	public function delete() {
+	public function delete() 
+	{
 		$this->isMember();
-
 		$records = GET("records");
-		$start   = (int) GET("start");
-		$field   = GET("field") ? GET("field") : "ID_Post";
-		$order   = GET("order") ? GET("order") : "DESC";
-		$query 	 = GET("query");
+		$start = (int) GET("start");
+		$field = GET("field") ? GET("field") : "ID_Post";
+		$order = GET("order") ? GET("order") : "DESC";
+		$query = GET("query");
 
-		if(is_array($records) and is_integer($start)) {
+		if (is_array($records) and is_integer($start)) {
 			$data = $this->Users_Model->delete($records, $start, "$field $order", $query);
 
-			if($data) {
+			if ($data) {
 				echo json($data);
 			} else {
 				echo '[]';
@@ -74,8 +70,9 @@ class Admin_Controller extends ZP_Load {
 		}
 	}
 
-	private function isMember() {
-		if(!SESSION("ZanUser")) {
+	private function isMember() 
+	{
+		if (!SESSION("ZanUser")) {
 			exit('[]');
 		}
 	}

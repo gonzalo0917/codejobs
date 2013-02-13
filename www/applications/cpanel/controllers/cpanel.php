@@ -1,69 +1,59 @@
 <?php
-/**
- * Access from index.php:
- */
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class CPanel_Controller extends ZP_Load {
-	
+class CPanel_Controller extends ZP_Load 
+{	
 	private $vars = array();
 	
-	public function __construct() {		
+	public function __construct()
+	{		
 		$this->application = $this->app("cpanel");
-		
 		$this->config($this->application);
-		
-		$this->CPanel = $this->classes("cpanel", "CPanel", NULL, "cpanel");
-		
+		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");
 		$this->isAdmin = $this->CPanel->load();
-		
 		$this->vars = $this->CPanel->notifications();
-		
 		$this->CPanel_Model = $this->model("CPanel_Model");
-		
 		$this->Templates = $this->core("Templates");
-		
 		$this->Templates->theme("cpanel");
 	}
 	
-	public function index() {
-		if($this->isAdmin) {
+	public function index()
+	{
+		if ($this->isAdmin) {
 			$this->home();
 		} else {
 			$this->login();
 		}
 	}
 	
-	public function home() {
+	public function home()
+	{
 		$this->title("Home");
-		
 		$this->helper("porlets", $this->application);
-		
 		$this->vars["lastPosts"] = porlet(__("Last posts"), $this->CPanel_Model->home("blog"));
 		$this->vars["lastPages"] = porlet(__("Last pages"), $this->CPanel_Model->home("pages"));
 		$this->vars["lastLinks"] = porlet(__("Last bookmarks"), $this->CPanel_Model->home("bookmarks"));
 		$this->vars["lastUsers"] = porlet(__("Last users"), $this->CPanel_Model->home("users"));
-		
-		$this->vars["view"] = $this->view("home", TRUE);
-		
+		$this->vars["view"] = $this->view("home", true);
 		$this->render("content", $this->vars);
 	}
 	
-	public function login() {
+	public function login()
+	{
 		$this->title("Login");
 		$this->CSS("login", "users");
 		$this->helper("alerts");
 		
-		if(POST("connect")) {
+		if (POST("connect")) {
 			$this->Users_Model = $this->model("Users_Model");
 				
-			if($this->Users_Model->isAdmin() or $this->Users_Model->isMember()) {
+			if ($this->Users_Model->isAdmin() or $this->Users_Model->isMember()) {
 				$data = $this->Users_Model->getUserData();
 			} 
 			
-			if(isset($data)) {
+			if (isset($data)) {
 				SESSION("ZanUser", $data[0]["Username"]);
 				SESSION("ZanUserName", $data[0]["Name"]);
 				SESSION("ZanUserPwd", $data[0]["Pwd"]);
@@ -74,22 +64,21 @@ class CPanel_Controller extends ZP_Load {
 				SESSION("ZanUserCodes", $data[0]["Codes"]);
 				SESSION("ZanUserPosts", $data[0]["Posts"]);
 				SESSION("ZanUserRecommendation", $data[0]["Recommendation"]);
-
 				redirect(POST("URL"));
 			} else { 
 				showAlert(__("Incorrect Login"), path());
 			}
 		} else {
-			$this->vars["URL"]  = getURL();
-			$this->vars["view"] = $this->view("login", TRUE);
+			$this->vars["URL"] = getURL();
+			$this->vars["view"] = $this->view("login", true);
 		}
 		
 		$this->render("include", $this->vars);
 		$this->rendering("header", "footer");
 	}
 	
-	public function logout() {
+	public function logout()
+	{
 		unsetSessions("cpanel");
 	}
-	
 }

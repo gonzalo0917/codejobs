@@ -1,5 +1,5 @@
 <?php 
-if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
 
 $caption = __("Manage Ads");
 $colspan = 8;
@@ -43,8 +43,8 @@ $j = 2;
 		
 	<tbody>		
 	<?php
-		if($tFoot) {
-			foreach($tFoot as $column) { 
+		if ($tFoot) {
+			foreach ($tFoot as $column) { 
 				$ID = $column["ID_Ad"];      
 				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];
 
@@ -73,10 +73,10 @@ $j = 2;
 					</td>
 								
 					<?php
-						if($column["Banner"] !== "") { 				
+						if ($column["Banner"] !== "") { 				
 						?>
 							<td class="center">
-								<a href="<?php echo path($column["Banner"], TRUE); ?>" title="Banner" class="banner-lightbox">
+								<a href="<?php echo path($column["Banner"], true); ?>" title="Banner" class="banner-lightbox">
 									<?php echo __("Preview"); ?>
 								</a>
 							</td>
@@ -89,7 +89,7 @@ $j = 2;
 						<?php
 						}
 					
-						if($column["Principal"]) {
+						if ($column["Principal"]) {
 						?>			
 							<td class="center">
 								<?php echo __("Yes"); ?>
@@ -110,10 +110,10 @@ $j = 2;
 												 
 					<td class="center">
 					<?php 
-						if($column["Situation"] === "Deleted") {					
-							echo getAction(TRUE, $ID);
+						if ($column["Situation"] === "Deleted") {					
+							echo getAction(true, $ID);
 						} else {					
-							echo getAction(FALSE, $ID);
+							echo getAction(false, $ID);
 						}
 					?>
 					</td>
@@ -132,7 +132,7 @@ $j = 2;
 	<a onclick="unCheckAll('records')" class="pointer" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a><br /><br />
 	
 	<?php				
-	if(segment(3, isLang()) === "trash") { 
+	if (segment(3, isLang()) === "trash") { 
 	?>
 		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
 		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />

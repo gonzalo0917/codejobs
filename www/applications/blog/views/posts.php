@@ -1,20 +1,20 @@
 <?php
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-if(is_array($posts)) {
+if (is_array($posts)) {
 	$i = 1;
 	$rand2 = rand(6, 10);
 	
-	foreach($posts as $post) {			
-		if(isset($post["post"])) {
+	foreach ($posts as $post) {			
+		if (isset($post["post"])) {
 			$post = arraySHift($post);
 		}
 			
 		$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);	
-		$in = ($post["Tags"] !== "") ? __("in") : NULL;	
-		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . SH . LOCK, array("alt" => __("Private"), "class" => "no-border")) : NULL;
+		$in = ($post["Tags"] !== "") ? __("in") : null;	
+		$lock = (strlen($post["Pwd"]) === 40) ? img(_get("webURL") . SH . LOCK, array("alt" => __("Private"), "class" => "no-border")) : null;
 ?>		
 			
 		<div class="post">
@@ -31,8 +31,8 @@ if(is_array($posts)) {
 			
 			<div class="post-right">
 				<?php
-					if($post["Enable_Comments"]) {
-                    	echo fbComments($URL, TRUE);
+					if ($post["Enable_Comments"]) {
+                    	echo fbComments($URL, true);
 					}
 				?>
 			</div>
@@ -41,14 +41,14 @@ if(is_array($posts)) {
 					
 			<div class="post-content">	
 				<?php 
-					echo display(social($URL, $post["Title"], FALSE), 4);
+					echo display(social($URL, $post["Title"], false), 4);
 					echo showContent(pagebreak($post["Content"], $URL)); 
 				?>	
 
 				<br /><br />
 				
 				<?php					
-					if($i === $rand2) {
+					if ($i === $rand2) {
 						echo display('<p>'. getAd("728px") .'</p>', 4);
 					}
 				?>		
@@ -63,4 +63,4 @@ if(is_array($posts)) {
 	}
 }
 	
-echo isset($pagination) ? $pagination : NULL;
+echo isset($pagination) ? $pagination : null;

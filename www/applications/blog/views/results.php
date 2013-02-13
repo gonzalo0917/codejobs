@@ -1,5 +1,5 @@
 <?php
-if(!defined("ACCESS")) {
+if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
@@ -45,8 +45,8 @@ $j = 2;
 		
 	<tbody>		
 	<?php
-		if($tFoot) {
-			foreach($tFoot as $column) {     
+		if ($tFoot) {
+			foreach ($tFoot as $column) {     
 				$ID    = $column["ID_Post"]; 
 				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];  
 
@@ -77,7 +77,7 @@ $j = 2;
 					</td>
 								
 					<td class="center">
-						<?php echo getLanguage($column["Language"], TRUE); ?>
+						<?php echo getLanguage($column["Language"], true); ?>
 					</td>
 						 
 					<td class="center">
@@ -86,7 +86,7 @@ $j = 2;
 												 
 					<td class="center">
 					<?php 					
-						echo ($column["Situation"] === "Deleted") ? getAction(TRUE, $ID) : getAction(FALSE, $ID);
+						echo ($column["Situation"] === "Deleted") ? getAction(true, $ID) : getAction(false, $ID);
 					?>
 					</td>
 	 			</tr>
@@ -104,14 +104,17 @@ $j = 2;
 	<a onclick="javascript:unCheckAll('records')" class="pointer" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a><br /><br />
 	
 	<?php				
-	if(segment(3, isLang()) === "trash") { 
+	if (segment(3, isLang()) === "trash") { 
 	?>
-		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
-		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" 
+				name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" 
+				name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
 	<?php
 	} else { 
 	?>
-		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
+		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" 
+				name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
 	<?php
 	}
 	?>					

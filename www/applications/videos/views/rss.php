@@ -1,4 +1,4 @@
-<?php if(!defined("ACCESS")) die("Error: You don't have permission to access here..."); 		
+<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 header("Content-Type: application/rss+xml"); 
 echo "<?xml version='1.0' encoding='utf-8'?>";
@@ -14,19 +14,19 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
     
 
 	<image>
-		<url><?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE)?> </url>
+		<url><?php echo path("www/lib/themes/newcodejobs/images/logo.png", true)?> </url>
 
 		<title>Codejobs - <?php echo __("Bookmarks"); ?></title>
 		<link><?php echo path()?></link>
 	</image>
 	<?php 
-	if(is_array($videos)) {	
+	if (is_array($videos)) {
 	
-	foreach($videos as $video) {
+	foreach ($videos as $video) {
 
 		 $URL = path("videos/video/". $video["ID_Video"]); 
 	?>
-			
+
 		<item>
 		<title>
 		<![CDATA[<?php echo $video["Title"]; ?>]]>
@@ -50,7 +50,7 @@ echo "<?xml version='1.0' encoding='utf-8'?>";
 	<?php
 		}
 	}
-	 ?>	
+	 ?>
   </channel>
 
 </rss>
