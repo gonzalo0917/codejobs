@@ -1,14 +1,22 @@
+<<<<<<< HEAD
+<?php
+	if (!defined("ACCESS")) { 
+		die("Error: You don't have permission to access here..."); 
+	} 
+
+=======
 <?php  
 	if (!defined("ACCESS")) { 
 		die("Error: You don't have permission to access here..."); 
 	} 
 	
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 	if (!SESSION("ZanUserID")) { 
 ?>
 		<div class="twitterButton">
 			<?php $this->view("twitter", "twitter", array("action" => $URL, "redirect" => $URL)); ?>
 		</div>
-	
+
 		<div class="clear"></div>
 <?php 
 	} 
@@ -20,11 +28,8 @@
 ?>
 		<p class="welcome">
 			<?php echo __("Welcome to this topic"); ?>, 
-			
-			<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>. 
-			
+			<a href="<?php echo path("users/editprofile"); ?>" title="<?php echo SESSION("ZanUser"); ?>"><?php echo SESSION("ZanUser"); ?></a>.
 			<?php echo __("Feel free of reply to the topic"); ?>.
-
 			<span style="float: right; margin-right: 10px;"><a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("_Reply"); ?>">+ <?php echo __("_Reply"); ?></a></span>
 		</p>
 <?php 
@@ -33,7 +38,7 @@
 		<p class="welcome">
 			<?php echo __("Welcome to the forums of"); ?> <?php echo _get("webName"); ?>, 
 			<?php echo __("please login to enjoy the forums or register if you don't have an account"); ?>.
-		</p>	
+		</p>
 <?php 
 	} 
 ?>
@@ -47,9 +52,8 @@
 		} 
 	?>
 	</div>
-	
+
 	<div class="clear"></div>
-	
 	<table id="topic">
 		<tbody>
 			<tr>
@@ -57,11 +61,14 @@
 					<p class="titleTopic"><?php echo $data["topic"][0]["Title"]; ?></p>
 				</td>
 			</tr>
-
 			<tr>
 				<td class="profile">
 <?php 
+<<<<<<< HEAD
+				if ($data["topic"][0]["Avatar"] !== "") {
+=======
 				if ($data["topic"][0]["Avatar"] !== "") {  
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 ?>
 					<img src="<?php echo path("www/lib/files/images/users/". $data["topic"][0]["Avatar"] ."", true); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>" /><br />
 <?php 
@@ -71,7 +78,7 @@
 					<img src="<?php echo path("www/lib/files/images/users/default.png", true); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>" /><br />
 <?php 
 				} 
-?>				
+?>
 					<div class="userinfo">
 						<p>
 							<strong>
@@ -98,7 +105,7 @@
 ?>
 						<p><?php echo __("Published"); ?> <?php echo howLong($data["topic"][0]["Start_Date"]); ?></p>
 					</div>
-					
+
 					<div class="clear"></div>
 				</td>
 			</tr>
@@ -154,7 +161,7 @@
 				</td>
 			</tr>
 
-<?php 	
+<?php
 	$i = 0;
 			
 	if (is_array($data["replies"])) { 
@@ -163,7 +170,7 @@
 			<tr class="space">
 				<?php $i++; ?>
 			</tr>
-					
+
 			<tr>
 <?php 
 				if ($i === $count) { 
@@ -173,7 +180,7 @@
 				} 
 ?>
 				<a name="<?php echo $reply["ID_Post"]; ?>"></a>
-								
+
 				<td class="profile">
 <?php 
 				if ($reply["Avatar"] !== "") { 
@@ -201,7 +208,11 @@
 							<p><?php echo $reply["Country"]; ?></p>
 <?php 
 						} 
+<<<<<<< HEAD
+
+=======
  						
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
  						if ($reply["Website"]) { 
 ?>
 							<a href="<?php echo $reply["Website"]; ?>" rel="external" title="<?php echo $reply["Website"]; ?>"><?php echo __("Website"); ?></a>
@@ -247,13 +258,17 @@
 					<td class="topicContent">
 						<div class="topicData">
 							<p><?php echo BBCode($reply["Content"]); ?></p>
+<<<<<<< HEAD
+<?php
+=======
 <?php 						
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 							if ($data["topic"][0]["Sign"] !== "") { 
 ?>
 								<p class="sign"><?php echo $reply["Sign"]; ?></p>
 <?php 
 							} 
-?>										
+?>
 						</div>
 					</td>
 				</tr>

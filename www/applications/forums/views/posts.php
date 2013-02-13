@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+<?php
+=======
 <?php 		
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 	if (is_array($posts)) {
 		$count = count($posts) - 1;
 		?>
@@ -7,8 +11,13 @@
 			$forum = segment(1, islang());
 			foreach ($posts as $post) {
 				if ($post["ID_Parent"] === 0) {
+<<<<<<< HEAD
+					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);
+					$in = ($post["Tags"] !== "") ? __("in") : null;
+=======
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
 					$in  = ($post["Tags"] !== "") ? __("in") : null;
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 
 					?>
 					<div class="post">
@@ -17,13 +26,13 @@
 								<?php echo stripslashes($post["Title"]); ?>
 							</a>
 						</div>
-							
+
 						<div class="post-left">
 							<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/tag/") ." " . __("by") . ' <a href="'. path("forums/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 						</div>
-						
+
 						<div class="clear"></div>
-							
+
 						<div class="post-content">
 							<div class="social">
 								<div class="addthis_toolbox addthis_default_style ">
@@ -52,9 +61,9 @@
 											</p>', 4);
 							?>
 						</div>
-					</div>			
+					</div>
 
-					<?php							
+					<?php
 				} else {
 					?>
 					<a name="<?php echo 'id'. $post["ID_Post"]; ?>"></a>
@@ -70,9 +79,15 @@
 							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
 							<?php
 							if (SESSION("ZanUserPrivilegeID")){
+<<<<<<< HEAD
+								$URLEdit = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
+								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+								$confirm = " return confirm('Do you want to delete this post?') ";
+=======
 								$URLEdit   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
 								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 								$confirm   = " return confirm('Do you want to delete this post?') ";
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 								if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
 									echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
 								}
@@ -83,7 +98,7 @@
 						</div>
 					</div>
 				<?php
-				}		
+				}
 			}
 			?>
 		</div>
@@ -91,21 +106,26 @@
 		</div>
 		<?php
 		if (SESSION("ZanUser")) {
+<<<<<<< HEAD
+		?>
+			<div class="comments-editor">
+=======
 		?>				
 			<div class="comments-editor">	
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 				<textarea id="editor" class="ckeditor" name="comment" style="height:200px"></textarea> <br />
 				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum; ?>" />
 				<input id="avatar" type="hidden" value="<?php echo $post["Avatar"]; ?>" />
 				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
-			</div>		
+			</div>
 		<?php
-		} else {			
+		} else {
 		?>
 			<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to comment this topic'); ?></div>
 		<?php
-		}				
-	}	
+		}
+	}
 
 	echo $ckeditor;

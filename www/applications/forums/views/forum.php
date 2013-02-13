@@ -17,14 +17,13 @@ if (!defined("ACCESS")) {
 				<textarea id="editor" placeholder="Write the content here..." class="ckeditor"></textarea> <br />
 				<input id="fpublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Publish"); ?>" />
 				<input id="fcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
-
 				<input id="fid" type="hidden" value="<?php echo $forumID; ?>" />
 				<input id="fname" type="hidden" value="<?php echo $forum; ?>" />
 				<input id="needtitle" type="hidden" value="<?php echo __("You need to write the title..."); ?>" />
 				<input id="needcontent" type="hidden" value="<?php echo __("Content must have at least 30 characters..."); ?>" />
 				<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />
 			</form>
-		</div>	
+		</div>
 	<?php 
 	}
 	?>
@@ -32,6 +31,16 @@ if (!defined("ACCESS")) {
 	<?php
 	if ($posts) {
 		$forum = slug($forum);
+<<<<<<< HEAD
+		foreach ($posts as $post) {
+			$slug = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
+			$URL = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);
+			$URLEdit = path("forums/". $forum ."/edit/". $post["ID_Post"]);
+			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+			$in = ($forum !== "") ? __("in") : null;
+			?>
+
+=======
 		foreach ($posts as $post) {		
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
@@ -41,16 +50,17 @@ if (!defined("ACCESS")) {
 			
 			?>		
 			
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 			<div class="post">
 				<div class="post-title">
 					<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
 						<?php echo stripslashes($post["Title"]); ?>
 					</a>
 				</div>
-				
+
 				<div class="post-left">
-					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';?>					
-					
+					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], 
+					"forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';?>
 					<?php
 					if (SESSION("ZanUserPrivilegeID")) {
 						$confirm = " return confirm('Do you want to delete this post?') ";
@@ -64,17 +74,22 @@ if (!defined("ACCESS")) {
 				<div class="post-right">
 					<?php echo 'Last author: <a href="'. path("forums/". $forum ."/author/". $post["Last_Author"]) .'">'. $post["Last_Author"] .'</a>'; ?>
 				</div>
-				
+
 				<div class="clear"><?php echo cut($post["Content"], 20); ?></div>
 			</div>
-								
+
 			<?php
 			$i++;
 		}
 	}
 	?>
 	</div>
+<<<<<<< HEAD
+	<?php
+		echo isset($pagination) ? $pagination : null;
+=======
 	<?php		
 		echo isset($pagination) ? $pagination : null;
 
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 		echo $ckeditor;

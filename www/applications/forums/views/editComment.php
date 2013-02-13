@@ -2,13 +2,13 @@
 if (!defined("ACCESS")) { 
 	die("Error: You don't have permission to access here..."); 
 }
-	$fid     = isset($data) ? recoverPOST("fid", $data[0]["ID_Parent"]) : recoverPOST("fid");
-	$pid     = isset($data) ? recoverPOST("pid", $data[0]["ID_Post"]) : recoverPOST("pid");
+	$fid = isset($data) ? recoverPOST("fid", $data[0]["ID_Parent"]) : recoverPOST("fid");
+	$pid = isset($data) ? recoverPOST("pid", $data[0]["ID_Post"]) : recoverPOST("pid");
 	$content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverPOST("content");
 ?>
 	<p id="fmessage"></p>
 	<div class="post-title">
-		<span class="forums-create"><?php echo __("Edit Comment"); ?></span>	
+		<span class="forums-create"><?php echo __("Edit Comment"); ?></span>
 		<br />
 		<form action="#" method="post">
 			<textarea id="pcontent" name="content" class="span8 forums-textarea" rows= "5"><?php echo $content ?></textarea> <br />

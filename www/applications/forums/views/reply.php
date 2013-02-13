@@ -2,7 +2,11 @@
 
 <?php 
 	if (!isset($success)) { 
+<<<<<<< HEAD
+		$title = recoverPOST("title", $title);
+=======
 		$title   = recoverPOST("title", $title);
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 		$content = recoverpost("content", $content);
 ?> 
 		<div class="newTopic" style="margin-left: 15%;">
@@ -18,38 +22,42 @@
 			<?php 
 				} 
 			?>
+<<<<<<< HEAD
+
+=======
 		
+>>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 			<?php echo isset($alert) ? $alert : null; ?>
 				
 			<p class="field">
 				&raquo; <?php echo __("Title"); ?><br />
 				<input class="input" id="title" name="title" type="text" value="<?php echo $title; ?>" style="width: 700px;" />
 			</p>
-						
+
 			<p class="field">
 				&raquo; <?php echo __("Content"); ?><br />
-				<textarea  id="editor" name="content" class="textarea" style="width: 640px;"><?php echo $content; ?></textarea>
+				<textarea id="editor" name="content" class="textarea" style="width: 640px;"><?php echo $content; ?></textarea>
 			</p>
 					
 			<?php 
 				if (SESSION("ZanUserMethod") and SESSION("ZanUserMethod") === "twitter") { 
 			?>
 					<p class="checkTwitter">
-						<input type="checkbox" value="Yes" name="tweet"  checked="checked"/>  <?php echo __("Post in Twitter"); ?>
+						<input type="checkbox" value="Yes" name="tweet" checked="checked"/><?php echo __("Post in Twitter"); ?>
 					</p>
 			<?php 
 				} 
-			?>	
-				
+			?>
+
 			<p class="field">
 				<input style="width: 700px;" id="<?php echo $action; ?>" name="doAction" value="<?php echo __(ucfirst($action)). " ". __("reply"); ?>" type="submit" class="input button" />
 				<input style="width: 700px;" id="cancel" name="cancel" value="<?php echo __("Cancel"); ?>" type="submit" class="input button" />
 			</p>
-				
+
 			<input name="ID_Post" type="hidden" value="<?php echo $ID_Post; ?>" />
 			<input name="ID_Forum" type="hidden" value="<?php echo $ID_Forum; ?>" />
 			<input name="URL" type="hidden" value="<?php echo $hrefURL; ?>" />
-				
+
 			<?php 
 				if ($action === "edit") { 
 			?>
