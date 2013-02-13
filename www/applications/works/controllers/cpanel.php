@@ -6,11 +6,13 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class CPanel_Controller extends ZP_Load {
+class CPanel_Controller extends ZP_Load
+{
 	
 	private $vars = array();
 	
-	public function __construct() {		
+	public function __construct()
+	{
 		$this->app("cpanel");
 		
 		$this->application = whichApplication();
@@ -30,7 +32,8 @@ class CPanel_Controller extends ZP_Load {
 
 	}
 	
-	public function index() {
+	public function index()
+	{
 		if ($this->isAdmin) {
 			redirect("cpanel");
 		} else {
@@ -38,7 +41,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function check() {
+	public function check()
+	{
 		if (POST("trash") and is_array(POST("records"))) { 
 			foreach (POST("records") as $record) {
 				$this->trash($record, true); 
@@ -62,7 +66,8 @@ class CPanel_Controller extends ZP_Load {
 		return false;
 	}
 
-	public function delete($ID = 0, $return = false) {
+	public function delete($ID = 0, $return = false)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -72,8 +77,6 @@ class CPanel_Controller extends ZP_Load {
 		$this->$Model = $this->model($Model);
 
 		$img1 = $this->Works_Model->getImg1($ID);
-
-		//var_dump($img1);
 
 		if ($this->CPanel_Model->delete($ID)) {
 			if ($return) {
@@ -88,10 +91,11 @@ class CPanel_Controller extends ZP_Load {
 			}
 
 			redirect("$this->application/cpanel/results");
-		}	
+		}
 	}
 
-	public function restore($ID = 0, $return = false) { 
+	public function restore($ID = 0, $return = false)
+	{ 
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -111,12 +115,13 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function trash($ID = 0, $return = false) {
+	public function trash($ID = 0, $return = false)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 
-		if ($this->CPanel_Model->trash($ID)) {		
+		if ($this->CPanel_Model->trash($ID)) {
 			if ($return) {
 				return true;
 			}
@@ -131,7 +136,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 	
-	public function add() {
+	public function add()
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -142,7 +148,7 @@ class CPanel_Controller extends ZP_Load {
 		
 		$this->js("tiny-mce");
 		$this->js("insert-html");
-		$this->js("show-element");	
+		$this->js("show-element");
 		
 		$this->CSS("forms", "cpanel");
 		
@@ -163,7 +169,8 @@ class CPanel_Controller extends ZP_Load {
 		$this->render("content", $this->vars);
 	}
 		
-	public function edit($ID = 0) {
+	public function edit($ID = 0)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -176,7 +183,7 @@ class CPanel_Controller extends ZP_Load {
 
 		$this->helper(array("forms", "files"));
 		
-		$this->CSS("forms", "cpanel");	
+		$this->CSS("forms", "cpanel");
 		
 		$Model = ucfirst($this->application) ."_Model";
 		
@@ -193,55 +200,57 @@ class CPanel_Controller extends ZP_Load {
 		if ($data) {
 			$this->vars["data"] = $data;
 			$this->vars["view"] = $this->view("add", true);
-			
+
 			$this->render("content", $this->vars);
 		} else {
 			redirect($this->application ."/cpanel/results");
 		}
 	}
 	
-	public function login() {
+	public function login()
+	{
 		$this->title("Login");
 		$this->CSS("login", "users");
-		
-		if (POST("connect")) {	
+
+		if (POST("connect")) {
 			$this->Users_Controller = $this->controller("Users_Controller");
-			
+
 			$this->Users_Controller->login("cpanel");
 		} else {
-			$this->vars["URL"]  = getURL();
+			$this->vars["URL"] = getURL();
 			$this->vars["view"] = $this->view("login", true, "cpanel");
 		}
-		
+
 		$this->render("include", $this->vars);
 		$this->rendering("header", "footer");
-		
+
 		exit;
 	}
 	
-	public function results() {
+	public function results()
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 
 		$this->check();
-		
+
 		$this->title("Manage ". ucfirst($this->application));
 
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
-		
+
 		$this->js("checkbox");
-			
+
 		$trash = (segment(3, isLang()) === "trash") ? true : false;
-		
-		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
-		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
-		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : null;
+
+		$this->vars["total"] = $this->CPanel_Model->total($trash);
+		$this->vars["tFoot"] = $this->CPanel_Model->records($trash);
+		$this->vars["message"] = (!$this->vars["tFoot"]) ? "Error" : null;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
-		$this->vars["trash"]  	  = $trash;	
-		$this->vars["search"] 	  = getSearch(); 			
-		$this->vars["view"]       = $this->view("results", true, $this->application);
+		$this->vars["trash"] = $trash;
+		$this->vars["search"] = getSearch();
+		$this->vars["view"] = $this->view("results", true, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
