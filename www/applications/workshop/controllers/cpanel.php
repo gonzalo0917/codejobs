@@ -6,11 +6,12 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class CPanel_Controller extends ZP_Load {
+class CPanel_Controller extends ZP_Load
+{
 	
 	private $vars = array();
 	
-	public function __construct() {		
+	public function __construct() {
 		$this->app("cpanel");
 		
 		$this->application = whichApplication();
@@ -28,7 +29,8 @@ class CPanel_Controller extends ZP_Load {
 		$this->Templates->theme("cpanel");
 	}
 	
-	public function index() {
+	public function index()
+	{
 		if ($this->isAdmin) {
 			redirect("cpanel");
 		} else {
@@ -36,7 +38,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function check() {
+	public function check()
+	{
 		if (POST("trash") and is_array(POST("records"))) { 
 			foreach (POST("records") as $record) {
 				$this->trash($record, true); 
@@ -60,7 +63,8 @@ class CPanel_Controller extends ZP_Load {
 		return false;
 	}
 
-	public function delete($ID = 0, $return = false) {
+	public function delete($ID = 0, $return = false)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -80,7 +84,8 @@ class CPanel_Controller extends ZP_Load {
 		}	
 	}
 
-	public function restore($ID = 0, $return = false) { 
+	public function restore($ID = 0, $return = false)
+	{ 
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -100,12 +105,13 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function trash($ID = 0, $return = false) {
+	public function trash($ID = 0, $return = false)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 		
-		if ($this->CPanel_Model->trash($ID)) {		
+		if ($this->CPanel_Model->trash($ID)) {
 			if ($return) {
 				return true;
 			}	
@@ -120,16 +126,17 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 	
-	public function login() {
+	public function login()
+	{
 		$this->title("Login");
 		$this->CSS("login", "users");
 		
-		if (POST("connect")) {	
+		if (POST("connect")) {
 			$this->Users_Controller = $this->controller("Users_Controller");
 			
 			$this->Users_Controller->login("cpanel");
 		} else {
-			$this->vars["URL"]  = getURL();
+			$this->vars["URL"] = getURL();
 			$this->vars["view"] = $this->view("login", true, "cpanel");
 		}
 		
@@ -139,7 +146,8 @@ class CPanel_Controller extends ZP_Load {
 		exit;
 	}
 	
-	public function results() {
+	public function results()
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -151,21 +159,22 @@ class CPanel_Controller extends ZP_Load {
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
 		
-		$this->js("checkbox");		
+		$this->js("checkbox");
 		
 		$trash = (segment(3, isLang()) === "trash") ? true : false;
-		$this->vars["total"] 	  = $this->CPanel_Model->total($trash); 
-		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash, "ID_Workshop DESC"); 
-		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : null;
+		$this->vars["total"] = $this->CPanel_Model->total($trash); 
+		$this->vars["tFoot"] = $this->CPanel_Model->records($trash, "ID_Workshop DESC"); 
+		$this->vars["message"] = (!$this->vars["tFoot"]) ? "Error" : null;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
-		$this->vars["trash"]  	  = $trash;	
-		$this->vars["search"] 	  = getSearch(); 			
-		$this->vars["view"]       = $this->view("results", true, $this->application);
+		$this->vars["trash"] = $trash;
+		$this->vars["search"] = getSearch();
+		$this->vars["view"] = $this->view("results", true, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
 	
-	public function read($ID = 0) {
+	public function read($ID = 0)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -178,11 +187,11 @@ class CPanel_Controller extends ZP_Load {
 
 		$data = $this->$Model->getByID($ID);
 				
-		if ($data) {			
+		if ($data) {
 			$this->helper("time");
-			$this->vars["ID"]	 = $ID;
-			$this->vars["data"]	 = $data;
-			$this->vars["view"]  = $this->view("read", true, $this->application);
+			$this->vars["ID"] = $ID;
+			$this->vars["data"] = $data;
+			$this->vars["view"] = $this->view("read", true, $this->application);
 			
 			$this->render("content", $this->vars);
 		} else {

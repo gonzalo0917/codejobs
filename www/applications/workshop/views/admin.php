@@ -1,22 +1,22 @@
 <?php 
 if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
 
-$caption 		= __("My posts");
-$colspan		= 5;
-$colors[0] 		= COLOR1;
-$colors[1] 		= COLOR2;
-$colors[2] 		= COLOR3;
-$colors[3]		= COLOR4;
-$colors[4] 		= COLOR5;	
-$i 				= 0;
-$j 				= 2;
+$caption = __("My posts");
+$colspan = 5;
+$colors[0] = COLOR1;
+$colors[1] = COLOR2;
+$colors[2] = COLOR3;
+$colors[3] = COLOR4;
+$colors[4] = COLOR5;
+$i = 0;
+$j = 2;
 
 ?>
 <table id="results" class="results">
 	<caption class="caption">
 		<span class="bold"><?php echo $caption; ?></span>
 	</caption>
-					
+
 	<thead>
 		<tr>
 			<th>No.</th>
@@ -26,7 +26,7 @@ $j 				= 2;
 			<th><?php echo __("Situation"); ?></th>
 		</tr>
 	</thead>
-					
+
 	<tfoot>
 		<tr>
 			<td colspan="<?php echo $colspan; ?>">
@@ -35,7 +35,7 @@ $j 				= 2;
 		</tr>
 	</tfoot>
 
-	<tbody>		
+	<tbody>
 	<?php
 		if (count($tFoot) > 0) {
 			$nro = 0;
@@ -50,10 +50,10 @@ $j 				= 2;
 					<td class="center">
 						<?php echo $nro; ?>
 					</td>
-																				
+
 					<td class="anchor_title">
                         <a href="<?php echo path("blog/{$column["Year"]}/{$column["Month"]}/{$column["Day"]}/{$column["Slug"]}"); ?>" target="_blank">
-                            <?php			
+                            <?php
                                 echo cut($column["Title"], 4, "text");
                             ?>
                         </a>
@@ -83,6 +83,6 @@ $j 				= 2;
 			</tr>
 			<?php
 	 	}
-	 	?>                     
+	 	?> 
 	</tbody> 
 </table>

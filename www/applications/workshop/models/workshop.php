@@ -6,24 +6,27 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Workshop_Model extends ZP_Load {
-	
-	public function __construct() {
+class Workshop_Model extends ZP_Load
+{
+
+	public function __construct()
+	{
 		$this->Db = $this->db();
 		
-		$this->table 	= "workshop";
-		$this->fields   = "ID_Workshop, Title, Slug, Topics, Description, File, Email, Skype, Gtalk, Facebook, Twitter, Proposal_Day, Proposal_Time, Start_Date, Situation";
+		$this->table = "workshop";
+		$this->fields = "ID_Workshop, Title, Slug, Topics, Description, File, Email, Skype, Gtalk, Facebook, Twitter, Proposal_Day, Proposal_Time, Start_Date, Situation";
 
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 
 		$this->Email = $this->core("Email");
 		$this->Email->setLibrary("PHPMailer");
-		$this->Email->fromName  = _get("webName");
+		$this->Email->fromName = _get("webName");
 		$this->Email->fromEmail = _get("webEmailSend");
 	}
 	
-	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false) {
+	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false)
+	{
 		$this->helper("time");
 		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
@@ -36,7 +39,7 @@ class Workshop_Model extends ZP_Load {
 		if ($action === "all") {
 			return $this->all($trash, "ID_Workshop DESC", $limit);
 		} elseif ($action === "edit") {
-			return $this->edit();															
+			return $this->edit();
 		} elseif ($action === "save") {
 			return $this->save();
 		} elseif ($action === "search") {
@@ -44,7 +47,8 @@ class Workshop_Model extends ZP_Load {
 		}
 	}
 	
-	private function all($trash, $order, $limit) {	
+	private function all($trash, $order, $limit)
+	{
 		if (!$trash) { 
 			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Workshop, Title, File, Email, Start_Date, Situation", null, $order, $limit) : null;
 		} else {
@@ -52,18 +56,20 @@ class Workshop_Model extends ZP_Load {
 		}
   	}
 
-  	public function getByID($ID) {
+  	public function getByID($ID)
+  	{
   		return $this->Db->findBySQL("ID_Workshop = $ID", $this->table, "*");
   	}
 
-  	public function newProposal() {
+  	public function newProposal()
+  	{
   		$validations = array(
-			"title"       => "required",
-			"email"       => "email?",
+			"title" => "required",
+			"email" => "email?",
 			"description" => "required",
-			"topics"      => "required",
-			"day"		  => "required",
-			"time"        => "required"
+			"topics" => "required",
+			"day" => "required",
+			"time" => "required"
 		);
 
 		$this->helper(array("alerts", "time", "files"));
@@ -81,20 +87,20 @@ class Workshop_Model extends ZP_Load {
 		}
 
 		$values = array(
-			"Title"         => POST("title"),
-			"Slug"          => slug(POST("title", "clean")),
-			"Description"   => nl2br(cleanHTML(decode(POST("description", "clean")))),
-			"Topics"        => nl2br(cleanHTML(decode(POST("topics", "clean")))),
-			"File" 		    => $slides,
-			"Email"         => POST("email"),
-			"Skype"         => POST("skype"),
-			"Gtalk"         => POST("gtalk"),
-			"Twitter"       => POST("twitter"),
-			"Facebook"      => POST("facebook"),
-			"Proposal_Day"  => POST("day"),
+			"Title" => POST("title"),
+			"Slug" => slug(POST("title", "clean")),
+			"Description" => nl2br(cleanHTML(decode(POST("description", "clean")))),
+			"Topics" => nl2br(cleanHTML(decode(POST("topics", "clean")))),
+			"File" => $slides,
+			"Email" => POST("email"),
+			"Skype" => POST("skype"),
+			"Gtalk" => POST("gtalk"),
+			"Twitter" => POST("twitter"),
+			"Facebook" => POST("facebook"),
+			"Proposal_Day" => POST("day"),
 			"Proposal_Time" => POST("time"),
-			"Start_Date"    => now(4),
-			"Situation"     => "Active"
+			"Start_Date" => now(4),
+			"Situation" => "Active"
 		);
 
 		if ($this->Db->findBySQL("Proposal_Day = '" . POST("day") . "' and Proposal_Time = '" . POST("time") . "'", $this->table, "ID_Workshop")) {
@@ -107,15 +113,17 @@ class Workshop_Model extends ZP_Load {
 		}
   	}
 
-  	private function sendMail($values = null) {
-  		$this->Email->email   = _get("webEmailRecieve");
+  	private function sendMail($values = null)
+  	{
+  		$this->Email->email = _get("webEmailRecieve");
   		$this->Email->subject = __("New Proposal") . " - " . _get("webName");
   		$this->Email->message = $this->view("mail", $values, "workshop", true);
 
 		$this->Email->send();
   	}
 
-  	private function uploadSlides() {
+  	private function uploadSlides()
+  	{
   		$dir = "www/lib/files/workshops/";
 
 		if (!is_dir($dir)) {
@@ -124,18 +132,18 @@ class Workshop_Model extends ZP_Load {
 
 		$this->Files = $this->core("Files");
 
-		$this->Files->filename  = FILES("file", "name");
-		$this->Files->fileType  = FILES("file", "type");
-		$this->Files->fileSize  = FILES("file", "size");
+		$this->Files->filename = FILES("file", "name");
+		$this->Files->fileType = FILES("file", "type");
+		$this->Files->fileSize = FILES("file", "size");
 		$this->Files->fileError = FILES("file", "error");
-		$this->Files->fileTmp   = FILES("file", "tmp_name");
+		$this->Files->fileTmp = FILES("file", "tmp_name");
 
 		$this->uploadStatus = $this->Files->upload($dir, "document");
 		
 		if (is_array($this->uploadStatus) and $this->uploadStatus["upload"]) {
-			return  $dir . $this->uploadStatus["filename"];
+			return $dir . $this->uploadStatus["filename"];
 		} else {
-			return  false;
-		}		
+			return false;
+		}
   	}
 }

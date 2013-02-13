@@ -6,17 +6,19 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Workshop_Controller extends ZP_Load {
+class Workshop_Controller extends ZP_Load
+{
 	
-	public function __construct() {		
+	public function __construct()
+	{
 		$this->application = $this->app("workshop");
 		$this->config($this->application);
 		
-		$this->Templates  = $this->core("Templates");
-		$this->Cache 	  = $this->core("Cache");
+		$this->Templates = $this->core("Templates");
+		$this->Cache = $this->core("Cache");
 		
 		$this->Workshop_Model = $this->model("Workshop_Model");
-				
+
 		$this->Templates->theme();
 
 		$this->config("workshop");
@@ -27,13 +29,15 @@ class Workshop_Controller extends ZP_Load {
 		setURL();
 	}
 
-	public function index() {
+	public function index()
+	{
 		$this->meta("language", whichLanguage(false));
 
 		$this->newProposal();
 	}
 
-	public function newProposal() {
+	public function newProposal()
+	{
 		$this->title(__("Workshop"));
 		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", null, false, true);
 		$this->CSS("new", $this->application);
