@@ -14,8 +14,7 @@ class Blog_Controller extends ZP_Load
 		$this->Cache = $this->core("Cache");
 		$this->Blog_Model = $this->model("Blog_Model");
 		$this->Templates->theme();
-		$this->language = whichLanguage();
-		$this->helper("router");
+		$this->language = whichLanguage();		
 		setURL();
 	}
 	
