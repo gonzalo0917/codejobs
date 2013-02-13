@@ -6,16 +6,16 @@
 	<?php } elseif (_get("webLang") === "es") { ?>
 		<p class="center"><?php echo "Perfil de " . $user["Username"];?></p>
 	<?php } ?>
-	
+
 	<?php echo isset($alert) ? $alert : null; ?>
-	
+
 	<div id="box" class="set important">
 		<p class="title main"><?php echo __("Profile");?></p>
-		
+
 		<div class="avatar">
 			<div id="avatar"><img src="<?php echo $avatar;?>" title="<?php echo $user["Username"];?>" alt="<?php echo $user["Username"];?>" /></div><br />
 		</div>
-		
+
 		<div class="social">
 			<?php if ($user["Twitter"]) { ?>
 				<a class="sn" id="twitter" rel="external" href="http://twitter.com/<?php echo $user["Twitter"];?>" title="<?php echo $user["Twitter"];?>">
@@ -38,9 +38,9 @@
 				</a>
 			<?php } ?>
 		</div>
-		
+
 		<div class="clear"></div>
-		
+
 		<div class="wrapper">
 		</div>
 	</div>

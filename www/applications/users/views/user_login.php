@@ -6,15 +6,15 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-$name  = isset($name)  ? recoverPOST("name", $name)    : recoverPOST("name");	
-$email = isset($email) ? recoverPOST("email", $email)  : recoverPOST("email");				
+$name = isset($name) ? recoverPOST("name", $name) : recoverPOST("name");
+$email = isset($email) ? recoverPOST("email", $email) : recoverPOST("email");
 
 
 echo div("login-form", "class");
 	echo a(img(path("$this->themeRoute/images/logo.png", true), array(
-		"id"    => "logo",
+		"id" => "logo",
 		"align" => "center",
-		"alt"   => "CodeJobs",
+		"alt" => "CodeJobs",
 		"class" => "noborder"
 	)), path());
 
@@ -27,21 +27,21 @@ echo div("login-form", "class");
 		if (!isset($inserted) or !$inserted) {
 			if (!SESSION("UserRegistered")) {
 				echo formInput(array(
-					"id"	   => "username",
-					"name" 	   => "username",
+					"id" => "username",
+					"name" => "username",
 					"maxlength" => "30", 
-					"field"    => __("Username"), 
-					"p" 	   => true, 
-					"value"    => recoverPOST("username")
+					"field" => __("Username"), 
+					"p" => true, 
+					"value" => recoverPOST("username")
 				));
-				
+
 				echo formInput(array(
-					"id" 	   => "password",
-					"name" 	   => "password",
+					"id" => "password",
+					"name" => "password",
 					"maxlength" => "30",
-					"type"     => "password",
-					"field"    => __("Password"), 
-					"p" 	   => true
+					"type" => "password",
+					"field" => __("Password"), 
+					"p" => true
 				));
 
 				echo a(
@@ -51,9 +51,9 @@ echo div("login-form", "class");
 					array("class" => "forgot")
 				);
 
-				echo formInput(array(	
-					"name" 	=> "login",
-					"type"  => "submit",
+				echo formInput(array(
+					"name" => "login",
+					"type" => "submit",
 					"class" => "btn btn-success",
 					"value" => __("Log in")
 				));

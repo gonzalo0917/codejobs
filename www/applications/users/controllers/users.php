@@ -8,10 +8,11 @@ if (!defined("ACCESS")) {
 
 class Users_Controller extends ZP_Load
 {
-	public function __construct() {		
-		$this->Templates   = $this->core("Templates");
+	public function __construct()
+	{
+		$this->Templates = $this->core("Templates");
 		$this->Users_Model = $this->model("Users_Model");
-				
+
 		$this->application = $this->app("users");
 		$this->language = whichLanguage();
 		$this->Templates->theme();
@@ -19,12 +20,14 @@ class Users_Controller extends ZP_Load
 		$this->helper("router");
 		$this->CSS("forms");
 	}
-	
-	public function index() {	
+
+	public function index()
+	{
 		redirect();
 	}
 
-	public function service($service = "facebook", $login = false) {
+	public function service($service = "facebook", $login = false)
+	{
 		if ($service === "facebook") {
 			$this->facebookLogin($login);
 		} elseif ($service === "twitter") {
@@ -32,21 +35,22 @@ class Users_Controller extends ZP_Load
 		}
 	}
 
-	public function twitterLogin() {
+	public function twitterLogin()
+	{
 		$this->helper(array("alerts", "twitter", "forms", "html"));
 
-		$this->Twitter = $this->library("twitter", "EpiTwitter", array(TW_CONSUMER_KEY, TW_CONSUMER_SECRET));		
+		$this->Twitter = $this->library("twitter", "EpiTwitter", array(TW_CONSUMER_KEY, TW_CONSUMER_SECRET));
 		
 		$oauthToken = GET("oauth_token");
 
-		if (!$oauthToken) { 	
-	  		redirect($this->Twitter->getAuthenticateUrl());	
+		if (!$oauthToken) {
+			redirect($this->Twitter->getAuthenticateUrl());
      	} else {
      		$vars = getTwitterUser($oauthToken, $this->Twitter);
 
      		if (is_array($vars)) {
      			$data = $this->Users_Model->checkUserService($vars["serviceID"], "Twitter");
-     			
+ 
      			if ($data) {
      				createLoginSessions($data[0]);
      			} else {
@@ -60,9 +64,10 @@ class Users_Controller extends ZP_Load
      	}
 	}
 
-	public function facebookLogin($login = false) {			
+	public function facebookLogin($login = false)
+	{
 		$this->helper(array("alerts", "facebook", "forms", "html"));
-		
+
 		$code = REQUEST("code");
 
 		if (!$code) {
@@ -73,21 +78,21 @@ class Users_Controller extends ZP_Load
 			if (isConnectedToFacebook()) {
 				$facebookUser = getFacebookUser($code);
 
-		     	if ($facebookUser) {		     		
+		     	if ($facebookUser) {
 		     		$data = $this->Users_Model->checkUserService($facebookUser["serviceID"]);
-		     		
+
 		     		if ($data) {
-		     			createLoginSessions($data[0]);							
-		     		} else {	
+		     			createLoginSessions($data[0]);
+		     		} else {
 		     			$vars = array(
-		     				"service"   => "facebook",
+		     				"service" => "facebook",
 		     				"serviceID" => $facebookUser["serviceID"],
-		     				"username"  => $facebookUser["username"],
-		     				"name"		=> $facebookUser["name"],
-		     				"email"		=> $facebookUser["email"],
-		     				"birthday"  => $facebookUser["birthday"],
-		     				"avatar"	=> $facebookUser["avatar"]
-		     			);					
+		     				"username" => $facebookUser["username"],
+		     				"name" => $facebookUser["name"],
+		     				"email" => $facebookUser["email"],
+		     				"birthday" => $facebookUser["birthday"],
+		     				"avatar" => $facebookUser["avatar"]
+		     			);
 
 						SESSION("socialUser", $vars);
 
@@ -96,19 +101,21 @@ class Users_Controller extends ZP_Load
 		     			$this->render("content", $vars);
 		     		}
 		     	} else {
-		     		showAlert(__("An unknown problem occurred, try to login again"), path());	     			     		
+		     		showAlert(__("An unknown problem occurred, try to login again"), path());
 		     	} 
 		    } else {
-		     	showAlert(__("Invalid Token, try to login again"), path());			     
+		     	showAlert(__("Invalid Token, try to login again"), path());
 			}
 		}
 	}
-		
-	public function logout() {
+
+	public function logout()
+	{
 		unsetSessions();
 	}
 	
-	public function activate($user = null, $code = false) {
+	public function activate($user = null, $code = false)
+	{
 		$this->helper("alerts");
 		
 		if (!$user or !$code) {
@@ -126,7 +133,8 @@ class Users_Controller extends ZP_Load
 		}
 	}
 
-	public function deactivate() {
+	public function deactivate()
+	{
 		isConnected();
 
 		if (POST("option") and POST("username") and POST("password")) {
@@ -139,7 +147,7 @@ class Users_Controller extends ZP_Load
 							showAlert(__("Your account has been ". POST("option") ."d"), "users/logout/");
 							break;
 						}
-					
+
 					default:
 						showAlert(__("Something went wrong! Try again later"), "users/logout/");
 				}
@@ -154,14 +162,15 @@ class Users_Controller extends ZP_Load
 
 			$this->config("deactivate", $this->application);
 
-			$vars["view"] 	  = $this->view("deactivate", true);
+			$vars["view"] = $this->view("deactivate", true);
 			$vars["username"] = SESSION("ZanUser");
 				
 			$this->render("content", $vars);
 		}
 	}
-	
-	public function login() {
+
+	public function login()
+	{
 		$this->helper(array("html", "alerts"));
 				
 		if (!SESSION("ZanUser")) {
@@ -178,11 +187,11 @@ class Users_Controller extends ZP_Load
 				if ($this->Users_Model->isMember()) {
 					$data = $this->Users_Model->getUserData();
 				} 
-				
+
 				if ($data) {
 					createLoginSessions($data[0], false);
 
-					redirect(GET("return_to") ? GET("return_to") : false);					
+					redirect(GET("return_to") ? GET("return_to") : false);
 				} else { 
 					$this->helper("alerts");
 
@@ -208,19 +217,20 @@ class Users_Controller extends ZP_Load
 		} 
 	}
 	
-	public function recover($token = false) {	
+	public function recover($token = false)
+	{
 		$this->title(decode(__("Recover Password")));
 		
 		$this->helper(array("forms", "html", "alerts"));
 
-		if (POST("change")) {			
-			$vars["alert"] 	 = $this->Users_Model->change();
+		if (POST("change")) {
+			$vars["alert"] = $this->Users_Model->change();
 			$vars["tokenID"] = $token;
 		} elseif (POST("recover")) {
 			$status = $this->Users_Model->recover();
 			
-			$vars["alert"] = $status;	
-		} elseif ($token) {			
+			$vars["alert"] = $status;
+		} elseif ($token) {
 			$tokenID = $this->Users_Model->isToken($token, "Recover");
 			
 			if ($tokenID > 0) {
@@ -235,26 +245,27 @@ class Users_Controller extends ZP_Load
 		$this->render("content", $vars);
 	}
 	
-	public function register($service = false) {	
+	public function register($service = false)
+	{
 		$this->helper(array("html", "alerts"));
-				
+
 		if (!SESSION("ZanUser")) {
 			$this->title(decode(__("Register")));
 
 			$this->helper("forms");
 
 			if (POST("register")) {
-				$vars["name"]     = POST("name")  	 ? POST("name")     : null;
-				$vars["email"]    = POST("email") 	 ? POST("email")    : null;
-				$vars["pwd"]      = POST("password") ? POST("password") : null;
+				$vars["name"] = POST("name") ? POST("name") : null;
+				$vars["email"] = POST("email") ? POST("email") : null;
+				$vars["pwd"] = POST("password") ? POST("password") : null;
 
 				if (POST("username")) {
 					$status = $this->Users_Model->addUser($service);
-				
+
 					$vars["inserted"] = $status["inserted"];
-					$vars["alert"]    = $status["alert"];	
-					$vars["first"]    = true;
-				}			
+					$vars["alert"] = $status["alert"];
+					$vars["first"] = true;
+				}
 			}
 
 			if (!$service) {
@@ -269,7 +280,8 @@ class Users_Controller extends ZP_Load
 		}
 	}
 
-	public function about() {
+	public function about()
+	{
 		isConnected();
 
 		$data = $this->Users_Model->getInformation();
@@ -288,23 +300,23 @@ class Users_Controller extends ZP_Load
 			$this->js("about", $this->application);
 			$this->js("jquery.jdpicker.js");
 
-			$this->Configuration_Model  = $this->model("Configuration_Model");
-			$this->Cache   				= $this->core("Cache");
-			$list_of_countries 			= $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
+			$this->Configuration_Model = $this->model("Configuration_Model");
+			$this->Cache = $this->core("Cache");
+			$list_of_countries = $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
 
 			foreach ($list_of_countries as $country) {
 				$countries[] = array(
 					"option" => $country["Country"],
-					"value"  => $country["Country"]
+					"value" => $country["Country"]
 				);
 			}
 
 			$this->title(__("About me"));
 
-			$vars["countries"]  = $countries;
-			$vars["view"] 		= $this->view("about", true);
-			$vars["href"]  		= path("users/about/");
-			$vars["data"]  		= $data;
+			$vars["countries"] = $countries;
+			$vars["view"] = $this->view("about", true);
+			$vars["href"] = path("users/about/");
+			$vars["data"] = $data;
 
 			if ($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
 				$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
@@ -312,22 +324,23 @@ class Users_Controller extends ZP_Load
 				foreach ($list_of_cities as $city) {
 					$cities[] = array(
 						"option" => $city["District"],
-						"value"  => $city["District"]
+						"value" => $city["District"]
 					);
 				}
 
 				$vars["cities"] = $cities;
 			}
-			
+
 			$this->render("content", $vars);
 		} else {
 			redirect();
 		}
 	}
 
-	public function password() {
+	public function password()
+	{
 		isConnected();
-		
+
 		$this->helper(array("forms", "html"));
 		$this->config("users", $this->application);
 		$this->css("forms", "cpanel");
@@ -349,11 +362,12 @@ class Users_Controller extends ZP_Load
 		$this->render("content", $vars);
 	}
 
-	public function email() {
+	public function email()
+	{
 		isConnected();
 
 		$data = $this->Users_Model->getEmail();
-		
+
 		if ($data) {
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
@@ -380,7 +394,8 @@ class Users_Controller extends ZP_Load
 		}
 	}
 
-	public function avatar() {
+	public function avatar()
+	{
 		isConnected();
 
 		if (POST("delete")) {
@@ -414,7 +429,8 @@ class Users_Controller extends ZP_Load
 		}
 	}
 
-	public function social() {
+	public function social()
+	{
 		isConnected();
 
 		if (POST("save")) {
@@ -443,7 +459,8 @@ class Users_Controller extends ZP_Load
 		}
 	}
 
-	public function cv() {
+	public function cv()
+	{
 		isConnected();
 
 		if (POST("update")) {
