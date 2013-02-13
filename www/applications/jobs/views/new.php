@@ -3,128 +3,127 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID         	= isset($data) ? recoverPOST("ID", 0) 			   					 			 : 0;
-	$title      	= isset($data) ? recoverPOST("title", $data["Title"])   		   				 : recoverPOST("title");		
-	$email       	= isset($data) ? recoverPOST("email", $data["Email"])   		   				 : recoverPOST("email");
-	$address1      	= isset($data) ? recoverPOST("address1", $data["Address1"])   		   			 : recoverPOST("address1");
-	$address2      	= isset($data) ? recoverPOST("address2", $data["Address2"])   		   			 : recoverPOST("address2");
-	$phone       	= isset($data) ? recoverPOST("phone", $data["Phone"])   		   				 : recoverPOST("phone");
-	$company       	= isset($data) ? recoverPOST("company", $data["Company"])   		   			 : recoverPOST("company");
-	$cinformation	= isset($data) ? recoverPOST("cinformation", $data["Company_Information"]) 		 : recoverPOST("cinformation");
-	$country	  	= isset($data) ? recoverPOST("country", $data["Country"])        				 : recoverPOST("country");
-	$city  		 	= isset($data) ? recoverPOST("city", $data["City"])        				 		 : recoverPOST("city");	
-	$salary    	  	= isset($data) ? recoverPOST("salary", $data["Salary"])            				 : recoverPOST("salary");	
-	$currency       = isset($data) ? recoverPOST("salary_currency", $data["Salary_Currency"])        : recoverPOST("salary_currency");	
-	$allocation  	= isset($data) ? recoverPOST("allocation_time", $data["Allocation_Time"]) 		 : recoverPOST("allocation_time");
-	$requirements	= isset($data) ? recoverPOST("requirements", $data["Requirements"])				 : recoverPOST("requirements");
-	$technologies	= isset($data) ? recoverPOST("technologies", $data["Technologies"])				 : recoverPOST("technologies");
-	$language  		= isset($data) ? recoverPOST("language", $data["Language"])  	 				 : recoverPOST("language");
-	$edit      		= isset($data) ? true											 				 : false;
-	$action	   		= isset($data) ? "edit"											 				 : "save";
-	$href	        = path("jobs/add/");
+	$ID = isset($data) ? recoverPOST("ID", 0) : 0;
+	$title = isset($data) ? recoverPOST("title", $data["Title"]) : recoverPOST("title");
+	$email = isset($data) ? recoverPOST("email", $data["Email"]) : recoverPOST("email");
+	$address1 = isset($data) ? recoverPOST("address1", $data["Address1"]) : recoverPOST("address1");
+	$address2 = isset($data) ? recoverPOST("address2", $data["Address2"]) : recoverPOST("address2");
+	$phone = isset($data) ? recoverPOST("phone", $data["Phone"]) : recoverPOST("phone");
+	$company = isset($data) ? recoverPOST("company", $data["Company"]) : recoverPOST("company");
+	$cinformation = isset($data) ? recoverPOST("cinformation", $data["Company_Information"]) : recoverPOST("cinformation");
+	$country = isset($data) ? recoverPOST("country", $data["Country"]) : recoverPOST("country");
+	$city = isset($data) ? recoverPOST("city", $data["City"]) : recoverPOST("city");
+	$salary = isset($data) ? recoverPOST("salary", $data["Salary"]) : recoverPOST("salary");
+	$currency = isset($data) ? recoverPOST("salary_currency", $data["Salary_Currency"]) : recoverPOST("salary_currency");
+	$allocation = isset($data) ? recoverPOST("allocation_time", $data["Allocation_Time"]) : recoverPOST("allocation_time");
+	$requirements = isset($data) ? recoverPOST("requirements", $data["Requirements"]) : recoverPOST("requirements");
+	$technologies = isset($data) ? recoverPOST("technologies", $data["Technologies"]) : recoverPOST("technologies");
+	$language = isset($data) ? recoverPOST("language", $data["Language"]) : recoverPOST("language");
+	$edit = isset($data) ? true : false;
+	$action = isset($data) ? "edit" : "save";
+	$href = path("jobs/add/");
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
 			echo p(__("Add new job"), "resalt");
-			
+	
 			echo isset($alert) ? $alert : null;
-			
-			echo formInput(array(	
-				"name" 	=> "title", 
+	
+			echo formInput(array(
+				"name" => "title", 
 				"class" => "span5 required", 
 				"field" => __("Title"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"placeholder" => __("Type the title of the job offer"),
 				"value" => $title 
 			));
-			
+	
 			echo formInput(array( 
-				"name"     => "email",
-				"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
-				"type"     => "email",
-				"class"    => "span5 required",
-				"field"    => __("Company Email"), 
-				"p"    	   => true, 
+				"name" => "email",
+				"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+				"type" => "email",
+				"class" => "span5 required",
+				"field" => __("Company Email"), 
+				"p" => true, 
 				"placeholder" => __("Enter your company email"),
-				"value"    => $email,
+				"value" => $email,
 				"required" => true
 			));
 
 			echo formInput(array( 
-				"name"     => "address1",
-				"class"    => "span5 required",
-				"field"    => __("Company Address"), 
-				"p"    	   => true, 
+				"name" => "address1",
+				"class" => "span5 required",
+				"field" => __("Company Address"), 
+				"p" => true, 
 				"placeholder" => __("Company Address"),
-				"value"    => $address1,
+				"value" => $address1,
 			));
 
 			echo formInput(array( 
-				"name"     => "address2",
-				"class"    => "span5",
+				"name" => "address2",
+				"class" => "span5",
 				"placeholder" => __("Company Address (Optional)"),
-				"value"    => $address2,
+				"value" => $address2,
 			));
 
 			echo formInput(array( 
-				"name"     => "phone",
-				"class"    => "span5 required",
-				"field"    => __("Company Phone"), 
-				"p"    	   => true,
+				"name" => "phone",
+				"class" => "span5 required",
+				"field" => __("Company Phone"), 
+				"p" => true,
 				"placeholder" => __("Enter your company phone"), 
-				"value"    => $phone,
+				"value" => $phone,
 			));
 
 			echo formInput(array(
-				"name"	 => "company",
-				"class"  => "span5 required", 
-				"field"  => __("Company"), 
-				"p" 	 => true, 
+				"name" => "company",
+				"class" => "span5 required", 
+				"field" => __("Company"), 
+				"p" => true, 
 				"placeholder" => __("Enter your company name"),
-				"value"  => $company
+				"value" => $company
 			));
-			
-			echo formTextarea(array(  
-				"id"     => "redactor",
-				"name"   => "cinformation", 
-				"class"  => "markItUp", 
-				"style"  => "height: 240px;", 
-				"field"  => __("Company Information"), 
-				"p"   	 => true, 
+	
+			echo formTextarea(array(
+				"id" => "redactor",
+				"name" => "cinformation", 
+				"class" => "markItUp", 
+				"style" => "height: 240px;", 
+				"field" => __("Company Information"), 
+				"p" => true, 
 				"placeholder" => __("Enter the details of your company"),
-				"value"  => stripslashes($cinformation)
+				"value" => stripslashes($cinformation)
 			));
-			
+	
 			$options = array();
 			$i = 0;
 
 			foreach ($countries as $value) { 
-				$options[$i]["value"]    = $value["Country"];
-				$options[$i]["option"]   = __($value["Country"]);
+				$options[$i]["value"] = $value["Country"];
+				$options[$i]["option"] = __($value["Country"]);
 				$options[$i]["selected"] = ($value["Country"] === $country) ? true : false;
-
 				$i++;
 			}
 
 			echo formSelect(array(
-				"name"	 => "country",
-				"class"  => "span5 required",
-				"p" 	 => true,  
-				"field"  => __("Country")), 
+				"name" => "country",
+				"class" => "span5 required",
+				"p" => true,
+				"field" => __("Country")), 
 				$options
 			);
 
 			echo formInput(array(
-				"name"	 => "city",
-				"class"  => "span5 required", 
-				"field"  => __("City"), 
-				"p" 	 => true, 
+				"name" => "city",
+				"class" => "span5 required", 
+				"field" => __("City"), 
+				"p" => true, 
 				"placeholder" => __("Enter the city where your company"),
-				"value"  => $city
+				"value" => $city
 			));
-			
-			echo formInput(array(	
-				"name" 	=> "salary", 
+
+			echo formInput(array(
+				"name" => "salary", 
 				"class" => "span2 required", 
 				"field" => __("Salary"),
 				"placeholder" => "0.00", 
@@ -132,69 +131,69 @@
 			));
 
 			$options = array(
-				0 => array("value" => "USD",   "option" => __("USD"),   "selected" => ($currency === "USD")   ? true : false),
-				1 => array("value" => "MXN",   "option" => __("MXN"),   "selected" => ($currency === "MXN")   ? true : false),
-				2 => array("value" => "EUR",   "option" => __("EUR"),   "selected" => ($currency === "EUR")   ? true : false)
-			);
-			
-			echo formSelect(array(
-				"id"    => "salary_currency",
-				"name"  => "salary_currency", 
-				"class" => "span1 required", 
-				"field" => __("Currency")), 
-				$options
-			);			
-			
-			$options = array(
-				0 => array("value" => "Full Time",   "option" => __("Full Time"),   "selected" => ($allocation === "Full Time")   ? true : false),
-				1 => array("value" => "Half Time",   "option" => __("Half Time"),   "selected" => ($allocation === "Half Time")   ? true : false)
+				0 => array("value" => "USD", "option" => __("USD"), "selected" => ($currency === "USD") ? true : false),
+				1 => array("value" => "MXN", "option" => __("MXN"), "selected" => ($currency === "MXN") ? true : false),
+				2 => array("value" => "EUR", "option" => __("EUR"), "selected" => ($currency === "EUR") ? true : false)
 			);
 
 			echo formSelect(array(
-				"id"    => "allocation",
-				"name"  => "allocation", 
-				"p"  	=> true, 
+				"id" => "salary_currency",
+				"name" => "salary_currency", 
+				"class" => "span1 required", 
+				"field" => __("Currency")), 
+				$options
+			);
+			
+			$options = array(
+				0 => array("value" => "Full Time", "option" => __("Full Time"), 
+					"selected" => ($allocation === "Full Time") ? true : false),
+				1 => array("value" => "Half Time", "option" => __("Half Time"), 
+					"selected" => ($allocation === "Half Time") ? true : false)
+			);
+
+			echo formSelect(array(
+				"id" => "allocation",
+				"name" => "allocation", 
+				"p" => true, 
 				"class" => "required", 
 				"field" => __("Allocation Time")), 
 				$options
 			);
 
-			echo formTextarea(array(	
-				"name" 	 => "requirements", 
-				"class"  => "markItUp",
-				"style"  => "height: 240px;",
-				"field"  => __("Requirements"), 
-				"p" 	 => true, 
+			echo formTextarea(array(
+				"name" => "requirements", 
+				"class" => "markItUp",
+				"style" => "height: 240px;",
+				"field" => __("Requirements"), 
+				"p" => true, 
 				"placeholder" => __("Enter the necessary requirements to apply for the job"),
-				"value"  => $requirements
+				"value" => $requirements
 			));
 
-			echo formInput(array(	
-				"name" 	=> "technologies", 
+			echo formInput(array(
+				"name" => "technologies", 
 				"class" => "span5 required", 
 				"field" => __("Technologies"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"placeholder" => __("Enter the technologies separated by commas"),
 				"value" => $technologies
 			));
-			
-			echo formField(null, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));
 
-			echo formInput(array(	
-				"name" 	=> "save", 
+			echo formField(null, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));
+			echo formInput(array(
+				"name" => "save", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
-				"type"  => "submit"
+				"type" => "submit"
 			));
 
-			echo formInput(array(	
-				"name" 	=> "preview", 
+			echo formInput(array(
+				"name" => "preview", 
 				"class" => "btn", 
 				"value" => __("Preview"), 
-				"type"  => "submit"
+				"type" => "submit"
 			));
-					
+
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Job"));
 		echo formClose();
 	echo div(false);
-			

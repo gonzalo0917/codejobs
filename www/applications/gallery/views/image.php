@@ -17,9 +17,9 @@
 	<?php 
 		} 
 	?>
-	
+
 	<div class="clear"></div>
-	
+
 	<div id="gallery-content">
 	<?php 
 		if ($count > 1) { 
@@ -35,28 +35,28 @@
 		} 
 	?>
 	</div>
-	
+
 	<div class="images-description">
 		<span><?php echo $picture["Description"];?></span>
 	</div>
-	
+
 	<br/>
-	
+
 	<div class="info-images">
 		<span class="images-title"><?php echo __("Album"); ?>:</span><br />
-		
+
 		<div class="general-links">
 		<?php 
 			if ($picture["Album"] !== "None") { 
 		?>
 				<a href="<?php echo $picture["back"] . "/#top";?>" title="<?php echo $picture["Album"];?>"><?php echo $picture["Album"];?></a>
-		<?php 	
+		<?php
 			} else {
 		?>
 			<a href="<?php echo $picture["home"] ."/";?>" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a>
 		<?php 
 			} 
-		?>	
+		?>
 		</div>
 	</div>
 </div>

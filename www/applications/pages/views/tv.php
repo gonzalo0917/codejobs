@@ -27,13 +27,13 @@
 		</style>
 	</head>
 
-	<body>	
+	<body>
 		<header>
 			<div id="logo" style="width: 290px; margin: 0 auto; background-repeat: no-repeat;">
 				<a href="http://www.codejobs.biz"><img src="<?=$path; ?>/images/logo.png" border="0" /></a>
 			</div>
 		</header>
-		
+
 		<div id="content">
 			<?php
 				echo $tv;
@@ -51,26 +51,24 @@
 			<?php
 				}
 			?>
-						
+
 			<div class="ads">
-				<script type="text/javascript"><!--
+				<script type="text/javascript">
 				google_ad_client = "ca-pub-4006994369722584";
-				/* CodeJobs */
 				google_ad_slot = "0632542362";
 				google_ad_width = 728;
 				google_ad_height = 90;
-				//-->
 				</script>
 				<script type="text/javascript"
 				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-				</script>				
+				</script>
 			</div>
-		</div>    
-        
-		<div class="sponsors" style="text-align: center; margin-top: 0px;">			
-			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>						
+		</div>
+
+		<div class="sponsors" style="text-align: center; margin-top: 0px;">
+			<a rel="nofollow" href="http://www.milkzoft.com" target="_blank" title="MilkZoft"><img src="<?=$path; ?>/images/patrocinadores/MilkZoft.png" width="100" height="31" /></a>
 			<a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd_small.png", true); ?>" alt="Crowd Int" /></a>
-			<a rel="nofollow" target="_blank" href="http://www.bigcoders.com"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/bigcoders_small.png", true); ?>" alt="" /></a>		
+			<a rel="nofollow" target="_blank" href="http://www.bigcoders.com"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/bigcoders_small.png", true); ?>" alt="" /></a>
 			<a rel="nofollow" target="_blank" href="http://www.autodidact.as/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/autodidactas_small.png", true); ?>" alt="Autodidactas" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
@@ -110,7 +108,6 @@
 			<a rel="nofollow" href="patrocinio.html" target="_blank" title="Comprar espacio"><img src="<?=$path; ?>/images/buy15.png" width="100" height="31" /></a>
 		</div>
 
-		<!-- Start of StatCounter Code for Default Guide -->
 		<script type="text/javascript">
 			var sc_project = 7655788; 
 			var sc_invisible = 1; 
@@ -118,6 +115,5 @@
 		</script>
 
 		<script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>
-		<!-- End of StatCounter Code for Default Guide -->
     </body>
 </html>

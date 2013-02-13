@@ -14,8 +14,9 @@
 	<span class="small italic grey">
 		<?php 
 			echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
-			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
-			 
+			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .
+			' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
+
 			if ($job["Technologies"] !== "") {
 				echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
 			}
@@ -26,7 +27,7 @@
 	<?php echo display(social($URL, $job["Title"], false), 4); ?>
 
 
-	<p class="justify">		
+	<p class="justify">
 		<h5><?php echo ("Company Logo")?></h5>
 		<p>
 			<img src="<?php echo path($job["Logo"], true); ?>">
@@ -64,7 +65,8 @@
 			<?php } else {?>
 				<span class="small italic grey">
 					<?php echo __("You must be registered to display this content"); ?></br/>
-					<?php echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). "</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a>" ; ?>
+					<?php echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
+					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a>" ; ?>
 				</span>
 			<?php }?>
 		</p>

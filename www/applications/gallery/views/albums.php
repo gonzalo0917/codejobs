@@ -4,7 +4,7 @@
 	if ($albums) { 
 ?>
 		<p class="Center"><?php echo __("Albums");?></p>
-	
+
 		<ul id="Albums" class="jcarousel-skin-tango">
 <?php 
 		foreach ($albums as $album) { 
@@ -15,9 +15,8 @@
 			<li>
 				<a href="<?php echo $link;?>" title="<?php echo $album["Title"];?>">
 					<span class="albumLinks"><?php echo $album["Album"];?></span><br />
-					
 					<img src="<?php echo WEB_URL . SH . $album["Small"];?>">
-				</a>				
+				</a>
 			</li>
 <?php 
 		} 

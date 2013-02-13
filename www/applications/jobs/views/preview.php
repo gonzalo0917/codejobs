@@ -6,23 +6,24 @@
 
 <div class="jobs">
 	<h2>
-		<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo $job["URL"]; ?>" target="_blank" title="<?php echo htmlentities($job["Title"], ENT_QUOTES, "UTF-8"); ?>"><?php echo $job["Title"]; ?></a>
+		<?php echo getLanguage($job["Language"], true); ?>
+		<a href="<?php echo $job["URL"]; ?>" target="_blank" title="<?php echo htmlentities($job["Title"], ENT_QUOTES, "UTF-8"); ?>"><?php echo $job["Title"]; ?></a>
 	</h2>
 
 	<span class="small italic grey">
 		<?php 
 			echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
-			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("users/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
-			 
+			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("users/". $job["Author"]) .'">'. $job["Author"] .'</a> ';
+
 			if ($job["Technologies"] !== "") {
 				echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
 			}
-		?>			
+		?>
 		<br />
 
 	</span>
-	
-	<p class="justify">				
+
+	<p class="justify">
 		<h5><?php echo __("Job Description")?></h5>
 		<p>
 			<?php 
