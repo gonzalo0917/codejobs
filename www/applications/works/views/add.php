@@ -3,17 +3,17 @@
 		die("Error: You don't have permission to access here...");
 	}
 
-	$ID = isset($data) ? recoverPOST("ID", $data[0]["ID_Work"]) : 0;
-	$title = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
+	$ID 		 = isset($data) ? recoverPOST("ID", $data[0]["ID_Work"]) : 0;
+	$title 		 = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
 	$description = isset($data) ? recoverPOST("description", $data[0]["Description"]) : recoverPOST("description");
-	$URL = isset($data) ? recoverPOST("URL", $data[0]["URL"]) : recoverPOST("URL");
-	$image = isset($data) ? recoverPOST("image", $data[0]["Image"]) : recoverPOST("image");
-	$preview1 = isset($data) ? recoverPOST("preview1", $data[0]["Preview1"]) : recoverPOST("preview1");
-	$preview2 = isset($data) ? recoverPOST("preview2", $data[0]["Preview2"]) : recoverPOST("preview2");
-	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
-	$edit = isset($data) ? true : false;
-	$action = isset($data) ? "edit" : "save";
-	$href = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
+	$URL         = isset($data) ? recoverPOST("URL", $data[0]["URL"]) : recoverPOST("URL");
+	$image       = isset($data) ? recoverPOST("image", $data[0]["Image"]) : recoverPOST("image");
+	$preview1    = isset($data) ? recoverPOST("preview1", $data[0]["Preview1"]) : recoverPOST("preview1");
+	$preview2    = isset($data) ? recoverPOST("preview2", $data[0]["Preview2"]) : recoverPOST("preview2");
+	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
+	$edit        = isset($data) ? true : false;
+	$action      = isset($data) ? "edit" : "save";
+	$href 	     = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
 
 
 echo div("add-form", "class");

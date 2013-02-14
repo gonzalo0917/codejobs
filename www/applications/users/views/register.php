@@ -8,7 +8,7 @@ if (!defined("ACCESS")) {
 
 $username = (!$inserted) ? recoverPOST("username")) : null;
 $password = (!$inserted) ? recoverPOST("password")) : null;
-$email = (!$inserted) ? recoverPOST("email")) : null;
+$email    = (!$inserted) ? recoverPOST("email")) : null;
 ?>
 
 <form class="register" action="<?php echo $href;?>" method="post">

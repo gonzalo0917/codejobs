@@ -123,7 +123,7 @@ class Users_Model extends ZP_Load
 
 		$this->Data->ignore(array("pwd", "privilege"));
 
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
@@ -666,7 +666,7 @@ class Users_Model extends ZP_Load
 			"city" => "required"
 		);
 
-		$this->data = $this->Data->proccess(null, $validations);
+		$this->data = $this->Data->process(null, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
@@ -681,7 +681,7 @@ class Users_Model extends ZP_Load
 
 	public function changePassword()
 	{
-		$this->data = $this->Data->proccess(null, array(
+		$this->data = $this->Data->process(null, array(
 			"password" => "required",
 			"new_password" => "length:6",
 			"re_new_password" => "length:6"
@@ -708,7 +708,7 @@ class Users_Model extends ZP_Load
 
 	public function changeEmail()
 	{
-		$this->data = $this->Data->proccess(null, array(
+		$this->data = $this->Data->process(null, array(
 			"password" => "required",
 			"email" => "email?"
 		));

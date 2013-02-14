@@ -6,9 +6,9 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-$name = isset($name) ? recoverPOST("name", $name) : recoverPOST("name");
+$name  = isset($name) ? recoverPOST("name", $name) : recoverPOST("name");
 $email = isset($email) ? recoverPOST("email", $email) : recoverPOST("email");
-$pwd = isset($pwd) ? recoverPOST("password", $pwd) : recoverPOST("password");
+$pwd   = isset($pwd) ? recoverPOST("password", $pwd) : recoverPOST("password");
 
 echo div("new-user", "class");
 	echo formOpen(path("users/register"), "form", "form");

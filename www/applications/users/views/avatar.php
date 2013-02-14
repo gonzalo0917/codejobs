@@ -1,7 +1,7 @@
 <?php
 	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
-	$avatar = encode($data[0]["Avatar"]);
+	$avatar     = encode($data[0]["Avatar"]);
 	$coordinate = recoverPOST("coordinate", encode($data[0]["Avatar_Coordinate"]));
 
 	if ($avatar !== "default.png") {

@@ -6,7 +6,7 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-$name = isset($name) ? recoverPOST("name", $name) : recoverPOST("name");
+$name  = isset($name) ? recoverPOST("name", $name) : recoverPOST("name");
 $email = isset($email) ? recoverPOST("email", $email) : recoverPOST("email");
 
 

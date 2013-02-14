@@ -3,14 +3,14 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$title = recoverPOST("title");
+	$title 		 = recoverPOST("title");
 	$description = recoverPOST("description");
-	$topics = recoverPOST("topics");
-	$email = recoverPOST("email");
-	$skype = recoverPOST("skype");
-	$gtalk = recoverPOST("gtalk");
-	$twitter = recoverPOST("twitter");
-	$facebook = recoverPOST("facebook");
+	$topics 	 = recoverPOST("topics");
+	$email 		 = recoverPOST("email");
+	$skype 		 = recoverPOST("skype");
+	$gtalk 		 = recoverPOST("gtalk");
+	$twitter 	 = recoverPOST("twitter");
+	$facebook 	 = recoverPOST("facebook");
 
 	echo div("new-proposal", "class");
 		echo formOpen(path("workshop"), "form", "form", null, "post", "multipart/form-data");

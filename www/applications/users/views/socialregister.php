@@ -8,12 +8,12 @@ if (!defined("ACCESS")) {
 
 $socialUser = SESSION("socialUser");
 
-$service = recoverPOST("service", $socialUser["service"]);
-$username = recoverPOST("username", $socialUser["username"]);
-$email = recoverPOST("email", $socialUser["email"]);
-$name = recoverPOST("name", $socialUser["name"]);
-$avatar = recoverPOST("avatar", $socialUser["avatar"]);
-$birthday = recoverPOST("birthday", $socialUser["birthday"]);
+$service   = recoverPOST("service", $socialUser["service"]);
+$username  = recoverPOST("username", $socialUser["username"]);
+$email     = recoverPOST("email", $socialUser["email"]);
+$name      = recoverPOST("name", $socialUser["name"]);
+$avatar    = recoverPOST("avatar", $socialUser["avatar"]);
+$birthday  = recoverPOST("birthday", $socialUser["birthday"]);
 $serviceID = recoverPOST("serviceID", $socialUser["serviceID"]);
 
 echo div("new-user", "class");

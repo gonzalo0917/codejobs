@@ -1,15 +1,15 @@
 <?php
 	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
-	$name = recoverPOST("name", encode($data[0]["Name"]));
-	$gender = recoverPOST("gender", $data[0]["Gender"]);
+	$name     = recoverPOST("name", encode($data[0]["Name"]));
+	$gender   = recoverPOST("gender", $data[0]["Gender"]);
 	$birthday = recoverPOST("birthday", $data[0]["Birthday"] !== "" ? $data[0]["Birthday"] : "01/01/1980");
-	$country = recoverPOST("country", encode($data[0]["Country"]));
-	$city = recoverPOST("city", encode($data[0]["City"]));
+	$country  = recoverPOST("country", encode($data[0]["Country"]));
+	$city     = recoverPOST("city", encode($data[0]["City"]));
 	$district = recoverPOST("district", encode($data[0]["District"]));
-	$phone = recoverPOST("phone", $data[0]["Phone"]);
-	$mobile = recoverPOST("mobile", $data[0]["Mobile"]);
-	$website = recoverPOST("website", $data[0]["Website"] !== "" ? $data[0]["Website"] : "http://");
+	$phone    = recoverPOST("phone", $data[0]["Phone"]);
+	$mobile   = recoverPOST("mobile", $data[0]["Mobile"]);
+	$website  = recoverPOST("website", $data[0]["Website"] !== "" ? $data[0]["Website"] : "http://");
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
