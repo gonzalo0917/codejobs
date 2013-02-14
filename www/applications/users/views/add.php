@@ -76,7 +76,7 @@
 				$options
 			);
 
-			echo formSave($action);
+			echo formAction($action);
 
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
