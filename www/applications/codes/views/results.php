@@ -4,8 +4,8 @@ if (!defined("ACCESS")) {
 }
 
 $application = ucfirst(whichApplication());
-$caption 	 = __("Manage ". $application);
-$colspan 	 = 10;
+$caption = __("Manage ". $application);
+$colspan = 10;
 
 echo $search;
 
