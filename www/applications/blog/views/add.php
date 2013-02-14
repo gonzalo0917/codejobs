@@ -11,7 +11,7 @@ $situation 	= isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : r
 $language 	= isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
 $author 	= isset($data) ? recoverPOST("author", $data[0]["Author"]) : SESSION("ZanUser");
 $userID 	= isset($data) ? recoverPOST("ID_User", $data[0]["ID_User"]) : SESSION("ZanUserID");
-$buffer 	= isset($data) ? (int)recoverPOST("buffer", $data[0]["Buffer"]) : 1;
+$buffer 	= isset($data) ? (int) recoverPOST("buffer", $data[0]["Buffer"]) : 1;
 $code 		= isset($data) ? recoverPOST("code", $data[0]["Code"]) : recoverPOST("code");
 $mural 		= isset($data) ? $data[0]["Image_Mural"] : null;
 $image 		= isset($data) ? $data[0]["Image_Medium"] : null;
@@ -151,7 +151,7 @@ echo div("add-form", "class");
 			echo img(path($medium, true));
 		}
 		
-		echo formSave($action, true, $ID);
+		echo formAction($action, true, $ID);
 		echo formInput(array("id" => "ID_Post", 	"name" => "ID", 		"type" => "hidden", "value" => $ID));
 		echo formInput(array("id" => "ID_User", 	"name" => "ID_User", 	"type" => "hidden", "value" => $userID));
 		echo formInput(array("id" => "code", 		"name" => "code", 		"type" => "hidden", "value" => code(10)));

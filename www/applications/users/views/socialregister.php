@@ -36,53 +36,53 @@ echo div("new-user", "class");
 				<p><?php echo img($avatar, array("class" => "dotted")); ?> <strong><?php echo __("Hi"); ?></strong>, <?php echo $name; ?>!</p>
 				<?php
 				echo formInput(array(
-					"id" => "username",
-					"name" => "username",
-					"class" => "required", 
-					"field" => __("Username"), 
-					"p" => true, 
-					"value" => $username,
+					"id"       => "username",
+					"name"     => "username",
+					"class"    => "required", 
+					"field"    => __("Username"), 
+					"p"        => true, 
+					"value"    => $username,
 					"required" => true
 				));
 
 				echo formInput(array(
-					"name" => "email",
-					"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
-					"type" => "email",
-					"field" => __("Email"), 
-					"p" => true, 
-					"value" => $email,
-					"required" => true,
+					"name"        => "email",
+					"pattern"     => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+					"type"        => "email",
+					"field"       => __("Email"), 
+					"p"           => true, 
+					"value"       => $email,
+					"required"    => true,
 					"placeholder" => __("Please, write your email")
 				));
 
 				echo formInput(array(
-					"name" => "name",
+					"name"  => "name",
 					"value" => $name,
-					"type" => "hidden"
+					"type"  => "hidden"
 				));
 
 				echo formInput(array(
-					"name" => "avatar",
+					"name"  => "avatar",
 					"value" => $avatar,
-					"type" => "hidden"
+					"type"  => "hidden"
 				));
 
 				echo formInput(array(
-					"name" => "birthday",
+					"name"  => "birthday",
 					"value" => $birthday,
-					"type" => "hidden"
+					"type"  => "hidden"
 				));
 
 				echo formInput(array(
-					"name" => "serviceID",
+					"name"  => "serviceID",
 					"value" => $serviceID,
-					"type" => "hidden"
+					"type"  => "hidden"
 				));
 				
 				echo formInput(array(
-					"name" => "register",
-					"type" => "submit",
+					"name"  => "register",
+					"type"  => "submit",
 					"class" => "submit",
 					"value" => __("Create my account")
 				));

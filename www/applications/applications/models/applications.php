@@ -1,7 +1,4 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -12,16 +9,13 @@ class Applications_Model extends ZP_Load {
 		$this->Db = $this->db();
 		
 		$this->CPanel_Model = $this->model("CPanel_Model");
-		
-		$this->Users_Model  = $this->model("Users_Model");
+		$this->Users_Model = $this->model("Users_Model");
 		
 		$this->table = "applications";
 	}
 		
-	public function getList() {		
-		$this->Db->select("ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
-
-		$data = $this->Db->findAll($this->table, null, null, "Title ASC");
+	public function getList() {
+		$data = $this->Db->findAll($this->table, "ID_Application, Title, Slug, CPanel, Adding, BeDefault, Comments, Situation", null, "Title ASC");
 
 		$list  = null;		
 		
@@ -37,9 +31,9 @@ class Applications_Model extends ZP_Load {
 						
 						if ($this->Users_Model->isAllow("view", $application["Title"])) {	
 							if ($application["Slug"] === "configuration") {
-								$list[]["item"] = span("bold", a($title, path($application["Slug"] . _sh . "cpanel" . _sh . "edit")));															
+								$list[]["item"] = span("bold", a($title, path($application["Slug"] . SH ."cpanel". SH ."edit")));															
 							} else {
-								$list[]["item"] = span("bold", a($title, path($application["Slug"] . _sh . "cpanel" . _sh . "results")));
+								$list[]["item"] = span("bold", a($title, path($application["Slug"] . SH ."cpanel". SH ."results")));
 							}
 							
 							$list[count($list) - 1]["Class"] = false;								
@@ -47,11 +41,11 @@ class Applications_Model extends ZP_Load {
 							if ($application["Adding"]) {
 								$adding = __("Add");
 								
-								$li[0]["item"] = a($adding, path($application["Slug"] . _sh . "cpanel" . _sh . "add"));
+								$li[0]["item"] = a($adding, path($application["Slug"] . SH ."cpanel". SH ."add"));
 
 								if ($application["Slug"] == "codes") {
 									$languages = __("Programming languages");
-									$li[]["item"] = a($languages, path($application["Slug"] . _sh . "cpanel" . _sh . "languages"));
+									$li[]["item"] = a($languages, path($application["Slug"] . SH ."cpanel". SH ."languages"));
 								}
 								
 								$i = count($list);			
@@ -82,8 +76,8 @@ class Applications_Model extends ZP_Load {
 							}
 
 							if ($application["Slug"] == "configuration") {
-								$li[]["item"] = a(__("Minifier"), path($application["Slug"] . "/cpanel/minifier"));
-								$li[]["item"] = a("TV", path($application["Slug"] . "/cpanel/tv"));
+								$li[]["item"] = a(__("Minifier"), path($application["Slug"] ."/cpanel/minifier"));
+								$li[]["item"] = a("TV", path($application["Slug"] ."/cpanel/tv"));
 								
 								$i = count($list);
 								
@@ -102,42 +96,33 @@ class Applications_Model extends ZP_Load {
 	}	
 			
 	public function getApplication($ID) {
-		$this->Db->select("ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
-
-		$application = $this->Db->find($ID, $this->table);
+		$application = $this->Db->find($ID, $this->table, "Title");
 	
 		return $application[0]["Title"];
 	}
 	
 	public function getID($title) {		
-		$this->Db->select("ID_Application");
-
-		$applications = $this->Db->findBy("Title", $title, $this->table);
+		$applications = $this->Db->findBy("Title", $title, $this->table, "ID_Application");
 
 		return (is_array($applications)) ? $applications[0]["ID_Application"] : false;
 	}	
 	
 	public function getApplications() {
-		$this->Db->select("ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
-
-		return $this->Db->findBy("Situation", "Active", $this->table);
+		return $this->Db->findBy("Situation", "Active", $this->table, "ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
 	}
 	
 	public function getDefaultApplications($default = false) {	
-		$this->Db->select("Title, Slug");
-
-		$applications = $this->Db->findBySQL("BeDefault = 1 AND Situation = 'Active'", $this->table);
+		$applications = $this->Db->findBySQL("BeDefault = 1 AND Situation = 'Active'", $this->table, "Title, Slug");
 		
 		$i = 0;
-		
 		foreach ($applications as $application) {
 			if ($application["Slug"] === $default) {
-				$options[$i]["value"]    = $application["Slug"];
-				$options[$i]["option"]   = $application["Title"];
+				$options[$i]["value"] = $application["Slug"];
+				$options[$i]["option"] = $application["Title"];
 				$options[$i]["selected"] = true;
 			} else {
-				$options[$i]["value"]    = $application["Slug"];
-				$options[$i]["option"]   = $application["Title"];
+				$options[$i]["value"] = $application["Slug"];
+				$options[$i]["option"] = $application["Title"];
 				$options[$i]["selected"] = false;
 			}
 				
@@ -147,9 +132,7 @@ class Applications_Model extends ZP_Load {
 		return $options;		
 	}	
 	
-	public function getByID($ID) {		
-		$this->Db->select("ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
-
-		return $this->Db->find($ID, $this->table);
+	public function getByID($ID) {	
+		return $this->Db->find($ID, $this->table, "ID_Application, Title, CPanel, Adding, BeDefault, Comments, Situation");
 	}
 }

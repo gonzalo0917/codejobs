@@ -20,63 +20,63 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
-				"name" => "username", 
+				"name"  => "username", 
 				"class" => "required", 
 				"field" => __("Username"), 
-				"p" => true, 
+				"p"     => true, 
 				"value" => $username
 			));
 
 			echo formInput(array(
-				"name" => "pwd", 
-				"type" => "password", 
-				"class" => "required", 
-				"field" => __("Password"),
+				"name"         => "pwd", 
+				"type"         => "password", 
+				"class"        => "required", 
+				"field"        => __("Password"),
 				"autocomplete" => "off", 
-				"p" => true, 
-				"value" => null
+				"p"            => true, 
+				"value"        => null
 			));
 	
 			echo formInput(array(
-				"name" => "email", 
+				"name"  => "email", 
 				"class" => "required", 
 				"field" => __("Email"), 
-				"p" => true, 
+				"p"     => true, 
 				"value" => $email
 			));
 
 			$i = 0;
 
 			foreach ($privileges as $value) { 
-				$options[$i]["value"] = $value["ID_Privilege"];
-				$options[$i]["option"] = $value["Privilege"];
+				$options[$i]["value"]    = $value["ID_Privilege"];
+				$options[$i]["option"]   = $value["Privilege"];
 				$options[$i]["selected"] = ($value["ID_Privilege"] === $privilege) ? true : false;
 
 				$i++;
 			} 
 
 			echo formSelect(array(
-				"name" => "privilege", 
+				"name"  => "privilege", 
 				"class" => "required", 
-				"p" => true, 
+				"p"     => true, 
 				"field" => __("Privilege")), 
 				$options
 			);
 
 			$options = array(
-				0 => array("value" => "Active", "option" => __("Active"), "selected" => ($situation === "Active") ? true : false),
+				0 => array("value" => "Active", "option"   => __("Active"), "selected"   => ($situation === "Active")   ? true : false),
 				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 			);
 
 			echo formSelect(array(
-				"name" => "situation", 
+				"name"  => "situation", 
 				"class" => "required", 
-				"p" => true, 
+				"p"     => true, 
 				"field" => __("Situation")), 
 				$options
 			);
 
-			echo formSave($action);
+			echo formAction($action);
 
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();

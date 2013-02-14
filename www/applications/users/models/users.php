@@ -23,7 +23,7 @@ class Users_Model extends ZP_Load
 		$this->Data->table("users");
 
 		$this->table = "users";
-		$this->fields = "ID_User, ID_Privilege, Username, Email, Website, Situation";
+		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
 
 		$this->application = whichApplication();
 	}
@@ -79,9 +79,9 @@ class Users_Model extends ZP_Load
 				"email" => "email?",
 				"pwd" => "length:6",
 				"exists" => array(
-					"Username" => POST("username"),
-					"or" => true,
-					"Email" => POST("email"),
+				"Username" => POST("username"),
+				"or" => true,
+				"Email" => POST("email"),
 				),
 			);
 
@@ -199,14 +199,13 @@ class Users_Model extends ZP_Load
 
 		$this->Data->ignore(array("password", "register", "name", "serviceID"));
 
-		$data = $this->Data->proccess($data, $validations);
+		$data = $this->Data->process($data, $validations);
 		
 		if (isset($data["error"])) {
 			return array("inserted" => false, "alert" => $data["error"]);
 		}
-		
 		$ID_User = $this->Db->insert($this->table, $data);
-	
+		
 		if ($ID_User) {
 			if ($service === "facebook" or $service === "twitter") {
 				$this->Db->insert("users_services", array("ID_User" => $ID_User, "ID_Service" => POST("serviceID"), "Service" => ucfirst($service)));
@@ -220,7 +219,7 @@ class Users_Model extends ZP_Load
 			
 			$this->Email->send();
 
-			SESSION("UserRegistered", true);
+		   	SESSION("UserRegistered", true);
 
 			return array(
 				"inserted" => true,

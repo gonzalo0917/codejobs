@@ -22,11 +22,11 @@
 			echo div("row", "class");
 				echo div("span5", "class");
 					echo formInput(array(
-						"id" => "title",
-						"name" => "title",
-						"field" => __("Title"),
-						"p" => true,
-						"value" => $title,
+						"id"	   => "title",
+						"name" 	   => "title",
+						"field"    => __("Title"),
+						"p"        => true,
+						"value"    => $title,
 						"required" => true
 					));
 				echo div(false);
@@ -35,9 +35,9 @@
 					$options = getAllDays("Saturday", "+3 months");
 
 					echo formSelect(array(
-						"id" => "day",
-						"name" => "day", 
-						"p" => true, 
+						"id"    => "day",
+						"name"  => "day", 
+						"p"     => true, 
 						"field" => __("Day")),
 						$options
 					);
@@ -47,11 +47,11 @@
 			echo div("row", "class");
 				echo div("span5", "class");
 					echo formTextarea(array(
-						"id" => "description",
-						"name" => "description",
-						"field" => __("Description"),
-						"p" => true,
-						"value" => $description,
+						"id"       => "description",
+						"name"     => "description",
+						"field"    => __("Description"),
+						"p"        => true,
+						"value"    => $description,
 						"required" => true
 					));
 				echo div(false);
@@ -59,33 +59,33 @@
 				echo div("span4 offset1", "class");
 					$options = array(
 						array("value" => "11 am", "option" => "11 am", "selected" => true),
-						array("value" => "4 pm", "option" => "4 pm", "selected" => false)
+						array("value" => "4 pm", "option"  => "4 pm", "selected"  => false)
 					);
 
 					echo formSelect(array(
-						"id" => "time",
-						"name" => "time", 
-						"p" => true, 
+						"id"    => "time",
+						"name"  => "time", 
+						"p"     => true, 
 						"field" => __("Time")),
 						$options
 					);
 
 					echo formInput(array(
-						"id" => "email",
-						"name" => "email",
-						"type" => "email",
-						"field" => __("Email"),
-						"p" => true,
-						"value" => $email,
+						"id"          => "email",
+						"name"        => "email",
+						"type"        => "email",
+						"field"       => __("Email"),
+						"p"           => true,
+						"value"       => $email,
 						"placeholder" => "me@example.com",
-						"required" => true
+						"required"    => true
 					));
 
 					echo formInput(array(
-						"id" => "skype",
-						"name" => "skype",
+						"id"    => "skype",
+						"name"  => "skype",
 						"field" => __("Skype"),
-						"p" => true,
+						"p"     => true,
 						"value" => $skype
 					));
 				echo div(false);
@@ -94,37 +94,37 @@
 			echo div("row", "class");
 				echo div("span5", "class");
 					echo formTextarea(array(
-						"id" => "topics",
-						"name" => "topics",
-						"field" => __("Topics"),
-						"p" => true,
-						"value" => $topics,
+						"id"       => "topics",
+						"name"     => "topics",
+						"field"    => __("Topics"),
+						"p"        => true,
+						"value"    => $topics,
 						"required" => true
 					));
 				echo div(false);
 
 				echo div("span4 offset1", "class");
 					echo formInput(array(
-						"id" => "gtalk",
-						"name" => "gtalk",
+						"id"    => "gtalk",
+						"name"  => "gtalk",
 						"field" => __("GTalk"),
-						"p" => true,
+						"p"     => true,
 						"value" => $gtalk
 					));
 
 					echo formInput(array(
-						"id" => "twitter",
-						"name" => "twitter",
+						"id"    => "twitter",
+						"name"  => "twitter",
 						"field" => __("Twitter"),
-						"p" => true,
+						"p"     => true,
 						"value" => $twitter
 					));
 
 					echo formInput(array(
-						"id" => "facebook",
-						"name" => "facebook",
+						"id"    => "facebook",
+						"name"  => "facebook",
 						"field" => __("Facebook"),
-						"p" => true,
+						"p"     => true,
 						"value" => $facebook
 					));
 				echo div(false);
@@ -133,17 +133,17 @@
 			echo div("row", "class");
 				echo div("span5", "class");
 					echo formInput(array(
-						"name" => "file", 
-						"type" => "file",
+						"name"  => "file", 
+						"type"  => "file",
 						"field" => __("Slides"),
-						"p" => true
+						"p"     => true
 					));
 				echo div(false);
 
 				echo div("span4 offset1", "class");
 					echo p(formInput(array(
-						"name" => "send",
-						"type" => "submit",
+						"name"  => "send",
+						"type"  => "submit",
 						"class" => "btn btn-success",
 						"value" => __("Submit my proposal")
 					), (!SESSION("ZanUser")) ? true : false), "submit");

@@ -1,4 +1,8 @@
-<?php if(!defined("_access")) die("Error: You don't have permission to access here..."); ?>
+<?php 
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here..."); 
+}
+?>
 <div id="sidebar">
 	<strong><?php print __("Applications"); ?></strong>
 	
@@ -8,7 +12,7 @@
 			
 			print li($li);
 			
-			if(isset($applications)) {
+			if (isset($applications)) {
 				print li($applications);
 			}
 			

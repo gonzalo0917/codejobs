@@ -156,7 +156,7 @@ class Blog_Model extends ZP_Load
 			"mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist")
 		);
 
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 		
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
@@ -488,6 +488,7 @@ class Blog_Model extends ZP_Load
 			$query = "ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'";
 
 			return $this->Db->findBySQL($query, $this->table, "COUNT(1) AS Total", null, $order);
+		}
 	}
 
 	public function records($action, $start = 0, $end = MAX_LIMIT, $order = null, $search = false) 

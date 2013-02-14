@@ -9,34 +9,34 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
-				"type" => "hidden",
-				"name" => "username",
-				"p" => false,
+				"type"  => "hidden",
+				"name"  => "username",
+				"p"     => false,
 				"value" => SESSION("ZanUser")
 			));
 
 			echo formInput(array(
-				"name" => "email", 
-				"class" => "field-title span4",
-				"field" => __("E-mail"), 
-				"p" => true,
+				"name"      => "email", 
+				"class"     => "field-title span4",
+				"field"     => __("E-mail"), 
+				"p"         => true,
 				"maxlength" => "45",
-				"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
-				"value" => $email
+				"pattern"   => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+				"value"     => $email
 			));
 
 			echo formCheckbox(array(
-				"name" => "subscribed",
+				"name"     => "subscribed",
 				"position" => "right",
-				"text" => __("Subscribe to our free email newsletters"),
-				"checked" => $subscribed === true
+				"text"     => __("Subscribe to our free email newsletters"),
+				"checked"  => $subscribed === true
 			));
 
 			echo formInput(array(
-				"name" => "save", 
+				"name"  => "save", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
-				"type" => "submit"
+				"type"  => "submit"
 			));
 
 		echo formClose();
@@ -45,6 +45,6 @@
 <script>
 	var acceptLabel = "<?php echo __("Accept"); ?>",
 		cancelLabel = "<?php echo __("Cancel"); ?>",
-		inputLabel = "<?php echo __("Input your password"); ?>",
+		inputLabel  = "<?php echo __("Input your password"); ?>",
 		btnSelector = 'input[type="submit"]:first';
 </script>
