@@ -1,9 +1,10 @@
 <?php
-	if(!defined("_access")) {
-		die("Error: You don't have permission to access here...");
-	}
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
 
-	$lang = _get("webLang") === "es" ? "es" : "en";
+$lang = _get("webLang") === "es" ? "es" : "en";
+$application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
@@ -25,34 +26,34 @@
 	</script>
 	
     <?php
-    	$this->CSS("www/lib/css/default.css", NULL, FALSE, TRUE);
+    	$this->CSS("www/lib/css/default.css", null, false, true);
     	
     	$browser  = browser();
     	$browsers = array("ff", "ie", "sf", "op");
 
-	    if(in_array($browser, $browsers)) {
-	    	$this->CSS("$this->themeRoute/css/style_$browser.css", NULL, FALSE, TRUE);
-	    	$this->CSS("$this->themeRoute/css/mediaqueries_$browser.css", NULL, FALSE, TRUE);
+	    if (in_array($browser, $browsers)) {
+	    	$this->CSS("$this->themeRoute/css/style_$browser.css", null, false, true);
+	    	$this->CSS("$this->themeRoute/css/mediaqueries_$browser.css", null, false, true);
 	    } else {
-	    	$this->CSS("$this->themeRoute/css/style.css", NULL, FALSE, TRUE);
-	    	$this->CSS("$this->themeRoute/css/mediaqueries.css", NULL, FALSE, TRUE);
+	    	$this->CSS("$this->themeRoute/css/style.css", null, false, true);
+	    	$this->CSS("$this->themeRoute/css/mediaqueries.css", null, false, true);
 	    }
 
-    	if(segment(0, isLang()) !== "polls") {
-    		$this->CSS("polls", "polls", FALSE, TRUE);
+    	if (segment(0, isLang()) !== "polls") {
+    		$this->CSS("polls", "polls", false, true);
     	}
         
-		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", NULL, FALSE, TRUE);
+		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", null, false, true);
 		
 
-		if(defined("_codemirror")) {
-            $this->CSS("codemirror", NULL, FALSE, TRUE);
+		if (defined("_codemirror")) {
+            $this->CSS("codemirror", null, false, true);
         }
 
-        if(segment(0, isLang()) === "live") {
-			$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", NULL, FALSE, TRUE);
-			$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", NULL, FALSE, TRUE);
-			$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", NULL, FALSE, TRUE);
+        if (segment(0, isLang()) === "live") {
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", null, false, true);
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", null, false, true);
+			$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", null, false, true);
 		}
 
 		echo $this->getCSS(); 		
@@ -97,7 +98,7 @@
 							<input id="register-password" name="password" class="register-input" type="password" required placeholder="<?php echo __("Password"); ?>" /> <br />
 							<input name="register" class="register-submit" type="submit" value="<?php echo __("Register on CodeJobs!"); ?>" />
 							<br />
-							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="<?php echo path("users/service/twitter"); ?>" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>
+							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", true); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="<?php echo path("users/service/twitter"); ?>" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", true); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>
 						</fieldset>
 					</form>
 				</div>
@@ -115,7 +116,7 @@
 							<input name="login" class="login-submit" type="submit" value="<?php echo __("Login"); ?>" />		 					
 							<br />
 							<br />
-							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="<?php echo path("users/service/twitter"); ?>" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", TRUE); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>					
+							<a href="<?php echo path("users/service/facebook/login"); ?>" title="<?php echo __("Sign in with Facebook"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/facebook_$lang.png", true); ?>" alt="<?php echo __("Sign in with Facebook"); ?>" class="no-border" /><br /><a href="<?php echo path("users/service/twitter"); ?>" title="<?php echo __("Sign in with Twitter"); ?>"><img src="<?php echo path("www/applications/users/views/images/login/twitter_$lang.png", true); ?>" alt="<?php echo __("Sign in with Twitter"); ?>" class="no-border" /></a>					
 						</fieldset>
 					</form>
 				</div>
@@ -124,10 +125,10 @@
 					<div class="top-box-profile">
 						<div style="float: left; width: 90px;">
 							<?php
-								if(substr(SESSION("ZanUserAvatar"), 0, 4) === "http") {
+								if (substr(SESSION("ZanUserAvatar"), 0, 4) === "http") {
 									$avatar = SESSION("ZanUserAvatar");
 								} else {
-									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), TRUE);
+									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), true);
 								}
 							?>
 							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" style="max-width: 70px;" />
@@ -169,7 +170,7 @@
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div-->
 
 							<?php
-								if(SESSION("ZanUserPrivilegeID") <= 2) {
+								if (SESSION("ZanUserPrivilegeID") <= 2) {
 								?>
 									<span class="small grey"><a href="<?php echo path("cpanel"); ?>"><?php echo __("Go to CPanel"); ?></a></span><br />
 								<?php
@@ -186,7 +187,7 @@
 				<div id="top-box">
 					<ul class="top-box-ul">
 						<?php
-							if(!SESSION("ZanUser")) {
+							if (!SESSION("ZanUser")) {
 						?>
 								<li class="float-right">
 									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
@@ -213,11 +214,11 @@
 						
 						<li class="float-right">
 							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
-								<?php echo getLanguage(whichLanguage(), TRUE); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
+								<?php echo getLanguage(whichLanguage(), true); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
 							</a>
 						</li>
 
-						<li class="float-right" style="margin-right:10px;">
+						<li class="float-right" style="margin-right:5px;">
 							<div class="input-append">
 								<select id="search-app" class="info" style="width:115px; margin-top: 3px; margin-right: 5px;">
 								  	<option value="blog"><?php echo __("Blog"); ?></option>
@@ -242,47 +243,40 @@
 			<div class="clear"></div>
 		</div>
 		<?php
-			if(!defined("_hideWrapper")) {
+		if (!defined("_hideWrapper")) {
 		?>
-		<div id="wrapper">
-			<div id="logo">
-				<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", TRUE); ?>" alt="CodeJobs" class="noborder" /></a>
-			</div>
+			<div id="wrapper">
+				<div id="logo">
+					<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", true); ?>" alt="CodeJobs" class="noborder" /></a>
+				</div>
 
-			<?php
-				if(segment(0, isLang()) === "bookmarks") {
-					$application = "bookmarks";
-				} else {
-					$application = "blog";
-				}
-			?>
-			<nav>
-				<ul>
-					<li><a href="<?php echo path("$application/tag/ajax"); ?>">Ajax</a></li>
-					<li><a href="<?php echo path("$application/tag/android"); ?>">Android</a></li>
-					<li><a href="<?php echo path("$application/tag/backbone"); ?>">Backbone.js</a></li>
-					<li><a href="<?php echo path("$application/tag/codeigniter"); ?>">CodeIgniter</a></li>
-					<li><a href="<?php echo path("$application/tag/css3"); ?>">CSS3</a></li>
-					<li><a href="<?php echo path("$application/tag/databases"); ?>">Databases</a></li>
-					<li><a href="<?php echo path("$application/tag/emarketing"); ?>">eMarketing</a></li>
-					<li><a href="<?php echo path("$application/tag/git"); ?>">Git &amp; Github</a></li>
-					<li><a href="<?php echo path("$application/tag/html5"); ?>">HTML5</a></li>
-					<li><a href="<?php echo path("$application/tag/ios"); ?>">iOS</a></li>
-					<li><a href="<?php echo path("$application/tag/java"); ?>">Java</a></li>
-					<li><a href="<?php echo path("$application/tag/javascript"); ?>">Javascript</a></li>
-					<li><a href="<?php echo path("$application/tag/jquery"); ?>">jQuery</a></li>
-					<li><a href="<?php echo path("$application/tag/mongodb"); ?>">MongoDB</a></li>
-					<li><a href="<?php echo path("$application/tag/mysql"); ?>">MySQL</a></li>
-					<li><a href="<?php echo path("$application/tag/nodejs"); ?>">Node.js</a></li>
-					<li><a href="<?php echo path("$application/tag/php"); ?>">PHP</a></li>
-					<li><a href="<?php echo path("$application/tag/python"); ?>">Python</a></li>
-					<li><a href="<?php echo path("$application/tag/ruby"); ?>">Ruby</a></li>
-					<li><a href="<?php echo path("$application/tag/ror"); ?>">RoR</a></li>
-					<li><a href="<?php echo path("$application/tag/social-media"); ?>">Social Media</a></li>		
-					<li><a href="<?php echo path("$application/tag/zanphp"); ?>">ZanPHP</a></li>
-				</ul>
-			</nav>
-		</div>
+				<nav>
+					<ul>
+						<li><a href="<?php echo path("$application/tag/ajax"); ?>">Ajax</a></li>
+						<li><a href="<?php echo path("$application/tag/android"); ?>">Android</a></li>
+						<li><a href="<?php echo path("$application/tag/backbone"); ?>">Backbone.js</a></li>
+						<li><a href="<?php echo path("$application/tag/codeigniter"); ?>">CodeIgniter</a></li>
+						<li><a href="<?php echo path("$application/tag/css3"); ?>">CSS3</a></li>
+						<li><a href="<?php echo path("$application/tag/databases"); ?>">Databases</a></li>
+						<li><a href="<?php echo path("$application/tag/emarketing"); ?>">eMarketing</a></li>
+						<li><a href="<?php echo path("$application/tag/git"); ?>">Git &amp; Github</a></li>
+						<li><a href="<?php echo path("$application/tag/html5"); ?>">HTML5</a></li>
+						<li><a href="<?php echo path("$application/tag/ios"); ?>">iOS</a></li>
+						<li><a href="<?php echo path("$application/tag/java"); ?>">Java</a></li>
+						<li><a href="<?php echo path("$application/tag/javascript"); ?>">Javascript</a></li>
+						<li><a href="<?php echo path("$application/tag/jquery"); ?>">jQuery</a></li>
+						<li><a href="<?php echo path("$application/tag/mongodb"); ?>">MongoDB</a></li>
+						<li><a href="<?php echo path("$application/tag/mysql"); ?>">MySQL</a></li>
+						<li><a href="<?php echo path("$application/tag/nodejs"); ?>">Node.js</a></li>
+						<li><a href="<?php echo path("$application/tag/php"); ?>">PHP</a></li>
+						<li><a href="<?php echo path("$application/tag/python"); ?>">Python</a></li>
+						<li><a href="<?php echo path("$application/tag/ruby"); ?>">Ruby</a></li>
+						<li><a href="<?php echo path("$application/tag/ror"); ?>">RoR</a></li>
+						<li><a href="<?php echo path("$application/tag/social-media"); ?>">Social Media</a></li>		
+						<li><a href="<?php echo path("$application/tag/zanphp"); ?>">ZanPHP</a></li>
+					</ul>
+				</nav>
+			</div>
 		<?php
 			}
 		?>

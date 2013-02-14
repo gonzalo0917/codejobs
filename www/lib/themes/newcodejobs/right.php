@@ -1,10 +1,13 @@
 <?php
-    if((segment(0, isLang()) !== "live" and segment(0, isLang()) !== "forums" and segment(1, isLang()) !== "add") and !defined("_hideRight")) { 
+    if (
+        (segment(0, isLang()) !== "live" and 
+        segment(0, isLang()) !== "forums" and 
+        segment(1, isLang()) !== "add") and 
+        !defined("_hideRight")
+    ) { 
 ?>
         <aside>
-            <?php
-            echo display('<section class="ads">'. getAd("336px") .'</section>', 4);
-            ?>  
+            <?php echo display('<section class="ads">'. getAd() .'</section>', 4); ?>  
             <div class="line"></div>
 
             <section class="facebook-like">
@@ -64,7 +67,7 @@
                 <?php $this->execute("Blog_Controller", "relevant"); ?>
             </section>
 
-            <?php if(segment(0, isLang()) !== "polls") { ?>
+            <?php if (segment(0, isLang()) !== "polls") { ?>
             <section class="polls">
                 <?php $this->execute("Polls_Controller", "last"); ?>
             </section>
