@@ -151,7 +151,7 @@ echo div("add-form", "class");
 			echo img(path($medium, true));
 		}
 		
-		echo formSave($action, true, $ID);
+		echo formAction($action, true, $ID);
 		echo formInput(array("id" => "ID_Post", 	"name" => "ID", 		"type" => "hidden", "value" => $ID));
 		echo formInput(array("id" => "ID_User", 	"name" => "ID_User", 	"type" => "hidden", "value" => $userID));
 		echo formInput(array("id" => "code", 		"name" => "code", 		"type" => "hidden", "value" => code(10)));

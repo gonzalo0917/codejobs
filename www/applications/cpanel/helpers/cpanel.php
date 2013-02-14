@@ -11,6 +11,7 @@ function getCheckbox($ID, $disabled = null)
 function getAction($trash = false, $ID, $delete = true, $edit = true, $comments = false)
 {
 	global $Load;
+
 	$delete = ($delete) ? $Load->execute("Users_Model", "isAllow", array("delete"), "model") : $delete;
 	$edit = ($edit) ? $Load->execute("Users_Model", "isAllow", array("edit"), "model") : $edit;
 	$application = whichApplication();
@@ -138,14 +139,15 @@ function getSearch()
 	
 	$HTML .= formSelect(array("name" => "field", "class" => "span2 required"), $fields);
 	$HTML .= bold(__("Order") . ":", false);
-	$options[0]["value"] = "ASC";
-	$options[0]["option"] = __("Ascending");
-	$options[0]["selected"] = true;
-	$options[1]["value"] = "DESC";
-	$options[1]["option"] = __("Descending");
-	$options[1]["selected"] = false;
+	
+	$options = array(
+		0 => array("value" => "ASC", "option" => __("Ascending"), "selected" => true),
+		1 => array("value" => "DESC", "option" => __("Descending"), "selected" => false)
+	);
+	
 	$HTML .= formSelect(array("name" => "order", "class" => "span2 required"), $options);
 	$HTML .= formInput(array("name" => "seek", "type" => "submit", "class" => "btn btn-info", "value" => __("Seek")));
+
 	return $HTML;
 }
 
