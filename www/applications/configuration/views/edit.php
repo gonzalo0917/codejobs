@@ -235,7 +235,7 @@
 			
 			echo formField(null, __("Languages") ."<br />". getLanguagesInput($language));
 			
-			echo formSave("edit");
+			echo formAction("edit");
 
 		echo formClose();
 	echo div(false);

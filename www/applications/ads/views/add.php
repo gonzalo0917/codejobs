@@ -48,34 +48,34 @@
 
 			$options = array(
 				0 => array(
-						"value"    => "Top",
-						"option"   => __("Top") ." (960x100px)",
-						"selected" => ($position === "Top") ? true : false
-					),
+					"value"    => "Top",
+					"option"   => __("Top") ." (960x100px)",
+					"selected" => ($position === "Top") ? true : false
+				),
 
 				1 => array(
-						"value"    => "Left",
-						"option"   => __("Left") ." (120x600px, 250x250px)",
-						"selected" => ($position === "Left") ? true : false
-					),
+					"value"    => "Left",
+					"option"   => __("Left") ." (120x600px, 250x250px)",
+					"selected" => ($position === "Left") ? true : false
+				),
 
 				2 => array(
-						"value"    => "Right",
-						"option"   => __("Right") ." (120x600px, 250x250px)",
-						"selected" => ($position === "Right") ? true : false
-					),
+					"value"    => "Right",
+					"option"   => __("Right") ." (120x600px, 250x250px)",
+					"selected" => ($position === "Right") ? true : false
+				),
 
 				3 => array(
-						"value"    => "Bottom",
-						"option"   => __("Bottom") ." (960x100px)",
-						"selected" => ($position === "Bottom") ? true : false
-					),
+					"value"    => "Bottom",
+					"option"   => __("Bottom") ." (960x100px)",
+					"selected" => ($position === "Bottom") ? true : false
+				),
 
 				4 => array(
-						"value"    => "Center",
-						"option"   => __("Center") ." (600x100px)",
-						"selected" => ($position === "Center") ? true : false
-					),
+					"value"    => "Center",
+					"option"   => __("Center") ." (600x100px)",
+					"selected" => ($position === "Center") ? true : false
+				),
 			);
 
 			echo formSelect(array(
@@ -105,16 +105,16 @@
 
 			$options = array(
 				0 => array(
-						"value"    => 1,
-						"option"   => __("Yes"),
-						"selected" => ((int) $principal === 1) ? true : false
-					),
+					"value"    => 1,
+					"option"   => __("Yes"),
+					"selected" => ((int) $principal === 1) ? true : false
+				),
 				
 				1 => array(
-						"value"    => 0,
-						"option"   => __("No"),
-						"selected" => ((int) $principal === 0) ? true : false
-					)
+					"value"    => 0,
+					"option"   => __("No"),
+					"selected" => ((int) $principal === 0) ? true : false
+				)
 			);
 
 			echo formSelect(array(
@@ -127,16 +127,16 @@
 			
 			$options = array(
 				0 => array(
-						"value"    => "Active",
-						"option"   => __("Active"),
-						"selected" => ($situation === "Active") ? true : false
-					),
+					"value"    => "Active",
+					"option"   => __("Active"),
+					"selected" => ($situation === "Active") ? true : false
+				),
 				
 				1 => array(
-						"value"    => "Inactive",
-						"option"   => __("Inactive"),
-						"selected" => ($situation === "Inactive") ? true : false
-					)
+					"value"    => "Inactive",
+					"option"   => __("Inactive"),
+					"selected" => ($situation === "Inactive") ? true : false
+				)
 			);
 
 			echo formSelect(array(
@@ -147,7 +147,7 @@
 				$options
 			);			
 			
-			echo formSave($action);
+			echo formAction($action);
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();

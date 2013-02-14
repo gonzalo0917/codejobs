@@ -1,9 +1,13 @@
 <?php 
-if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here..."); 
+}
 
 $caption = __("Manage Messages");
 $colspan = 6;
+
 echo $search;
+
 $colors[0] = COLOR1;
 $colors[1] = COLOR2;
 $colors[2] = COLOR3;
@@ -41,11 +45,7 @@ $j = 2;
 	<tbody>
 	<?php
 		if ($tFoot) {
-<<<<<<< HEAD
 			foreach ($tFoot as $column) {
-=======
-			foreach ($tFoot as $column) {     
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 				$ID = $column["ID_Feedback"];
 				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];
 				?>
@@ -83,11 +83,7 @@ $j = 2;
 					</td>
 
 					<td class="center">
-<<<<<<< HEAD
-					<?php
-=======
 					<?php 					
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 						echo ($column["Situation"] === "Deleted") ? getAction(true, $ID) : getAction(false, $ID);
 					?>
 					</td>
@@ -102,12 +98,8 @@ $j = 2;
 	<?php echo __("Select"); ?>: <br />
 	<a onclick="javascript:checkAll('records')" class="pointer" title="<?php echo __("All"); ?>"><?php echo __("All"); ?></a> |
 	<a onclick="javascript:unCheckAll('records')" class="pointer" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a><br /><br />
-<<<<<<< HEAD
+
 	<?php
-=======
-	
-	<?php				
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 	if (segment(3, isLang()) === "trash") { 
 	?>
 		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />

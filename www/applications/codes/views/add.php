@@ -143,7 +143,7 @@
 		echo formSelect(array("name" => "situation", "class" => "required", "p" => true, "field" => __("Situation")),
          $options);
 		
-		echo formSave($action);
+		echo formAction($action);
 		
 		echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
         

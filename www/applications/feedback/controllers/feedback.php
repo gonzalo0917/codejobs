@@ -1,10 +1,4 @@
 <?php
-<<<<<<< HEAD
-=======
-/**
- * Access from index.php:
- */
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -30,7 +24,7 @@ class Feedback_Controller extends ZP_Load
 		$this->CSS("new", "users");
 		$this->title("Feedback");
 		$this->helper(array("forms", "html"));
-<<<<<<< HEAD
+
 		$vars["inserted"] = false;
 		$vars["view"] = $this->view("send", true);
 
@@ -38,17 +32,6 @@ class Feedback_Controller extends ZP_Load
 			$vars["alert"] = $this->Feedback_Model->send();
 		}
 
-=======
-		
-		$vars["inserted"] = false;
-
-		$vars["view"] = $this->view("send", true);
-		
-		if (POST("send")) {						
-			$vars["alert"] = $this->Feedback_Model->send();			
-		} 
-		
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 		$this->render("content", $vars);
 	}
 }
