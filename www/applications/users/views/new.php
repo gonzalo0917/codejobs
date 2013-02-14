@@ -27,46 +27,46 @@ echo div("new-user", "class");
 		if (!isset($inserted) or !$inserted) {
 			if (!SESSION("UserRegistered")) {
 				echo formInput(array(
-					"id" => "username",
-					"name" => "username",
-					"pattern" => "^[A-Za-z0-9_-]{3,15}$", 
-					"class" => "required", 
-					"field" => __("Username"), 
-					"p" => true, 
-					"value" => recoverPOST("username"),
+					"id"       => "username",
+					"name"     => "username",
+					"pattern"  => "^[A-Za-z0-9_-]{3,15}$", 
+					"class"    => "required", 
+					"field"    => __("Username"), 
+					"p"        => true, 
+					"value"    => recoverPOST("username"),
 					"required" => true
 				));
 
 				echo formInput(array(
-					"name" => "name", 
-					"field" => __("Name"), 
-					"p" => true, 
-					"value" => $name,
+					"name"     => "name", 
+					"field"    => __("Name"), 
+					"p"        => true, 
+					"value"    => $name,
 					"required" => true
 				));
 
 				echo formInput(array(
-					"name" => "password",
-					"type" => "password",
-					"field" => __("Password"), 
-					"p" => true, 
-					"value" => $pwd,
+					"name"     => "password",
+					"type"     => "password",
+					"field"    => __("Password"), 
+					"p"        => true, 
+					"value"    => $pwd,
 					"required" => true
 				));
 
 				echo formInput(array(
-					"name" => "email",
-					"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
-					"type" => "email",
-					"field" => __("Email"), 
-					"p" => true, 
-					"value" => $email,
+					"name"     => "email",
+					"pattern"  => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+					"type"     => "email",
+					"field"    => __("Email"), 
+					"p"        => true, 
+					"value"    => $email,
 					"required" => true
 				));
 				
 				echo formInput(array(
-					"name" => "register",
-					"type" => "submit",
+					"name"  => "register",
+					"type"  => "submit",
 					"class" => "submit",
 					"value" => __("Create my account")
 				));

@@ -160,7 +160,7 @@
 ?>
 
 <script>
-var empty_message = "<?php echo __("You must choose an answer"); ?>",
+var empty_message   = "<?php echo __("You must choose an answer"); ?>",
 	sending_message = "<?php echo __("Voting"); ?>",
-	poll_selector = "<?php echo isset($special) ? "#poll-container" : "section.polls"; ?>";
+	poll_selector   = "<?php echo isset($special) ? "#poll-container" : "section.polls"; ?>";
 </script>

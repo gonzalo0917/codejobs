@@ -23,8 +23,8 @@
 				);
 
 				echo formInput(array(
-					"name" => "resume",
-					"type" => "button",
+					"name"  => "resume",
+					"type"  => "button",
 					"class" => "btn",
 					"value" => __("Restore image")
 				));
@@ -45,82 +45,82 @@
 			echo div(false);
 
 			echo formInput(array(
-				"id" => "coordinate",
-				"name" => "coordinate",
-				"type" => "hidden",
+				"id"    => "coordinate",
+				"name"  => "coordinate",
+				"type"  => "hidden",
 				"value" => $coordinate
 			));
 
 			echo formInput(array(
-				"id" => "file",
-				"name" => "file",
-				"type" => "hidden",
+				"id"    => "file",
+				"name"  => "file",
+				"type"  => "hidden",
 				"value" => ""
 			));
 
 			echo formInput(array(
-				"id" => "resized",
-				"name" => "resized",
-				"type" => "hidden",
+				"id"    => "resized",
+				"name"  => "resized",
+				"type"  => "hidden",
 				"value" => ""
 			));
 
 			echo formInput(array(
-				"id" => "name",
-				"name" => "name",
-				"type" => "hidden",
+				"id"    => "name",
+				"name"  => "name",
+				"type"  => "hidden",
 				"value" => ""
 			));
 
 			echo formInput(array(
-				"id" => "type",
-				"name" => "type",
-				"type" => "hidden",
+				"id"    => "type",
+				"name"  => "type",
+				"type"  => "hidden",
 				"value" => ""
 			));
 
 			echo formInput(array(
-				"id" => "size",
-				"name" => "size",
-				"type" => "hidden",
+				"id"    => "size",
+				"name"  => "size",
+				"type"  => "hidden",
 				"value" => ""
 			));
 
 			echo formInput(array(
-				"id" => "small-error",
-				"type" => "hidden",
+				"id"    => "small-error",
+				"type"  => "hidden",
 				"value" => __("The file size must be greater than or equal to 1KB")
 			));
 
 			echo formInput(array(
-				"id" => "big-error",
-				"type" => "hidden",
+				"id"    => "big-error",
+				"type"  => "hidden",
 				"value" => __("The file size must be less than or equal to 5MB")
 			));
 
 			echo formInput(array(
-				"id" => "type-error",
-				"type" => "hidden",
+				"id"    => "type-error",
+				"type"  => "hidden",
 				"value" => __("Image type not supported")
 			));
 
 			echo formInput(array(
-				"id" => "delete-message",
-				"type" => "hidden",
+				"id"    => "delete-message",
+				"type"  => "hidden",
 				"value" => __("Are you sure you want to delete the current avatar image?")
 			));
 
 			echo div("avatar", "class");
 				echo formInput(array(
-					"name" => "save", 
+					"name"  => "save", 
 					"class" => "btn btn-success", 
 					"value" => __("Save"), 
-					"type" => "submit"
+					"type"  => "submit"
 				));
 
 				echo formInput(array(
-					"name" => "delete",
-					"type" => "submit",
+					"name"  => "delete",
+					"type"  => "submit",
 					"class" => "btn btn-danger",
 					"value" => __("Delete")
 				));

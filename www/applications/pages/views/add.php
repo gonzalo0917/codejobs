@@ -20,20 +20,20 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
-				"type" => "text", 
-				"name" => "title", 
+				"type"  => "text", 
+				"name"  => "title", 
 				"class" => "span10 required", 
 				"field" => __("Title"), 
-				"p" => true, 
+				"p"     => true, 
 				"value" => stripslashes($title)
 			));
 
 			echo formTextarea(array(
-				"id" => "editor", 
-				"name" => "content", 
+				"id"    => "editor", 
+				"name"  => "content", 
 				"style" => "height: 400px;", 
 				"field" => __("Content"), 
-				"p" => true, 
+				"p"     => true, 
 				"value" => $content)
 			);
 
@@ -41,44 +41,44 @@
 
 			$options = array(
 				0 => array(
-						"value" => 1,
-						"option" => __("Yes"),
+						"value"    => 1,
+						"option"   => __("Yes"),
 						"selected" => ((int) $principal === 1) ? true : false
 					),
 
 				1 => array(
-						"value" => 0,
-						"option" => __("No"),
+						"value"    => 0,
+						"option"   => __("No"),
 						"selected" => ((int) $principal === 0) ? true : false
 					)
 			);
 
 			echo formSelect(array(
-				"name" => "principal", 
+				"name"  => "principal", 
 				"class" => "required", 
-				"p" => true, 
+				"p"     => true, 
 				"field" => __("Principal")), 
 				$options
 			);
 
 			$options = array(
 				0 => array(
-						"value" => "Active",
-						"option" => __("Active"),
+						"value"    => "Active",
+						"option"   => __("Active"),
 						"selected" => ($situation === "Active") ? true : false
 					),
 
 				1 => array(
-						"value" => "Inactive",
-						"option" => __("Inactive"),
+						"value"    => "Inactive",
+						"option"   => __("Inactive"),
 						"selected" => ($situation === "Inactive") ? true : false
 					)
 			);
 
 			echo formSelect(array(
-				"name" => "situation", 
+				"name"  => "situation", 
 				"class" => "required", 
-				"p" => true, 
+				"p"     => true, 
 				"field" => __("Situation")), 
 				$options
 			);

@@ -27,21 +27,21 @@ echo div("login-form", "class");
 		if (!isset($inserted) or !$inserted) {
 			if (!SESSION("UserRegistered")) {
 				echo formInput(array(
-					"id" => "username",
-					"name" => "username",
+					"id"        => "username",
+					"name"      => "username",
 					"maxlength" => "30", 
-					"field" => __("Username"), 
-					"p" => true, 
-					"value" => recoverPOST("username")
+					"field"     => __("Username"), 
+					"p"         => true, 
+					"value"     => recoverPOST("username")
 				));
 
 				echo formInput(array(
-					"id" => "password",
-					"name" => "password",
+					"id"        => "password",
+					"name"      => "password",
 					"maxlength" => "30",
-					"type" => "password",
-					"field" => __("Password"), 
-					"p" => true
+					"type"      => "password",
+					"field"     => __("Password"), 
+					"p"         => true
 				));
 
 				echo a(
@@ -52,8 +52,8 @@ echo div("login-form", "class");
 				);
 
 				echo formInput(array(
-					"name" => "login",
-					"type" => "submit",
+					"name"  => "login",
+					"type"  => "submit",
 					"class" => "btn btn-success",
 					"value" => __("Log in")
 				));

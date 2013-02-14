@@ -23,32 +23,32 @@ echo div("add-form", "class");
 			echo isset($alert) ? $alert : null;
 			
 			echo formInput(array(
-				"name" => "title", 
-				"class" => "span5 required", 
-				"field" => __("Title"), 
-				"p" => true, 
+				"name"        => "title", 
+				"class"       => "span5 required", 
+				"field"       => __("Title"), 
+				"p"           => true, 
 				"placeholder" => __("Type the title of the work"),
-				"value" => $title 
+				"value"       => $title 
 			));
 
 			echo formInput(array(
-				"name" => "URL", 
-				"class" => "span5 required", 
-				"field" => __("URL"), 
-				"p" => true, 
+				"name"        => "URL", 
+				"class"       => "span5 required", 
+				"field"       => __("URL"), 
+				"p"           => true, 
 				"placeholder" => __("Type the URL of the website"),
-				"value" => $title 
+				"value"       => $title 
 			));
 
 			echo formTextarea(array(
-				"id" => "redactor",
-				"name" => "description", 
-				"class" => "markItUp", 
-				"style" => "height: 240px;", 
-				"field" => __("Description"), 
-				"p" => true, 
+				"id"          => "redactor",
+				"name"        => "description", 
+				"class"       => "markItUp", 
+				"style"       => "height: 240px;", 
+				"field"       => __("Description"), 
+				"p"           => true, 
 				"placeholder" => __("Enter the details of the work"),
-				"value" => stripslashes($description)
+				"value"       => stripslashes($description)
 			));
 
 			if (isset($image)) {
@@ -61,10 +61,10 @@ echo div("add-form", "class");
 			}
 
 			echo formInput(array(
-				"type" => "file",
-				"name" => "image",
+				"type"  => "file",
+				"name"  => "image",
 				"field" => __("Image"),
-				"p" => true
+				"p"     => true
 			));
 
 			if (isset($preview1)) {
@@ -77,10 +77,10 @@ echo div("add-form", "class");
 			}
 
 			echo formInput(array(
-				"type" => "file", 
-				"name" => "preview1",
+				"type"  => "file", 
+				"name"  => "preview1",
 				"field" => __("Preview1"),
-				"p" => true
+				"p"     => true
 			));
 
 			if (isset($preview2)) {
@@ -93,22 +93,22 @@ echo div("add-form", "class");
 			}
 
 			echo formInput(array(
-				"type" => "file", 
-				"name" => "preview2", 
+				"type"  => "file", 
+				"name"  => "preview2", 
 				"field" => __("Preview2"),
-				"p" => true
+				"p"     => true
 			));
 
 			$options = array(
-				0 => array("value" => "Draft", "option" => __("Draft"), "selected" => ($situation === "Draft") ? true : false),
-				1 => array("value" => "Active", "option" => __("Active"), "selected" => ($situation === "Active") ? true : false),
+				0 => array("value" => "Draft", "option"    => __("Draft"), "selected"    => ($situation === "Draft")    ? true : false),
+				1 => array("value" => "Active", "option"   => __("Active"), "selected"   => ($situation === "Active")   ? true : false),
 				2 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 			);
 
 			echo formSelect(array(
-				"id" => "situation",
-				"name" => "situation", 
-				"p" => true, 
+				"id"    => "situation",
+				"name"  => "situation", 
+				"p"     => true, 
 				"class" => "required", 
 				"field" => __("Situation")), 
 				$options

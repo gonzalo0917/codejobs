@@ -13,55 +13,55 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
-				"name" => "twitter", 
-				"class" => "field-title field-full-size",
-				"field" => __("Twitter"), 
-				"p" => true,
+				"name"      => "twitter", 
+				"class"     => "field-title field-full-size",
+				"field"     => __("Twitter"), 
+				"p"         => true,
 				"maxlength" => "150",
-				"value" => $twitter
+				"value"     => $twitter
 			));
 
 			echo formInput(array(
-				"name" => "facebook", 
-				"class" => "field-title field-full-size",
-				"field" => __("Facebook"), 
-				"p" => true,
+				"name"      => "facebook", 
+				"class"     => "field-title field-full-size",
+				"field"     => __("Facebook"), 
+				"p"         => true,
 				"maxlength" => "150",
-				"value" => $facebook
+				"value"     => $facebook
 			));
 
 			echo formInput(array(
-				"name" => "linkedin", 
-				"class" => "field-title field-full-size",
-				"field" => __("Linkedin"), 
-				"p" => true,
+				"name"      => "linkedin", 
+				"class"     => "field-title field-full-size",
+				"field"     => __("Linkedin"), 
+				"p"         => true,
 				"maxlength" => "150",
-				"value" => $linkedin
+				"value"     => $linkedin
 			));
 
 			echo formInput(array(
-				"name" => "google", 
-				"class" => "field-title field-full-size",
-				"field" => __("Google"), 
-				"p" => true,
+				"name"      => "google", 
+				"class"     => "field-title field-full-size",
+				"field"     => __("Google"), 
+				"p"         => true,
 				"maxlength" => "150",
-				"value" => $google
+				"value"     => $google
 			));
 
 			echo formInput(array(
-				"name" => "viadeo", 
-				"class" => "field-title field-full-size",
-				"field" => __("Viadeo"), 
-				"p" => true,
+				"name"      => "viadeo", 
+				"class"     => "field-title field-full-size",
+				"field"     => __("Viadeo"), 
+				"p"         => true,
 				"maxlength" => "150",
-				"value" => $viadeo
+				"value"     => $viadeo
 			));
 
 			echo formInput(array(
-				"name" => "save", 
+				"name"  => "save", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
-				"type" => "submit"
+				"type"  => "submit"
 			));
 
 		echo formClose();
@@ -70,6 +70,6 @@
 <script>
 	var acceptLabel = "<?php echo __("Accept"); ?>",
 		cancelLabel = "<?php echo __("Cancel"); ?>",
-		inputLabel = "<?php echo __("Input your password"); ?>",
+		inputLabel  = "<?php echo __("Input your password"); ?>",
 		btnSelector = 'input[type="submit"]:first';
 </script>

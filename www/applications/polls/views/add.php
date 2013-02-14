@@ -18,10 +18,10 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
-				"name" => "title", 
+				"name"  => "title", 
 				"class" => "span10 required", 
 				"field" => __("Question"), 
-				"p" => true, 
+				"p"     => true, 
 				"value" => $title
 			));
 
@@ -58,13 +58,13 @@
 			echo formField(null, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));
 
 			$options = array(
-				0 => array("value" => "Active", "option" => __("Active"), "selected" => ($situation === "Active") ? true : false),
+				0 => array("value" => "Active", "option"   => __("Active"), "selected"   => ($situation === "Active")   ? true : false),
 				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 			);
 
 			echo formSelect(array(
-				"name" => "situation", 
-				"p" => true, 
+				"name"  => "situation", 
+				"p"     => true, 
 				"class" => "required", 
 				"field" => __("Situation")), 
 				$options

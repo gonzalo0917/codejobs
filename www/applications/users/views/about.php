@@ -16,22 +16,22 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(
-				"name" => "name", 
-				"class" => "field-title field-full-size",
-				"field" => __("Full name") ."*", 
-				"p" => true,
+				"name"      => "name", 
+				"class"     => "field-title field-full-size",
+				"field"     => __("Full name") ."*", 
+				"p"         => true,
 				"maxlength" => "150",
-				"value" => $name
+				"value"     => $name
 			));
 
 			$options = array(
-				array("value" => 'M', "option" => __("Male"), "selected" => $gender === 'M' ? true : false),
+				array("value" => 'M', "option" => __("Male"), "selected"   => $gender === 'M' ? true : false),
 				array("value" => 'F', "option" => __("Female"), "selected" => $gender === 'F' ? true : false)
 			);
 
 			echo formSelect(array(
-				"name" => "gender", 
-				"p" => true, 
+				"name"  => "gender", 
+				"p"     => true, 
 				"field" => __("Gender") ."*"),
 				$options
 			);
@@ -39,13 +39,13 @@
 			$months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
 
 			echo formInput(array(
-				"name" => "birthday", 
-				"class" => "field-title span3 jdpicker",
-				"field" => __("Date of birth") ."*", 
-				"p" => true,
-				"value" => $birthday,
-				"type" => "hidden",
-				"maxlength" => "10",
+				"name"         => "birthday", 
+				"class"        => "field-title span3 jdpicker",
+				"field"        => __("Date of birth") ."*", 
+				"p"            => true,
+				"value"        => $birthday,
+				"type"         => "hidden",
+				"maxlength"    => "10",
 				"data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
 			));
 
@@ -58,8 +58,8 @@
 			}
 
 			echo formSelect(array(
-				"name" => "country", 
-				"p" => true, 
+				"name"  => "country", 
+				"p"     => true, 
 				"field" => __("Country") ."*"),
 				$countries
 			);
@@ -73,54 +73,54 @@
 			}
 
 			echo formSelect(array(
-				"name" => "city", 
-				"p" => true, 
-				"field" => __("City") ."*",
+				"name"     => "city", 
+				"p"        => true, 
+				"field"    => __("City") ."*",
 				"disabled" => !isset($cities)
 				), isset($cities) ? $cities : array()
 			);
 
 			echo formInput(array(
-				"name" => "district", 
-				"class" => "field-title span3",
-				"field" => __("District"), 
-				"p" => true, 
+				"name"      => "district", 
+				"class"     => "field-title span3",
+				"field"     => __("District"), 
+				"p"         => true, 
 				"maxlength" => "100",
-				"value" => $district
+				"value"     => $district
 			));
 
 			echo formInput(array(
-				"name" => "phone", 
-				"class" => "field-title span3",
-				"field" => __("Phone"), 
-				"p" => true, 
+				"name"      => "phone", 
+				"class"     => "field-title span3",
+				"field"     => __("Phone"), 
+				"p"         => true, 
 				"maxlength" => "15",
-				"value" => $phone
+				"value"     => $phone
 			));
 
 			echo formInput(array(
-				"name" => "mobile", 
-				"class" => "field-title span3",
-				"field" => __("Mobile phone"), 
-				"p" => true, 
+				"name"      => "mobile", 
+				"class"     => "field-title span3",
+				"field"     => __("Mobile phone"), 
+				"p"         => true, 
 				"maxlength" => "15",
-				"value" => $mobile
+				"value"     => $mobile
 			));
 
 			echo formInput(array(
-				"name" => "website", 
-				"class" => "field-title field-full-size",
-				"field" => __("Website"),
-				"value" => $website, 
-				"p" => true,
+				"name"      => "website", 
+				"class"     => "field-title field-full-size",
+				"field"     => __("Website"),
+				"value"     => $website, 
+				"p"         => true,
 				"maxlength" => "100"
 			));
 
 			echo formInput(array(
-				"name" => "save", 
+				"name"  => "save", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
-				"type" => "submit"
+				"type"  => "submit"
 			));
 
 		echo formClose();
