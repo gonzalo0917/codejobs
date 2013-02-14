@@ -1,4 +1,8 @@
-<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 		
+<?php
+
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here..."); 
+}
 
 header("Content-Type: application/rss+xml"); 
 echo "<?xml version='1.0' encoding='utf-8'?>";

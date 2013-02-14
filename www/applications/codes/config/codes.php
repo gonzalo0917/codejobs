@@ -7,4 +7,4 @@ if(!defined("ACCESS")) {
 }
 
 define("MAX_LIMIT", 10);
-define("CODE_MIRROR", TRUE);
+define("CODE_MIRROR", true);

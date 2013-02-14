@@ -3,16 +3,16 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Bookmark"]) 			: 0;
-	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
-	$description = isset($data) ? recoverPOST("description", $data[0]["Description"]) 	: recoverPOST("description");
-	$URL         = isset($data) ? recoverPOST("URL", $data[0]["URL"]) 					: recoverPOST("URL");
-	$tags    	 = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) 				: recoverPOST("tags");
-	$author    	 = isset($data) ? recoverPOST("author", $data[0]["Author"])        		: SESSION("ZanUser");
-	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
-	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
-	$action	     = isset($data) ? "edit"												: "save";
-	$href	     = isset($data) ? path(whichApplication() ."/cpanel/edit/$ID") 			: path(whichApplication() ."/cpanel/add/");
+	$ID = isset($data) ? recoverPOST("ID", $data[0]["ID_Bookmark"]) : 0;
+	$title = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
+	$description = isset($data) ? recoverPOST("description", $data[0]["Description"]) : recoverPOST("description");
+	$URL = isset($data) ? recoverPOST("URL", $data[0]["URL"]) : recoverPOST("URL");
+	$tags = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) : recoverPOST("tags");
+	$author = isset($data) ? recoverPOST("author", $data[0]["Author"]) : SESSION("ZanUser");
+	$language = isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
+	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
+	$action = isset($data) ? "edit" : "save";
+	$href = isset($data) ? path(whichApplication() ."/cpanel/edit/$ID") : path(whichApplication() ."/cpanel/add/");
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -21,45 +21,45 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
-				"name" 	=> "title", 
+				"name" => "title", 
 				"class" => "span10 required", 
 				"field" => __("Title"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => stripslashes($title)
 			));
 
 			echo formInput(array(	
-				"name" 	=> "URL", 
+				"name" => "URL", 
 				"class" => "span10 required", 
 				"field" => __("URL"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => $URL
 			));
 			
 			echo formTextarea(array(	
-				"id" 	 => "editor", 
-				"name" 	 => "description", 
-				"class"  => "required",
-				"style"  => "height: 200px;", 
-				"field"  => __("Description"), 
-				"p" 	 => true, 
-				"value"  => $description
+				"id" => "editor", 
+				"name" => "description", 
+				"class" => "required",
+				"style" => "height: 200px;", 
+				"field" => __("Description"), 
+				"p" => true, 
+				"value" => $description
 			));
 
 			echo formInput(array(	
-				"name" 	=> "tags", 
+				"name" => "tags", 
 				"class" => "span10 required", 
 				"field" => __("Tags"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => $tags
 			));
 
 			echo formInput(array(	
-				"id"    => "author",
-				"name" 	=> "author", 
+				"id" => "author",
+				"name" => "author", 
 				"class" => "span2 required", 
 				"field" => __("Author"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => stripslashes($author)
 			));
 

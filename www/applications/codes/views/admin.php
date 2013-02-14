@@ -1,5 +1,7 @@
 <?php 
-	if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+	if (!defined("ACCESS")) {
+		die("Error: You don't have permission to access here..."); 
+	}
 
 	if (is_array($records)) {
 		$count = count($records);
@@ -56,7 +58,7 @@
 			<?php
 				if ($count > 0) {
 					foreach ($records as $column) {
-						$URL  	   = $path . $column[$ID_Column] ."/". $column["Slug"];
+						$URL = $path . $column[$ID_Column] ."/". $column["Slug"];
 						$text_date = ucfirst(howLong($column["Start_Date"]));
 			?>
 			<tr>

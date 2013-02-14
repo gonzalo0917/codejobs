@@ -14,8 +14,8 @@ class Blog_Controller extends ZP_Load
 		$this->Cache = $this->core("Cache");
 		$this->Blog_Model = $this->model("Blog_Model");
 		$this->Templates->theme();
-		$this->language = whichLanguage();
-		$this->helper("router");
+		$this->language = whichLanguage();		
+
 		setURL();
 	}
 	
@@ -39,10 +39,12 @@ class Blog_Controller extends ZP_Load
 	public function rss() 
 	{
 		$this->helper("time");
+
 		$data = $this->Cache->data("rss-$this->language", "blog", $this->Blog_Model, "getRSS", array(), 86400);
 		
 		if ($data) {
 			$vars["posts"]= $data;
+
 			$this->view("rss", $vars, $this->application);
 		} else {
 			redirect();
@@ -56,12 +58,14 @@ class Blog_Controller extends ZP_Load
 
 		if (POST("save")) {
 			$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+
 			$vars["alert"] = $this->Blog_Model->add($action);
 		} 
 		
 		if (POST("preview")) {
 			$this->helper(array("forms","html"));
 			$this->title(htmlentities(encode(POST("title", "decode", null)), ENT_QUOTES, "UTF-8"));
+
 			$data = $this->Blog_Model->preview();
 
 			if ($data) {
@@ -71,7 +75,7 @@ class Blog_Controller extends ZP_Load
 				$this->config("user", $this->application);
 
 				$vars["post"] = $data;
-				$vars["URL"]  = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
+				$vars["URL"] = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
 				$vars["view"] = $this->view("preview", true);
 			} else {
 				redirect();
@@ -88,15 +92,15 @@ class Blog_Controller extends ZP_Load
 			}
 
 			$this->CSS("forms", "cpanel");
-
+			$this->CSS("new", "blog");
 			$this->js("redactorjs");
 			$this->js("markitup");
 			$this->js("switch-editor");
 			$this->js("new", "blog");
-
-			$this->CSS("new", "blog");
+			
 			$this->helper(array("html", "forms"));
 			$this->config("user", "blog");
+
 			$vars["view"] = $this->view("new", true);
 		}
 		
@@ -123,6 +127,7 @@ class Blog_Controller extends ZP_Load
 		
 		if ($date) {
 			$vars["date"] = $date;
+
 			$this->view("archive", $vars, $this->application);
 		}				
 		
@@ -238,8 +243,8 @@ class Blog_Controller extends ZP_Load
 	{
 		$this->CSS("posts", $this->application);
 		$this->CSS("pagination");
-		$limit = $this->limit("tag");	
-		
+
+		$limit = $this->limit("tag");
 		$data = $this->Cache->data("tag-$tag-$limit-". $this->language, "blog", $this->Blog_Model, "getByTag", array($tag, $limit));
 		
 		if ($data) {
@@ -319,6 +324,7 @@ class Blog_Controller extends ZP_Load
 		
 		$limit = $this->limit();
 		$data = $this->Cache->data("last-". $this->language ."-$limit", "blog", $this->Blog_Model, "getPosts", array($limit));
+
 		$this->helper(array("html","time"));
 		
 		if ($data) {			

@@ -4,6 +4,6 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("BOOTSTRAP", TRUE);
-define("HIDE_RIGHT", TRUE);
-define("SHOW_LEFT", TRUE);
+define("BOOTSTRAP", true);
+define("HIDE_RIGHT", true);
+define("SHOW_LEFT", true);
