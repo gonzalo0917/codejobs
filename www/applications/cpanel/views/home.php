@@ -1,8 +1,9 @@
-<?php if (!defined("ACCESS")) { die("Error: You don't have permission to access here..."); } ?>
-<<<<<<< HEAD
-=======
+<?php 
+	if (!defined("ACCESS")) { 
+		die("Error: You don't have permission to access here..."); 
+	} 
+?>
 
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 <div id="home">
 	<p class="resalt">
 		<?php echo __("Home"); ?>

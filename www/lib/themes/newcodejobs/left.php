@@ -1,11 +1,10 @@
 <?php
-	if(defined("_showLeft")) {
-		if(SESSION("ZanUser")) {
-			switch(segment(1, isLang())) {
+	if (defined("_showLeft")) {
+		if (SESSION("ZanUser")) {
+			switch (segment(1, isLang())) {
 				case "avatar": case "password": case "options": case "social": case "email":
 					$active = segment(1, isLang());
-				break;
-
+					break;
 				default:
 					$active = "about";
 			}

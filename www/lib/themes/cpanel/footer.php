@@ -8,14 +8,13 @@
         </div>
 		<script type="text/javascript">
 			var PATH = "<?php echo path(); ?>",
-				URL  = "<?php echo _get('webURL'); ?>",
-				ZAN  = "<?php echo path("", "zan");?>";
+				URL = "<?php echo _get('webURL'); ?>",
+				ZAN = "<?php echo path("", "zan");?>";
 		</script>
 
 		<?php
-			$this->js("jquery", NULL, FALSE, TRUE); 
-	        
-			$this->js("www/lib/scripts/js/main.js", NULL, FALSE, TRUE); 
+			$this->js("jquery", null, false, true); 
+			$this->js("www/lib/scripts/js/main.js", null, false, true); 
 
 			echo $this->getJs();
 		?>
