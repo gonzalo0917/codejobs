@@ -6,5 +6,5 @@ if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-define("ANGULAR_JS", TRUE);
-define("CODE_MIRROR", TRUE);
+define("ANGULAR_JS", true);
+define("CODE_MIRROR", true);

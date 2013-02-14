@@ -3,12 +3,12 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID  	    = isset($data) ? recoverPOST("ID", $data[0]["ID_Syntax"])			: 0;
-	$name 		= isset($data) ? recoverPOST("name", $data[0]["Name"]) 				: recoverPOST("name");
-	$mime 		= isset($data) ? recoverPOST("mime", $data[0]["MIME"]) 				: recoverPOST("mime");
-	$filename	= isset($data) ? recoverPOST("filename", $data[0]["Filename"]) 		: recoverPOST("filename");
-	$extension	= isset($data) ? recoverPOST("extension", $data[0]["Extension"]) 	: recoverPOST("extension");
-	$href		= path("codes/cpanel/language");
+	$ID = isset($data) ? recoverPOST("ID", $data[0]["ID_Syntax"]) : 0;
+	$name = isset($data) ? recoverPOST("name", $data[0]["Name"]) : recoverPOST("name");
+	$mime = isset($data) ? recoverPOST("mime", $data[0]["MIME"]) : recoverPOST("mime");
+	$filename = isset($data) ? recoverPOST("filename", $data[0]["Filename"]) : recoverPOST("filename");
+	$extension = isset($data) ? recoverPOST("extension", $data[0]["Extension"]) : recoverPOST("extension");
+	$href = path("codes/cpanel/language");
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -17,34 +17,34 @@
 			echo isset($alert) ? $alert : null;
 
 			echo formInput(array(	
-				"name" 	=> "name", 
+				"name" => "name", 
 				"class" => "span10 required", 
 				"field" => __("Name"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => $name
 			));
 			
 			echo formInput(array(	
-				"name" 	=> "mime", 
+				"name" => "mime", 
 				"class" => "span10 required", 
 				"field" => "MIME", 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => $mime
 			));
 			
 			echo formInput(array(	
-				"name" 	=> "filename", 
+				"name" => "filename", 
 				"class" => "span10 required", 
 				"field" => __("Filename"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => $filename
 			));
 			
 			echo formInput(array(	
-				"name" 	=> "extension", 
+				"name" => "extension", 
 				"class" => "span10 required", 
 				"field" => __("Extension"), 
-				"p" 	=> true, 
+				"p" => true, 
 				"value" => $extension
 			));
 

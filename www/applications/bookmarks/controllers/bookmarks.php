@@ -6,26 +6,24 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Bookmarks_Controller extends ZP_Load {
+class Bookmarks_Controller extends ZP_Load 
+{
 	
-	public function __construct() {		
+	public function __construct() 
+	{		
 		$this->Templates = $this->core("Templates");
-		$this->Cache     = $this->core("Cache");
-		
+		$this->Cache = $this->core("Cache");
 		$this->application = $this->app("bookmarks");
-		
 		$this->Templates->theme();
-
 		$this->config("bookmarks");
-		
 		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
-
 		$this->helper("pagination");
 
 		setURL();
 	}
 	
-	public function index($bookmarkID = 0) {
+	public function index($bookmarkID = 0) 
+	{
 		$this->meta("language", whichLanguage(false));		
                 
 		if ($bookmarkID !== "add") {
@@ -37,9 +35,9 @@ class Bookmarks_Controller extends ZP_Load {
 		}
 	}
 
-	public function rss() {
+	public function rss() 
+	{
 		$this->helper("time");
-
 		$data = $this->Cache->data("rss", "bookmarks", $this->Bookmarks_Model, "getRSS", array(), 86400);
 		
 		if ($data) {
@@ -52,7 +50,8 @@ class Bookmarks_Controller extends ZP_Load {
 
 	}
 
-	public function add($ID = 0) {
+	public function add($ID = 0) 
+	{
 		isConnected();
 		
 		if (POST("save")) {
@@ -63,15 +62,12 @@ class Bookmarks_Controller extends ZP_Load {
 
 		if (POST("preview")) {
 			$this->helper("time");
-
 			$this->title(__("Bookmarks") ." - ". htmlentities(encode(POST("title", "decode", null)), ENT_QUOTES, "UTF-8"));
-
 			$data = $this->Bookmarks_Model->preview();
 
 			if ($data) {
 				$this->CSS("bookmarks", $this->application);
 				$this->js("preview", $this->application);
-				
 				$this->config("user", "bookmarks");
 
 				$vars["bookmark"] = $data;
@@ -107,7 +103,8 @@ class Bookmarks_Controller extends ZP_Load {
 
 	}
 
-	public function author($user = null, $tagLabel = null, $tag = null) {
+	public function author($user = null, $tagLabel = null, $tag = null) 
+	{
 		if ($user === null) {
 			redirect($this->application);
 		} elseif ($tagLabel === null or $tagLabel === "page") {
@@ -119,29 +116,30 @@ class Bookmarks_Controller extends ZP_Load {
 		}
 	}
 
-	public function like($ID) {
+	public function like($ID) 
+	{
 		$this->Users_Model = $this->model("Users_Model");
-
 		$this->Users_Model->setLike($ID, "bookmarks", 10);
 	}
 
-	public function dislike($ID) {
+	public function dislike($ID) 
+	{
 		$this->Users_Model = $this->model("Users_Model");
-
 		$this->Users_Model->setDislike($ID, "bookmarks", 10);
 	}
 
-	public function report($ID) {
+	public function report($ID) 
+	{
 		$this->Bookmarks_Model->setReport($ID, "bookmarks", 10);
 	}	
 
-	public function tag($tag) {
+	public function tag($tag) 
+	{
 		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
 		$limit = $this->limit("tag");
-
 		$data = $this->Cache->data("tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getByTag", array($tag, $limit));
 
 		if ($data) {
@@ -149,9 +147,9 @@ class Bookmarks_Controller extends ZP_Load {
 			$this->meta("description", $data[0]["Description"]);
 			$this->helper("time");
 
-			$vars["bookmarks"]  = $data;
+			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
-			$vars["view"]       = $this->view("bookmarks", true);
+			$vars["view"] = $this->view("bookmarks", true);
 			
 			$this->render("content", $vars);
 		} else {
@@ -159,7 +157,8 @@ class Bookmarks_Controller extends ZP_Load {
 		}
 	}
 
-	public function go($bookmarkID = 0) {
+	public function go($bookmarkID = 0) 
+	{
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 
@@ -167,14 +166,13 @@ class Bookmarks_Controller extends ZP_Load {
 
 		if ($data) {
 			$this->helper("time");
-
 			$this->title(__("Bookmarks") ." - ". decode($data[0]["Title"]), false);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
                         
-			$vars["views"]    = $this->Bookmarks_Model->updateViews($bookmarkID);
+			$vars["views"] = $this->Bookmarks_Model->updateViews($bookmarkID);
 			$vars["bookmark"] = $data[0];
-			$vars["view"]     = $this->view("bookmark", true);
+			$vars["view"] = $this->view("bookmark", true);
 			
 			$this->render("content", $vars);
 		} else {
@@ -182,7 +180,8 @@ class Bookmarks_Controller extends ZP_Load {
 		}
 	}
 	
-	public function visit($bookmarkID = 0) {
+	public function visit($bookmarkID = 0) 
+	{
 		$data = $this->Cache->data("bookmark-$bookmarkID", "bookmarks", $this->Bookmarks_Model, "getByID", array($bookmarkID));
 
 		if ($data) {
@@ -194,24 +193,23 @@ class Bookmarks_Controller extends ZP_Load {
 		}
 	}
 
-	private function getBookmarks() { 
+	private function getBookmarks() 
+	{ 
 		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
 		$limit = $this->limit();
-		
 		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAll", array($limit));
-	
 		$this->helper("time");
 		
 		if ($data) {	
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
                         
-			$vars["bookmarks"]  = $data;
+			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
-			$vars["view"]       = $this->view("bookmarks", true);
+			$vars["view"] = $this->view("bookmarks", true);
 			
 			$this->render("content", $vars);
 		} else {
@@ -219,24 +217,23 @@ class Bookmarks_Controller extends ZP_Load {
 		} 
 	}
 
-	private function getBookmarksByAuthor($author) {
+	private function getBookmarksByAuthor($author) 
+	{
 		$this->title(__("Bookmarks of") ." ". $author);
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
 		$limit = $this->limit("author");
-		
 		$data = $this->Cache->data("author-$author-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByAuthor", array($author, $limit));
-	
 		$this->helper("time");
 		
 		if ($data) {	
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
                         
-			$vars["bookmarks"]  = $data;
+			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
-			$vars["view"]       = $this->view("bookmarks", true);
+			$vars["view"] = $this->view("bookmarks", true);
 			
 			$this->render("content", $vars);
 		} else {
@@ -244,24 +241,23 @@ class Bookmarks_Controller extends ZP_Load {
 		} 
 	}
 
-	private function getBookmarksByTag($author, $tag) {
+	private function getBookmarksByTag($author, $tag) 
+	{
 		$this->title(__("Bookmarks of") ." ". $author);
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
 		
 		$limit = $this->limit("author-tag");
-		
 		$data = $this->Cache->data("author-$author-tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByTag", array($author, $tag, $limit));
-	
 		$this->helper("time");
 		
 		if ($data) {	
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
                         
-			$vars["bookmarks"]  = $data;
+			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
-			$vars["view"]       = $this->view("bookmarks", true);
+			$vars["view"] = $this->view("bookmarks", true);
 			
 			$this->render("content", $vars);
 		} else {
@@ -269,15 +265,16 @@ class Bookmarks_Controller extends ZP_Load {
 		} 
 	}
 
-	function request() {
+	function request() 
+	{
 		setURL(path());
 
 		$URL = GET("url");
 
 		if (!is_null($URL) and in_array("curl", get_loaded_extensions()) and SESSION("ZanUser")) {
-			$title 		 = "";
+			$title = "";
 			$description = "";
-			$keywords 	 = "";
+			$keywords = "";
 
 		    $ch = curl_init();
 
@@ -294,7 +291,6 @@ class Bookmarks_Controller extends ZP_Load {
 
 			$nodes = $doc->getElementsByTagName('title');
 			$title = @$nodes->item(0)->nodeValue;
-
 			$metas = $doc->getElementsByTagName('meta');
 
 			for ($i = 0; $i < $metas->length; $i++) {
@@ -310,9 +306,9 @@ class Bookmarks_Controller extends ZP_Load {
 			}
 
 			$data = array(
-				"Title" 	  => $title,
+				"Title"=> $title,
 				"Description" => $description,
-				"Keywords" 	  => $keywords
+				"Keywords" => $keywords
 			);
 
 			exit(json($data));
@@ -321,29 +317,29 @@ class Bookmarks_Controller extends ZP_Load {
 		exit('{"Title": "", "Description": "", "Keywords": ""}');
 	}
 
-	private function limit($type = null) {
+	private function limit($type = null) 
+	{
 		$count = $this->Bookmarks_Model->count($type);	
 		
 		if (is_null($type)) {
 			$start = (segment(1, isLang()) === "page" and segment(2, isLang()) > 0) ? (segment(2, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
-			$URL   = path("bookmarks/page/");
+			$URL = path("bookmarks/page/");
 		} elseif ($type === "tag") { 
-			$tag   = segment(2, isLang());
+			$tag = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
-			$URL   = path("bookmarks/tag/$tag/page/");
+			$URL = path("bookmarks/tag/$tag/page/");
 		} elseif ($type === "author") { 
-			$user  = segment(2, isLang());
+			$user = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
-			$URL   = path("bookmarks/author/$user/page/");
+			$URL = path("bookmarks/author/$user/page/");
 		} elseif ($type === "author-tag") { 
-			$user  = segment(2, isLang());
-			$tag   = segment(4, isLang());
+			$user = segment(2, isLang());
+			$tag = segment(4, isLang());
 			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
-			$URL   = path("bookmarks/author/$user/tag/$tag/page/");
+			$URL = path("bookmarks/author/$user/tag/$tag/page/");
 		}
 
 		$limit = $start .", ". MAX_LIMIT;
-		
 		$this->pagination = ($count > MAX_LIMIT) ? paginate($count, MAX_LIMIT, $start, $URL) : null;
 
 		return $limit;

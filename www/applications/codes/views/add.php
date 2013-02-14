@@ -3,23 +3,24 @@
 		die("Error: You don't have permission to access here..."); 
 	}
         
-    $ID  	     = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) 				: 0;
-	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"]) 				: recoverPOST("title");
-    $description = isset($data) ? recoverPOST("description", $data[0]["Description"])   : recoverPOST("description");
-    $author      = isset($data) ? recoverPOST("author", $data[0]["Author"])             : SESSION("ZanUser");
-	$language  	 = isset($data) ? recoverPOST("language", $data[0]["Language"])  	 	: recoverPOST("language");
-	$situation   = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) 		: recoverPOST("situation");
-	$edit        = isset($data) ? true 													: false;
-	$action	     = isset($data) ? "edit"												: "save";
-	$href	     = isset($data) ? path(whichApplication() ."/cpanel/edit/") 			: path(whichApplication() ."/cpanel/add/");
-	
-    if (! ($files = isset($data) ? $data[0]["Files"] : false)) {
+    $ID = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) : 0;
+	$title = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
+    $description = isset($data) ? recoverPOST("description", $data[0]["Description"]) : recoverPOST("description");
+    $author = isset($data) ? recoverPOST("author", $data[0]["Author"]) : SESSION("ZanUser");
+	$language = isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
+	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
+	$edit = isset($data) ? true : false;
+	$action = isset($data) ? "edit" : "save";
+	$href = isset($data) ? path(whichApplication() ."/cpanel/edit/") : path(whichApplication() ."/cpanel/add/");
+	$files = isset($data) ? $data[0]["Files"] : false;
+
+    if (!$files) {
         $files = recoverFiles();
     }
 	
 	echo htmlTag("div", array(
         "ng-controller" => "FileCtrl",
-        "class"         => "add-form"
+        "class" => "add-form"
     ));
 
 	echo formOpen($href, "form-add", "form-add");
@@ -29,77 +30,77 @@
 		echo isset($alert) ? $alert : null;
 
 		echo formInput(array(	
-			"name" 	=> "title", 
+			"name" => "title", 
 			"class" => "span10 required",
 			"field" => __("Title"), 
-			"p" 	=> true, 
+			"p" => true, 
 			"value" => $title
 		));
 
         echo formTextArea(array(
-            "name"      => "description",
-            "class"     => "span10 required",
-            "field"     => __("Description"), 
-            "p"         => true, 
-            "style"     => "resize: none",
-            "value"     => $description
+            "name" => "description",
+            "class" => "span10 required",
+            "field" => __("Description"), 
+            "p" => true, 
+            "style" => "resize: none",
+            "value" => $description
         ));
                     
         echo span("field", "&raquo; " . __("Files") . " ({{files.length}})");
                     
         echo htmlTag("div", array(
-            "class"     => "well span10",
+            "class" => "well span10",
             "ng-repeat" => "file in files"
         ));
                         
             echo formInput(array(	
-                "name"      => "file[]",
-                "type"      => "hidden",
-                "value"     => "{{file.idfile}}"
+                "name" => "file[]",
+                "type" => "hidden",
+                "value" => "{{file.idfile}}"
             ));
         
             echo formSelect(array(
-                "name"          => "programming[]",
-                "id"            => "syntax{{\$index}}",
-                "class"         => "required",
-                "p"             => true,
-                "field"         => __("Programming language"),
-                "ng-model"      => "language",
-                "ng-init"       => "language=languages[getLanguage(file.syntax)]",
-                "ng-options"    => "language.Name for language in languages",
-                "ng-change"     => "selectSyntax(\$index)"
+                "name" => "programming[]",
+                "id" => "syntax{{\$index}}",
+                "class" => "required",
+                "p"    => true,
+                "field" => __("Programming language"),
+                "ng-model" => "language",
+                "ng-init" => "language=languages[getLanguage(file.syntax)]",
+                "ng-options" => "language.Name for language in languages",
+                "ng-change" => "selectSyntax(\$index)"
             ));
             
             echo formInput(array(	
-                "name"      => "syntax[]",
-                "type"      => "hidden",
-                "value"     => "{{language.ID_Syntax}}"
+                "name" => "syntax[]",
+                "type" => "hidden",
+                "value" => "{{language.ID_Syntax}}"
             ));
             
             echo formInput(array(
-                "name"      => "syntaxname[]",
-                "type"      => "hidden",
-                "value"     => "{{language.Name}}"
+                "name" => "syntaxname[]",
+                "type" => "hidden",
+                "value" => "{{language.Name}}"
             ));
             
             echo formInput(array(	
-                "name"      => "name[]", 
-                "id"        => "name{{\$index}}", 
-                "class"     => "required", 
-                "field"     => __("Filename"), 
-                "p"         => true,
-                "ng-model"  => "file.name",
-                "onBlur"    => "validateExtension({{\$index}}, '{{languages[getLanguage(language.ID_Syntax)].Extension}}')"
+                "name" => "name[]", 
+                "id" => "name{{\$index}}", 
+                "class" => "required", 
+                "field" => __("Filename"), 
+                "p" => true,
+                "ng-model" => "file.name",
+                "onBlur" => "validateExtension({{\$index}},'{{languages[getLanguage(language.ID_Syntax)].Extension}}')"
             ));
 
             echo formTextArea(array(	
-                "id"        => "code{{\$index}}", 
-                "name"      => "code[]",
-                "class"     => "required",
-                "style"     => "height: 200px;width:100%", 
-                "field"     => __("Code"), 
-                "p"         => true, 
-                "value"     => "{{textCode(\$index)}}"
+                "id" => "code{{\$index}}", 
+                "name" => "code[]",
+                "class" => "required",
+                "style" => "height: 200px;width:100%", 
+                "field" => __("Code"), 
+                "p" => true, 
+                "value" => "{{textCode(\$index)}}"
             ));
             
             echo htmlTag("div", array(
@@ -107,8 +108,8 @@
             ));
             
             echo htmlTag("a", array(
-                "class"     => "btn btn-danger",
-                "ng-click"  => "removeFile(\$index)"
+                "class" => "btn btn-danger",
+                "ng-click" => "removeFile(\$index)"
             ), __("Remove file"));
             
             echo htmlTag("div", false);
@@ -116,28 +117,31 @@
         echo htmlTag("div", false);
         
         echo htmlTag("div", array(
-            "id"        => "add",
-            "class"     => "btn span10",
-            "ng-click"  => "addFile()"
+            "id" => "add",
+            "class" => "btn span10",
+            "ng-click" => "addFile()"
         ), __("Add another file") . "...");
 
         echo formInput(array(   
-                "id"    => "author",
-                "name"  => "author", 
+                "id" => "author",
+                "name" => "author", 
                 "class" => "span2 required", 
                 "field" => __("Author"), 
-                "p"     => true, 
+                "p" => true, 
                 "value" => stripslashes($author)
             ));
 
 		echo formField(null, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 		
 		$options = array(
-			0 => array("value" => "Active",   "option" => __("Active"),   "selected" => ($situation === "Active")   ? true : false),
-			1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
+			0 => array("value" => "Active", "option" => __("Active"), "selected" =>
+             ($situation === "Active") ? true : false),
+			1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" =>
+             ($situation === "Inactive") ? true : false)
 		);
 
-		echo formSelect(array("name" => "situation", "class" => "required", "p" => true, "field" => __("Situation")), $options);
+		echo formSelect(array("name" => "situation", "class" => "required", "p" => true, "field" => __("Situation")),
+         $options);
 		
 		echo formSave($action);
 		
