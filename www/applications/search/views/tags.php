@@ -21,7 +21,7 @@
 		<span class="<?php echo $class; ?>">
 	  		<a href="<?php echo path("search/". encode($tag["tag"], true)); ?>"><?php echo $tag["tag"]; ?></a>
 		</span>
-<?php  	
+<?php
 	} 
 ?>
 </div>
