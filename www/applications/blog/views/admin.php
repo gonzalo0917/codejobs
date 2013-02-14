@@ -54,28 +54,28 @@ $count = is_array($records) ? count($records) : 0;
 			<?php
 				if ($count > 0) {
 					foreach ($records as $column) {
-						$URL  	   = $path . $column["Year"] ."/". $column["Month"] ."/". $column["Day"] ."/". $column["Slug"];
+						$URL = $path . $column["Year"] ."/". $column["Month"] ."/". $column["Day"] ."/". $column["Slug"];
 						$text_date = ucfirst(howLong($column["Start_Date"]));
 			?>
-			<tr>
-				<td data-center><input name="records[]" value="<?php echo $column[$ID_Column]; ?>" type="checkbox" /></td>
-				<td><a href="<?php echo $URL; ?>" title="<?php echo $column["Title"]; ?>" target="_blank"><?php echo $column["Title"]; ?></a></td>
-				<td data-center><?php echo $column["Views"]; ?></td>
-				<td data-center><?php echo getLanguage($column["Language"], true); ?></td>
-				<td data-center><?php echo __($column["Situation"]); ?></td>
-				<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
-				<td data-center>
-					<a href="<?php echo $path ."add/". $column[$ID_Column]; ?>" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>
-					<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>
-				</td>
-			</tr>
+						<tr>
+							<td data-center><input name="records[]" value="<?php echo $column[$ID_Column]; ?>" type="checkbox" /></td>
+							<td><a href="<?php echo $URL; ?>" title="<?php echo $column["Title"]; ?>" target="_blank"><?php echo $column["Title"]; ?></a></td>
+							<td data-center><?php echo $column["Views"]; ?></td>
+							<td data-center><?php echo getLanguage($column["Language"], true); ?></td>
+							<td data-center><?php echo __($column["Situation"]); ?></td>
+							<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
+							<td data-center>
+								<a href="<?php echo $path ."add/". $column[$ID_Column]; ?>" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>
+								<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>
+							</td>
+						</tr>
 			<?php
 					}
 				} else {
 			?>
-			<tr>
-				<td data-center class="no-data" colspan="7"><?php echo __("You still have not published a post"); ?></td>
-			</tr>
+					<tr>
+						<td data-center class="no-data" colspan="7"><?php echo __("You still have not published a post"); ?></td>
+					</tr>
 			<?php
 				}
 			?>
