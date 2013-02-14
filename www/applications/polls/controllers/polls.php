@@ -13,7 +13,6 @@ class Polls_Controller extends ZP_Load
 	{
 		$this->Templates = $this->core("Templates");
 		$this->Polls_Model = $this->model("Polls_Model");
-		
 		$this->application = "polls";
 		
 		$this->Templates->theme();

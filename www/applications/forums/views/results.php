@@ -1,9 +1,13 @@
 <?php 
-if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
  
 $caption = __("Manage Forum");
 $colspan = 7;
+
 echo $search;
+
 $colors[0] = COLOR1;
 $colors[1] = COLOR2;
 $colors[2] = COLOR3;
@@ -43,19 +47,13 @@ $j = 2;
 	<tbody>
 	<?php
 		if ($tFoot) {
-<<<<<<< HEAD
-			foreach ($tFoot as $column) {
-				$ID = $column["ID_Forum"]; 
-				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];
-=======
 			foreach ($tFoot as $column) {     
 				$ID    = $column["ID_Forum"]; 
 				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];  
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 
 				$i = ($i === 1) ? 0 : 1;
 				$j = ($j === 3) ? 2 : 3;
-				?>
+	?>
 				<tr style="background-color: <?php echo $color; ?>">
 					<td class="center">
 						<?php echo getCheckbox($ID); ?>
@@ -66,9 +64,8 @@ $j = 2;
 					</td>
 
 					<td>
-					<?php
-						$title = cut($column["Title"], 4, "text"); 
-						echo $title; 
+					<?php						
+						echo cut($column["Title"], 4, "text"); 
 					?>
 					</td>
 
@@ -94,15 +91,9 @@ $j = 2;
 
 					<td class="center">
 					<?php 
-<<<<<<< HEAD
-						if ($column["Situation"] === "Deleted") {
-							echo getAction(true, $ID);
-						} else {
-=======
 						if ($column["Situation"] === "Deleted") {					
 							echo getAction(true, $ID);
 						} else {					
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 							echo getAction(false, $ID);
 						}
 					?>
@@ -119,22 +110,16 @@ $j = 2;
 
 	<a onclick="javascript:checkAll('records')" class="pointer" title="<?php echo __("All"); ?>"><?php echo __("All"); ?></a> |
 	<a onclick="javascript:unCheckAll('records')" class="pointer" title="<?php echo __("None"); ?>"><?php echo __("None"); ?></a><br /><br />
-<<<<<<< HEAD
-
 	<?php
-=======
-	
-	<?php				
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
-	if (segment(3, isLang()) === "trash") { 
+		if (segment(3, isLang()) === "trash") { 
 	?>
-		<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
-		<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
+			<input class="btn btn-success" onclick="javascript:return confirm(\'<?php echo __("Do you want to restore the records?"); ?>\')" name="restore" value="<?php echo __("Restore"); ?>" type="submit" class="small-input" />
+			<input class="btn btn-danger" onclick="javascript:return confirm(\'<?php echo __("Do you want to delete the records?"); ?>\')" name="delete" value="<?php echo __("Delete"); ?>" type="submit" class="small-input" />
 	<?php
-	} else { 
+		} else { 
 	?>
-		<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
+			<input class="btn btn-warning" onclick="javascript:return confirm(\'<?php echo __("Do you want to send to trash the records?"); ?>\')" name="trash" value="<?php echo __("Send to trash"); ?>" type="submit" class="small-input" />
 	<?php
-	}
+		}
 	?>
 </div>

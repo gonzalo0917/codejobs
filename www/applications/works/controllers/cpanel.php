@@ -13,23 +13,14 @@ class CPanel_Controller extends ZP_Load
 	
 	public function __construct()
 	{
-		$this->app("cpanel");
-		
-		$this->application = whichApplication();
-		
-		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");
-		
-		$this->isAdmin = $this->CPanel->load();
-		
-		$this->vars = $this->CPanel->notifications();
-		
-		$this->CPanel_Model = $this->model("CPanel_Model");
-		
-		$this->Templates = $this->core("Templates");
-		
+		$this->app("cpanel");		
+		$this->application = whichApplication();		
+		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");		
+		$this->isAdmin = $this->CPanel->load();		
+		$this->vars = $this->CPanel->notifications();		
+		$this->CPanel_Model = $this->model("CPanel_Model");		
+		$this->Templates = $this->core("Templates");		
 		$this->Templates->theme("cpanel");
-
-
 	}
 	
 	public function index()

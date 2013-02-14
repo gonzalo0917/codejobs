@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 <?php
 	if (!defined("ACCESS")) { 
 		die("Error: You don't have permission to access here..."); 
 	} 
 
-=======
-<?php  
-	if (!defined("ACCESS")) { 
-		die("Error: You don't have permission to access here..."); 
-	} 
-	
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 	if (!SESSION("ZanUserID")) { 
 ?>
 		<div class="twitterButton">
@@ -64,11 +56,7 @@
 			<tr>
 				<td class="profile">
 <?php 
-<<<<<<< HEAD
-				if ($data["topic"][0]["Avatar"] !== "") {
-=======
 				if ($data["topic"][0]["Avatar"] !== "") {  
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 ?>
 					<img src="<?php echo path("www/lib/files/images/users/". $data["topic"][0]["Avatar"] ."", true); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>" /><br />
 <?php 
@@ -148,9 +136,9 @@
 			<tr>
 				<td class="topicContent">
 					<div class="topicData">
-						<?php echo BBCode($data["topic"][0]["Content"]); ?>
-						
 <?php 
+						echo showContent($data["topic"][0]["Content"]); 
+
 						if ($data["topic"][0]["Sign"] !== "") { 
 ?>
 							<p class="sign"><?php echo $data["topic"][0]["Sign"]; ?></p>
@@ -208,11 +196,7 @@
 							<p><?php echo $reply["Country"]; ?></p>
 <?php 
 						} 
-<<<<<<< HEAD
 
-=======
- 						
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
  						if ($reply["Website"]) { 
 ?>
 							<a href="<?php echo $reply["Website"]; ?>" rel="external" title="<?php echo $reply["Website"]; ?>"><?php echo __("Website"); ?></a>
@@ -235,9 +219,11 @@
 								<li>
 									<a href="<?php echo $data["topic"][0]["replyURL"]; ?>" title="<?php echo __("Reply"); ?>"><?php echo __("Reply"); ?></a>
 								</li>
+
 								<li>
 									<a title="<?php echo __("Edit"); ?>" onclick="return confirm('<?php echo __("Do you want to edit the reply?"); ?>');" href="<?php echo $reply["editURL"]; ?>"><?php echo __("Edit"); ?></a>
 								</li>
+
 								<li>
 									<a title="<?php echo __("Delete"); ?>" onclick="return confirm('<?php echo __("Do you want to delete the reply?"); ?>');" href="<?php echo $reply["deleteURL"]; ?>"><?php echo __("Delete"); ?></a>
 								</li>
@@ -258,11 +244,8 @@
 					<td class="topicContent">
 						<div class="topicData">
 							<p><?php echo BBCode($reply["Content"]); ?></p>
-<<<<<<< HEAD
 <?php
-=======
-<?php 						
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
+
 							if ($data["topic"][0]["Sign"] !== "") { 
 ?>
 								<p class="sign"><?php echo $reply["Sign"]; ?></p>

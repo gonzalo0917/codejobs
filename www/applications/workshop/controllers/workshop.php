@@ -13,16 +13,11 @@ class Workshop_Controller extends ZP_Load
 	{
 		$this->application = $this->app("workshop");
 		$this->config($this->application);
-		
 		$this->Templates = $this->core("Templates");
-		$this->Cache = $this->core("Cache");
-		
+		$this->Cache = $this->core("Cache");		
 		$this->Workshop_Model = $this->model("Workshop_Model");
-
 		$this->Templates->theme();
-
 		$this->config("workshop");
-
 		$this->language = whichLanguage();
 		$this->helper(array("forms", "html", "time"));
 

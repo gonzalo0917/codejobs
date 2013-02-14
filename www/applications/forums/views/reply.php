@@ -1,16 +1,14 @@
-<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
-
 <?php 
-	if (!isset($success)) { 
-<<<<<<< HEAD
-		$title = recoverPOST("title", $title);
-=======
-		$title   = recoverPOST("title", $title);
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
-		$content = recoverpost("content", $content);
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here..."); 
+}
+
+if (!isset($success)) { 
+	$title = recoverPOST("title", $title);
+	$content = recoverpost("content", $content);
 ?> 
-		<div class="newTopic" style="margin-left: 15%;">
-			<form id="formNewTopic" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
+	<div class="newTopic" style="margin-left: 15%;">
+		<form id="formNewTopic" action="<?php echo $href; ?>" method="post" enctype="multipart/form-data">
 			<?php 
 				if ($action === "save") { 
 			?>
@@ -21,13 +19,8 @@
 					<legend><?php echo __("Edit Reply"); ?>
 			<?php 
 				} 
-			?>
-<<<<<<< HEAD
-
-=======
-		
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
-			<?php echo isset($alert) ? $alert : null; ?>
+			
+			echo isset($alert) ? $alert : null; ?>
 				
 			<p class="field">
 				&raquo; <?php echo __("Title"); ?><br />

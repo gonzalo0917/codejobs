@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <?php
-=======
-<?php 		
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
 	if (is_array($posts)) {
 		$count = count($posts) - 1;
 		?>
@@ -11,14 +7,8 @@
 			$forum = segment(1, islang());
 			foreach ($posts as $post) {
 				if ($post["ID_Parent"] === 0) {
-<<<<<<< HEAD
-					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);
-					$in = ($post["Tags"] !== "") ? __("in") : null;
-=======
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
 					$in  = ($post["Tags"] !== "") ? __("in") : null;
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
-
 					?>
 					<div class="post">
 						<div class="post-title">
@@ -46,48 +36,32 @@
 							<br />
 
 							<?php 
-								echo display('<p>
-												<script type="text/javascript"><!--
-													google_ad_client = "ca-pub-4006994369722584";
-													/* CodeJobs.biz */
-													google_ad_slot = "1672839256";
-													google_ad_width = 728;
-													google_ad_height = 90;
-													//-->
-													</script>
-													<script type="text/javascript"
-													src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-												</script>
-											</p>', 4);
+								echo display('<p>'. getAd("728px") .'</p>', 4);
 							?>
 						</div>
 					</div>
-
 					<?php
 				} else {
 					?>
 					<a name="<?php echo 'id'. $post["ID_Post"]; ?>"></a>
+
 					<div class="comments">
 						<div class="comments-author">
 							<img src="<?php echo $post["Avatar"] ?>" style="max-width: 70px;" class="dotted"/>
 						</div>
 
 						<div class="comments-content">
-							<?php
+						<?php
 							$authorUrl = path("forums/". $forum ."/author/". $post["Author"]);
-							?>
+						?>
 							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
-							<?php
+						
+						<?php
 							if (SESSION("ZanUserPrivilegeID")){
-<<<<<<< HEAD
-								$URLEdit = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
-								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
-								$confirm = " return confirm('Do you want to delete this post?') ";
-=======
 								$URLEdit   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
 								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 								$confirm   = " return confirm('Do you want to delete this post?') ";
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
+
 								if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
 									echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
 								}
@@ -102,30 +76,26 @@
 			}
 			?>
 		</div>
-		<div id="comment-alert">
-		</div>
-		<?php
-		if (SESSION("ZanUser")) {
-<<<<<<< HEAD
-		?>
-			<div class="comments-editor">
-=======
-		?>				
-			<div class="comments-editor">	
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
-				<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
-				<textarea id="editor" class="ckeditor" name="comment" style="height:200px"></textarea> <br />
-				<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
-				<input id="fname" type="hidden" value="<?php echo $forum; ?>" />
-				<input id="avatar" type="hidden" value="<?php echo $post["Avatar"]; ?>" />
-				<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
-			</div>
-		<?php
-		} else {
-		?>
-			<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to comment this topic'); ?></div>
-		<?php
-		}
-	}
 
-	echo $ckeditor;
+		<div id="comment-alert"></div>
+		
+		<?php
+			if (SESSION("ZanUser")) {			
+		?>
+				<div class="comments-editor">	
+					<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
+					<textarea id="editor" class="ckeditor" name="comment" style="height:200px"></textarea> <br />
+					<input id="fid" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
+					<input id="fname" type="hidden" value="<?php echo $forum; ?>" />
+					<input id="avatar" type="hidden" value="<?php echo $post["Avatar"]; ?>" />
+					<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
+				</div>
+		<?php
+			} else {
+		?>
+				<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to comment this topic'); ?></div>
+		<?php
+			}
+		}
+		
+		echo $ckeditor;

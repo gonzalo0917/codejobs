@@ -31,26 +31,13 @@ if (!defined("ACCESS")) {
 	<?php
 	if ($posts) {
 		$forum = slug($forum);
-<<<<<<< HEAD
-		foreach ($posts as $post) {
-			$slug = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
-			$URL = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);
-			$URLEdit = path("forums/". $forum ."/edit/". $post["ID_Post"]);
-			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
-			$in = ($forum !== "") ? __("in") : null;
-			?>
-
-=======
 		foreach ($posts as $post) {		
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
 			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
 			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
-			$in        = ($forum !== "") ? __("in") : null;	
-			
-			?>		
-			
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
+			$in        = ($forum !== "") ? __("in") : null;				
+			?>					
 			<div class="post">
 				<div class="post-title">
 					<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
@@ -59,37 +46,33 @@ if (!defined("ACCESS")) {
 				</div>
 
 				<div class="post-left">
-					<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], 
-					"forums/". $forum ."/tag/") ." ". __("by") .' <a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';?>
-					<?php
-					if (SESSION("ZanUserPrivilegeID")) {
-						$confirm = " return confirm('Do you want to delete this post?') ";
+					<?php 
+						echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' ';
+						echo '<a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
 
-						if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
-							echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
+						if (SESSION("ZanUserPrivilegeID")) {
+							$confirm = " return confirm('Do you want to delete this post?') ";
+
+							if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
+								echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
+							}
 						}
-					}
 					?>
 				</div>
+
 				<div class="post-right">
 					<?php echo 'Last author: <a href="'. path("forums/". $forum ."/author/". $post["Last_Author"]) .'">'. $post["Last_Author"] .'</a>'; ?>
 				</div>
 
 				<div class="clear"><?php echo cut($post["Content"], 20); ?></div>
 			</div>
-
 			<?php
 			$i++;
 		}
 	}
 	?>
 	</div>
-<<<<<<< HEAD
-	<?php
-		echo isset($pagination) ? $pagination : null;
-=======
-	<?php		
-		echo isset($pagination) ? $pagination : null;
 
->>>>>>> 8019ddbc809b968b93044ebed6ad1d0df16d1d63
-		echo $ckeditor;
+<?php
+	echo isset($pagination) ? $pagination : null;
+	echo $ckeditor;
