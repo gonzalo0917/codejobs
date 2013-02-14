@@ -222,8 +222,7 @@ class CPanel_Controller extends ZP_Load
 		$this->CSS("login", "users");
 		
 		if (POST("connect")) {	
-			$this->Users_Controller = $this->controller("Users_Controller");
-			
+			$this->Users_Controller = $this->controller("Users_Controller");			
 			$this->Users_Controller->login("cpanel");
 		} else {
 			$this->vars["URL"] = getURL();

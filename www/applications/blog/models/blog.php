@@ -11,10 +11,9 @@ class Blog_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "blog";
-		$this->fields = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, 
-						Start_Date, Year, Month, Day, Views, Image_Mural, 
-						Image_Thumbnail, Image_Small, Image_Medium, Image_Original, 
-						Comments,Enable_Comments, Language, Pwd, Buffer, Code, Situation";
+		$this->fields = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, 
+						 Image_Mural, Image_Thumbnail, Image_Small, Image_Medium, Image_Original, Comments, 
+						 Enable_Comments, Language, Pwd, Buffer, Code, Situation";
 		
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
@@ -48,14 +47,20 @@ class Blog_Model extends ZP_Load
 	
 	private function all($trash, $order, $limit, $own = false) 
 	{	
-		if (!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, 
-					Views, Start_Date, Year, Month, Day, Slug, Language, Situation", null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", 
-					$this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", null, $order, $limit);
+		$fields = "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation";
+
+		if (!$trash) {
+			if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {
+				return $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			} else { 
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
 		} else {
-			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Post, Title, Author, Views, 
-				    Language, Situation", null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", 
-				    $this->table, "ID_Post, Title, Author, Views, Language, Situation", null, $order, $limit);
+			if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {
+				return $this->Db->findBy("Situation", "Deleted", $this->table, $fields, null, $order, $limit);
+			} else {
+			 	return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
 		}
 	}
 	
@@ -146,9 +151,11 @@ class Blog_Model extends ZP_Load
 			$data["Modified_Date"] = now(4);
 		}
 
-		$this->Data->ignore(array("delete_image", "delete_mural" , "temp_title", "temp_tags", "temp_content", 
-								"editor", "categories", "tags", "mural_exists", "mural", "pwd", "category", 
-								"language_category", "application", "mural_exist"));
+		$this->Data->ignore(array(
+			"delete_image", "delete_mural" , "temp_title", "temp_tags", "temp_content", "editor", "categories", "tags",
+			"mural_exists", "mural", "pwd", "category", "language_category", "application", "mural_exist")
+		);
+
 		$this->data = $this->Data->proccess($data, $validations);
 		
 		if (isset($this->data["error"])) {
@@ -158,9 +165,12 @@ class Blog_Model extends ZP_Load
 	
 	private function save() {	
 		$data = $this->Db->findBySQL("Code = '". POST("code") ."' AND Situation = 'Draft'", $this->table);
+		
 		$insertID = (!$data) ? $this->Db->insert($this->table, $this->data) : $this->Db->update($this->table, $this->data, $data[0]["ID_Post"]);
+
 		$this->Cache = $this->core("Cache");
 		$this->Cache->removeAll("blog");
+		
 		$this->Users_Model = $this->model("Users_Model");
 		$this->Users_Model->setCredits(1, 3);
 			
@@ -169,6 +179,7 @@ class Blog_Model extends ZP_Load
 
 	public function saveDraft() {
 		$this->helper(array("alerts", "time"));
+		
 		$postID	= POST("postID");
 		$data = ($postID > 0) ? $this->Db->find($postID, $this->table) : $this->Db->findBySQL("Code = '". POST("code") ."' AND Situation = 'Draft'", $this->table);		
 
@@ -235,10 +246,11 @@ class Blog_Model extends ZP_Load
 		}
 		
 		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
-		$this->data["Enable_Comments"]  = true;
+		$this->data["Enable_Comments"] = true;
 
 		if ($action === "save") {
 			$return = $this->Db->insert($this->table, $this->data);
+
 			$this->Users_Model = $this->model("Users_Model");
 			$this->Users_Model->setCredits(1, 3);
 		} elseif ($action === "edit") {
@@ -288,9 +300,13 @@ class Blog_Model extends ZP_Load
 
 	public function getBufferPosts($language = "all") 
 	{		
-		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Post, Title, Slug, 
-			Year, Month, Day, Language", null, "rand()", 85) : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", 
-			$this->table, "ID_Post, Title, Slug, Year, Month, Day, Language", null, "rand()", 85);		
+		$fields = "ID_Post, Title, Slug, Year, Month, Day, Language";
+
+		if ($language === "all") {
+			return $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, $fields, null, "rand()", 85);
+		} else {
+			return $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, $fields, null, "rand()", 85);
+		}
 	}
 
 	public function getBufferSabio() 
@@ -374,16 +390,19 @@ class Blog_Model extends ZP_Load
 	
 	public function getPost($year, $month, $day, $slug) 
 	{		
-		$post = $this->Db->findBySQL("Slug = '$slug' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Language = '$this->language' AND Situation = 'Active'", 
-				$this->table, $this->fields);
+		$query = "Slug = '$slug' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Language = '$this->language' AND Situation = 'Active'";
+		$data = $this->Db->findBySQL($query, $this->table, $this->fields);
 		
-		if ($post) {
+		if ($data) {
 			$this->Cache = $this->core("Cache");
-			$views = $this->Cache->getValue($post[0]["ID_Post"], "blog", "Views", true);
-			$this->Cache->setValue($post[0]["ID_Post"], $views + 1, "blog", "Views", 86400);
-			$data[0]["post"] = $post;
+
+			$views = $this->Cache->getValue($data[0]["ID_Post"], "blog", "Views", true);
+
+			$this->Cache->setValue($data[0]["ID_Post"], $views + 1, "blog", "Views", 86400);
+
+			$post[0]["post"] = $data;
 									
-			return $data;
+			return $post;
 		}		
 		
 		return false;
@@ -391,12 +410,14 @@ class Blog_Model extends ZP_Load
 	
 	public function getByDate($limit, $year = false, $month = false, $day = false) 
 	{		
+		$query = "Language = '$this->language' AND Year = '$year' AND Situation = 'Active'";
+
 		if ($year and $month and $day) {
-			return $this->Db->findBySQL("Language = '$this->language' AND Year = '$year' AND Month = '$month' AND Day = '$day' AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Post DESC", $limit);
+			return $this->Db->findBySQL($query ." AND Month = '$month' AND Day = '$day'", $this->table, $this->fields, null, "ID_Post DESC", $limit);
 		} elseif ($year and $month) {
-			return $this->Db->findBySQL("Language = '$this->language' AND Year = '$year' AND Month = '$month' AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Post DESC", $limit);
+			return $this->Db->findBySQL($query ." AND Month = '$month'", $this->table, $this->fields, null, "ID_Post DESC", $limit);
 		} elseif ($year) {
-			return $this->Db->findBySQL("Language = '$this->language' AND Year = '$year' AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Post DESC", $limit);
+			return $this->Db->findBySQL($query, $this->table, $this->fields, null, "ID_Post DESC", $limit);
 		}	
 	}
 
@@ -407,8 +428,10 @@ class Blog_Model extends ZP_Load
 
 	public function getAllByTag($author, $tag, $limit) 
 	{
-		return $this->Db->findBySQL("Author = '$author' AND (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')", 
-				$this->table, $this->fields, null, "ID_Post DESC", $limit);
+		$query = "Author = '$author' AND (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') 
+				  AND Language = '$this->language' AND (Situation = 'Active' OR Situation = 'Pending')";
+
+		return $this->Db->findBySQL($query, $this->table, $this->fields, null, "ID_Post DESC", $limit);
 	}
 	
 	public function getByID($ID) 
@@ -419,10 +442,9 @@ class Blog_Model extends ZP_Load
 	public function getByTag($tag, $limit = false) 
 	{
 		$tag = str_replace("-", " ", $tag);
-		$data = $this->Db->findBySQL("(Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active'", 
-				$this->table, $this->fields, null, "ID_Post DESC", $limit);
-	
-		return $data;
+		$query = "(Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Language = '$this->language' AND Situation = 'Active'";
+		
+		return $this->Db->findBySQL($query, $this->table, $this->fields, null, "ID_Post DESC", $limit);
 	}
 	
 	public function deleteMural() 
@@ -447,16 +469,25 @@ class Blog_Model extends ZP_Load
 	
 	public function find($query, $order, $limit, $own = false) 
 	{
-		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", 
-				$this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", 
-				$this->table, "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation", null, $order, $limit);
+		$fields = "ID_Post, Title, Author, Views, Start_Date, Year, Month, Day, Slug, Language, Situation";
+
+		if (SESSION("ZanUserPrivilegeID") === 1 and !$own) {
+			return $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, null, $order, $limit);
+		} else {
+			$query = "ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'";
+
+			return $this->Db->findBySQL($query, $this->table, $fields, null, $order, $limit);
+		}		
 	}
 
 	public function found($query, $order, $own = false) 
 	{
-		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", 
-				$this->table, "COUNT(1) AS Total", null, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", 
-				$this->table, "COUNT(1) AS Total", null, $order);
+		if (SESSION("ZanUserPrivilegeID") === 1 and !$own) {
+			return  $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", null, $order);
+		} else {
+			$query = "ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'";
+
+			return $this->Db->findBySQL($query, $this->table, "COUNT(1) AS Total", null, $order);
 	}
 
 	public function records($action, $start = 0, $end = MAX_LIMIT, $order = null, $search = false) 
@@ -492,26 +523,22 @@ class Blog_Model extends ZP_Load
 	private function processRecords($data) 
 	{
 		if (is_array($data)) {
+			$this->helper("time");
+
 			foreach ($data as $key => $record) {
 				if (isset($record["Language"])) {
 					$data[$key]["Language"] = getLanguage($record["Language"], true);
 				}
 
 				if (isset($record["Start_Date"])) {
-					$this->helper("time");
-
 					$data[$key]["Start_Date"] = ucfirst(howLong($record["Start_Date"]));
 				}
 
 				if (isset($record["End_Date"])) {
-					$this->helper("time");
-
 					$data[$key]["End_Date"] = ucfirst(howLong($record["End_Date"]));
 				}
 
 				if (isset($record["Modified_Date"])) {
-					$this->helper("time");
-
 					$data[$key]["Modified_Date"] = ucfirst(howLong($record["Modified_Date"]));
 				}
 
@@ -520,12 +547,11 @@ class Blog_Model extends ZP_Load
 				}
 
 				if (isset($record["Views"])) {
-					$data[$key]["Views"] = (int)$record["Views"];
+					$data[$key]["Views"] = (int) $record["Views"];
 				}
 			}
 		}
 
 		return $data;
 	}
-
 }
