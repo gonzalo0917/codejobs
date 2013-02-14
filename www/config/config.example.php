@@ -1,20 +1,17 @@
 <?php
-/**
- * Access from index.php:
- */
-if(!defined("_access")) {
+if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
 /**
  * Website
  */
-$ZP["webURL"] 	    = "http://localhost/codejobs";
-$ZP["webName"] 	    = "ZanPHP";
-$ZP["webTheme"]     = "default";
+$ZP["webURL"] = "http://localhost/codejobs";
+$ZP["webName"] = "ZanPHP";
+$ZP["webTheme"] = "default";
 $ZP["webSituation"] = "Active";
-$ZP["webMessage"]   = "";
-$ZP["benchMark"]	= FALSE;
+$ZP["webMessage"] = "";
+$ZP["benchMark"] = false;
 
 /**
  * Server
@@ -26,11 +23,11 @@ $ZP["benchMark"]	= FALSE;
  *  4. Production
  */
 $ZP["environment"]  = 1;
-$ZP["optimization"] = TRUE;
-$ZP["domain"] 	    = FALSE;
-$ZP["modRewrite"]   = FALSE;
-$ZP["autoRender"]   = TRUE;
-$ZP["allowIP"]      = array("127.0.0.1");
+$ZP["optimization"] = true;
+$ZP["domain"] = false;
+$ZP["modRewrite"] = false;
+$ZP["autoRender"] = true;
+$ZP["allowIP"] = array("127.0.0.1");
 
 /**
  * Applications
@@ -86,7 +83,7 @@ define("AD_HEIGHT_728", "90");
 /**
  * Cache
  */
-define("CACHE_STATUS", FALSE);
+define("CACHE_STATUS", false);
 define("CACHE_DRIVER", "File");
 define("CACHE_HOST", "localhost"); 
 define("CACHE_PORT", "11211");
