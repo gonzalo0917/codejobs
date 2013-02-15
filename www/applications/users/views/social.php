@@ -15,7 +15,7 @@
 			echo formInput(array(
 				"name"      => "twitter", 
 				"class"     => "field-title field-full-size",
-				"field"     => __("Twitter"), 
+				"field"     => "Twitter", 
 				"p"         => true,
 				"maxlength" => "150",
 				"value"     => $twitter
@@ -24,7 +24,7 @@
 			echo formInput(array(
 				"name"      => "facebook", 
 				"class"     => "field-title field-full-size",
-				"field"     => __("Facebook"), 
+				"field"     => "Facebook", 
 				"p"         => true,
 				"maxlength" => "150",
 				"value"     => $facebook
@@ -33,7 +33,7 @@
 			echo formInput(array(
 				"name"      => "linkedin", 
 				"class"     => "field-title field-full-size",
-				"field"     => __("Linkedin"), 
+				"field"     => "LinkedIn", 
 				"p"         => true,
 				"maxlength" => "150",
 				"value"     => $linkedin
@@ -42,7 +42,7 @@
 			echo formInput(array(
 				"name"      => "google", 
 				"class"     => "field-title field-full-size",
-				"field"     => __("Google"), 
+				"field"     => "Google+", 
 				"p"         => true,
 				"maxlength" => "150",
 				"value"     => $google
@@ -51,7 +51,7 @@
 			echo formInput(array(
 				"name"      => "viadeo", 
 				"class"     => "field-title field-full-size",
-				"field"     => __("Viadeo"), 
+				"field"     => "Viadeo", 
 				"p"         => true,
 				"maxlength" => "150",
 				"value"     => $viadeo
