@@ -21,7 +21,6 @@ class Admin_Controller extends ZP_Load
 		isConnected();
 
 		$this->helper("time");
-		$this->title($this->vars["caption"]);
 
 		$this->CSS("admin", "users");
 		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", null, false, true);
@@ -35,6 +34,7 @@ class Admin_Controller extends ZP_Load
 		$this->vars["total"] = SESSION("ZanUserPosts");
 		$this->vars["ID_Column"] = "ID_Post";
 
+		$this->title($this->vars["caption"]);
 		$this->render("content", $this->vars);
 	}
 
