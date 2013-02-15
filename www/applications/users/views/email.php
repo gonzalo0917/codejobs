@@ -25,12 +25,16 @@
 				"value"     => $email
 			));
 
+			echo '<label>';
+
 			echo formCheckbox(array(
 				"name"     => "subscribed",
 				"position" => "right",
-				"text"     => __("Subscribe to our free email newsletters"),
+				"text"     => __("Subscribed to our free email newsletters"),
 				"checked"  => $subscribed === true
 			));
+
+			echo '</label>';
 
 			echo formInput(array(
 				"name"  => "save", 
