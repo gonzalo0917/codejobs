@@ -859,7 +859,6 @@ class Users_Model extends ZP_Load
 		$filename = POST("name");
 		$file = POST("file");
 		$resized = POST("resized");
-		$filetype = POST("type");
 		$coordinate = POST("coordinate");
 
 		if (!preg_match('/^\d+,\d+,\d+,\d+$/', $coordinate)) {
@@ -867,31 +866,21 @@ class Users_Model extends ZP_Load
 		}
 
 		if ($file) {
-			if (!is_string($username) or !is_string($resized) or !is_string($filetype)) {
+			if (!is_string($username) or !is_string($resized)) {
 				return false;
 			}
 
+			$this->Files = $this->core("Files");
+
 			$parts = explode(".", $filename);
 			$ext = end($parts);
-
-			$dataO = str_replace("data:$filetype;base64,", "", $file);
-	        $dataO = str_replace(" ", "+", $dataO);
-	        $dataO = base64_decode($dataO);
-
-			$dataR = str_replace("data:$filetype;base64,", "", $resized);
-	        $dataR = str_replace(" ", "+", $dataR);
-	        $dataR = base64_decode($dataR);
-
 	        $path = "www/lib/files/images/users/";
 	        $fileO = $path . sha1($username ."_O") .".$ext";
-
 	        $nameR = sha1($username) .".$ext";
 	        $fileR = $path . $nameR;
 
-	        file_put_contents($fileO, $dataO, LOCK_EX);
-	        file_put_contents($fileR, $dataR, LOCK_EX);
-
-	        if (file_exists($fileO) and file_exists($fileR)) {
+	        if ($this->Files->createFileFromBase64($file, $fileO) and 
+	        	$this->Files->createFileFromBase64($resized, $fileR)) {
 	        	return array(
 	        		$nameR,
 	        		$coordinate
@@ -906,18 +895,11 @@ class Users_Model extends ZP_Load
 
 			$parts = explode(".", $filename);
 			$ext = end($parts);
-
-			$data = str_replace("data:$filetype;base64,", "", $resized);
-	        $data = str_replace(" ", "+", $data);
-	        $data = base64_decode($data);
-
 	        $path = "www/lib/files/images/users/";
 	        $name = sha1($username) .".$ext";
 	        $file = $path . $name;
 
-	        file_put_contents($file, $data, LOCK_EX);
-
-	        if (file_exists($file)) {
+	        if ($this->Files->createFileFromBase64($resized, $file)) {
 	        	return array(
 					$name,
 					$coordinate
