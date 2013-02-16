@@ -865,18 +865,16 @@ class Users_Model extends ZP_Load
 			$coordinate = "0,0,90,90";
 		}
 
+		$this->Files = $this->core("Files");
+
 		if ($file) {
 			if (!is_string($username) or !is_string($resized)) {
 				return false;
 			}
 
-			$this->Files = $this->core("Files");
-
-			$parts = explode(".", $filename);
-			$ext = end($parts);
 	        $path = "www/lib/files/images/users/";
-	        $fileO = $path . sha1($username ."_O") .".$ext";
-	        $nameR = sha1($username) .".$ext";
+	        $fileO = $path . sha1($username ."_O") .".png";
+	        $nameR = sha1($username) .".png";
 	        $fileR = $path . $nameR;
 
 	        if ($this->Files->createFileFromBase64($file, $fileO) and 
@@ -893,10 +891,8 @@ class Users_Model extends ZP_Load
 				return false;
 			}
 
-			$parts = explode(".", $filename);
-			$ext = end($parts);
 	        $path = "www/lib/files/images/users/";
-	        $name = sha1($username) .".$ext";
+	        $name = sha1($username) .".png";
 	        $file = $path . $name;
 
 	        if ($this->Files->createFileFromBase64($resized, $file)) {
@@ -913,11 +909,8 @@ class Users_Model extends ZP_Load
 	private function removeAvatar($filename)
 	{
 		if ($filename !== "default.png") {
-			$parts = explode(".", $filename);
-			$ext = end($parts);
-
-			@unlink("www/lib/files/images/users/". sha1(SESSION("ZanUser")) .".$ext");
-			@unlink("www/lib/files/images/users/". sha1(SESSION("ZanUser") ."_O") .".$ext");
+			@unlink("www/lib/files/images/users/". sha1(SESSION("ZanUser")) .".png");
+			@unlink("www/lib/files/images/users/". sha1(SESSION("ZanUser") ."_O") .".png");
 		}
 	}
 

@@ -51,7 +51,7 @@
 
 				$("#avatar-image").attr("src", result);
 
-				setFile(result, file.name, file.type, file.size);
+				setFile(result, file.name, file.size);
 
 				destroyMark();
 
@@ -100,7 +100,11 @@
 			ctx1.drawImage($("img.avatar").get(0), 0, 0, cnv1.width, cnv1.height);
 			ctx2.drawImage(cnv1, parseInt(coor[0]), parseInt(coor[1]), parseInt(coor[2]) - parseInt(coor[0]), parseInt(coor[3]) - parseInt(coor[1]), 0, 0, 90, 90);
 
-			$("#resized").val(cnv2.toDataURL($("#type").val()));
+			if ($("#file").val()) {
+				$("#file").val(cnv1.toDataURL("image/png"));
+			}
+			
+			$("#resized").val(cnv2.toDataURL("image/png"));
 
 			document.body.appendChild(cnv2);
 
@@ -109,10 +113,9 @@
 		}
 	}
 
-	function setFile(file, name, type, size) {
+	function setFile(file, name, size) {
 		$("#file").val(file || "");
 		$("#name").val(name || "");
-		$("#type").val(type || "");
 		$("#size").val(size || "");
 	}
 
