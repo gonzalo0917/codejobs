@@ -54,6 +54,13 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 			$this->CSS("www/lib/scripts/js/tweetscroller/css/utils.css", null, false, true);
 			$this->CSS("www/lib/scripts/js/tweetscroller/css/bootstrap-responsive.css", null, false, true);
 			$this->CSS("www/lib/scripts/js/tweetscroller/css/tweetscroller.css", null, false, true);
+			?>
+			<style>
+				#top-box ul {
+					margin-top: -40px !important;
+				}
+			</style>
+			<?php
 		}
 
 		echo $this->getCSS(); 		
