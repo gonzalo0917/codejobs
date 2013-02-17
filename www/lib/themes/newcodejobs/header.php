@@ -243,7 +243,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 			<div class="clear"></div>
 		</div>
 		<?php
-		if (!defined("_hideWrapper")) {
+		if (!defined("HIDE_WRAPPER")) {
 		?>
 			<div id="wrapper">
 				<div id="logo">
