@@ -72,12 +72,15 @@ define("FB_APP_URL", "Your Facebook App URL");
  * Google Adsense
  */                  
 define("AD_CLIENT", "");
-define("AD_SLOT_336", "");
-define("AD_WIDTH_336", "336");
-define("AD_HEIGHT_336", "280");
-define("AD_SLOT_728", "");
-define("AD_WIDTH_728", "728");
-define("AD_HEIGHT_728", "90");
+define("AD_SLOT_BLOCK", "");
+define("AD_WIDTH_BLOCK", "300");
+define("AD_HEIGHT_BLOCK", "250");
+define("AD_SLOT_SKY", "");
+define("AD_WIDTH_SKY", "728");
+define("AD_HEIGHT_SKY", "90");
+define("AD_SLOT_MEDIUM", "");
+define("AD_WIDTH_MEDIUM", "234");
+define("AD_HEIGHT_MEDIUM", "60");
 
 
 /**
@@ -114,8 +117,4 @@ define("MIN_LARGE", 700);
 define("MAX_LARGE", 1024);
 define("FILE_SIZE", 10485760);
 
-if(!$ZP["modRewrite"]) {
-	$ZP["webBase"] = $ZP["webURL"] . SH . INDEX;
-} else {
-	$ZP["webBase"] = $ZP["webURL"];
-}
+$ZP["webBase"] = (!$ZP["modRewrite"]) ? $ZP["webURL"] . SH . INDEX : $ZP["webURL"];
