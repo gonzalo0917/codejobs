@@ -86,7 +86,7 @@ class Polls_Model extends ZP_Load
 
 		$this->Data->ignore("answers");
 		
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 	}
 
 	private function save()

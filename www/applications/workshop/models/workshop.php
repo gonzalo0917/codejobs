@@ -74,7 +74,7 @@ class Workshop_Model extends ZP_Load
 
 		$this->helper(array("alerts", "time", "files"));
 
-		$data = $this->Data->proccess(null, $validations);
+		$data = $this->Data->process(null, $validations);
 
 		if (isset($data["error"])) {
 			return $data["error"];

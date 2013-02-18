@@ -117,7 +117,7 @@ class Bookmarks_Model extends ZP_Load
 			$data["Modified_Date"] = now(4);
 		}
 
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];

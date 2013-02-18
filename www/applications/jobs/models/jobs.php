@@ -93,7 +93,7 @@ class Jobs_Model extends ZP_Load
 		$this->Data->change("cinformation", "Company_Information");
 		$this->Data->change("allocation", "Allocation_Time");
 		$this->Data->change("ccontact", "Company_Contact");
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];

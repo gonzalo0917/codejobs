@@ -84,7 +84,7 @@ class Pages_Model extends ZP_Load
 			"Text_Date" => decode(now(2))
 		);
 
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];

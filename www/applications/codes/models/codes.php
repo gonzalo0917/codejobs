@@ -119,7 +119,7 @@ class Codes_Model extends ZP_Load
 		}
         
 		$this->Data->ignore(array("file", "programming", "syntax", "syntaxname", "name", "code"));
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
                 
         if (isset($this->data["error"])) {
 			return $this->data["error"];
@@ -135,7 +135,7 @@ class Codes_Model extends ZP_Load
 
 		$data = array();
 		$this->Data->ignore(array("editLanguage"));
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];

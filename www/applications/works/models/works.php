@@ -71,7 +71,7 @@ class Works_Model extends ZP_Load
 
  		$this->Data->ignore(array("image_last", "preview1_last", "preview2_last"));
 
- 		$this->data = $this->Data->proccess($data, $validations);
+ 		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];

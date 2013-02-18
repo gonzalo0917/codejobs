@@ -75,7 +75,7 @@ class Feedback_Model extends ZP_Load
 		$this->helper(array("alerts", "time"));
 		$this->Data->ignore(array("captcha_token"));
 
-		$data = $this->Data->proccess(null, $validations);
+		$data = $this->Data->process(null, $validations);
 
 		if (isset($data["error"])) {
 			return $data["error"];

@@ -48,7 +48,7 @@ class Configuration_Model extends ZP_Load
 			"Lang" => getLang(POST("language"))
 		);
 
-		$this->data = $this->Data->proccess($data, $validations);
+		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
