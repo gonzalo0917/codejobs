@@ -187,7 +187,7 @@ class Users_Controller extends ZP_Load
 				if ($this->Users_Model->isMember()) {
 					$data = $this->Users_Model->getUserData();
 				} 
-
+		
 				if ($data) {
 					createLoginSessions($data[0], false);
 

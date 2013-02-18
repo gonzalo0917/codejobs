@@ -1,7 +1,4 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -23,6 +20,7 @@ class Users_Model extends ZP_Load
 		$this->table = "users";
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
 		$this->application = whichApplication();
+		$this->helper("debugging");
 	}
 	
 	public function cpanel($action, $limit = null, $order = "ID_User DESC", $search = null, $field = null, $trash = false)
@@ -162,12 +160,13 @@ class Users_Model extends ZP_Load
 
 	public function checkUserService($serviceID, $service = "Facebook")
 	{
-		$fields = "muu_users.ID_User, ID_Privilege, muu_users_services.ID_Service, Service, Username, Name, Avatar, Bookmarks, Codes, Posts, Recommendation";
+		$fields = "". DB_PREFIX ."users.ID_User, ID_Privilege, ". DB_PREFIX ."users_services.ID_Service, Service, Username, Name, Avatar, ";
+		$fields = "Bookmarks, Codes, Posts, Recommendation";
 		
 		return $this->Db->query("SELECT $fields
-								 FROM muu_users_services 
-								 INNER JOIN muu_users ON muu_users.ID_User = muu_users_services.ID_User
-								 WHERE muu_users_services.ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");
+								 FROM ". DB_PREFIX ."users_services 
+								 INNER JOIN ". DB_PREFIX ."users ON ". DB_PREFIX ."users.ID_User = ". DB_PREFIX ."users_services.ID_User
+								 WHERE ". DB_PREFIX ."users_services.ID_Service = '$serviceID' AND Service = '$service' AND ". DB_PREFIX ."users.Situation = 'Active'");
 	}
 
 	public function addUser($service = false)
@@ -181,23 +180,23 @@ class Users_Model extends ZP_Load
 		$validations = array(
 			"exists" => array(
 				"Username" => POST("username"),
-				"or" => true,
-				"Email" => POST("email"),
+				"or" 	   => true,
+				"Email"    => POST("email"),
 			),
 			"username" => "required",
-			"name" => "required",
-			"email" => "email?"
+			"name" 	   => "required",
+			"email"    => "email?"
 		);
 
 		$code = code(10);
 
 		$data = array(
 			"ID_Service" => POST("serviceID") ? POST("serviceID") : "0",
-			"Name" => POST("name"),
+			"Name" 		 => POST("name"),
 			"Start_Date" => now(4),
 			"Subscribed" => 1,
-			"Code" => $code,
-			"Situation" => "Inactive"
+			"Code" 		 => $code,
+			"Situation"  => "Inactive"
 		);
 
 		if (!$service) {
@@ -215,6 +214,7 @@ class Users_Model extends ZP_Load
 		if (isset($data["error"])) {
 			return array("inserted" => false, "alert" => $data["error"]);
 		}
+
 		$ID_User = $this->Db->insert($this->table, $data);
 		
 		if ($ID_User) {
@@ -234,7 +234,7 @@ class Users_Model extends ZP_Load
 
 			return array(
 				"inserted" => true,
-				"alert" => getAlert(__("The account has been created correctly, we will send you an email so you can activate your account"), "success")
+				"alert"    => getAlert(__("The account has been created correctly, we will send you an email so you can activate your account"), "success")
 			);
 		} else {
 			return array("inserted" => false, "alert" => getAlert(__("Insert error")));
@@ -243,7 +243,8 @@ class Users_Model extends ZP_Load
 	
 	public function activate($user, $code)
 	{
-		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, "ID_User, ID_Privilege, ID_Service, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation");
+		$fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Pwd, Name, Avatar, Bookmarks, Codes, Posts, Recommendation";
+		$data = $this->Db->findBySQL("Username = '$user' AND Code = '$code' AND Situation = 'Inactive'", $this->table, $fields);
 
 		if ($data) {
 			$this->Db->update($this->table, array("Situation" => "Active"), $data[0]["ID_User"]);
@@ -315,7 +316,9 @@ class Users_Model extends ZP_Load
 			$password = POST("password", "encrypt");
 		}
 
-		return $this->Db->findBySQL("ID_Privilege <= 2 AND (Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'", $this->table, "ID_User");
+		$query = "ID_Privilege <= 2 AND (Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'";
+
+		return $this->Db->findBySQL($query, $this->table, "ID_User");
 	}
 	
 	public function isMember($sessions = false)
@@ -331,10 +334,10 @@ class Users_Model extends ZP_Load
 			$username = POST("username");
 			$password = POST("password", "encrypt");
 		}
-
-		$this->Db->select("ID_User");
 		
-		return $this->Db->findBySQL("(Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'", $this->table);
+		$query = "(Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'";
+
+		return $this->Db->findBySQL($query, $this->table, "ID_User");
 	}
 	
 	public function getUserData($sessions = false) {
@@ -346,15 +349,14 @@ class Users_Model extends ZP_Load
 			$password = POST("password", "encrypt");
 		}
 
-		$fields = "ID_User, ID_Privilege, Username, Pwd, Email, Website, Avatar, Recommendation, Credits, Sign, Messages, Recieve_Messages, Topics, Replies, ";
-		$fields .= "Comments, Bookmarks, Codes, Bookmarks, Posts, Jobs, Suscribed, Start_Date, Code, CURP, RFC, Name, Age, Title, Address, Zip, Phone, Mobile, ";
-		$fields .= "Gender, Relationship, Birthday, Country, District, City, Technologies, Twitter, Facebook, Linkedin, Viadeo, Situation";
+		$fields  = "ID_User, ID_Privilege, Username, Pwd, Email, Website, Avatar, Recommendation, Credits, Sign, Messages, Recieve_Messages,";
+		$fields .= "Topics, Replies, Comments, Bookmarks, Codes, Posts, Jobs, Subscribed, Start_Date, Code, Name, Age,";
+		$fields .= "Title, Address, Zip, Phone, Mobile, Gender, Relationship, Birthday, Country, District, City, Technologies, Twitter,";
+		$fields .= "Facebook, Linkedin, Viadeo, Situation";
 
-		$this->Db->select($fields);
+		$query = "(Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'";
 
-		$data = $this->Db->findBySQL("(Username = '$username' OR Email = '$username') AND Pwd = '$password' AND Situation = 'Active'", $this->table);
-
-		return $data;
+		return $this->Db->findBySQL($query, $this->table, $fields);
 	}
 
 	public function getOnlineUsers()
@@ -369,9 +371,7 @@ class Users_Model extends ZP_Load
 		$this->Db->deleteBySQL("Start_Date < $time", "users_online");
 
 		if ($user !== "") {
-			$this->Db->select("User, Start_Date");
-
-			$users = $this->Db->findBy("User", $user, "users_online");
+			$users = $this->Db->findBy("User", $user, "users_online", "User, Start_Date");
 			
 			if (!$users) {
 				$this->Db->insert("users_online", array("User" => $user, "Start_Date" => $date));
@@ -379,9 +379,7 @@ class Users_Model extends ZP_Load
 				$this->Db->updateBySQL("users_online", "Start_Date = '$date' WHERE User = '$user'");
 			}
 		} else {
-			$this->Db->select("IP, Start_Date");
-
-			$users = $this->Db->findBy("IP", $IP, "users_online_anonymous");
+			$users = $this->Db->findBy("IP", $IP, "users_online_anonymous", "IP, Start_Date");
 
 			if (!$users) {
 				$this->Db->insert("users_online_anonymous", array("IP" => $IP, "Start_Date" => $date));
@@ -415,7 +413,8 @@ class Users_Model extends ZP_Load
 	
 	public function getPermissions($ID_Privilege, $ID_Application, $permission)
 	{
-		$data = $this->Db->findBySQL("ID_Privilege = '$ID_Privilege' AND ID_Application = '$ID_Application'", "re_permissions_privileges", "ID_Privilege, ID_Application, Adding, Deleting, Editing, Viewing");
+		$fields = "ID_Privilege, ID_Application, Adding, Deleting, Editing, Viewing";
+		$data = $this->Db->findBySQL("ID_Privilege = '$ID_Privilege' AND ID_Application = '$ID_Application'", "re_permissions_privileges", $fields);
 
 		if ($permission === "add") { 
 			return ($data[0]["Adding"]) ? true : false;
@@ -452,11 +451,11 @@ class Users_Model extends ZP_Load
 
 						if (!$data) {
 							$data = array(
-								"ID_User" => $userID,
-								"Token" => $token,
-								"Action" => "Recover",
+								"ID_User" 	 => $userID,
+								"Token" 	 => $token,
+								"Action" 	 => "Recover",
 								"Start_Date" => $startDate,
-								"End_Date" => $endDate
+								"End_Date"   => $endDate
 							);
 
 							$this->Db->insert("tokens", $data);
@@ -487,11 +486,11 @@ class Users_Model extends ZP_Load
 
 						if (!$data) { 
 							$data = array(
-								"ID_User" => $userID,
-								"Token" => $token,
-								"Action" => "Recover",
+								"ID_User" 	 => $userID,
+								"Token" 	 => $token,
+								"Action" 	 => "Recover",
 								"Start_Date" => $startDate,
-								"End_Date" => $endDate
+								"End_Date" 	 => $endDate
 							);
 
 							$this->Db->insert("tokens", $data);
@@ -533,9 +532,7 @@ class Users_Model extends ZP_Load
 	public function online($all = true)
 	{
 		$registered = $this->Db->countAll("users_online");
-
 		$anonymous = $this->Db->countAll("users_online_anonymous");
-
 		$total = $registered + $anonymous;
 
 		return ($all) ? $total : $anonymous;
@@ -574,15 +571,24 @@ class Users_Model extends ZP_Load
 	public function setLike($ID, $table, $application)
 	{
 		if ($this->Db->find($ID, $table)) {
-			if ($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
+			$userID = SESSION("ZanUserID");
+
+			if ($this->Db->findBySQL("ID_User = '$userID' AND ID_Application = '$application' AND ID_Record = '$ID'", "likes")) {
 				showAlert(__("Already You like this"), path("$table/go/$ID"));
-			} elseif ($this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
+			} elseif ($this->Db->findBySQL("ID_User = '$userID' AND ID_Application = '$application' AND ID_Record = '$ID'", "dislikes")) {
 				showAlert(__("Already You dislike this"), path("$table/go/$ID"));
 			}
 
 			$this->helper("time");
 
-			$this->Db->insert("likes", array("ID_User" => SESSION("ZanUserID"), "ID_Application" => $application, "ID_Record" => $ID, "Start_Date" => now(4)));
+			$data = array(
+				"ID_User" => SESSION("ZanUserID"), 
+				"ID_Application" => $application, 
+				"ID_Record" => $ID, 
+				"Start_Date" => now(4)
+			);
+			
+			$this->Db->insert("likes", $data);
 			
 			$primaryKey = $this->Db->table($table);
 
@@ -607,7 +613,14 @@ class Users_Model extends ZP_Load
 
 			$this->helper("time");
 
-			$this->Db->insert("dislikes", array("ID_User" => SESSION("ZanUserID"), "ID_Application" => $application, "ID_Record" => $ID, "Start_Date" => now(4)));
+			$data = array(
+				"ID_User" => SESSION("ZanUserID"), 
+				"ID_Application" => $application, 
+				"ID_Record" => $ID, 
+				"Start_Date" => now(4)
+			);
+
+			$this->Db->insert("dislikes", $data);
 			
 			$primaryKey = $this->Db->table($table);
 
@@ -657,24 +670,29 @@ class Users_Model extends ZP_Load
 				$recommendation = "";
 		}
 
-		$this->Db->updateBySQL("users", "Credits = (Credits) $credits, Recommendation = (Recommendation) $recommendation $additional WHERE ID_User = '". SESSION("ZanUserID") ."'");
+		$userID = SESSION("ZanUserID");
+		$query = "Credits = (Credits) $credits, Recommendation = (Recommendation) $recommendation $additional WHERE ID_User = '$userID'";
+
+		$this->Db->updateBySQL("users", $query);
 
 		return false;
 	}
 
 	public function getInformation()
 	{
-		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Website");
+		$fields = "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Website";
+
+		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, $fields);
 	}
 
 	public function setInformation()
 	{
 		$validations = array(
-			"name" => "required",
-			"gender" => "required",
+			"name" 	   => "required",
+			"gender"   => "required",
 			"birthday" => "required",
-			"country" => "required",
-			"city" => "required"
+			"country"  => "required",
+			"city"     => "required"
 		);
 
 		$this->data = $this->Data->process(null, $validations);
@@ -693,8 +711,8 @@ class Users_Model extends ZP_Load
 	public function changePassword()
 	{
 		$this->data = $this->Data->process(null, array(
-			"password" => "required",
-			"new_password" => "length:6",
+			"password" 		  => "required",
+			"new_password" 	  => "length:6",
 			"re_new_password" => "length:6"
 		));
 
@@ -721,7 +739,7 @@ class Users_Model extends ZP_Load
 	{
 		$this->data = $this->Data->process(null, array(
 			"password" => "required",
-			"email" => "email?"
+			"email"    => "email?"
 		));
 
 		if (isset($this->data["error"])) {
@@ -733,7 +751,12 @@ class Users_Model extends ZP_Load
 				return getAlert(__("Incorrect password"));
 			}
 
-			if ($this->Db->update($this->table, array("Email" => POST("email"), "Subscribed" => (int)(POST("subscribed") === "on")), SESSION("ZanUserID"))) {
+			$data = array(
+				"Email" => POST("email"), 
+				"Subscribed" => POST("subscribed") == "on" ? 1 : 0
+			);
+
+			if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 				return getAlert(__("The email has been changed correctly"), "success");
 			}
 
@@ -762,7 +785,12 @@ class Users_Model extends ZP_Load
 					$this->removeAvatar($data[0]["Avatar"]);
 				}
 
-				if ($this->Db->update($this->table, array("Avatar" => current($avatar), "Avatar_Coordinate" => next($avatar)), SESSION("ZanUserID"))) {
+				$update = array(
+					"Avatar" => current($avatar), 
+					"Avatar_Coordinate" => next($avatar)
+				);
+
+				if ($this->Db->update($this->table, $update, SESSION("ZanUserID"))) {
 					SESSION("ZanUserAvatar", prev($avatar) ."?". time());
 
 					return getAlert(__("The avatar has been saved correctly"), "success");
@@ -799,11 +827,11 @@ class Users_Model extends ZP_Load
 	public function saveSocial()
 	{
 		$data = array(
-			"Twitter" => POST("twitter"),
+			"Twitter"  => POST("twitter"),
 			"Facebook" => POST("facebook"),
 			"Linkedin" => POST("linkedin"),
-			"Google" => POST("google"),
-			"Viadeo" => POST("viadeo")
+			"Google"   => POST("google"),
+			"Viadeo"   => POST("viadeo")
 		);
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
@@ -888,8 +916,7 @@ class Users_Model extends ZP_Load
 	        $nameR = sha1($username) .".png";
 	        $fileR = $path . $nameR;
 
-	        if ($this->Files->createFileFromBase64($file, $fileO) and 
-	        	$this->Files->createFileFromBase64($resized, $fileR)) {
+	        if ($this->Files->createFileFromBase64($file, $fileO) and $this->Files->createFileFromBase64($resized, $fileR)) {
 	        	return array(
 	        		$nameR,
 	        		$coordinate
