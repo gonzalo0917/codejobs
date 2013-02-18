@@ -12,19 +12,16 @@ class Users_Model extends ZP_Load
 	public function __construct()
 	{
 		$this->Db = $this->db();
-
 		$this->Email = $this->core("Email");
 		
 		$this->Email->fromName = _get("webName");
 		$this->Email->fromEmail = _get("webEmailSend");
 		
-		$this->Data = $this->core("Data");
-		
+		$this->Data = $this->core("Data");		
 		$this->Data->table("users");
 
 		$this->table = "users";
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
-
 		$this->application = whichApplication();
 	}
 	
@@ -54,16 +51,28 @@ class Users_Model extends ZP_Load
 	private function all($trash, $order, $limit)
 	{
 		if (!$trash) {
-			return ((int) SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			if (SESSION("ZanUserPrivilegeID") == 1) {
+				return $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			} else {
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
 		} else {
-			return ((int) SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $fields, null, $order, $limit);
+			if (SESSION("ZanUserPrivilegeID") === 1) {
+				return $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit);
+			} else {
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
 		}
 	}
 
 	private function search($search, $field)
 	{
 		if ($search and $field) {
-			return ($field === "ID") ? $this->Db->find($search, $this->table) : $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);
+			if ($field === "ID") {
+				return $this->Db->find($search, $this->table); 
+			} else {
+				return $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);
+			}
 		} else {
 			return false;
 		}
@@ -76,12 +85,12 @@ class Users_Model extends ZP_Load
 		if ($action === "save") {
 			$validations = array(
 				"username" => "required",
-				"email" => "email?",
-				"pwd" => "length:6",
-				"exists" => array(
+				"email"    => "email?",
+				"pwd" 	   => "length:6",
+				"exists"   => array(
 				"Username" => POST("username"),
-				"or" => true,
-				"Email" => POST("email"),
+				"or" 	   => true,
+				"Email"    => POST("email"),
 				),
 			);
 
@@ -89,15 +98,15 @@ class Users_Model extends ZP_Load
 		} else {
 			$validations = array(
 				"username" => "required",
-				"email" => "email?"
+				"email"    => "email?"
 			);
 		}
 
-		if ((int) POST("privilege") === 1) {
+		if (POST("privilege") == 1) {
 			$privilege = "Super Admin";
-		} elseif ((int) POST("privielge") === 2) {
+		} elseif (POST("privielge") == 2) {
 			$privilege = "Admin";
-		} elseif ((int) POST("privilege") === 3) {
+		} elseif (POST("privilege") == 3) {
 			$privilege = "Moderator";
  		} else {
  			$privilege = "Member";
@@ -105,17 +114,17 @@ class Users_Model extends ZP_Load
 		
 		if (!POST("pwd")) {
 			$data = array(
-				"Username" => POST("username"),
-				"Start_Date" => now(4),
-				"Code" => code(),
+				"Username"     => POST("username"),
+				"Start_Date"   => now(4),
+				"Code" 		   => code(),
 				"ID_Privilege" => POST("privilege")
 			);
 		} else {
 			$data = array(
-				"Username" => POST("username"),
-				"Pwd" => encrypt(POST("pwd")),
-				"Start_Date" => now(4),
-				"Code" => code(),
+				"Username"     => POST("username"),
+				"Pwd" 		   => encrypt(POST("pwd")),
+				"Start_Date"   => now(4),
+				"Code" 		   => code(),
 				"ID_Privilege" => POST("privilege")
 			);
 
@@ -153,7 +162,9 @@ class Users_Model extends ZP_Load
 
 	public function checkUserService($serviceID, $service = "Facebook")
 	{
-		return $this->Db->query("SELECT muu_users.ID_User, ID_Privilege, muu_users_services.ID_Service, Service, Username, Name, Avatar, Bookmarks, Codes, Posts, Recommendation
+		$fields = "muu_users.ID_User, ID_Privilege, muu_users_services.ID_Service, Service, Username, Name, Avatar, Bookmarks, Codes, Posts, Recommendation";
+		
+		return $this->Db->query("SELECT $fields
 								 FROM muu_users_services 
 								 INNER JOIN muu_users ON muu_users.ID_User = muu_users_services.ID_User
 								 WHERE muu_users_services.ID_Service = '$serviceID' AND Service = '$service' AND muu_users.Situation = 'Active'");

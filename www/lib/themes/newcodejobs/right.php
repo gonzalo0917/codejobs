@@ -1,10 +1,5 @@
 <?php
-    if (
-        (segment(0, isLang()) !== "live" and 
-        segment(0, isLang()) !== "forums" and 
-        segment(1, isLang()) !== "add") and 
-        !defined("HIDE_RIGHT")
-    ) { 
+    if ((segment(0, isLang()) !== "live" and segment(0, isLang()) !== "forums" and segment(1, isLang()) !== "add") and !defined("HIDE_RIGHT")) { 
 ?>
         <aside>
             <?php echo display('<section class="ads">'. getAd() .'</section>', 4); ?>  

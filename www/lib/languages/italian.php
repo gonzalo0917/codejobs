@@ -1,4 +1,8 @@
 <?php
+if(!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
+
 $phrase["about_codejobs"] 				 				= "A proposito di CodeJbos";
 $phrase["accounts_activation"] 							= "Attivazione dell'account";
 $phrase["action"] 										= "Azione";
