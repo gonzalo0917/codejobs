@@ -160,8 +160,8 @@ class Users_Model extends ZP_Load
 
 	public function checkUserService($serviceID, $service = "Facebook")
 	{
-		$fields = "". DB_PREFIX ."users.ID_User, ID_Privilege, ". DB_PREFIX ."users_services.ID_Service, Service, Username, Name, Avatar, ";
-		$fields = "Bookmarks, Codes, Posts, Recommendation";
+		$fields  = "". DB_PREFIX ."users.ID_User, ID_Privilege, ". DB_PREFIX ."users_services.ID_Service, Service, Username, Name, Avatar, ";
+		$fields .= "Bookmarks, Codes, Posts, Recommendation";
 		
 		return $this->Db->query("SELECT $fields
 								 FROM ". DB_PREFIX ."users_services 

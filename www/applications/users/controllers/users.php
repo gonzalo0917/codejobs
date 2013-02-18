@@ -1,7 +1,4 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -85,13 +82,13 @@ class Users_Controller extends ZP_Load
 		     			createLoginSessions($data[0]);
 		     		} else {
 		     			$vars = array(
-		     				"service" => "facebook",
+		     				"service" 	=> "facebook",
 		     				"serviceID" => $facebookUser["serviceID"],
-		     				"username" => $facebookUser["username"],
-		     				"name" => $facebookUser["name"],
-		     				"email" => $facebookUser["email"],
-		     				"birthday" => $facebookUser["birthday"],
-		     				"avatar" => $facebookUser["avatar"]
+		     				"username" 	=> $facebookUser["username"],
+		     				"name" 		=> $facebookUser["name"],
+		     				"email" 	=> $facebookUser["email"],
+		     				"birthday" 	=> $facebookUser["birthday"],
+		     				"avatar" 	=> $facebookUser["avatar"]
 		     			);
 
 						SESSION("socialUser", $vars);
