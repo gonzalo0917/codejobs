@@ -46,7 +46,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", null, false, true);
 		
 
-		if (defined("_codemirror")) {
+		if (defined("CODEMIRROR")) {
             $this->CSS("codemirror", null, false, true);
         }
 

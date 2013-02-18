@@ -16,6 +16,10 @@ if (!defined("ACCESS")) {
 		$this->CSS("default", null, false, true); 
 		$this->CSS("$this->themeRoute/css/style.css", null, false, true);
 
+		if(defined("CODEMIRROR")) {
+			$this->CSS("codemirror", NULL, FALSE, TRUE);
+		}
+
 	 	echo $this->getCSS();
 	?>			
 </head>

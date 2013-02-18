@@ -90,6 +90,7 @@ class Codes_Model extends ZP_Load
 		if (POST("author")) {
 			$this->Users_Model = $this->model("Users_Model");
 			$data = $this->Users_Model->getByUsername(POST("author"));
+			
 			if (isset($data[0]["ID_User"])) {
 				$ID_User = $data[0]["ID_User"];
 			} else {
