@@ -76,17 +76,6 @@
                 echo display('<script type="text/javascript">var sc_project = 7655788;var sc_invisible = 1;var sc_security = "f167f55b";</script><script type="text/javascript" src="http://www.statcounter.com/counter/counter.js"></script>', 4);
                 echo display('<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if (!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>', 4);
                 echo display('<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>', 4);
-                echo display('
-                    <script type="text/javascript">
-                        window.___gcfg = {lang: "es-419"};
-
-                        (function() {
-                            var po = document.createElement("script"); po.type = "text/javascript"; po.async = true;
-                            po.src = "https://apis.google.com/js/plusone.js";
-                            var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(po, s);
-                        })();
-                    </script>
-                ', 4);
             ?>
         </body>
     </html>
