@@ -16,6 +16,14 @@
 			$this->js("jquery", null, false, true); 
 			$this->js("www/lib/scripts/js/main.js", null, false, true); 
 
+			if(defined("CODEMIRROR")) {
+                $this->js("codemirror", NULL, FALSE, TRUE);
+            }
+
+            if(defined("ANGULAR_JS")) {
+                $this->js("angular", NULL, FALSE, TRUE);
+            }
+
 			echo $this->getJs();
 		?>
     </body>
