@@ -1,7 +1,4 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -68,7 +65,7 @@ class CPanel_Controller extends ZP_Load
 					$this->Cache->removeAll(POST("cache"));
 					
 					$this->vars["alert"] = getAlert(__("The cache files were removed"), "success");
-				break;
+					break;
 
 				default:
 					$this->vars["alert"] = getAlert(__("Does not exist cache group specified"));
@@ -101,8 +98,10 @@ class CPanel_Controller extends ZP_Load
 		
 		if (POST("minify") and POST("code") and POST("type")) {
 			$this->helper(array("html", "alerts"));
+			
 			$type = POST("type");
 			$code = POST("code", "clean");
+
    			$this->vars["code"] = compress($code, $type);
 	   		$this->vars["type"] = $type;
 	   		$this->vars["alert"] = getAlert(__("The code has been minified"), "success");

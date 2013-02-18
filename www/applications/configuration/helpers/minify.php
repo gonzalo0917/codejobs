@@ -1,8 +1,9 @@
 <?php
-	if (!defined("ACCESS")) {
-		die("Error: You don't have permission to access here...");
-	}
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
 
+if(!function_exists("minify")) {
 	function minify($ext = null) 
 	{
 		$css = false; 
@@ -24,6 +25,7 @@
 			    		unlink("$path/$entry");
 			    	}
 			    }
+			    
 			    closedir($handle);
 			}
 		}
@@ -37,7 +39,9 @@
 			    		unlink("$path/$entry");
 			    	}
 			    }
+
 			    closedir($handle);
 			}
 		}
 	}
+}
