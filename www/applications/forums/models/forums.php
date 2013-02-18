@@ -171,8 +171,8 @@ class Forums_Model extends ZP_Load
 
 	public function deletePost($postID)
 	{
-		$this->Db->delete($postID, "muu_forums_posts");
-		$query = "DELETE FROM muu_forums_posts WHERE ID_Parent = $postID ";
+		$this->Db->delete($postID, "". DB_PREFIX ."forums_posts");
+		$query = "DELETE FROM ". DB_PREFIX ."forums_posts WHERE ID_Parent = $postID ";
 		return $this->Db->query($query);
 	}
 
@@ -197,20 +197,20 @@ class Forums_Model extends ZP_Load
 
 	public function getByForum($slug, $language = "Spanish", $limit = false)
 	{
-		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums.Slug AS Forum_Slug, 
-				  muu_forums_posts.ID_Post, muu_forums_posts.ID_User, muu_forums_posts.Forum_Name, muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug 
-				  AS Post_Slug, muu_forums_posts.ID_Parent, muu_forums_posts.Last_Author, muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
-		          FROM muu_forums 
-				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
-				  WHERE muu_forums.Slug = '$slug' AND muu_forums_posts.Language = '$language' AND muu_forums.Situation = 'Active' 
-				  AND muu_forums_posts.ID_Parent = 0 ORDER BY muu_forums_posts.Last_Reply DESC LIMIT ". $limit;
+		$query = "SELECT ". DB_PREFIX ."forums.ID_Forum, ". DB_PREFIX ."forums.Title AS Forum, ". DB_PREFIX ."forums.Slug AS Forum_Slug, 
+				  ". DB_PREFIX ."forums_posts.ID_Post, ". DB_PREFIX ."forums_posts.ID_User, ". DB_PREFIX ."forums_posts.Forum_Name, ". DB_PREFIX ."forums_posts.Title, ". DB_PREFIX ."forums_posts.Tags, ". DB_PREFIX ."forums_posts.Slug 
+				  AS Post_Slug, ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Last_Author, ". DB_PREFIX ."forums_posts.Content, ". DB_PREFIX ."forums_posts.Author, ". DB_PREFIX ."forums_posts.Start_Date 
+		          FROM ". DB_PREFIX ."forums 
+				  INNER JOIN ". DB_PREFIX ."forums_posts ON ". DB_PREFIX ."forums_posts.ID_Forum = ". DB_PREFIX ."forums.ID_Forum
+				  WHERE ". DB_PREFIX ."forums.Slug = '$slug' AND ". DB_PREFIX ."forums_posts.Language = '$language' AND ". DB_PREFIX ."forums.Situation = 'Active' 
+				  AND ". DB_PREFIX ."forums_posts.ID_Parent = 0 ORDER BY ". DB_PREFIX ."forums_posts.Last_Reply DESC LIMIT ". $limit;
 
 		$data = $this->Db->query($query);
 
 		if ($data) {
 			return $data;
 		} else {
-			$query = "SELECT ID_Forum, Title, Slug FROM muu_forums WHERE Slug = '$slug' AND Language = '$language' AND Situation = 'Active'";
+			$query = "SELECT ID_Forum, Title, Slug FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' AND Language = '$language' AND Situation = 'Active'";
 
 		  	return $this->Db->query($query);
 		}
@@ -218,21 +218,21 @@ class Forums_Model extends ZP_Load
 
 	public function getPost($postID)
 	{
-		$query = "SELECT $this->fieldsPosts FROM muu_forums_posts WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post";
+		$query = "SELECT $this->fieldsPosts FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post";
 		
 		return $this->Db->query($query);
 	}
 
 	public function getPostToEdit($postID)
 	{
-		$query = "SELECT $this->fieldsPosts FROM muu_forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
+		$query = "SELECT $this->fieldsPosts FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = $postID AND ID_Parent = 0 ";
 		
 		return $this->Db->query($query);
 	}
 
 	public function getCommentToEdit($postID)
 	{
-		$query = "SELECT $this->fieldsPosts FROM muu_forums_posts WHERE ID_Post = $postID";
+		$query = "SELECT $this->fieldsPosts FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = $postID";
 
 		return $this->Db->query($query);
 	}
@@ -259,9 +259,9 @@ class Forums_Model extends ZP_Load
 	{
 		$author = str_replace("-", " ", $author);
 		$slug = segment(1, isLang());
-		$query = "SELECT $this->fieldsPosts FROM muu_forums_posts WHERE Author = '$author' 
+		$query = "SELECT $this->fieldsPosts FROM ". DB_PREFIX ."forums_posts WHERE Author = '$author' 
 				  AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 
-				  AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '$slug' LIMIT 1) 
+				  AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' LIMIT 1) 
 				  ORDER BY ID_Post DESC LIMIT $limit";
 
 		return $this->Db->query($query);
@@ -270,10 +270,10 @@ class Forums_Model extends ZP_Load
 	public function getByAuthorTag($author, $tag, $limit)
 	{
 		$tag = str_replace("-", " ", $tag);
-		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM muu_forums_posts 
+		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM ". DB_PREFIX ."forums_posts 
 			WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Author = '$author' 
 			AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 
-			AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) 
+			AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '". segment(1, isLang()) ."' LIMIT 1) 
 			ORDER BY ID_Post DESC LIMIT ". $limit);
 	}
 
@@ -281,14 +281,14 @@ class Forums_Model extends ZP_Load
 	{
 		$tag = str_replace("-", " ", $tag);
 		$slug = segment(1, isLang());
-		$query = "SELECT muu_forums.ID_Forum, muu_forums.Title AS Forum, muu_forums_posts.ID_Post, 
-				  muu_forums_posts.Title, muu_forums_posts.Tags, muu_forums_posts.Slug, muu_forums_posts.ID_Parent, 
-				  muu_forums_posts.Content, muu_forums_posts.Author, muu_forums_posts.Start_Date 
-				  FROM muu_forums 
-				  INNER JOIN muu_forums_posts ON muu_forums_posts.ID_Forum = muu_forums.ID_Forum
-				  WHERE muu_forums.Slug = '$slug' AND (muu_forums_posts.Title LIKE '%$tag%' OR muu_forums_posts.Content 
-				  LIKE '%$tag%' OR muu_forums_posts.Tags LIKE '%$tag%') AND muu_forums_posts.Language = '$this->language' 
-				  AND muu_forums.Situation = 'Active' AND muu_forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC LIMIT $limit";
+		$query = "SELECT ". DB_PREFIX ."forums.ID_Forum, ". DB_PREFIX ."forums.Title AS Forum, ". DB_PREFIX ."forums_posts.ID_Post, 
+				  ". DB_PREFIX ."forums_posts.Title, ". DB_PREFIX ."forums_posts.Tags, ". DB_PREFIX ."forums_posts.Slug, ". DB_PREFIX ."forums_posts.ID_Parent, 
+				  ". DB_PREFIX ."forums_posts.Content, ". DB_PREFIX ."forums_posts.Author, ". DB_PREFIX ."forums_posts.Start_Date 
+				  FROM ". DB_PREFIX ."forums 
+				  INNER JOIN ". DB_PREFIX ."forums_posts ON ". DB_PREFIX ."forums_posts.ID_Forum = ". DB_PREFIX ."forums.ID_Forum
+				  WHERE ". DB_PREFIX ."forums.Slug = '$slug' AND (". DB_PREFIX ."forums_posts.Title LIKE '%$tag%' OR ". DB_PREFIX ."forums_posts.Content 
+				  LIKE '%$tag%' OR ". DB_PREFIX ."forums_posts.Tags LIKE '%$tag%') AND ". DB_PREFIX ."forums_posts.Language = '$this->language' 
+				  AND ". DB_PREFIX ."forums.Situation = 'Active' AND ". DB_PREFIX ."forums_posts.ID_Parent = 0 ORDER BY ID_Post DESC LIMIT $limit";
 
 		return $this->Db->query($query);
 	}
@@ -299,30 +299,30 @@ class Forums_Model extends ZP_Load
 
 		if ($type = "posts") {
 			$query = "SELECT COUNT(*) AS Total 
-					  FROM muu_forums_posts 
+					  FROM ". DB_PREFIX ."forums_posts 
 					  WHERE Language = '$this->language' 
 					  AND Situation = 'Active' AND ID_Parent = 0 
-					  AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '$slug' LIMIT 1)";
+					  AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' LIMIT 1)";
 
 			$count = $this->Db->query($query);
 			return $count[0]["Total"];
 		} elseif ($type === "tag") {
 			$tag = str_replace("-", " ", $slug);
 			$query = "SELECT COUNT(*) AS Total 
-					  FROM muu_forums_posts 
+					  FROM ". DB_PREFIX ."forums_posts 
 					  WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') 
 					  AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 
-					  AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '$slug' LIMIT 1)";
+					  AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' LIMIT 1)";
 
  	 		$count = $this->Db->query($query);
  	 		return $count[0]["Total"];
 		} elseif ($type === "author") {
 			$author = str_replace("-", " ", segment(3, isLang()));
 			$query = "SELECT COUNT(*) AS Total 
-					  FROM muu_forums_posts 
+					  FROM ". DB_PREFIX ."forums_posts 
 					  WHERE (Title LIKE '%$author%' OR Content LIKE '%$author%' OR Author LIKE '%$author%') 
 					  AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 
-					  AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '$slug' LIMIT 1)";
+					  AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' LIMIT 1)";
 
 			$count = $this->Db->query($query);
 			return  $count[0]["Total"];
@@ -330,10 +330,10 @@ class Forums_Model extends ZP_Load
 			$author = segment(3, isLang());
 			$tag = str_replace("-", " ", segment(5, isLang()));
 			$query = "SELECT COUNT(*) AS Total 
-					  FROM muu_forums_posts 
+					  FROM ". DB_PREFIX ."forums_posts 
 					  WHERE (Title LIKE '%$tag%' OR Content Like '%$tag%' OR Tags Like '%$tag%') AND Author = '$author' 
 					  AND (Situation = 'Active' OR Situation = 'Pending') AND Language = '$this->language' AND ID_Parent = 0 
-					  AND ID_Forum = (SELECT ID_Forum FROM muu_forums WHERE Slug = '$slug' LIMIT 1)";
+					  AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' LIMIT 1)";
 
 			$count = $this->Db->query($query);			
 			return $count[0]["Total"];
