@@ -10,7 +10,7 @@ $language    = isset($data) ? recoverPOST("language", $data[0]["Language"]) : re
 $situation 	 = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
 $edit        = isset($data) ? true : false;
 $action	     = isset($data) ? "edit" : "save";
-$href        = isset($data) ? path(whichApplication() ."/cpanel/edit/$ID") : path(whichApplication() ."/cpanel/add/")
+$href        = isset($data) ? path(whichApplication() ."/cpanel/edit/$ID") : path(whichApplication() ."/cpanel/add/");
 
 echo div("add-form", "class");
 	echo formOpen($href, "form-add", "form-add");
@@ -29,7 +29,7 @@ echo div("add-form", "class");
 		echo formTextarea(array(
 			"name" => "description", 
 			"class" => "required", 
-			"style" => "height: 150px;", 
+			"style" => "height: 250px;", 
 			"field" => __("Description"), 
 			"p" 	=> true, 
 			"value" => $description
@@ -38,13 +38,8 @@ echo div("add-form", "class");
 		echo formField(null, __("Languages") ."<br />". getLanguagesInput($language)); 	
 		
 		$options = array(
-			0 => array(
-					"value"    => "Active",
-					"option"   => __("Active"),
-					"value"    => "Inactive",
-					"option"   => __("Inactive"),
-					"selected" => ($situation === "Inactive") ? true : false
-				)
+			0 => array("value" => "Active", "option" => __("Active"), "selected" => ($situation === "Active") ? true : false),
+			1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
 		);
 
 		echo formSelect(array("name" => "situation", "class" => "required", "p" => true, "field" => __("Situation")), $options);

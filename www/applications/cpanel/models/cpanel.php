@@ -67,7 +67,7 @@ class CPanel_Model extends ZP_Load
 
 	public function deletedRecords($table)
 	{
-		if (SESSION("ZanUserPrivilegeID") === 1) {
+		if (SESSION("ZanUserPrivilegeID") == 1) {
 			return $this->Db->countBySQL("Situation = 'Deleted'", $table);
 		} else {
 			return	$this->Db->countBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $table);

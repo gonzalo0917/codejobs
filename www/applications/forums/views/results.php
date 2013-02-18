@@ -49,8 +49,7 @@ $j = 2;
 		if ($tFoot) {
 			foreach ($tFoot as $column) {     
 				$ID    = $column["ID_Forum"]; 
-				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];  
-
+				$color = ($column["Situation"] === "Deleted") ? $colors[$j] : $colors[$i];
 				$i = ($i === 1) ? 0 : 1;
 				$j = ($j === 3) ? 2 : 3;
 	?>
@@ -77,7 +76,7 @@ $j = 2;
 						<?php echo $column["Topics"]; ?>
 					</td>
 
-                                        <td class="center">
+                    <td class="center">
 						<?php echo $column["Replies"]; ?>
 					</td>
 
