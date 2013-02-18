@@ -7,4 +7,4 @@ if(!defined("ACCESS")) {
 }
 
 define("ANGULAR_JS", true);
-define("CODE_MIRROR", true);
+define("CODEMIRROR", true);

@@ -3,15 +3,15 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 
-	$ID = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) : 0;
-	$title = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
+	$ID          = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"])              : 0;
+	$title       = isset($data) ? recoverPOST("title", $data[0]["Title"])             : recoverPOST("title");
     $description = isset($data) ? recoverPOST("description", $data[0]["Description"]) : recoverPOST("description");
-	$language = isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
-	$edit = isset($data) ? true : false;
-	$action = isset($data) ? "edit"		 : "save";
-	$href = isset($data) ? path(whichApplication() ."/add/") : path(whichApplication() ."/add/");
-    $resalt = isset($data) ? __("Edit code") : __("Add new code");
-    $files = isset($data) ? $data[0]["Files"] : false;
+	$language    = isset($data) ? recoverPOST("language", $data[0]["Language"])       : recoverPOST("language");
+	$edit        = isset($data) ? true                                                : false;
+	$action      = isset($data) ? "edit"		                                      : "save";
+	$href        = isset($data) ? path(whichApplication() ."/add/")                   : path(whichApplication() ."/add/");
+    $resalt      = isset($data) ? __("Edit code")                                     : __("Add new code");
+    $files       = isset($data) ? $data[0]["Files"]                                   : false;
 	
     if (! $files) {
         $files = recoverFiles();
@@ -97,7 +97,6 @@
                 echo formTextArea(array(    
                     "id" => "code{{\$index}}", 
                     "name" => "code[]",
-                    "class" => "code",
                     "style" => "-moz-box-sizing:border-box;height: 200px;width:100%", 
                     "field" => __("Code"), 
                     "p" => true, 
@@ -208,6 +207,7 @@ endfor ;
     };
 
     $(window).load(function () {
+        console.log($("textarea[name='code[]']"));
         var codes = $("textarea[name='code[]']").each(function (index) {
             $scope.files[index].editor = CodeMirror.fromTextArea(this, {
                 lineNumbers: true,

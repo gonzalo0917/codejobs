@@ -7,7 +7,7 @@ $lang = _get("webLang") === "es" ? "es" : "en";
 $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang; ?>"<?php echo defined("_angularjs") ? " ng-app" : "";?>>
+<html lang="<?php echo $lang; ?>"<?php echo defined("ANGULAR_JS") ? " ng-app" : "";?>>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />

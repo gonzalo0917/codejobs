@@ -6,6 +6,7 @@ if(!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
+define("CODEMIRROR", true);
 define("BOOTSTRAP", true);
 define("ANGULAR_JS", true);
 define("COLOR1", "#EEEEEE");

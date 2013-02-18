@@ -36,6 +36,14 @@
                 $this->js("$this->themeRoute/js/porlets.js", null, false, true);
                 $this->js("$this->themeRoute/js/search.js", null, false, true);
 
+                if(defined("CODEMIRROR")) {
+                    $this->js("codemirror", NULL, FALSE, TRUE);
+                }
+
+                if(defined("ANGULAR_JS")) {
+                    $this->js("angular", NULL, FALSE, TRUE);
+                }
+
                 if (_get("environment") > 3) {
                     $this->js("$this->themeRoute/js/social.js", null, false, true);
                 }
