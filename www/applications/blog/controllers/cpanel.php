@@ -173,7 +173,6 @@ class CPanel_Controller extends ZP_Load
 			redirect("$this->application/cpanel/results");
 		}
 
-		$this->js("new", "blog");
 		$this->js("save", "blog");
 		$this->title("Edit");
 		$this->helper(array("forms", "files"));

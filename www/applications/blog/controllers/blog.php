@@ -92,11 +92,6 @@ class Blog_Controller extends ZP_Load
 			}
 
 			$this->CSS("forms", "cpanel");
-			$this->CSS("new", "blog");
-			$this->js("redactorjs");
-			$this->js("markitup");
-			$this->js("switch-editor");
-			$this->js("new", "blog");
 			
 			$this->helper(array("html", "forms"));
 			$this->config("user", "blog");
