@@ -26,7 +26,11 @@ div.CodeMirror {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
     border-radius: 4px;
     border: 1px solid rgb(204, 204, 204);
+    max-width: 970px;
     -moz-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    -ms-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    -webkit-transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
 }
 div.CodeMirrorHover {
     border-color: rgba(82, 168, 236, 0.8);

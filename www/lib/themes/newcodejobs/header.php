@@ -20,12 +20,8 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 	<link href="<?php echo path("bookmarks/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Bookmarks"); ?>" >
 	<link href="<?php echo path("codes/rss"); ?>" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Codes"); ?>" >
 	<link href="http://gdata.youtube.com/feeds/api/users/codejobs/uploads" rel="alternate" type="application/rss+xml" title="RSS <?php echo __("Videos"); ?>" >	
-	<script type="text/javascript" src="<?php echo path("vendors/js/prettify/prettify.js", "zan"); ?>"></script>
-	<script>
-		addEventListener('load', prettyPrint, false); 
-	</script>
 	
-    <?php
+	<?php	
     	$this->CSS("www/lib/css/default.css", null, false, true);
     	
     	$browser  = browser();
@@ -63,9 +59,18 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 			<?php
 		}
 
-		echo $this->getCSS(); 		
-    ?>
+		echo $this->getCSS();
+
+		if (segment(0, isLang()) !== "codes" or segment(1, isLang()) !== "add") {
+	?>
+	<script type="text/javascript" src="<?php echo path("vendors/js/prettify/prettify.js", "zan"); ?>"></script>
+	<script>
+		addEventListener('load', prettyPrint, false); 
+	</script>
     <link href="<?php echo path("vendors/js/prettify/prettify.css", "zan"); ?>" type="text/css" rel="stylesheet" />
+	<?php
+		}
+	?>
 	<link rel="shortcut icon" href="<?php echo $this->themePath; ?>/images/favicon.ico">
 </head>
 
