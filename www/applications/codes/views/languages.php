@@ -6,7 +6,7 @@ $caption = __("Manage languages");
 $colspan = 6;
 
 //echo $search;
-echo formOpen(path("codes/cpanel/languages"), "form-results-search");
+echo formOpen($application ."codes/cpanel/languages");
 
 $colors[0] = COLOR1;
 $colors[1] = COLOR2;

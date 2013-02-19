@@ -241,7 +241,8 @@ class CPanel_Controller extends ZP_Load
 		}
 
 		$this->check();
-		$this->helpers("html");
+		$this->helper("html");
+		$this->helper("forms");
 		$this->title(__("Manage languages"));
 		$this->CSS("results", "cpanel");
 
@@ -259,7 +260,8 @@ class CPanel_Controller extends ZP_Load
 			$this->login();
 		}
 
-		$this->helpers("html");
+		$this->helper("html");
+		$this->helper("forms");
 		$this->CSS("forms", "cpanel");
 		$edit = (POST("edit") ? true : false);
 		$this->title(__($edit ? "Edit language" : "Add language"));
@@ -273,7 +275,8 @@ class CPanel_Controller extends ZP_Load
 			redirect("codes/cpanel/languages");
 		} elseif (POST("edit")) {
 			if (POST("records")) {
-				$data = $this->$Model->getLanguage(array_shift(POST("records")));
+				$record = POST("records");
+				$data = $this->$Model->getLanguage(array_shift($record));
 			} else {
 				redirect("codes/cpanel/languages");
 			}
