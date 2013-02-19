@@ -20,8 +20,6 @@ $action 	= isset($data) ? "edit" : "save";
 $href 		= isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
 $enable 	= isset($data) ? (int) recoverPOST("enable_comments", $data[0]["Enable_Comments"]) : 1;
 
-$editor = _get("defaultEditor") === "Redactor" ? 1 : 2;
-
 echo div("add-form", "class");
 	echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
 		echo p(__(ucfirst(whichApplication())), "resalt");
@@ -56,6 +54,7 @@ echo div("add-form", "class");
 
 		if ($action === "edit" and $mural != "") { 
 			echo p(img(path($mural, true), array("style" => "max-width:700px;", "class" => "mural")));
+			
 			echo formInput(array(	
 				"name" 	=> "delete_mural", 
 				"type" 	=> "checkbox",
@@ -87,6 +86,7 @@ echo div("add-form", "class");
 
 		if ($action === "edit" and $image != "") { 
 			echo p(img(path($image, true)));
+			
 			echo formInput(array(	
 				"name" 	=> "delete_image", 
 				"type" 	=> "checkbox",
@@ -106,8 +106,8 @@ echo div("add-form", "class");
 		echo formField(null, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 
 		$options = array(
-			0 => array("value" => 1, "option" => __("Yes"), "selected" => (bool) $enable),
-			1 => array("value" => 0, "option" => __("No"),  "selected" => (bool) $enable)
+			0 => array("value" => 1, "option" => __("Yes"), "selected" => ($enable === 1) ? true : false),
+			1 => array("value" => 0, "option" => __("No"),  "selected" => ($enable === 0) ? true : false)
 		);
 
 		echo formSelect(array(
@@ -119,8 +119,8 @@ echo div("add-form", "class");
 		);		
 
 		$options = array(
-			0 => array("value" => 1, "option" => __("Active"), "selected" => (bool) $buffer),
-			1 => array("value" => 0, "option" => __("Inactive"), "selected" => (bool) $buffer)
+			0 => array("value" => 1, "option" => __("Active"), "selected" => ($buffer === 1) ? true : false),
+			1 => array("value" => 0, "option" => __("Inactive"), "selected" => ($buffer === 0) ? true : false)
 		);
 
 		echo formSelect(array(
