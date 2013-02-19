@@ -17,23 +17,17 @@ function stripslashes(str) {
 }
 
 function saveDraft() {		
-	var title 	  	 = $('#title').val();
-	var tags 	  	 = $('#tags').val();
-	var editor    	 = $('#editor').val();
-	var code      	 = $('#code').val();
-	var buffer    	 = $('#buffer').val();
-	var pwd       	 = $('#pwd').val();	
-	var postID	  	 = $('#ID_Post').val();
-	var language  	 = $('#language').val();
-	var situation 	 = $('#situation').val();
-	var temp_title   = stripslashes($('#temp_title').val());
-	var temp_tags    = stripslashes($('#temp_tags').val());
-
-	if(editor == 1) {
-		var content = $('#redactor').getCode();
-	} else {
-		var content = $('#redactor').val();
-	}
+	var title = $('#title').val();
+	var tags = $('#tags').val();
+	var code = $('#code').val();
+	var buffer = $('#buffer').val();
+	var pwd = $('#pwd').val();	
+	var postID = $('#ID_Post').val();
+	var language = $('#language').val();
+	var situation = $('#situation').val();
+	var temp_title = stripslashes($('#temp_title').val());
+	var temp_tags = stripslashes($('#temp_tags').val());
+	var content = $(".cke_wysiwyg_frame").contents().find('body').html();
 
 	if(title.length > 5 && content.length > 30) {	
 		$.ajax({
@@ -54,4 +48,4 @@ function saveDraft() {
 
 setInterval(function() {
     saveDraft();
-}, 4 * 60 * 1000);
+}, 3 * 60 * 1000);
