@@ -8,6 +8,8 @@
 	$('input.avatar-file').change(function () {
 		if ('files' in this) {
 			selectFile(this.files);
+		} else { // IE9+
+			$("#form-add").append('<input type="hidden" id="nosupport" name="nosupport" value="nosupport" />').submit();
 		}
 	});
 
@@ -79,7 +81,7 @@
 	}
 
 	function createAvatar() {
-		if (! /default\.png$/ .test($("img.avatar").attr("src"))) {
+		if (!(/default\.png$/ .test($("img.avatar").attr("src"))) && $("#nosupport").get(0) === undefined) {
 			var cnv1, ctx1, cnv2, ctx2, coor;
 
 			cnv1 = document.createElement("canvas");
@@ -104,8 +106,6 @@
 
 			document.body.appendChild(cnv2);
 
-		} else {
-			alert("El src del avatar es: " + $("img.avatar").attr("src"));
 		}
 	}
 
@@ -201,7 +201,7 @@
 		event.preventDefault();
 
 		if ($("#filedrag").css("color") === "rgb(85, 85, 85)")	{
-			var files = event.dataTransfer.files, file;
+			var files = event.dataTransfer.files;
 			if (files.length > 0) {
 				selectFile(files);
 			}

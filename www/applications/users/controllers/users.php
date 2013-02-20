@@ -401,6 +401,10 @@ class Users_Controller extends ZP_Load
 		} elseif (POST("save")) {
 			$this->helper("alerts");
 			$vars["alert"] = $this->Users_Model->saveAvatar();
+		} elseif (POST("nosupport")) {
+			// El navegador no soporta FileApi
+			$this->helper("debugging");
+			____($_FILES);
 		}
 
 		$data = $this->Users_Model->getAvatar();

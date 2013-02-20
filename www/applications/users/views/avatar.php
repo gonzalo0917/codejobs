@@ -15,7 +15,7 @@
 
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 
-			echo div("filedrag", TRUE, NULL, __("Drop image here"));
+			echo div("filedrag", true, null, __("Drop image here"));
 
 			echo div("avatar", "class");
 				echo span(
