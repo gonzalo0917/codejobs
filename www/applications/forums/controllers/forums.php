@@ -10,13 +10,17 @@ class Forums_Controller extends ZP_Load
 	public function __construct() 
 	{
 		$this->config("forums");
+		
 		$this->Templates = $this->core("Templates");
 		$this->Cache = $this->core("Cache");
 		$this->Forums_Model = $this->model("Forums_Model");
+		
 		$this->Templates->theme();
 		$this->language = whichLanguage();
+		
 		$this->helper("debugging");
 		$this->helper("pagination");
+		
 		setURL();
 	}
 
@@ -213,6 +217,7 @@ class Forums_Controller extends ZP_Load
 		if ($data) {
 			$vars["forums"] = $data;
 			$vars["view"] = $this->view("forums", true);
+
 			$this->render("content", $vars);
 		} else {
 			redirect();
@@ -222,6 +227,7 @@ class Forums_Controller extends ZP_Load
 	public function getForum($forum)
 	{
 		$this->CSS("pagination");
+		
 		$limit = $this->limit();
 		$data = $this->Forums_Model->getByForum($forum, $this->language, $limit);
 
