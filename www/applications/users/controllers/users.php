@@ -507,23 +507,34 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
-		if (POST("update")) {
-			//Guardes todo por PHP
-		}
-
-		$this->js("cv", "users");
-
 		$data = $this->Users_Model->getInformation();
 
 		if ($data) {
 			//mostrar el form con toda la info
+			$this->helper(array("forms", "html"));
+			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
+			
+			if (POST("save")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->saveCv();
+			}
+
+			$this->js("jquery.jdpicker.js");
+
+			$this->Configuration_Model = $this->model("Configuration_Model");
+			$this->Cache = $this->core("Cache");
+
 			$vars["user"] = $data[0];
 			$vars["view"] = $this->view("cv", true);
+			$vars["href"] = path("users/cv/");
+
+			$this->title("Curriculum Vitae");
 
 			$this->render("content", $vars);
 		} else {
-			//$this->render("error404");
-			//redirect();
+			redirect();
 		}
 	}
 }

@@ -2,7 +2,7 @@
 	if (defined("SHOW_LEFT")) {
 		if (SESSION("ZanUser")) {
 			switch (segment(1, isLang())) {
-				case "avatar": case "password": case "options": case "social": case "email":
+				case "avatar": case "password": case "options": case "social": case "email": case "cv":
 					$active = segment(1, isLang());
 					break;
 				default:
