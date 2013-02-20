@@ -1,5 +1,7 @@
 <?php 
-if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
 
 $application = ucfirst(whichApplication());
 $caption = __("Manage ". $application);

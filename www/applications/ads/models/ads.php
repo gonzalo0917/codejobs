@@ -1,14 +1,13 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Ads_Model extends ZP_Load {
+class Ads_Model extends ZP_Load
+{
 	
-	public function __construct() {
+	public function __construct()
+	{
 		$this->Db = $this->db();
 			
 		$this->table  = "ads";
@@ -17,7 +16,8 @@ class Ads_Model extends ZP_Load {
 		$this->Data = $this->core("Data");
 	}
 
-	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false) {	
+	public function cpanel($action, $limit = null, $order = "Language DESC", $search = null, $field = null, $trash = false)
+	{
 		if ($action === "edit" or $action === "save") {
 			$validation = $this->editOrSave($action);
 		
@@ -37,15 +37,25 @@ class Ads_Model extends ZP_Load {
 		}
 	}
 	
-	private function all($trash, $order, $limit) {	
+	private function all($trash, $order, $limit)
+	{	
 		if (!$trash) {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			if (SESSION("ZanUserPrivilegeID") == 1) {
+				return $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			} else {
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			}
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit)      : $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);	
+			if (SESSION("ZanUserPrivilegeID") == 1) {
+				return $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit);
+			} else {
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			}
 		}	
 	}
 	
-	private function editOrSave($action) {
+	private function editOrSave($action)
+	{
 		$validations = array(
 			"title" => "required",
 			"URL"   => "ping"
@@ -94,7 +104,8 @@ class Ads_Model extends ZP_Load {
 		}		
 	}
 	
-	private function save() {		
+	private function save()
+	{		
 		if ($this->data["Principal"] > 0) {
 			$this->Db->select("Position");
 
@@ -110,7 +121,8 @@ class Ads_Model extends ZP_Load {
 		return getAlert(__("The ad has been saved correctly"), "success");	
 	}
 	
-	private function edit() {	
+	private function edit()
+	{	
 		if ($this->data["Principal"] > 0) {		
 			$this->Db->select("Position");
 
@@ -124,7 +136,8 @@ class Ads_Model extends ZP_Load {
 		return getAlert(__("The ad has been edited correctly"), "success");
 	}
 	
-	private function search($search, $field) {
+	private function search($search, $field)
+	{
 		if ($search and $field) {
 			$this->Db->select("ID_Ad, Title, Position, Banner, URL, Code, Start_Date, Principal, Situation");
 
@@ -140,24 +153,21 @@ class Ads_Model extends ZP_Load {
 		return $data;		
 	}
 	
-	public function getByID($ID) {
-		$this->Db->select("Title, Position, Banner, URL, Code, Time, Principal");
-
-		return $this->Db->find($ID, $this->table);
+	public function getByID($ID)
+	{		
+		return $this->Db->find($ID, $this->table, "Title, Position, Banner, URL, Code, Time, Principal");
 	}
 	
-	public function getAds($position = null) {			
-		$this->Db->select("Title, Position, Banner, URL, Code, Time, Principal");	
-		
-		return $this->Db->findBySQL("Position = '$position' AND Situation = 'Active'", $this->table);
+	public function getAds($position = null) {		
+		return $this->Db->findBySQL("Position = '$position' AND Situation = 'Active'", $this->table, "Title, Position, Banner, URL, Code, Time, Principal");
 	}
 	
-	public function click($ID) {		
+	public function click($ID)
+	{		
 		if ($ID > 0) {
 			return $this->Db->updateBySQL("ads", "Clicks = (Clicks) + 1", $ID);
 		}
 		
 		return false;
 	}
-	
 }

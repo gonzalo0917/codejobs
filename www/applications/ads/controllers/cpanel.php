@@ -1,38 +1,34 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class CPanel_Controller extends ZP_Load {
+class CPanel_Controller extends ZP_Load
+{
 	
 	private $vars = array();
 	
-	public function __construct() {		
+	public function __construct()
+	{
 		$this->app("cpanel");
 		
 		$this->application = whichApplication();
 		
-		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");
-		
-		$this->isAdmin = $this->CPanel->load();
-		
+		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");		
+		$this->isAdmin = $this->CPanel->load();		
 		$this->vars = $this->CPanel->notifications();
 		
 		$this->CPanel_Model = $this->model("CPanel_Model");
 		
-		$this->Templates = $this->core("Templates");
-		
+		$this->Templates = $this->core("Templates");		
 		$this->Templates->theme("cpanel");
 		
-		$this->Model = ucfirst($this->application) ."_Model";
-		
+		$this->Model = ucfirst($this->application) ."_Model";		
 		$this->{"$this->Model"} = $this->model($this->Model);		
 	}
 	
-	public function index() {
+	public function index()
+	{
 		if ($this->isAdmin) {
 			redirect("cpanel");
 		} else {
@@ -40,7 +36,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function check() {
+	public function check()
+	{
 		if (POST("trash") and is_array(POST("records"))) { 
 			foreach (POST("records") as $record) {
 				$this->trash($record, true); 
@@ -64,7 +61,8 @@ class CPanel_Controller extends ZP_Load {
 		return false;
 	}
 
-	public function delete($ID = 0, $return = false) {
+	public function delete($ID = 0, $return = false)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -84,7 +82,8 @@ class CPanel_Controller extends ZP_Load {
 		}	
 	}
 
-	public function restore($ID = 0, $return = false) { 
+	public function restore($ID = 0, $return = false)
+	{ 
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -104,7 +103,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 
-	public function trash($ID = 0, $return = false) {
+	public function trash($ID = 0, $return = false)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -124,7 +124,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 	
-	public function results() {
+	public function results()
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -142,25 +143,25 @@ class CPanel_Controller extends ZP_Load {
 		
 		$trash = (segment(3, isLang()) === "trash") ? true : false;
 				
-		$this->vars["total"] 	  = $this->CPanel_Model->total($trash);
-		$this->vars["tFoot"] 	  = $this->CPanel_Model->records($trash);
-		$this->vars["message"]    = (!$this->vars["tFoot"]) ? "Error" : null;
+		$this->vars["total"] = $this->CPanel_Model->total($trash);
+		$this->vars["tFoot"] = $this->CPanel_Model->records($trash);
+		$this->vars["message"] = (!$this->vars["tFoot"]) ? "Error" : null;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
-		$this->vars["trash"]  	  = $trash;	
-		$this->vars["search"] 	  = getSearch(); 			
-		$this->vars["view"]       = $this->view("results", true, $this->application);
+		$this->vars["trash"] = $trash;	
+		$this->vars["search"] = getSearch(); 			
+		$this->vars["view"] = $this->view("results", true, $this->application);
 		
 		$this->render("content", $this->vars);
 	}
 	
-	public function add() {
+	public function add()
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
+
 		$this->helper("forms");
-		$this->title("Add");
-		
-		
+		$this->title("Add");		
 		$this->CSS("forms", "cpanel");
 		
 		$this->vars["alert"] = false;
@@ -176,12 +177,13 @@ class CPanel_Controller extends ZP_Load {
 		$this->render("content", $this->vars);
 	}
 	
-	public function edit($ID = 0) {
+	public function edit($ID = 0)
+	{
 		if (!$this->isAdmin) {
 			$this->login();
 		}
 				
-		$ID = ((int) $ID === 0) ? (int) POST("ID") : (int) $ID;
+		$ID = ($ID == 0) ? (int) POST("ID") : (int) $ID;
 
 		$this->title("Edit");
 		
@@ -207,7 +209,8 @@ class CPanel_Controller extends ZP_Load {
 		}
 	}
 	
-	public function login() {
+	public function login()
+	{
 		$this->title("Login");
 		$this->CSS("login", "users");
 		
@@ -216,13 +219,12 @@ class CPanel_Controller extends ZP_Load {
 			
 			$this->Users_Controller->login("cpanel");
 		} else {
-			$this->vars["URL"]  = getURL();
+			$this->vars["URL"] = getURL();
 			$this->vars["view"] = $this->view("login", true, "cpanel");
 		}
 		
 		$this->render("include", $this->vars);
-		$this->rendering("header", "footer");
-		
+		$this->rendering("header", "footer");		
 		exit;
 	}
 	

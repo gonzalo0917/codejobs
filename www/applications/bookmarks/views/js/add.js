@@ -12,17 +12,18 @@
 			requesting = true;
 
 			$.ajax({
-				"type" 	  : "json",
-				"url"  	  : path + "/bookmarks/request/?url=" + encodeURIComponent(url),
+				"type" : "json",
+				"url" : path + "/bookmarks/request/?url=" + encodeURIComponent(url),
 				"success" : loaded,
-				"error"	  : function () {
+				"error"	: function () {
 					loaded({"Title": "", "Description": "", "Keywords": ""})
 				}
 			});
 		}
 	});
 
-	function loaded(data) {
+	function loaded(data)
+	{
 		data = JSON.parse(data);
 
 		$("#form-add").find("input, textarea, select").attr("disabled", false);

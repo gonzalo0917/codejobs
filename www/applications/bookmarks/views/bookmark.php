@@ -1,9 +1,9 @@
 <?php 
-	if (!defined("ACCESS")) {
-		die("Error: You don't have permission to access here..."); 
-	}
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here..."); 
+}
 
-	$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], false, $bookmark["Language"]);
+$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], false, $bookmark["Language"]);
 ?>
 
 <div class="bookmarks">

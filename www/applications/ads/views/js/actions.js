@@ -1,7 +1,6 @@
-$(document).ready( function (){
-	
-	$("#deleteMural").click(function(){
-		if(confirm("¿Eliminar imagen de Mural?")){
+$(document).ready(function() {
+	$("#deleteMural").click(function() {
+		if(confirm("¿Eliminar imagen de Mural?")) {
 			$("#form-add").attr("action", url);
 		} else {
 			return false;
@@ -17,7 +16,4 @@ $(document).ready( function (){
 	$("#lock").mouseout(function() {
 		$(this).css("background-image", "url(\"http://localhost/muucms/applications/cpanel/views/images/lock-icon.png\"");
 	});
-	
 });
-
-

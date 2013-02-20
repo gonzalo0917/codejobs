@@ -1,11 +1,9 @@
 <?php 
-	if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); 
+if (!defined("ACCESS")) {
+	die("Error: You don't have permission to access here...");
+}
 
-	if (is_array($records)) {
-		$count = count($records);
-	} else {
-		$count = 0;
-	}
+$count = is_array($records) ? count($records) : 0;
 ?>
 <p class="resalt">
 	<?php echo $caption; ?>

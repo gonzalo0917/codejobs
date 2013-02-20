@@ -1,20 +1,21 @@
 var timeads = 4000;
-var temp    = 0;
+var temp = 0;
  
-$(document).ready(function() {
+$(document).ready(function(){
 	$(".ads").hide();
 	$(".principal").show();	
 	
 	$('.div-ads').each(function(index) {
 		var length = $("#" + $(this).attr("id") + " .ads").length;
 			
-		if(length > 1) {
+		if (length > 1) {
 			setTimeout("ads('#" + $(this).attr("id") + "')", timeads);
 		}
 	});
 });
 
-function ads(position) {
+function ads(position)
+{
 	var length = $(position + ' .ads').length;
 	var random = Math.floor(Math.random() * length);
 	

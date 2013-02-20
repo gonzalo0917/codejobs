@@ -183,7 +183,7 @@ class CPanel_Controller extends ZP_Load
 			$this->Users_Controller = $this->controller("Users_Controller");
 			$this->Users_Controller->login("cpanel");
 		} else {
-			$this->vars["URL"]  = getURL();
+			$this->vars["URL"] = getURL();
 			$this->vars["view"] = $this->view("login", true, "cpanel");
 		}
 
@@ -203,7 +203,9 @@ class CPanel_Controller extends ZP_Load
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
 		$this->js("checkbox");
+
 		$trash = (segment(3, isLang()) === "trash") ? true : false;
+		
 		$this->vars["total"] = $this->CPanel_Model->total($trash);
 		$this->vars["tFoot"] = $this->CPanel_Model->records($trash, "ID_Bookmark DESC");
 		$this->vars["message"] = (!$this->vars["tFoot"]) ? "Error" : null;
@@ -211,6 +213,7 @@ class CPanel_Controller extends ZP_Load
 		$this->vars["trash"] = $trash;
 		$this->vars["search"] = getSearch();
 		$this->vars["view"] = $this->view("results", true, $this->application);
+		
 		$this->render("content", $this->vars);
 	}
 

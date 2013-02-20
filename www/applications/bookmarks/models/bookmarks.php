@@ -1,7 +1,4 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -12,11 +9,14 @@ class Bookmarks_Model extends ZP_Load
 	public function __construct() 
 	{
 		$this->Db = $this->db();
+
 		$this->table = "bookmarks";
 		$this->fields = "ID_Bookmark, Title, Slug, URL, Description, Tags, Author, Views, Likes, Dislikes, Reported, Language, Start_Date, Situation";
 		$this->language = whichLanguage();
+		
 		$this->Data = $this->core("Data");
 		$this->Data->table("bookmarks");
+		
 		$this->helper("alerts");
 	}
 
@@ -59,14 +59,18 @@ class Bookmarks_Model extends ZP_Load
 	{
 		$fields = "ID_Bookmark, ID_User, Title, Slug, URL, Author, Views, Reported, Language, Start_Date, Situation";
 
-		if (!$trash) {			
-			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted'", 
-					$this->table, $fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", 
-					$this->table, $fields, null, $order, $limit);
-		} else {	
-			return (SESSION("ZanUserPrivilegeID") == 1 and !$own) ? $this->Db->findBy("Situation", "Deleted", 
-					$this->table, $fields, null, $order, $limit) 	   : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", 
-					$this->table, $fields, null, $order, $limit);	
+		if (!$trash) {
+			if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {
+				return  $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			} else {
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
+		} else {
+			if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {	
+				return $this->Db->findBy("Situation", "Deleted", $this->table, $fields, null, $order, $limit);
+			} else {
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
 		}				
 	}
 	
@@ -78,11 +82,7 @@ class Bookmarks_Model extends ZP_Load
 			$this->Users_Model = $this->model("Users_Model");
 			$data = $this->Users_Model->getByUsername(POST("author"));
 
-			if (isset($data[0]["ID_User"])) {
-				$ID_User = $data[0]["ID_User"];
-			} else {
-				$ID_User = false;
-			}
+			$ID_User = isset($data[0]["ID_User"]) ? $data[0]["ID_User"] : false;			
 		} else {
 			$ID_User = SESSION("ZanUserID");
 		}
@@ -93,9 +93,9 @@ class Bookmarks_Model extends ZP_Load
 
 		$data = array(
 			"ID_User" => $ID_User,
-			"Author" => POST("author") ? POST("author") : SESSION("ZanUser"),
-			"Slug" => slug(POST("title", "clean")),
-			"Title"	=> stripslashes(POST("title"))
+			"Author"  => POST("author") ? POST("author") : SESSION("ZanUser"),
+			"Slug" 	  => slug(POST("title", "clean")),
+			"Title"	  => stripslashes(POST("title"))
 		);
 
 		if ($action === "save") {
@@ -132,10 +132,11 @@ class Bookmarks_Model extends ZP_Load
 			return $error;
 		}
 		
-		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
+		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 or SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 
 		if ($action === "save") {
 			$return = $this->Db->insert($this->table, $this->data);
+
 			$this->Users_Model = $this->model("Users_Model");
 			$this->Users_Model->setCredits(1, 9);
 		} elseif ($action === "edit") {
@@ -156,16 +157,16 @@ class Bookmarks_Model extends ZP_Load
 
 	public function preview() 
 	{
-		if (POST("description") AND POST("language") AND POST("title") AND POST("URL")) {
+		if (POST("description") and POST("language") and POST("title") and POST("URL")) {
 			return array(
-				"ID" => POST("ID"),
-				"Author" => SESSION("ZanUser"),
+				"ID" 		  => POST("ID"),
+				"Author" 	  => SESSION("ZanUser"),
 				"Description" => stripslashes(encode(POST("description", "decode", null))),
-				"Language" => POST("language"),
-				"Start_Date" => now(4),
-				"Tags" => stripslashes(encode(POST("tags", "decode", null))),
-				"Title" => stripslashes(encode(POST("title", "decode", null))),
-				"URL" => stripslashes(encode(POST("URL", "decode", null)))
+				"Language" 	  => POST("language"),
+				"Start_Date"  => now(4),
+				"Tags" 		  => stripslashes(encode(POST("tags", "decode", null))),
+				"Title" 	  => stripslashes(encode(POST("title", "decode", null))),
+				"URL" 		  => stripslashes(encode(POST("URL", "decode", null)))
 			);
 		} else {
 			return false;
@@ -175,8 +176,9 @@ class Bookmarks_Model extends ZP_Load
 	private function save() 
 	{
 		if ($this->Db->insert($this->table, $this->data)) {
-			$this->Cache = $this->core("Cache");	
+			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("bookmarks");
+
 			$this->Users_Model = $this->model("Users_Model");
 			$this->Users_Model->setCredits(1, 9);
 
@@ -211,14 +213,19 @@ class Bookmarks_Model extends ZP_Load
 		} elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag  = str_replace("-", " ", segment(4, isLang()));
-			
-			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+			$query = "Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')";
+
+			return $this->Db->countBySQL($query, $this->table);
 		}
 	}
 
 	public function getBufferBookmarks($language = "all") 
 	{
-		return ($language === "all") ? $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Bookmark, Title, Slug, Language", null, "rand()", 25) : $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Bookmark, Title, Slug, Language", null, "rand()", 25);
+		if ($language === "all") {
+			return $this->Db->findBySQL("Buffer = 1 AND Situation = 'Active'", $this->table, "ID_Bookmark, Title, Slug, Language", null, "rand()", 25);
+		} else {
+			return $this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Bookmark, Title, Slug, Language", null, "rand()", 25);
+		}
 	}
 
 	public function getByTag($tag, $limit) 
@@ -251,8 +258,9 @@ class Bookmarks_Model extends ZP_Load
 	public function getAllByTag($author, $tag, $limit) 
 	{
 		$tag = str_replace("-", " ", $tag);
+		$query = "(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%')";
 
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%')", $this->table, $this->fields, null, "ID_Bookmark DESC", $limit);
+		return $this->Db->findBySQL($query, $this->table, $this->fields, null, "ID_Bookmark DESC", $limit);
 	}
 
 	public function getAllByUser() 
@@ -288,12 +296,20 @@ class Bookmarks_Model extends ZP_Load
 	{
 		$fields = "ID_Bookmark, ID_User, Title, Slug, URL, Author, Views, Reported, Language, Start_Date, Situation";
 
-		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, null, $order, $limit) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, null, $order, $limit);
+		if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {
+			return $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, null, $order, $limit);
+		} else {
+			return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, $fields, null, $order, $limit);
+		}
 	}
 
 	public function found($query, $order, $own = false) 
 	{
-		return (SESSION("ZanUserPrivilegeID") === 1 and !$own) ? $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", null, $order) : $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", null, $order);
+		if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {
+			return $this->Db->findBySQL("Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", null, $order);
+		} else {
+			return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted' AND Title LIKE '%$query%'", $this->table, "COUNT(1) AS Total", null, $order);
+		}
 	}
 
 	public function records($action, $start = 0, $end = MAX_LIMIT, $order = null, $search = false) 

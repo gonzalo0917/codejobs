@@ -27,7 +27,5 @@ if (is_array($data)) {
 		$position = strtolower($ad["Position"]);
 	}
 	
-	echo '	<div id="'. $position .'-ads" class="div-ads">
-				'. $HTML . '
-			</div>';
+	echo '<div id="'. $position .'-ads" class="div-ads">'. $HTML . '</div>';
 }

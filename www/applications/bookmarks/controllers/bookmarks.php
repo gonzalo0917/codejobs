@@ -14,7 +14,6 @@ class Bookmarks_Controller extends ZP_Load
 		$this->config("bookmarks");
 		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 		$this->helper("pagination");
-
 		setURL();
 	}
 
@@ -64,8 +63,10 @@ class Bookmarks_Controller extends ZP_Load
 				$this->CSS("bookmarks", $this->application);
 				$this->js("preview", $this->application);
 				$this->config("user", "bookmarks");
+				
 				$vars["bookmark"] = $data;
-				$vars["view"] 	  = $this->view("preview", true);
+				$vars["view"] = $this->view("preview", true);
+				
 				$this->render("content", $vars);
 			} else {
 				redirect();
@@ -84,9 +85,12 @@ class Bookmarks_Controller extends ZP_Load
 			$this->CSS("forms", "cpanel");
 			$this->CSS("add", "bookmarks");
 			$this->js("add", "bookmarks");
+			
 			$this->helper(array("html", "forms"));
 			$this->config("user", "bookmarks");
+
 			$vars["view"] = $this->view("new", true);
+			
 			$this->render("content", $vars);
 		}
 	}
@@ -133,9 +137,11 @@ class Bookmarks_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$this->helper("time");
+
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
+			
 			$this->render("content", $vars);
 		} else {
 			redirect();
@@ -146,6 +152,7 @@ class Bookmarks_Controller extends ZP_Load
 	{
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
+
 		$data = $this->Cache->data("bookmark-$bookmarkID", "bookmarks", $this->Bookmarks_Model, "getByID", array($bookmarkID));
 
 		if ($data) {
@@ -153,6 +160,7 @@ class Bookmarks_Controller extends ZP_Load
 			$this->title(__("Bookmarks") ." - ". decode($data[0]["Title"]), false);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
+
 			$vars["views"] = $this->Bookmarks_Model->updateViews($bookmarkID);
 			$vars["bookmark"] = $data[0];
 			$vars["view"] = $this->view("bookmark", true);
@@ -168,6 +176,7 @@ class Bookmarks_Controller extends ZP_Load
 
 		if ($data) {
 			$this->Bookmarks_Model->updateViews($bookmarkID);
+
 			redirect($data[0]["URL"]);
 		} else {
 			redirect();
@@ -179,16 +188,21 @@ class Bookmarks_Controller extends ZP_Load
 		$this->title(__("Bookmarks"));
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
+
 		$limit = $this->limit();
+		
 		$data = $this->Cache->data("bookmarks-$limit", "bookmarks", $this->Bookmarks_Model, "getAll", array($limit));
+		
 		$this->helper("time");
 
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
+
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
+			
 			$this->render("content", $vars);
 		} else {
 			redirect();
@@ -200,16 +214,20 @@ class Bookmarks_Controller extends ZP_Load
 		$this->title(__("Bookmarks of") ." ". $author);
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
+
 		$limit = $this->limit("author");
 		$data = $this->Cache->data("author-$author-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByAuthor", array($author, $limit));
+		
 		$this->helper("time");
 
 		if ($data) {	
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
+
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
+
 			$this->render("content", $vars);
 		} else {
 			redirect($this->application);	
@@ -221,16 +239,20 @@ class Bookmarks_Controller extends ZP_Load
 		$this->title(__("Bookmarks of") ." ". $author);
 		$this->CSS("bookmarks", $this->application);
 		$this->CSS("pagination");
+
 		$limit = $this->limit("author-tag");
 		$data = $this->Cache->data("author-$author-tag-$tag-$limit", "bookmarks", $this->Bookmarks_Model, "getAllByTag", array($author, $tag, $limit));
+		
 		$this->helper("time");
 
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
+
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
+
 			$this->render("content", $vars);
 		} else {
 			redirect();
@@ -246,15 +268,22 @@ class Bookmarks_Controller extends ZP_Load
 			$title = "";
 			$description = "";
 			$keywords = "";
+
 			$ch = curl_init();
+
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_URL, $URL);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+
 			$html = curl_exec($ch);
+
 			curl_close($ch);
+
 			$doc = new DOMDocument();
+
 			@$doc->loadHTML($html);
+
 			$nodes = $doc->getElementsByTagName('title');
 			$title = @$nodes->item(0)->nodeValue;
 			$metas = $doc->getElementsByTagName('meta');
@@ -272,9 +301,9 @@ class Bookmarks_Controller extends ZP_Load
 			}
 
 			$data = array(
-				"Title"=> $title,
+				"Title"		  => $title,
 				"Description" => $description,
-				"Keywords" => $keywords
+				"Keywords" 	  => $keywords
 			);
 
 			exit(json($data));
