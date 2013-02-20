@@ -15,6 +15,8 @@
 
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 
+			echo div("filedrag", TRUE, NULL, __("Drop image here"));
+
 			echo div("avatar", "class");
 				echo span(
 					"btn",
@@ -35,12 +37,6 @@
 
 					echo image(path("www/lib/files/images/users/$avatar?". time(), true), "avatar", "avatar-image");
 
-				echo div(false);
-			echo div(false);
-
-			echo div("filedrag"); 
-				echo div("textdrag", "class");
-					echo __("Drag & drop your file here");
 				echo div(false);
 			echo div(false);
 

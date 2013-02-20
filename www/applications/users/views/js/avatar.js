@@ -55,8 +55,6 @@
 
 				destroyMark();
 
-				resizeFont();
-
 				if (coordinate !== undefined) {
 					window.setTimeout('markImage("' + coordinate + '")', 0);
 				} else {
@@ -71,8 +69,6 @@
 			setFile();
 
 			destroyMark();
-
-			resizeFont();
 
 			if (coordinate !== undefined) {
 				markImage(coordinate);
@@ -162,20 +158,6 @@
 		}
 	}
 
-	function resizeFont() {
-		var width = $("#avatar-image").width(), size = 1;
-
-		if (width > 150 && width <= 350) {
-			size = 2;
-		} else if (width > 350 && width < 500) {
-			size = 3.5;
-		} else if (width >= 500) {
-			size = 5;
-		}
-
-		$("#filedrag").css("fontSize", size + "em");
-	}
-
 	function restoreImage() {
 		previewImage(avatar_file, avatar_coordinate);
 	}
@@ -203,13 +185,15 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		$("#filedrag").css({
-			display: "table",
-			left: $("#avatar-container").offset().left,
-			top: $("#avatar-container").offset().top,
-			width: $("#avatar-container").width(),
-			height: $("#avatar-container").height()
-		});
+		$("#filedrag").slideDown("fast");
+	});
+
+	$("#filedrag").on("dragover", function (event) {
+		$(this).css({'color': "#555", 'border-color': "#555"});
+	});
+
+	$("#filedrag").on("dragleave", function (event) {
+		$(this).css({'color': "", 'border-color': ""});
 	});
 
 	document.addEventListener("drop", function (event) {
@@ -229,7 +213,7 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		if ($("#filedrag").css("display") === "table") {
+		if ($("#filedrag").css("display") === "block") {
 			$("#filedrag").css("display", "none");
 		}
 	});
