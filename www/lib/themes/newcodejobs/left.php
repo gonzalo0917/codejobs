@@ -30,6 +30,9 @@
 					    <li<?php echo $active === "social" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/social/"); ?>"><?php echo __("Social networks");?></a>
 					    </li>
+					     <li<?php echo $active === "cv" ? ' class="active"' : ''; ?>>
+					    	<a href="<?php echo path("users/cv/"); ?>"><?php echo "Curriculum Vitae";?></a>
+					    </li>
 				    </ul>
 				</div>
 			</aside>
