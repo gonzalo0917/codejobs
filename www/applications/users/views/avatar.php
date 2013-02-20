@@ -10,7 +10,7 @@
 	}
 
 	echo div("edit-profile", "class");
-		echo formOpen($href, "form-add", "form-add");
+		echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
 			echo isset($alert) ? $alert : null;
 
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
@@ -20,7 +20,7 @@
 			echo div("avatar", "class");
 				echo span(
 					"btn",
-					__("Browse") ."...". formInput(array("class" => "avatar-file", "name" => "avatar", "type" => "file")),
+					__("Browse") ."...". formInput(array("class" => "avatar-file", "name" => "avatar", "id" => "avatar", "type" => "file")),
 					"filebrowser"
 				);
 
@@ -80,6 +80,12 @@
 				"name"  => "size",
 				"type"  => "hidden",
 				"value" => ""
+			));
+
+			echo formInput(array(
+				"name"  => "MAX_FILE_SIZE",
+				"type"  => "hidden",
+				"value" => "1048576"
 			));
 
 			echo formInput(array(

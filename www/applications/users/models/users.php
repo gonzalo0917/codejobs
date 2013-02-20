@@ -685,7 +685,7 @@ class Users_Model extends ZP_Load
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, $fields);
 	}
 
-	public function setInformation()
+	public function saveInformation()
 	{
 		$validations = array(
 			"name" 	   => "required",
@@ -785,12 +785,7 @@ class Users_Model extends ZP_Load
 					$this->removeAvatar($data[0]["Avatar"]);
 				}
 
-				$update = array(
-					"Avatar" => current($avatar), 
-					"Avatar_Coordinate" => next($avatar)
-				);
-
-				if ($this->Db->update($this->table, $update, SESSION("ZanUserID"))) {
+				if ($this->setAvatar($avatar)) {
 					SESSION("ZanUserAvatar", prev($avatar) ."?". time());
 
 					return getAlert(__("The avatar has been saved correctly"), "success");
@@ -799,6 +794,27 @@ class Users_Model extends ZP_Load
 
 			return getAlert(__("Error while tried to upload the files"));
 		}
+	}
+
+	public function setAvatar($avatar, $coordinates = null)
+	{
+		if (is_null($coordinates)) {
+			$data = array(
+				"Avatar" => current($avatar),
+				"Avatar_Coordinate" => next($avatar)
+			);
+		} else {
+			$data = array(
+				"Avatar" => $avatar,
+				"Avatar_Coordinate" => $coordinates
+			);
+		}
+
+		if (is_array($data["Avatar_Coordinate"])) {
+			$data["Avatar_Coordinate"] = implode(",", $data["Avatar_Coordinate"]);
+		}
+
+		return $this->Db->update($this->table, $data, SESSION("ZanUserID"));
 	}
 
 	public function deleteAvatar()
