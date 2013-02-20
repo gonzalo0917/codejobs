@@ -200,13 +200,14 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		if (event.target.id == "avatar-image" || event.target.className === "textdrag" || /^jcrop.*/img .test(event.target.className))	{
+		if ($("#filedrag").css("color") === "rgb(85, 85, 85)")	{
 			var files = event.dataTransfer.files, file;
-
 			if (files.length > 0) {
 				selectFile(files);
 			}
 		}
+
+		$("#filedrag").css({'color': "", 'border-color': ""});
 	}, false);
 
 	$(document).mouseenter(function (event) {
