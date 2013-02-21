@@ -5,11 +5,12 @@ $(document).on("ready", function() {
 		var fname = $('#fname').val();
 		var avatar = $('#avatar').val();
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
-			if(content.length == 0) {
-				$("#comment-alert").html(needContent);
-				$("#comment-alert").show();
-				$("#comment-alert").hide(4000);
-			}
+		
+		if (content.length == 0) {
+			$("#comment-alert").html(needContent);
+			$("#comment-alert").show();
+			$("#comment-alert").hide(4000);
+		}
 
 		if (content != '' && fid > 0) {
 			var newComment = '';
@@ -41,7 +42,7 @@ $(document).on("ready", function() {
 		}
 	});
 
-	$("#fpublish").on("click", function() {
+	$("#fpublish").on("click", function() { 
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();
 		var title = $("#ftitle").val();
@@ -120,11 +121,11 @@ $(document).on("ready", function() {
 		var forumName = $("#fname").val();
 		var title = $("#ptitle").val();
 		var tags = $("#ptags").val();
-		var content = $("#pcontent").val();
+		var content = $(".cke_wysiwyg_frame").contents().find('body').html();
 		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 		var needTags = '<div id="alert-message" class="alert alert-error">' + $("#needtags").val() + '</div>';
-
+		console.log(content);
 		if (tags == $("#ftags-temp").val()) {
 			tags = "";
 		}

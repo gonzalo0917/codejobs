@@ -1,4 +1,4 @@
-<?php
+<?php 
 	if (is_array($posts)) {
 		$count = count($posts) - 1;
 		?>
