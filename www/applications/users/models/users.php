@@ -786,7 +786,7 @@ class Users_Model extends ZP_Load
 				}
 
 				if ($this->setAvatar($avatar)) {
-					SESSION("ZanUserAvatar", prev($avatar) ."?". time());
+					SESSION("ZanUserAvatar", current($avatar) ."?". time());
 
 					return getAlert(__("The avatar has been saved correctly"), "success");
 				}

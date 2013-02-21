@@ -21,6 +21,9 @@
 					    <li<?php echo $active === "email" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/email/"); ?>"><?php echo __("E-mail");?></a>
 					    </li>
+					    <li<?php echo $active === "cv" ? ' class="active"' : ''; ?>>
+					    	<a href="<?php echo path("users/cv/"); ?>"><?php echo "Curriculum Vitae";?></a>
+					    </li>
 					    <li<?php echo $active === "avatar" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/avatar/"); ?>"><?php echo __("Avatar");?></a>
 					    </li>
@@ -29,9 +32,6 @@
 					    </li>
 					    <li<?php echo $active === "social" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/social/"); ?>"><?php echo __("Social networks");?></a>
-					    </li>
-					     <li<?php echo $active === "cv" ? ' class="active"' : ''; ?>>
-					    	<a href="<?php echo path("users/cv/"); ?>"><?php echo "Curriculum Vitae";?></a>
 					    </li>
 				    </ul>
 				</div>

@@ -15,12 +15,15 @@
 
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 
+			echo p(__("The image file size must be less than") ." 2 MB", "size");
+
 			echo div("filedrag", true, null, __("Drop image here"));
 
 			echo div("avatar", "class");
 				echo span(
 					"btn",
-					__("Browse") ."...". formInput(array("class" => "avatar-file", "name" => "avatar", "id" => "avatar", "type" => "file")),
+					__("Browse") ."...". 
+					 formInput(array("class" => "avatar-file", "name" => "avatar", "id" => "avatar", "type" => "file")),
 					"filebrowser"
 				);
 
@@ -91,13 +94,13 @@
 			echo formInput(array(
 				"id"    => "small-error",
 				"type"  => "hidden",
-				"value" => __("The file size must be greater than or equal to 1KB")
+				"value" => __("The file size must be greater than or equal to") ." 1KB"
 			));
 
 			echo formInput(array(
 				"id"    => "big-error",
 				"type"  => "hidden",
-				"value" => __("The file size must be less than or equal to 5MB")
+				"value" => __("The file size must be less than or equal to") ." 2MB"
 			));
 
 			echo formInput(array(
