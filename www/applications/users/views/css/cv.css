@@ -1,3 +1,27 @@
-.inline {
+.dateinline {
 	display: inline;
+}
+.education {
+	padding-top: 20px;
+}
+div.span10 {
+    margin-left: 0px;
+}
+div.well {
+    box-sizing: border-box;
+    float: none;
+    padding-bottom: 20px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}
+.remove-true {
+    display: block;
+}
+#add {
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
 }

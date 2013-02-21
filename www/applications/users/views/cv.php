@@ -40,57 +40,145 @@
                 "ng-repeat" => "experience in experiences"
             ));
                             
-            echo formInput(array(	
-                "name"  => "experience[]",
-                "type"  => "hidden",
-                "value" => "{{experience.idexperience}}"
-            ));
+                echo formInput(array(	
+                    "name"  => "experience[]",
+                    "type"  => "hidden",
+                    "value" => "{{experience.idexperience}}"
+                ));
+                
+                echo formInput(array(   
+                    "name"     => "company[]", 
+                    "id"       => "company{{\$index}}", 
+                    "class"    => "required", 
+                    "field"    => __("Company"), 
+                    "p"        => true,
+                    "ng-model" => "experience.company"
+                ));
+
+                echo formInput(array(   
+                    "name"     => "title[]", 
+                    "id"       => "title{{\$index}}", 
+                    "class"    => "required", 
+                    "field"    => __("Job Title"), 
+                    "p"        => true,
+                    "ng-model" => "experience.title"
+                ));
+
+                echo formInput(array(   
+                    "name"     => "location[]", 
+                    "id"       => "location{{\$index}}", 
+                    "class"    => "required", 
+                    "field"    => __("Location"), 
+                    "p"        => true,
+                    "ng-model" => "experience.location"
+                ));
+
+                $months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
+
+                echo formInput(array(   
+                    "name"     => "periodfrom[]", 
+                    "id"       => "periodfrom{{\$index}}", 
+                    "class"    => "required jdpicker", 
+                    "field"    => __("Time Period"), 
+                    "ng-model" => "experience.periodfrom",
+                    "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
+                ));
+
+                echo formInput(array(   
+                    "name"     => "periodto[]", 
+                    "id"       => "periodto{{\$index}}", 
+                    "class"    => "required jdpicker dateinline", 
+                    "ng-model" => "experience.periodto",
+                    "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
+                ));
+
+                echo formTextArea(array(	
+                    "id"    => "description{{\$index}}", 
+                    "name"  => "description[]",
+                    "class" => "required",
+                    "style" => "height: 200px;width:100%", 
+                    "field" => __("Description"), 
+                    "p"     => true
+                ));
+                    
+                    echo htmlTag("div", array(
+                        "class" => "remove remove-{{\$index > 0}}"
+                    ));
+                    
+                    echo htmlTag("a", array(
+                        "class"    => "btn btn-danger",
+                        "ng-click" => "removeExperience(\$index)"
+                    ), __("Remove experience"));
+                    
+                    echo htmlTag("div", false);
+            echo htmlTag("div", false);
+
+            echo htmlTag("div", array(
+                "id"       => "add",
+                "class"    => "btn span10",
+                "ng-click" => "addExperience()"
+            ), __("Add another experience") . "...");
+
+             echo "<div style='margin-top: 80px'></div>";
+
+            echo span("field", "&raquo; " . __("Education") . " ({{education.length}})");
             
-            echo formInput(array(   
-                "name"     => "company[]", 
-                "id"       => "company{{\$index}}", 
-                "class"    => "required", 
-                "field"    => __("Company"), 
-                "p"        => true,
-                "ng-model" => "experience.company"
+            echo htmlTag("div", array(
+                "class"     => "well span10",
+                "ng-repeat" => "experience in experiences"
             ));
 
-            echo formInput(array(   
-                "name"     => "title[]", 
-                "id"       => "title{{\$index}}", 
-                "class"    => "required", 
-                "field"    => __("Job Title"), 
-                "p"        => true,
-                "ng-model" => "experience.title"
-            ));
+                echo formInput(array(   
+                    "name"  => "school[]",
+                    "type"  => "hidden",
+                    "value" => "{{school.idschool}}"
+                ));
+                
+                echo formInput(array(   
+                    "name"     => "school[]", 
+                    "id"       => "school{{\$index}}", 
+                    "class"    => "required", 
+                    "field"    => __("School"), 
+                    "p"        => true,
+                    "ng-model" => "school.school"
+                ));
 
-            $months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
+                echo formInput(array(   
+                    "name"     => "degree[]", 
+                    "id"       => "degree{{\$index}}", 
+                    "class"    => "required", 
+                    "field"    => __("Degree"), 
+                    "p"        => true,
+                    "ng-model" => "school.degree"
+                ));
 
-            echo formInput(array(   
-                "name"     => "periodfrom[]", 
-                "id"       => "periodfrom{{\$index}}", 
-                "class"    => "required jdpicker inline", 
-                "field"    => __("Time Period"), 
-                "ng-model" => "experience.periodfrom",
-                "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
-            ));
+                $months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
 
-            echo formInput(array(   
-                "name"     => "periodto[]", 
-                "id"       => "periodto{{\$index}}", 
-                "class"    => "required jdpicker inline", 
-                "ng-model" => "experience.periodto",
-                "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
-            ));
+                echo formInput(array(   
+                    "name"     => "school_period_from[]", 
+                    "id"       => "school_period_from{{\$index}}", 
+                    "class"    => "required jdpicker inline", 
+                    "field"    => __("Time Period"), 
+                    "ng-model" => "school.period_from",
+                    "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
+                ));
 
-            echo formTextArea(array(	
-                "id"    => "description{{\$index}}", 
-                "name"  => "description[]",
-                "class" => "required",
-                "style" => "height: 200px;width:100%", 
-                "field" => __("Description"), 
-                "p"     => true
-            ));
+                echo formInput(array(   
+                    "name"     => "school_period_to[]", 
+                    "id"       => "school_period_to{{\$index}}", 
+                    "class"    => "required jdpicker inline", 
+                    "ng-model" => "school.period_to",
+                    "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
+                ));
+
+                echo formTextArea(array(    
+                    "id"    => "school_description{{\$index}}", 
+                    "name"  => "school_description[]",
+                    "class" => "required",
+                    "style" => "height: 200px;width:100%", 
+                    "field" => __("Description"), 
+                    "p"     => true
+                ));
                 
                 echo htmlTag("div", array(
                     "class" => "remove remove-{{\$index > 0}}"
@@ -98,18 +186,19 @@
                 
                 echo htmlTag("a", array(
                     "class"    => "btn btn-danger",
-                    "ng-click" => "removeExperience(\$index)"
-                ), __("Remove experience"));
+                    "ng-click" => "removeSchool(\$index)"
+                ), __("Remove school"));
                 
                 echo htmlTag("div", false);
-
             echo htmlTag("div", false);
             
             echo htmlTag("div", array(
                 "id"       => "add",
                 "class"    => "btn span10",
-                "ng-click" => "addExperience()"
-            ), __("Add another experience") . "...");
+                "ng-click" => "addSchool()"
+            ), __("Add another school") . "...");
+
+            echo htmlTag("div", false);
         
         echo formClose();
 

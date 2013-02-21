@@ -515,7 +515,8 @@ class Users_Controller extends ZP_Load
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");
 			$this->css("users", $this->application);
-			
+			$this->css("cv", $this->application);
+
 			if (POST("save")) {
 				$this->helper("alerts");
 				$vars["alert"] = $this->Users_Model->saveCv();
