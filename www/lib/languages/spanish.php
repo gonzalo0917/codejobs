@@ -6,6 +6,7 @@ if(!defined("ACCESS")) {
 $phrase["about_codejobs"] 				 				= "Acerca de CodeJobs";
 $phrase["about_me"]		 				 				= "Acerca de mi";
 $phrase["accept"]			 							= "Aceptar";
+$phrase["account_settings"] 							= "Configuración de la cuenta";
 $phrase["accounts_activation"] 							= "Activación de cuentas";
 $phrase["action"] 										= "Acción";
 $phrase["actions"]										= "Acciones";
@@ -155,6 +156,7 @@ $phrase["download_code"]								= "Descargar código";
 $phrase["draft"]										= "Borrador";
 $phrase["e-mail"]						 				= "Correo electrónico";
 $phrase["edit"]											= "Editar";
+$phrase["edit_avatar"]									= "Editar avatar";
 $phrase["edit_bookmark"]								= "Editar marcador";
 $phrase["edit_code"]									= "Editar código";
 $phrase["edit_comment"]									= "Editar comentario";
