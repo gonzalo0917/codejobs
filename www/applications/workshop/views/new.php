@@ -67,7 +67,7 @@ echo div("new-proposal", "class");
 					"id"    => "time",
 					"name"  => "time", 
 					"p"     => true, 
-					"field" => __("Time")),
+					"field" => __("Hour")),
 					$options
 				);
 
