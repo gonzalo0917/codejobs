@@ -281,6 +281,11 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
+		if (POST("save")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->saveInformation();
+		}
+
 		$data = $this->Users_Model->getInformation();
 
 		if ($data) {
@@ -288,12 +293,6 @@ class Users_Controller extends ZP_Load
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");
 			$this->css("users", $this->application);
-
-			if (POST("save")) {
-				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->saveInformation();
-			}
-
 			$this->js("about", $this->application);
 			$this->js("jquery.jdpicker.js");
 
@@ -473,6 +472,39 @@ class Users_Controller extends ZP_Load
 		}
 	}
 
+	public function options()
+	{
+		isConnected();
+
+		if (POST("save")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->saveOptions();
+		} elseif(POST("delete")) {
+			$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->deleteOptions();
+		}
+
+		$data = $this->Users_Model->getOptions();
+
+		if ($data) {
+			$this->helper(array("forms", "html"));
+			$this->config("users", $this->application);
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
+
+			$this->title(__("Options"));
+
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
+			$vars["view"] = $this->view("options", true);
+			$vars["href"] = path("users/options/");
+			$vars["data"] = $data;
+
+			$this->render("content", $vars);
+		} else {
+			redirect();
+		}
+	}
+
 	public function social()
 	{
 		isConnected();
@@ -537,5 +569,10 @@ class Users_Controller extends ZP_Load
 		} else {
 			redirect();
 		}
+	}
+
+	public function profile($user)
+	{
+		// Here I am :)
 	}
 }
