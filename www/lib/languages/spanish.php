@@ -449,6 +449,7 @@ $phrase["the_email_has_been_changed_correctly"]			= "El correo electrónico ha si
 $phrase["the_file_size_exceeds_the_limit_allowed"]		= "El tamaño del archivo supera el límite permitido";
 $phrase["the_forum_has_been_saved_correctly"]			= "El foro se ha guardado correctamente";
 $phrase["the_image_file_size_must_be_less_than"] 		= "El archivo de la imagen no debe pesar más de";
+$phrase["the_information_has_been_saved_correctly"]		= "La información ha sido guardada correctamente";
 $phrase["the_job_has_been_saved_correctly"]				= "El empleo ha sido guardado correctamente";
 $phrase["the_job_has_been_edit_correctly"]				= "El empleo ha sido editado correctamente";
 $phrase["the_bookmark_has_been_edit_correctly"]			= "El marcador ha sido editado correctamente";
