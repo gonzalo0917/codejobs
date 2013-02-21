@@ -64,12 +64,12 @@ $j = 2;
 
 					<td style="text-align: left;">
 					<?php
-						echo a(stripslashes(cut(decode($column["Title"]), 6, "text")), path("workshop/cpanel/read/" . $column["ID_Workshop"])); 
+						echo a(cut($column["Title"], 6, "text"), path("workshop/cpanel/read/" . $column["ID_Workshop"])); 
 					?>
 					</td>
 
 					<td class="center">
-						<?php echo a(__("Download the slides"), $column["File"]); ?>
+						<?php echo a(__("Download the slides"), path($column["File"], true), array("target" => "_blank")); ?>
 					</td>
 
 					<td class="center">
