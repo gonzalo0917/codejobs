@@ -702,6 +702,7 @@ class Users_Model extends ZP_Load
 		}
 
 		if ($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
+			SESSION("ZanUserName", POST("name"));
 			return getAlert(__("The information has been saved correctly"), "success");	
 		}
 		
