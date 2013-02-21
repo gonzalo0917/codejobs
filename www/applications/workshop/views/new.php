@@ -12,7 +12,7 @@ $gtalk 		 = recoverPOST("gtalk");
 $twitter 	 = recoverPOST("twitter");
 $facebook 	 = recoverPOST("facebook");
 
-echo br(3);
+echo br(2);
 echo div("new-proposal", "class");
 	echo formOpen(path("workshop"), "form", "form", null, "post", "multipart/form-data");
 		echo div("row", "class");
