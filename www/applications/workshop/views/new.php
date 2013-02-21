@@ -26,8 +26,7 @@ echo div("new-proposal", "class");
 					"name" 	   => "title",
 					"field"    => __("Title"),
 					"p"        => true,
-					"value"    => $title,
-					"required" => true
+					"value"    => $title
 				));
 			echo div(false);
 
