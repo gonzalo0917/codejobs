@@ -570,4 +570,9 @@ class Users_Controller extends ZP_Load
 			redirect();
 		}
 	}
+
+	public function profile($user)
+	{
+		// Here I am :)
+	}
 }
