@@ -14,7 +14,8 @@ class Workshop_Model extends ZP_Load
 		$this->Db = $this->db();
 		
 		$this->table = "workshop";
-		$this->fields = "ID_Workshop, Title, Slug, Topics, Description, File, Email, Skype, Gtalk, Facebook, Twitter, Proposal_Day, Proposal_Time, Start_Date, Situation";
+		$this->fields  = "ID_Workshop, Title, Slug, Topics, Description, File, Email, Skype, Gtalk, Facebook, Twitter, Proposal_Day,";
+		$this->fields .= "Proposal_Time, Start_Date, Situation";
 
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
@@ -46,15 +47,26 @@ class Workshop_Model extends ZP_Load
 			return $this->search($search, $field);
 		}
 	}
-	
-	private function all($trash, $order, $limit)
-	{
-		if (!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, "ID_Workshop, Title, File, Email, Start_Date, Situation", null, $order, $limit) : null;
+
+	private function all($trash, $order, $limit, $own = false) 
+	{	
+		$fields = "ID_Workshop, Title, File, Email, Start_Date, Situation";
+		$userID = SESSION("ZanUserID");
+
+		if (!$trash) {
+			if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {
+				return $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			} else { 
+				return $this->Db->findBySQL("ID_User = '". $userID ."' AND Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, "ID_Workshop, Title, File, Email, Start_Date, Situation", null, $order, $limit) : null;
+			if (SESSION("ZanUserPrivilegeID") == 1 and !$own) {
+				return $this->Db->findBy("Situation", "Deleted", $this->table, $fields, null, $order, $limit);
+			} else {
+			 	return $this->Db->findBySQL("ID_User = '". $userID ."' AND Situation = 'Deleted'", $this->table, $fields, null, $order, $limit);
+			}
 		}
-  	}
+	}
 
   	public function getByID($ID)
   	{

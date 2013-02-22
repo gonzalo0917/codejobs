@@ -237,6 +237,10 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
+			if(!SESSION("ZanUser") and !isset($data[0]["Forum_Name"])) {
+				redirect("forums");
+			}
+
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = isset($data[0]["Forum_Name"]) ? $data[0]["Forum_Name"] : $data[0]["Title"];
@@ -271,12 +275,13 @@ class Forums_Controller extends ZP_Load
 	public function getEditPost($postID, $forum)
 	{
 		$data = $this->Forums_Model->getPostToEdit($postID);
-
+		
 		if ($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");
 			$this->js("forums", "forums");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forum"] = $forum;
 			$vars["data"] = $data; 
 			$vars["view"] = $this->view("edit", true);

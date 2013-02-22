@@ -18,7 +18,7 @@ $content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverP
 	<form action="#" method="post">
 		<input id="ptitle" placeholder="<?php echo __("Write the title of the new topic..."); ?>" class="span8 forums-title" name="title" type="text" value="<?php echo $title; ?>" /> <br />
 		<input id="ptags" placeholder="<?php echo __("Write the tags separated by commas..."); ?>" class="span8 forums-title" name="tags" type="text" value="<?php echo $tags; ?>" /> <br />
-		<textarea id="pcontent" name="content" placeholder="Write the content here..." class="span8 forums-textarea" rows="20"><?php echo $content ?></textarea> <br />
+		<textarea id="editor" name="content" placeholder="Write the content here..." class="ckeditor"><?php echo $content ?></textarea> <br />
 		<input id="ppublish" class="btn btn-success" name="publish" type="button" value="<?php echo __("Edit"); ?>" />
 		<input id="pcancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
 		<input id="pid" name="pid" type="hidden" value="<?php echo $pid; ?>" />
@@ -29,3 +29,6 @@ $content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverP
 		<input id="needtags" type="hidden" value="<?php echo __("You need to write at least one tag..."); ?>" />
 	</form>
 </div>
+
+<?php
+echo $ckeditor;
