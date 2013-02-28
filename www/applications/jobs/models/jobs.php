@@ -11,7 +11,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "jobs";
-		$this->fields = "ID_Job, ID_User, Company, Title, Slug, Author, Email, Address1, Address2, Logo, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Situation";
+		$this->fields = "ID_Job, ID_User, Company, Title, Slug, Author, Logo, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Description, Language, Situation";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -58,16 +58,12 @@ class Jobs_Model extends ZP_Load
 		$validations = array(
 			"company" => "required",
 			"title" => "required",
-			"email" => "email?",
-			"address1" => "required",
-			"phone" => "required",
 			"cinformation" => "required",
 			"country" => "required",
 			"city" => "required",
 			"salary" => "required",
 			"salary_currency" => "required",
-			"requirements" => "required",
-			"technologies" => "required",
+			"description" => "required",
 		);
 
 		$this->helper(array("alerts", "time", "files"));
@@ -79,16 +75,6 @@ class Jobs_Model extends ZP_Load
 			"Start_Date" => $date,
 			"End_Date" => $date + (3600 * 24 * 30)
  		);
-
- 		if (FILES("image", "name")) {
-			$dir = "www/lib/files/images/companies/";
-			$this->Files = $this->core("Files");
-			$data["Logo"] = $this->Files->uploadImage($dir, "image", "normal");
-
-			if (!$data["Logo"]) {
-				return getAlert(__("Upload error"));
-			}
-		}
 
 		$this->Data->change("cinformation", "Company_Information");
 		$this->Data->change("allocation", "Allocation_Time");
@@ -102,27 +88,20 @@ class Jobs_Model extends ZP_Load
 
 	public function preview()
 	{
-		if (POST("title") AND POST("email") AND POST("address1") AND POST("logo") AND POST("phone") 
-			AND POST("company") AND POST("cinformation") AND POST("country") AND POST("city") AND POST("salary") 
-			AND POST("salary_currency") AND POST("allocation") AND POST("requirements") AND POST("technologies") AND POST("language")) {
+		if (POST("title") AND POST("email") AND POST("company") AND POST("cinformation") AND POST("country") AND POST("city") AND POST("salary") 
+			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language")) {
 			return array(
-				"Address1" => POST("address1"),
-				"Address2" => POST("address2"),
-				"Logo" => POST("logo"),
 				"Allocation_Time" => POST("allocation"),
 				"Author" => SESSION("ZanUser"),
 				"Company" => POST("company"),
 				"Company_Information" => POST("cinformation"),
 				"Country" => POST("country"),
 				"City" => POST("city"),
-				"Email" => POST("email"),
 				"Salary" => POST("salary"),
 				"Salary_Currency"=> POST("salary_currency"),
-				"Requirements" => stripslashes(encode(POST("requirements", "decode", null))),
+				"Description" => stripslashes(encode(POST("description", "decode", null))),
 				"Language" => POST("language"),
-				"Phone" => POST("phone"),
 				"Start_Date" => now(4),
-				"Technologies" => stripslashes(encode(POST("technologies", "decode", null))),
 				"Title" => stripslashes(encode(POST("title", "decode", null))),
 			);
 		} else {
@@ -132,7 +111,6 @@ class Jobs_Model extends ZP_Load
 
 	public function save()
 	{
-		____($this->data);
 		if ($this->Db->insert($this->table, $this->data)) {
 		 	return getAlert(__("The job has been saved correctly"), "success");
 		}
