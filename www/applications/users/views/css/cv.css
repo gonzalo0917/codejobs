@@ -4,6 +4,9 @@
 .education {
 	padding-top: 20px;
 }
+.noresize {
+	resize: none;
+}
 div.span10 {
     margin-left: 0px;
 }
@@ -15,6 +18,13 @@ div.well {
     -webkit-box-sizing: border-box;
     -o-box-sizing: border-box;
 }
+.remove {
+    display: none;
+    float: none;
+    margin: 0 0 15px 0;
+    text-align: center;
+    width: auto;
+}
 .remove-true {
     display: block;
 }
@@ -24,4 +34,7 @@ div.well {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -o-box-sizing: border-box;
+}
+.add-form {
+    width: 100% !important;
 }

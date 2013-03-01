@@ -142,8 +142,7 @@ class Jobs_Controller extends ZP_Load
 		if ($data) {
 			$this->helper("time");
 			$this->title(__("Jobs") ." - ". decode($data[0]["Title"]), false);
-			$this->meta("keywords", $data[0]["Technologies"]);
-			$this->meta("description", $data[0]["Requirements"]);
+			$this->meta("description", $data[0]["Description"]);
 			$vars["views"] = $this->Jobs_Model->updateViews($jobID);
 			$vars["job"] = $data[0];
 			$vars["view"] = $this->view("job", true);
@@ -175,8 +174,7 @@ class Jobs_Controller extends ZP_Load
 		$this->helper("time");
 		
 		if ($data) {
-			$this->meta("keywords", $data[0]["Technologies"]);
-			$this->meta("description", $data[0]["Requirements"]);
+			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);
@@ -196,8 +194,7 @@ class Jobs_Controller extends ZP_Load
 		$this->helper("time");
 
 		if ($data) {
-			$this->meta("keywords", $data[0]["Technologies"]);
-			$this->meta("description", $data[0]["Requirements"]);
+			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);
@@ -216,8 +213,7 @@ class Jobs_Controller extends ZP_Load
 		$this->helper("time");
 		
 		if ($data) {
-			$this->meta("keywords", $data[0]["Technologies"]);
-			$this->meta("description", $data[0]["Requirements"]);
+			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);
