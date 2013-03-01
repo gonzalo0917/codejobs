@@ -6,7 +6,6 @@
 	$ID = isset($data) ? recoverPOST("ID", $data[0]["ID_Job"]) : 0;
 	$title = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
 	$company = isset($data) ? recoverPOST("company", $data[0]["Company"]) : recoverPOST("company");
-	$cinformation = isset($data) ? recoverPOST("cinformation", $data[0]["Company_Information"]) : recoverPOST("cinformation");
 	$country = isset($data) ? recoverPOST("country", $data[0]["Country"]) : recoverPOST("country");
 	$city = isset($data) ? recoverPOST("city", $data[0]["City"]) : recoverPOST("city");
 	$salary = isset($data) ? recoverPOST("salary", $data[0]["Salary"]) : recoverPOST("salary");
@@ -34,23 +33,12 @@
 			));
 
 			echo formInput(array(
-				"name" => "company",
+				"name" => "company", 
 				"class" => "span5 required", 
 				"field" => __("Company"), 
 				"p" => true, 
-				"placeholder" => __("Enter your company name"),
+				"placeholder" => __("Type the name of the company"),
 				"value" => $company
-			));
-
-			echo formTextarea(array(
-				"id" => "redactor",
-				"name" => "cinformation", 
-				"class" => "markItUp", 
-				"style" => "height: 240px;", 
-				"field" => __("Company Information"), 
-				"p" => true, 
-				"placeholder" => __("Enter the details of your company"),
-				"value" => stripslashes($cinformation)
 			));
 
 			$options = array();
