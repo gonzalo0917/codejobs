@@ -1,9 +1,14 @@
-<?php if (!defined("ACCESS")) die("Error: You don't have permission to access here..."); ?>
-
+<?php
+	if (!defined("ACCESS")) {
+		die("Error: You don't have permission to access here...");
+	}
+	var_dump(_get("webLanguage"));
+	exit(var_dump($user["Username"]));
+?>
 <div class="editProfile">
-	<?php if (_get("webLang") === "en") { ?>
+	<?php if (_get("webLanguage") === "English") { ?>
 		<p class="center"><?php echo $user["Username"] . "'s Profile";?></p>
-	<?php } elseif (_get("webLang") === "es") { ?>
+	<?php } elseif (_get("webLanguage") === "Spanish") { ?>
 		<p class="center"><?php echo "Perfil de " . $user["Username"];?></p>
 	<?php } ?>
 

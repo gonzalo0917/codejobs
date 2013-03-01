@@ -573,18 +573,17 @@ class Users_Controller extends ZP_Load
 
 	public function profile($user = null)
 	{
-		if (is_null($user)) {
-			redirect();
-		} else {
-			$data = $this->Users_Model->getByUsername($user);
+		$data = $this->Users_Model->getByUsername($user);
 
-			if ($data) {
-				$this->helper("debugging");
-				//____($data);
-			} else {
-				exit("No se encontro");
-				// Mostrar vista de usuario no encontrado
-			}
+		if ($data) {
+			$this->title(__("Profile of") ." $user");
+
+			$vars["user"] = $data[0];
+			$vars["view"] = $this->view("profile", true);
+
+			$this->render("content", $vars);
 		}
+
+		redirect();
 	}
 }

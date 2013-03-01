@@ -560,7 +560,7 @@ class Users_Model extends ZP_Load
 
 	public function getByUsername($username)
 	{
-		return $this->Db->findBy("Username", $username, $this->table, $this->fields);
+		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation");
 	}
 
 	public function getPrivileges()
