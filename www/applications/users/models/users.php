@@ -14,7 +14,7 @@ class Users_Model extends ZP_Load
 		$this->Email->fromName = _get("webName");
 		$this->Email->fromEmail = _get("webEmailSend");
 		
-		$this->Data = $this->core("Data");		
+		$this->Data = $this->core("Data");
 		$this->Data->table("users");
 
 		$this->table = "users";
@@ -1049,7 +1049,7 @@ class Users_Model extends ZP_Load
             }
                         
             if ($this->Db->insertBatch("codes_files", $this->data)) {
-            	$this->Cache = $this->core("Cache");	
+            	$this->Cache = $this->core("Cache");
 				$this->Cache->removeAll("codes");
             	$this->Users_Model = $this->model("Users_Model");
 				$this->Users_Model->setCredits(1, 17);
@@ -1087,7 +1087,7 @@ class Users_Model extends ZP_Load
                 }
             }
             
-            $this->Cache = $this->core("Cache");	
+            $this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("codes");
 
             return getAlert(__("The code has been edit correctly"), "success");
