@@ -705,6 +705,7 @@ class Users_Model extends ZP_Load
 		}
 
 		if ($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
+			SESSION("ZanUserName", POST("name"));
 			return getAlert(__("The information has been saved correctly"), "success");	
 		}
 		
@@ -789,7 +790,7 @@ class Users_Model extends ZP_Load
 				}
 
 				if ($this->setAvatar($avatar)) {
-					SESSION("ZanUserAvatar", prev($avatar) ."?". time());
+					SESSION("ZanUserAvatar", current($avatar) ."?". time());
 
 					return getAlert(__("The avatar has been saved correctly"), "success");
 				}
@@ -838,9 +839,34 @@ class Users_Model extends ZP_Load
 		return getAlert(__("Update error"));
 	}
 
+	public function getOptions()
+	{
+		return $this->Db->find(SESSION("ZanUserID"), $this->table, "Sign");
+	}
+
+	public function saveOptions()
+	{
+		$data = array("Sign" => POST("sign", "clean"));
+
+		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
+			return getAlert(__("The sign has been saved correctly"), "success");
+		}
+
+		return getAlert(__("Update error"));
+	}
+
+	public function deleteOptions() 
+	{
+		if ($this->Db->update($this->table, array("Sign" => ""), SESSION("ZanUserID"))) {
+			return getAlert(__("The sign has been deleted correctly"), "success");
+		}
+
+		return getAlert(__("Update error"));
+	}
+
 	public function getSocial()
 	{
-		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, "Twitter, Facebook, Linkedin, Google, Viadeo");
+		return $this->Db->find(SESSION("ZanUserID"), $this->table, "Twitter, Facebook, Linkedin, Google, Viadeo");
 	}
 
 	public function saveSocial()

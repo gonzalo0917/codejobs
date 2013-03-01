@@ -1,7 +1,4 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -14,18 +11,16 @@ class CPanel_Controller extends ZP_Load
 	public function __construct() {
 		$this->app("cpanel");
 		
-		$this->application = whichApplication();
-		
+		$this->application = whichApplication();		
 		$this->CPanel = $this->classes("cpanel", "CPanel", null, "cpanel");
-		
+
 		$this->isAdmin = $this->CPanel->load();
 		
 		$this->vars = $this->CPanel->notifications();
 		
 		$this->CPanel_Model = $this->model("CPanel_Model");
 		
-		$this->Templates = $this->core("Templates");
-		
+		$this->Templates = $this->core("Templates");	
 		$this->Templates->theme("cpanel");
 	}
 	
@@ -147,7 +142,7 @@ class CPanel_Controller extends ZP_Load
 	}
 	
 	public function results()
-	{
+	{ 
 		if (!$this->isAdmin) {
 			$this->login();
 		}
@@ -161,9 +156,9 @@ class CPanel_Controller extends ZP_Load
 		
 		$this->js("checkbox");
 		
-		$trash = (segment(3, isLang()) === "trash") ? true : false;
+		$trash = (segment(3, isLang()) === "trash") ? true : false; 
 		$this->vars["total"] = $this->CPanel_Model->total($trash); 
-		$this->vars["tFoot"] = $this->CPanel_Model->records($trash, "ID_Workshop DESC"); 
+		$this->vars["tFoot"] = $this->CPanel_Model->records($trash, "ID_Workshop DESC");
 		$this->vars["message"] = (!$this->vars["tFoot"]) ? "Error" : null;
 		$this->vars["pagination"] = $this->CPanel_Model->getPagination($trash);
 		$this->vars["trash"] = $trash;

@@ -87,7 +87,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 						<!--<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>-->
 						<li><a href="http://www.youtube.com/codejobs" target="_blank"><?php echo __("Videos"); ?></a></li>
 						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>
-						<li><a href="<?php echo path("live"); ?>"><?php echo __("Community"); ?></a></li>		
+						<li><a href="<?php echo path("workshop"); ?>"><?php echo __("Proposals"); ?></a></li>		
 						<li>				
 					</ul>
 				</nav>				
@@ -143,11 +143,11 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 									$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), true);
 								}
 							?>
-							<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" style="max-width: 70px;" />
+							<a href="<?php echo path("users/avatar"); ?>" title="<?php echo __("Edit avatar"); ?>"><img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="dotted" style="max-width: 70px;" /></a>
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px; margin-left: 10px;">
-							<span class="bold"><?php echo SESSION("ZanUserName"); ?></span> <br />
+							<span class="bold"><a href="<?php echo path("users/about"); ?>"><?php echo SESSION("ZanUserName"); ?></a></span> <br />
 							<!--span class="small grey"><a href="#"><?php echo __("See my profile page"); ?></a></span><br />
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
@@ -173,6 +173,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
+							<span class="small grey"><a href="<?php echo path("users/about"); ?>"><?php echo __("Account settings"); ?></a></span><br />
 							<span class="small grey"><a href="<?php echo path("users/deactivate"); ?>"><?php echo __("Deactivate my account"); ?></a></span><br />
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>

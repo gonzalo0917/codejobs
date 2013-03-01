@@ -23,6 +23,12 @@ p.left {
 	text-align: center;
 }
 
+p.size {
+	font-style: italic;
+	padding-left: 20px;
+	margin-top: -5px;
+}
+
 div.avatar-image {
 	background-color: white;
 	display: inline-block;

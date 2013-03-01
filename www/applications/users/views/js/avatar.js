@@ -36,7 +36,7 @@
 				alert($("#type-error").val());
 			} else if (file.size < 1024) {
 				alert($("#small-error").val());
-			} else if (file.size > 5242880) {
+			} else if (file.size > 2097152) {
 				alert($("#big-error").val());
 			} else {
 				previewImage(file);
