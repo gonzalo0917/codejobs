@@ -12,7 +12,6 @@
 	$action   = isset($data) ? "edit" : "save";
 	$resalt   = isset($data) ? __("Edit post") : __("Add new post");
 	$href 	  = path("blog/add/");
-	$editor   = _get("defaultEditor") === "Redactor" ? 1 : 2;
 	
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add");
@@ -28,19 +27,6 @@
 				"autofocus" => "autofocus", 
 				"value" => stripslashes($title)
 			));
-
-			$options = array(
-				array("value" => 1, "option" => "Redactor", "selected" => ($editor === 1 ? true : false)),
-				array("value" => 2, "option" => "markItUp!", "selected" => ($editor === 2 ? true : false))
-			);
-
-			echo formSelect(array(
-				"name" => "editor", 
-				"p" => true, 
-				"field" => __("Editor"), 
-				"onchange"	=> 'switchEditor($(this).val())'),
-				$options
-			);
 			
 			echo formTextarea(array(
 				"name" => "content", 
