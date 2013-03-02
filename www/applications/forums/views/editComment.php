@@ -13,7 +13,7 @@ $content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverP
 	<span class="forums-create"><?php echo __("Edit Comment"); ?></span>
 	<br />
 	<form action="#" method="post">
-		<textarea id="pcontent" name="content" class="span8 forums-textarea" rows= "5"><?php echo $content ?></textarea> <br />
+		<textarea id="editor" placeholder="Write the content here..." class="ckeditor"><?php echo $content ?></textarea> <br />
 		<input id="cedit" class="btn btn-success" name="publish" type="button" value="<?php echo __("Edit"); ?>" />
 		<input id="ccancel" class="btn btn-danger" name="cancel" type="button" value="<?php echo __("Cancel"); ?>" />
 		<input id="pid" name="pid" type="hidden" value="<?php echo $pid; ?>" />
@@ -22,3 +22,4 @@ $content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverP
 		<input id="needcontent" type="hidden" value="<?php echo __("Comment can't be blank..."); ?>" />
 	</form>
 </div>
+<?php echo $ckeditor; ?>

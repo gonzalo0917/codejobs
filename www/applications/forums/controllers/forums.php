@@ -304,6 +304,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->js("forums", "forums");
 			
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forum"] = $forum;
 			$vars["data"] = $data;
 			$vars["view"] = $this->view("editComment", true);

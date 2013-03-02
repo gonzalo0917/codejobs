@@ -150,7 +150,7 @@ $(document).on("ready", function() {
 		var pid = $("#pid").val();
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();
-		var content = $("#pcontent").val();
+		var content = $("#editor").val();
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 
 		if (content.length == 0 || content == $("#pcontent-temp").val()) { 
