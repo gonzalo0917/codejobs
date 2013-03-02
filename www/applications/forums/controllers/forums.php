@@ -314,6 +314,6 @@ class Forums_Controller extends ZP_Load
 
 	public function publishComment()
 	{
-		$this->Forums_Model->saveComment(POST("fid"), POST("content", "clean"), POST("fname"));
+		$this->Forums_Model->saveComment(POST("fid"), POST("content"), POST("fname"));
 	}
 }
