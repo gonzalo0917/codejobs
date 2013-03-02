@@ -91,21 +91,22 @@ class Forums_Model extends ZP_Load
 		}
 
 		$data = array(
-			"ID_User" 	 => SESSION("ZanUserID"),
-			"ID_Forum" 	 => (int) POST("forumID"),
-			"ID_Parent"  => 0,
-			"Forum_Name" => POST("fname"),
-            "Title" 	 => POST("title"),
-			"Slug" 		 => slug(POST("title", "clean")),
-			"Content" 	 => POST("content", "clean"),
-			"Author" 	 => SESSION("ZanUser"),
-			"Avatar" 	 => $avatar,
-			"Last_Reply" => now(4),
-			"Start_Date" => now(4),
-			"Text_Date"  => decode(now(2)),
-			"Tags" 		 => POST("tags") ? POST("tags") : "",
-			"Language" 	 => whichLanguage(),
-            "Situation"  => "Active"
+			"ID_User" 	  => SESSION("ZanUserID"),
+			"ID_Forum" 	  => (int) POST("forumID"),
+			"ID_Parent"   => 0,
+			"Forum_Name"  => POST("fname"),
+            "Title" 	  => POST("title"),
+			"Slug" 		  => slug(POST("title", "clean")),
+			"Content" 	  => POST("content", "clean"),
+			"Author" 	  => SESSION("ZanUser"),
+			"Avatar" 	  => $avatar,
+			"Last_Reply"  => now(4),
+			"Last_Author" => SESSION("ZanUser"),
+			"Start_Date"  => now(4),
+			"Text_Date"   => decode(now(2)),
+			"Tags" 		  => POST("tags") ? POST("tags") : "",
+			"Language" 	  => whichLanguage(),
+            "Situation"   => "Active"
 		);
 
 		$lastID = $this->Db->insert("forums_posts", $data);
