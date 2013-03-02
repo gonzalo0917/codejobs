@@ -582,8 +582,9 @@ class Users_Controller extends ZP_Load
 			$vars["view"] = $this->view("profile", true);
 
 			$this->render("content", $vars);
+		} else {
+			redirect();
 		}
 
-		redirect();
 	}
 }

@@ -2,8 +2,6 @@
 	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here...");
 	}
-	var_dump(_get("webLanguage"));
-	exit(var_dump($user["Username"]));
 ?>
 <div class="editProfile">
 	<?php if (_get("webLanguage") === "English") { ?>
