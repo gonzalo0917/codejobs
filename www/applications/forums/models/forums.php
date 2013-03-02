@@ -319,7 +319,7 @@ class Forums_Model extends ZP_Load
 	{
 		$slug = segment(1, isLang());
 
-		if ($type = "posts") {
+		if ($type === "posts") {
 			$query = "SELECT COUNT(*) AS Total 
 					  FROM ". DB_PREFIX ."forums_posts 
 					  WHERE Language = '$this->language' 
