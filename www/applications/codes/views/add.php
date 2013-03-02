@@ -37,10 +37,9 @@ echo formOpen($href, "form-add", "form-add");
 
     echo formTextArea(array(
         "name"  => "description",
-        "class" => "span10 required",
+        "class" => "span10 required noresize",
         "field" => __("Description"), 
         "p"     => true, 
-        "style" => "resize: none",
         "value" => $description
     ));
                 

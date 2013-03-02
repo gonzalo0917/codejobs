@@ -11,7 +11,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "jobs";
-		$this->fields = "ID_Job, ID_User, Company, Title, Slug, Author, Email, Address1, Address2, Logo, Phone, Company_Information, Country, City, Salary, Salary_Currency, Allocation_Time, Requirements, Technologies, Language, Situation";
+		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Logo, Country, City, Salary, Salary_Currency, Allocation_Time, Description, Language, Situation";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -56,18 +56,13 @@ class Jobs_Model extends ZP_Load
 	private function editOrSave($action)
 	{
 		$validations = array(
-			"company" => "required",
 			"title" => "required",
-			"email" => "email?",
-			"address1" => "required",
-			"phone" => "required",
-			"cinformation" => "required",
+			"company" => "required",
 			"country" => "required",
 			"city" => "required",
 			"salary" => "required",
 			"salary_currency" => "required",
-			"requirements" => "required",
-			"technologies" => "required",
+			"description" => "required",
 		);
 
 		$this->helper(array("alerts", "time", "files"));
@@ -80,17 +75,6 @@ class Jobs_Model extends ZP_Load
 			"End_Date" => $date + (3600 * 24 * 30)
  		);
 
- 		if (FILES("image", "name")) {
-			$dir = "www/lib/files/images/companies/";
-			$this->Files = $this->core("Files");
-			$data["Logo"] = $this->Files->uploadImage($dir, "image", "normal");
-
-			if (!$data["Logo"]) {
-				return getAlert(__("Upload error"));
-			}
-		}
-
-		$this->Data->change("cinformation", "Company_Information");
 		$this->Data->change("allocation", "Allocation_Time");
 		$this->Data->change("ccontact", "Company_Contact");
 		$this->data = $this->Data->process($data, $validations);
@@ -102,27 +86,19 @@ class Jobs_Model extends ZP_Load
 
 	public function preview()
 	{
-		if (POST("title") AND POST("email") AND POST("address1") AND POST("logo") AND POST("phone") 
-			AND POST("company") AND POST("cinformation") AND POST("country") AND POST("city") AND POST("salary") 
-			AND POST("salary_currency") AND POST("allocation") AND POST("requirements") AND POST("technologies") AND POST("language")) {
+		if (POST("title") AND POST("country") AND POST("company") AND POST("city") AND POST("salary") 
+			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language")) {
 			return array(
-				"Address1" => POST("address1"),
-				"Address2" => POST("address2"),
-				"Logo" => POST("logo"),
+				"Company" => POST("company"),
 				"Allocation_Time" => POST("allocation"),
 				"Author" => SESSION("ZanUser"),
-				"Company" => POST("company"),
-				"Company_Information" => POST("cinformation"),
 				"Country" => POST("country"),
 				"City" => POST("city"),
-				"Email" => POST("email"),
 				"Salary" => POST("salary"),
 				"Salary_Currency"=> POST("salary_currency"),
-				"Requirements" => stripslashes(encode(POST("requirements", "decode", null))),
+				"Description" => stripslashes(encode(POST("description", "decode", null))),
 				"Language" => POST("language"),
-				"Phone" => POST("phone"),
 				"Start_Date" => now(4),
-				"Technologies" => stripslashes(encode(POST("technologies", "decode", null))),
 				"Title" => stripslashes(encode(POST("title", "decode", null))),
 			);
 		} else {
@@ -132,7 +108,6 @@ class Jobs_Model extends ZP_Load
 
 	public function save()
 	{
-		____($this->data);
 		if ($this->Db->insert($this->table, $this->data)) {
 		 	return getAlert(__("The job has been saved correctly"), "success");
 		}
@@ -156,7 +131,7 @@ class Jobs_Model extends ZP_Load
 			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
 		} elseif ($type === "tag") {
 			$tag = str_replace("-", " ", segment(2, isLang()));
-			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' AND Situation = 'Active'", $this->table);
 		} elseif ($type === "author") {
 			$user = segment(2, isLang());
 			
@@ -164,7 +139,7 @@ class Jobs_Model extends ZP_Load
 		} elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag = str_replace("-", " ", segment(4, isLang()));
-			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%') 
+			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%') 
 				AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		}
 	}

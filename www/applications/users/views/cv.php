@@ -20,6 +20,11 @@
         $education = recoverEducation();
     }
 
+    echo htmlTag("div", array(
+        "ng-controller" => "CvCtrl",
+        "class" => "add-form"
+    ));
+
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
             echo isset($alert) ? $alert : null;
@@ -29,7 +34,7 @@
                 "class" => "span10 required",
                 "field" => __("Summary"), 
                 "p"     => true, 
-                "style" => "resize: none",
+                "style" => "resize: none; height: 100px;",
                 "value" => $summary
             ));
                         
@@ -95,7 +100,7 @@
                 echo formTextArea(array(	
                     "id"    => "description{{\$index}}", 
                     "name"  => "description[]",
-                    "class" => "required",
+                    "class" => "required noresize",
                     "style" => "height: 200px;width:100%", 
                     "field" => __("Description"), 
                     "p"     => true
@@ -119,7 +124,7 @@
                 "ng-click" => "addExperience()"
             ), __("Add another experience") . "...");
 
-             echo "<div style='margin-top: 80px'></div>";
+            echo "<div style='margin-top: 80px'></div>";
 
             echo span("field", "&raquo; " . __("Education") . " ({{education.length}})");
             
@@ -157,7 +162,7 @@
                 echo formInput(array(   
                     "name"     => "school_period_from[]", 
                     "id"       => "school_period_from{{\$index}}", 
-                    "class"    => "required jdpicker inline", 
+                    "class"    => "required jdpicker", 
                     "field"    => __("Time Period"), 
                     "ng-model" => "school.period_from",
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
@@ -166,7 +171,7 @@
                 echo formInput(array(   
                     "name"     => "school_period_to[]", 
                     "id"       => "school_period_to{{\$index}}", 
-                    "class"    => "required jdpicker inline", 
+                    "class"    => "required jdpicker", 
                     "ng-model" => "school.period_to",
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));
@@ -174,7 +179,7 @@
                 echo formTextArea(array(    
                     "id"    => "school_description{{\$index}}", 
                     "name"  => "school_description[]",
-                    "class" => "required",
+                    "class" => "required noresize",
                     "style" => "height: 200px;width:100%", 
                     "field" => __("Description"), 
                     "p"     => true
@@ -199,14 +204,17 @@
             ), __("Add another school") . "...");
 
             echo htmlTag("div", false);
-        
         echo formClose();
 
     echo div(false);
 
+    echo htmlTag("div", false);
+
 ?>
+
 <script type="text/javascript">
-function fileCtrl($scope) {
+function CvCtrl($scope) {
+    console.log("problemas");
     $scope.experiences = [
         <?php
         for ($experience = 0; $experience < count($experiences); $experience++) {
@@ -215,6 +223,7 @@ function fileCtrl($scope) {
                 idexperience: "<?php print recoverPOST("idexperience$experience", $experiences[$experience]["ID_Experience"]); ?>",
                 company: "<?php print recoverPOST("company$experience", $experiences[$experience]["Company"]); ?>",
                 title: "<?php print recoverPOST("title$experience", $experiences[$experience]["Title"]); ?>",
+                location: "<?php print recoverPOST("location$experience", $experiences[$experience]["Location"]); ?>",
                 periodfrom: "<?php print recoverPOST("periodfrom$experience", $experiences[$experience]["Period_From"]); ?>",
                 periodto: "<?php print recoverPOST("periodto$experience", $experiences[$experience]["Period_To"]); ?>",
                 description: "<?php print removeBreaklines(recoverPOST("description$experience", $experiences[$experience]["Description"]), "\\n"); ?>",
@@ -225,17 +234,18 @@ function fileCtrl($scope) {
     ];
 
     $scope.addExperience = function () {
+        console.log("problemas");
         var index = $scope.experiences.length;
         
         $scope.experiences.push({
-            id: "", name: "", syntax: 1, code: "", editor: null
+            id: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: "", editor: null
         });
         
         window.setTimeout(function () {
             $('html, body').animate({
-                scrollTop: $("#name" + ($scope.experiences.length - 1)).parent().parent().offset().top - 10
+                scrollTop: $("#company" + ($scope.experiences.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
-                $("#syntax" + ($scope.experiences.length - 1)).focus();
+                $("#experience" + ($scope.experiences.length - 1)).focus();
             });
         }, 0);
     };
@@ -247,6 +257,48 @@ function fileCtrl($scope) {
             }
         }
     };
+
+     /*$scope.education = [
+        <?php
+        for ($school = 0; $school < count($education); $school++) {
+        ?>
+            {
+                idschool: "<?php print recoverPOST("idschool$school", $education[$school]["ID_School"]); ?>",
+                school: "<?php print recoverPOST("school$school", $education[$school]["School"]); ?>",
+                degree: "<?php print recoverPOST("degree$school", $education[$school]["Degree"]); ?>",
+                periodfrom: "<?php print recoverPOST("periodfrom$school", $education[$school]["Period_From"]); ?>",
+                periodto: "<?php print recoverPOST("periodto$school", $education[$school]["Period_To"]); ?>",
+                description: "<?php print removeBreaklines(recoverPOST("description$school", $education[$school]["Description"]), "\\n"); ?>",
+                editor: null
+            } <?php print $school < (count($education) - 1) ? ',' : '';
+        }
+        ?>
+    ];
+
+    $scope.addSchool = function () {
+        var index = $scope.education.length;
+        
+        $scope.education.push({
+            id: "", school: "", degree: "", periodfrom: "", periodto: "", description: "", editor: null
+        });
+        
+        window.setTimeout(function () {
+            $('html, body').animate({
+                scrollTop: $("#name" + ($scope.education.length - 1)).parent().parent().offset().top - 10
+            }, 1000, function () {
+                $("#syntax" + ($scope.education.length - 1)).focus();
+            });
+        }, 0);
+    };
+
+    $scope.removeSchool = function (index) {
+        if (index > 0) {
+            if (confirm("<?php print __("Do you want to remove this school?"); ?>")) {
+                this.education.splice(index, 1);
+            }
+        }
+    };*/
+    //Configurar addschool y removeschool para que se utilicen para en school y experience
 
 }
 </script>

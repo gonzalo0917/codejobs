@@ -18,7 +18,7 @@
 			' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
 
 			if ($job["Technologies"] !== "") {
-				echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
+				echo __("in") ." ". exploding($job["Description"], "jobs/tag/");
 			}
 		?>
 		<br />
@@ -28,22 +28,18 @@
 
 
 	<p class="justify">
-		<h5><?php echo ("Company Logo")?></h5>
-		<p>
-			<img src="<?php echo path($job["Logo"], true); ?>">
-		</p>
 
 		<h5><?php echo __("Job Description")?></h5>
 		<p>
 			<?php 
-				echo stripslashes($job["Requirements"]); 
+				echo stripslashes($job["Description"]); 
 			?>
 		</p> 
 
 		<h5><?php echo __("Company Information")?></h5>
 		<p>
 			<?php
-				echo stripcslashes($job["Company_Information"]);
+				echo stripcslashes($job["Company"]);
 			?>
 		</p>
 
@@ -60,7 +56,7 @@
 			<?php if (SESSION("ZanUserID")) {?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
-				<li><?php echo __("Phone"). ": ". __($job["Phone"]) ?></li>
+				<li><?php echo __("Phone"). ": ". $job["Phone"] ?></li>
 			</ul>
 			<?php } else {?>
 				<span class="small italic grey">
