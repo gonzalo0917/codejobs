@@ -85,6 +85,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = segment(1, isLang());
 			$vars["posts"] = $data;
@@ -116,6 +117,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = segment(1, isLang());
 			$vars["posts"] = $data;
@@ -162,7 +164,7 @@ class Forums_Controller extends ZP_Load
 
 		$this->helper("pagination");
 		$this->pagination = ($count > MAX_LIMIT) ? paginate($count, MAX_LIMIT, $start, $URL) : null;
-		
+
 		return $limit;
 	}
 
