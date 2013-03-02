@@ -96,6 +96,7 @@ class Blog_Controller extends ZP_Load
 			$this->helper(array("html", "forms"));
 			$this->config("user", "blog");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "full", true);
 			$vars["view"] = $this->view("new", true);
 		}
 		

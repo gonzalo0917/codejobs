@@ -29,6 +29,7 @@
 			));
 			
 			echo formTextarea(array(
+				"id" => "editor",
 				"name" => "content", 
 				"style" => "height: 240px;", 
 				"field" => __("Content"), 
@@ -63,3 +64,5 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
 	echo div(false);
+
+	echo $ckeditor;
