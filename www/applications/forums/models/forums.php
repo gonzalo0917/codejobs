@@ -236,10 +236,10 @@ class Forums_Model extends ZP_Load
 		}
 	}
 
-	public function getPost($postID)
+	public function getPost($postID, $limit)
 	{
 		$query = "SELECT $this->fieldsPosts FROM ". DB_PREFIX ."forums_posts 
-				  WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post";
+				  WHERE ID_Post = $postID OR ID_Parent = $postID ORDER BY ID_Parent, ID_Post LIMIT $limit";
 		
 		return $this->Db->query($query);
 	}
@@ -326,6 +326,13 @@ class Forums_Model extends ZP_Load
 					  WHERE Language = '$this->language' 
 					  AND Situation = 'Active' AND ID_Parent = 0 
 					  AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' LIMIT 1)";
+
+			$count = $this->Db->query($query);
+			return $count[0]["Total"];
+		} elseif ($type === "comments") {
+			$query = "SELECT COUNT(*) AS Total
+			          FROM ". DB_PREFIX ."forums_posts
+			          WHERE ID_Post = ". segment(2, isLang()) ." OR ID_Parent = ". segment(2, isLang()) ." ORDER BY ID_Parent, ID_Post";
 
 			$count = $this->Db->query($query);
 			return $count[0]["Total"];
