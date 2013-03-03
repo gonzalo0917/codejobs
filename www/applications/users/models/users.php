@@ -14,11 +14,13 @@ class Users_Model extends ZP_Load
 		$this->Email->fromName = _get("webName");
 		$this->Email->fromEmail = _get("webEmailSend");
 		
-		$this->Data = $this->core("Data");		
+		$this->Data = $this->core("Data");
 		$this->Data->table("users");
 
 		$this->table = "users";
+		$this->tableCv = "users_cv";
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
+		$this->fieldsCv = "";
 		$this->application = whichApplication();
 		$this->helper("debugging");
 	}
@@ -340,7 +342,8 @@ class Users_Model extends ZP_Load
 		return $this->Db->findBySQL($query, $this->table, "ID_User");
 	}
 	
-	public function getUserData($sessions = false) {
+	public function getUserData($sessions = false) 
+	{
 		if ($sessions) {
 			$username = SESSION("ZanUser");
 			$password = SESSION("ZanUserPwd");
@@ -560,7 +563,7 @@ class Users_Model extends ZP_Load
 
 	public function getByUsername($username)
 	{
-		return $this->Db->findBy("Username", $username, $this->table, $this->fields);
+		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation");
 	}
 
 	public function getPrivileges()
@@ -993,5 +996,136 @@ class Users_Model extends ZP_Load
 			@unlink("www/lib/files/images/users/". sha1(SESSION("ZanUser") ."_O") .".png");
 		}
 	}
+
+	public function addCv($action = "save")
+    {
+		$error = $this->editOrSave($action);
+
+		if ($error) {
+			return $error;
+		}
+		
+		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ?
+		 "Active" : "Pending";
+		
+		if ($this->data["Situation"] === "Active") {
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("codes");
+		}
+
+		if ($action === "save") {
+			$lastID = $this->Db->insert($this->table, $this->data);
+			
+			if ($lastID) {
+	            $this->data = $this->proccessExperiences($lastID);
+	                        
+	            if (isset($this->data["error"])) {
+	                $this->Db->delete($lastID, $this->table);
+	                return $this->data["error"];
+	            }
+	                        
+	            if ($this->Db->insertBatch("codes_files", $this->data)) {
+					$this->Users_Model = $this->model("Users_Model");
+					$this->Users_Model->setCredits(1, 17);
+
+	                return getAlert(__("The code has been saved correctly"), "success");	
+	            }
+			}
+		} elseif ($action === "edit") {
+			return $this->edit();
+		}
+
+		return getAlert(__("Insert error"));
+	}
+
+	private function saveCv()
+	{
+		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
+            $this->data = $this->proccessExperiences($ID);
+                        
+            if (isset($this->data["error"])) {
+                $this->Db->delete($ID, $this->table);
+                return $this->data["error"];
+            }
+                        
+            if ($this->Db->insertBatch("codes_files", $this->data)) {
+            	$this->Cache = $this->core("Cache");
+				$this->Cache->removeAll("codes");
+            	$this->Users_Model = $this->model("Users_Model");
+				$this->Users_Model->setCredits(1, 17);
+                return getAlert(__("The code has been saved correctly"), "success");	
+            }
+		}
+		
+		return getAlert(__("Insert error"));
+	}
+	
+	private function editCv()
+	{
+		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
+            $this->data = $this->proccessExperiences(POST("ID"));
+            
+            if (isset($this->data["error"])) {
+                return $this->data["error"];
+            }
+            
+            $filesDB = $this->getFilesBy(POST("ID"));
+            $filesPOST = POST("file");
+            
+            foreach ($filesPOST as $iFile => $fileID) {
+                if ((int)$fileID > 0) {
+                    $this->Db->update("codes_files", $this->data[$iFile], $fileID);
+                    array_splice($filesDB, array_search($fileID, $filesDB), 1);
+                } else { 
+                    $this->Db->insert("codes_files", $this->data[$iFile]);
+                }
+            }
+            
+            if (count($filesDB) > 0) {
+                foreach ($filesDB as $fileDB) {
+                    $this->Db->delete($fileDB, "codes_files");
+                }
+            }
+            
+            $this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("codes");
+
+            return getAlert(__("The code has been edit correctly"), "success");
+        }
+        
+        return getAlert(__("Update error"));
+	}
+	
+	private function proccessExperiences($ID)
+    {
+        $files = POST("file");
+        $syntax = POST("syntax");
+        $name = POST("name");
+        $code = POST("code");
+        $total = count($files);
+            
+        if ($total == 0) {
+        	return array("error" => getAlert(__("Files are required")));
+        } elseif (count(array_filter($syntax)) != $total) {
+        	return array("error" => getAlert(__("Syntax is required")));
+        } elseif (count(array_filter($name)) != $total) {
+        	return array("error" => getAlert(__("Filename is required")));
+        } elseif (count(array_filter($code)) != $total) {
+        	return array("error" => getAlert(__("Code is required")));
+        }
+         
+        $data = array();
+            
+        for ($i = 0; $i < $total; $i++) {
+            $data[] = array(
+                "ID_Code" => $ID,
+                "Name" => decode(addslashes($name[$i])),
+                "ID_Syntax" => decode(addslashes($syntax[$i])),
+                "Code" => decode(addslashes($code[$i]))
+            );
+        }
+            
+        return $data;
+    }
 
 }

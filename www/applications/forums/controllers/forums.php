@@ -85,6 +85,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = segment(1, isLang());
 			$vars["posts"] = $data;
@@ -116,6 +117,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = segment(1, isLang());
 			$vars["posts"] = $data;
@@ -302,6 +304,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->js("forums", "forums");
 			
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forum"] = $forum;
 			$vars["data"] = $data;
 			$vars["view"] = $this->view("editComment", true);
@@ -314,6 +317,6 @@ class Forums_Controller extends ZP_Load
 
 	public function publishComment()
 	{
-		$this->Forums_Model->saveComment(POST("fid"), POST("content", "clean"), POST("fname"));
+		$this->Forums_Model->saveComment(POST("fid"), POST("content"), POST("fname"));
 	}
 }

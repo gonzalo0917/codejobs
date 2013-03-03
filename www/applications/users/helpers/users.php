@@ -62,18 +62,21 @@ if (!function_exists("removeBreaklines")){
 if (!function_exists("recoverExperiences")) {
     function recoverExperiences()
     {
-        list($idfiles, $syntax, $names, $codes) = 
-         array(recoverPOST("file"), recoverPOST("syntax"), recoverPOST("name"), recoverPOST("code"));
+        list($idexperience, $company, $title, $location, $periodfrom, $periodto, $description) = 
+         array(recoverPOST("experience"), recoverPOST("company"), recoverPOST("title"), recoverPOST("location"), recoverPOST("periodfrom"), recoverPOST("periodto"), recoverPOST("description"));
         
-        if (is_array($idfiles) and is_array($syntax) and is_array($names) and is_array($codes)) {
+        if (is_array($idexperience) and is_array($company) and is_array($title) and is_array($periodfrom) and is_array($periodto) and is_array($description)) {
             $return = array();
             
             for ($i = 0; $i < count($idfiles); $i++) {
                 $return[] = array(
-                    "ID_File" => $idfiles[$i],
-                    "Name" => $names[$i],
-                    "ID_Syntax" => $syntax[$i],
-                    "Code" => $codes[$i]
+                    "ID_Experience" => $idexperience[$i],
+		            "Company" => $company[$i],
+		            "Title" => $title[$i],
+		            "Location" => $location[$i],
+		            "Period_From" => $periodfrom[$i],
+		            "Period_To" => $periodto[$i],
+		            "Description" => $description[$i]
                 );
             }
             
@@ -81,10 +84,13 @@ if (!function_exists("recoverExperiences")) {
         }
         
         return array(array(
-            "ID_File" => "",
-            "Name" => "",
-            "ID_Syntax" => 1,
-            "Code" => ""
+            "ID_Experience" => "",
+            "Company" => "",
+            "Title" => "",
+            "Location" => "",
+            "Period_From" => "",
+            "Period_To" => "",
+            "Description" => ""
         ));
     }
 }
@@ -92,18 +98,20 @@ if (!function_exists("recoverExperiences")) {
 if (!function_exists("recoverEducation")) {
     function recoverEducation()
     {
-        list($idfiles, $syntax, $names, $codes) = 
-         array(recoverPOST("file"), recoverPOST("syntax"), recoverPOST("name"), recoverPOST("code"));
+        list($idschool, $school, $degree, $periodfrom, $periodto, $description) = 
+         array(recoverPOST("school"), recoverPOST("school"), recoverPOST("degree"), recoverPOST("periodfrom"), recoverPOST("periodto"), recoverPOST("description"));
         
-        if (is_array($idfiles) and is_array($syntax) and is_array($names) and is_array($codes)) {
+        if (is_array($idschool) and is_array($school) and is_array($degree) and is_array($periodfrom) and is_array($periodto) and is_array($description)) {
             $return = array();
             
             for ($i = 0; $i < count($idfiles); $i++) {
                 $return[] = array(
-                    "ID_File" => $idfiles[$i],
-                    "Name" => $names[$i],
-                    "ID_Syntax" => $syntax[$i],
-                    "Code" => $codes[$i]
+                    "ID_School" => $idschool[$i],
+		            "School" => $school[$i],
+		            "Degree" => $degree[$i],
+		            "Period_From" => $periodfrom[$i],
+		            "Period_To" => $periodto[$i],
+		            "Description" => $description[$i]
                 );
             }
             
@@ -111,10 +119,12 @@ if (!function_exists("recoverEducation")) {
         }
         
         return array(array(
-            "ID_File" => "",
-            "Name" => "",
-            "ID_Syntax" => 1,
-            "Code" => ""
+            "ID_School" => "",
+            "School" => "",
+            "Degree" => "",
+            "Period_From" => "",
+            "Period_To" => "",
+            "Description" => ""
         ));
     }
 }

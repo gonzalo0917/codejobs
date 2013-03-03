@@ -12,7 +12,7 @@ class Forums_Model extends ZP_Load
 		$this->table = "forums";
 		$this->fields = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
 		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Title, Slug, Content, Author, Start_Date, Text_Date,";
-		$this->fieldsPosts .= "Hour, Visits, Topic, Tags, Language, Situation";
+		$this->fieldsPosts .= "Last_Author, Hour, Visits, Topic, Tags, Language, Situation";
 		
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
@@ -91,21 +91,22 @@ class Forums_Model extends ZP_Load
 		}
 
 		$data = array(
-			"ID_User" 	 => SESSION("ZanUserID"),
-			"ID_Forum" 	 => (int) POST("forumID"),
-			"ID_Parent"  => 0,
-			"Forum_Name" => POST("fname"),
-            "Title" 	 => POST("title"),
-			"Slug" 		 => slug(POST("title", "clean")),
-			"Content" 	 => POST("content", "clean"),
-			"Author" 	 => SESSION("ZanUser"),
-			"Avatar" 	 => $avatar,
-			"Last_Reply" => now(4),
-			"Start_Date" => now(4),
-			"Text_Date"  => decode(now(2)),
-			"Tags" 		 => POST("tags") ? POST("tags") : "",
-			"Language" 	 => whichLanguage(),
-            "Situation"  => "Active"
+			"ID_User" 	  => SESSION("ZanUserID"),
+			"ID_Forum" 	  => (int) POST("forumID"),
+			"ID_Parent"   => 0,
+			"Forum_Name"  => POST("fname"),
+            "Title" 	  => POST("title"),
+			"Slug" 		  => slug(POST("title", "clean")),
+			"Content" 	  => POST("content", "clean"),
+			"Author" 	  => SESSION("ZanUser"),
+			"Avatar" 	  => $avatar,
+			"Last_Reply"  => now(4),
+			"Last_Author" => SESSION("ZanUser"),
+			"Start_Date"  => now(4),
+			"Text_Date"   => decode(now(2)),
+			"Tags" 		  => POST("tags") ? POST("tags") : "",
+			"Language" 	  => whichLanguage(),
+            "Situation"   => "Active"
 		);
 
 		$lastID = $this->Db->insert("forums_posts", $data);
@@ -148,7 +149,7 @@ class Forums_Model extends ZP_Load
 		$this->helper(array("alerts", "time"));
 
         $postID = POST("postID");
-        $forumID = POST("forumID");       
+        $forumID = POST("forumID");
 
 		$data = array(
 			"Content"	=> POST("content"),
@@ -304,7 +305,7 @@ class Forums_Model extends ZP_Load
 		$query = "SELECT ". DB_PREFIX ."forums.ID_Forum, ". DB_PREFIX ."forums.Title AS Forum, ". DB_PREFIX ."forums_posts.ID_Post, 
 				  ". DB_PREFIX ."forums_posts.Title, ". DB_PREFIX ."forums_posts.Tags, ". DB_PREFIX ."forums_posts.Slug, 
 				  ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Content, ". DB_PREFIX ."forums_posts.Author,
-				  ". DB_PREFIX ."forums_posts.Start_Date 
+				  ". DB_PREFIX ."forums_posts.Start_Date, ". DB_PREFIX ."forums_posts.Last_Author 
 				  FROM ". DB_PREFIX ."forums 
 				  INNER JOIN ". DB_PREFIX ."forums_posts ON ". DB_PREFIX ."forums_posts.ID_Forum = ". DB_PREFIX ."forums.ID_Forum
 				  WHERE ". DB_PREFIX ."forums.Slug = '$slug' AND (". DB_PREFIX ."forums_posts.Title LIKE '%$tag%'
@@ -319,7 +320,7 @@ class Forums_Model extends ZP_Load
 	{
 		$slug = segment(1, isLang());
 
-		if ($type = "posts") {
+		if ($type === "posts") {
 			$query = "SELECT COUNT(*) AS Total 
 					  FROM ". DB_PREFIX ."forums_posts 
 					  WHERE Language = '$this->language' 

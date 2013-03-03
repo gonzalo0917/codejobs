@@ -4,7 +4,7 @@
 	}
 ?>
 
-<div class="jobs">
+<div id="jobs">
 	<?php 
 		$i = 1;
 		$rand1 = rand(1, 5);
@@ -26,9 +26,9 @@
 
 					if ($job["Technologies"] !== "") {
 						if (segment(1, isLang()) === "author") {
-							echo __("in") ." ". exploding($job["Technologies"], "jobs/". $job["Author"]. "/tag/");
+							echo __("in") ." ". exploding($job["Description"], "jobs/". $job["Author"]. "/tag/");
 						} else {
-							echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
+							echo __("in") ." ". exploding($job["Description"], "jobs/tag/");
 						}
 					}
 				?>
@@ -36,12 +36,6 @@
 			</span>
 
 			<?php echo display(social($URL, $job["Title"], false), 4); ?>
-
-			<p class="justify">
-				<?php 
-					echo showContent(pagebreak($job["Requirements"], $URL), true); 
-				?>
-			</p>
 
 			<br />
 
