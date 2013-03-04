@@ -121,9 +121,7 @@ class Forums_Model extends ZP_Load
 		$this->helper(array("alerts", "time"));
         
         $postID = POST("postID");
-		
-       
-
+        
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"ID_Forum"   => (int) POST("forumID"),
