@@ -11,7 +11,7 @@ class Jobs_Controller extends ZP_Load
 		$this->Cache = $this->core("Cache");
 		$this->application = $this->app("jobs");
 		$this->Templates->theme();
-		$this->config("bookmarks");
+		$this->config("jobs");
 		$this->Jobs_Model = $this->model("Jobs_Model");
 		$this->helper("pagination");
 		setURL();
@@ -165,15 +165,19 @@ class Jobs_Controller extends ZP_Load
 	}
 
 	private function getJobs()
-	{ 
+	{
 		$this->title(__("Jobs"));
 		$this->CSS("jobs", $this->application);
 		$this->CSS("pagination");
+
 		$limit = $this->limit();
-		$data = $this->Cache->data("jobs-$limit", "jobs", $this->Jobs_Model, "getAll", array($limit));
-		$this->helper("time");
 		
+		$data = $this->Cache->data("jobs-$limit", "jobs", $this->Jobs_Model, "getAll", array($limit));
+		
+		$this->helper("time");
+
 		if ($data) {
+			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
@@ -181,7 +185,7 @@ class Jobs_Controller extends ZP_Load
 			$this->render("content", $vars);
 		} else {
 			redirect();
-		} 
+		}
 	}
 
 	private function getJobsByAuthor($author)

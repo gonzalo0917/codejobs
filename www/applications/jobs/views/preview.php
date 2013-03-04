@@ -15,8 +15,8 @@
 			echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
 			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .'" href="'. path("users/". $job["Author"]) .'">'. $job["Author"] .'</a> ';
 
-			if ($job["Technologies"] !== "") {
-				echo __("in") ." ". exploding($job["Technologies"], "jobs/tag/");
+			if ($job["Description"] !== "") {
+				echo __("in") ." ". exploding($job["Description"], "jobs/description/");
 			}
 		?>
 		<br />

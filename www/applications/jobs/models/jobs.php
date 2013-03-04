@@ -150,10 +150,10 @@ class Jobs_Model extends ZP_Load
 		$this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Job, Title, Slug, Language", null, "rand()", 85);
 	}
 
-	public function getByTag($tag, $limit)
+	public function getByCompany($company, $limit)
 	{
-		$tag = str_replace("-", " ", $tag);
-		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%' 
+		$company = str_replace("-", " ", $company);
+		return $this->Db->findBySQL("Title LIKE '%$company%' OR Description LIKE '%$company%'
 			AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
@@ -172,11 +172,11 @@ class Jobs_Model extends ZP_Load
 			$this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
-	public function getAllByTag($author, $tag, $limit)
+	public function getAllByCompany($author, $company, $limit)
 	{
-		$tag = str_replace("-", " ", $tag);
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR 
-			Requirements LIKE '%$tag%' OR Technologies LIKE '%$tag%')", $this->table, $this->fields, null, "ID_Bookmark DESC", $limit);
+		$company = str_replace("-", " ", $company);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$compay%' OR 
+			Description LIKE '%$company%')", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getAllByUser()

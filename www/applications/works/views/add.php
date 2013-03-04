@@ -115,7 +115,7 @@ echo div("add-form", "class");
 			);
 
 
-			echo formSave($action);
+			echo formAction($action);
 
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Job"));
 		echo formClose();
