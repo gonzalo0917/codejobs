@@ -4,10 +4,10 @@
 	}
 ?>
 <div class="editProfile">
-	<?php if (_get("webLanguage") === "English") { ?>
+	<?php if (_get("webLang") === "en") { ?>
 		<p class="center"><?php echo $user["Username"] . "'s Profile";?></p>
-	<?php } elseif (_get("webLanguage") === "Spanish") { ?>
-		<p class="center"><?php echo "Perfil de " . $user["Username"];?></p>
+	<?php } else { ?>
+		<p class="center"><?php echo __("Profile of") ." ". $user["Username"];?></p>
 	<?php } ?>
 
 	<?php echo isset($alert) ? $alert : null; ?>

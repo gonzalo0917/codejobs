@@ -97,6 +97,7 @@ $phrase["results_for"]								    = "Resultados para";
 $phrase["experience"]									= "Experiencia";
 $phrase["activities"]									= "Actividades";
 $phrase["profile"]										= "Perfil";
+$phrase["profile_of"]									= "Perfil de";
 $phrase["technologies"]									= "Tecnologías";
 $phrase["company_contact"]								= "Contacto de la empresa";
 $phrase["company_address"]								= "Dirección de la emprea";
