@@ -198,11 +198,9 @@ class Bookmarks_Controller extends ZP_Load
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
-
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
-			
 			$this->render("content", $vars);
 		} else {
 			redirect();

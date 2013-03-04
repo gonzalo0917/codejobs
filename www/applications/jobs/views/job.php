@@ -17,8 +17,8 @@
 			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .
 			' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
 
-			if ($job["Technologies"] !== "") {
-				echo __("in") ." ". exploding($job["Description"], "jobs/tag/");
+			//if ($job["Technologies"] !== "") {
+			//	echo __("in") ." ". exploding($job["Description"], "jobs/tag/");
 			}
 		?>
 		<br />
@@ -56,7 +56,6 @@
 			<?php if (SESSION("ZanUserID")) {?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
-				<li><?php echo __("Phone"). ": ". $job["Phone"] ?></li>
 			</ul>
 			<?php } else {?>
 				<span class="small italic grey">
