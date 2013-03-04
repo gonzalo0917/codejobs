@@ -373,6 +373,7 @@ $phrase["published"] 									= "Publicado";
 $phrase["read_message"]									= "Leer mensaje";
 $phrase["read_more"]	  								= "Leer más";
 $phrase["readings"]										= "Lecturas";
+$phrase["recent_posts"] 								= "Publicaciones recientes";
 $phrase["record"] 										= "registro";
 $phrase["record_found"] 								= "Registro encontrado";
 $phrase["records_found"] 								= "Registros encontrados";

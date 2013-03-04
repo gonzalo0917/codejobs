@@ -4,47 +4,23 @@
 	}
 ?>
 <div class="editProfile">
-	<?php if (_get("webLang") === "en") { ?>
-		<p class="center"><?php echo $user["Username"] . "'s Profile";?></p>
-	<?php } else { ?>
-		<p class="center"><?php echo __("Profile of") ." ". $user["Username"];?></p>
-	<?php } ?>
-
-	<?php echo isset($alert) ? $alert : null; ?>
-
-	<div id="box" class="set important">
-		<p class="title main"><?php echo __("Profile");?></p>
-
-		<div class="avatar">
-			<div id="avatar"><img src="<?php echo $avatar;?>" title="<?php echo $user["Username"];?>" alt="<?php echo $user["Username"];?>" /></div><br />
+	<aside class="left">
+		<?php
+			if (substr(SESSION("ZanUserAvatar"), 0, 4) === "http") {
+				$avatar = SESSION("ZanUserAvatar");
+			} else {
+				$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), true);
+			}
+		?>
+		<div class="center">
+			<div>
+				<a href="#"><?php echo $user["Username"]; ?></a>
+			</div>
+			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
 		</div>
 
-		<div class="social">
-			<?php if ($user["Twitter"]) { ?>
-				<a class="sn" id="twitter" rel="external" href="http://twitter.com/<?php echo $user["Twitter"];?>" title="<?php echo $user["Twitter"];?>">
-					Twitter
-				</a>
-			<?php } ?>
-			<?php if ($user["Facebook"]) { ?>
-				<a class="sn" id="facebook" rel="external" href="http://facebook.com/<?php echo $user["Facebook"];?>" title="<?php echo $user["Facebook"];?>">
-					Facebook
-				</a>
-			<?php } ?>
-			<?php if ($user["Linkedin"]) { ?>
-				<a class="sn" id="linkedin" rel="external" href="http://linkedin.com/<?php echo $user["Linkedin"];?>" title="<?php echo $user["Linkedin"];?>">
-					Linkedin
-				</a>
-			<?php } ?>
-			<?php if ($user["Google"]) { ?>
-				<a class="sn" id="google" href="http://plus.google.com/<?php echo $user["Google"];?>/about" rel="external" title="<?php echo $user["Google"];?>">
-					Google+
-				</a>
-			<?php } ?>
-		</div>
-
-		<div class="clear"></div>
-
-		<div class="wrapper">
-		</div>
+	</aside>
+	<div id="posts">
+		<strong><?php echo __("Recent posts");?></strong>
 	</div>
 </div>
