@@ -8,9 +8,12 @@ class Multimedia_Model extends ZP_Load
 	public function __construct()
 	{
 		$this->Db = $this->db();
+
 		$this->language = whichLanguage();
+		
 		$this->table = "multimedia";
 		$this->fields = "ID_File, Filename, URL, Category, Size, Author, Start_Date, Downloads, Situation";
+		
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -38,31 +41,42 @@ class Multimedia_Model extends ZP_Load
 
 	private function all($trash, $order, $limit)
 	{
+		$userID = SESSION("ZanUserID");
+
 		if (!$trash) { 
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit) : 
-			$this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", null, $order, $limit);
+			if (SESSION("ZanUserPrivilegeID") == 1) {
+				return $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			} else {
+				return $this->Db->findBySQL("ID_User = '". $userID ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			}
 		} else {
-			return (SESSION("ZanUserPrivilegeID") === 1) ? $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit) : 
-			$this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation = 'Deleted'", $this->table, "ID_Post, Title, Author, Views, Language, Situation", null, $order, $limit);
+			if (SESSION("ZanUserPrivilegeID") == 1) {
+				return $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit); 
+			} else {
+				return $this->Db->findBySQL("ID_User = '". $userID ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+			}
 		}
 	}
 
 	private function editOrSave($action)
 	{
 		$this->helper("alerts");
+
 		$this->Files = $this->core("Files");
+		
 		$files = $this->Files->createFiles(POST("names"), POST("files"), POST("types"), POST("sizes"), POST("filenames"));
+		
 		$this->helper("time");
 
 		if (is_array($files)) {
 			for ($i = 0; $i <= count($files) - 1; $i++) {
 				$this->data[] = array(
-					"ID_User" => SESSION("ZanUserID"),
-					"Filename" => isset($files[$i]["filename"]) ? decode($files[$i]["filename"]) : null,
-					"URL" => isset($files[$i]["url"]) ? $files[$i]["url"] : null,
-					"Category" => isset($files[$i]["category"]) ? $files[$i]["category"] : null,
-					"Size" => isset($files[$i]["size"]) ? $files[$i]["size"] : null,
-					"Author" => SESSION("ZanUser"),
+					"ID_User"  	 => SESSION("ZanUserID"),
+					"Filename" 	 => isset($files[$i]["filename"]) ? decode($files[$i]["filename"]) : null,
+					"URL" 	   	 => isset($files[$i]["url"]) ? $files[$i]["url"] : null,
+					"Category" 	 => isset($files[$i]["category"]) ? $files[$i]["category"] : null,
+					"Size" 		 => isset($files[$i]["size"]) ? $files[$i]["size"] : null,
+					"Author" 	 => SESSION("ZanUser"),
 					"Start_Date" => now(4)
 				);
 			}
@@ -79,19 +93,14 @@ class Multimedia_Model extends ZP_Load
 
 		return getAlert(__("Error while tried to upload the files"), "success");
 	}
-	
-	private function edit()
-	{
-
-	}
 
 	private function search($search, $field)
 	{
 		if ($search and $field) {
 			if ($field === "ID") {
-				$data = $this->Db->find($search, $this->table);
+				$data = $this->Db->find($search, $this->table, $this->fields);
 			} else {
-				$data = $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);
+				$data = $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);
 			}
 		} else {
 			return false;
@@ -102,8 +111,7 @@ class Multimedia_Model extends ZP_Load
 
 	public function getByID($ID)
 	{
-		$data = $this->Db->find($ID, $this->table, $this->fields);
-		return $data;
+		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 
 	public function getMultimedia($category = "all")
@@ -111,7 +119,7 @@ class Multimedia_Model extends ZP_Load
 		if ($category === "all") {
 			return $this->Db->findAll($this->table, $this->fields);
 		} else { 
-			return $this->Db->findBy("Category", $category, $this->table, $this->fields); die(var_dump($a));
+			return $this->Db->findBy("Category", $category, $this->table, $this->fields);
 		}
 	}
 }
