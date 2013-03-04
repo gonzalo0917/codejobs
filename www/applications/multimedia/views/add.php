@@ -33,7 +33,7 @@
 			print div("progress") . div(false);
 			print div("response") . div(false);
 			print '<div class="clear"></div>';
-			print formSave($action);
+			print formAction($action);
 			print formInput(array("name" => "resize_value", "type" => "hidden", "value" => __("Do you want to resize?"), "id" => "resize_value"));
 			print formInput(array("name" => "MAX_FILE_SIZE", "type" => "hidden", "value" => "MAX_FILE_SIZE", "id" => "upload"));
 			print formInput(array("name" => "ID", "type" => "hidden", "value" => $ID, "id" => "ID_Post"));

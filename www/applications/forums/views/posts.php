@@ -80,6 +80,7 @@
 		<div id="comment-alert"></div>
 		
 		<?php
+			echo isset($pagination) ? $pagination : null;
 			if (SESSION("ZanUser")) {			
 		?>
 				<div class="comments-editor">	

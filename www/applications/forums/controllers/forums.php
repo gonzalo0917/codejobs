@@ -85,6 +85,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = segment(1, isLang());
 			$vars["posts"] = $data;
@@ -116,6 +117,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->css("forums", "forums");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = segment(1, isLang());
 			$vars["posts"] = $data;
@@ -156,6 +158,10 @@ class Forums_Controller extends ZP_Load
 			$start = (segment(2, isLang()) === "page" and segment(3, isLang()) > 0) ? (segment(3, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL = path("forums/". segment(1, isLang()). "/page/");
 			$count = $this->Forums_Model->count();
+		} elseif ($type === "comments") {
+			$start = (segment(4, isLang()) === "page" and segment(5, isLang()) > 0) ? (segment(5, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
+			$URL = path("forums/". segment(1, isLang()). "/". segment(2, isLang()). "/". segment(3, isLang()). "/page/");
+			$count = $this->Forums_Model->count("comments");
 		}
 
 		$limit = $start .", ". MAX_LIMIT;
@@ -177,6 +183,7 @@ class Forums_Controller extends ZP_Load
 
 	public function updatePost()
 	{
+		
 		if (POST("title") and POST("content")) {
 			$data = $this->Forums_Model->updatePost();
 
@@ -197,7 +204,7 @@ class Forums_Controller extends ZP_Load
 
 	public function updateComment()
 	{
-		if (POST("content")) {
+		if (POST("content", "clean")) {
 			$data = $this->Forums_Model->updateComment();
 
 			echo ($data) ? $data : path();			
@@ -227,7 +234,6 @@ class Forums_Controller extends ZP_Load
 	public function getForum($forum)
 	{
 		$this->CSS("pagination");
-		
 		$limit = $this->limit();
 		$data = $this->Forums_Model->getByForum($forum, $this->language, $limit);
 
@@ -254,7 +260,9 @@ class Forums_Controller extends ZP_Load
 
 	public function getPost($postID)
 	{
-		$data = $this->Forums_Model->getPost($postID);
+		$this->CSS("pagination");
+		$limit = $this->limit("comments");
+		$data = $this->Forums_Model->getPost($postID, $limit);
 
 		if ($data) {
 			$this->helper("time");
@@ -264,6 +272,7 @@ class Forums_Controller extends ZP_Load
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forum"] = segment(1, isLang());
 			$vars["posts"] = $data;
+			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("posts", true);
 
 			$this->render("content", $vars);
@@ -302,6 +311,7 @@ class Forums_Controller extends ZP_Load
 			$this->css("posts", "blog");
 			$this->js("forums", "forums");
 			
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forum"] = $forum;
 			$vars["data"] = $data;
 			$vars["view"] = $this->view("editComment", true);
