@@ -29,7 +29,7 @@ $(document).on("ready", function() {
 					newComment = newComment + '	  <img src="' + avatar + '" class="dotted" style="max-width: 70px;" /> ';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
-					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="' + response.edit + '">Edit</a> | <a href="' + response.delete +'">Delete</a></p>';
+					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="' + response.edit + '">Edit</a> | <a href="' + response.delete + '" onclick=" return confirm(\'Do you want to delete this post?\')">Delete</a></p>';
 					newComment = newComment + '   <p class="comment-post">' + response.content + '</p>';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '</div>';
@@ -150,7 +150,7 @@ $(document).on("ready", function() {
 		var pid = $("#pid").val();
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();
-		var content = $("#editor").val();
+		var content =  $(".cke_wysiwyg_frame").contents().find('body').html();
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 
 		if (content.length == 0 || content == $("#pcontent-temp").val()) { 

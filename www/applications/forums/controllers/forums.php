@@ -183,6 +183,7 @@ class Forums_Controller extends ZP_Load
 
 	public function updatePost()
 	{
+		
 		if (POST("title") and POST("content")) {
 			$data = $this->Forums_Model->updatePost();
 
@@ -203,7 +204,7 @@ class Forums_Controller extends ZP_Load
 
 	public function updateComment()
 	{
-		if (POST("content")) {
+		if (POST("content", "clean")) {
 			$data = $this->Forums_Model->updateComment();
 
 			echo ($data) ? $data : path();			
@@ -233,7 +234,6 @@ class Forums_Controller extends ZP_Load
 	public function getForum($forum)
 	{
 		$this->CSS("pagination");
-		
 		$limit = $this->limit();
 		$data = $this->Forums_Model->getByForum($forum, $this->language, $limit);
 
@@ -261,7 +261,6 @@ class Forums_Controller extends ZP_Load
 	public function getPost($postID)
 	{
 		$this->CSS("pagination");
-		
 		$limit = $this->limit("comments");
 		$data = $this->Forums_Model->getPost($postID, $limit);
 
@@ -325,6 +324,6 @@ class Forums_Controller extends ZP_Load
 
 	public function publishComment()
 	{
-		$this->Forums_Model->saveComment(POST("fid"), POST("content"), POST("fname"));
+		$this->Forums_Model->saveComment(POST("fid"), POST("content", "clean"), POST("fname"));
 	}
 }

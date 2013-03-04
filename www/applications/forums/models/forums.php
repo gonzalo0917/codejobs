@@ -122,6 +122,8 @@ class Forums_Model extends ZP_Load
         
         $postID = POST("postID");
 		
+       
+
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"ID_Forum"   => (int) POST("forumID"),
@@ -152,7 +154,7 @@ class Forums_Model extends ZP_Load
         $forumID = POST("forumID");
 
 		$data = array(
-			"Content"	=> POST("content"),
+			"Content"	=> POST("content", "clean"),
 			"Text_Date" => decode(now(2))
 		);
 
