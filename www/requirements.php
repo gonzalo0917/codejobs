@@ -6,9 +6,7 @@ if (!defined("ACCESS")) {
 ob_start(); 
 session_start();
 
-defined('__DIR__') or define('__DIR__', dirname(__FILE__));
-
-define("DIR", __DIR__);
+include "dir.php";
 
 if (!version_compare(PHP_VERSION, "5.1.0", ">=")) {
 	die("ZanPHP needs PHP 5.1.X or higher to run.");
