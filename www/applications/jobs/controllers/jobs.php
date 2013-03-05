@@ -121,8 +121,8 @@ class Jobs_Controller extends ZP_Load
 		$data = $this->Cache->data("tag-$tag-$limit", "jobs", $this->Jobs_Model, "getByTag", array($tag, $limit));
 
 		if ($data) {
-			$this->meta("keywords", $data[0]["Technologies"]);
-			$this->meta("description", $data[0]["Requirements"]);
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
 			$this->helper("time");
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
@@ -142,6 +142,7 @@ class Jobs_Controller extends ZP_Load
 		if ($data) {
 			$this->helper("time");
 			$this->title(__("Jobs") ." - ". decode($data[0]["Title"]), false);
+			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["views"] = $this->Jobs_Model->updateViews($jobID);
 			$vars["job"] = $data[0];
@@ -169,15 +170,12 @@ class Jobs_Controller extends ZP_Load
 		$this->title(__("Jobs"));
 		$this->CSS("jobs", $this->application);
 		$this->CSS("pagination");
-
 		$limit = $this->limit();
-		
 		$data = $this->Cache->data("jobs-$limit", "jobs", $this->Jobs_Model, "getAll", array($limit));
-		
 		$this->helper("time");
 
 		if ($data) {
-			//$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
@@ -198,6 +196,7 @@ class Jobs_Controller extends ZP_Load
 		$this->helper("time");
 
 		if ($data) {
+			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
@@ -217,6 +216,7 @@ class Jobs_Controller extends ZP_Load
 		$this->helper("time");
 		
 		if ($data) {
+			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;

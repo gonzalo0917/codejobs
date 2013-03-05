@@ -137,11 +137,9 @@ class Bookmarks_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$this->helper("time");
-
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
-			
 			$this->render("content", $vars);
 		} else {
 			redirect();
@@ -221,11 +219,9 @@ class Bookmarks_Controller extends ZP_Load
 		if ($data) {	
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
-
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
-
 			$this->render("content", $vars);
 		} else {
 			redirect($this->application);	
@@ -246,11 +242,9 @@ class Bookmarks_Controller extends ZP_Load
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
-
 			$vars["bookmarks"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("bookmarks", true);
-
 			$this->render("content", $vars);
 		} else {
 			redirect();
