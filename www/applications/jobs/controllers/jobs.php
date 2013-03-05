@@ -253,3 +253,4 @@ class Jobs_Controller extends ZP_Load
 		$this->pagination = ($count > MAX_LIMIT) ? paginate($count, MAX_LIMIT, $start, $URL) : null;
 		return $limit;
 	}
+}

@@ -1,3 +1,4 @@
+alert("cv.js");
 $("#update-personal-information").click(function () {
 	var userid = $('#userid').val();
 	var name = $('#name').val();
