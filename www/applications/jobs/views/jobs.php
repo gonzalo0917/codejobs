@@ -20,7 +20,7 @@
 
 			<span class="small italic grey">
 				<?php 
-				    echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
+				    echo $job["Company"] .' - '.$job['City'].', '.$job['Country'].'<br/>';
 					echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
 					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> ';
 				?>
