@@ -128,21 +128,21 @@ class Jobs_Model extends ZP_Load
 		}
 	}
 
-	public function count($type = null)
+	public function count($type = null) 
 	{
 		if (is_null($type)) {
 			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
 		} elseif ($type === "tag") {
 			$tag = str_replace("-", " ", segment(2, isLang()));
-			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
 		} elseif ($type === "author") {
 			$user = segment(2, isLang());
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		} elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
-			$tag = str_replace("-", " ", segment(4, isLang()));
-			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Tags LIKE '%$tag%') 
-				AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+			$tag  = str_replace("-", " ", segment(4, isLang()));
+			$query = "Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')";
+			return $this->Db->countBySQL($query, $this->table);
 		}
 	}
 

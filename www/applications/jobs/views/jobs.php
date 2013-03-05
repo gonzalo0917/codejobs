@@ -22,15 +22,7 @@
 				<?php 
 				    echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
 					echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
-					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
-
-					//if ($job["Technologies"] !== "") {
-					//	if (segment(1, isLang()) === "author") {
-					//		echo __("in") ." ". exploding($job["Description"], "jobs/". $job["Author"]. "/tag/");
-					//	} else {
-					//		echo __("in") ." ". exploding($job["Description"], "jobs/tag/");
-					//	}
-					//}
+					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> ';
 				?>
 				<br />
 			</span>
