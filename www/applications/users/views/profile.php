@@ -4,22 +4,19 @@
 	}
 ?>
 <div class="editProfile">
-	<aside class="left">
-		<?php
-			if (substr(SESSION("ZanUserAvatar"), 0, 4) === "http") {
-				$avatar = SESSION("ZanUserAvatar");
-			} else {
-				$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), true);
-			}
-		?>
-		<div class="center">
+	<section class="about">
+		<?php $avatar = path("www/lib/files/images/users/". $user["Avatar"], true); ?>
+		<div>
 			<div>
-				<a href="#"><?php echo $user["Username"]; ?></a>
+				<a class="username" href="#"><?php echo $user["Username"]; ?></a>
+			</div>
+			<div class="fullname">
+				<?php echo $user["Name"]; ?>
 			</div>
 			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
 		</div>
 
-	</aside>
+	</section>
 	<div id="posts">
 		<strong><?php echo __("Recent posts");?></strong>
 	</div>

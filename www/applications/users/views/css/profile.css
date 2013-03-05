@@ -1,14 +1,25 @@
-.left {
-	background-color: #fff;
-	border-radius: 5px;
-	box-shadow: 0px 3px 5px 2px rgba(0,0,0,0.5);
+.about {
+	background-color: rgb(233,236,239);
+	border: 1px solid rgb(183,215,227);
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	display: block;
+	font-size: 14px;
 	margin: 0;
-	margin-right: 2%;
-	padding: 10px;
+	padding: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.username {
+	color: #000;
+	text-decoration: none;
+}
+
+.username:hover {
+	text-decoration: underline;
 }
 
 .avatar {
@@ -17,12 +28,16 @@
 	border-radius: 3px;
 }
 
+.fullname {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
 #posts {
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	display: block;
-	float: left;
-	width: 73%;
 }
