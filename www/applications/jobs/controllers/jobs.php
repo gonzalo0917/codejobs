@@ -171,9 +171,7 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("jobs", $this->application);
 		$this->CSS("pagination");
 		$limit = $this->limit();
-
 		$data = $this->Cache->data("jobs-$limit", "jobs", $this->Jobs_Model, "getAll", array($limit));
-		die(var_dump($data));
 		$this->helper("time");
 
 		if ($data) {
