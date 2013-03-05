@@ -11,7 +11,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "jobs";
-		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Logo, Country, City, Salary, Salary_Currency, Allocation_Time, Description, Language, Situation";
+		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, Salary, Salary_Currency, Allocation_Time, Description, Email, Language, Situation";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
