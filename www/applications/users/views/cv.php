@@ -124,6 +124,21 @@
                 "ng-click" => "addExperience()"
             ), __("Add another experience") . "...");
 
+        echo formClose();
+        echo htmlTag("div", false);
+
+    echo htmlTag("div", false);
+
+
+    echo htmlTag("div", array(
+        "ng-controller" => "CvCtrl",
+        "class" => "add-form"
+    ));
+
+    echo div("edit-profile", "class");
+        echo formOpen($href, "form-add", "form-add");
+            echo isset($alert) ? $alert : null;
+
             echo "<div style='margin-top: 80px'></div>";
 
             echo span("field", "&raquo; " . __("Education") . " ({{education.length}})");
@@ -133,13 +148,13 @@
                 "ng-repeat" => "experience in experiences"
             ));
 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"  => "school[]",
                     "type"  => "hidden",
                     "value" => "{{school.idschool}}"
                 ));
                 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"     => "school[]", 
                     "id"       => "school{{\$index}}", 
                     "class"    => "required", 
@@ -211,9 +226,9 @@
     echo htmlTag("div", false);
 
 ?>
-
 <script type="text/javascript">
 function CvCtrl($scope) {
+    alert("scope cv");
     console.log("problemas");
     $scope.experiences = [
         <?php

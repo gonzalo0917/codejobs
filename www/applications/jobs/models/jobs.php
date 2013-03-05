@@ -11,7 +11,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "jobs";
-		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Logo, Country, City, Salary, Salary_Currency, Allocation_Time, Description, Language, Situation";
+		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -56,13 +56,15 @@ class Jobs_Model extends ZP_Load
 	private function editOrSave($action)
 	{
 		$validations = array(
-			"title" => "required",
 			"company" => "required",
+			"title" => "required",
+			"email" => "email?",
 			"country" => "required",
 			"city" => "required",
 			"salary" => "required",
 			"salary_currency" => "required",
 			"description" => "required",
+			"tags" => "required",
 		);
 
 		$this->helper(array("alerts", "time", "files"));
@@ -76,7 +78,6 @@ class Jobs_Model extends ZP_Load
  		);
 
 		$this->Data->change("allocation", "Allocation_Time");
-		$this->Data->change("ccontact", "Company_Contact");
 		$this->data = $this->Data->process($data, $validations);
 
 		if (isset($this->data["error"])) {
@@ -86,18 +87,20 @@ class Jobs_Model extends ZP_Load
 
 	public function preview()
 	{
-		if (POST("title") AND POST("country") AND POST("company") AND POST("city") AND POST("salary") 
+		if (POST("title") AND POST("email") AND POST("address1") AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
 			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language")) {
 			return array(
-				"Company" => POST("company"),
 				"Allocation_Time" => POST("allocation"),
 				"Author" => SESSION("ZanUser"),
+				"Company" => POST("company"),
 				"Country" => POST("country"),
 				"City" => POST("city"),
+				"Email" => POST("email"),
 				"Salary" => POST("salary"),
 				"Salary_Currency"=> POST("salary_currency"),
-				"Description" => stripslashes(encode(POST("description", "decode", null))),
+				"Description" => stripslashes(encode(POST("requirements", "decode", null))),
 				"Language" => POST("language"),
+				"Phone" => POST("phone"),
 				"Start_Date" => now(4),
 				"Title" => stripslashes(encode(POST("title", "decode", null))),
 			);
@@ -125,22 +128,21 @@ class Jobs_Model extends ZP_Load
 		}
 	}
 
-	public function count($type = null)
+	public function count($type = null) 
 	{
 		if (is_null($type)) {
 			return $this->Db->countBySQL("Situation = 'Active'", $this->table);
 		} elseif ($type === "tag") {
 			$tag = str_replace("-", " ", segment(2, isLang()));
-			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' AND Situation = 'Active'", $this->table);
+			return $this->Db->countBySQL("Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table);
 		} elseif ($type === "author") {
 			$user = segment(2, isLang());
-			
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		} elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
-			$tag = str_replace("-", " ", segment(4, isLang()));
-			return $this->Db->countBySQL("Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%') 
-				AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
+			$tag  = str_replace("-", " ", segment(4, isLang()));
+			$query = "Author LIKE '$user' AND (Title LIKE '%$tag%' OR Description LIKE '%$tag%' OR Tags LIKE '%$tag%') AND (Situation = 'Active' OR Situation = 'Pending')";
+			return $this->Db->countBySQL($query, $this->table);
 		}
 	}
 
@@ -150,11 +152,10 @@ class Jobs_Model extends ZP_Load
 		$this->Db->findBySQL("Buffer = 1 AND Language = '$language' AND Situation = 'Active'", $this->table, "ID_Job, Title, Slug, Language", null, "rand()", 85);
 	}
 
-	public function getByCompany($company, $limit)
+	public function getByTag($tag, $limit)
 	{
-		$company = str_replace("-", " ", $company);
-		return $this->Db->findBySQL("Title LIKE '%$company%' OR Description LIKE '%$company%'
-			AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		$tag = str_replace("-", " ", $tag);
+		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getByID($ID)
@@ -172,11 +173,11 @@ class Jobs_Model extends ZP_Load
 			$this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
-	public function getAllByCompany($author, $company, $limit)
+	public function getAllByTag($author, $tag, $limit)
 	{
-		$company = str_replace("-", " ", $company);
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$compay%' OR 
-			Description LIKE '%$company%')", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		$tag = str_replace("-", " ", $tag);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR 
+			Tags LIKE '%$tag%')", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getAllByUser()

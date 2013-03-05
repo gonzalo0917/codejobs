@@ -13,13 +13,9 @@
 
 	<span class="small italic grey">
 		<?php 
-			echo $job["Company"] .' - '.$job['Country'].', '.$job['City'].'<br/>';
+			echo $job["Company"] .' - '.$job['City'].', '.$job['Country'].'<br/>';
 			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .
-			' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; 
-
-			//if ($job["Technologies"] !== "") {
-			//	echo __("in") ." ". exploding($job["Description"], "jobs/tag/");
-			}
+			' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> ';
 		?>
 		<br />
 	</span>
@@ -33,13 +29,6 @@
 		<p>
 			<?php 
 				echo stripslashes($job["Description"]); 
-			?>
-		</p> 
-
-		<h5><?php echo __("Company Information")?></h5>
-		<p>
-			<?php
-				echo stripcslashes($job["Company"]);
 			?>
 		</p>
 
@@ -68,7 +57,6 @@
 	</p>
 
 	<br />
-
 	<br />
 
 	<?php
