@@ -226,7 +226,6 @@
     echo htmlTag("div", false);
 
 ?>
-
 <script type="text/javascript">
 function CvCtrl($scope) {
     alert("scope cv");
