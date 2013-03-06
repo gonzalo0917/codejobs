@@ -3,8 +3,13 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 ?>
-
+<div id="page-title">
+	<h1>
+		<?php echo __("Welcome to Jobs");?>
+	</h1>
+</div>
 <div id="jobs">
+	
 	<?php 
 		$i = 1;
 		$rand1 = rand(1, 5);
@@ -12,24 +17,26 @@
 		
 		foreach ($jobs as $job) { 
 			$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
-	?>
+	?>		
 			<h2>
-				<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo $URL; ?>" title="<?php echo quotes($job["Title"]); ?>">
-				<?php echo quotes($job["Title"]); ?></a>
+				<?php echo getLanguage($job["Language"], true); ?>
 			</h2>
-
-			<span class="small italic grey">
-				<?php 
-				    echo $job["Company"] .' - '.$job['City'].', '.$job['Country'].'<br/>';
-					echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
-					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> ';
-				?>
-				<br />
-			</span>
+			<div id="job-title">
+				<a href="<?php echo $URL; ?>" title="<?php echo quotes($job["Title"]); ?>">
+				<?php echo quotes($job["Title"]); ?></a>
+			</div>
+			<div id="job-company">
+				<?php echo $job["Company"]; ?>
+			</div>
+			<div id="job-location">
+				<?php echo $job['City'].', '.$job['Country']; ?>
+			</div>
+			<div id="job-dateAdded">
+				<?php echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
+					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; ?>
+			</div>
 
 			<?php echo display(social($URL, $job["Title"], false), 4); ?>
-
-			<br />
 
 			<?php
 				if ($i === $rand2) { 

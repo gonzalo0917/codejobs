@@ -1,19 +1,54 @@
-.jobs h2 a {
-	color: #292929;
-	text-decoration: none;
+body {
+	background-color: black !important;
 }
 
-.jobs h2 a:hover {
-	color: #045c98;
+.jobs {
+	width: 98%;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 20px;
 }
 
 .jobs a {
-	color: #CC2A2A;
+	color: #2080b9 !important;
 	text-decoration: none;
 }
 
 .jobs a:hover {
+	color: #333;
+}
+
+.job-title {
+	font-size: 1.8em;
+	font-weight: bold;
+	line-height: 30px;
+}
+
+.job-title a {
+	text-decoration: none;
+	color: #252525;
+}
+
+.job-title a:hover {
 	color: #045c98;
+}
+
+.job-company {
+	float: left;
+	font-size: 0.75em;
+	color: #666;
+}
+
+.job-location {
+	float: right;
+	font-size: 0.75em;
+	color: #666;
+}
+
+.job-dateAdded {
+	float: right;
+	font-size: 0.75em;
+	color: #666;
 }
 
 .preview {
