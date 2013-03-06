@@ -183,7 +183,7 @@ class CPanel_Controller extends ZP_Load
 			$this->vars["ID"] = $ID;
 			$this->vars["data"] = $data;
 			$this->vars["view"] = $this->view("read", true, $this->application);
-
+			
 			$this->render("content", $this->vars);
 		} else {
 			redirect($this->application ."/cpanel/results");
