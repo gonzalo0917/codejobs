@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 16, 2013 at 02:23 PM
--- Server version: 5.5.28
--- PHP Version: 5.3.10-1ubuntu3.4
+-- Servidor: localhost
+-- Tiempo de generación: 06-03-2013 a las 23:09:55
+-- Versión del servidor: 5.5.24-log
+-- Versión de PHP: 5.4.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `codejobs`
+-- Base de datos: `codejobs`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_ads`
+-- Estructura de tabla para la tabla `muu_ads`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_ads` (
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `muu_ads` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `muu_ads`
+-- Volcado de datos para la tabla `muu_ads`
 --
 
 INSERT INTO `muu_ads` (`ID_Ad`, `ID_User`, `Title`, `Position`, `Banner`, `URL`, `Code`, `Clicks`, `Start_Date`, `End_Date`, `Time`, `Principal`, `Situation`) VALUES
@@ -55,7 +55,7 @@ INSERT INTO `muu_ads` (`ID_Ad`, `ID_User`, `Title`, `Position`, `Banner`, `URL`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_applications`
+-- Estructura de tabla para la tabla `muu_applications`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_applications` (
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `muu_applications` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data for table `muu_applications`
+-- Volcado de datos para la tabla `muu_applications`
 --
 
 INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Adding`, `BeDefault`, `Comments`, `Situation`) VALUES
@@ -93,13 +93,12 @@ INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Ad
 (16, 'Works', 'works', 1, 1, 1, 0, 'Active'),
 (17, 'Codes', 'codes', 1, 1, 1, 0, 'Active'),
 (18, 'Jobs', 'jobs', 1, 1, 1, 0, 'Active'),
-(19, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active'),
-(20, 'Workshop', 'workshop', 1, 0, 1, 0, 'Active');
+(19, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_blog`
+-- Estructura de tabla para la tabla `muu_blog`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_blog` (
@@ -121,7 +120,6 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Image_Thumbnail` varchar(250) DEFAULT NULL,
   `Image_Small` varchar(250) DEFAULT NULL,
   `Image_Medium` varchar(250) NOT NULL,
-  `Image_Large` varchar(250) NOT NULL,
   `Image_Original` varchar(250) DEFAULT NULL,
   `Comments` mediumint(8) NOT NULL DEFAULT '0',
   `Enable_Comments` tinyint(1) NOT NULL DEFAULT '0',
@@ -132,19 +130,20 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `muu_blog`
+-- Volcado de datos para la tabla `muu_blog`
 --
 
 INSERT INTO `muu_blog` (`ID_Post`, `ID_User`, `Title`, `Slug`, `Content`, `Tags`, `Author`, `Start_Date`, `Modified_Date`, `Text_Date`, `Year`, `Month`, `Day`, `Views`, `Image_Mural`, `Image_Thumbnail`, `Image_Small`, `Image_Medium`, `Image_Original`, `Comments`, `Enable_Comments`, `Language`, `Pwd`, `Buffer`, `Code`, `Situation`) VALUES
-(1, 1, 'Nuevo marcador de prueba', 'nuevo-marcador-de-prueba', 'qweadzasdsdfsdfsdfsdf', 'php, pdo, mysql, conexion, base datos', 'admin', 1357692854, 0, 'Martes, 08 de Enero de 2013', '2013', '01', '08', 2, '', '', '', '', '', 0, 1, 'Spanish', '', 1, '38570CA356', 'Active');
+(1, 1, 'Nuevo blog de prueba', 'nuevo-blog-de-prueba', '<p>qweadzasdsdfsdfsdfsdf</p>\r\n', 'php, pdo, mysql, conexion, base datos', 'admin', 1357692854, 1361208893, 'Martes, 08 de Enero de 2013', '2013', '01', '08', 5, '', '', '', '', '', 0, 0, 'Spanish', '', 0, '050F1EAD86', 'Active'),
+(2, 1, 'probando el blog', 'probando-el-blog', '<p>probandu</p>\r\n', 'testing, php', 'admin', 1361208696, 0, 'Lunes, 18 de Febrero de 2013', '2013', '02', '18', 1, '', '', '', '', '', 0, 0, 'Spanish', '', 0, 'E0349ACEC8', 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_bookmarks`
+-- Estructura de tabla para la tabla `muu_bookmarks`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_bookmarks` (
@@ -169,19 +168,19 @@ CREATE TABLE IF NOT EXISTS `muu_bookmarks` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `muu_bookmarks`
+-- Volcado de datos para la tabla `muu_bookmarks`
 --
 
 INSERT INTO `muu_bookmarks` (`ID_Bookmark`, `ID_User`, `Title`, `Slug`, `URL`, `Description`, `Tags`, `Author`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Start_Date`, `Modified_Date`, `Situation`) VALUES
 (1, 1, 'How to create a Debian .deb package', 'how-to-create-a-debian-deb-package', 'http://blog.serverdensity.com/2010/02/05/how-to-create-a-debian-deb-package/', 'A few weeks ago we announced that the agent for our server monitoring application, Server Density, was available as a Debian or Red Hat package, with associated repositories. Over my next few posts I will be outlining how we created our Linux-based packages and repositories, and what our steps are going to be to improve these processes in the future.', 'linux, debian, ubuntu, ror', 'codejobs', 6, 0, 0, 0, 'English', 1332738072, 0, 'Active'),
 (2, 1, 'Guardar en disco con HTML5 y Javascript: SessionStorage y LocalStorage', 'guardar-en-disco-con-html5-y-javascript-sessionstorage-y-localstorage', 'http://www.cristalab.com/tutoriales/guardar-en-disco-con-html5-y-javascript-sessionstorage-y-localst', 'Si hay algo que siempre se extrañó de HTML es en alguna forma de almacenar datos, que ayude al usuario a una mejor movilidad mientras navega nuestras páginas.', 'ror, html5, javascript, sessionstorage, localstorage', 'codejobs', 22, 0, 1, 0, 'Spanish', 1332738072, 0, 'Active'),
 (3, 1, 'Migrating Rails&RJS From Prototype To JQuery', 'migrating-rails-rjs-from-prototype-to-jquery', 'http://dzone.com/snippets/migrating-railsrjs-prototype', 'I was changing prototype to jsquery in my Rails app. To make my AJAX+RJS stuff work I tried jrails gem. For some reason AJAX responses were rendedered to whole page, instead of evaluating the returned JS. So i did the hack. I took this piece of jrails and put it in my /lib folder.', 'rails, ror, rjs, jquery', 'codejobs', 17, 0, 0, 0, 'English', 1337738320, 0, 'Active'),
-(4, 1, 'Capistrano: Deploy Rails Twice To The Same Machine', 'capistrano-deploy-rails-twice-to-the-same-machine', 'http://dzone.com/snippets/capistrano-deploy-rails-twice', 'Capistrano is oriented so it deploys to the same directory on several machines. This means you can''t deploy to two different locations on the same machine. The following recipe in Capfile will allow you to duplicate your main rails app in a second directory. You can schedule it to run automatically with every deploy or just do it manually. I included database migrations by default. Remove the shared config line if you don''t have it.', 'capistrano, ror, rails', 'codejobs', 38, 1, 0, 0, 'English', 1337738320, 0, 'Active');
+(4, 1, 'Capistrano: Deploy Rails Twice To The Same Machine', 'capistrano-deploy-rails-twice-to-the-same-machine', 'http://dzone.com/snippets/capistrano-deploy-rails-twice', 'Capistrano is oriented so it deploys to the same directory on several machines. This means you can''t deploy to two different locations on the same machine. The following recipe in Capfile will allow you to duplicate your main rails app in a second directory. You can schedule it to run automatically with every deploy or just do it manually. I included database migrations by default. Remove the shared config line if you don''t have it.', 'capistrano, ror, rails', 'codejobs', 41, 1, 0, 0, 'English', 1337738320, 0, 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_codes`
+-- Estructura de tabla para la tabla `muu_codes`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_codes` (
@@ -205,18 +204,18 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `muu_codes`
+-- Volcado de datos para la tabla `muu_codes`
 --
 
 INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Description`, `Slug`, `Languages`, `Author`, `Start_Date`, `Modified_Date`, `Text_Date`, `Views`, `Likes`, `Dislikes`, `Reported`, `Language`, `Situation`) VALUES
-(1, 1, 'Mi primera página web', 'Forma de incrustar un archivo CSS.', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 0, 'Sunday, 29 de July de 2012', 1, 1, 0, 0, 'Spanish', 'Active'),
+(1, 1, 'Mi primera página web', 'Forma de incrustar un archivo CSS.', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 0, 'Sunday, 29 de July de 2012', 2, 1, 0, 0, 'Spanish', 'Active'),
 (2, 1, 'Mostrar información en PHP', NULL, 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 0, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
-(3, 1, 'My first webpage', NULL, 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 0, 'Sunday, 29 de July de 2012', 1, 0, 0, 0, 'English', 'Active');
+(3, 1, 'My first webpage', NULL, 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 0, 'Sunday, 29 de July de 2012', 3, 0, 0, 0, 'English', 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_codes_files`
+-- Estructura de tabla para la tabla `muu_codes_files`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_codes_files` (
@@ -231,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes_files` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `muu_codes_files`
+-- Volcado de datos para la tabla `muu_codes_files`
 --
 
 INSERT INTO `muu_codes_files` (`ID_File`, `ID_Code`, `Name`, `ID_Syntax`, `Code`) VALUES
@@ -244,7 +243,7 @@ INSERT INTO `muu_codes_files` (`ID_File`, `ID_Code`, `Name`, `ID_Syntax`, `Code`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_codes_syntax`
+-- Estructura de tabla para la tabla `muu_codes_syntax`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
@@ -257,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `muu_codes_syntax`
+-- Volcado de datos para la tabla `muu_codes_syntax`
 --
 
 INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extension`) VALUES
@@ -272,7 +271,7 @@ INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extens
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_comments`
+-- Estructura de tabla para la tabla `muu_comments`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_comments` (
@@ -291,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `muu_comments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_configuration`
+-- Estructura de tabla para la tabla `muu_configuration`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_configuration` (
@@ -320,16 +319,16 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `muu_configuration`
+-- Volcado de datos para la tabla `muu_configuration`
 --
 
 INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `TV`, `Enable_Chat`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkitUp', '<iframe width="850" height="420" src="http://www.youtube.com/embed/aLlcRw9vEjM" frameborder="0" allowfullscreen></iframe>', 1, 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz', 'Active');
+(1, 'Codejobs', 'Knowledge makes us free!', 'El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost:8088/codejobs', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkitUp', '<iframe width="850" height="420" src="http://www.youtube.com/embed/aLlcRw9vEjM" frameborder="0" allowfullscreen></iframe>', 1, 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'carlos@codejobs.biz', 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_categories`
+-- Estructura de tabla para la tabla `muu_courses_categories`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_categories` (
@@ -346,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_categories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_enrollments`
+-- Estructura de tabla para la tabla `muu_courses_enrollments`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_enrollments` (
@@ -362,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_enrollments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_help`
+-- Estructura de tabla para la tabla `muu_courses_help`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_help` (
@@ -377,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_help` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_lessons`
+-- Estructura de tabla para la tabla `muu_courses_lessons`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_lessons` (
@@ -391,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_lessons` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_material`
+-- Estructura de tabla para la tabla `muu_courses_material`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_material` (
@@ -407,7 +406,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_material` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_resources`
+-- Estructura de tabla para la tabla `muu_courses_resources`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_resources` (
@@ -422,7 +421,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_resources` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_roles`
+-- Estructura de tabla para la tabla `muu_courses_roles`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_roles` (
@@ -436,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_roles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_students`
+-- Estructura de tabla para la tabla `muu_courses_students`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_students` (
@@ -463,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_students` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_students_archive`
+-- Estructura de tabla para la tabla `muu_courses_students_archive`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_students_archive` (
@@ -474,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_students_archive` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tests`
+-- Estructura de tabla para la tabla `muu_courses_tests`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_tests` (
@@ -492,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tests_answers`
+-- Estructura de tabla para la tabla `muu_courses_tests_answers`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_tests_answers` (
@@ -503,7 +502,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests_answers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tests_questions`
+-- Estructura de tabla para la tabla `muu_courses_tests_questions`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_tests_questions` (
@@ -520,7 +519,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests_questions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tutors`
+-- Estructura de tabla para la tabla `muu_courses_tutors`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_tutors` (
@@ -536,7 +535,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tutors_alerts`
+-- Estructura de tabla para la tabla `muu_courses_tutors_alerts`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_tutors_alerts` (
@@ -554,7 +553,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_alerts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tutors_messages`
+-- Estructura de tabla para la tabla `muu_courses_tutors_messages`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_courses_tutors_messages` (
@@ -573,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_messages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_dislikes`
+-- Estructura de tabla para la tabla `muu_dislikes`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_dislikes` (
@@ -586,7 +585,7 @@ CREATE TABLE IF NOT EXISTS `muu_dislikes` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `muu_dislikes`
+-- Volcado de datos para la tabla `muu_dislikes`
 --
 
 INSERT INTO `muu_dislikes` (`ID_Dislike`, `ID_User`, `ID_Application`, `ID_Record`, `Start_Date`) VALUES
@@ -596,7 +595,7 @@ INSERT INTO `muu_dislikes` (`ID_Dislike`, `ID_User`, `ID_Application`, `ID_Recor
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_events`
+-- Estructura de tabla para la tabla `muu_events`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_events` (
@@ -617,7 +616,7 @@ CREATE TABLE IF NOT EXISTS `muu_events` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_feedback`
+-- Estructura de tabla para la tabla `muu_feedback`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_feedback` (
@@ -636,7 +635,7 @@ CREATE TABLE IF NOT EXISTS `muu_feedback` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `muu_feedback`
+-- Volcado de datos para la tabla `muu_feedback`
 --
 
 INSERT INTO `muu_feedback` (`ID_Feedback`, `Name`, `Email`, `Company`, `Phone`, `City`, `Subject`, `Message`, `Start_Date`, `Text_Date`, `Situation`) VALUES
@@ -645,7 +644,7 @@ INSERT INTO `muu_feedback` (`ID_Feedback`, `Name`, `Email`, `Company`, `Phone`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_forums`
+-- Estructura de tabla para la tabla `muu_forums`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_forums` (
@@ -660,16 +659,22 @@ CREATE TABLE IF NOT EXISTS `muu_forums` (
   `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Forum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `muu_forums`
+-- Volcado de datos para la tabla `muu_forums`
 --
+
+INSERT INTO `muu_forums` (`ID_Forum`, `Title`, `Slug`, `Description`, `Topics`, `Replies`, `Last_Reply`, `Last_Date`, `Language`, `Situation`) VALUES
+(3, 'Probando la teoria del slug', 'probando-la-teoria-del-slug', 'testeando la edición', 0, 0, 0, '', 'Spanish', 'Deleted'),
+(4, 'Probando foros', 'probando-foros', 'funcional?', 0, 0, 0, '', 'Spanish', 'Deleted'),
+(5, 'Probando papelera', 'probando-papelera', 'asdsda', 0, 0, 0, '', 'Spanish', 'Deleted'),
+(6, 'Foro de prueba', 'foro-de-prueba', 'Es para testear', 0, 0, 0, '', 'Spanish', 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_forums_posts`
+-- Estructura de tabla para la tabla `muu_forums_posts`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_forums_posts` (
@@ -695,12 +700,21 @@ CREATE TABLE IF NOT EXISTS `muu_forums_posts` (
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`),
   KEY `ID_Forum` (`ID_Forum`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `muu_forums_posts`
+--
+
+INSERT INTO `muu_forums_posts` (`ID_Post`, `ID_User`, `ID_Forum`, `ID_Parent`, `Forum_Name`, `Title`, `Slug`, `Content`, `Author`, `Avatar`, `Start_Date`, `Last_Reply`, `Text_Date`, `Hour`, `Visits`, `Topic`, `Tags`, `Language`, `Situation`) VALUES
+(1, 1, 3, 0, 'Probando la teoria del slug', ':)', '', '<p>asereje a deje tu dejebere</p><p>asereje a deje tu dejebere<br></p><p>asereje a deje tu dejebereasereje a deje tu dejebere<br></p><p>asereje a deje tu dejebere<br></p>', 'admin', 'http://localhost:8088/codejobs/www/lib/files/images/users/www/lib/files/images/works/ee907_wowscrnshot-030912-223712.jpg', 1360349309, 1360349321, 'Viernes, 08 de Febrero de 2013', '00:00:00', 0, 0, 'asd', 'Spanish', 'Active'),
+(2, 1, 0, 1, '', '', '', '<p>estos son comentarios?</p>', 'admin', 'http://localhost:8088/codejobs/www/lib/files/images/users/www/lib/files/images/works/ee907_wowscrnshot-030912-223712.jpg', 1360349321, 0, 'Viernes, 08 de Febrero de 2013', '00:00:00', 0, 0, '', 'Spanish', 'Active'),
+(3, 1, 3, 0, 'Probando la teoria del slug', 'testeando', 'testeando', '<pre class="prettyprint">', 'admin', 'http://localhost:8088/codejobs/www/lib/files/images/users/www/lib/files/images/works/ee907_wowscrnshot-030912-223712.jpg', 1360350400, 1360350400, 'Viernes, 08 de Febrero de 2013', '00:00:00', 0, 0, 'muchas, cosas', 'Spanish', 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_gallery`
+-- Estructura de tabla para la tabla `muu_gallery`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_gallery` (
@@ -724,7 +738,7 @@ CREATE TABLE IF NOT EXISTS `muu_gallery` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_gallery_themes`
+-- Estructura de tabla para la tabla `muu_gallery_themes`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_gallery_themes` (
@@ -738,7 +752,7 @@ CREATE TABLE IF NOT EXISTS `muu_gallery_themes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_inbox`
+-- Estructura de tabla para la tabla `muu_inbox`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_inbox` (
@@ -754,58 +768,44 @@ CREATE TABLE IF NOT EXISTS `muu_inbox` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_jobs`
+-- Estructura de tabla para la tabla `muu_jobs`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `ID_Job` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(250) NOT NULL,
+  `Company` varchar(250) NOT NULL,
   `Slug` varchar(250) NOT NULL,
   `Author` varchar(50) NOT NULL,
-  `Address1` varchar(250) NOT NULL,
-  `Address2` varchar(250) NOT NULL,
-  `Phone` varchar(15) NOT NULL,
-  `Email` varchar(100) NOT NULL,
-  `Company` varchar(150) NOT NULL,
-  `Company_Information` text NOT NULL,
   `Country` varchar(80) NOT NULL,
   `City` varchar(80) NOT NULL,
   `Salary` varchar(25) NOT NULL,
   `Salary_Currency` varchar(3) NOT NULL,
   `Allocation_Time` varchar(50) NOT NULL,
-  `Requirements` text NOT NULL,
-  `Technologies` varchar(250) NOT NULL,
+  `Description` text NOT NULL,
+  `Tags` varchar(250) NOT NULL,
+  `Email` varchar(250) NOT NULL,
   `Language` varchar(25) NOT NULL DEFAULT 'English',
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Modified_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
--- Dumping data for table `muu_jobs`
+-- Volcado de datos para la tabla `muu_jobs`
 --
 
-INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Slug`, `Author`, `Address1`, `Address2`, `Phone`, `Email`, `Company`, `Company_Information`, `Country`, `City`, `Salary`, `Salary_Currency`, `Allocation_Time`, `Requirements`, `Technologies`, `Language`, `Start_Date`, `Modified_Date`, `End_Date`, `Situation`) VALUES
-(11, 3, 'Entrada con autor', 'entrada-con-autor', 'Soldier', 'direccion emprsa', 'dsfsdfsd', 'fsdfsf', 'soldier@email.com', 'Microsoft', 'Teradata is the world?s largest company focused on analytic data solutions through integrated data warehousing, big data analytics, and business applications. Only Teradata gives organizations the advantage to transform data across the organization into actionable insights empowering leaders to think boldly and act decisively for the best decisions possible. Visit teradata.com. ', 'Chile', 'hgdfg', '155', 'USD', 'Half Time', 'Buscamos en desarrollador front-end con amplia experiencia en maquetado para colaborar con nuestro equipo de desarrollo. Todas nuestras implementaciones involucran sitios responsivos o adaptativos, html5 y jquery en varios niveles de complejidad. Tu tarea consistirá en convertir un PSD en un sitio increíble, no mediocre, generado con un código limpio, documentado y ordenado. Buscamos alguien con un alto grado de precisión, eficiencia y un ojo exquisito para el detalle.\r\n------\r\nNuestro equipo de diseño entrega trabajos fabulosos, mismos que delegan muy pocos problemas para nuestros maquetados, además siempre trabajamos en conjunto para lograr los mejores acuerdos (somos una sola empresa).\r\n\r\nLo que ofrecemos:\r\n\r\nSalario mensual inicial de 15k-20k, con base en aptitudes y evaluación.\r\n\r\nUn equipo internacional (En México, Bélgica y Holanda) que cree, confía y te apoya siempre.\r\n\r\nContratación por nómina mixta, con prestaciones de ley.\r\n\r\nPrestaciones adicionales con base en desempeño', 'css, php, etc, tgd', 'Spanish', 1358078124, 0, 1360670124, 'Active'),
-(12, 3, 'Empleo prueba', 'empleo-prueba', 'Soldier', 'prolongacion independencia', 'direccion opcional empresa', '7351214628', 'soldier@email.com', 'Google', 'We generate Social Leads for your business in the Cloud. Venddo is one of the @Wayra Startups in Mexico.\r\nWe monitor and detect needs and possible prospects analyzing realtime twitter streams and power users. Our solution allows you to customize the profile of your customers and delivers a personalized list of prospects with detailed information about the prospects like graphs, history and consumer profile.', 'Alemania', 'ciudadadad', '13000', 'MXN', 'Full Time', 'Estamos desarrollando un conjunto de herramientas que ayudan a las empresas a generar más clientes, visibilidad y posicionamiento de marca en Redes Sociales.\r\n------\r\nDesarrollamos en Ruby on Rails principalmente, pero también tenemos desarrollo en PHP (CodeIgniter y puro). Nos apasiona el desarrollo y siempre estamos en búsqueda de lo último de las tecnologías de desarrollo para Web y Móviles. ', 'css, php, etc', 'Spanish', 1358077824, 0, 1360669824, 'Active'),
-(13, 3, 'Programador PHP', 'programador-php', 'Soldier', 'Morelos', 'Cuautla', '1227489', 'soldiercrp@gmail.com', 'SoldierCorp', 'Empresa dedicada al desarrollo constante de aplicaciones en un entorno web y mobile.', 'México', 'Cuautla', '8000', 'MXN', 'Full Time', 'Programación Orientada a Objetos en PHP\r\nManejar al menos un Framework', 'php, framework, poo', 'Spanish', 1358077257, 0, 1360669257, 'Active'),
-(14, 3, 'Empleo numero 4', 'empleo-numero-4', 'Soldier', 'Direccion de la empresa 4', '', '123123123', 'correo4@email.com', 'Empresa 4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'Alemania', 'Alemania', '3000', 'EUR', 'Full Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'lorem, eum, php, css, tech', 'Spanish', 1358078801, 0, 1360670801, 'Active'),
-(15, 3, 'Empleo Numero 5', 'empleo-numero-5', 'Soldier', 'Dirección de la empresa 5', '', '5345345', 'correo5@email.com', 'Empresa 5', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'Chile', 'Chile', '5000', 'USD', 'Half Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'facere, html, 5, iure', 'Spanish', 1358078856, 0, 1360670856, 'Active'),
-(16, 3, 'Empresa 6', 'empresa-6', 'Soldier', 'Direccion de la empresa 6', '', '3535354', 'correo6@email.com', 'Empresa 6', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'Estados Unidos', 'Seatle', '8000', 'USD', 'Full Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'seatle, ab, porro', 'Spanish', 1358078912, 0, 1360670912, 'Active'),
-(17, 3, 'Empresa 7', 'empresa-7', 'Soldier', 'Direccion de la empresa 7', '', '45646456', 'correo7@email.com', 'Empresa 7', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'Francia', 'Franciados', '50000', 'EUR', 'Full Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'francia, sint, veniam, iure, eum', 'Spanish', 1358078987, 0, 1360670987, 'Active'),
-(18, 3, 'Empresa 8', 'empresa-8', 'Soldier', 'Direccion de la empresa 9', '', '5667867867', 'correo8@email.com', 'Empresa 9', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'Italia', 'Palermo', '4900', 'EUR', 'Full Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'elit, amet, css, lorem', 'Spanish', 1358079040, 0, 1360671040, 'Active'),
-(19, 3, 'Empresa 9', 'empresa-9', 'Soldier', 'Direccion de la empresa 9', '', '686678', 'correo9@email.com', 'Empresa 9', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'Suiza', 'suizasd', '6700', 'USD', 'Half Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'segui, molestiae, sint, css, php, html', 'Spanish', 1358079110, 0, 1360671110, 'Active'),
-(20, 3, 'Empresa 10', 'empresa-10', 'Soldier', 'Direccion de la empresa 10', '', '3453534534', 'correo10@email.com', 'Empresa 10', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'México', 'Morelos', '10000', 'MXN', 'Full Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'mex, aum, mor, ipsum', 'Spanish', 1358079169, 0, 1360671169, 'Active'),
-(21, 3, 'Empleo 11', 'empleo-11', 'Soldier', 'Direccion de la empresa 5', '', '345345', 'correo5@email.com', 'Empresa 5', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'Canada', 'Vancouver', '8000', 'USD', 'Full Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius mollitia dolorum minima sint veniam blanditiis accusantium eum tenetur doloremque porro sequi molestiae reprehenderit ab facere rem nostrum animi enim iure.', 'eur, ab, 5, choice', 'Spanish', 1358079348, 0, 1360671348, 'Active'),
-(22, 3, 'TITULO EMPLEO', 'titulo-empleo', 'Soldier', 'prolongacion independencia', 'address 2 temporal', '345345', 'soldiercrp@gmail.com', 'SoldierCorp', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita libero maiores placeat sint laborum quisquam vero eligendi doloribus consequuntur reprehenderit non dolor dicta asperiores! Placeat error animi ducimus odio culpa!', 'Argentina', 'Vancouver', '4444', 'USD', 'Half Time', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita libero maiores placeat sint laborum quisquam vero eligendi doloribus consequuntur reprehenderit non dolor dicta asperiores! Placeat error animi ducimus odio culpa!', 'css, php, etc, tgd', 'Spanish', 1358108801, 0, 1360700801, 'Active');
+INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Company`, `Slug`, `Author`, `Country`, `City`, `Salary`, `Salary_Currency`, `Allocation_Time`, `Description`, `Tags`, `Email`, `Language`, `Start_Date`, `Modified_Date`, `End_Date`, `Situation`) VALUES
+(24, 1, 'Desarrollador web', 'Alta Villa', 'desarrollador-web', 'admin', 'México', 'Colima', '150', 'USD', 'Half Time', 'php, html5, cs', 'Php, Jobs, HTML', 'villita@tuvilla.com', 'Spanish', 1362071126, 0, 1364663126, 'Active'),
+(25, 1, 'Prueba 2', 'Codejobs', 'prueba-2', 'admin', 'México', 'Aguascalientes', '130', 'USD', 'Full Time', 'Es sencishito', 'html, css', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_learning`
+-- Estructura de tabla para la tabla `muu_learning`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_learning` (
@@ -827,7 +827,7 @@ CREATE TABLE IF NOT EXISTS `muu_learning` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_likes`
+-- Estructura de tabla para la tabla `muu_likes`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_likes` (
@@ -840,7 +840,7 @@ CREATE TABLE IF NOT EXISTS `muu_likes` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `muu_likes`
+-- Volcado de datos para la tabla `muu_likes`
 --
 
 INSERT INTO `muu_likes` (`ID_Like`, `ID_User`, `ID_Application`, `ID_Record`, `Start_Date`) VALUES
@@ -850,7 +850,7 @@ INSERT INTO `muu_likes` (`ID_Like`, `ID_User`, `ID_Application`, `ID_Record`, `S
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_logs`
+-- Estructura de tabla para la tabla `muu_logs`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_logs` (
@@ -868,7 +868,7 @@ CREATE TABLE IF NOT EXISTS `muu_logs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_multimedia`
+-- Estructura de tabla para la tabla `muu_multimedia`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_multimedia` (
@@ -889,7 +889,7 @@ CREATE TABLE IF NOT EXISTS `muu_multimedia` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `muu_multimedia`
+-- Volcado de datos para la tabla `muu_multimedia`
 --
 
 INSERT INTO `muu_multimedia` (`ID_File`, `ID_User`, `Filename`, `URL`, `Medium`, `Small`, `Thumbnail`, `Category`, `Size`, `Author`, `Start_Date`, `Downloads`, `Situation`) VALUES
@@ -902,7 +902,7 @@ INSERT INTO `muu_multimedia` (`ID_File`, `ID_User`, `Filename`, `URL`, `Medium`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_mural`
+-- Estructura de tabla para la tabla `muu_mural`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_mural` (
@@ -919,7 +919,7 @@ CREATE TABLE IF NOT EXISTS `muu_mural` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_pages`
+-- Estructura de tabla para la tabla `muu_pages`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_pages` (
@@ -940,7 +940,7 @@ CREATE TABLE IF NOT EXISTS `muu_pages` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `muu_pages`
+-- Volcado de datos para la tabla `muu_pages`
 --
 
 INSERT INTO `muu_pages` (`ID_Page`, `ID_User`, `ID_Translation`, `Title`, `Slug`, `Content`, `Views`, `Language`, `Principal`, `Start_Date`, `Text_Date`, `Situation`) VALUES
@@ -953,7 +953,7 @@ INSERT INTO `muu_pages` (`ID_Page`, `ID_User`, `ID_Translation`, `Title`, `Slug`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_polls`
+-- Estructura de tabla para la tabla `muu_polls`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_polls` (
@@ -972,7 +972,7 @@ CREATE TABLE IF NOT EXISTS `muu_polls` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_polls_answers`
+-- Estructura de tabla para la tabla `muu_polls_answers`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_polls_answers` (
@@ -987,7 +987,7 @@ CREATE TABLE IF NOT EXISTS `muu_polls_answers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_polls_ips`
+-- Estructura de tabla para la tabla `muu_polls_ips`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_polls_ips` (
@@ -1001,7 +1001,7 @@ CREATE TABLE IF NOT EXISTS `muu_polls_ips` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_privileges`
+-- Estructura de tabla para la tabla `muu_privileges`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_privileges` (
@@ -1011,7 +1011,7 @@ CREATE TABLE IF NOT EXISTS `muu_privileges` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `muu_privileges`
+-- Volcado de datos para la tabla `muu_privileges`
 --
 
 INSERT INTO `muu_privileges` (`ID_Privilege`, `Privilege`) VALUES
@@ -1023,7 +1023,7 @@ INSERT INTO `muu_privileges` (`ID_Privilege`, `Privilege`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_resumes`
+-- Estructura de tabla para la tabla `muu_resumes`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_resumes` (
@@ -1049,7 +1049,7 @@ CREATE TABLE IF NOT EXISTS `muu_resumes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_comments_applications`
+-- Estructura de tabla para la tabla `muu_re_comments_applications`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_comments_applications` (
@@ -1063,7 +1063,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_comments_applications` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
--- Dumping data for table `muu_re_comments_applications`
+-- Volcado de datos para la tabla `muu_re_comments_applications`
 --
 
 INSERT INTO `muu_re_comments_applications` (`ID_Comment2Application`, `ID_Application`, `ID_Comment`, `ID_Record`) VALUES
@@ -1095,7 +1095,7 @@ INSERT INTO `muu_re_comments_applications` (`ID_Comment2Application`, `ID_Applic
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_companies_jobs`
+-- Estructura de tabla para la tabla `muu_re_companies_jobs`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_companies_jobs` (
@@ -1106,7 +1106,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_companies_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_courses_course_categories`
+-- Estructura de tabla para la tabla `muu_re_courses_course_categories`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_courses_course_categories` (
@@ -1117,7 +1117,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_course_categories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_courses_lesson_course`
+-- Estructura de tabla para la tabla `muu_re_courses_lesson_course`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_courses_lesson_course` (
@@ -1128,7 +1128,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_lesson_course` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_courses_tests_question_answer`
+-- Estructura de tabla para la tabla `muu_re_courses_tests_question_answer`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_courses_tests_question_answer` (
@@ -1140,7 +1140,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_tests_question_answer` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_permissions_privileges`
+-- Estructura de tabla para la tabla `muu_re_permissions_privileges`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_permissions_privileges` (
@@ -1155,7 +1155,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_permissions_privileges` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `muu_re_permissions_privileges`
+-- Volcado de datos para la tabla `muu_re_permissions_privileges`
 --
 
 INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `Adding`, `Deleting`, `Editing`, `Viewing`) VALUES
@@ -1232,7 +1232,7 @@ INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_privileges_users`
+-- Estructura de tabla para la tabla `muu_re_privileges_users`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_privileges_users` (
@@ -1243,7 +1243,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_privileges_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `muu_re_privileges_users`
+-- Volcado de datos para la tabla `muu_re_privileges_users`
 --
 
 INSERT INTO `muu_re_privileges_users` (`ID_Privilege`, `ID_User`) VALUES
@@ -1253,7 +1253,7 @@ INSERT INTO `muu_re_privileges_users` (`ID_Privilege`, `ID_User`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_users_companies`
+-- Estructura de tabla para la tabla `muu_re_users_companies`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_users_companies` (
@@ -1264,7 +1264,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_companies` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_users_events`
+-- Estructura de tabla para la tabla `muu_re_users_events`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_users_events` (
@@ -1275,7 +1275,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_events` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_users_followers`
+-- Estructura de tabla para la tabla `muu_re_users_followers`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_re_users_followers` (
@@ -1285,16 +1285,22 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_followers` (
 
 -- --------------------------------------------------------
 
-CREATE TABLE muu_search (
-ID_Search mediumint(8) unsigned default null auto_increment,
-Term varchar(255) not null,
-Counter mediumint(8) unsigned default '0' not null,
-Last_Search datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-PRIMARY KEY (ID_Search)
-) ENGINE=InnoDB;
+--
+-- Estructura de tabla para la tabla `muu_search`
+--
+
+CREATE TABLE IF NOT EXISTS `muu_search` (
+  `ID_Search` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `Term` varchar(255) NOT NULL,
+  `Counter` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Last_Search` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`ID_Search`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `muu_support`
+-- Estructura de tabla para la tabla `muu_support`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_support` (
@@ -1316,7 +1322,7 @@ CREATE TABLE IF NOT EXISTS `muu_support` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_tokens`
+-- Estructura de tabla para la tabla `muu_tokens`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_tokens` (
@@ -1332,7 +1338,7 @@ CREATE TABLE IF NOT EXISTS `muu_tokens` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `muu_tokens`
+-- Volcado de datos para la tabla `muu_tokens`
 --
 
 INSERT INTO `muu_tokens` (`ID_Token`, `ID_User`, `Token`, `Action`, `Start_Date`, `End_Date`, `Situation`) VALUES
@@ -1341,7 +1347,7 @@ INSERT INTO `muu_tokens` (`ID_Token`, `ID_User`, `Token`, `Action`, `Start_Date`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_tutorials`
+-- Estructura de tabla para la tabla `muu_tutorials`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_tutorials` (
@@ -1362,7 +1368,7 @@ CREATE TABLE IF NOT EXISTS `muu_tutorials` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_users`
+-- Estructura de tabla para la tabla `muu_users`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_users` (
@@ -1373,7 +1379,6 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Email` varchar(45) NOT NULL,
   `Website` varchar(100) NOT NULL,
   `Avatar` varchar(200) NOT NULL DEFAULT 'default.png',
-  `Avatar_Coordinate` varchar(20) NOT NULL DEFAULT '0,0,90,90',
   `Credits` mediumint(8) NOT NULL DEFAULT '0',
   `Recommendation` mediumint(8) NOT NULL DEFAULT '50',
   `Sign` text NOT NULL,
@@ -1412,21 +1417,23 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Viadeo` varchar(150) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Dumping data for table `muu_users`
+-- Volcado de datos para la tabla `muu_users`
 --
 
-INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Avatar_Coordinate`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Followers`, `Subscribed`, `Start_Date`, `Code`, `Name`, `Description`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
-(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', '0,0,90,90', 95, 75, '', 0, 1, 0, 0, 0, 15, 0, 0, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', '', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
-(2, 4, 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', '0,0,90,90', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1347453332, 'C3F4E6E123', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
-(3, 1, 'Soldier', '2b4f2eda0f53ea99ad419d155803f8ea15bc25aa', 'soldiercrp@gmail.com', '', 'default.png', '0,0,90,90', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1358076919, 'BA7C114E6E', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
+INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Followers`, `Subscribed`, `Start_Date`, `Code`, `Name`, `Description`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
+(1, 1, 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'www/lib/files/images/works/ee907_wowscrnshot-030912-223712.jpg', 98, 80, '', 0, 1, 0, 0, 0, 16, 0, 0, 0, 0, 1, 1337647712, 'BC958D3C97', 'Carlos Santana Roldán', '', 18, '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
+(2, 4, 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1347453332, 'C3F4E6E123', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
+(3, 1, 'Soldier', 'b9223847e1566884893656e84798ff39cea2b8c4', 'soldiercrp@gmail.com', '', 'default.png', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1358076919, 'BA7C114E6E', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
+(4, 4, 'isra', 'b9223847e1566884893656e84798ff39cea2b8c4', 'isr62@hotmail.com', 'www.codejobs.com', 'default.png', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active'),
+(5, 4, 'isra2', 'b9223847e1566884893656e84798ff39cea2b8c4', 'isr62@hotmail.com', 'www.asd.com', 'default.png', 0, 50, '', 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1200, '', '', '', 18, '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_users_online`
+-- Estructura de tabla para la tabla `muu_users_online`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_users_online` (
@@ -1436,17 +1443,10 @@ CREATE TABLE IF NOT EXISTS `muu_users_online` (
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `muu_users_online`
---
-
-INSERT INTO `muu_users_online` (`User`, `Start_Date`) VALUES
-('admin', 1358365923);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_users_online_anonymous`
+-- Estructura de tabla para la tabla `muu_users_online_anonymous`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
@@ -1456,10 +1456,17 @@ CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `muu_users_online_anonymous`
+--
+
+INSERT INTO `muu_users_online_anonymous` (`IP`, `Start_Date`) VALUES
+('127.0.0.1', 1362611336);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_videos`
+-- Estructura de tabla para la tabla `muu_videos`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_videos` (
@@ -1481,7 +1488,7 @@ CREATE TABLE IF NOT EXISTS `muu_videos` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `muu_videos`
+-- Volcado de datos para la tabla `muu_videos`
 --
 
 INSERT INTO `muu_videos` (`ID_Video`, `ID_User`, `ID_YouTube`, `Title`, `Slug`, `Description`, `URL`, `Server`, `Duration`, `Views`, `Start_Date`, `Text_Date`, `Situation`) VALUES
@@ -1498,11 +1505,12 @@ INSERT INTO `muu_videos` (`ID_Video`, `ID_User`, `ID_YouTube`, `Title`, `Slug`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_works`
+-- Estructura de tabla para la tabla `muu_works`
 --
 
 CREATE TABLE IF NOT EXISTS `muu_works` (
   `ID_Work` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Title` varchar(100) NOT NULL,
   `Slug` varchar(100) NOT NULL,
   `Preview1` varchar(200) NOT NULL,
@@ -1512,31 +1520,6 @@ CREATE TABLE IF NOT EXISTS `muu_works` (
   `Description` text NOT NULL,
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Work`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `muu_workshop`
---
-
-CREATE TABLE IF NOT EXISTS `muu_workshop` (
-  `ID_Workshop` int(8) unsigned NOT NULL AUTO_INCREMENT,
-  `Title` varchar(250) NOT NULL,
-  `Slug` varchar(250) NOT NULL,
-  `Topics` text NOT NULL,
-  `Description` text NOT NULL,
-  `File` varchar(250) NOT NULL,
-  `Email` varchar(60) NOT NULL,
-  `Skype` varchar(30) DEFAULT NULL,
-  `Gtalk` varchar(30) DEFAULT NULL,
-  `Facebook` varchar(30) DEFAULT NULL,
-  `Twitter` varchar(30) DEFAULT NULL,
-  `Proposal_Day` varchar(60) NOT NULL,
-  `Proposal_Time` varchar(10) NOT NULL,
-  `Start_Date` int(11) NOT NULL,
-  `Situation` varchar(15) NOT NULL,
-  PRIMARY KEY (`ID_Workshop`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1555,7 +1538,7 @@ CREATE TABLE IF NOT EXISTS `muu_world` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `muu_world`
+-- Volcado de datos para la tabla `muu_world`
 --
 
 INSERT INTO `muu_world` (`Continent`, `Code`, `Country`, `District`, `Town`) VALUES
@@ -1917,92 +1900,92 @@ INSERT INTO `muu_world` (`Continent`, `Code`, `Country`, `District`, `Town`) VAL
 ('Oceania', 'NZL', 'New Zealand', 'Wellington', '');
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `muu_ads`
+-- Filtros para la tabla `muu_ads`
 --
 ALTER TABLE `muu_ads`
   ADD CONSTRAINT `muu_ads_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_codes_files`
+-- Filtros para la tabla `muu_codes_files`
 --
 ALTER TABLE `muu_codes_files`
   ADD CONSTRAINT `muu_codes_files_ibfk_1` FOREIGN KEY (`ID_Code`) REFERENCES `muu_codes` (`ID_Code`),
   ADD CONSTRAINT `muu_codes_files_ibfk_2` FOREIGN KEY (`ID_Syntax`) REFERENCES `muu_codes_syntax` (`ID_Syntax`);
 
 --
--- Constraints for table `muu_forums_posts`
+-- Filtros para la tabla `muu_forums_posts`
 --
 ALTER TABLE `muu_forums_posts`
   ADD CONSTRAINT `muu_forums_posts_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_gallery`
+-- Filtros para la tabla `muu_gallery`
 --
 ALTER TABLE `muu_gallery`
   ADD CONSTRAINT `muu_gallery_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_logs`
+-- Filtros para la tabla `muu_logs`
 --
 ALTER TABLE `muu_logs`
   ADD CONSTRAINT `muu_logs_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_pages`
+-- Filtros para la tabla `muu_pages`
 --
 ALTER TABLE `muu_pages`
   ADD CONSTRAINT `muu_pages_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_polls`
+-- Filtros para la tabla `muu_polls`
 --
 ALTER TABLE `muu_polls`
   ADD CONSTRAINT `muu_polls_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_polls_answers`
+-- Filtros para la tabla `muu_polls_answers`
 --
 ALTER TABLE `muu_polls_answers`
   ADD CONSTRAINT `muu_polls_answers_ibfk_1` FOREIGN KEY (`ID_Poll`) REFERENCES `muu_polls` (`ID_Poll`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_polls_ips`
+-- Filtros para la tabla `muu_polls_ips`
 --
 ALTER TABLE `muu_polls_ips`
   ADD CONSTRAINT `muu_polls_ips_ibfk_1` FOREIGN KEY (`ID_Poll`) REFERENCES `muu_polls` (`ID_Poll`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_re_permissions_privileges`
+-- Filtros para la tabla `muu_re_permissions_privileges`
 --
 ALTER TABLE `muu_re_permissions_privileges`
   ADD CONSTRAINT `muu_re_permissions_privileges_ibfk_1` FOREIGN KEY (`ID_Privilege`) REFERENCES `muu_privileges` (`ID_Privilege`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `muu_re_permissions_privileges_ibfk_2` FOREIGN KEY (`ID_Application`) REFERENCES `muu_applications` (`ID_Application`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_re_privileges_users`
+-- Filtros para la tabla `muu_re_privileges_users`
 --
 ALTER TABLE `muu_re_privileges_users`
   ADD CONSTRAINT `muu_re_privileges_users_ibfk_1` FOREIGN KEY (`ID_Privilege`) REFERENCES `muu_privileges` (`ID_Privilege`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `muu_re_privileges_users_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_support`
+-- Filtros para la tabla `muu_support`
 --
 ALTER TABLE `muu_support`
   ADD CONSTRAINT `muu_support_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_tokens`
+-- Filtros para la tabla `muu_tokens`
 --
 ALTER TABLE `muu_tokens`
   ADD CONSTRAINT `muu_tokens_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_videos`
+-- Filtros para la tabla `muu_videos`
 --
 ALTER TABLE `muu_videos`
   ADD CONSTRAINT `muu_videos_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
