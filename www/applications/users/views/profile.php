@@ -24,7 +24,11 @@
 			<?php } ?>
 		</div>
 		<div class="information">
-			Ola ke ase?
+			<?php if ($user["Description"]) { ?>
+			<div class="descritpion">
+				<?php echo $user["Description"]; ?>
+			</div>
+			<?php } ?>
 		</div>
 	</section>
 	<div id="posts">

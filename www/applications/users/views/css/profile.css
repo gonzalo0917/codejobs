@@ -26,11 +26,12 @@
 	background-color: #fff;
 	border: 1px solid #aaa;
 	border-radius: 3px;
-	margin-top: 10px;
+	margin-top: 15px;
 }
 
 .fullname {
 	font-size: 1.5em;
+	font-weight: bold;
 	margin-top: 5px;
 }
 
@@ -40,7 +41,8 @@
 }
 
 .information {
-
+	display: inline-block;
+	vertical-align: top;
 }
 
 #posts {
