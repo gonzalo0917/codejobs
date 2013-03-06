@@ -75,7 +75,8 @@
 
                 <ul>
                     <li><a rel="nofollow" target="_blank" href="http://www.crowdint.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/crowd.png", TRUE); ?>" alt="Crowd Int" /></a></li>
-                    <li><a rel="nofollow" target="_blank" href="http://www.bigcoders.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/bigcoders.png", TRUE); ?>" alt="bigcoders" /></a></li>                    
+                    <li><a rel="nofollow" target="_blank" href="http://www.bigcoders.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/bigcoders.png", TRUE); ?>" alt="bigcoders" /></a></li>
+                    <li><a rel="nofollow" target="_blank" href="http://www.infranetworking.com/"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/infranetworking.png", TRUE); ?>" alt="infanetworking" /></a></li>
                     <li><a rel="nofollow" href="http://www.codejobs.biz/publicidad"><img src="<?php echo path("www/applications/pages/views/images/patrocinadores/space.png", TRUE); ?>" /></a></li>
                 </ul>
             </section>

@@ -6,6 +6,7 @@ if (!defined("ACCESS")) {
 $name = recoverPOST("name");
 $email = recoverPOST("email");
 $message = recoverPOST("message");
+
 echo div("new-user", "class");
 	echo formOpen(path("feedback"), "form", "form");
 		echo p(__("Contact us today"), "resalt");
