@@ -3,12 +3,12 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 ?>
-<div id="page-title">
+<div class="page-title">
 	<h1>
 		<?php echo __("Welcome to Jobs");?>
 	</h1>
 </div>
-<div id="jobs">
+<div class="jobs">
 	
 	<?php 
 		$i = 1;
@@ -21,17 +21,17 @@
 			<h2>
 				<?php echo getLanguage($job["Language"], true); ?>
 			</h2>
-			<div id="job-title">
+			<div class="job-title">
 				<a href="<?php echo $URL; ?>" title="<?php echo quotes($job["Title"]); ?>">
 				<?php echo quotes($job["Title"]); ?></a>
 			</div>
-			<div id="job-company">
+			<div class="job-company">
 				<?php echo $job["Company"]; ?>
 			</div>
-			<div id="job-location">
+			<div class="job-location">
 				<?php echo $job['City'].', '.$job['Country']; ?>
 			</div>
-			<div id="job-dateAdded">
+			<div class="job-dateAdded">
 				<?php echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
 					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; ?>
 			</div>
