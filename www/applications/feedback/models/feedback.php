@@ -70,13 +70,18 @@ class Feedback_Model extends ZP_Load
 
 	public function send()
 	{
-		$validations = array("name" => "required", "email" => "email?", "message" => "required", "captcha" => "captcha?");
+		$validations = array(
+			"name"    => "required", 
+			"email"   => "email?", 
+			"message" => "required", 
+			"captcha" => "captcha?"
+		);
 		
 		$this->helper(array("alerts", "time"));
 		$this->Data->ignore(array("captcha_token"));
 
 		$data = $this->Data->process(null, $validations);
-
+		
 		if (isset($data["error"])) {
 			return $data["error"];
 		}
@@ -91,7 +96,6 @@ class Feedback_Model extends ZP_Load
 			"Start_Date" => now(4),
 			"Text_Date"  => decode(now(2))
 		);
-
 		
 		$insert = $this->Db->insert($this->table, $values);
 			
