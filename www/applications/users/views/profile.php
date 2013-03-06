@@ -6,7 +6,7 @@
 <div class="editProfile">
 	<section class="about">
 		<?php $avatar = path("www/lib/files/images/users/". $user["Avatar"], true); ?>
-		<div>
+		<div class="personal">
 			<div>
 				<a class="username" href="#"><?php echo $user["Username"]; ?></a>
 			</div>
@@ -15,9 +15,17 @@
 				<?php echo $user["Name"]; ?>
 			</div>
 			<?php } ?>
+			<?php if ($user["Avatar"] !== "default.png") { ?>
+			<a href="<?php echo path("www/lib/files/images/users/". sha1($user["Username"] ."_O") .".png", true); ?>" target="_blank">
+				<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
+			</a>
+			<?php } else { ?>
 			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
+			<?php } ?>
 		</div>
-
+		<div class="information">
+			Ola ke ase?
+		</div>
 	</section>
 	<div id="posts">
 		<strong><?php echo __("Recent posts");?></strong>
