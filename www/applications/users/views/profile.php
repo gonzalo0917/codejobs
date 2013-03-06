@@ -10,9 +10,11 @@
 			<div>
 				<a class="username" href="#"><?php echo $user["Username"]; ?></a>
 			</div>
+			<?php if ($user["Name"]) { ?>
 			<div class="fullname">
 				<?php echo $user["Name"]; ?>
 			</div>
+			<?php } ?>
 			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
 		</div>
 
