@@ -21,19 +21,21 @@
 			<h2>
 				<?php echo getLanguage($job["Language"], true); ?>
 			</h2>
-			<div class="job-title">
+			<div class="jobs-title">
 				<a href="<?php echo $URL; ?>" title="<?php echo quotes($job["Title"]); ?>">
 				<?php echo quotes($job["Title"]); ?></a>
 			</div>
-			<div class="job-company">
+			<div class="jobs-company">
 				<?php echo $job["Company"]; ?>
 			</div>
-			<div class="job-location">
-				<?php echo $job['City'].', '.$job['Country']; ?>
-			</div>
-			<div class="job-dateAdded">
+	
+			<div class="jobs-dateAdded">
 				<?php echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
 					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; ?>
+			</div>
+
+			<div class="jobs-location">
+				<?php echo $job['City'].', '.$job['Country']; ?>
 			</div>
 
 			<?php echo display(social($URL, $job["Title"], false), 4); ?>
