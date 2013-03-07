@@ -6,14 +6,13 @@
 	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"])
 ;?>
 
-<div class="jobs">
+<div class="job">
 	<h2>
 		<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo path("jobs/visit/". $job["ID_Job"], false, $job["Language"]); ?>" target="_blank" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
 	</h2>
 
 	<span class="small italic grey">
 		<?php 
-			echo $job["Company"] .' - '.$job['City'].', '.$job['Country'].'<br/>';
 			echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .
 			' <a title="'. $job["Author"] .'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> ';
 		?>
@@ -24,7 +23,12 @@
 
 
 	<p class="justify">
-
+		<h5><?php echo __("Company name and location")?></h5>
+			<p>
+				<?php
+				echo $job["Company"] .' - '.$job['City'].', '.$job['Country'].'<br/>'; 
+				?>
+			<p>
 		<h5><?php echo __("Job Description")?></h5>
 		<p>
 			<?php 
