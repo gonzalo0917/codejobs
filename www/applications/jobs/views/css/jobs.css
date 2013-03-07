@@ -15,10 +15,10 @@
 }
 
 .job-title {
-	font-size: 1.8em;
+	font-size: 1.2em;
 	font-weight: bold;
 	line-height: 30px;
-	border: 1px solid #000;
+	margin-top: 10px;
 }
 
 .job-title a {
@@ -39,7 +39,7 @@
 .job-location {
 	float: right;
 	font-size: 0.75em;
-	color: #666;
+	color: #000;
 }
 
 .job-dateAdded {
