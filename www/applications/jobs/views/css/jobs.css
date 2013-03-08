@@ -14,35 +14,35 @@
 	color: #333;
 }
 
-.job-title {
+.jobs-title {
 	font-size: 1.2em;
 	font-weight: bold;
 	line-height: 30px;
 	margin-top: 10px;
 }
 
-.job-title a {
+.jobs-title a {
 	text-decoration: none;
 	color: #252525;
 }
 
-.job-title a:hover {
+.jobs-title a:hover {
 	color: #045c98;
 }
 
-.job-company {
+.jobs-company {
 	float: left;
 	font-size: 0.75em;
 	color: #666;
 }
 
-.job-location {
+.jobs-location {
 	float: right;
 	font-size: 0.75em;
 	color: #000;
 }
 
-.job-dateAdded {
+.jobs-dateAdded {
 	float: right;
 	font-size: 0.75em;
 	color: #666;
