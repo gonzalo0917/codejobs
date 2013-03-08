@@ -8,18 +8,17 @@
 		<?php echo __("Welcome to Jobs");?>
 	</h1>
 </div>
-<div class="cities">
-	<ul>
-	<?php
-	foreach ($cities as $city) {
-		echo '<li>'. $city["City"] .", ". $city["Country"] ." (". $city["Total"] .")</li>";
-	}
-	
-	?>
-</ul>
-</div>
+
 <div class="jobs">
-	
+	<div class="cities">
+		<ul>
+			<?php
+				foreach ($cities as $city) {
+					echo '<li><a href="'. path("jobs/city/". $city["City"]) .'">'. $city["City"] . '</a> '.", ". $city["Country"] ." (". $city["Total"] .")</li>";
+				}
+		?>
+		</ul>
+	</div>
 	<?php 
 		$i = 1;
 		$rand1 = rand(1, 5);
@@ -28,6 +27,7 @@
 		foreach ($jobs as $job) { 
 			$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
 	?>		
+
 			<h2>
 				<?php echo getLanguage($job["Language"], true); ?>
 			</h2>
