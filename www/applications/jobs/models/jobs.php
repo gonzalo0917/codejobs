@@ -169,8 +169,11 @@ class Jobs_Model extends ZP_Load
 
 	public function getAllByAuthor($author, $limit)
 	{
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", 
-			$this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+	}
+
+	public function getCities() {
+		return $this->Db->query("SELECT City, Country, COUNT(*) AS Total FROM ". DB_PREFIX ."jobs GROUP BY City ORDER BY Total DESC");
 	}
 
 	public function getAllByTag($author, $tag, $limit)

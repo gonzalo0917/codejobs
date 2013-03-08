@@ -13,7 +13,7 @@ class Jobs_Controller extends ZP_Load
 		$this->Templates->theme();
 		$this->config("jobs");
 		$this->Jobs_Model = $this->model("Jobs_Model");
-		$this->helper("pagination");
+		$this->helper(array("pagination", "debugging"));
 		setURL();
 	}
 
@@ -178,6 +178,7 @@ class Jobs_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
+			$vars["cities"] = $this->Jobs_Model->getCities();
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);
 			$this->render("content", $vars);

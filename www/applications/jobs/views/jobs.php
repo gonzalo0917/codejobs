@@ -8,6 +8,16 @@
 		<?php echo __("Welcome to Jobs");?>
 	</h1>
 </div>
+<div class="cities">
+	<ul>
+	<?php
+	foreach ($cities as $city) {
+		echo '<li>'. $city["City"] .", ". $city["Country"] ." (". $city["Total"] .")</li>";
+	}
+	
+	?>
+</ul>
+</div>
 <div class="jobs">
 	
 	<?php 
