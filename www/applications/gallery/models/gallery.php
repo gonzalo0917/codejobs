@@ -94,7 +94,9 @@ class Gallery_Model extends ZP_Load
 			}
 		}
 		
-		die(var_dump($original));
+		$data = array(
+
+		);
 	}
 
 	private function save()
