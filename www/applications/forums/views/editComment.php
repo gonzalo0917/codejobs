@@ -5,7 +5,7 @@ if (!defined("ACCESS")) {
 
 $fid 	 = isset($data) ? recoverPOST("fid", $data[0]["ID_Parent"]) : recoverPOST("fid");
 $pid 	 = isset($data) ? recoverPOST("pid", $data[0]["ID_Post"]) : recoverPOST("pid");
-$content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverPOST("content");
+$content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverPOST("content", "clean");
 ?>
 
 <p id="fmessage"></p>

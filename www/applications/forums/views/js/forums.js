@@ -1,6 +1,6 @@
 $(document).on("ready", function() {
 	$("#cpublish").on("click", function() {
-		var content = $(".cke_wysiwyg_frame").contents().find('body').html();
+		var content = escape($(".cke_wysiwyg_frame").contents().find('body').html());
 		var fid = $('#fid').val();
 		var fname = $('#fname').val();
 		var avatar = $('#avatar').val();
@@ -47,7 +47,7 @@ $(document).on("ready", function() {
 		var forumName = $("#fname").val();
 		var title = $("#ftitle").val();
 		var tags = $("#ftags").val();
-		var content = $(".cke_wysiwyg_frame").contents().find('body').html();
+		var content = escape($(".cke_wysiwyg_frame").contents().find('body').html());
 		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 		var needTags = '<div id="alert-message" class="alert alert-error">' + $("#needtags").val() + '</div>';
@@ -112,7 +112,7 @@ $(document).on("ready", function() {
 		var forumName = $("#fname").val();
 		var title = $("#ptitle").val();
 		var tags = $("#ptags").val();
-		var content = $(".cke_wysiwyg_frame").contents().find('body').html();
+		var content = escape($(".cke_wysiwyg_frame").contents().find('body').html());
 		var needTitle = '<div id="alert-message" class="alert alert-error">' + $("#needtitle").val() + '</div>';
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 		var needTags = '<div id="alert-message" class="alert alert-error">' + $("#needtags").val() + '</div>';
@@ -150,7 +150,9 @@ $(document).on("ready", function() {
 		var pid = $("#pid").val();
 		var fid = $("#fid").val();
 		var forumName = $("#fname").val();
-		var content =  $(".cke_wysiwyg_frame").contents().find('body').html();
+		var content =  escape($(".cke_wysiwyg_frame").contents().find('body').html());
+
+		console.log(content);
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 
 		if (content.length == 0 || content == $("#pcontent-temp").val()) { 
@@ -169,5 +171,4 @@ $(document).on("ready", function() {
 			});
 		}
 	});
-	
 });
