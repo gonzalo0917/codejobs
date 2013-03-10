@@ -691,6 +691,7 @@ CREATE TABLE IF NOT EXISTS `muu_forums_posts` (
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Last_Reply` int(11) unsigned NOT NULL DEFAULT '0',
   `Last_Author` varchar(50) NOT NULL,
+  `Total_Comments` int(10) unsigned NOT NULL DEFAULT '0',
   `Text_Date` varchar(50) NOT NULL,
   `Hour` varchar(15) NOT NULL DEFAULT '00:00:00',
   `Visits` mediumint(8) unsigned NOT NULL DEFAULT '0',
