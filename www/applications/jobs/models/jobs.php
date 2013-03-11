@@ -11,7 +11,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "jobs";
-		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation";
+		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -73,6 +73,7 @@ class Jobs_Model extends ZP_Load
 			"ID_User" => SESSION("ZanUserID"),
 			"Author" => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Slug" => slug(POST("title", "clean")),
+			"City_Slug" => slug(POST("city", "clean")),
 			"Start_Date" => $date,
 			"End_Date" => $date + (3600 * 24 * 30)
  		);
@@ -177,11 +178,12 @@ class Jobs_Model extends ZP_Load
 
 	public function getAllByCity($city, $limit)
 	{
+		$city = str_replace("-", " ", $city);
 		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND City = '$city'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getCities() {
-		return $this->Db->query("SELECT City, Country, COUNT(*) AS Total FROM ". DB_PREFIX ."jobs GROUP BY City ORDER BY Total DESC");
+		return $this->Db->query("SELECT City, City_Slug, Country, COUNT(*) AS Total FROM ". DB_PREFIX ."jobs GROUP BY City ORDER BY Total DESC");
 	}
 
 	public function getAllByTag($author, $tag, $limit)

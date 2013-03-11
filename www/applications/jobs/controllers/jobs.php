@@ -209,7 +209,7 @@ class Jobs_Controller extends ZP_Load
 		} 
 	}
 
-	private function getJobsByCity($city)
+	public function city($city)
 	{
 		$this->title(__("Jobs of") ." ". $city);
 		$this->CSS("jobs", $this->application);
@@ -267,7 +267,7 @@ class Jobs_Controller extends ZP_Load
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL = path("jobs/author/$user/page/");
 		} elseif ($type === "city") {
-			$user = segment(2, isLang());
+			$city = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL = path("jobs/city/$city/page/");
 		} elseif ($type === "author-tag") {

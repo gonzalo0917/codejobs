@@ -13,7 +13,7 @@
 		<ul>
 			<?php
 				foreach ($cities as $city) {
-					echo '<li><a href="'. path("jobs/city/". $city["City"]) .'">'. $city["City"] .", ". $city["Country"] ." (". $city["Total"] .") </li>".'</a>';
+					echo '<li><a href="'. path("jobs/city/". $city["City_Slug"]) .'">'. $city["City"] .", ". $city["Country"] ." (". $city["Total"] .") </li>".'</a>';
 				}
 		?>
 		</ul>

@@ -12,6 +12,8 @@
 	$currency = isset($data) ? recoverPOST("salary_currency", $data[0]["Salary_Currency"]) : recoverPOST("salary_currency");	
 	$allocation = isset($data) ? recoverPOST("allocation_time", $data[0]["Allocation_Time"]) : recoverPOST("allocation_time");
 	$description = isset($data) ? recoverPOST("description", $data[0]["Description"]) : recoverPOST("description");
+	$tags = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) : recoverPOST("tags");
+	$email = isset($data) ? recoverPOST("email", $data[0]["Email"]) : recoverPOST("email");
 	$language = isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
 	$edit = isset($data) ? true : false;
@@ -107,12 +109,35 @@
 				$options
 			);
 
-			echo formInput(array(
+			echo formTextarea(array(
+				"id" => "description",
 				"name" => "description", 
-				"class" => "markItUp",
+				"class" => "required",
 				"field" => __("Description"), 
-				"placeholder" => __("Enter the tags for the job"),
+				"p" => "true",
+				"placeholder" => __("Enter the description of the job"),
 				"value" => $description
+			));
+
+			echo formInput(array(	
+				"name" 	=> "tags", 
+				"class" => "span5 required", 
+				"field" => __("Tags"), 
+				"p" 	=> true,
+				"placeholder" => _("Write the tags separated by commas"),
+				"value" => $tags
+			));
+
+			echo formInput(array( 
+				"name" => "email",
+				"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+				"type" => "email",
+				"class" => "span5 required",
+				"field" => __("Company Email"), 
+				"p" => true, 
+				"placeholder" => __("Enter your company email"),
+				"value" => $email,
+				"required" => true
 			));
 
 			echo formField(null, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));
