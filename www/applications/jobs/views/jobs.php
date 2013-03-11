@@ -9,16 +9,17 @@
 	</h1>
 </div>
 
-<div class="jobs">
-	<div class="cities">
+<div class="cities">
 		<ul>
 			<?php
 				foreach ($cities as $city) {
-					echo '<li><a href="'. path("jobs/city/". $city["City"]) .'">'. $city["City"] . '</a> '.", ". $city["Country"] ." (". $city["Total"] .")</li>";
+					echo '<li><a href="'. path("jobs/city/". $city["City"]) .'">'. $city["City"] .", ". $city["Country"] ." (". $city["Total"] .") </li>".'</a>';
 				}
 		?>
 		</ul>
 	</div>
+
+<div class="jobs">
 	<?php 
 		$i = 1;
 		$rand1 = rand(1, 5);
@@ -27,11 +28,10 @@
 		foreach ($jobs as $job) { 
 			$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
 	?>		
-
-			<h2>
-				<?php echo getLanguage($job["Language"], true); ?>
-			</h2>
 			<div class="jobs-title">
+				<h2>
+				<?php echo getLanguage($job["Language"], true); ?>
+				</h2>
 				<a href="<?php echo $URL; ?>" title="<?php echo quotes($job["Title"]); ?>">
 				<?php echo quotes($job["Title"]); ?></a>
 			</div>
@@ -39,13 +39,13 @@
 				<?php echo $job["Company"]; ?>
 			</div>
 	
-			<div class="jobs-dateAdded">
-				<?php echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
-					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a> '; ?>
-			</div>
-
 			<div class="jobs-location">
 				<?php echo $job['City'].', '.$job['Country']; ?>
+			</div>
+
+			<div class="jobs-dateAdded">
+				<?php echo __("Published") ." ". howLong($job["Start_Date"]) ." ". __("by") .' <a title="'. $job["Author"] .
+					'" href="'. path("jobs/author/". $job["Author"]) .'">'. $job["Author"] .'</a>'; ?>
 			</div>
 
 			<?php echo display(social($URL, $job["Title"], false), 4); ?>
