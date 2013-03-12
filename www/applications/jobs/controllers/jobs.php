@@ -140,7 +140,7 @@ class Jobs_Controller extends ZP_Load
 		$data = $this->Cache->data("job-$jobID", "jobs", $this->Jobs_Model, "getByID", array($jobID));
 
 		if ($data) {
-			$this->helper("time");
+			$this->helper(array("time", "forms"));
 			$this->title(__("Jobs") ." - ". decode($data[0]["Title"]), false);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
@@ -295,8 +295,7 @@ class Jobs_Controller extends ZP_Load
 		} elseif ($type === "company") {
 			$company = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
-			$URL = path("jobs/company/$company/page/");
-		} elseif ($type === "author-tag") {
+			$URL = path("jobs/company/$company/page/"); } elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag = segment(4, isLang());
 			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
