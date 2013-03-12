@@ -185,6 +185,10 @@ class Forums_Model extends ZP_Load
 
 	public function deletePost($postID)
 	{
+		$fid = $this->Db->query("SELECT ID_Parent FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $postID);
+		$totalComments = $this->Db->query("SELECT Total_Comments FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $fid[0]["ID_Parent"]);
+		$i = $totalComments[0]["Total_Comments"] -= 1;
+		$this->Db->updateBySQL("forums_posts", "Total_Comments = '$i' WHERE ID_Post = ". $fid[0]["ID_Parent"]);
 		$this->Db->delete($postID, DB_PREFIX ."forums_posts");
 		
 		$query = "DELETE FROM ". DB_PREFIX ."forums_posts WHERE ID_Parent = '$postID'";
@@ -216,8 +220,8 @@ class Forums_Model extends ZP_Load
 		$query = "SELECT ". DB_PREFIX ."forums.ID_Forum, ". DB_PREFIX ."forums.Title AS Forum, ". DB_PREFIX ."forums.Slug AS Forum_Slug, 
 				  ". DB_PREFIX ."forums_posts.ID_Post, ". DB_PREFIX ."forums_posts.ID_User, ". DB_PREFIX ."forums_posts.Forum_Name, 
 				  ". DB_PREFIX ."forums_posts.Title, ". DB_PREFIX ."forums_posts.Tags, ". DB_PREFIX ."forums_posts.Slug 
-				  AS Post_Slug, ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Last_Author, ". DB_PREFIX ."forums_posts.Content, 
-				  ". DB_PREFIX ."forums_posts.Author, ". DB_PREFIX ."forums_posts.Start_Date 
+				  AS Post_Slug, ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Last_Author, ". DB_PREFIX ."forums_posts.Total_Comments, 
+				   ". DB_PREFIX ."forums_posts.Content, ". DB_PREFIX ."forums_posts.Author, ". DB_PREFIX ."forums_posts.Start_Date 
 		          FROM ". DB_PREFIX ."forums 
 				  INNER JOIN ". DB_PREFIX ."forums_posts ON ". DB_PREFIX ."forums_posts.ID_Forum = ". DB_PREFIX ."forums.ID_Forum
 				  WHERE ". DB_PREFIX ."forums.Slug = '$slug' AND ". DB_PREFIX ."forums_posts.Language = '$language'
@@ -403,7 +407,9 @@ class Forums_Model extends ZP_Load
 			$lastID = $this->Db->insert("forums_posts", $data);
 
 			if ($lastID) {
-				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author' WHERE ID_Post = '$fid'");
+				$totalComments = $this->Db->query("SELECT Total_Comments FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $fid);
+				$i = $totalComments[0]["Total_Comments"] += 1;
+				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author', Total_Comments = '$i' WHERE ID_Post = '$fid'");
 				$content = $data["Content"];
 				$edit = path("forums/". $fname ."/editComment/". $lastID);
 				$delete = path("forums/". $fname ."/delete/". $lastID);				

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-03-2013 a las 23:09:55
+-- Tiempo de generación: 11-03-2013 a las 22:35:00
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -780,6 +780,7 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `Author` varchar(50) NOT NULL,
   `Country` varchar(80) NOT NULL,
   `City` varchar(80) NOT NULL,
+  `City_Slug` varchar(80) NOT NULL,
   `Salary` varchar(25) NOT NULL,
   `Salary_Currency` varchar(3) NOT NULL,
   `Allocation_Time` varchar(50) NOT NULL,
@@ -792,15 +793,19 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Volcado de datos para la tabla `muu_jobs`
 --
 
-INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Company`, `Slug`, `Author`, `Country`, `City`, `Salary`, `Salary_Currency`, `Allocation_Time`, `Description`, `Tags`, `Email`, `Language`, `Start_Date`, `Modified_Date`, `End_Date`, `Situation`) VALUES
-(24, 1, 'Desarrollador web', 'Alta Villa', 'desarrollador-web', 'admin', 'México', 'Colima', '150', 'USD', 'Half Time', 'php, html5, cs', 'Php, Jobs, HTML', 'villita@tuvilla.com', 'Spanish', 1362071126, 0, 1364663126, 'Active'),
-(25, 1, 'Prueba 2', 'Codejobs', 'prueba-2', 'admin', 'México', 'Aguascalientes', '130', 'USD', 'Full Time', 'Es sencishito', 'html, css', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active');
+INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Company`, `Slug`, `Author`, `Country`, `City`, `City_Slug`, `Salary`, `Salary_Currency`, `Allocation_Time`, `Description`, `Tags`, `Email`, `Language`, `Start_Date`, `Modified_Date`, `End_Date`, `Situation`) VALUES
+(24, 1, 'Desarrollador web', 'Alta Villa', 'desarrollador-web', 'admin', 'México', 'Colima', 'colima', '150', 'USD', 'Half Time', 'php, html5, cs', 'Php, Jobs, HTML', 'villita@tuvilla.com', 'Spanish', 1362071126, 0, 1364663126, 'Active'),
+(25, 1, 'Prueba 2', 'Codejobs', 'prueba-2', 'admin', 'México', 'Aguascalientes', 'aguascalientes', '130', 'USD', 'Full Time', 'Es sencishito', 'html, css', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active'),
+(26, 0, 'Empleo 2', 'Codejobs', 'empleo-2', 'admin', 'México', 'Colima', 'colima', '123', 'USD', 'Full Time', 'Esy', 'html', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active'),
+(27, 0, 'Prueba 3', 'Independece', 'prueba-3', 'isra', 'México', 'Monterrey', 'monterrey', '212', 'USD', 'Half Time', 'Medium', 'html', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active'),
+(28, 0, 'Prueba 4', 'KFC', 'prueba-4', 'isra', 'México', 'Monterrey', 'monterrey', '432', 'USD', 'Half Time', 'Hard', 'html', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active'),
+(29, 1, 'Cuidador de perros', 'PetFriends', 'cuidador-de-perros', 'admin', 'México', 'Villa de Alvárez', 'villa-de-alvarez', '12', 'USD', 'Half Time', 'Pasear perros y esas cosas', 'dog, croquetas, etc', 'animalplanet@pet.com', 'Spanish', 1363040675, 0, 1365632675, 'Active');
 
 -- --------------------------------------------------------
 
@@ -1443,6 +1448,13 @@ CREATE TABLE IF NOT EXISTS `muu_users_online` (
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `muu_users_online`
+--
+
+INSERT INTO `muu_users_online` (`User`, `Start_Date`) VALUES
+('admin', 1363041265);
+
 -- --------------------------------------------------------
 
 --
@@ -1455,13 +1467,6 @@ CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
   PRIMARY KEY (`IP`),
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `muu_users_online_anonymous`
---
-
-INSERT INTO `muu_users_online_anonymous` (`IP`, `Start_Date`) VALUES
-('127.0.0.1', 1362611336);
 
 -- --------------------------------------------------------
 

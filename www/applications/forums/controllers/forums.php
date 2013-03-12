@@ -176,7 +176,6 @@ class Forums_Controller extends ZP_Load
 	{
 		if (POST("title") and POST("content") and POST("fname")) {
 			$data = $this->Forums_Model->savePost();
-
 			echo ($data) ? $data : path();
 		}
 	}
@@ -220,7 +219,6 @@ class Forums_Controller extends ZP_Load
 	public function getForums()
 	{
 		$data = $this->Forums_Model->getForums($this->language);
-
 		if ($data) {
 			$vars["forums"] = $data;
 			$vars["view"] = $this->view("forums", true);
@@ -263,7 +261,6 @@ class Forums_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit("comments");
 		$data = $this->Forums_Model->getPost($postID, $limit);
-
 		if ($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");

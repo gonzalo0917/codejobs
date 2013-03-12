@@ -13,7 +13,7 @@ class Jobs_Controller extends ZP_Load
 		$this->Templates->theme();
 		$this->config("jobs");
 		$this->Jobs_Model = $this->model("Jobs_Model");
-		$this->helper("pagination");
+		$this->helper(array("pagination", "debugging"));
 		setURL();
 	}
 
@@ -178,6 +178,7 @@ class Jobs_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
+			$vars["cities"] = $this->Jobs_Model->getCities();
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);
 			$this->render("content", $vars);
@@ -199,6 +200,29 @@ class Jobs_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["jobs"] = $data;
+			$vars["cities"] = $this->Jobs_Model->getCities();
+			$vars["pagination"] = $this->pagination;
+			$vars["view"] = $this->view("jobs", true);
+			$this->render("content", $vars);
+		} else {
+			redirect($this->application);
+		} 
+	}
+
+	public function city($city)
+	{
+		$this->title(__("Jobs of") ." ". $city);
+		$this->CSS("jobs", $this->application);
+		$this->CSS("pagination");
+		$limit = $this->limit("city");
+		$data = $this->Cache->data("city-$city-$limit", "jobs", $this->Jobs_Model, "getAllByCity", array($city, $limit));
+		$this->helper("time");
+
+		if ($data) {
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
+			$vars["jobs"] = $data;
+			$vars["cities"] = $this->Jobs_Model->getCities();
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);
 			$this->render("content", $vars);
@@ -242,6 +266,10 @@ class Jobs_Controller extends ZP_Load
 			$user = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL = path("jobs/author/$user/page/");
+		} elseif ($type === "city") {
+			$city = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
+			$URL = path("jobs/city/$city/page/");
 		} elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag = segment(4, isLang());
