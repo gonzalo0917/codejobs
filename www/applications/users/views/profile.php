@@ -15,6 +15,13 @@
 				<?php echo $user["Name"]; ?>
 			</div>
 			<?php } ?>
+			<?php if ($user["Website"] and $user["Website"] !== "http://") { ?>
+			<div class="website">
+				<a href="<?php echo $user["Website"]; ?>" target="_blank">
+					<?php echo $user["Website"]; ?>
+				</a>
+			</div>
+			<?php } ?>
 			<?php if ($user["Avatar"] !== "default.png") { ?>
 			<a href="<?php echo path("www/lib/files/images/users/". sha1($user["Username"] ."_O") .".png", true); ?>" target="_blank">
 				<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
