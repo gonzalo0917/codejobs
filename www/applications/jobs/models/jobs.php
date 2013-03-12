@@ -139,9 +139,6 @@ class Jobs_Model extends ZP_Load
 		} elseif ($type === "author") {
 			$user = segment(2, isLang());
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
-		} elseif ($type === "city") {
-			$city = segment(2, isLang());
-			return $this->Db->countBySQL("City LIKE '$city' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		} elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag  = str_replace("-", " ", segment(4, isLang()));
@@ -180,6 +177,11 @@ class Jobs_Model extends ZP_Load
 	{
 		$city = str_replace("-", " ", $city);
 		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND City = '$city'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+	}
+
+	public function getAllByCompany($company, $limit)
+	{
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Company = '$company'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getCities() {

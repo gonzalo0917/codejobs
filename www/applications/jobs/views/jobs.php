@@ -36,7 +36,7 @@
 				<?php echo quotes($job["Title"]); ?></a>
 			</div>
 			<div class="jobs-company">
-				<?php echo $job["Company"]; ?>
+				<?php echo '<a href="'. path("jobs/company/". $job["Company"]) .'">'. $job["Company"] .'</a>'; ?>
 			</div>
 	
 			<div class="jobs-location">
