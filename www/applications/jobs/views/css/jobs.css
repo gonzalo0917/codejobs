@@ -10,6 +10,12 @@
 	text-decoration: none;
 }
 
+.alert {
+	margin-top: 10px;
+	font-size: 1.5em;
+	text-align: center;
+}
+
 .jobs {
 	float: right;
 	height: auto;

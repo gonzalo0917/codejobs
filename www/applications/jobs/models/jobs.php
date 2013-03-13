@@ -133,10 +133,9 @@ class Jobs_Model extends ZP_Load
 			);
 
 			$this->Db->insert("". DB_PREFIX ."vacancy", $data);
-			return getAlert(__("The vacancy has been send correctly"), "success", $this->URL);
 		} 
 		else {
-			return getAlert(__("Error sendind vacancy"), "error", $this->URL);
+			return false;
 		}
 	}
 
