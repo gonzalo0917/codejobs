@@ -53,8 +53,7 @@
 			<?php echo formInput(array(
 				"type" => "file", 
 				"id" => "fileselect",
-				"name" => "fileselect[]",
-				"multiple" => "multiple",
+				"name" => "cv",
 				"field" => __("Upload your CV here"), 
 				"p" => true
 			));

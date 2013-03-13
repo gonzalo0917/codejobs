@@ -124,6 +124,7 @@ class Jobs_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$this->helper("time");
+			$vars["cities"] = $this->Jobs_Model->getCities();
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);

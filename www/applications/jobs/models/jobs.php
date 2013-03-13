@@ -96,6 +96,7 @@ class Jobs_Model extends ZP_Load
 				"Company" => POST("company"),
 				"Country" => POST("country"),
 				"City" => POST("city"),
+				"Tags" => stripslashes(encode(POST("tags", "decode", null))),
 				"Email" => POST("email"),
 				"Salary" => POST("salary"),
 				"Salary_Currency"=> POST("salary_currency"),
