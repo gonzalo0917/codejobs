@@ -1,6 +1,7 @@
 $(document).on("ready", function() {
 	$("#cpublish").on("click", function() {
 		var content = escape($(".cke_wysiwyg_frame").contents().find('body').html());
+		var content2 = $(".cke_wysiwyg_frame").contents().find('body').html();
 		var fid = $('#fid').val();
 		var fname = $('#fname').val();
 		var avatar = $('#avatar').val();
@@ -30,7 +31,7 @@ $(document).on("ready", function() {
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
 					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="' + response.edit + '">Edit</a> | <a href="' + response.delete + '" onclick=" return confirm(\'Do you want to delete this post?\')">Delete</a></p>';
-					newComment = newComment + '   <p class="comment-post">' + response.content + '</p>';
+					newComment = newComment + '   <p class="comment-post">' + content2 + '</p>';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '</div>';
 					$("#forum-content").html(oldComments + newComment);

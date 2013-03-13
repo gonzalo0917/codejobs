@@ -11,8 +11,8 @@ class Forums_Model extends ZP_Load
         $this->language = whichLanguage();
 		$this->table = "forums";
 		$this->fields = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
-		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Title, Slug, Content, Author, Start_Date, Text_Date,";
-		$this->fieldsPosts .= "Last_Author, Hour, Visits, Topic, Tags, Language, Situation";
+		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Title, Slug, Content, Author, Avatar, Start_Date,";
+		$this->fieldsPosts .= "Text_Date, Last_Author, Hour, Visits, Topic, Tags, Language, Situation"; 	
 		
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
