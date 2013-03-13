@@ -132,7 +132,7 @@ class Jobs_Model extends ZP_Load
 				"Message" 	 => $message,
 			);
 
-			$this->Db->insert("". DB_PREFIX ."vacants", $data);
+			$this->Db->insert("". DB_PREFIX ."vacancy", $data);
 			return getAlert(__("The vacancy has been send correctly"), "success", $this->URL);
 		} 
 		else {
