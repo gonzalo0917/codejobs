@@ -50,6 +50,31 @@
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
 			</ul>
+			<?php echo formInput(array(
+				"type" => "file", 
+				"id" => "fileselect",
+				"name" => "cv",
+				"field" => __("Upload your CV here"), 
+				"p" => true
+			));
+
+				echo formTextarea(array(
+				"id" => "message",
+				"name" => "message", 
+				"class" => "span5 required",
+				"rows" => "5",
+				"field" => __("Message"), 
+				"p" => "true",
+				"placeholder" => __("Writte a message to the user"),
+			));
+
+				echo formInput(array(
+				"type" => "button", 
+				"id" => "apply",
+				"name" => "apply",
+				"value" => __("Apply for the vacancy"),
+				"p" => true
+			)); ?>
 			<?php } else {?>
 				<span class="small italic grey">
 					<?php echo __("You must be registered to display this content"); ?></br/>

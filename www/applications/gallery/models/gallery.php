@@ -64,22 +64,22 @@ class Gallery_Model extends ZP_Load
 			$dir = "www/lib/files/images/gallery/". POST("category") ."/";
 		}
 
-		if (!file_exists($dir)) {
+		if (!file_exists($dir)) { //@unlink ver works
 			mkdir($dir, 0777);
 		}
 
-		$original = array();
-		$medium = array();
-		$small = array();
+		$original = array();//no
+		$medium = array();//no
+		$small = array();//no
 
 		if (is_array(FILES("images", "name"))) {
 			$total = count(FILES("images", "name")) - 1;
 
-			for ($i = 0; $i <= $total; $i++) {		
-				$ext = getExtension(FILES("images", "name", $i));
+			for ($i = 0; $i <= $total; $i++) {		//no se ocupa $i ni vector
+				$ext = getExtension(FILES("images", "name", $i));// cv en vez de image
 				
-				$this->Files->filename  = code(10, false) .".". $ext;
-				$this->Files->fileType  = FILES("images", "type", $i);
+				$this->Files->filename  = code(10, false) .".". $ext; //"cv_.pdf"
+				$this->Files->fileType  = FILES("images", "type", $i);//quitar i
 				$this->Files->fileSize  = FILES("images", "size", $i);
 				$this->Files->fileError = FILES("images", "error", $i);
 				$this->Files->fileTmp   = FILES("images", "tmp_name", $i);

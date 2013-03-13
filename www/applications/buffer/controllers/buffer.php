@@ -1,24 +1,21 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Buffer_Controller extends ZP_Load {
-	
-	public function __construct() {		
+class Buffer_Controller extends ZP_Load
+{
+	public function __construct()
+	{
 		$this->application = $this->app("buffer");			
 
 		$this->RESTClient = $this->core("RESTClient");
 
-		$this->bufferProfiles = array("504fea9d6ffb363e53000031");
+		$this->bufferProfiles = array("513d4f495f02ff361100000c");
 	}
 	
-	public function index() {}
-
-	public function create($app = "all", $profile = "all", $language = "Spanish") {
+	public function create($app = "all", $profile = "all", $language = "Spanish")
+	{
 		$this->config($this->application);
 		
 		$count = count($this->bufferProfiles) - 1;
@@ -212,5 +209,4 @@ class Buffer_Controller extends ZP_Load {
 
 		echo "Buffer complete";
 	}
-
 }
