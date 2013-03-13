@@ -12,6 +12,7 @@ class Jobs_Model extends ZP_Load
 		$this->language = whichLanguage();
 		$this->table = "jobs";
 		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation";
+		$this->fieldsVacancy = "Id_Vacant, ID_Job, ID_User, Message";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -118,6 +119,33 @@ class Jobs_Model extends ZP_Load
 		}
 
 		return getAlert(__("Insert Error"));
+	}
+
+	public function saveVacant($jid, $message)
+	{
+		$this->helper(array("alerts", "forms"));
+
+		if ($jid and $message) {
+			$data = array(
+				"ID_Job"	 => $jid,
+				"ID_User" 	 => SESSION("ZanUserID"),
+				"Message" 	 => $message,
+			);
+
+			$this->Db->insert("". DB_PREFIX ."vacants", $data);
+			return getAlert(__("The vacancy has been send correctly"), "success", $this->URL);
+		} 
+		else {
+			return getAlert(__("Error sendind vacancy"), "error", $this->URL);
+		}
+	}
+
+	public function getVacancy()
+	{
+		$user = SESSION("ZanUserID");
+		$query = "SELECT $this->fieldsVacancy FROM ". DB_PREFIX ."vacants WHERE ID_User = '$user'  
+				  ORDER BY Id_Vacant DESC";
+		return $this->Db->query($query);
 	}
 
 	private function search($search, $field)

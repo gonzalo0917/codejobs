@@ -50,6 +50,8 @@
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
 			</ul>
+			<input id="jid" type="hidden" value="<?php echo segment(1, isLang()); ?>" />
+			<input id="jname" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
 			<?php echo formInput(array(
 				"type" => "file", 
 				"id" => "fileselect",
@@ -75,6 +77,7 @@
 				"value" => __("Apply for the vacancy"),
 				"p" => true
 			)); ?>
+
 			<?php } else {?>
 				<span class="small italic grey">
 					<?php echo __("You must be registered to display this content"); ?></br/>
