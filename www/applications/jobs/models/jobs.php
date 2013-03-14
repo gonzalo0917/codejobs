@@ -142,9 +142,15 @@ class Jobs_Model extends ZP_Load
 	public function getVacancy()
 	{
 		$user = SESSION("ZanUserID");
-		$query = "SELECT $this->fieldsVacancy FROM ". DB_PREFIX ."vacants WHERE ID_User = '$user'  
+		$query = "SELECT $this->fieldsVacancy FROM ". DB_PREFIX ."vacancy WHERE ID_User = '$user'  
 				  ORDER BY Id_Vacant DESC";
-		return $this->Db->query($query);
+		$data = $this->Db->query($query);
+
+		if ($data) {
+			return true;
+		} else {
+		  	return false;
+		}
 	}
 
 	private function search($search, $field)

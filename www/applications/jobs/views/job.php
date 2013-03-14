@@ -52,7 +52,6 @@
 			</ul>
 			<input id="jid" type="hidden" value="<?php echo segment(1, isLang()); ?>" />
 			<input id="jname" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
-			<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 			<?php echo formInput(array(
 				"type" => "file", 
 				"id" => "fileselect",
@@ -60,7 +59,11 @@
 				"field" => __("Upload your CV here"), 
 				"p" => true
 			));
-
+			?>
+			<div id= "message-alert"></div>
+			<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
+			<input id="success" type="hidden" value="<?php echo __("An email has been sent to the recluiter..."); ?>" />
+			<?php
 				echo formTextarea(array(
 				"id" => "message",
 				"name" => "message", 
