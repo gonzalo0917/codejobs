@@ -4,11 +4,13 @@
 	}
 ?>
 
-<div class = "vacancy">
+<div class = "results">
 	<?php if ($vacancy == ""){
 		echo __("You don't have any vacancy");
 	} else {
-		echo '<table>';
+		echo '<caption class="caption">';
+		echo '<span class="bold">'. __("List of Vacancy") .'</span></caption>';
+		echo '<table class="results">';
 		echo '<tr>';
 		echo '<th>'. __("Job Name") .'</th>';
 		echo '<th>'. __("Vacancy") .'</th>';

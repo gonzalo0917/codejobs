@@ -164,6 +164,7 @@ class Jobs_Controller extends ZP_Load
 	public function vacancy()
 	{
 		$this->CSS("jobs", $this->application);
+		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
 			$this->helper(array("time", "forms", "alerts"));
 			$this->title(__("Your Vacancy"));
