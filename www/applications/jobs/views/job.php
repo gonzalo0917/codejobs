@@ -2,9 +2,8 @@
 	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
-
-	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"])
-;?>
+	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
+	?>
 
 <div class="job">
 	<h2>
@@ -50,13 +49,14 @@
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
 			</ul>
-			<input id="jid" type="hidden" value="<?php echo segment(1, isLang()); ?>" />
-			<input id="jname" type="hidden" value="<?php echo segment(2, isLang()); ?>" />
+			<input id="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
+			<input id="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
+
 			<?php echo formInput(array(
 				"type" => "file", 
-				"id" => "fileselect",
+				"id" => "cv",
 				"name" => "cv",
-				"field" => __("Upload your CV here"), 
+				"field" => __("Upload your CV here"),
 				"p" => true
 			));
 			?>
@@ -64,6 +64,18 @@
 			<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 			<input id="success" type="hidden" value="<?php echo __("An email has been sent to the recluiter..."); ?>" />
 			<?php
+				echo formInput(array( 
+				"id" => "jemail",
+				"name" => "jemail",
+				"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+				"type" => "email",
+				"class" => "span5 required",
+				"field" => __("Email"), 
+				"p" => "true", 
+				"placeholder" => __("Enter your email"),
+				"required" => "true"
+			));
+
 				echo formTextarea(array(
 				"id" => "message",
 				"name" => "message", 
@@ -79,7 +91,7 @@
 				"id" => "apply",
 				"name" => "apply",
 				"value" => __("Apply for the vacancy"),
-				"p" => true
+				"p" => "true"
 			)); ?>
 
 			<?php } else {?>

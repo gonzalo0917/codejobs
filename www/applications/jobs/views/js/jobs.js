@@ -1,7 +1,8 @@
 $(document).on("ready", function() {
 	$("#apply").on("click", function() { 
-		var jid = $("#jid").val();
+		var jauthor = $("#jauthor").val();
 		var jname =$("#jname").val();
+		var jemail = $("#jemail").val();
 		var message = $("#message").val();
 		var success = '<div id="success-message" class="alert alert-success">' + $("#success").val() + '</div>';
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
@@ -19,7 +20,7 @@ $(document).on("ready", function() {
 		$.ajax({
 			type: 'POST',
 			url: PATH + '/jobs/apply',
-			data: 'jid=' + jid + '&message=' + message,
+			data: 'jname=' + jname + '&jauthor=' + jauthor + '&jemail=' + jemail + '&message=' + message,
 			success: function(response) {
 			console.log(response);
 			}

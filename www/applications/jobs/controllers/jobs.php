@@ -136,7 +136,7 @@ class Jobs_Controller extends ZP_Load
 
 	public function apply()
 	{
-		$this->Jobs_Model->saveVacant(POST("jid"), POST("message", "clean"));
+		$this->Jobs_Model->saveVacant(POST("jname"), POST("jauthor"), POST("jemail"), POST("message", "clean"));
 	}
 
 	public function go($jobID = 0)
@@ -159,6 +159,20 @@ class Jobs_Controller extends ZP_Load
 		} else {
 			redirect();
 		}
+	}
+
+	public function vacancy()
+	{
+		$this->CSS("jobs", $this->application);
+		$this->CSS("pagination");
+			$this->helper(array("time", "forms", "alerts"));
+			$this->title(__("Your Vacancy"));
+			//$this->meta("keywords", $data[0]["Tags"]);
+			//$this->meta("description", $data[0]["Description"]);
+			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+			//$vars["job"] = $data[0];
+			$vars["view"] = $this->view("vacancy", true);
+			$this->render("content", $vars);
 	}
 	
 	public function visit($jobID = 0)
