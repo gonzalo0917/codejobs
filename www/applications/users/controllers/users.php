@@ -583,6 +583,7 @@ class Users_Controller extends ZP_Load
 			}
 
 			$this->css("profile", $this->application);
+			$this->helper("time");
 
 			$vars["user"] = $data[0];
 			$vars["view"] = $this->view("profile", true);

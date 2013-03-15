@@ -284,6 +284,7 @@ $phrase["manage_users"]									= "Administrar Usuarios";
 $phrase["manage_works"] 								= "Administrar Trabajos";
 $phrase["march"]     									= "Marzo";
 $phrase["may"] 	 	 									= "Mayo";
+$phrase["member_since"] 								= "Miembro desde";
 $phrase["message"] 										= "Mensaje";
 $phrase["message_when_the_website_is_inactive"] 		= "Mensaje cuando el sitio Web este inactivo";
 $phrase["messages"]										= "Mensajes";

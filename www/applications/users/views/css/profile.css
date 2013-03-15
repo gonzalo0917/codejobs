@@ -1,6 +1,6 @@
 .about {
-	background-color: rgb(233,236,239);
-	border: 1px solid rgb(183,215,227);
+	background-color: #f5f5f5;
+	border: 1px solid #d7d7d7;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -35,6 +35,10 @@
 	margin-top: 5px;
 }
 
+.website {
+	margin-top: 5px;
+}
+
 .personal {
 	display: inline-block;
 	width: 65%;
@@ -47,7 +51,7 @@
 
 #posts {
 	background-color: #fff;
-	border: 1px solid rgb(183,215,227);
+	border: 1px solid #d7d7d7;
 	border-top: none;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
