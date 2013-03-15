@@ -121,18 +121,50 @@ class Jobs_Model extends ZP_Load
 		return getAlert(__("Insert Error"));
 	}
 
-	public function saveVacant($jname, $jauthor, $jemail, $message)
+	public function saveVacant()
 	{
-		$this->helper(array("alerts", "forms"));
+		$jname = POST("jname");
+		$jauthor = POST("jauthor");
+		$jemail = POST("jemail");
+		$message = POST("message");
+
+		$this->Files = $this->core("Files");
+		$this->helper(array("alerts", "forms", "files"));
+		$this->Users_Model = $this->model("Users_Model");
+		$data = $this->Users_Model->getUserData();
+		
+		if (isset($data[0]["Email"])) {
+			$email = $data[0]["Email"];
+		}
+
+		$dir = "www/lib/files/documents/cv/";
+
+		if (!file_exists($dir)) {
+			mkdir($dir, 0777);
+		}
+
+		if (FILES("cv", "name")) {
+			____(getExtension(FILES("cv", "name")));
+			$ext = getExtension(FILES("cv", "name"));
+
+			$this->Files->filename  = "cv_". slug(SESSION("ZanUser")) .".". $ext;
+			$this->Files->fileType  = FILES("cv", "type");
+			$this->Files->fileSize  = FILES("cv", "size");
+			$this->Files->fileError = FILES("cv", "error");
+			$this->Files->fileTmp   = FILES("cv", "tmp_name");
+			$upload = $this->Files->upload($dir);
+			____($upload);
+		}
 
 		if ($jname and $jauthor and $jemail and $message) {
 			$data = array(
-				"Job_Name"	 => $jname,
-				"Job_Author" => $jauthor,
+				"Job_Name"	 	 => $jname,
+				"Job_Author" 	 => $jauthor,
 				"ID_UserVacancy" => SESSION("ZanUserID"),
-				"Vacancy" 	 => SESSION("ZanUserName"),
-				"Vacancy_Email" => $jemail,
-				"Message" 	 => $message,
+				"Cv" 			 => $cv,
+				"Vacancy" 	 	 => SESSION("ZanUserName"),
+				"Vacancy_Email"  => $email,
+				"Message" 	 	 => $message,
 			);
 
 			$this->Db->insert("". DB_PREFIX ."vacancy", $data);

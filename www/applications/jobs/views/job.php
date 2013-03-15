@@ -6,6 +6,7 @@
 	?>
 
 <div class="job">
+	<form action="<?php echo path("jobs/apply/"); ?>" method="post" enctype="multipart/form-data">
 	<h2>
 		<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo path("jobs/visit/". $job["ID_Job"], false, $job["Language"]); ?>" target="_blank" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
 	</h2>
@@ -70,18 +71,7 @@
 			<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
 			<input id="success" type="hidden" value="<?php echo __("An email has been sent to the recluiter..."); ?>" />
 			<?php
-				echo formInput(array( 
-				"id" => "jemail",
-				"name" => "jemail",
-				"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
-				"type" => "email",
-				"class" => "span5 required",
-				"field" => __("Email"), 
-				"p" => "true", 
-				"placeholder" => __("Enter your email"),
-				"required" => "true"
-			));
-
+			
 				echo formTextarea(array(
 				"id" => "message",
 				"name" => "message", 
@@ -93,7 +83,7 @@
 			));
 
 				echo formInput(array(
-				"type" => "button", 
+				"type" => "submit", 
 				"id" => "apply",
 				"name" => "apply",
 				"value" => __("Apply for the vacancy"),
@@ -128,4 +118,5 @@
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
+</form>
 </div>
