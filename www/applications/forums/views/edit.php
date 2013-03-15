@@ -7,7 +7,8 @@ $fid 	 = isset($data) ? recoverPOST("fid", $data[0]["ID_Forum"]) : recoverPOST("
 $pid 	 = isset($data) ? recoverPOST("pid", $data[0]["ID_Post"]) : recoverPOST("pid");
 $title 	 = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
 $tags 	 = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) : recoverPOST("tags");
-$content = isset($data) ? recoverPOST("content", $data[0]["Content"]) : recoverPOST("content", "clean");
+$content = isset($data) ? encode(recoverPOST("content", $data[0]["Content"])) : recoverPOST("content", "clean");
+$content = str_replace("%u200B", "", $content);
 ?>
 
 <p id="fmessage"></p>
