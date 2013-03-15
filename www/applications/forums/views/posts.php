@@ -10,7 +10,12 @@
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
 					$in  = ($post["Tags"] !== "") ? __("in") : null;
 					?>
+					
 					<div class="post">
+						<ul class="breadcrumb">
+  							<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo segment(1, islang()); ?></a> <span class="divider">/</span></li>
+  							<li class="active"><a><?php echo stripslashes($post["Title"]); ?></a><span class="divider">/</span></li>
+						</ul>
 						<div class="post-title">
 							<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
 								<?php echo stripslashes($post["Title"]); ?>
@@ -18,7 +23,7 @@
 						</div>
 
 						<div class="post-left">
-							<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/tag/") ." " . __("by") . ' <a href="'. path("forums/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
+							<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". segment(1, islang()) ."/tag/") ." " . __("by") . ' <a href="'. path("forums/". segment(1, islang()) ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 						</div>
 
 						<div class="clear"></div>
@@ -59,7 +64,7 @@
 						<?php
 							if (SESSION("ZanUserPrivilegeID")){
 								$URLEdit   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
-								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+								$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"] ."/". segment(2, islang()));
 								$confirm   = " return confirm('Do you want to delete this post?') ";
 
 								if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {

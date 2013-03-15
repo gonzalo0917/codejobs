@@ -12,6 +12,7 @@ class Jobs_Model extends ZP_Load
 		$this->language = whichLanguage();
 		$this->table = "jobs";
 		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation";
+		$this->fieldsVacancy = "Id_Vacant, Job_Name, Job_Author, Vacancy, Vacancy_Email, Cv, Message";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -96,6 +97,7 @@ class Jobs_Model extends ZP_Load
 				"Company" => POST("company"),
 				"Country" => POST("country"),
 				"City" => POST("city"),
+				"Tags" => stripslashes(encode(POST("tags", "decode", null))),
 				"Email" => POST("email"),
 				"Salary" => POST("salary"),
 				"Salary_Currency"=> POST("salary_currency"),
@@ -119,6 +121,76 @@ class Jobs_Model extends ZP_Load
 		return getAlert(__("Insert Error"));
 	}
 
+	public function saveVacant()
+	{
+		$jname = POST("jname");
+		$jauthor = POST("jauthor");
+		$message = POST("message");
+
+		$this->Files = $this->core("Files");
+		$this->helper(array("alerts", "forms", "files"));
+		$this->Users_Model = $this->model("Users_Model");
+		$data = $this->Users_Model->getUserData(true);
+		
+		if (isset($data[0]["Email"])) {
+			$email = $data[0]["Email"];
+		}
+
+		$dir = "www/lib/files/documents/cv/";
+
+		if (!file_exists($dir)) {
+			mkdir($dir, 0777);
+		}
+
+		if (FILES("cv", "name")) {
+			$ext = getExtension(FILES("cv", "name"));
+
+			$this->Files->filename  = "cv_". slug(SESSION("ZanUser")) .".". $ext;
+			$this->Files->fileType  = FILES("cv", "type");
+			$this->Files->fileSize  = FILES("cv", "size");
+			$this->Files->fileError = FILES("cv", "error");
+			$this->Files->fileTmp   = FILES("cv", "tmp_name");
+			$upload = $this->Files->upload($dir, "document");
+
+			if (isset($upload["filename"])) {
+				$cv = $dir . $upload["filename"];
+			} else {
+				return getAlert(___("Error uploading file"));
+			}
+		}
+
+		if ($jname and $jauthor and $message) {
+			$data = array(
+				"Job_Name"	 	 => $jname,
+				"Job_Author" 	 => decode($jauthor),
+				"ID_UserVacancy" => SESSION("ZanUserID"),
+				"Cv" 			 => $cv,
+				"Vacancy" 	 	 => SESSION("ZanUserName"),
+				"Vacancy_Email"  => $email,
+				"Message" 	 	 => $message,
+			);
+
+			$this->Db->insert("vacancy", $data);
+			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
+		} else {
+			return false;
+		}
+	}
+
+	public function getVacancy()
+	{
+		$author = SESSION("ZanUser");
+		return $this->Db->query("SELECT Job_Name, Job_Author, ID_UserVacancy, Vacancy, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+	}
+
+	public function isVacancy()
+	{
+		$jname = str_replace("-", " ", segment(2, isLang()));
+		$user = SESSION("ZanUserID");
+		$data = $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Name = '$jname' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		return $data;
+	}
+
 	private function search($search, $field)
 	{
 		if ($search and $field) {
@@ -139,9 +211,6 @@ class Jobs_Model extends ZP_Load
 		} elseif ($type === "author") {
 			$user = segment(2, isLang());
 			return $this->Db->countBySQL("Author LIKE '$user' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
-		} elseif ($type === "city") {
-			$city = segment(2, isLang());
-			return $this->Db->countBySQL("City LIKE '$city' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table);
 		} elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag  = str_replace("-", " ", segment(4, isLang()));
@@ -180,6 +249,11 @@ class Jobs_Model extends ZP_Load
 	{
 		$city = str_replace("-", " ", $city);
 		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND City = '$city'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+	}
+
+	public function getAllByCompany($company, $limit)
+	{
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Company = '$company'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getCities() {

@@ -124,6 +124,7 @@ class Jobs_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$this->helper("time");
+			$vars["cities"] = $this->Jobs_Model->getCities();
 			$vars["jobs"] = $data;
 			$vars["pagination"] = $this->pagination;
 			$vars["view"] = $this->view("jobs", true);
@@ -133,17 +134,25 @@ class Jobs_Controller extends ZP_Load
 		}
 	}
 
+	public function apply()
+	{
+		$this->Jobs_Model->saveVacant();
+	}
+
 	public function go($jobID = 0)
 	{
 		$this->CSS("jobs", $this->application);
 		$this->CSS("pagination");
+		//$this->js("jobs", "jobs");
 		$data = $this->Cache->data("job-$jobID", "jobs", $this->Jobs_Model, "getByID", array($jobID));
 
 		if ($data) {
-			$this->helper("time");
+			$this->helper(array("time", "forms", "alerts"));
 			$this->title(__("Jobs") ." - ". decode($data[0]["Title"]), false);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
+			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+			$vars["isvacancy"] = $this->Jobs_Model->isVacancy();
 			$vars["views"] = $this->Jobs_Model->updateViews($jobID);
 			$vars["job"] = $data[0];
 			$vars["view"] = $this->view("job", true);
@@ -151,6 +160,21 @@ class Jobs_Controller extends ZP_Load
 		} else {
 			redirect();
 		}
+	}
+
+	public function vacancy()
+	{
+		$this->CSS("jobs", $this->application);
+		$this->CSS("results", "cpanel");
+		$this->CSS("pagination");
+			$this->helper(array("time", "forms", "alerts"));
+			$this->title(__("Your Vacancy"));
+			//$this->meta("keywords", $data[0]["Tags"]);
+			//$this->meta("description", $data[0]["Description"]);
+			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+			//$vars["job"] = $data[0];
+			$vars["view"] = $this->view("vacancy", true);
+			$this->render("content", $vars);
 	}
 	
 	public function visit($jobID = 0)
@@ -231,6 +255,28 @@ class Jobs_Controller extends ZP_Load
 		} 
 	}
 
+	public function company($company)
+	{
+		$this->title(__("Jobs of") ." ". $company);
+		$this->CSS("jobs", $this->application);
+		$this->CSS("pagination");
+		$limit = $this->limit("company");
+		$data = $this->Cache->data("company-$company-$limit", "jobs", $this->Jobs_Model, "getAllByCompany", array($company, $limit));
+		$this->helper("time");
+
+		if ($data) {
+			$this->meta("keywords", $data[0]["Tags"]);
+			$this->meta("description", $data[0]["Description"]);
+			$vars["jobs"] = $data;
+			$vars["cities"] = $this->Jobs_Model->getCities();
+			$vars["pagination"] = $this->pagination;
+			$vars["view"] = $this->view("jobs", true);
+			$this->render("content", $vars);
+		} else {
+			redirect($this->application);
+		} 
+	}
+
 	private function getJobsByTag($author, $tag)
 	{
 		$this->CSS("jobs", $this->application);
@@ -270,7 +316,10 @@ class Jobs_Controller extends ZP_Load
 			$city = segment(2, isLang());
 			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
 			$URL = path("jobs/city/$city/page/");
-		} elseif ($type === "author-tag") {
+		} elseif ($type === "company") {
+			$company = segment(2, isLang());
+			$start = (segment(3, isLang()) === "page" and segment(4, isLang()) > 0) ? (segment(4, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
+			$URL = path("jobs/company/$company/page/"); } elseif ($type === "author-tag") {
 			$user = segment(2, isLang());
 			$tag = segment(4, isLang());
 			$start = (segment(5, isLang()) === "page" and segment(6, isLang()) > 0) ? (segment(6, isLang()) * MAX_LIMIT) - MAX_LIMIT : 0;
