@@ -125,13 +125,12 @@ class Jobs_Model extends ZP_Load
 	{
 		$jname = POST("jname");
 		$jauthor = POST("jauthor");
-		$jemail = POST("jemail");
 		$message = POST("message");
 
 		$this->Files = $this->core("Files");
 		$this->helper(array("alerts", "forms", "files"));
 		$this->Users_Model = $this->model("Users_Model");
-		$data = $this->Users_Model->getUserData();
+		$data = $this->Users_Model->getUserData(true);
 		
 		if (isset($data[0]["Email"])) {
 			$email = $data[0]["Email"];
@@ -144,7 +143,6 @@ class Jobs_Model extends ZP_Load
 		}
 
 		if (FILES("cv", "name")) {
-			____(getExtension(FILES("cv", "name")));
 			$ext = getExtension(FILES("cv", "name"));
 
 			$this->Files->filename  = "cv_". slug(SESSION("ZanUser")) .".". $ext;
@@ -152,14 +150,19 @@ class Jobs_Model extends ZP_Load
 			$this->Files->fileSize  = FILES("cv", "size");
 			$this->Files->fileError = FILES("cv", "error");
 			$this->Files->fileTmp   = FILES("cv", "tmp_name");
-			$upload = $this->Files->upload($dir);
-			____($upload);
+			$upload = $this->Files->upload($dir, "document");
+
+			if (isset($upload["filename"])) {
+				$cv = $dir . $upload["filename"];
+			} else {
+				return getAlert(___("Error uploading file"));
+			}
 		}
 
-		if ($jname and $jauthor and $jemail and $message) {
+		if ($jname and $jauthor and $message) {
 			$data = array(
 				"Job_Name"	 	 => $jname,
-				"Job_Author" 	 => $jauthor,
+				"Job_Author" 	 => decode($jauthor),
 				"ID_UserVacancy" => SESSION("ZanUserID"),
 				"Cv" 			 => $cv,
 				"Vacancy" 	 	 => SESSION("ZanUserName"),
@@ -167,9 +170,9 @@ class Jobs_Model extends ZP_Load
 				"Message" 	 	 => $message,
 			);
 
-			$this->Db->insert("". DB_PREFIX ."vacancy", $data);
-		} 
-		else {
+			$this->Db->insert("vacancy", $data);
+			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
+		} else {
 			return false;
 		}
 	}
@@ -184,13 +187,8 @@ class Jobs_Model extends ZP_Load
 	{
 		$jname = str_replace("-", " ", segment(2, isLang()));
 		$user = SESSION("ZanUserID");
-		$data= $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Name = '$jname' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
-	
-		if (!$data == "") {
-			return true;
-		} else {
-		  	return false;
-		}
+		$data = $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Name = '$jname' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		return $data;
 	}
 
 	private function search($search, $field)

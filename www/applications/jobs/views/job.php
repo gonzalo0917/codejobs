@@ -3,6 +3,7 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
+	____($isvacancy);
 	?>
 
 <div class="job">
@@ -45,19 +46,20 @@
 		</p>
 
 		<p>
-			<?php if (!defined("ACCESS")) {
+			<?php if (!SESSION("ZanUser")) {
 				echo '<span class="small italic grey">';
 			    echo __("You must be registered to display this content").'</br/>';
 				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
-			} elseif (defined("ACCESS") and $isvacancy == true) {
+			} elseif (SESSION("ZanUser") and $isvacancy) {
 				echo '<span class="bold">'. __("You have already apply for this vacancy") .'</span>';
-			} elseif (defined("ACCESS") and $isvacancy == false) { ?>
+			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
 			</ul>
-			<input id="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
-			<input id="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
+			<input id="jid" name="jid" type="hidden" value="<?php echo $job["ID_Job"]; ?>" />
+			<input id="jauthor" name="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
+			<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
 
 			<?php echo formInput(array(
 				"type" => "file", 
@@ -79,7 +81,7 @@
 				"rows" => "5",
 				"field" => __("Message"), 
 				"p" => "true",
-				"placeholder" => __("Writte a message to the user"),
+				"value" => __("I'm interested in your Job. Please contact me about position"),
 			));
 
 				echo formInput(array(
