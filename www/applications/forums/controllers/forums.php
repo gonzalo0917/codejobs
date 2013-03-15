@@ -194,7 +194,7 @@ class Forums_Controller extends ZP_Load
 	{
 		echo path("forums/". POST("fname"));		
 	}
-	
+
 	public function cancelComment()
 	{
 		$UrlCancel = path("forums/". POST("fname") ."/". POST("fid"));
@@ -302,7 +302,7 @@ class Forums_Controller extends ZP_Load
 	{
 
 		$data = $this->Forums_Model->getCommentToEdit($postID);
-
+		
 		if ($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");

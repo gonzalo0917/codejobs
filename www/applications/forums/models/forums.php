@@ -158,7 +158,7 @@ class Forums_Model extends ZP_Load
 
 		$this->Db->update("forums_posts", $data, $postID);
 		
-		$URL = path("forums/". slug(POST("fname")) ."/". $forumID ."/#id". $postID);
+		$URL = path("forums/". slug(POST("fname")) ."/". $forumID ."/". $postID);
 
 		return $URL;
 	}
