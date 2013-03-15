@@ -144,7 +144,8 @@ class Jobs_Model extends ZP_Load
 		}
 
 		if (FILES("cv", "name")) {
-			$ext = $this->Files->getExtension(FILES("cv", "name"));
+			____(getExtension(FILES("cv", "name")));
+			$ext = getExtension(FILES("cv", "name"));
 
 			$this->Files->filename  = "cv_". slug(SESSION("ZanUser")) .".". $ext;
 			$this->Files->fileType  = FILES("cv", "type");
