@@ -81,6 +81,14 @@ $(document).on("ready", function() {
 		}
 	});
 
+	$("#fcancel").on("click", function(e) {
+		e.preventDefault();
+		$("ftitle").focus();
+		$("#ftitle").val("");
+		$("#ftags").val("");
+		$(".cke_wysiwyg_frame").contents().find('body').html("")
+	});
+
 	$("#pcancel").on("click", function() {
 		var fname = $("#fname").val();
 		$.ajax({
