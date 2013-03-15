@@ -12,6 +12,7 @@ class Jobs_Model extends ZP_Load
 		$this->language = whichLanguage();
 		$this->table = "jobs";
 		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation";
+		$this->fieldsVacancy = "Id_Vacant, Job_Name, Job_Author, Vacancy, Vacancy_Email, Cv, Message";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 	}
@@ -118,6 +119,46 @@ class Jobs_Model extends ZP_Load
 		}
 
 		return getAlert(__("Insert Error"));
+	}
+
+	public function saveVacant($jname, $jauthor, $jemail, $message)
+	{
+		$this->helper(array("alerts", "forms"));
+
+		if ($jname and $jauthor and $jemail and $message) {
+			$data = array(
+				"Job_Name"	 => $jname,
+				"Job_Author" => $jauthor,
+				"ID_UserVacancy" => SESSION("ZanUserID"),
+				"Vacancy" 	 => SESSION("ZanUserName"),
+				"Vacancy_Email" => $jemail,
+				"Message" 	 => $message,
+			);
+
+			$this->Db->insert("". DB_PREFIX ."vacancy", $data);
+		} 
+		else {
+			return false;
+		}
+	}
+
+	public function getVacancy()
+	{
+		$author = SESSION("ZanUser");
+		return $this->Db->query("SELECT Job_Name, Job_Author, ID_UserVacancy, Vacancy, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+	}
+
+	public function isVacancy()
+	{
+		$jname = str_replace("-", " ", segment(2, isLang()));
+		$user = SESSION("ZanUserID");
+		$data= $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Name = '$jname' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+	
+		if (!$data == "") {
+			return true;
+		} else {
+		  	return false;
+		}
 	}
 
 	private function search($search, $field)

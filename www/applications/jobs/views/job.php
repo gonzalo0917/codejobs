@@ -2,9 +2,8 @@
 	if (!defined("ACCESS")) {
 		die("Error: You don't have permission to access here..."); 
 	}
-
-	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"])
-;?>
+	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
+	?>
 
 <div class="job">
 	<h2>
@@ -44,18 +43,43 @@
 			</ul>
 		</p>
 
-		<h5><?php echo __("Contact Information")?></h5>
 		<p>
-			<?php if (SESSION("ZanUserID")) {?>
+			<?php if (!defined("ACCESS")) {
+				echo '<span class="small italic grey">';
+			    echo __("You must be registered to display this content").'</br/>';
+				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
+					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
+			} elseif (defined("ACCESS") and $isvacancy == true) {
+				echo '<span class="bold">'. __("You have already apply for this vacancy") .'</span>';
+			} elseif (defined("ACCESS") and $isvacancy == false) { ?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
 			</ul>
+			<input id="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
+			<input id="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
+
 			<?php echo formInput(array(
 				"type" => "file", 
-				"id" => "fileselect",
+				"id" => "cv",
 				"name" => "cv",
-				"field" => __("Upload your CV here"), 
+				"field" => __("Upload your CV here"),
 				"p" => true
+			));
+			?>
+			<div id= "message-alert"></div>
+			<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
+			<input id="success" type="hidden" value="<?php echo __("An email has been sent to the recluiter..."); ?>" />
+			<?php
+				echo formInput(array( 
+				"id" => "jemail",
+				"name" => "jemail",
+				"pattern" => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+				"type" => "email",
+				"class" => "span5 required",
+				"field" => __("Email"), 
+				"p" => "true", 
+				"placeholder" => __("Enter your email"),
+				"required" => "true"
 			));
 
 				echo formTextarea(array(
@@ -73,15 +97,10 @@
 				"id" => "apply",
 				"name" => "apply",
 				"value" => __("Apply for the vacancy"),
-				"p" => true
+				"p" => "true"
 			)); ?>
-			<?php } else {?>
-				<span class="small italic grey">
-					<?php echo __("You must be registered to display this content"); ?></br/>
-					<?php echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
-					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a>" ; ?>
-				</span>
-			<?php }?>
+
+			<?php } ?>
 		</p>
 	</p>
 

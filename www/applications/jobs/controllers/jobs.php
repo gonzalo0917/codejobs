@@ -134,17 +134,25 @@ class Jobs_Controller extends ZP_Load
 		}
 	}
 
+	public function apply()
+	{
+		$this->Jobs_Model->saveVacant(POST("jname"), POST("jauthor"), POST("jemail"), POST("message", "clean"));
+	}
+
 	public function go($jobID = 0)
 	{
 		$this->CSS("jobs", $this->application);
 		$this->CSS("pagination");
+		$this->js("jobs", "jobs");
 		$data = $this->Cache->data("job-$jobID", "jobs", $this->Jobs_Model, "getByID", array($jobID));
 
 		if ($data) {
-			$this->helper(array("time", "forms"));
+			$this->helper(array("time", "forms", "alerts"));
 			$this->title(__("Jobs") ." - ". decode($data[0]["Title"]), false);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
+			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+			$vars["isvacancy"] = $this->Jobs_Model->isVacancy();
 			$vars["views"] = $this->Jobs_Model->updateViews($jobID);
 			$vars["job"] = $data[0];
 			$vars["view"] = $this->view("job", true);
@@ -152,6 +160,21 @@ class Jobs_Controller extends ZP_Load
 		} else {
 			redirect();
 		}
+	}
+
+	public function vacancy()
+	{
+		$this->CSS("jobs", $this->application);
+		$this->CSS("results", "cpanel");
+		$this->CSS("pagination");
+			$this->helper(array("time", "forms", "alerts"));
+			$this->title(__("Your Vacancy"));
+			//$this->meta("keywords", $data[0]["Tags"]);
+			//$this->meta("description", $data[0]["Description"]);
+			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+			//$vars["job"] = $data[0];
+			$vars["view"] = $this->view("vacancy", true);
+			$this->render("content", $vars);
 	}
 	
 	public function visit($jobID = 0)
