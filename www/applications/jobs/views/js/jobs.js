@@ -23,6 +23,7 @@ $(document).on("ready", function() {
 			data: 'jname=' + jname + '&jauthor=' + jauthor + '&jemail=' + jemail + '&message=' + message,
 			success: function(response) {
 			console.log(response);
+			location.reload();
 			}
 		});	
 	});

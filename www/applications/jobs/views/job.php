@@ -43,9 +43,15 @@
 			</ul>
 		</p>
 
-		<h5><?php echo __("Contact Information")?></h5>
 		<p>
-			<?php if (SESSION("ZanUserID")) {?>
+			<?php if (!defined("ACCESS")) {
+				echo '<span class="small italic grey">';
+			    echo __("You must be registered to display this content").'</br/>';
+				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
+					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
+			} elseif (defined("ACCESS") and $isvacancy == true) {
+				echo '<span class="bold">'. __("You have already apply for this vacancy") .'</span>';
+			} elseif (defined("ACCESS") and $isvacancy == false) { ?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
 			</ul>
@@ -94,13 +100,7 @@
 				"p" => "true"
 			)); ?>
 
-			<?php } else {?>
-				<span class="small italic grey">
-					<?php echo __("You must be registered to display this content"); ?></br/>
-					<?php echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
-					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a>" ; ?>
-				</span>
-			<?php }?>
+			<?php } ?>
 		</p>
 	</p>
 

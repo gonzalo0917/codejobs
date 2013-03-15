@@ -129,6 +129,7 @@ class Jobs_Model extends ZP_Load
 			$data = array(
 				"Job_Name"	 => $jname,
 				"Job_Author" => $jauthor,
+				"ID_UserVacancy" => SESSION("ZanUserID"),
 				"Vacancy" 	 => SESSION("ZanUserName"),
 				"Vacancy_Email" => $jemail,
 				"Message" 	 => $message,
@@ -144,7 +145,20 @@ class Jobs_Model extends ZP_Load
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");
-		return $this->Db->query("SELECT Job_Name, Job_Author, Vacancy, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+		return $this->Db->query("SELECT Job_Name, Job_Author, ID_UserVacancy, Vacancy, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+	}
+
+	public function isVacancy()
+	{
+		$jname = str_replace("-", " ", segment(2, isLang()));
+		$user = SESSION("ZanUserID");
+		$data= $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Name = '$jname' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+	
+		if (!$data == "") {
+			return true;
+		} else {
+		  	return false;
+		}
 	}
 
 	private function search($search, $field)

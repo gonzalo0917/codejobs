@@ -152,6 +152,7 @@ class Jobs_Controller extends ZP_Load
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
 			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+			$vars["isvacancy"] = $this->Jobs_Model->isVacancy();
 			$vars["views"] = $this->Jobs_Model->updateViews($jobID);
 			$vars["job"] = $data[0];
 			$vars["view"] = $this->view("job", true);
