@@ -136,14 +136,14 @@ class Jobs_Controller extends ZP_Load
 
 	public function apply()
 	{
-		$this->Jobs_Model->saveVacant(POST("jname"), POST("jauthor"), POST("jemail"), POST("message", "clean"));
+		$this->Jobs_Model->saveVacant();
 	}
 
 	public function go($jobID = 0)
 	{
 		$this->CSS("jobs", $this->application);
 		$this->CSS("pagination");
-		$this->js("jobs", "jobs");
+		//$this->js("jobs", "jobs");
 		$data = $this->Cache->data("job-$jobID", "jobs", $this->Jobs_Model, "getByID", array($jobID));
 
 		if ($data) {
