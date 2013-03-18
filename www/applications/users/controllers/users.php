@@ -540,9 +540,7 @@ class Users_Controller extends ZP_Load
 		isConnected();
 
 		$data = $this->Users_Model->getInformation();
-
 		if ($data) {
-			//mostrar el form con toda la info
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
 			$this->css("forms", "cpanel");
@@ -555,6 +553,7 @@ class Users_Controller extends ZP_Load
 			}
 
 			$this->js("jquery.jdpicker.js");
+			$this->js("cv", $this->application);
 
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
