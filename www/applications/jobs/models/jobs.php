@@ -11,7 +11,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "jobs";
-		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation";
+		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation, Counter";
 		$this->fieldsVacancy = "Id_Vacant, Job_Name, Job_Author, Vacancy, Vacancy_Email, Cv, Message";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
@@ -90,7 +90,7 @@ class Jobs_Model extends ZP_Load
 	public function preview()
 	{
 		if (POST("title") AND POST("email") AND POST("address1") AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
-			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language")) {
+			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language") AND POST("counter")) {
 			return array(
 				"Allocation_Time" => POST("allocation"),
 				"Author" => SESSION("ZanUser"),
@@ -126,6 +126,7 @@ class Jobs_Model extends ZP_Load
 		$jname = POST("jname");
 		$jauthor = POST("jauthor");
 		$message = POST("message");
+		$jid = POST("jid");
 
 		$this->Files = $this->core("Files");
 		$this->helper(array("alerts", "forms", "files"));
@@ -159,9 +160,10 @@ class Jobs_Model extends ZP_Load
 			}
 		}
 
-		if ($jname and $jauthor and $message) {
+		if ($jid and $jname and $jauthor and $message) {
 			$data = array(
 				"Job_Name"	 	 => $jname,
+				"Job_Id"		 => $jid,
 				"Job_Author" 	 => decode($jauthor),
 				"ID_UserVacancy" => SESSION("ZanUserID"),
 				"Cv" 			 => $cv,
@@ -185,9 +187,9 @@ class Jobs_Model extends ZP_Load
 
 	public function isVacancy()
 	{
-		$jname = str_replace("-", " ", segment(2, isLang()));
+		$jid = segment(1, isLang());
 		$user = SESSION("ZanUserID");
-		$data = $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Name = '$jname' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		$data = $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Id = '$jid' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
 		return $data;
 	}
 
@@ -233,6 +235,13 @@ class Jobs_Model extends ZP_Load
 
 	public function getByID($ID)
 	{
+		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$ID' ORDER BY ID_Job DESC");
+		$counter = $getcounter[0]["Counter"] += 1;
+		$data = array(
+				"Counter" => $counter,
+			);
+
+		$this->Db->update("jobs", $data, $ID);
 		return $this->Db->findBySQL("ID_Job = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
 	}
 
