@@ -182,7 +182,7 @@ class Jobs_Model extends ZP_Load
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");
-		return $this->Db->query("SELECT Job_Name, Job_Author, ID_UserVacancy, Vacancy, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+		return $this->Db->query("SELECT Job_Name, Job_Author, ID_UserVacancy, Vacancy, Cv, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
 	}
 
 	public function isVacancy()
