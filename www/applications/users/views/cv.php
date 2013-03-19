@@ -2,12 +2,14 @@
     if (!defined("ACCESS")) {
     	die("Error: You don't have permission to access here..."); 
     }
-        
-    $summary     = isset($data) ? recoverPOST("summary", $data[0]["Summary"]) : recoverPOST("summary");
-    $skills      = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
-    $edit        = isset($data) ? true : false;
-    $experiences = isset($data) ? $data[0]["Experiences"] : false;
-    $education   = isset($data) ? $data[0]["Education"] : false;
+    
+    $ID_Experience  = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) : 0;
+    $ID_School      = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"])              : 0;
+    $summary        = isset($data) ? recoverPOST("summary", $data[0]["Summary"]) : recoverPOST("summary");
+    $skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
+    $edit           = isset($data) ? true : false;
+    $experiences    = isset($data) ? $data[0]["Experiences"] : false;
+    $education      = isset($data) ? $data[0]["Education"] : false;
     //$action      = isset($data) ? "edit" : "save";
     //$href        = isset($data) ? path(whichApplication() ."/cpanel/edit/") : path(whichApplication() ."/cpanel/add/");
 
@@ -40,7 +42,7 @@
                         
             echo span("field", "&raquo; " . __("Experience") . " ({{experiences.length}})");
             
-            echo div("sectionExperience", "class");
+            //echo div("sectionExperience", "class");
 
             echo htmlTag("div", array(
                 "class"     => "well span10",
@@ -122,13 +124,23 @@
                     ), __("Remove experience"));
                     
                     echo htmlTag("div", false);
+            //echo htmlTag("div", false);
             echo htmlTag("div", false);
-            echo htmlTag("div", false);
+
             echo htmlTag("div", array(
                 "id"       => "add",
                 "class"    => "btn span10",
                 "ng-click" => "addExperience()"
             ), __("Add another experience") . "...");
+
+            echo formInput(array(   
+                "name" => "saveExperiences", 
+                "class" => "btn btn-success", 
+                "value" => __("Save Experiences"), 
+                "type" => "submit"
+            ));
+            
+            echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID_Experience));
 
         echo formClose();
         echo htmlTag("div", false);
@@ -145,7 +157,7 @@
         echo formOpen($href, "form-add", "form-add");
             echo isset($alert) ? $alert : null;
 
-            echo span("field", "&raquo; " . __("Education") . " ({{experiences.length}})");
+            echo span("field", "&raquo; " . __("Education") . " ({{education.length}})");
             
             echo htmlTag("div", array(
                 "class"     => "well span10",
@@ -227,6 +239,16 @@
             ), __("Add another institute") . "...");
 
             echo htmlTag("div", false);
+
+            echo formInput(array(   
+                "name" => "saveEducation", 
+                "class" => "btn btn-success", 
+                "value" => __("Save Education"), 
+                "type" => "submit"
+            ));
+            
+            echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID_School));
+
         echo formClose();
 
     echo htmlTag("div", false);
@@ -311,7 +333,7 @@ function CvEducation($scope) {
         
         window.setTimeout(function () {
             $('html, body').animate({
-                scrollTop: $("#name" + ($scope.education.length - 1)).parent().parent().offset().top - 10
+                scrollTop: $("#school" + ($scope.education.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
                 $("#syntax" + ($scope.education.length - 1)).focus();
             });

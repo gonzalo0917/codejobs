@@ -68,7 +68,7 @@ if (!function_exists("recoverExperiences")) {
         if (is_array($idexperience) and is_array($company) and is_array($title) and is_array($periodfrom) and is_array($periodto) and is_array($description)) {
             $return = array();
             
-            for ($i = 0; $i < count($idfiles); $i++) {
+            for ($i = 0; $i < count($idexperience); $i++) {
                 $return[] = array(
                     "ID_Experience" => $idexperience[$i],
 		            "Company" => $company[$i],
@@ -104,7 +104,7 @@ if (!function_exists("recoverEducation")) {
         if (is_array($idschool) and is_array($school) and is_array($degree) and is_array($periodfrom) and is_array($periodto) and is_array($description)) {
             $return = array();
             
-            for ($i = 0; $i < count($idfiles); $i++) {
+            for ($i = 0; $i < count($idschool); $i++) {
                 $return[] = array(
                     "ID_School" => $idschool[$i],
 		            "School" => $school[$i],

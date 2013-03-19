@@ -1,4 +1,4 @@
-.dateinline {
+.jdpicker_w {
 	display: inline;
 }
 .education {
@@ -40,17 +40,20 @@ a.btn, a.btn:focus {
     color: #ccc !important;
     float: right;
 }
-
 .field-title {
     width: 100%;
 }
-
 .add-form {
     width: 100% !important;
 }
 #add {
-    box-sizing: border-box;
+    display: block;
+    float: none;
+    font-family: Verdana, Arial, Helvetica, Sans-serif;
+    font-size: 13px;
     margin-bottom: 20px;
+    margin-right: -12px;
+    box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -o-box-sizing: border-box;

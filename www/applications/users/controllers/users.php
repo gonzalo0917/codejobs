@@ -550,13 +550,18 @@ class Users_Controller extends ZP_Load
 			$this->css("users", $this->application);
 			$this->css("cv", $this->application);
 
-			if (POST("save")) {
+			if (POST("saveExperiences")) {
 				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->saveCv();
+				$vars["alert"] = $this->Users_Model->saveExperiences();
+			}
+
+			if (POST("saveEducation")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->saveEducation();
 			}
 
 			$this->js("jquery.jdpicker.js");
-			//$this->js("cv", $this->application);
+			$this->js("cv", $this->application);
 
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");

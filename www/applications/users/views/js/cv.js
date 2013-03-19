@@ -1,22 +1,5 @@
-$(document).ready(function() {
-
-	$('#addExperience').on('click',function() {
-		$('.sectionExperience').clone().insertAfter($(this)).animate({
-                scrollTop: $("#company" + ($scope.experiences.length - 1)).parent().parent().offset().top - 10
-            }, 1000, function () {
-                $(".sectionExperience" + ($scope.experiences.length - 1)).focus();
-            });
-
-	})
-
-	$('#addSchool').on('click',function() {
-		console.log("Escuela");
-	})
-
-})
-/*
-function CvExperience($scope) {  
-    console.log("problemas");
+function CvExperience($scope) {
+    console.log("CvExperience");
     $scope.experiences = [
         <?php
         for ($experience = 0; $experience < count($experiences); $experience++) {
@@ -36,7 +19,7 @@ function CvExperience($scope) {
     ];
 
     $scope.addExperience = function () {
-        console.log("problemas");
+        console.log("addExperience");
         var index = $scope.experiences.length;
         
         $scope.experiences.push({
@@ -53,14 +36,18 @@ function CvExperience($scope) {
     };
 
     $scope.removeExperience = function (index) {
+        console.log("removeExperience");
         if (index > 0) {
             if (confirm("<?php print __("Do you want to remove this experience?"); ?>")) {
                 this.experiences.splice(index, 1);
             }
         }
     };
+}
 
-    $scope.education = [
+function CvEducation($scope) {
+    console.log("CvEducation");
+     $scope.education = [
         <?php
         for ($school = 0; $school < count($education); $school++) {
         ?>
@@ -78,6 +65,7 @@ function CvExperience($scope) {
     ];
 
     $scope.addSchool = function () {
+        console.log("addSchool");
         var index = $scope.education.length;
         
         $scope.education.push({
@@ -86,7 +74,7 @@ function CvExperience($scope) {
         
         window.setTimeout(function () {
             $('html, body').animate({
-                scrollTop: $("#name" + ($scope.education.length - 1)).parent().parent().offset().top - 10
+                scrollTop: $("#school" + ($scope.education.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
                 $("#syntax" + ($scope.education.length - 1)).focus();
             });
@@ -94,8 +82,9 @@ function CvExperience($scope) {
     };
 
     $scope.removeSchool = function (index) {
+        console.log("removeSchool"); 
         if (index > 0) {
-            if (confirm("<?php print __("Do you want to remove this school?"); ?>")) {
+            if (confirm("<?php print __("Do you want to remove this institute?"); ?>")) {
                 this.education.splice(index, 1);
             }
         }
@@ -103,21 +92,3 @@ function CvExperience($scope) {
     //Configurar addschool y removeschool para que se utilicen para en school y experience
 
 }
-
-$("#update-personal-information").click(function () {
-	var userid = $('#userid').val();
-	var name = $('#name').val();
-	var birthday = $('#birthday').val();
-
-	alert(name);
-	//Validaciones
-
-	$.ajax({
-		type: 'POST',
-		url:   PATH + '/users/cv/'+ userid,
-		data: 'name='+ name + '&birthday=' + birthday,
-		success: function(response) {
-			alert("Datos actualizados");
-		}
-	});
-});*/

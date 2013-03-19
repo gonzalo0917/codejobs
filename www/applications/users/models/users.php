@@ -1038,7 +1038,7 @@ class Users_Model extends ZP_Load
 		return getAlert(__("Insert error"));
 	}
 
-	private function saveCv()
+	public function saveCv()
 	{
 		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
             $this->data = $this->proccessExperiences($ID);
@@ -1058,6 +1058,14 @@ class Users_Model extends ZP_Load
 		}
 		
 		return getAlert(__("Insert error"));
+	}
+
+	public function saveExperiences() {
+		die("saveExperiences");
+	}
+
+	public function saveEducation() {
+		die("saveEducation");
 	}
 	
 	private function editCv()
