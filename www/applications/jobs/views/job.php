@@ -3,7 +3,6 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
-	____($isvacancy);
 	?>
 
 <div class="job">
@@ -116,7 +115,7 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-	
+		Number of views: <?php echo $job["Counter"]; ?>
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>

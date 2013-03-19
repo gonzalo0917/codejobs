@@ -8,7 +8,7 @@ class Forums_Model extends ZP_Load
 	public function __construct()
 	{
 		$this->Db = $this->db();
-        $this->language = whichLanguage();
+		$this->language = whichLanguage();
 		$this->table = "forums";
 		$this->fields = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
 		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Title, Slug, Content, Author, Avatar, Start_Date,";
@@ -412,7 +412,7 @@ class Forums_Model extends ZP_Load
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author', Total_Comments = '$i' WHERE ID_Post = '$fid'");
 				$content = $data["Content"];
 				$edit = path("forums/". $fname ."/editComment/". $lastID);
-				$delete = path("forums/". $fname ."/delete/". $lastID);				
+				$delete = path("forums/". $fname ."/delete/". $lastID ."/". $fid);				
 				$URL = path("forums/". $fname ."/author/". $data["Author"]);
 				$date = '<a href="'. $URL .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]);
 

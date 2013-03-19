@@ -21,7 +21,7 @@
     }
 
     echo htmlTag("div", array(
-        "ng-controller" => "CvCtrl",
+        "ng-controller" => "CvExperience",
         "class" => "add-form"
     ));
 
@@ -38,12 +38,18 @@
                 "value" => $summary
             ));
                         
-            echo span("field", "&raquo; " . __("Experience") . " ({{experience.length}})");
-                        
+            echo span("field", "&raquo; " . __("Experience") . " ({{experiences.length}})");
+            
+            echo div("sectionExperience", "class");
+
             echo htmlTag("div", array(
                 "class"     => "well span10",
                 "ng-repeat" => "experience in experiences"
             ));
+
+                echo htmlTag("span", array(
+                    "class" => "field field-right",
+                ), "#{{\$index + 1}}");
                             
                 echo formInput(array(	
                     "name"  => "experience[]",
@@ -109,7 +115,7 @@
                     echo htmlTag("div", array(
                         "class" => "remove remove-{{\$index > 0}}"
                     ));
-                    
+
                     echo htmlTag("a", array(
                         "class"    => "btn btn-danger",
                         "ng-click" => "removeExperience(\$index)"
@@ -117,7 +123,7 @@
                     
                     echo htmlTag("div", false);
             echo htmlTag("div", false);
-
+            echo htmlTag("div", false);
             echo htmlTag("div", array(
                 "id"       => "add",
                 "class"    => "btn span10",
@@ -131,7 +137,7 @@
 
 
     echo htmlTag("div", array(
-        "ng-controller" => "CvCtrl",
+        "ng-controller" => "CvEducation",
         "class" => "add-form"
     ));
 
@@ -139,14 +145,16 @@
         echo formOpen($href, "form-add", "form-add");
             echo isset($alert) ? $alert : null;
 
-            echo "<div style='margin-top: 80px'></div>";
-
-            echo span("field", "&raquo; " . __("Education") . " ({{education.length}})");
+            echo span("field", "&raquo; " . __("Education") . " ({{experiences.length}})");
             
             echo htmlTag("div", array(
                 "class"     => "well span10",
-                "ng-repeat" => "experience in experiences"
+                "ng-repeat" => "school in education"
             ));
+
+                echo htmlTag("span", array(
+                    "class" => "field field-right",
+                ), "#{{\$index + 1}}");
 
                 echo formInput(array(
                     "name"  => "school[]",
@@ -207,7 +215,7 @@
                 echo htmlTag("a", array(
                     "class"    => "btn btn-danger",
                     "ng-click" => "removeSchool(\$index)"
-                ), __("Remove school"));
+                ), __("Remove institute"));
                 
                 echo htmlTag("div", false);
             echo htmlTag("div", false);
@@ -216,20 +224,19 @@
                 "id"       => "add",
                 "class"    => "btn span10",
                 "ng-click" => "addSchool()"
-            ), __("Add another school") . "...");
+            ), __("Add another institute") . "...");
 
             echo htmlTag("div", false);
         echo formClose();
 
-    echo div(false);
+    echo htmlTag("div", false);
 
     echo htmlTag("div", false);
 
 ?>
 <script type="text/javascript">
-function CvCtrl($scope) {
-    alert("scope cv");
-    console.log("problemas");
+function CvExperience($scope) {
+    console.log("CvExperience");
     $scope.experiences = [
         <?php
         for ($experience = 0; $experience < count($experiences); $experience++) {
@@ -249,7 +256,7 @@ function CvCtrl($scope) {
     ];
 
     $scope.addExperience = function () {
-        console.log("problemas");
+        console.log("addExperience");
         var index = $scope.experiences.length;
         
         $scope.experiences.push({
@@ -266,14 +273,18 @@ function CvCtrl($scope) {
     };
 
     $scope.removeExperience = function (index) {
+        console.log("removeExperience");
         if (index > 0) {
             if (confirm("<?php print __("Do you want to remove this experience?"); ?>")) {
                 this.experiences.splice(index, 1);
             }
         }
     };
+}
 
-     /*$scope.education = [
+function CvEducation($scope) {
+    console.log("CvEducation");
+     $scope.education = [
         <?php
         for ($school = 0; $school < count($education); $school++) {
         ?>
@@ -291,6 +302,7 @@ function CvCtrl($scope) {
     ];
 
     $scope.addSchool = function () {
+        console.log("addSchool");
         var index = $scope.education.length;
         
         $scope.education.push({
@@ -307,12 +319,13 @@ function CvCtrl($scope) {
     };
 
     $scope.removeSchool = function (index) {
+        console.log("removeSchool"); 
         if (index > 0) {
-            if (confirm("<?php print __("Do you want to remove this school?"); ?>")) {
+            if (confirm("<?php print __("Do you want to remove this institute?"); ?>")) {
                 this.education.splice(index, 1);
             }
         }
-    };*/
+    };
     //Configurar addschool y removeschool para que se utilicen para en school y experience
 
 }

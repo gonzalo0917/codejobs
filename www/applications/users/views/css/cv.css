@@ -28,6 +28,26 @@ div.well {
 .remove-true {
     display: block;
 }
+.field-p {
+    display: inline;
+}
+a.btn, a.btn:focus {
+    color: #fff;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    text-decoration: none;
+}
+.field-right {
+    color: #ccc !important;
+    float: right;
+}
+
+.field-title {
+    width: 100%;
+}
+
+.add-form {
+    width: 100% !important;
+}
 #add {
     box-sizing: border-box;
     margin-bottom: 20px;

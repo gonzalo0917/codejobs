@@ -9,6 +9,11 @@ $content = isset($data) ? encode(recoverPOST("content", $data[0]["Content"])) : 
 $content = str_replace("%u200B", "", $content);
 ?>
 
+<ul class="breadcrumb">
+	<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
+  	<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo segment(1, islang()); ?></a> <span class="divider">></span></li>
+  	<li class="active">Edit Comment</li>
+</ul>
 <p id="fmessage"></p>
 <div class="post-title">
 	<span class="forums-create"><?php echo __("Edit Comment"); ?></span>

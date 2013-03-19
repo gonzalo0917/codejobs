@@ -7,6 +7,10 @@ $i = 1;
 $rand2 = rand(6, 10);
 ?>
 <div id="fposts">
+<ul class="breadcrumb">
+	<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
+	<li class="active"><?php echo ucfirst(str_replace("-", " ", $forum)); ?></li>
+</ul>
 <?php
 if ($posts) {
 	$forum = slug($forum);
@@ -16,7 +20,7 @@ if ($posts) {
 		$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
 		$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 		$in        = ($forum !== "") ? __("in") : null;				
-		?>					
+		?>				
 		<div class="post">
 			<div class="post-title">
 				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
