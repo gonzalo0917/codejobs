@@ -37,7 +37,7 @@ $(document).on("ready", function() {
 					$("#forum-content").html(oldComments + newComment);
 					$("#comment-alert").show();
 					$("#comment-alert").hide(4000);
-					$("#editor").val("");
+					$(".cke_wysiwyg_frame").contents().find('body').html("");
 				}
 			});
 		}

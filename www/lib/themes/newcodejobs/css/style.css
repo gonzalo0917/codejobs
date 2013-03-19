@@ -763,3 +763,28 @@ div.comments-content:hover {
 .comment-post {
 	font-size: 0.85em;
 }
+
+.breadcrumb {
+	padding: 5px 15px;
+	margin: 0 0 20px;
+	list-style: none;
+	background-color: #eee;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	text-decoration: none;
+}
+
+.breadcrumb > li {
+	display: inline-block;
+	text-shadow: 0 1px 0 #ffffff;
+}
+
+.breadcrumb > li > .divider {
+	padding: 0 5px;
+	color: #A21010;
+}
+
+.breadcrumb > .active {
+	color: #555;
+}

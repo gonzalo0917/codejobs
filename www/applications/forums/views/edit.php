@@ -12,6 +12,12 @@ $content = str_replace("%u200B", "", $content);
 ?>
 
 <p id="fmessage"></p>
+<ul class="breadcrumb">
+	<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
+  	<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo segment(1, islang()); ?></a> <span class="divider">></span></li>
+  	<li><a href="<?php echo path("forums/". segment(1, isLang()) ."/". $pid ."/". $title); ?>"><?php echo $title; ?></a><span class="divider">></span></li>
+  	<li class="active">Edit</li>
+</ul>
 <div class="post-title">
 	<span class="forums-create"><?php echo __("Edit topic"); ?></span>
 	<br />

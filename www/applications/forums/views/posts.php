@@ -13,8 +13,9 @@
 					
 					<div class="post">
 						<ul class="breadcrumb">
-  							<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo segment(1, islang()); ?></a> <span class="divider">/</span></li>
-  							<li class="active"><a><?php echo stripslashes($post["Title"]); ?></a><span class="divider">/</span></li>
+							<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
+  							<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo ucfirst(str_replace("-", " ", segment(1, islang()))); ?></a> <span class="divider">></span></li>
+  							<li class="active"><?php echo stripslashes($post["Title"]); ?></li>
 						</ul>
 						<div class="post-title">
 							<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
