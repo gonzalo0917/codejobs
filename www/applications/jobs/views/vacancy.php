@@ -3,7 +3,12 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 ?>
-
+<?php if (!SESSION("ZanUser")) {
+				echo '<span class="small italic grey">';
+			    echo __("You must be registered to display this content").'</br/>';
+				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
+					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
+			} else { ?>
 <div class = "results">
 	<?php if ($vacancy == ""){
 		echo __("You don't have any vacancy");
@@ -23,11 +28,12 @@
 			echo '<tr>';
 			echo '<td>'. $vacant["Job_Name"] .'</td>';
 			echo '<td>'. $vacant["Vacancy"] .'</td>';
-			echo '<td> Empty </td>';
+			echo '<td><a href="'. path($vacant["Cv"], true) .'">'. __("Download") .'</a></td>';
 			echo '<td>'. $vacant["Vacancy_Email"] .'</td>';
 			echo '<td>'. $vacant["Message"] .'</td>';
 			echo '</tr>';
 		} 
-	}?>
+	}
+		}?>
 	</table>
 </div>
