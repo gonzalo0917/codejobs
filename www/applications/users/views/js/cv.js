@@ -5,7 +5,8 @@ $(document).ready(function() {
                 scrollTop: $("#company" + ($scope.experiences.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
                 $(".sectionExperience" + ($scope.experiences.length - 1)).focus();
-            });;		
+            });
+
 	})
 
 	$('#addSchool').on('click',function() {
