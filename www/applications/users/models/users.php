@@ -637,19 +637,46 @@ class Users_Model extends ZP_Load
 
 	public function setCredits($factor, $application)
 	{
+		$this->config("scores", "users");
+
+		$prefix = $factor > 0 ? "+" : "";
+		$sign = $prefix . $factor;
+
 		switch ($application) {
 			case 9: case "bookmarks":
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + $factor);
+
+				$additional = ", Bookmarks = (Bookmarks) $sign";
+				$credits = $prefix . (BOOKMARKS_CREDITS * $factor);
+				$recommendation = $prefix . (BOOKMARKS_RECOMMENDATIONS * $factor);
 			break;
 
 			case 17: case "codes":
 				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + $factor);
+
+				$additional = ", Codes = (Codes) $sign";
+				$credits = $prefix . (CODES_CREDITS * $factor);
+				$recommendation = $prefix . (CODES_RECOMMENDATIONS * $factor);
 			break;
 			
 			case 3: case "blog":
 				SESSION("ZanUserPosts", SESSION("ZanUserPosts") + $factor);
+
+				$additional = ", Posts = (Posts) $sign";
+				$credits = $prefix . (BLOG_CREDITS * $factor);
+				$recommendation = $prefix . (BLOG_RECOMMENDATIONS * $factor);
 			break;
+			
+			default:
+				$additional = "";
+				$credits = "";
+				$recommendation = "";
 		}
+
+		$userID = SESSION("ZanUserID");
+		$query = "Credits = (Credits) $credits, Recommendation = (Recommendation) $recommendation $additional WHERE ID_User = '$userID'";
+
+		$this->Db->updateBySQL("users", $query);
 
 		return false;
 	}
