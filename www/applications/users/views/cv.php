@@ -27,7 +27,6 @@
 
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
-        echo p(__(ucfirst(whichApplication())), "resalt");
             echo isset($alert) ? $alert : null;
 
             echo formTextArea(array(
@@ -47,6 +46,10 @@
                 "class"     => "well span10",
                 "ng-repeat" => "experience in experiences"
             ));
+
+                echo htmlTag("span", array(
+                    "class" => "field field-right",
+                ), "#{{\$index + 1}}");
                             
                 echo formInput(array(	
                     "name"  => "experience[]",
@@ -112,11 +115,6 @@
                     echo htmlTag("div", array(
                         "class" => "remove remove-{{\$index > 0}}"
                     ));
-                    
-                    /*echo htmlTag("a", array(
-                        "class"    => "btn btn-danger",
-                        "ng-click" => "removeExperience(\$index)"
-                    ), __("Remove experience"));*/
 
                     echo htmlTag("a", array(
                         "class"    => "btn btn-danger",
@@ -138,7 +136,7 @@
     echo htmlTag("div", false);
 
 
-    /*echo htmlTag("div", array(
+    echo htmlTag("div", array(
         "ng-controller" => "CvEducation",
         "class" => "add-form"
     ));
@@ -147,12 +145,16 @@
         echo formOpen($href, "form-add", "form-add");
             echo isset($alert) ? $alert : null;
 
-            echo span("field", "&raquo; " . __("Education") . " (1)");
+            echo span("field", "&raquo; " . __("Education") . " ({{experiences.length}})");
             
             echo htmlTag("div", array(
                 "class"     => "well span10",
-                "ng-repeat" => "experience in experiences"
+                "ng-repeat" => "school in education"
             ));
+
+                echo htmlTag("span", array(
+                    "class" => "field field-right",
+                ), "#{{\$index + 1}}");
 
                 echo formInput(array(
                     "name"  => "school[]",
@@ -213,7 +215,7 @@
                 echo htmlTag("a", array(
                     "class"    => "btn btn-danger",
                     "ng-click" => "removeSchool(\$index)"
-                ), __("Remove school"));
+                ), __("Remove institute"));
                 
                 echo htmlTag("div", false);
             echo htmlTag("div", false);
@@ -222,14 +224,14 @@
                 "id"       => "add",
                 "class"    => "btn span10",
                 "ng-click" => "addSchool()"
-            ), __("Add another school") . "...");
+            ), __("Add another institute") . "...");
 
             echo htmlTag("div", false);
         echo formClose();
 
     echo htmlTag("div", false);
 
-    echo htmlTag("div", false);*/
+    echo htmlTag("div", false);
 
 ?>
 <script type="text/javascript">
@@ -280,8 +282,8 @@ function CvExperience($scope) {
     };
 }
 
-/*function CvExperience($scope) {
-
+function CvEducation($scope) {
+    console.log("CvEducation");
      $scope.education = [
         <?php
         for ($school = 0; $school < count($education); $school++) {
@@ -300,6 +302,7 @@ function CvExperience($scope) {
     ];
 
     $scope.addSchool = function () {
+        console.log("addSchool");
         var index = $scope.education.length;
         
         $scope.education.push({
@@ -316,13 +319,14 @@ function CvExperience($scope) {
     };
 
     $scope.removeSchool = function (index) {
+        console.log("removeSchool"); 
         if (index > 0) {
-            if (confirm("<?php print __("Do you want to remove this school?"); ?>")) {
+            if (confirm("<?php print __("Do you want to remove this institute?"); ?>")) {
                 this.education.splice(index, 1);
             }
         }
     };
     //Configurar addschool y removeschool para que se utilicen para en school y experience
 
-}*/
+}
 </script>

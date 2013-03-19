@@ -540,6 +540,7 @@ class Users_Controller extends ZP_Load
 		isConnected();
 
 		$data = $this->Users_Model->getInformation();
+		
 		if ($data) {
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
