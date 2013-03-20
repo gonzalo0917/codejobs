@@ -656,7 +656,7 @@ class Users_Model extends ZP_Load
 
 	public function getInformation()
 	{
-		$fields = "Name, Description, Gender, Birthday, Country, City, District, Phone, Mobile, Website";
+		$fields = "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Website";
 
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, $fields);
 	}

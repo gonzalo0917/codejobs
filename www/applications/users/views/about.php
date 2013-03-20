@@ -2,7 +2,6 @@
 	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
 	$name     = recoverPOST("name", encode($data[0]["Name"]));
-	$description = recoverPOST("name", encode($data[0]["Description"]));
 	$gender   = recoverPOST("gender", $data[0]["Gender"]);
 	$birthday = recoverPOST("birthday", $data[0]["Birthday"] !== "" ? $data[0]["Birthday"] : "01/01/1980");
 	$country  = recoverPOST("country", encode($data[0]["Country"]));
@@ -23,15 +22,6 @@
 				"p"         => true,
 				"maxlength" => "150",
 				"value"     => $name
-			));
-
-			echo formTextarea(array(
-				"name" 	=> "description",
-				"class" => "field-title field-full-size",
-				"field" => __("Description"),
-				"p" 	=> true,
-				"size" 	=> 3,
-				"value" => $description
 			));
 
 			$options = array(
