@@ -79,3 +79,18 @@ CREATE TRIGGER bookmarks_insert AFTER INSERT ON muu_bookmarks
 		END IF;
 	END;
 %%
+
+DROP TRIGGER IF EXISTS bookmarks_update;
+CREATE TRIGGER bookmarks_update AFTER UPDATE ON muu_bookmarks
+	FOR EACH ROW BEGIN
+		IF (OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft') AND (NEW.Situation = 'Deleted' OR NEW.Situation = 'Draft') THEN
+			UPDATE muu_users SET Bookmarks = Bookmarks - 1, Credits = Credits - 1, Recommendation = Recommendation - 1
+			WHERE ID_User = OLD.ID_User;
+		ELSE
+			IF (OLD.Situation = 'Deleted' OR OLD.Situation = 'Draft') AND (NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft') THEN
+				UPDATE muu_users SET Bookmarks = Bookmarks + 1, Credits = Credits + 1, Recommendation = Recommendation + 1
+				WHERE ID_User = OLD.ID_User;
+			END IF;
+		END IF;
+	END;
+%%
