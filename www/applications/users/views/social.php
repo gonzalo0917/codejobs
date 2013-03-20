@@ -12,51 +12,74 @@
 		echo formOpen($href, "form-add", "form-add");
 			echo isset($alert) ? $alert : null;
 
-			echo formInput(array(
-				"name"      => "twitter", 
-				"class"     => "field-title field-full-size",
-				"field"     => "Twitter", 
-				"p"         => true,
-				"maxlength" => "150",
-				"value"     => $twitter
-			));
+			echo div("row", "class");
 
-			echo formInput(array(
-				"name"      => "facebook", 
-				"class"     => "field-title field-full-size",
-				"field"     => "Facebook", 
-				"p"         => true,
-				"maxlength" => "150",
-				"value"     => $facebook
-			));
+				echo div("span4", "class");
+					echo formInput(array(
+						"name"      => "twitter", 
+						"class"     => "field-title field-full-size",
+						"field"     => "Twitter", 
+						"p"         => true,
+						"maxlength" => "150",
+						"placeholder" => "@",
+						"value"     => $twitter
+					));
+				echo div(false);
 
-			echo formInput(array(
-				"name"      => "linkedin", 
-				"class"     => "field-title field-full-size",
-				"field"     => "LinkedIn", 
-				"p"         => true,
-				"maxlength" => "150",
-				"value"     => $linkedin
-			));
+				echo div("span4", "class");
+					echo formInput(array(
+						"name"      => "facebook", 
+						"class"     => "field-title field-full-size",
+						"field"     => "Facebook", 
+						"p"         => true,
+						"maxlength" => "150",
+						"value"     => $facebook
+					));
+				echo div(false);
 
-			echo formInput(array(
-				"name"      => "google", 
-				"class"     => "field-title field-full-size",
-				"field"     => "Google+", 
-				"p"         => true,
-				"maxlength" => "150",
-				"value"     => $google
-			));
+			echo div(false);
 
-			echo formInput(array(
-				"name"      => "viadeo", 
-				"class"     => "field-title field-full-size",
-				"field"     => "Viadeo", 
-				"p"         => true,
-				"maxlength" => "150",
-				"value"     => $viadeo
-			));
+			echo div("row", "class");
 
+				echo div("span4", "class");
+					echo formInput(array(
+						"name"      => "linkedin", 
+						"class"     => "field-title field-full-size",
+						"field"     => "LinkedIn", 
+						"p"         => true,
+						"maxlength" => "150",
+						"value"     => $linkedin
+					));
+				echo div(false);
+
+				echo div("span4", "class");
+					echo formInput(array(
+						"name"      => "google", 
+						"class"     => "field-title field-full-size",
+						"field"     => "Google+", 
+						"p"         => true,
+						"maxlength" => "150",
+						"value"     => $google
+					));
+				echo div(false);
+
+			echo div(false);
+
+			echo div("row", "class");
+
+				echo div("span4", "class");
+					echo formInput(array(
+						"name"      => "viadeo", 
+						"class"     => "field-title field-full-size",
+						"field"     => "Viadeo", 
+						"p"         => true,
+						"maxlength" => "150",
+						"value"     => $viadeo
+					));
+				echo div(false);
+
+			echo div(false);
+			
 			echo formInput(array(
 				"name"  => "save", 
 				"class" => "btn btn-success", 
