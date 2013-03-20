@@ -142,6 +142,42 @@ INSERT INTO `muu_blog` (`ID_Post`, `ID_User`, `Title`, `Slug`, `Content`, `Tags`
 (1, 1, 'Nuevo blog de prueba', 'nuevo-blog-de-prueba', '<p>qweadzasdsdfsdfsdfsdf</p>\r\n', 'php, pdo, mysql, conexion, base datos', 'admin', 1357692854, 1361208893, 'Martes, 08 de Enero de 2013', '2013', '01', '08', 5, '', '', '', '', '', 0, 0, 'Spanish', '', 0, '050F1EAD86', 'Active'),
 (2, 1, 'probando el blog', 'probando-el-blog', '<p>probandu</p>\r\n', 'testing, php', 'admin', 1361208696, 0, 'Lunes, 18 de Febrero de 2013', '2013', '02', '18', 1, '', '', '', '', '', 0, 0, 'Spanish', '', 0, 'E0349ACEC8', 'Active');
 
+DELIMITER %%
+
+CREATE TRIGGER blog_insert AFTER INSERT ON muu_blog FOR EACH ROW
+  BEGIN
+    IF NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft' THEN
+      UPDATE muu_users SET Posts = Posts + 1, Credits = Credits + 3, Recommendation = Recommendation + 5
+      WHERE ID_User = NEW.ID_User;
+    END IF;
+  END;
+%%
+
+CREATE TRIGGER blog_update AFTER UPDATE ON muu_blog FOR EACH ROW
+  BEGIN
+    IF (OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft') AND (NEW.Situation = 'Deleted' OR NEW.Situation = 'Draft') THEN
+      UPDATE muu_users SET Posts = Posts - 1, Credits = Credits - 3, Recommendation = Recommendation - 5
+      WHERE ID_User = OLD.ID_User;
+    ELSE
+      IF (OLD.Situation = 'Deleted' OR OLD.Situation = 'Draft') AND (NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft') THEN
+        UPDATE muu_users SET Posts = Posts + 1, Credits = Credits + 3, Recommendation = Recommendation + 5
+        WHERE ID_User = OLD.ID_User;
+      END IF;
+    END IF;
+  END;
+%%
+
+CREATE TRIGGER blog_delete BEFORE DELETE ON muu_blog FOR EACH ROW
+  BEGIN
+    IF OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft' THEN
+      UPDATE muu_users SET Posts = Posts - 1, Credits = Credits - 3, Recommendation = Recommendation - 5
+      WHERE ID_User = OLD.ID_User;
+    END IF;
+  END;
+%%
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -179,6 +215,42 @@ INSERT INTO `muu_bookmarks` (`ID_Bookmark`, `ID_User`, `Title`, `Slug`, `URL`, `
 (3, 1, 'Migrating Rails&RJS From Prototype To JQuery', 'migrating-rails-rjs-from-prototype-to-jquery', 'http://dzone.com/snippets/migrating-railsrjs-prototype', 'I was changing prototype to jsquery in my Rails app. To make my AJAX+RJS stuff work I tried jrails gem. For some reason AJAX responses were rendedered to whole page, instead of evaluating the returned JS. So i did the hack. I took this piece of jrails and put it in my /lib folder.', 'rails, ror, rjs, jquery', 'codejobs', 17, 0, 0, 0, 'English', 1337738320, 0, 'Active'),
 (4, 1, 'Capistrano: Deploy Rails Twice To The Same Machine', 'capistrano-deploy-rails-twice-to-the-same-machine', 'http://dzone.com/snippets/capistrano-deploy-rails-twice', 'Capistrano is oriented so it deploys to the same directory on several machines. This means you can''t deploy to two different locations on the same machine. The following recipe in Capfile will allow you to duplicate your main rails app in a second directory. You can schedule it to run automatically with every deploy or just do it manually. I included database migrations by default. Remove the shared config line if you don''t have it.', 'capistrano, ror, rails', 'codejobs', 41, 1, 0, 0, 'English', 1337738320, 0, 'Active');
 
+DELIMITER %%
+
+CREATE TRIGGER bookmarks_insert AFTER INSERT ON muu_bookmarks FOR EACH ROW
+  BEGIN
+    IF NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft' THEN
+      UPDATE muu_users SET Bookmarks = Bookmarks + 1, Credits = Credits + 1, Recommendation = Recommendation + 1
+      WHERE ID_User = NEW.ID_User;
+    END IF;
+  END;
+%%
+
+CREATE TRIGGER bookmarks_update AFTER UPDATE ON muu_bookmarks FOR EACH ROW
+  BEGIN
+    IF (OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft') AND (NEW.Situation = 'Deleted' OR NEW.Situation = 'Draft') THEN
+      UPDATE muu_users SET Bookmarks = Bookmarks - 1, Credits = Credits - 1, Recommendation = Recommendation - 1
+      WHERE ID_User = OLD.ID_User;
+    ELSE
+      IF (OLD.Situation = 'Deleted' OR OLD.Situation = 'Draft') AND (NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft') THEN
+        UPDATE muu_users SET Bookmarks = Bookmarks + 1, Credits = Credits + 1, Recommendation = Recommendation + 1
+        WHERE ID_User = OLD.ID_User;
+      END IF;
+    END IF;
+  END;
+%%
+
+CREATE TRIGGER bookmarks_delete BEFORE DELETE ON muu_bookmarks FOR EACH ROW
+  BEGIN
+    IF OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft' THEN
+      UPDATE muu_users SET Bookmarks = Bookmarks - 1, Credits = Credits - 1, Recommendation = Recommendation - 1
+      WHERE ID_User = OLD.ID_User;
+    END IF;
+  END;
+%%
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -213,6 +285,42 @@ INSERT INTO `muu_codes` (`ID_Code`, `ID_User`, `Title`, `Description`, `Slug`, `
 (1, 1, 'Mi primera página web', 'Forma de incrustar un archivo CSS.', 'mi-primera-pagina-web', 'CSS, HTML', 'admin', 1343549198, 0, 'Sunday, 29 de July de 2012', 2, 1, 0, 0, 'Spanish', 'Active'),
 (2, 1, 'Mostrar información en PHP', NULL, 'mostrar-informacion-en-php', 'PHP', 'admin', 1342473272, 0, 'Monday, 16 de Julio de 2012', 2, 0, 0, 0, 'Spanish', 'Active'),
 (3, 1, 'My first webpage', NULL, 'my-first-webpage', 'CSS, HTML', 'admin', 1343549249, 0, 'Sunday, 29 de July de 2012', 3, 0, 0, 0, 'English', 'Active');
+
+DELIMITER %%
+
+CREATE TRIGGER codes_insert AFTER INSERT ON muu_codes FOR EACH ROW
+  BEGIN
+    IF NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft' THEN
+      UPDATE muu_users SET Codes = Codes + 1, Credits = Credits + 2, Recommendation = Recommendation + 3
+      WHERE ID_User = NEW.ID_User;
+    END IF;
+  END;
+%%
+
+CREATE TRIGGER codes_update AFTER UPDATE ON muu_codes FOR EACH ROW
+  BEGIN
+    IF (OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft') AND (NEW.Situation = 'Deleted' OR NEW.Situation = 'Draft') THEN
+      UPDATE muu_users SET Codes = Codes - 1, Credits = Credits - 2, Recommendation = Recommendation - 3
+      WHERE ID_User = OLD.ID_User;
+    ELSE
+      IF (OLD.Situation = 'Deleted' OR OLD.Situation = 'Draft') AND (NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft') THEN
+        UPDATE muu_users SET Codes = Codes + 1, Credits = Credits + 2, Recommendation = Recommendation + 3
+        WHERE ID_User = OLD.ID_User;
+      END IF;
+    END IF;
+  END;
+%%
+
+CREATE TRIGGER codes_delete BEFORE DELETE ON muu_codes FOR EACH ROW
+  BEGIN
+    IF OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft' THEN
+      UPDATE muu_users SET Codes = Codes - 1, Credits = Credits - 2, Recommendation = Recommendation - 3
+      WHERE ID_User = OLD.ID_User;
+    END IF;
+  END;
+%%
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
