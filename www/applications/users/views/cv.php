@@ -98,6 +98,7 @@
                 ));
 
                 echo " - ";
+
                 echo formInput(array(   
                     "name"     => "periodto[]", 
                     "id"       => "periodto{{\$index}}", 
@@ -204,6 +205,8 @@
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));
 
+                echo " - ";
+                
                 echo formInput(array(   
                     "name"     => "school_period_to[]", 
                     "id"       => "school_period_to{{\$index}}", 
