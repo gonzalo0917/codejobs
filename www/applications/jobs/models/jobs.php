@@ -15,6 +15,9 @@ class Jobs_Model extends ZP_Load
 		$this->fieldsVacancy = "Id_Vacant, Job_Name, Job_Author, Vacancy, Vacancy_Email, Cv, Message";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
+		$this->Email = $this->core("Email");
+ 	 	$this->Email->fromName = _get("webName");
+ 		$this->Email->fromEmail = _get("webEmailSend");
 	}
 
 	public function getRSS()
@@ -127,6 +130,7 @@ class Jobs_Model extends ZP_Load
 		$jauthor = POST("jauthor");
 		$message = POST("message");
 		$jid = POST("jid");
+		$email2 = $this->Db->query("SELECT Email FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
 
 		$this->Files = $this->core("Files");
 		$this->helper(array("alerts", "forms", "files"));
@@ -156,7 +160,7 @@ class Jobs_Model extends ZP_Load
 			if (isset($upload["filename"])) {
 				$cv = $dir . $upload["filename"];
 			} else {
-				return getAlert(___("Error uploading file"));
+				return getAlert(__("Error uploading file"));
 			}
 		}
 
@@ -173,6 +177,10 @@ class Jobs_Model extends ZP_Load
 			);
 
 			$this->Db->insert("vacancy", $data);
+			$this->Email->email = $email2[0]["Email"];
+			$this->Email->subject = __("An user has applied to your job")." - ". _get("webName");
+			$this->Email->message = $this->view("apply_email", array(), "jobs", true);
+			$this->Email->send();
 			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
 		} else {
 			return false;

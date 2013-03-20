@@ -970,8 +970,29 @@ class Users_Model extends ZP_Load
 		}
 	}
 
-	public function addCv($action = "save")
-    {
+	/*public function saveCv()
+	{
+		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
+            $this->data = $this->proccessExperiences($ID);
+                        
+            if (isset($this->data["error"])) {
+                $this->Db->delete($ID, $this->table);
+                return $this->data["error"];
+            }
+                        
+            if ($this->Db->insertBatch("codes_files", $this->data)) {
+            	$this->Cache = $this->core("Cache");
+				$this->Cache->removeAll("codes");
+            	$this->Users_Model = $this->model("Users_Model");
+				$this->Users_Model->setCredits(1, 17);
+                return getAlert(__("The code has been saved correctly"), "success");	
+            }
+		}
+		
+		return getAlert(__("Insert error"));
+	}*/
+
+	public function saveExperiences() {
 		$error = $this->editOrSave($action);
 
 		if ($error) {
@@ -990,7 +1011,7 @@ class Users_Model extends ZP_Load
 			$lastID = $this->Db->insert($this->table, $this->data);
 			
 			if ($lastID) {
-	            $this->data = $this->proccessExperiences($lastID);
+	            $this->data = $this->proccessFiles($lastID);
 	                        
 	            if (isset($this->data["error"])) {
 	                $this->Db->delete($lastID, $this->table);
@@ -1011,34 +1032,10 @@ class Users_Model extends ZP_Load
 		return getAlert(__("Insert error"));
 	}
 
-	public function saveCv()
-	{
-		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
-            $this->data = $this->proccessExperiences($ID);
-                        
-            if (isset($this->data["error"])) {
-                $this->Db->delete($ID, $this->table);
-                return $this->data["error"];
-            }
-                        
-            if ($this->Db->insertBatch("codes_files", $this->data)) {
-            	$this->Cache = $this->core("Cache");
-				$this->Cache->removeAll("codes");
-            	$this->Users_Model = $this->model("Users_Model");
-				$this->Users_Model->setCredits(1, 17);
-                return getAlert(__("The code has been saved correctly"), "success");	
-            }
-		}
-		
-		return getAlert(__("Insert error"));
-	}
-
-	public function saveExperiences() {
-		die("saveExperiences");
-	}
-
 	public function saveEducation() {
-		die("saveEducation");
+	}
+
+	public function saveExtract() {
 	}
 	
 	private function editCv()

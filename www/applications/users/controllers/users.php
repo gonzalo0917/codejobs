@@ -560,6 +560,11 @@ class Users_Controller extends ZP_Load
 				$vars["alert"] = $this->Users_Model->saveEducation();
 			}
 
+			if (POST("saveExtract")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->saveExtract();
+			}
+
 			$this->js("jquery.jdpicker.js");
 			$this->js("cv", $this->application);
 
