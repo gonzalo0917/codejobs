@@ -8,7 +8,7 @@
 		<?php $avatar = path("www/lib/files/images/users/". $user["Avatar"], true); ?>
 		<div class="personal">
 			<div>
-				<a class="username" href="#"><?php echo $user["Username"]; ?></a>
+				<a class="username" href="<?php echo getURL(); ?>"><?php echo $user["Username"]; ?></a>
 			</div>
 			<?php if ($user["Name"]) { ?>
 			<div class="fullname">

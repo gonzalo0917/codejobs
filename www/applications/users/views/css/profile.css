@@ -39,6 +39,10 @@
 	margin-top: 5px;
 }
 
+.website a {
+	color: rgb(0, 121, 206);
+}
+
 .personal {
 	display: inline-block;
 	width: 65%;
