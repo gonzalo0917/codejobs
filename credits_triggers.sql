@@ -69,3 +69,13 @@ CREATE TRIGGER codes_delete BEFORE DELETE ON muu_codes
 		END IF;
 	END;
 %%
+
+DROP TRIGGER IF EXISTS bookmarks_insert;
+CREATE TRIGGER bookmarks_insert AFTER INSERT ON muu_bookmarks
+	FOR EACH ROW BEGIN
+		IF NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft' THEN
+			UPDATE muu_users SET Bookmarks = Bookmarks + 1, Credits = Credits + 1, Recommendation = Recommendation + 1
+			WHERE ID_User = NEW.ID_User;
+		END IF;
+	END;
+%%
