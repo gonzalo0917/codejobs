@@ -1,5 +1,17 @@
 DELIMITER %%
 
+-- Update
+
+UPDATE muu_users users SET
+ Posts = (SELECT COUNT(*) FROM muu_blog blog WHERE blog.Situation <> 'Deleted' AND blog.Situation <> 'Draft' AND blog.ID_User = users.ID_User),
+ Codes = (SELECT COUNT(*) FROM muu_codes codes WHERE codes.Situation <> 'Deleted' AND codes.Situation <> 'Draft' AND codes.ID_User = users.ID_User),
+ Bookmarks = (SELECT COUNT(*) FROM muu_bookmarks bookmarks WHERE bookmarks.Situation <> 'Deleted' AND bookmarks.Situation <> 'Draft' AND bookmarks.ID_User = users.ID_User)
+%%
+
+UPDATE muu_users SET Credits = 3*Posts + 2*Codes + Bookmarks, Recommendation = 50 + 5*Posts + 3*Codes + Bookmarks
+%%
+-- muu_blog
+
 DROP TRIGGER IF EXISTS blog_insert;
 CREATE TRIGGER blog_insert AFTER INSERT ON muu_blog
 	FOR EACH ROW BEGIN
@@ -35,6 +47,8 @@ CREATE TRIGGER blog_delete BEFORE DELETE ON muu_blog
 	END;
 %%
 
+-- muu_codes
+
 DROP TRIGGER IF EXISTS codes_insert;
 CREATE TRIGGER codes_insert AFTER INSERT ON muu_codes
 	FOR EACH ROW BEGIN
@@ -69,6 +83,8 @@ CREATE TRIGGER codes_delete BEFORE DELETE ON muu_codes
 		END IF;
 	END;
 %%
+
+-- muu_bookmarks
 
 DROP TRIGGER IF EXISTS bookmarks_insert;
 CREATE TRIGGER bookmarks_insert AFTER INSERT ON muu_bookmarks
