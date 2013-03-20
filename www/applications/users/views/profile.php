@@ -34,6 +34,29 @@
 			<div class="date">
 				<?php echo __("Member since") ." ". howLong($user["Start_Date"]); ?>
 			</div>
+			<div class="count">
+				<div>
+					<?php if ($user["Posts"] > 0) { ?>
+					<a href="<?php echo path(); ?>"><?php echo $user["Posts"] ." ". __("posts"); ?></a>
+					<?php } else {
+						echo "0 ". __("posts");
+					} ?>
+				</div>
+				<div>
+					<?php if ($user["Codes"] > 0) { ?>
+					<a href="<?php echo path(); ?>"><?php echo $user["Codes"] ." ". __("codes"); ?></a>
+					<?php } else {
+						echo "0 ". __("codes");
+					} ?>
+				</div>
+				<div>
+					<?php if ($user["Bookmarks"] > 0) { ?>
+					<a href="<?php echo path(); ?>"><?php echo $user["Bookmarks"] ." ". __("bookmarks"); ?></a>
+					<?php } else {
+						echo "0 ". __("bookmarks");
+					} ?>
+				</div>
+			</div>
 		</div>
 	</section>
 	<div id="posts">
