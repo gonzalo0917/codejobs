@@ -23,3 +23,13 @@ CREATE TRIGGER blog_update AFTER UPDATE ON muu_blog
 		END IF;
 	END;
 %%
+
+DROP TRIGGER IF EXISTS blog_delete;
+CREATE TRIGGER blog_delete BEFORE DELETE ON muu_blog
+	FOR EACH ROW BEGIN
+		IF OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft' THEN
+			UPDATE muu_users SET Posts = Posts - 1, Credits = Credits - 3, Recommendation = Recommendation - 5
+			WHERE ID_User = OLD.ID_User;
+		END IF;
+	END;
+%%
