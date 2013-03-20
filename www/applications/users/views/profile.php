@@ -31,11 +31,6 @@
 			<?php } ?>
 		</div>
 		<div class="information">
-			<?php if ($user["Description"]) { ?>
-			<div class="description">
-				<?php echo $user["Description"]; ?>
-			</div>
-			<?php } ?>
 			<div class="date">
 				<?php echo __("Member since") ." ". howLong($user["Start_Date"]); ?>
 			</div>
