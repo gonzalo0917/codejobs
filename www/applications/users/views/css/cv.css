@@ -61,3 +61,7 @@ a.btn, a.btn:focus {
 .add-form {
     width: 100% !important;
 }
+input[name=saveExtract] {
+    display: block;
+    margin-bottom: 20px;
+}
