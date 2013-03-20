@@ -94,3 +94,13 @@ CREATE TRIGGER bookmarks_update AFTER UPDATE ON muu_bookmarks
 		END IF;
 	END;
 %%
+
+DROP TRIGGER IF EXISTS bookmarks_delete;
+CREATE TRIGGER bookmarks_delete BEFORE DELETE ON muu_bookmarks
+	FOR EACH ROW BEGIN
+		IF OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft' THEN
+			UPDATE muu_users SET Bookmarks = Bookmarks - 1, Credits = Credits - 1, Recommendation = Recommendation - 1
+			WHERE ID_User = OLD.ID_User;
+		END IF;
+	END;
+%%
