@@ -61,7 +61,7 @@
 			<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
 
 			<?php echo formInput(array(
-				"type" => "file", 
+				"type" => "file",
 				"id" => "cv",
 				"name" => "cv",
 				"field" => __("Upload your CV here"),
