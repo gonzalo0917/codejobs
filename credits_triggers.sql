@@ -12,11 +12,11 @@ CREATE TRIGGER blog_insert AFTER INSERT ON muu_blog
 DROP TRIGGER IF EXISTS blog_update;
 CREATE TRIGGER blog_update AFTER UPDATE ON muu_blog
 	FOR EACH ROW BEGIN
-		IF (OLD.Situation <> 'Deleted' AND NEW.Situation = 'Deleted') OR (OLD.Situation <> 'Draft' AND NEW.Situation = 'Draft') THEN
+		IF (OLD.Situation <> 'Deleted' AND OLD.Situation <> 'Draft') AND (NEW.Situation = 'Deleted' OR NEW.Situation = 'Draft') THEN
 			UPDATE muu_users SET Posts = Posts - 1, Credits = Credits - 3, Recommendation = Recommendation - 5
 			WHERE ID_User = OLD.ID_User;
 		ELSE
-			IF (OLD.Situation = 'Deleted' AND NEW.Situation <> 'Deleted') OR (OLD.Situation = 'Draft' AND NEW.Situation = 'Draft') THEN
+			IF (OLD.Situation = 'Deleted' OR OLD.Situation = 'Draft') AND (NEW.Situation <> 'Deleted' AND NEW.Situation <> 'Draft') THEN
 				UPDATE muu_users SET Posts = Posts + 1, Credits = Credits + 3, Recommendation = Recommendation + 5
 				WHERE ID_User = OLD.ID_User;
 			END IF;
