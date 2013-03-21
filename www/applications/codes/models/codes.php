@@ -162,7 +162,7 @@ class Codes_Model extends ZP_Load
 			$lastID = $this->Db->insert($this->table, $this->data);
 			
 			if ($lastID) {
-	            $this->data = $this->proccessFiles($lastID);
+	            $this->data = $this->processFiles($lastID);
 	                        
 	            if (isset($this->data["error"])) {
 	                $this->Db->delete($lastID, $this->table);
@@ -186,7 +186,7 @@ class Codes_Model extends ZP_Load
 	private function save()
 	{
 		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
-            $this->data = $this->proccessFiles($ID);
+            $this->data = $this->processFiles($ID);
                         
             if (isset($this->data["error"])) {
                 $this->Db->delete($ID, $this->table);
@@ -217,7 +217,7 @@ class Codes_Model extends ZP_Load
 	private function edit()
 	{
 		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
-            $this->data = $this->proccessFiles(POST("ID"));
+            $this->data = $this->processFiles(POST("ID"));
             
             if (isset($this->data["error"])) {
                 return $this->data["error"];
@@ -270,7 +270,7 @@ class Codes_Model extends ZP_Load
 		  $this->table, "ID_Code, Title, Slug, Language", null, "rand()", 25);
 	}
         
-    private function proccessFiles($ID)
+    private function processFiles($ID)
     {
         $files = POST("file");
         $syntax = POST("syntax");
