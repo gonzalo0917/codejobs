@@ -1038,40 +1038,16 @@ class Users_Model extends ZP_Load
 	public function saveExtract() {
 	}
 	
-	private function editCv()
-	{
-		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
-            $this->data = $this->proccessExperiences(POST("ID"));
-            
-            if (isset($this->data["error"])) {
-                return $this->data["error"];
-            }
-            
-            $filesDB = $this->getFilesBy(POST("ID"));
-            $filesPOST = POST("file");
-            
-            foreach ($filesPOST as $iFile => $fileID) {
-                if ((int)$fileID > 0) {
-                    $this->Db->update("codes_files", $this->data[$iFile], $fileID);
-                    array_splice($filesDB, array_search($fileID, $filesDB), 1);
-                } else { 
-                    $this->Db->insert("codes_files", $this->data[$iFile]);
-                }
-            }
-            
-            if (count($filesDB) > 0) {
-                foreach ($filesDB as $fileDB) {
-                    $this->Db->delete($fileDB, "codes_files");
-                }
-            }
-            
-            $this->Cache = $this->core("Cache");
-			$this->Cache->removeAll("codes");
+	public function editExperiences() {
 
-            return getAlert(__("The code has been edit correctly"), "success");
-        }
-        
-        return getAlert(__("Update error"));
+	}
+
+	public function editEducation() {
+
+	}
+
+	public function editExtract() {
+
 	}
 	
 	private function proccessExperiences($ID)
