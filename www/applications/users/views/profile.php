@@ -8,7 +8,7 @@
 		<?php $avatar = path("www/lib/files/images/users/". $user["Avatar"], true); ?>
 		<div class="personal">
 			<div>
-				<a class="username" href="#"><?php echo $user["Username"]; ?></a>
+				<a class="username" href="<?php echo getURL(); ?>"><?php echo $user["Username"]; ?></a>
 			</div>
 			<?php if ($user["Name"]) { ?>
 			<div class="fullname">
@@ -31,13 +31,31 @@
 			<?php } ?>
 		</div>
 		<div class="information">
-			<?php if ($user["Description"]) { ?>
-			<div class="description">
-				<?php echo $user["Description"]; ?>
-			</div>
-			<?php } ?>
 			<div class="date">
 				<?php echo __("Member since") ." ". howLong($user["Start_Date"]); ?>
+			</div>
+			<div class="count">
+				<div>
+					<?php if ($user["Posts"] > 0) { ?>
+					<a href="<?php echo path(); ?>"><?php echo $user["Posts"] ." ". __("posts"); ?></a>
+					<?php } else {
+						echo "0 ". __("posts");
+					} ?>
+				</div>
+				<div>
+					<?php if ($user["Codes"] > 0) { ?>
+					<a href="<?php echo path(); ?>"><?php echo $user["Codes"] ." ". __("codes"); ?></a>
+					<?php } else {
+						echo "0 ". __("codes");
+					} ?>
+				</div>
+				<div>
+					<?php if ($user["Bookmarks"] > 0) { ?>
+					<a href="<?php echo path(); ?>"><?php echo $user["Bookmarks"] ." ". __("bookmarks"); ?></a>
+					<?php } else {
+						echo "0 ". __("bookmarks");
+					} ?>
+				</div>
 			</div>
 		</div>
 	</section>
