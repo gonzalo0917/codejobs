@@ -18,9 +18,14 @@ class Users_Model extends ZP_Load
 		$this->Data->table("users");
 
 		$this->table = "users";
-		$this->tableCv = "users_cv";
+
+		$this->tableCvSum = "users_cv_extract";
+		$this->tableCvExp = "users_cv_experiences";
+		$this->tableCvEdu = "users_cv_education";
+
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
-		$this->fieldsCv = "";
+		$this->fieldsCvSum = "ID_User, Extract, Last_Updated";
+
 		$this->application = whichApplication();
 		$this->helper("debugging");
 	}
@@ -996,7 +1001,35 @@ class Users_Model extends ZP_Load
 
 	}
 
+	public function saveSummary($action = "save") {
+
+		$this->helper(array("time", "alerts"));
+
+		if ($action === "save") {
+
+			$data = array(
+				'ID_User' => SESSION("ZanUserID"),
+				'Extract' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+
+			$return = $this->Db->insert($this->tableCvSum, $this->fieldsCvSum, $data);
+
+			if ($return) {
+				return getAlert(__("The summary has been saved correctly"), "success");	
+			}
+				
+			return getAlert(__("Insert error"));
+
+		} else {
+			return $this->editSummary();
+		}
+	}
+	
+
 	public function saveExperiences() {
+		$fieldsCvExp = "ID_User, Company, Job_Title, Location, Period_From, Period_To, Description";
+		var_dump(POST());
 		/*$error = $this->editOrSaveCv($action);
 
 		if ($error) {
@@ -1028,26 +1061,21 @@ class Users_Model extends ZP_Load
 
 		return getAlert(__("Insert error"));*/
 
-
 	}
 
 	public function saveEducation() {
+		$fieldsCvEdu = "ID_User, School, Degree, Period_From, Period_To, Description";
 	}
 
-	public function saveSummary($action = "save") {
-		var_dump(POST("summary"));
-		var_dump(POST());
+	public function editSummary() {
+
 	}
-	
+
 	public function editExperiences() {
 
 	}
 
 	public function editEducation() {
-
-	}
-
-	public function editExtract() {
 
 	}
 	

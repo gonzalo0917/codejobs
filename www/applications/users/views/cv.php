@@ -3,8 +3,8 @@
     	die("Error: You don't have permission to access here..."); 
     }
     
-    $ID_Experience  = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"]) : 0;
-    $ID_School      = isset($data) ? recoverPOST("ID", $data[0]["ID_Code"])              : 0;
+    $ID_Experience  = isset($data) ? recoverPOST("ID_Experience", $data[0]["ID_Experience"]) : 0;
+    $ID_School      = isset($data) ? recoverPOST("ID_School", $data[0]["ID_School"]) : 0;
     $summary        = isset($data) ? recoverPOST("summary", $data[0]["Summary"]) : recoverPOST("summary");
     $skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
     $edit           = isset($data) ? true : false;
@@ -110,7 +110,7 @@
                 echo formInput(array(   
                     "name"     => "periodto[]", 
                     "id"       => "periodto{{\$index}}", 
-                    "class"    => "required jdpicker dateinline", 
+                    "class"    => "required jdpicker", 
                     "ng-model" => "experience.periodto",
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));
@@ -150,7 +150,7 @@
                 "type" => "submit"
             ));
             
-            echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID_Experience));
+            echo formInput(array("name" => "ID_Experience", "type" => "hidden", "value" => $ID_Experience));
 
         echo formClose();
         echo htmlTag("div", false);
@@ -259,7 +259,7 @@
                 "type" => "submit"
             ));
             
-            echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID_School));
+            echo formInput(array("name" => "ID_School", "type" => "hidden", "value" => $ID_School));
 
         echo formClose();
 
