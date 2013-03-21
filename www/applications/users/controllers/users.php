@@ -553,19 +553,19 @@ class Users_Controller extends ZP_Load
 			if (POST("saveExperiences")) {
 				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
 				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->saveExperiences($action);
+				$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
 			}
 
 			if (POST("saveEducation")) {
 				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
 				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->saveEducation($action);
+				$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
 			}
 
 			if (POST("saveSummary")) {
 				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
 				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->saveSummary($action);
+				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
 			}
 
 			$this->js("jquery.jdpicker.js");

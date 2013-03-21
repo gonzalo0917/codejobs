@@ -29,7 +29,7 @@
 
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
-            echo isset($alert) ? $alert : null;
+            echo isset($alertSummary) ? $alertSummary : null;
 
             echo formTextArea(array(
                 "name"  => "summary",
@@ -47,7 +47,8 @@
                 "type" => "submit"
             ));
             
-                        
+            echo isset($alertExperience) ? $alertExperience : null;
+                   
             echo span("field", "&raquo; " . __("Experience") . " ({{experiences.length}})");
             
             //echo div("sectionExperience", "class");
@@ -165,7 +166,7 @@
 
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
-            echo isset($alert) ? $alert : null;
+            echo isset($alertEducation) ? $alertEducation : null;
 
             echo span("field", "&raquo; " . __("Education") . " ({{education.length}})");
             
