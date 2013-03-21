@@ -41,7 +41,7 @@
             ));
 
             echo formInput(array(   
-                "name" => "saveExtract", 
+                "name" => "saveSummary", 
                 "class" => "btn btn-success", 
                 "value" => __("Save"), 
                 "type" => "submit"

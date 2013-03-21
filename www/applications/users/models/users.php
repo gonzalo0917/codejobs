@@ -1034,8 +1034,9 @@ class Users_Model extends ZP_Load
 	public function saveEducation() {
 	}
 
-	public function saveExtract() {
-		var_dump($this->data);
+	public function saveSummary($action = "save") {
+		var_dump(POST("summary"));
+		var_dump(POST());
 	}
 	
 	public function editExperiences() {
