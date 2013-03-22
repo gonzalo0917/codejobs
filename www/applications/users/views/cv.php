@@ -3,13 +3,13 @@
     	die("Error: You don't have permission to access here..."); 
     }
     
-    $ID_Experience  = isset($data) ? recoverPOST("ID_Experience", $data[0]["ID_Experience"]) : 0;
-    $ID_School      = isset($data) ? recoverPOST("ID_School", $data[0]["ID_School"]) : 0;
+    $ID_Experience  = isset($experiences) ? recoverPOST("ID_Experience", $experiences[0]["ID_Experience"]) : 0;
+    $ID_School      = isset($education) ? recoverPOST("ID_School", $education[0]["ID_School"]) : 0;
     $summary        = isset($summary) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
-    $skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
-    $edit           = isset($data) ? true : false;
-    $experiences    = isset($data) ? $data[0]["Experiences"] : false;
-    $education      = isset($data) ? $data[0]["Education"] : false;
+    //$skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
+    //$edit           = isset($data) ? true : false;
+    $experiences    = isset($experiences) ? $experiences : false;
+    $education      = isset($education) ? $education : false;
     //$action      = isset($data) ? "edit" : "save";
     //$href        = isset($data) ? path(whichApplication() ."/cpanel/edit/") : path(whichApplication() ."/cpanel/add/");
 
@@ -17,7 +17,8 @@
         $experiences = recoverExperiences();
     }
 
-     if (!$education) {
+var_dump($experiences);
+    if (!$education) {
         $education = recoverEducation();
     }
 
@@ -40,14 +41,14 @@
             ));
 
             if ($summary != null) {
-                echo formInput(array(   
+                echo formInput(array(
                     "name" => "updateSummary", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
                     "type" => "submit"
                 ));
             } else {
-                echo formInput(array(   
+                echo formInput(array(
                     "name" => "saveSummary", 
                     "class" => "btn btn-success", 
                     "value" => __("Save"), 
@@ -57,7 +58,7 @@
 
             
             echo isset($alertExperience) ? $alertExperience : null;
-                   
+
             echo span("field", "&raquo; " . __("Experience") . " ({{experiences.length}})");
             
             //echo div("sectionExperience", "class");
@@ -70,14 +71,14 @@
                 echo htmlTag("span", array(
                     "class" => "field field-right",
                 ), "#{{\$index + 1}}");
-                            
-                echo formInput(array(	
+
+                echo formInput(array(
                     "name"  => "experience[]",
                     "type"  => "hidden",
                     "value" => "{{experience.idexperience}}"
                 ));
-                
-                echo formInput(array(   
+
+                echo formInput(array(
                     "name"     => "company[]", 
                     "id"       => "company{{\$index}}", 
                     "class"    => "required", 
@@ -86,7 +87,7 @@
                     "ng-model" => "experience.company"
                 ));
 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"     => "title[]", 
                     "id"       => "title{{\$index}}", 
                     "class"    => "required", 
@@ -95,7 +96,7 @@
                     "ng-model" => "experience.title"
                 ));
 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"     => "location[]", 
                     "id"       => "location{{\$index}}", 
                     "class"    => "required", 
@@ -106,7 +107,7 @@
 
                 $months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"     => "periodfrom[]", 
                     "id"       => "periodfrom{{\$index}}", 
                     "class"    => "required jdpicker", 
@@ -117,7 +118,7 @@
 
                 echo " -- ";
 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"     => "periodto[]", 
                     "id"       => "periodto{{\$index}}", 
                     "class"    => "required jdpicker", 
@@ -125,7 +126,7 @@
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));
 
-                echo formTextArea(array(	
+                echo formTextArea(array(
                     "id"    => "description{{\$index}}", 
                     "name"  => "description[]",
                     "class" => "required noresize",
@@ -153,13 +154,22 @@
                 "ng-click" => "addExperience()"
             ), __("Add another experience") . "...");
 
-            echo formInput(array(   
+            if ($experiences AND $experiences[0]['ID_Experience'] !== "") {
+                echo formInput(array(
+                    "name" => "updateExperiences", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Update"), 
+                    "type" => "submit"
+                ));
+            } else {
+                echo formInput(array(
                 "name" => "saveExperiences", 
                 "class" => "btn btn-success", 
                 "value" => __("Save"), 
                 "type" => "submit"
             ));
-            
+            }
+
             echo formInput(array("name" => "ID_Experience", "type" => "hidden", "value" => $ID_Experience));
 
         echo formClose();
@@ -193,7 +203,7 @@
                     "type"  => "hidden",
                     "value" => "{{school.idschool}}"
                 ));
-                
+
                 echo formInput(array(
                     "name"     => "school[]", 
                     "id"       => "school{{\$index}}", 
@@ -203,7 +213,7 @@
                     "ng-model" => "school.school"
                 ));
 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"     => "degree[]", 
                     "id"       => "degree{{\$index}}", 
                     "class"    => "required", 
@@ -214,7 +224,7 @@
 
                 $months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
 
-                echo formInput(array(   
+                echo formInput(array(
                     "name"     => "school_period_from[]", 
                     "id"       => "school_period_from{{\$index}}", 
                     "class"    => "required jdpicker", 
@@ -224,8 +234,8 @@
                 ));
 
                 echo " -- ";
-                
-                echo formInput(array(   
+
+                echo formInput(array(
                     "name"     => "school_period_to[]", 
                     "id"       => "school_period_to{{\$index}}", 
                     "class"    => "required jdpicker", 
@@ -233,7 +243,7 @@
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));
 
-                echo formTextArea(array(    
+                echo formTextArea(array(
                     "id"    => "school_description{{\$index}}", 
                     "name"  => "school_description[]",
                     "class" => "required noresize",
@@ -241,19 +251,19 @@
                     "field" => __("Description"), 
                     "p"     => true
                 ));
-                
+
                 echo htmlTag("div", array(
                     "class" => "remove remove-{{\$index > 0}}"
                 ));
-                
+
                 echo htmlTag("a", array(
                     "class"    => "btn btn-danger",
                     "ng-click" => "removeSchool(\$index)"
                 ), __("Remove institute"));
-                
+
                 echo htmlTag("div", false);
             echo htmlTag("div", false);
-            
+
             echo htmlTag("div", array(
                 "id"       => "add",
                 "class"    => "btn span10",
@@ -262,13 +272,22 @@
 
             echo htmlTag("div", false);
 
-            echo formInput(array(   
+            if ($education AND $education[0]['ID_School'] !== "") {
+                echo formInput(array(
+                    "name" => "updateEducation", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Update"), 
+                    "type" => "submit"
+                ));
+            } else {
+                echo formInput(array(
                 "name" => "saveEducation", 
                 "class" => "btn btn-success", 
                 "value" => __("Save"), 
                 "type" => "submit"
             ));
-            
+            }
+
             echo formInput(array("name" => "ID_School", "type" => "hidden", "value" => $ID_School));
 
         echo formClose();
@@ -288,7 +307,7 @@ function CvExperience($scope) {
             {
                 idexperience: "<?php print recoverPOST("idexperience$experience", $experiences[$experience]["ID_Experience"]); ?>",
                 company: "<?php print recoverPOST("company$experience", $experiences[$experience]["Company"]); ?>",
-                title: "<?php print recoverPOST("title$experience", $experiences[$experience]["Title"]); ?>",
+                title: "<?php print recoverPOST("title$experience", $experiences[$experience]["Job_Title"]); ?>",
                 location: "<?php print recoverPOST("location$experience", $experiences[$experience]["Location"]); ?>",
                 periodfrom: "<?php print recoverPOST("periodfrom$experience", $experiences[$experience]["Period_From"]); ?>",
                 periodto: "<?php print recoverPOST("periodto$experience", $experiences[$experience]["Period_To"]); ?>",
@@ -302,11 +321,11 @@ function CvExperience($scope) {
     $scope.addExperience = function () {
         console.log("addExperience");
         var index = $scope.experiences.length;
-        
+
         $scope.experiences.push({
             id: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: "", editor: null
         });
-        
+
         window.setTimeout(function () {
             $('html, body').animate({
                 scrollTop: $("#company" + ($scope.experiences.length - 1)).parent().parent().offset().top - 10
@@ -352,7 +371,7 @@ function CvEducation($scope) {
         $scope.education.push({
             id: "", school: "", degree: "", periodfrom: "", periodto: "", description: "", editor: null
         });
-        
+
         window.setTimeout(function () {
             $('html, body').animate({
                 scrollTop: $("#school" + ($scope.education.length - 1)).parent().parent().offset().top - 10

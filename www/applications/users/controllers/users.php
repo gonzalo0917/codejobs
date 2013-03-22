@@ -543,8 +543,6 @@ class Users_Controller extends ZP_Load
 		$experiences = $this->Users_Model->getExperiences();
 		$education = $this->Users_Model->getEducation();
 
-		var_dump($summary);
-
 		if ($summary OR $experiences OR $education) {
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
@@ -581,8 +579,6 @@ class Users_Controller extends ZP_Load
 			$vars["summary"] = $summary;
 			$vars["experiences"] = $experiences;
 			$vars["education"] = $education;
-
-			var_dump($vars);
 
 			$vars["view"] = $this->view("cv", true);
 			$vars["href"] = path("users/cv/");

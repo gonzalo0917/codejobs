@@ -1013,7 +1013,7 @@ class Users_Model extends ZP_Load
 
 	public function getEducation() {
 		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvEdu, $this->fieldsCvEdu);
-		
+
 		return $data;
 	}
 
@@ -1023,9 +1023,8 @@ class Users_Model extends ZP_Load
 
 	public function saveSummary($action = "save") {
 
-		$this->helper(array("time", "alerts"));
-
 		if ($action === "save") {
+			$this->helper(array("time", "alerts"));
 
 			$data = array(
 				'ID_User' => SESSION("ZanUserID"),
@@ -1036,7 +1035,7 @@ class Users_Model extends ZP_Load
 			$return = $this->Db->insert($this->tableCvSum, $data);
 
 			if ($return) {
-				return getAlert(__("The summary has been saved correctly"), "success");	
+				return getAlert(__("The summary has been saved correctly"), "success");
 			}
 				
 			return getAlert(__("Insert error"));
@@ -1047,8 +1046,42 @@ class Users_Model extends ZP_Load
 	}
 	
 
-	public function saveExperiences() {
-		var_dump(POST());
+	public function saveExperiences($action = "save") {
+
+		if ($action === "save") {
+			$this->helper(array("time", "alerts"));
+
+			$experiences = POST("experience");
+			$company = POST("company");
+	        $title = POST("title");
+	        $location = POST("location");
+	        $periodfrom = POST("periodfrom");
+	        $periodto = POST("periodto");
+	        $description = POST("description");
+	        $total = count($experiences);
+
+			$data = array();
+            
+	        for ($i = 0; $i < $total; $i++) {
+	            $data[] = array(
+	                "ID_User" => SESSION("ZanUserID"),
+	                "Company" => decode(addslashes($company[$i])),
+	                "Job_Title" => decode(addslashes($title[$i])),
+	                "Location" => decode(addslashes($location[$i])),
+	                "Period_From" => decode(addslashes($periodfrom[$i])),
+	                "Period_To" => decode(addslashes($periodto[$i])),
+	                "Description" => decode(addslashes($description[$i])),
+	            );
+	        }
+
+	        if ($this->Db->insertBatch($this->tableCvExp, $data))
+	            return getAlert(__("The experience has been saved correctly"), "success");	
+		} elseif ($action === "edit") {
+			return $this->editExperiences();
+		}
+
+		return getAlert(__("Insert error"));
+		
 		/*$error = $this->editOrSaveCv($action);
 
 		if ($error) {
