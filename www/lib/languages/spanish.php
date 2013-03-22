@@ -574,3 +574,6 @@ $phrase["your_proposal_has_been_sent"]					= "Tu propuesta ha sido enviada corre
 $phrase["your_message_has_been_sent_successfully_we_will_contact_you_as_soon_as_possible_thank_you_very_much"] = "Tu mensaje ha sido enviado con éxito, nos pondremos en contacto contigo lo antes posible, ¡muchas gracias!";
 $phrase["zero"] 										= "cero";
 $phrase["7z_file"] 										= "Archivo 7z";
+$phrase["_bookmarks"]									= " marcadores";
+$phrase["_codes"]										= " códigos";
+$phrase["_posts"]										= " publicaciones";
