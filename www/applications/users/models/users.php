@@ -24,7 +24,9 @@ class Users_Model extends ZP_Load
 		$this->tableCvEdu = "users_cv_education";
 
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
-		$this->fieldsCvSum = "ID_User, Extract, Last_Updated";
+		$this->fieldsCvSum = "ID_User, ID_Extract, Extract, Last_Updated";
+		$this->fieldsCvExp = "ID_User, ID_Experience, Company, Job_Title, Location, Period_From, Period_To, Description";
+		$this->fieldsCvEdu = "ID_User, ID_School, School, Degree, Period_From, Period_To, Description";
 
 		$this->application = whichApplication();
 		$this->helper("debugging");
@@ -997,6 +999,24 @@ class Users_Model extends ZP_Load
 		return getAlert(__("Insert error"));
 	}*/
 
+	public function getSummary() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvSum, $this->fieldsCvSum);
+		
+		return $data;
+	}
+
+	public function getExperiences() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvExp, $this->fieldsCvExp);
+		
+		return $data;
+	}
+
+	public function getEducation() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvEdu, $this->fieldsCvEdu);
+		
+		return $data;
+	}
+
 	public function editOrSaveCv() {
 
 	}
@@ -1013,7 +1033,7 @@ class Users_Model extends ZP_Load
 				'Last_Updated' => now(4)
 			);
 
-			$return = $this->Db->insert($this->tableCvSum, $this->fieldsCvSum, $data);
+			$return = $this->Db->insert($this->tableCvSum, $data);
 
 			if ($return) {
 				return getAlert(__("The summary has been saved correctly"), "success");	
@@ -1028,7 +1048,6 @@ class Users_Model extends ZP_Load
 	
 
 	public function saveExperiences() {
-		$fieldsCvExp = "ID_User, Company, Job_Title, Location, Period_From, Period_To, Description";
 		var_dump(POST());
 		/*$error = $this->editOrSaveCv($action);
 
@@ -1064,7 +1083,6 @@ class Users_Model extends ZP_Load
 	}
 
 	public function saveEducation() {
-		$fieldsCvEdu = "ID_User, School, Degree, Period_From, Period_To, Description";
 	}
 
 	public function editSummary() {
