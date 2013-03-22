@@ -53,6 +53,19 @@
 	vertical-align: top;
 }
 
+.counter {
+	margin-top: 10px;
+}
+
+.counter a {
+	color: #000;
+	text-decoration: none;
+}
+
+.counter a:hover {
+	text-decoration: underline;
+}
+
 #posts {
 	background-color: #fff;
 	border: 1px solid #d7d7d7;
