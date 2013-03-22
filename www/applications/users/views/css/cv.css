@@ -65,3 +65,7 @@ input[name=saveSummary] {
     display: block;
     margin-bottom: 20px;
 }
+input[name=updateSummary] {
+    display: block;
+    margin-bottom: 20px;
+}

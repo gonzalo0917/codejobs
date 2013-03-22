@@ -5,14 +5,13 @@
     
     $ID_Experience  = isset($data) ? recoverPOST("ID_Experience", $data[0]["ID_Experience"]) : 0;
     $ID_School      = isset($data) ? recoverPOST("ID_School", $data[0]["ID_School"]) : 0;
-    $summary        = isset($data) ? recoverPOST("summary", $data[0]["Summary"]) : recoverPOST("summary");
+    $summary        = isset($summary) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
     $skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
     $edit           = isset($data) ? true : false;
     $experiences    = isset($data) ? $data[0]["Experiences"] : false;
     $education      = isset($data) ? $data[0]["Education"] : false;
     //$action      = isset($data) ? "edit" : "save";
     //$href        = isset($data) ? path(whichApplication() ."/cpanel/edit/") : path(whichApplication() ."/cpanel/add/");
-
 
     if (!$experiences) {
         $experiences = recoverExperiences();
@@ -40,12 +39,22 @@
                 "value" => $summary
             ));
 
-            echo formInput(array(   
-                "name" => "saveSummary", 
-                "class" => "btn btn-success", 
-                "value" => __("Save"), 
-                "type" => "submit"
-            ));
+            if ($summary != null) {
+                echo formInput(array(   
+                    "name" => "updateSummary", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Update"), 
+                    "type" => "submit"
+                ));
+            } else {
+                echo formInput(array(   
+                    "name" => "saveSummary", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Save"), 
+                    "type" => "submit"
+                ));
+            }
+
             
             echo isset($alertExperience) ? $alertExperience : null;
                    
