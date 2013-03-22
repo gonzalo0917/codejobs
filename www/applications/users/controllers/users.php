@@ -571,7 +571,7 @@ class Users_Controller extends ZP_Load
 			}
 
 			$this->js("jquery.jdpicker.js");
-			$this->js("cv", $this->application);
+			//$this->js("cv", $this->application);
 
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");

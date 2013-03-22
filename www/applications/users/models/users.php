@@ -977,28 +977,6 @@ class Users_Model extends ZP_Load
 		}
 	}
 
-	/*public function saveCv()
-	{
-		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
-            $this->data = $this->proccessExperiences($ID);
-                        
-            if (isset($this->data["error"])) {
-                $this->Db->delete($ID, $this->table);
-                return $this->data["error"];
-            }
-                        
-            if ($this->Db->insertBatch("codes_files", $this->data)) {
-            	$this->Cache = $this->core("Cache");
-				$this->Cache->removeAll("codes");
-            	$this->Users_Model = $this->model("Users_Model");
-				$this->Users_Model->setCredits(1, 17);
-                return getAlert(__("The code has been saved correctly"), "success");	
-            }
-		}
-		
-		return getAlert(__("Insert error"));
-	}*/
-
 	public function getSummary() {
 		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvSum, $this->fieldsCvSum);
 		
@@ -1070,7 +1048,7 @@ class Users_Model extends ZP_Load
 	                "Location" => decode(addslashes($location[$i])),
 	                "Period_From" => decode(addslashes($periodfrom[$i])),
 	                "Period_To" => decode(addslashes($periodto[$i])),
-	                "Description" => decode(addslashes($description[$i])),
+	                "Description" => decode(addslashes($description[$i]))
 	            );
 	        }
 
@@ -1082,40 +1060,41 @@ class Users_Model extends ZP_Load
 
 		return getAlert(__("Insert error"));
 		
-		/*$error = $this->editOrSaveCv($action);
-
-		if ($error) {
-			return $error;
-		}
-
-		if ($action === "save") {
-			$ID_User = SESSION("ZanUserID");
-			
-			if ($lastID) {
-	            $this->data = $this->proccessCv($lastID);
-	            $this->type = "experiences";
-	                        
-	            if (isset($this->data["error"])) {
-	                $this->Db->delete($lastID, $this->table);
-	                return $this->data["error"];
-	            }
-	                        
-	            if ($this->Db->insertBatch("codes_files", $this->data)) {
-					$this->Users_Model = $this->model("Users_Model");
-					$this->Users_Model->setCredits(1, 17);
-
-	                return getAlert(__("The code has been saved correctly"), "success");	
-	            }
-			}
-		} elseif ($action === "edit") {
-			return $this->edit();
-		}
-
-		return getAlert(__("Insert error"));*/
-
 	}
 
-	public function saveEducation() {
+	public function saveEducation($action = "save") {
+
+		if ($action === "save") {
+			$this->helper(array("time", "alerts"));
+
+			$education = POST("school");
+			$school = POST("nameschool");
+			$degree = POST("degree");
+	        $periodfrom = POST("school_periodfrom");
+	        $periodto = POST("school_periodto");
+	        $description = POST("school_description");
+	        $total = count($education);
+
+			$data = array();
+            
+	        for ($i = 0; $i < $total; $i++) {
+	            $data[] = array(
+	                "ID_User" => SESSION("ZanUserID"),
+	                "School" => decode(addslashes($school[$i])),
+	                "Degree" => decode(addslashes($degree[$i])),
+	                "Period_From" => decode(addslashes($periodfrom[$i])),
+	                "Period_To" => decode(addslashes($periodto[$i])),
+	                "Description" => decode(addslashes($description[$i]))
+	            );
+	        }
+
+	        if ($this->Db->insertBatch($this->tableCvEdu, $data))
+	            return getAlert(__("The school has been saved correctly"), "success");
+		} elseif ($action === "edit") {
+			return $this->editEducation();
+		}
+
+		return getAlert(__("Insert error"));
 	}
 
 	public function editSummary() {
@@ -1130,32 +1109,6 @@ class Users_Model extends ZP_Load
 
 	}
 	
-	public function processCv() {
-		/*$data = array();
-           
-        if ($this->type === "experiences") {
-			for ($i = 0; $i < $total; $i++) {
-	            $data[] = array(
-	                "ID_Code" => $ID,
-	                "Name" => decode(addslashes($name[$i])),
-	                "ID_Syntax" => decode(addslashes($syntax[$i])),
-	                "Code" => decode(addslashes($code[$i]))
-	            );
-	        }			
-		} else if ($this->type === "education") {
-			for ($i = 0; $i < $total; $i++) {
-	            $data[] = array(
-	                "ID_Code" => $ID,
-	                "Name" => decode(addslashes($name[$i])),
-	                "ID_Syntax" => decode(addslashes($syntax[$i])),
-	                "Code" => decode(addslashes($code[$i]))
-	            );
-	        }
-		}   
-
-        return $data;*/
-	}
-
 	private function proccessExperiences($ID)
     {
         $files = POST("file");

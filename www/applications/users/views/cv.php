@@ -2,22 +2,19 @@
     if (!defined("ACCESS")) {
     	die("Error: You don't have permission to access here..."); 
     }
-    
-    $ID_Experience  = isset($experiences) ? recoverPOST("ID_Experience", $experiences[0]["ID_Experience"]) : 0;
-    $ID_School      = isset($education) ? recoverPOST("ID_School", $education[0]["ID_School"]) : 0;
-    $summary        = isset($summary) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
+  
+    $ID_Experience  = (isset($experiences) && $experiences != false) ? recoverPOST("ID_Experience", $experiences[0]["ID_Experience"]) : 0;
+    $ID_School      = (isset($education) && $education != false) ? recoverPOST("ID_School", $education[0]["ID_School"]) : 0;
+    $summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
     //$skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
-    //$edit           = isset($data) ? true : false;
     $experiences    = isset($experiences) ? $experiences : false;
     $education      = isset($education) ? $education : false;
     //$action      = isset($data) ? "edit" : "save";
-    //$href        = isset($data) ? path(whichApplication() ."/cpanel/edit/") : path(whichApplication() ."/cpanel/add/");
 
     if (!$experiences) {
         $experiences = recoverExperiences();
     }
 
-var_dump($experiences);
     if (!$education) {
         $education = recoverEducation();
     }
@@ -130,7 +127,8 @@ var_dump($experiences);
                     "id"    => "description{{\$index}}", 
                     "name"  => "description[]",
                     "class" => "required noresize",
-                    "style" => "height: 200px;width:100%", 
+                    "style" => "height: 200px;width:100%",
+                    "ng-model" => "experience.description",
                     "field" => __("Description"), 
                     "p"     => true
                 ));
@@ -205,12 +203,12 @@ var_dump($experiences);
                 ));
 
                 echo formInput(array(
-                    "name"     => "school[]", 
-                    "id"       => "school{{\$index}}", 
+                    "name"     => "nameschool[]", 
+                    "id"       => "nameschool{{\$index}}", 
                     "class"    => "required", 
                     "field"    => __("School"), 
                     "p"        => true,
-                    "ng-model" => "school.school"
+                    "ng-model" => "school.nameschool"
                 ));
 
                 echo formInput(array(
@@ -225,31 +223,32 @@ var_dump($experiences);
                 $months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
 
                 echo formInput(array(
-                    "name"     => "school_period_from[]", 
-                    "id"       => "school_period_from{{\$index}}", 
+                    "name"     => "school_periodfrom[]", 
+                    "id"       => "school_periodfrom{{\$index}}", 
                     "class"    => "required jdpicker", 
                     "field"    => __("Time Period"), 
-                    "ng-model" => "school.period_from",
+                    "ng-model" => "school.periodfrom",
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));
 
                 echo " -- ";
 
                 echo formInput(array(
-                    "name"     => "school_period_to[]", 
-                    "id"       => "school_period_to{{\$index}}", 
+                    "name"     => "school_periodto[]", 
+                    "id"       => "school_periodto{{\$index}}", 
                     "class"    => "required jdpicker", 
-                    "ng-model" => "school.period_to",
+                    "ng-model" => "school.periodto",
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));
 
                 echo formTextArea(array(
-                    "id"    => "school_description{{\$index}}", 
-                    "name"  => "school_description[]",
-                    "class" => "required noresize",
-                    "style" => "height: 200px;width:100%", 
-                    "field" => __("Description"), 
-                    "p"     => true
+                    "id"        => "school_description{{\$index}}", 
+                    "name"      => "school_description[]",
+                    "class"     => "required noresize",
+                    "style"     => "height: 200px;width:100%", 
+                    "ng-model"  => "school.description", 
+                    "field"     => __("Description"), 
+                    "p"         => true
                 ));
 
                 echo htmlTag("div", array(
@@ -295,11 +294,9 @@ var_dump($experiences);
     echo htmlTag("div", false);
 
     echo htmlTag("div", false);
-
 ?>
 <script type="text/javascript">
 function CvExperience($scope) {
-    console.log("CvExperience");
     $scope.experiences = [
         <?php
         for ($experience = 0; $experience < count($experiences); $experience++) {
@@ -311,32 +308,29 @@ function CvExperience($scope) {
                 location: "<?php print recoverPOST("location$experience", $experiences[$experience]["Location"]); ?>",
                 periodfrom: "<?php print recoverPOST("periodfrom$experience", $experiences[$experience]["Period_From"]); ?>",
                 periodto: "<?php print recoverPOST("periodto$experience", $experiences[$experience]["Period_To"]); ?>",
-                description: "<?php print removeBreaklines(recoverPOST("description$experience", $experiences[$experience]["Description"]), "\\n"); ?>",
-                editor: null
+                description: "<?php print recoverPOST("description$experience", $experiences[$experience]["Description"]); ?>"
             } <?php print $experience < (count($experiences) - 1) ? ',' : '';
         }
         ?>
     ];
 
     $scope.addExperience = function () {
-        console.log("addExperience");
         var index = $scope.experiences.length;
 
         $scope.experiences.push({
-            id: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: "", editor: null
+            id: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: ""
         });
 
         window.setTimeout(function () {
             $('html, body').animate({
                 scrollTop: $("#company" + ($scope.experiences.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
-                $("#experience" + ($scope.experiences.length - 1)).focus();
+                $("#company" + ($scope.experiences.length - 1)).focus();
             });
         }, 0);
     };
 
     $scope.removeExperience = function (index) {
-        console.log("removeExperience");
         if (index > 0) {
             if (confirm("<?php print __("Do you want to remove this experience?"); ?>")) {
                 this.experiences.splice(index, 1);
@@ -346,43 +340,40 @@ function CvExperience($scope) {
 }
 
 function CvEducation($scope) {
-    console.log("CvEducation");
      $scope.education = [
         <?php
+
         for ($school = 0; $school < count($education); $school++) {
         ?>
             {
                 idschool: "<?php print recoverPOST("idschool$school", $education[$school]["ID_School"]); ?>",
-                school: "<?php print recoverPOST("school$school", $education[$school]["School"]); ?>",
+                nameschool: "<?php print recoverPOST("nameschool$school", $education[$school]["School"]); ?>",
                 degree: "<?php print recoverPOST("degree$school", $education[$school]["Degree"]); ?>",
-                periodfrom: "<?php print recoverPOST("periodfrom$school", $education[$school]["Period_From"]); ?>",
-                periodto: "<?php print recoverPOST("periodto$school", $education[$school]["Period_To"]); ?>",
-                description: "<?php print removeBreaklines(recoverPOST("description$school", $education[$school]["Description"]), "\\n"); ?>",
-                editor: null
+                periodfrom: "<?php print recoverPOST("school_periodfrom$school", $education[$school]["Period_From"]); ?>",
+                periodto: "<?php print recoverPOST("school_periodto$school", $education[$school]["Period_To"]); ?>",
+                description: "<?php print recoverPOST("description$school", $education[$school]["Description"]); ?>"
             } <?php print $school < (count($education) - 1) ? ',' : '';
         }
         ?>
     ];
 
     $scope.addSchool = function () {
-        console.log("addSchool");
         var index = $scope.education.length;
         
         $scope.education.push({
-            id: "", school: "", degree: "", periodfrom: "", periodto: "", description: "", editor: null
+            idschool: "", nameschool: "", degree: "", periodfrom: "", periodto: "", description: ""
         });
 
         window.setTimeout(function () {
             $('html, body').animate({
-                scrollTop: $("#school" + ($scope.education.length - 1)).parent().parent().offset().top - 10
+                scrollTop: $("#nameschool" + ($scope.education.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
-                $("#syntax" + ($scope.education.length - 1)).focus();
+                $("#nameschool" + ($scope.education.length - 1)).focus();
             });
         }, 0);
     };
 
     $scope.removeSchool = function (index) {
-        console.log("removeSchool"); 
         if (index > 0) {
             if (confirm("<?php print __("Do you want to remove this institute?"); ?>")) {
                 this.education.splice(index, 1);
