@@ -510,6 +510,7 @@ $phrase["tuesday"] 	 									= "Martes";
 $phrase["two"] 											= "dos";
 $phrase["united_kingdom"]								= "Reino Unido";
 $phrase["united_states"]								= "Estados Unidos";
+$phrase["update"]										= "Actualizar";
 $phrase["update_error"]  								= "Error de actualización";
 $phrase["update_my_resume"]  							= "Actualizar mi currículum";
 $phrase["update_minified_files"]  						= "Actualizar archivos minificados";

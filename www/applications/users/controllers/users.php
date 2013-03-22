@@ -543,11 +543,13 @@ class Users_Controller extends ZP_Load
 		$experiences = $this->Users_Model->getExperiences();
 		$education = $this->Users_Model->getEducation();
 
-		if ($data) {
+		var_dump($summary);
+
+		if ($summary OR $experiences OR $education) {
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
 			$this->config("cv", $this->application);
-
+ 
 			$this->css("forms", "cpanel");
 			$this->css("users", $this->application);
 			$this->css("cv", $this->application);
@@ -576,7 +578,12 @@ class Users_Controller extends ZP_Load
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
 
-			$vars["user"] = $data[0];
+			$vars["summary"] = $summary;
+			$vars["experiences"] = $experiences;
+			$vars["education"] = $education;
+
+			var_dump($vars);
+
 			$vars["view"] = $this->view("cv", true);
 			$vars["href"] = path("users/cv/");
 

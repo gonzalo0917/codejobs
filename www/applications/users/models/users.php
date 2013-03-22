@@ -19,12 +19,12 @@ class Users_Model extends ZP_Load
 
 		$this->table = "users";
 
-		$this->tableCvSum = "users_cv_extract";
+		$this->tableCvSum = "users_cv_summary";
 		$this->tableCvExp = "users_cv_experiences";
 		$this->tableCvEdu = "users_cv_education";
 
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
-		$this->fieldsCvSum = "ID_User, ID_Extract, Extract, Last_Updated";
+		$this->fieldsCvSum = "ID_User, ID_Summary, Summary, Last_Updated";
 		$this->fieldsCvExp = "ID_User, ID_Experience, Company, Job_Title, Location, Period_From, Period_To, Description";
 		$this->fieldsCvEdu = "ID_User, ID_School, School, Degree, Period_From, Period_To, Description";
 
@@ -1029,7 +1029,7 @@ class Users_Model extends ZP_Load
 
 			$data = array(
 				'ID_User' => SESSION("ZanUserID"),
-				'Extract' => POST("summary"),
+				'Summary' => POST("summary"),
 				'Last_Updated' => now(4)
 			);
 
