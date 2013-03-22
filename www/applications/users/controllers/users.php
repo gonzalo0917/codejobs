@@ -539,8 +539,10 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
-		$data = $this->Users_Model->getInformation();
-		
+		$summary = $this->Users_Model->getSummary();
+		$experiences = $this->Users_Model->getExperiences();
+		$education = $this->Users_Model->getEducation();
+
 		if ($data) {
 			$this->helper(array("forms", "html"));
 			$this->config("users", $this->application);
