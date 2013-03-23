@@ -543,15 +543,18 @@ class Users_Controller extends ZP_Load
 		$experiences = $this->Users_Model->getExperiences();
 		$education = $this->Users_Model->getEducation();
 
-		if ($summary OR $experiences OR $education) {
-			$this->helper(array("forms", "html"));
-			$this->config("users", $this->application);
-			$this->config("cv", $this->application);
+		$this->helper(array("forms", "html"));
+		$this->config("users", $this->application);
+		$this->config("cv", $this->application);
  
-			$this->css("forms", "cpanel");
-			$this->css("users", $this->application);
-			$this->css("cv", $this->application);
+		$this->css("forms", "cpanel");
+		$this->css("users", $this->application);
+		$this->css("cv", $this->application);
 
+		$this->js("jquery.jdpicker.js");
+		$this->js("cv", $this->application);
+
+		if ($summary OR $experiences OR $education) {
 			if (POST("saveExperiences")) {
 				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
 				$this->helper("alerts");
@@ -569,9 +572,6 @@ class Users_Controller extends ZP_Load
 				$this->helper("alerts");
 				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
 			}
-
-			$this->js("jquery.jdpicker.js");
-			//$this->js("cv", $this->application);
 
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");

@@ -6,6 +6,7 @@
     $ID_Experience  = (isset($experiences) && $experiences != false) ? recoverPOST("ID_Experience", $experiences[0]["ID_Experience"]) : 0;
     $ID_School      = (isset($education) && $education != false) ? recoverPOST("ID_School", $education[0]["ID_School"]) : 0;
     $summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
+    $skills        = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["Skills"]) : recoverPOST("skills");
     //$skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
     $experiences    = isset($experiences) ? $experiences : false;
     $education      = isset($education) ? $education : false;
@@ -293,22 +294,23 @@
 
     echo htmlTag("div", false);
 
-    echo htmlTag("div", false);
+    echo htmlTag("div", array(
+        "class" => "add-form"
+    ));
 
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
             echo isset($alertSkills) ? $alertSkills : null;
 
-            echo formTextArea(array(
+            echo formInput(array(
                 "name"  => "skills",
                 "class" => "span10 required",
                 "field" => __("Skills"), 
                 "p"     => true, 
-                "style" => "resize: none; height: 100px;",
                 "value" => $skills
             ));
 
-            if ($summary != null) {
+            if ($skills != null) {
                 echo formInput(array(
                     "name" => "updateSkills", 
                     "class" => "btn btn-success", 
@@ -324,9 +326,9 @@
                 ));
             }
 
-            echo formInput(array("name" => "ID_Skills", "type" => "hidden", "value" => $ID_Skills));
-
         echo formClose();
+
+    echo htmlTag("div", false);
 
     echo htmlTag("div", false);
 

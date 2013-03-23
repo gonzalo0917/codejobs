@@ -431,6 +431,7 @@ $phrase["sign_up"]										= "Regístrate";
 $phrase["situation"]									= "Situación";
 $phrase["six"]											= "seis";
 $phrase["size"]											= "Tamaño";
+$phrase["skills"]										= "Aptitudes y conocimientos";
 $phrase["slogan_of_the_website"] 						= "Slogan del Sitio Web";
 $phrase["social_networks"]		 						= "Redes sociales";
 $phrase["something_went_wrong_try_again_later"]			= "¡Algo salió mal! Vuelve a intentarlo más tarde";
