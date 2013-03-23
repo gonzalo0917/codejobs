@@ -294,6 +294,42 @@
     echo htmlTag("div", false);
 
     echo htmlTag("div", false);
+
+    echo div("edit-profile", "class");
+        echo formOpen($href, "form-add", "form-add");
+            echo isset($alertSkills) ? $alertSkills : null;
+
+            echo formTextArea(array(
+                "name"  => "skills",
+                "class" => "span10 required",
+                "field" => __("Skills"), 
+                "p"     => true, 
+                "style" => "resize: none; height: 100px;",
+                "value" => $skills
+            ));
+
+            if ($summary != null) {
+                echo formInput(array(
+                    "name" => "updateSkills", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Update"), 
+                    "type" => "submit"
+                ));
+            } else {
+                echo formInput(array(
+                    "name" => "saveSkills", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Save"), 
+                    "type" => "submit"
+                ));
+            }
+
+            echo formInput(array("name" => "ID_Skills", "type" => "hidden", "value" => $ID_Skills));
+
+        echo formClose();
+
+    echo htmlTag("div", false);
+
 ?>
 <script type="text/javascript">
 function CvExperience($scope) {
