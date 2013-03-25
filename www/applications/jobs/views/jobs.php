@@ -19,9 +19,10 @@
 			));
 
 			$options = array(
-				0 => array("value" => "Author", "option" => __("Author")),
-				1 => array("value" => "Company", "option" => __("Company")),
-				2 => array("value" => "City", "option" => __("City"))
+				0 => array("value" => "Tag", "option" => __("Tag")),
+				1 => array("value" => "Author", "option" => __("Author")),
+				2 => array("value" => "Company", "option" => __("Company")),
+				3 => array("value" => "City", "option" => __("City"))
 			);
 
 			echo formSelect(array(

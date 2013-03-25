@@ -132,6 +132,8 @@ class Jobs_Model extends ZP_Load
 
 		if ($find == "") {
 			redirect(path("jobs/"));
+		} elseif ($type == "Tag") {
+			redirect(path("jobs/tag/". POST("find")));
 		} elseif ($type == "Author") {
 			redirect(path("jobs/author/". POST("find")));
 		} elseif ($type == "Company") {
@@ -256,6 +258,7 @@ class Jobs_Model extends ZP_Load
 	{
 		$tag = str_replace("-", " ", $tag);
 		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+
 	}
 
 	public function getByID($ID)
