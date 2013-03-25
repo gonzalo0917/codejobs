@@ -139,6 +139,11 @@ class Jobs_Controller extends ZP_Load
 		$this->Jobs_Model->saveVacant();
 	}
 
+	public function search()
+	{
+		$this->Jobs_Model->searching();
+	}
+
 	public function go($jobID = 0)
 	{
 		$this->CSS("jobs", $this->application);
@@ -192,7 +197,7 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit();
 		$data = $this->Cache->data("jobs-$limit", "jobs", $this->Jobs_Model, "getAll", array($limit));
-		$this->helper("time");
+		$this->helper(array("time", "forms", "alerts"));
 
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
@@ -214,7 +219,7 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit("author");
 		$data = $this->Cache->data("author-$author-$limit", "jobs", $this->Jobs_Model, "getAllByAuthor", array($author, $limit));
-		$this->helper("time");
+		$this->helper(array("time", "forms", "alerts"));
 
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
@@ -236,7 +241,7 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit("city");
 		$data = $this->Cache->data("city-$city-$limit", "jobs", $this->Jobs_Model, "getAllByCity", array($city, $limit));
-		$this->helper("time");
+		$this->helper(array("time", "forms", "alerts"));
 
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
@@ -258,7 +263,7 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit("company");
 		$data = $this->Cache->data("company-$company-$limit", "jobs", $this->Jobs_Model, "getAllByCompany", array($company, $limit));
-		$this->helper("time");
+		$this->helper(array("time", "forms", "alerts"));
 
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);
@@ -279,7 +284,7 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit("author-tag");
 		$data = $this->Cache->data("author-$author-tag-$tag-$limit", "jobs", $this->Jobs_Model, "getAllByTag", array($author, $tag, $limit));
-		$this->helper("time");
+		$this->helper(array("time", "forms", "alerts"));
 		
 		if ($data) {
 			$this->meta("keywords", $data[0]["Tags"]);

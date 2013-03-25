@@ -124,6 +124,23 @@ class Jobs_Model extends ZP_Load
 		return getAlert(__("Insert Error"));
 	}
 
+	public function searching()
+	{
+		$this->helper("alerts");
+		$find = POST("find", "clean");
+		$type = POST("type");
+
+		if ($find == "") {
+			redirect(path("jobs/"));
+		} elseif ($type == "Author") {
+			redirect(path("jobs/author/". POST("find")));
+		} elseif ($type == "Company") {
+			redirect(path("jobs/company/". POST("find")));
+		} elseif ($type == "Country") {
+			redirect(path("jobs/country/". POST("find")));
+		}
+	}
+
 	public function saveVacant()
 	{
 		$jname = POST("jname");
@@ -186,7 +203,7 @@ class Jobs_Model extends ZP_Load
 			return false;
 		}
 	}
-
+	
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");

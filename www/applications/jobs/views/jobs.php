@@ -8,7 +8,39 @@
 		<?php echo __("Codejobs Vacancies");?>
 	</h1>
 </div>
+<div class="searcher">
+	<form action="<?php echo path("jobs/search/"); ?>" method="post" enctype="multipart/form-data">
+	<?php
+			echo formInput(array(
+				"name" => "find",
+				"class" => "span5 required", 
+				"field" => __("Search"),  
+				"placeholder" => __("Type your search"),
+			));
 
+			$options = array(
+				0 => array("value" => "Author", "option" => __("Author")),
+				1 => array("value" => "Company", "option" => __("Company")),
+				2 => array("value" => "City", "option" => __("City"))
+			);
+
+			echo formSelect(array(
+				"id" => "type",
+				"name" => "type", 
+				"class" => "span2 required", 
+				"field" => __("Type")), 
+				$options
+			);
+
+			echo formInput(array(
+				"type" => "submit", 
+				"id" => "search",
+				"name" => "search",
+				"value" => __("Search Job")
+			));
+	?>
+	</form>
+</div>
 <div class="cities">
 		<ul>
 			<?php
