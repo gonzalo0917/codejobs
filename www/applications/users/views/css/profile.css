@@ -13,8 +13,8 @@
 	padding-right: 30px;
 }
 
-.username {
-	color: #000;
+.username, .username:active {
+	color: #555;
 	font-weight: bold;
 	text-decoration: none;
 }

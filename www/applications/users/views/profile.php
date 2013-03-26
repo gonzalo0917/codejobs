@@ -37,21 +37,21 @@
 			<div class="counter">
 				<div>
 					<?php if ($user["Posts"] > 0) { ?>
-					<a href="<?php echo path(); ?>"><?php echo "<strong>". $user["Posts"] ."</strong>". __(" posts"); ?></a>
+					<a href="<?php echo path("blog/author/". $user["Username"]); ?>"><?php echo "<strong>". $user["Posts"] ."</strong>". __(" posts"); ?></a>
 					<?php } else {
 						echo "<strong>0</strong>". __(" posts");
 					} ?>
 				</div>
 				<div>
 					<?php if ($user["Codes"] > 0) { ?>
-					<a href="<?php echo path(); ?>"><?php echo "<strong>". $user["Codes"] ."</strong>". __(" codes"); ?></a>
+					<a href="<?php echo path("codes/author/". $user["Username"]); ?>"><?php echo "<strong>". $user["Codes"] ."</strong>". __(" codes"); ?></a>
 					<?php } else {
 						echo "<strong>0</strong>". __(" codes");
 					} ?>
 				</div>
 				<div>
 					<?php if ($user["Bookmarks"] > 0) { ?>
-					<a href="<?php echo path(); ?>"><?php echo "<strong>". $user["Bookmarks"] ."</strong>". __(" bookmarks"); ?></a>
+					<a href="<?php echo path("bookmarks/author/". $user["Username"]); ?>"><?php echo "<strong>". $user["Bookmarks"] ."</strong>". __(" bookmarks"); ?></a>
 					<?php } else {
 						echo "<strong>0</strong>". __(" bookmarks");
 					} ?>
