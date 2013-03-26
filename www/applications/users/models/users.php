@@ -1124,7 +1124,7 @@ class Users_Model extends ZP_Load
 			return getAlert(__("Insert error"));
 
 		} else {
-			return $this->editSummary();
+			return $this->editSkills();
 		}
 	}
 
@@ -1140,6 +1140,10 @@ class Users_Model extends ZP_Load
 
 	}
 	
+	public function editSkills() {
+		
+	}
+
 	private function proccessExperiences($ID)
     {
         $files = POST("file");
