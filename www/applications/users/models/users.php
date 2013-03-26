@@ -854,11 +854,11 @@ class Users_Model extends ZP_Load
 	public function saveSocial()
 	{
 		$data = array(
-			"Twitter"  => POST("twitter"),
-			"Facebook" => POST("facebook"),
-			"Linkedin" => POST("linkedin"),
-			"Google"   => POST("google"),
-			"Viadeo"   => POST("viadeo")
+			"Twitter"  => !is_null(POST("twitter")) ? POST("twitter") : "",
+			"Facebook" => !is_null(POST("facebook")) ? POST("facebook") : "",
+			"Linkedin" => !is_null(POST("linkedin")) ? POST("linkedin") : "",
+			"Google"   => !is_null(POST("google")) ? POST("google") : "",
+			"Viadeo"   => !is_null(POST("viadeo")) ? POST("viadeo") : ""
 		);
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
@@ -866,6 +866,7 @@ class Users_Model extends ZP_Load
 		}
 		
 		return getAlert(__("Update error"));
+		exit;
 	}
 
 	public function records($only = false, $start = 0, $order = null, $search = false)
