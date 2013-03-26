@@ -12,7 +12,6 @@ class Jobs_Model extends ZP_Load
 		$this->language = whichLanguage();
 		$this->table = "jobs";
 		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation, Counter";
-		$this->fieldsVacancy = "Id_Vacant, Job_Name, Job_Author, Vacancy, Vacancy_Email, Cv, Message";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 		$this->Email = $this->core("Email");
@@ -127,7 +126,7 @@ class Jobs_Model extends ZP_Load
 	public function searching()
 	{
 		$this->helper("alerts");
-		$find = POST("find", "clean");
+		$find = POST("find");
 		$type = POST("type");
 
 		if ($find == "") {
@@ -138,8 +137,9 @@ class Jobs_Model extends ZP_Load
 			redirect(path("jobs/author/". POST("find")));
 		} elseif ($type == "Company") {
 			redirect(path("jobs/company/". POST("find")));
-		} elseif ($type == "Country") {
-			redirect(path("jobs/country/". POST("find")));
+		} elseif ($type == "City") {
+			$find = str_replace(" ", "-", POST("find"));
+			redirect(path("jobs/city/". $find));
 		}
 	}
 
@@ -209,7 +209,21 @@ class Jobs_Model extends ZP_Load
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");
-		return $this->Db->query("SELECT Job_Name, Job_Author, ID_UserVacancy, Vacancy, Cv, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+		return $this->Db->query("SELECT Job_Name, Job_Id, Job_Author, ID_UserVacancy, Vacancy, Cv, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+	}
+
+	public function downloadCv()
+	{
+		$user = segment(2, isLang());
+		$job = segment(3, isLang());
+		$email = $this->Db->query("SELECT Email FROM ". DB_PREFIX ."users WHERE ID_User = '$user' ORDER BY ID_User DESC");
+		$cv = $this->Db->query("SELECT Cv FROM ". DB_PREFIX ."vacancy WHERE Job_Id = '$job' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		
+		$this->Email->email = $email[0]["Email"];
+		$this->Email->subject = __("An recluiter has downloaded your cv");
+		$this->Email->message = $this->view("download_cv", array(), "jobs", true);
+		$this->Email->send();
+		redirect(path($cv[0]["Cv"], true));
 	}
 
 	public function isVacancy()

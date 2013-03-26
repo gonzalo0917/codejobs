@@ -134,6 +134,11 @@ class Jobs_Controller extends ZP_Load
 		}
 	}
 
+	public function download()
+	{
+		$this->Jobs_Model->downloadCv();
+	}
+
 	public function apply()
 	{
 		$this->Jobs_Model->saveVacant();
