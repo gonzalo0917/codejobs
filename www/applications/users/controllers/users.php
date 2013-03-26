@@ -542,6 +542,7 @@ class Users_Controller extends ZP_Load
 		$summary = $this->Users_Model->getSummary();
 		$experiences = $this->Users_Model->getExperiences();
 		$education = $this->Users_Model->getEducation();
+		$skills = $this->Users_Model->getSkills();
 
 		$this->helper(array("forms", "html"));
 		$this->config("users", $this->application);
@@ -573,12 +574,19 @@ class Users_Controller extends ZP_Load
 				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
 			}
 
+			if (POST("saveSkills")) {
+				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+				$this->helper("alerts");
+				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
+			}
+
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
 
 			$vars["summary"] = $summary;
 			$vars["experiences"] = $experiences;
 			$vars["education"] = $education;
+			$vars["skills"] = $skills;
 
 			$vars["view"] = $this->view("cv", true);
 			$vars["href"] = path("users/cv/");
