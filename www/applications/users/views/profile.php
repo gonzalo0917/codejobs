@@ -29,6 +29,35 @@
 			<?php } else { ?>
 			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
 			<?php } ?>
+			<?php if (!empty($user["Twitter"]) or !empty($user["Facebook"]) or !empty($user["Linkedin"]) or !empty($user["Google"]) or !empty($user["Viadeo"])) { ?>
+			<div class="social">
+				<?php if (!empty($user["Twitter"])) { ?>
+				<a href="http://twitter.com/<?php echo $user["Twitter"]; ?>" target="_blank">
+					<div class="social-btn twitter-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Facebook"])) { ?>
+				<a href="http://facebook.com/<?php echo $user["Facebook"]; ?>" target="_blank">
+					<div class="social-btn facebook-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Linkedin"])) { ?>
+				<a href="http://linkedin.com/in/<?php echo $user["Linkedin"]; ?>" target="_blank">
+					<div class="social-btn linkedin-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Google"])) { ?>
+				<a href="https://profiles.google.com/<?php echo $user["Google"]; ?>" target="_blank">
+					<div class="social-btn google-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Viadeo"])) { ?>
+				<a href="http://viadeo.com/en/profile/<?php echo $user["Viadeo"]; ?>" target="_blank">
+					<div class="social-btn viadeo-social-btn"></div>
+				</a>
+				<?php } ?>
+			</div>
+			<?php } ?>
 		</div>
 		<div class="information">
 			<div class="date">

@@ -866,7 +866,6 @@ class Users_Model extends ZP_Load
 		}
 		
 		return getAlert(__("Update error"));
-		exit;
 	}
 
 	public function records($only = false, $start = 0, $order = null, $search = false)
