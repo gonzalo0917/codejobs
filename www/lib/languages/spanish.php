@@ -96,6 +96,7 @@ $phrase["requirements"]									= "Requisitos";
 $phrase["results_for"]								    = "Resultados para";
 $phrase["experience"]									= "Experiencia";
 $phrase["activities"]									= "Actividades";
+$phrase["points"]										= "Puntos";
 $phrase["profile"]										= "Perfil";
 $phrase["profile_of"]									= "Perfil de";
 $phrase["technologies"]									= "Tecnologías";

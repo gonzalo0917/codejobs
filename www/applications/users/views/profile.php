@@ -86,6 +86,12 @@
 					} ?>
 				</div>
 			</div>
+			<div class="credits">
+				<div class="header"><?php echo __("Points"); ?></div>
+				<div>
+
+				</div>
+			</div>
 		</div>
 	</section>
 	<div id="posts">
