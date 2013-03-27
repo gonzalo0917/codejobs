@@ -22,11 +22,13 @@ class Users_Model extends ZP_Load
 		$this->tableCvSum = "users_cv_summary";
 		$this->tableCvExp = "users_cv_experiences";
 		$this->tableCvEdu = "users_cv_education";
+		$this->tableCvSki = "users_cv_skills";
 
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
 		$this->fieldsCvSum = "ID_User, ID_Summary, Summary, Last_Updated";
 		$this->fieldsCvExp = "ID_User, ID_Experience, Company, Job_Title, Location, Period_From, Period_To, Description";
 		$this->fieldsCvEdu = "ID_User, ID_School, School, Degree, Period_From, Period_To, Description";
+		$this->fieldsCvSki = "ID_User, ID_Skills, Skills";
 
 		$this->application = whichApplication();
 		$this->helper("debugging");
@@ -852,11 +854,11 @@ class Users_Model extends ZP_Load
 	public function saveSocial()
 	{
 		$data = array(
-			"Twitter"  => POST("twitter"),
-			"Facebook" => POST("facebook"),
-			"Linkedin" => POST("linkedin"),
-			"Google"   => POST("google"),
-			"Viadeo"   => POST("viadeo")
+			"Twitter"  => !is_null(POST("twitter")) ? POST("twitter") : "",
+			"Facebook" => !is_null(POST("facebook")) ? POST("facebook") : "",
+			"Linkedin" => !is_null(POST("linkedin")) ? POST("linkedin") : "",
+			"Google"   => !is_null(POST("google")) ? POST("google") : "",
+			"Viadeo"   => !is_null(POST("viadeo")) ? POST("viadeo") : ""
 		);
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
@@ -995,6 +997,12 @@ class Users_Model extends ZP_Load
 		return $data;
 	}
 
+	public function getSkills() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvSki, $this->fieldsCvSki);
+
+		return $data;
+	}
+
 	public function editOrSaveCv() {
 
 	}
@@ -1013,7 +1021,7 @@ class Users_Model extends ZP_Load
 			$return = $this->Db->insert($this->tableCvSum, $data);
 
 			if ($return) {
-				return getAlert(__("The summary has been saved correctly"), "success");
+				return getAlert(__("Saved correctly"), "success");
 			}
 				
 			return getAlert(__("Insert error"));
@@ -1053,7 +1061,7 @@ class Users_Model extends ZP_Load
 	        }
 
 	        if ($this->Db->insertBatch($this->tableCvExp, $data))
-	            return getAlert(__("The experience has been saved correctly"), "success");	
+	            return getAlert(__("Saved correctly"), "success");	
 		} elseif ($action === "edit") {
 			return $this->editExperiences();
 		}
@@ -1089,12 +1097,35 @@ class Users_Model extends ZP_Load
 	        }
 
 	        if ($this->Db->insertBatch($this->tableCvEdu, $data))
-	            return getAlert(__("The school has been saved correctly"), "success");
+	            return getAlert(__("Saved correctly"), "success");
 		} elseif ($action === "edit") {
 			return $this->editEducation();
 		}
 
 		return getAlert(__("Insert error"));
+	}
+
+	public function saveSkills($action = "save") {
+
+		if ($action === "save") {
+			$this->helper(array("time", "alerts"));
+
+			$data = array(
+				'ID_User' => SESSION("ZanUserID"),
+				'Skills' => POST("skills")
+			);
+
+			$return = $this->Db->insert($this->tableCvSki, $data);
+
+			if ($return) {
+				return getAlert(__("Saved correctly"), "success");
+			}
+				
+			return getAlert(__("Insert error"));
+
+		} else {
+			return $this->editSkills();
+		}
 	}
 
 	public function editSummary() {
@@ -1109,6 +1140,10 @@ class Users_Model extends ZP_Load
 
 	}
 	
+	public function editSkills() {
+		
+	}
+
 	private function proccessExperiences($ID)
     {
         $files = POST("file");

@@ -542,6 +542,7 @@ class Users_Controller extends ZP_Load
 		$summary = $this->Users_Model->getSummary();
 		$experiences = $this->Users_Model->getExperiences();
 		$education = $this->Users_Model->getEducation();
+		$skills = $this->Users_Model->getSkills();
 
 		$this->helper(array("forms", "html"));
 		$this->config("users", $this->application);
@@ -573,12 +574,19 @@ class Users_Controller extends ZP_Load
 				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
 			}
 
+			if (POST("saveSkills")) {
+				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+				$this->helper("alerts");
+				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
+			}
+
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
 
 			$vars["summary"] = $summary;
 			$vars["experiences"] = $experiences;
 			$vars["education"] = $education;
+			$vars["skills"] = $skills;
 
 			$vars["view"] = $this->view("cv", true);
 			$vars["href"] = path("users/cv/");
@@ -594,6 +602,9 @@ class Users_Controller extends ZP_Load
 	public function profile($user = null)
 	{
 		$data = $this->Users_Model->getByUsername($user);
+		$this->Blog_Model = $this->model("Blog_Model");
+		$this->Codes_Model = $this->model("Codes_Model");
+		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 
 		if ($data) {
 			if (_get("webLang") === "en") {
@@ -607,6 +618,9 @@ class Users_Controller extends ZP_Load
 
 			$vars["user"] = $data[0];
 			$vars["view"] = $this->view("profile", true);
+			$vars["posts"] = $this->Blog_Model->getByUser($data[0]["ID_User"], 3);
+			$vars["codes"] = $this->Codes_Model->getByUser($data[0]["ID_User"], 3);
+			$vars["bookmarks"] = $this->Bookmarks_Model->getByUser($data[0]["ID_User"], 3);
 
 			$this->render("content", $vars);
 		} else {

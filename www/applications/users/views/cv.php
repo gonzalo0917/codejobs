@@ -3,14 +3,14 @@
     	die("Error: You don't have permission to access here..."); 
     }
   
-    $ID_Experience  = (isset($experiences) && $experiences != false) ? recoverPOST("ID_Experience", $experiences[0]["ID_Experience"]) : 0;
-    $ID_School      = (isset($education) && $education != false) ? recoverPOST("ID_School", $education[0]["ID_School"]) : 0;
+   /* $ID_Experience  = (isset($experiences) && $experiences != false) ? recoverPOST("ID_Experience", $experiences[0]["ID_Experience"]) : 0;
+    $ID_School      = (isset($education) && $education != false) ? recoverPOST("ID_School", $education[0]["ID_School"]) : 0;*/
+    $ID_Summary     = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["ID_Summary"]) : 0;
+    $ID_Skills      = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["ID_Skills"]) : 0;
     $summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
-    $skills        = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["Skills"]) : recoverPOST("skills");
-    //$skills         = isset($data) ? recoverPOST("skills", $data[0]["Skills"]) : recoverPOST("Skills");
+    $skills         = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["Skills"]) : recoverPOST("skills");
     $experiences    = isset($experiences) ? $experiences : false;
     $education      = isset($education) ? $education : false;
-    //$action      = isset($data) ? "edit" : "save";
 
     if (!$experiences) {
         $experiences = recoverExperiences();
@@ -32,25 +32,27 @@
             echo formTextArea(array(
                 "name"  => "summary",
                 "class" => "span10 required",
-                "field" => __("Summary"), 
+                "field" => __("Summary"),
                 "p"     => true, 
                 "style" => "resize: none; height: 100px;",
                 "value" => $summary
             ));
 
+            echo formInput(array("name" => "ID_Summary", "type" => "hidden", "value" => $ID_Summary));
+
             if ($summary != null) {
                 echo formInput(array(
-                    "name" => "updateSummary", 
+                    "name"  => "updateSummary", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
-                    "type" => "submit"
+                    "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                    "name" => "saveSummary", 
+                    "name"  => "saveSummary", 
                     "class" => "btn btn-success", 
                     "value" => __("Save"), 
-                    "type" => "submit"
+                    "type"  => "submit"
                 ));
             }
 
@@ -155,21 +157,19 @@
 
             if ($experiences AND $experiences[0]['ID_Experience'] !== "") {
                 echo formInput(array(
-                    "name" => "updateExperiences", 
+                    "name"  => "updateExperiences", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
-                    "type" => "submit"
+                    "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                "name" => "saveExperiences", 
+                "name"  => "saveExperiences", 
                 "class" => "btn btn-success", 
                 "value" => __("Save"), 
-                "type" => "submit"
+                "type"  => "submit"
             ));
             }
-
-            echo formInput(array("name" => "ID_Experience", "type" => "hidden", "value" => $ID_Experience));
 
         echo formClose();
         echo htmlTag("div", false);
@@ -274,21 +274,19 @@
 
             if ($education AND $education[0]['ID_School'] !== "") {
                 echo formInput(array(
-                    "name" => "updateEducation", 
+                    "name"  => "updateEducation", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
-                    "type" => "submit"
+                    "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                "name" => "saveEducation", 
-                "class" => "btn btn-success", 
-                "value" => __("Save"), 
-                "type" => "submit"
-            ));
+                    "name"  => "saveEducation", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Save"), 
+                    "type"  => "submit"
+                ));
             }
-
-            echo formInput(array("name" => "ID_School", "type" => "hidden", "value" => $ID_School));
 
         echo formClose();
 
@@ -303,26 +301,29 @@
             echo isset($alertSkills) ? $alertSkills : null;
 
             echo formInput(array(
-                "name"  => "skills",
-                "class" => "span10 required",
-                "field" => __("Skills"), 
-                "p"     => true, 
-                "value" => $skills
+                "name"        => "skills",
+                "class"       => "span10 required",
+                "field"       => __("Skills"), 
+                "p"           => true, 
+                "placeholder" => __("Write the tags separated by commas"),
+                "value"       => $skills
             ));
+
+            echo formInput(array("name" => "ID_Skills", "type" => "hidden", "value" => $ID_Skills));
 
             if ($skills != null) {
                 echo formInput(array(
-                    "name" => "updateSkills", 
+                    "name"  => "updateSkills", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
-                    "type" => "submit"
+                    "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                    "name" => "saveSkills", 
+                    "name"  => "saveSkills", 
                     "class" => "btn btn-success", 
                     "value" => __("Save"), 
-                    "type" => "submit"
+                    "type"  => "submit"
                 ));
             }
 
