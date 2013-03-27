@@ -28,7 +28,7 @@
 			echo '<tr>';
 			echo '<td>'. $vacant["Job_Name"] .'</td>';
 			echo '<td>'. $vacant["Vacancy"] .'</td>';
-			echo '<td><a href="'. path("jobs/download/" . $vacant["ID_UserVacancy"] ."/". $vacant["Job_Id"]) .'">'. __("Download") .'</a></td>';
+			echo '<td><a href="'. path("jobs/download/" . $vacant["ID_UserVacancy"] ."/". $vacant["ID_Job"]) .'">'. __("Download") .'</a></td>';
 			echo '<td>'. $vacant["Vacancy_Email"] .'</td>';
 			echo '<td>'. $vacant["Message"] .'</td>';
 			echo '</tr>';
