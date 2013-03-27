@@ -11,7 +11,7 @@
 				<a class="username" href="<?php echo getURL(); ?>"><?php echo $user["Username"]; ?></a>
 			</div>
 			<?php if ($user["Name"]) { ?>
-			<div class="fullname">
+			<div class="fullname header">
 				<?php echo $user["Name"]; ?>
 			</div>
 			<?php } ?>
@@ -89,6 +89,26 @@
 		</div>
 	</section>
 	<div id="posts">
-		<strong><?php echo __("Recent posts");?></strong>
+		<div class="header subtitle"><?php echo __("Recent posts");?></div>
+		<?php
+			if (empty($posts)) {
+		?>
+		<div>
+			<?php echo __("No posts"); ?>
+		</div>
+		<?php
+			} else {
+				foreach ($posts as $post) {
+		?>
+		<div class="post">
+			<strong><?php echo $post["Title"]; ?></strong>
+			<div><?php echo __("Published") ." ". howLong($post["Start_Date"]); ?></div>
+			<div><?php echo $post["Content"]; ?></div>
+		</div>
+		<?php
+				}
+			}
+		?>
+		<div class="header subtitle"><?php echo __("Recent codes"); ?></div>
 	</div>
 </div>

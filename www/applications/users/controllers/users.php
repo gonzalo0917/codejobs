@@ -602,6 +602,9 @@ class Users_Controller extends ZP_Load
 	public function profile($user = null)
 	{
 		$data = $this->Users_Model->getByUsername($user);
+		$this->Blog_Model = $this->model("Blog_Model");
+		$this->Codes_Model = $this->model("Codes_Model");
+		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 
 		if ($data) {
 			if (_get("webLang") === "en") {
@@ -615,6 +618,9 @@ class Users_Controller extends ZP_Load
 
 			$vars["user"] = $data[0];
 			$vars["view"] = $this->view("profile", true);
+			$vars["posts"] = $this->Blog_Model->getByUser($data[0]["ID_User"], 3);
+			$vars["codes"] = $this->Codes_Model->getByUser($data[0]["ID_User"], 3);
+			$vars["bookmarks"] = $this->Bookmarks_Model->getByUser($data[0]["ID_User"], 3);
 
 			$this->render("content", $vars);
 		} else {
