@@ -223,7 +223,7 @@ class Jobs_Model extends ZP_Load
 		$cv = $this->Db->query("SELECT Cv FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$job' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
 		
 		$this->Email->email = $email[0]["Email"];
-		$this->Email->subject = __("An recluiter has downloaded your cv");
+		$this->Email->subject = __("A recluiter has downloaded your cv");
 		$this->Email->message = $this->view("download_cv", array(), "jobs", true);
 		$this->Email->send();
 		redirect(path($cv[0]["Cv"], true));

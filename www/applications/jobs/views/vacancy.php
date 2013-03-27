@@ -14,7 +14,7 @@
 		echo __("You don't have any vacancy");
 	} else {
 		echo '<caption class="caption">';
-		echo '<span class="bold">'. __("List of Vacancy") .'</span></caption>';
+		echo '<span class="bold">'. __("List of Vacancies") .'</span></caption>';
 		echo '<table class="results">';
 		echo '<tr>';
 		echo '<th>'. __("Job Name") .'</th>';
