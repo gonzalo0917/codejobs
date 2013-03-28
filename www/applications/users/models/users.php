@@ -148,6 +148,44 @@ class Users_Model extends ZP_Load
 		}
 	}
 	
+	private function editOrSaveSummary($action) {
+		$this->helper(array("time", "alerts"));
+
+		if ($action === "save") {
+			$data = array(
+				'ID_User' => SESSION("ZanUserID"),
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		} else {
+			$data = array(
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		}
+
+		return $data;
+	}
+
+	private function editOrSaveSkills($action) {
+		$this->helper(array("time", "alerts"));
+
+		if ($action === "save") {
+			$data = array(
+				'ID_User' => SESSION("ZanUserID"),
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		} else {
+			$data = array(
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		}
+
+		return $data;
+	}
+
 	private function save()
 	{
 		$insertID = $this->Db->insert($this->table, $this->data);
@@ -1003,21 +1041,11 @@ class Users_Model extends ZP_Load
 		return $data;
 	}
 
-	public function editOrSaveCv() {
-
-	}
-
 	public function saveSummary($action = "save") {
+		$data = $this->editOrSaveSummary($action);
 
 		if ($action === "save") {
-			$this->helper(array("time", "alerts"));
-
-			$data = array(
-				'ID_User' => SESSION("ZanUserID"),
-				'Summary' => POST("summary"),
-				'Last_Updated' => now(4)
-			);
-
+			
 			$return = $this->Db->insert($this->tableCvSum, $data);
 
 			if ($return) {
@@ -1026,8 +1054,8 @@ class Users_Model extends ZP_Load
 				
 			return getAlert(__("Insert error"));
 
-		} else {
-			return $this->editSummary();
+		} elseif ($action === "edit") {
+			return $this->editSummary($data);
 		}
 	}
 	
@@ -1128,8 +1156,11 @@ class Users_Model extends ZP_Load
 		}
 	}
 
-	public function editSummary() {
-
+	public function editSummary($data) {
+		if ($this->Db->update($this->tableCvSum, $data, POST("ID_Summary"))) {
+			return getAlert(__("Edited correctly"), "success");
+		}
+		return getAlert(__("Update error"));
 	}
 
 	public function editExperiences() {
@@ -1141,7 +1172,13 @@ class Users_Model extends ZP_Load
 	}
 	
 	public function editSkills() {
+		$data['Skills'] = POST('skills');
 		
+		if ($this->Db->update($this->tableCvSki, $data, POST("ID_Skills"))) {
+			return getAlert(__("Edited correctly"), "success");
+		} 
+		
+		return getAlert(__("Update error"));
 	}
 
 	private function proccessExperiences($ID)

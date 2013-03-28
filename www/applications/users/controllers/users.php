@@ -568,14 +568,14 @@ class Users_Controller extends ZP_Load
 				$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
 			}
 
-			if (POST("saveSummary")) {
-				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+			if (POST("actionSummary")) {
+				$action = ((int) POST("ID_Summary") !== 0) ? "edit" : "save";
 				$this->helper("alerts");
 				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
 			}
 
-			if (POST("saveSkills")) {
-				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+			if (POST("actionSkills")) {
+				$action = ((int) POST("ID_Skills") !== 0) ? "edit" : "save";
 				$this->helper("alerts");
 				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
 			}

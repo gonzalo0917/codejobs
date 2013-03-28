@@ -2,9 +2,7 @@
     if (!defined("ACCESS")) {
     	die("Error: You don't have permission to access here..."); 
     }
-  
-   /* $ID_Experience  = (isset($experiences) && $experiences != false) ? recoverPOST("ID_Experience", $experiences[0]["ID_Experience"]) : 0;
-    $ID_School      = (isset($education) && $education != false) ? recoverPOST("ID_School", $education[0]["ID_School"]) : 0;*/
+    
     $ID_Summary     = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["ID_Summary"]) : 0;
     $ID_Skills      = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["ID_Skills"]) : 0;
     $summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
@@ -42,14 +40,14 @@
 
             if ($summary != null) {
                 echo formInput(array(
-                    "name"  => "updateSummary", 
+                    "name"  => "actionSummary", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                    "name"  => "saveSummary", 
+                    "name"  => "actionSummary", 
                     "class" => "btn btn-success", 
                     "value" => __("Save"), 
                     "type"  => "submit"
@@ -313,14 +311,14 @@
 
             if ($skills != null) {
                 echo formInput(array(
-                    "name"  => "updateSkills", 
+                    "name"  => "actionSkills", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                    "name"  => "saveSkills", 
+                    "name"  => "actionSkills", 
                     "class" => "btn btn-success", 
                     "value" => __("Save"), 
                     "type"  => "submit"

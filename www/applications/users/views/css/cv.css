@@ -61,11 +61,7 @@ a.btn, a.btn:focus {
 .add-form {
     width: 100% !important;
 }
-input[name=saveSummary] {
-    display: block;
-    margin-bottom: 20px;
-}
-input[name=updateSummary] {
+input[name=actionSummary] {
     display: block;
     margin-bottom: 20px;
 }
