@@ -148,7 +148,8 @@ class Users_Model extends ZP_Load
 		}
 	}
 	
-	private function editOrSaveSummary($action) {
+	private function editOrSaveSummary($action) 
+	{
 		$this->helper(array("time", "alerts"));
 
 		if ($action === "save") {
@@ -167,7 +168,8 @@ class Users_Model extends ZP_Load
 		return $data;
 	}
 
-	private function editOrSaveSkills($action) {
+	private function editOrSaveSkills($action) 
+	{
 		$this->helper(array("time", "alerts"));
 
 		if ($action === "save") {
@@ -1017,31 +1019,36 @@ class Users_Model extends ZP_Load
 		}
 	}
 
-	public function getSummary() {
+	public function getSummary() 
+	{
 		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvSum, $this->fieldsCvSum);
 		
 		return $data;
 	}
 
-	public function getExperiences() {
+	public function getExperiences() 
+	{
 		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvExp, $this->fieldsCvExp);
 		
 		return $data;
 	}
 
-	public function getEducation() {
+	public function getEducation()
+	{
 		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvEdu, $this->fieldsCvEdu);
 
 		return $data;
 	}
 
-	public function getSkills() {
+	public function getSkills()
+	{
 		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvSki, $this->fieldsCvSki);
 
 		return $data;
 	}
 
-	public function saveSummary($action = "save") {
+	public function saveSummary($action = "save")
+	{
 		$data = $this->editOrSaveSummary($action);
 
 		if ($action === "save") {
@@ -1060,11 +1067,11 @@ class Users_Model extends ZP_Load
 	}
 	
 
-	public function saveExperiences($action = "save") {
+	public function saveExperiences($action = "save")
+	{
+		$this->helper(array("time", "alerts"));
 
 		if ($action === "save") {
-			$this->helper(array("time", "alerts"));
-
 			$experiences = POST("experience");
 			$company = POST("company");
 	        $title = POST("title");
@@ -1098,11 +1105,11 @@ class Users_Model extends ZP_Load
 		
 	}
 
-	public function saveEducation($action = "save") {
+	public function saveEducation($action = "save")
+	{
+		$this->helper(array("time", "alerts"));
 
 		if ($action === "save") {
-			$this->helper(array("time", "alerts"));
-
 			$education = POST("school");
 			$school = POST("nameschool");
 			$degree = POST("degree");
@@ -1133,8 +1140,8 @@ class Users_Model extends ZP_Load
 		return getAlert(__("Insert error"));
 	}
 
-	public function saveSkills($action = "save") {
-
+	public function saveSkills($action = "save")
+	{
 		if ($action === "save") {
 			$this->helper(array("time", "alerts"));
 
@@ -1156,24 +1163,133 @@ class Users_Model extends ZP_Load
 		}
 	}
 
-	public function editSummary($data) {
+	public function editSummary($data) 
+	{
 		if ($this->Db->update($this->tableCvSum, $data, POST("ID_Summary"))) {
 			return getAlert(__("Edited correctly"), "success");
 		}
 		return getAlert(__("Update error"));
 	}
 
-	public function editExperiences() {
+	public function editExperiences() 
+	{
+		$idexp = explode(',', POST("infoExp"));
+		$error = false;
 
+		for ($i=0; $i < count($idexp); $i++) { 
+			if ((isset(POST("experience")[$i]) AND POST("experience")) != (isset($idexp[$i]) AND $idexp[$i])) {
+				if (!$this->Db->delete($idexp[$i], $this->tableCvExp)) $error = true;
+			} 
+		}
+
+		$experiences = POST("experience");
+		$company = POST("company");
+		$title = POST("title");
+		$location = POST("location");
+		$periodfrom = POST("periodfrom");
+		$periodto = POST("periodto");
+		$description = POST("description");
+		$total = count($experiences);
+
+		foreach(POST("experience") as $key => $id) {
+			if ($this->Db->findBySQL("ID_Experience = ". $id, $this->tableCvExp, $this->fieldsCvExp)) {
+
+				$data = array();
+		        $data[] = array(
+			        "Company" => decode(addslashes($company[$key])),
+		            "Job_Title" => decode(addslashes($title[$key])),
+		            "Location" => decode(addslashes($location[$key])),
+		            "Period_From" => decode(addslashes($periodfrom[$key])),
+		            "Period_To" => decode(addslashes($periodto[$key])),
+		            "Description" => decode(addslashes($description[$key]))
+			    );
+
+			    foreach ($data as $fieldExp => $exp) {
+	                if (!$this->Db->update($this->tableCvExp, $data[$fieldExp], $id)) $error = true;
+	            }
+			} else {
+				$data = array();
+	            
+		        $data[] = array(
+		            "ID_User" => SESSION("ZanUserID"),
+		            "Company" => decode(addslashes($company[$key])),
+		            "Job_Title" => decode(addslashes($title[$key])),
+		            "Location" => decode(addslashes($location[$key])),
+		            "Period_From" => decode(addslashes($periodfrom[$key])),
+		            "Period_To" => decode(addslashes($periodto[$key])),
+		            "Description" => decode(addslashes($description[$key]))
+		        );
+
+		        if (!$this->Db->insertBatch($this->tableCvExp, $data)) $error = true;
+			}
+		}
+
+		if (!$error) 
+			return getAlert(__("Edited correctly"), "success");
+		else
+			return getAlert(__("Update error"));
 	}
 
-	public function editEducation() {
+	public function editEducation() 
+	{
+		$idedu = explode(',', POST("infoEdu"));
+		$error = false;
 
+		for ($i=0; $i < count($idedu); $i++) { 
+			if ((isset(POST("school")[$i]) AND POST("school")) != (isset($idedu[$i]) AND $idedu[$i])) {
+				if (!$this->Db->delete($idedu[$i], $this->tableCvEdu)) $error = true;
+			} 
+		}
+
+		$education = POST("school");
+		$school = POST("nameschool");
+		$degree = POST("degree");
+        $periodfrom = POST("school_periodfrom");
+	    $periodto = POST("school_periodto");
+	    $description = POST("school_description");
+        $total = count($education);
+
+		foreach(POST("school") as $key => $id) {
+			if ($this->Db->findBySQL("ID_School = ". $id, $this->tableCvEdu, $this->fieldsCvEdu)) {
+
+				$data = array();
+		        $data[] = array(
+			        "School" => decode(addslashes($school[$key])),
+	                "Degree" => decode(addslashes($degree[$key])),
+	                "Period_From" => decode(addslashes($periodfrom[$key])),
+	                "Period_To" => decode(addslashes($periodto[$key])),
+	                "Description" => decode(addslashes($description[$key]))
+			    );
+
+			    foreach ($data as $fieldEdu => $exp) {
+	                if (!$this->Db->update($this->tableCvEdu, $data[$fieldEdu], $id)) $error = true;
+	            }
+			} else {
+				$data = array();
+	            
+		        $data[] = array(
+		            "ID_User" => SESSION("ZanUserID"),
+		            "School" => decode(addslashes($school[$key])),
+	                "Degree" => decode(addslashes($degree[$key])),
+	                "Period_From" => decode(addslashes($periodfrom[$key])),
+	                "Period_To" => decode(addslashes($periodto[$key])),
+	                "Description" => decode(addslashes($description[$key]))
+		        );
+
+		        if (!$this->Db->insertBatch($this->tableCvEdu, $data)) $error = true;
+			}
+		}
+
+		if (!$error) 
+			return getAlert(__("Edited correctly"), "success");
+		else
+			return getAlert(__("Update error"));
 	}
 	
-	public function editSkills() {
+	public function editSkills() 
+	{
 		$data['Skills'] = POST('skills');
-		
+
 		if ($this->Db->update($this->tableCvSki, $data, POST("ID_Skills"))) {
 			return getAlert(__("Edited correctly"), "success");
 		} 

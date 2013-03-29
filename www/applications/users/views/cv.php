@@ -18,6 +18,19 @@
         $education = recoverEducation();
     }
 
+    $exp = "";
+    for ($experience = 0; $experience < count($experiences); $experience++) {
+        $exp .= recoverPOST("experiences", $experiences[$experience]["ID_Experience"]).",";
+    }
+
+    $edu = "";
+    for ($school = 0; $school < count($education); $school++) {
+        $edu .= recoverPOST("education", $education[$school]["ID_School"]).",";
+    }
+
+    $exp = substr($exp, 0, -1)."";
+    $edu = substr($edu, 0, -1)."";
+
     echo htmlTag("div", array(
         "ng-controller" => "CvExperience",
         "class" => "add-form"
@@ -155,19 +168,25 @@
 
             if ($experiences AND $experiences[0]['ID_Experience'] !== "") {
                 echo formInput(array(
-                    "name"  => "updateExperiences", 
+                    "name"  => "actionExperiences", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                "name"  => "saveExperiences", 
-                "class" => "btn btn-success", 
-                "value" => __("Save"), 
-                "type"  => "submit"
-            ));
+                    "name"  => "actionExperiences", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Save"), 
+                    "type"  => "submit"
+                ));
             }
+
+            echo formInput(array(
+                "name" => "infoExp", 
+                "type" => "hidden",
+                "value" => $exp
+            ));
 
         echo formClose();
         echo htmlTag("div", false);
@@ -272,19 +291,25 @@
 
             if ($education AND $education[0]['ID_School'] !== "") {
                 echo formInput(array(
-                    "name"  => "updateEducation", 
+                    "name"  => "actionEducation", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                    "name"  => "saveEducation", 
+                    "name"  => "actionEducation", 
                     "class" => "btn btn-success", 
                     "value" => __("Save"), 
                     "type"  => "submit"
                 ));
             }
+
+            echo formInput(array(
+                "name" => "infoEdu", 
+                "type" => "hidden",
+                "value" => $edu
+            ));
 
         echo formClose();
 
@@ -312,7 +337,7 @@
             if ($skills != null) {
                 echo formInput(array(
                     "name"  => "actionSkills", 
-                    "class" => "btn btn-success", 
+                    "class" => "btn btn-success",
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
@@ -333,6 +358,15 @@
 
 ?>
 <script type="text/javascript">
+/*$(document).ready(function() {
+    <?php
+        $exp = "";
+        for ($experience = 0; $experience < count($experiences); $experience++) {
+            $exp .= recoverPOST("experiences", $experiences[$experience]["ID_Experience"]).",";
+        }
+    ?>
+    $('.infoExperiences').val("<?php print $exp;?>");
+})*/
 function CvExperience($scope) {
     $scope.experiences = [
         <?php
@@ -355,7 +389,7 @@ function CvExperience($scope) {
         var index = $scope.experiences.length;
 
         $scope.experiences.push({
-            id: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: ""
+            idexperience: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: ""
         });
 
         window.setTimeout(function () {
