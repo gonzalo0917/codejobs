@@ -115,7 +115,7 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-		Number of views: <?php echo $job["Counter"]; ?>
+		<?php echo __("Number of views: ") . $job["Counter"]; ?>
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>

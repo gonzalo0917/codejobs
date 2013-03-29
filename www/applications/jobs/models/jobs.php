@@ -12,12 +12,13 @@ class Jobs_Model extends ZP_Load
 		$this->language = whichLanguage();
 		$this->table = "jobs";
 		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation, Counter";
-		$this->fieldsVacancy = "Id_Vacant, Job_Name, Job_Author, Vacancy, Vacancy_Email, Cv, Message";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 		$this->Email = $this->core("Email");
  	 	$this->Email->fromName = _get("webName");
  		$this->Email->fromEmail = _get("webEmailSend");
+ 		$this->helper("time");
+ 		$date = now(4);
 	}
 
 	public function getRSS()
@@ -108,6 +109,7 @@ class Jobs_Model extends ZP_Load
 				"Language" => POST("language"),
 				"Phone" => POST("phone"),
 				"Start_Date" => now(4),
+				"End_Date" => $date + (3600 * 24 * 30),
 				"Title" => stripslashes(encode(POST("title", "decode", null))),
 			);
 		} else {
@@ -122,6 +124,26 @@ class Jobs_Model extends ZP_Load
 		}
 
 		return getAlert(__("Insert Error"));
+	}
+
+	public function searching()
+	{
+		$this->helper("alerts");
+		$find = POST("find");
+		$type = POST("type");
+
+		if ($find == "") {
+			redirect(path("jobs/"));
+		} elseif ($type == "Tag") {
+			redirect(path("jobs/tag/". POST("find")));
+		} elseif ($type == "Author") {
+			redirect(path("jobs/author/". POST("find")));
+		} elseif ($type == "Company") {
+			redirect(path("jobs/company/". POST("find")));
+		} elseif ($type == "City") {
+			$find = str_replace(" ", "-", POST("find"));
+			redirect(path("jobs/city/". $find));
+		}
 	}
 
 	public function saveVacant()
@@ -167,7 +189,7 @@ class Jobs_Model extends ZP_Load
 		if ($jid and $jname and $jauthor and $message) {
 			$data = array(
 				"Job_Name"	 	 => $jname,
-				"Job_Id"		 => $jid,
+				"ID_Job"		 => $jid,
 				"Job_Author" 	 => decode($jauthor),
 				"ID_UserVacancy" => SESSION("ZanUserID"),
 				"Cv" 			 => $cv,
@@ -186,18 +208,32 @@ class Jobs_Model extends ZP_Load
 			return false;
 		}
 	}
-
+	
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");
-		return $this->Db->query("SELECT Job_Name, Job_Author, ID_UserVacancy, Vacancy, Cv, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+		return $this->Db->query("SELECT Job_Name, ID_Job, Job_Author, ID_UserVacancy, Vacancy, Cv, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+	}
+
+	public function downloadCv()
+	{
+		$user = segment(2, isLang());
+		$job = segment(3, isLang());
+		$email = $this->Db->query("SELECT Email FROM ". DB_PREFIX ."users WHERE ID_User = '$user' ORDER BY ID_User DESC");
+		$cv = $this->Db->query("SELECT Cv FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$job' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		
+		$this->Email->email = $email[0]["Email"];
+		$this->Email->subject = __("A recluiter has downloaded your cv");
+		$this->Email->message = $this->view("download_cv", array(), "jobs", true);
+		$this->Email->send();
+		redirect(path($cv[0]["Cv"], true));
 	}
 
 	public function isVacancy()
 	{
 		$jid = segment(1, isLang());
 		$user = SESSION("ZanUserID");
-		$data = $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE Job_Id = '$jid' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		$data = $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$jid' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
 		return $data;
 	}
 
@@ -238,7 +274,8 @@ class Jobs_Model extends ZP_Load
 	public function getByTag($tag, $limit)
 	{
 		$tag = str_replace("-", " ", $tag);
-		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+
 	}
 
 	public function getByID($ID)
@@ -259,18 +296,18 @@ class Jobs_Model extends ZP_Load
 
 	public function getAllByAuthor($author, $limit)
 	{
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getAllByCity($city, $limit)
-	{
+	{	
 		$city = str_replace("-", " ", $city);
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND City = '$city'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND City = '$city' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getAllByCompany($company, $limit)
 	{
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Company = '$company'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Company = '$company' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getCities() {
@@ -280,7 +317,7 @@ class Jobs_Model extends ZP_Load
 	public function getAllByTag($author, $tag, $limit)
 	{
 		$tag = str_replace("-", " ", $tag);
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR 
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND End_Date <= '$date' AND (Title LIKE '%$tag%' OR 
 			Tags LIKE '%$tag%')", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 

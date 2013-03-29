@@ -380,4 +380,9 @@ class Bookmarks_Model extends ZP_Load
 
 		return $data;
 	}
+
+	public function getByUser($ID_User, $limit)
+	{
+		return $this->Db->findBySQL("ID_User = '$ID_User' AND (Situation = 'Active' OR Situation = 'Pending')", $this->table, $this->fields, null, "ID_Bookmark DESC", "0, $limit");
+	}
 }

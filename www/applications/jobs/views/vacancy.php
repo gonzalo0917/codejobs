@@ -14,7 +14,7 @@
 		echo __("You don't have any vacancy");
 	} else {
 		echo '<caption class="caption">';
-		echo '<span class="bold">'. __("List of Vacancy") .'</span></caption>';
+		echo '<span class="bold">'. __("List of Vacancies") .'</span></caption>';
 		echo '<table class="results">';
 		echo '<tr>';
 		echo '<th>'. __("Job Name") .'</th>';
@@ -28,7 +28,7 @@
 			echo '<tr>';
 			echo '<td>'. $vacant["Job_Name"] .'</td>';
 			echo '<td>'. $vacant["Vacancy"] .'</td>';
-			echo '<td><a href="'. path($vacant["Cv"], true) .'">'. __("Download") .'</a></td>';
+			echo '<td><a href="'. path("jobs/download/" . $vacant["ID_UserVacancy"] ."/". $vacant["ID_Job"]) .'">'. __("Download") .'</a></td>';
 			echo '<td>'. $vacant["Vacancy_Email"] .'</td>';
 			echo '<td>'. $vacant["Message"] .'</td>';
 			echo '</tr>';

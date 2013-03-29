@@ -161,8 +161,8 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 							<span class="small grey"><a href="<?php echo path("blog/admin"); ?>"><?php echo __("My posts"); ?>: <span id="my_blog"><?php echo (int)SESSION("ZanUserPosts"); ?></span></a></span><br />
 							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><?php echo __("My codes"); ?>: <span id="my_codes"><?php echo (int)SESSION("ZanUserCodes"); ?></span></a></span><br />
 							<span class="small grey"><a href="<?php echo path("bookmarks/admin"); ?>"><?php echo __("My bookmarks"); ?>: <span id="my_bookmarks"><?php echo (int)SESSION("ZanUserBookmarks"); ?></span></a></span><br />
-							<!--span class="small grey"><strong><?php echo __("My jobs"); ?></strong>: <a href="#">0</a></span><br />
-							<span class="small grey"><strong><?php echo __("My courses"); ?></strong>: <a href="#">0</a></span><br />
+							<span class="small grey"><a href="<?php echo path("jobs/vacancy"); ?>"><?php echo __("My Vacancies"); ?></a></span><br />
+							<!--span class="small grey"><strong><?php echo __("My courses"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My points"); ?></strong>: 0</span><br /-->
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
