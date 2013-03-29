@@ -121,7 +121,7 @@ class Forums_Model extends ZP_Load
 		$this->helper(array("alerts", "time"));
         
         $postID = POST("postID");
-        
+
 		$data = array(
 			"ID_User" 	 => SESSION("ZanUserID"),
 			"ID_Forum"   => (int) POST("forumID"),
@@ -138,10 +138,20 @@ class Forums_Model extends ZP_Load
 		);
 
 		$this->Db->update("forums_posts", $data, $postID);
-		
 		$URL = path("forums/". slug(POST("fname")) ."/". $postID ."/". $data["Slug"]);
-		
+
 		return $URL;
+	}
+
+	public function validOwner($postID, $userID)
+	{
+		$owner = $this->Db->query("SELECT ID_USER FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $postID);
+
+		if($owner[0]["ID_USER"] == $userID) {
+			return true; 
+		} else {
+			return false;
+		}
 	}
 
 	public function updateComment()
