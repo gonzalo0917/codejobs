@@ -72,7 +72,7 @@ if (!function_exists("recoverExperiences")) {
                 $return[] = array(
                     "ID_Experience" => $idexperience[$i],
 		            "Company" => $company[$i],
-		            "Title" => $title[$i],
+		            "Job_Title" => $title[$i],
 		            "Location" => $location[$i],
 		            "Period_From" => $periodfrom[$i],
 		            "Period_To" => $periodto[$i],
@@ -86,7 +86,7 @@ if (!function_exists("recoverExperiences")) {
         return array(array(
             "ID_Experience" => "",
             "Company" => "",
-            "Title" => "",
+            "Job_Title" => "",
             "Location" => "",
             "Period_From" => "",
             "Period_To" => "",
