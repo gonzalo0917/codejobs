@@ -544,7 +544,7 @@ class Users_Controller extends ZP_Load
 		$education = $this->Users_Model->getEducation();
 		$skills = $this->Users_Model->getSkills();
 
-		$this->helper(array("forms", "html"));
+		$this->helper(array("time", "forms", "html"));
 		$this->config("users", $this->application);
 		$this->config("cv", $this->application);
  

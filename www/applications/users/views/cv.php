@@ -5,7 +5,8 @@
     
     $ID_Summary     = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["ID_Summary"]) : 0;
     $ID_Skills      = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["ID_Skills"]) : 0;
-    $summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
+    //$summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
+    $summary        = (isset($summary) && $summary != false) ? $summary : false;
     $skills         = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["Skills"]) : recoverPOST("skills");
     $experiences    = isset($experiences) ? $experiences : false;
     $education      = isset($education) ? $education : false;
@@ -31,6 +32,8 @@
     $exp = substr($exp, 0, -1)."";
     $edu = substr($edu, 0, -1)."";
 
+    echo "<strong>". __("Last Update On") ."</strong>: ". howLong($summary[0]["Last_Updated"]);
+
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
             echo isset($alertSummary) ? $alertSummary : null;
@@ -41,7 +44,7 @@
                 "field" => __("Summary"),
                 "p"     => true, 
                 "style" => "resize: none; height: 100px;",
-                "value" => $summary
+                "value" => $summary[0]["Summary"]
             ));
 
             echo formInput(array("name" => "ID_Summary", "type" => "hidden", "value" => $ID_Summary));
@@ -69,7 +72,7 @@
         "ng-controller" => "CvExperience",
         "class" => "add-form"
     ));
-    
+
         echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
             echo isset($alertExperience) ? $alertExperience : null;

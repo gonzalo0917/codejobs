@@ -1142,9 +1142,9 @@ class Users_Model extends ZP_Load
 
 	public function saveSkills($action = "save")
 	{
-		if ($action === "save") {
-			$this->helper(array("time", "alerts"));
+		$this->helper(array("time", "alerts"));
 
+		if ($action === "save") {
 			$data = array(
 				'ID_User' => SESSION("ZanUserID"),
 				'Skills' => POST("skills")
@@ -1225,7 +1225,7 @@ class Users_Model extends ZP_Load
 		}
 
 		if (!$error) 
-			return getAlert(__("Edited correctly"), "success");
+			return $this->updateDateCv();
 		else
 			return getAlert(__("Update error"));
 	}
@@ -1280,8 +1280,8 @@ class Users_Model extends ZP_Load
 			}
 		}
 
-		if (!$error) 
-			return getAlert(__("Edited correctly"), "success");
+		if (!$error)
+			return $this->updateDateCv();
 		else
 			return getAlert(__("Update error"));
 	}
@@ -1291,9 +1291,18 @@ class Users_Model extends ZP_Load
 		$data['Skills'] = POST('skills');
 
 		if ($this->Db->update($this->tableCvSki, $data, POST("ID_Skills"))) {
-			return getAlert(__("Edited correctly"), "success");
+			return $this->updateDateCv();
 		} 
 		
+		return getAlert(__("Update error"));
+	}
+
+	private function updateDateCv() 
+	{
+		if ($this->Db->update($this->tableCvSum, array('Last_Updated' => now(4)), SESSION("ZanUserID"))) {
+			return getAlert(__("Edited correctly"), "success");
+		}
+
 		return getAlert(__("Update error"));
 	}
 
