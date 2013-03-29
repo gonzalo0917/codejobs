@@ -210,6 +210,8 @@ class Jobs_Model extends ZP_Load
 			$this->Email->subject = __("An user has applied to your job")." - ". _get("webName");
 			$this->Email->message = $this->view("apply_email", array(), "jobs", true);
 			$this->Email->send();
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("job");
 			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
 		} else {
 			return false;
@@ -281,7 +283,7 @@ class Jobs_Model extends ZP_Load
 	public function getByTag($tag, $limit)
 	{
 		$tag = str_replace("-", " ", $tag);
-		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("Title LIKE '%$tag%' OR Tags LIKE '%$tag%' AND Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 
 	}
 
@@ -297,18 +299,18 @@ class Jobs_Model extends ZP_Load
 
 	public function getAllByAuthor($author, $limit)
 	{
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getAllByCity($city, $limit)
 	{	
 		$city = str_replace("-", " ", $city);
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND City = '$city' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND City = '$city'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getAllByCompany($company, $limit)
 	{
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Company = '$company' AND End_Date <= '$date'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Company = '$company'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 
 	public function getCities() {
@@ -318,7 +320,7 @@ class Jobs_Model extends ZP_Load
 	public function getAllByTag($author, $tag, $limit)
 	{
 		$tag = str_replace("-", " ", $tag);
-		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND End_Date <= '$date' AND (Title LIKE '%$tag%' OR 
+		return $this->Db->findBySQL("(Situation = 'Active' OR Situation = 'Pending') AND Author = '$author' AND (Title LIKE '%$tag%' OR 
 			Tags LIKE '%$tag%')", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 

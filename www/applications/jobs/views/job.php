@@ -53,9 +53,6 @@
 			} elseif (SESSION("ZanUser") and $isvacancy) {
 				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
-			<ul>
-				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
-			</ul>
 			<input id="jid" name="jid" type="hidden" value="<?php echo $job["ID_Job"]; ?>" />
 			<input id="jauthor" name="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
 			<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
