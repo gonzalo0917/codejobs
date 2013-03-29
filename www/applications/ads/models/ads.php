@@ -11,7 +11,7 @@ class Ads_Model extends ZP_Load
 		$this->Db = $this->db();
 			
 		$this->table  = "ads";
-		$this->fields = "ID_Ad, Title, Position, Banner, URL, Code, Time, Principal, Situation";
+		$this->fields = "ID_Ad, Title, Tag, Banner, URL, Situation";
 		
 		$this->Data = $this->core("Data");
 	}
@@ -39,17 +39,19 @@ class Ads_Model extends ZP_Load
 	
 	private function all($trash, $order, $limit)
 	{	
+		$userID = SESSION("ZanUserID");
+
 		if (!$trash) {
 			if (SESSION("ZanUserPrivilegeID") == 1) {
 				return $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 			} else {
-				return $this->Db->findBySQL("ID_User = '". SESSION("ZanUserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+				return $this->Db->findBySQL("ID_User = '". $userID ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 			}
 		} else {
 			if (SESSION("ZanUserPrivilegeID") == 1) {
 				return $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit);
 			} else {
-				return $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);
+				return $this->Db->findBySQL("ID_User = '". $userID ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 			}
 		}	
 	}
@@ -97,25 +99,11 @@ class Ads_Model extends ZP_Load
 			if (!$this->data["Banner"]) {
 				return getAlert(__("Upload error")); 
 			}
-		} else {
-			if (!isset($this->data["Code"])) {
-				return getAlert(__("You need to upload an image or write the ad code"));
-			}
-		}		
+		}
 	}
 	
 	private function save()
 	{		
-		if ($this->data["Principal"] > 0) {
-			$this->Db->select("Position");
-
-			$data = $this->Db->findBySQL("Position = '". $this->data["Position"] ."' AND Principal = 1", $this->table);
-					
-			if ($data) {
-				$this->Db->updateBySQL($this->table, "Principal = 0 WHERE Position = '". $this->data["Position"] ."'");				
-			}
-		}
-		
 		$this->Db->insert($this->table, $this->data);
 					
 		return getAlert(__("The ad has been saved correctly"), "success");	
@@ -123,28 +111,18 @@ class Ads_Model extends ZP_Load
 	
 	private function edit()
 	{	
-		if ($this->data["Principal"] > 0) {		
-			$this->Db->select("Position");
-
-			if ($this->Db->findBySQL("Position = '". $this->data["Position"] ."' AND Principal = 1", $this->table)) {
-				$this->Db->updateBySQL($this->table, "Principal = 0 WHERE Position = '". $this->data["Position"] ."'");				
-			}
-		}
-
 		$this->Db->update($this->table, $this->data, POST("ID"));
-		
+	
 		return getAlert(__("The ad has been edited correctly"), "success");
 	}
 	
 	private function search($search, $field)
 	{
 		if ($search and $field) {
-			$this->Db->select("ID_Ad, Title, Position, Banner, URL, Code, Start_Date, Principal, Situation");
-
 			if ($field === "ID") {
-				$data = $this->Db->find($search, $this->table);	
+				$data = $this->Db->find($search, $this->table, $this->fields);	
 			} else {
-				$data = $this->Db->findBySQL("$field LIKE '%$search%'", $this->table);
+				$data = $this->Db->findBySQL("$field LIKE '%$search%'", $this->table, $this->fields);
 			}
 		} else {
 			return false;
@@ -155,19 +133,12 @@ class Ads_Model extends ZP_Load
 	
 	public function getByID($ID)
 	{		
-		return $this->Db->find($ID, $this->table, "Title, Position, Banner, URL, Code, Time, Principal");
+		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 	
-	public function getAds($position = null) {		
-		return $this->Db->findBySQL("Position = '$position' AND Situation = 'Active'", $this->table, "Title, Position, Banner, URL, Code, Time, Principal");
-	}
-	
-	public function click($ID)
+	public function getAds($tag = null)
 	{		
-		if ($ID > 0) {
-			return $this->Db->updateBySQL("ads", "Clicks = (Clicks) + 1", $ID);
-		}
-		
-		return false;
+		$date = now(4);
+		return $this->Db->findBySQL("Tag = '$tag' AND Situation = 'Active' AND End_Date >= $date", $this->table, $this->fields);
 	}
 }
