@@ -31,11 +31,6 @@
     $exp = substr($exp, 0, -1)."";
     $edu = substr($edu, 0, -1)."";
 
-    echo htmlTag("div", array(
-        "ng-controller" => "CvExperience",
-        "class" => "add-form"
-    ));
-
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
             echo isset($alertSummary) ? $alertSummary : null;
@@ -67,13 +62,20 @@
                 ));
             }
 
-            
+        echo formClose();
+    echo htmlTag("div", false);
+
+    echo htmlTag("div", array(
+        "ng-controller" => "CvExperience",
+        "class" => "add-form"
+    ));
+    
+        echo div("edit-profile", "class");
+        echo formOpen($href, "form-add", "form-add");
             echo isset($alertExperience) ? $alertExperience : null;
 
             echo span("field", "&raquo; " . __("Experience") . " ({{experiences.length}})");
             
-            //echo div("sectionExperience", "class");
-
             echo htmlTag("div", array(
                 "class"     => "well span10",
                 "ng-repeat" => "experience in experiences"
@@ -157,7 +159,7 @@
                     ), __("Remove experience"));
                     
                     echo htmlTag("div", false);
-            //echo htmlTag("div", false);
+
             echo htmlTag("div", false);
 
             echo htmlTag("div", array(
@@ -183,8 +185,8 @@
             }
 
             echo formInput(array(
-                "name" => "infoExp", 
-                "type" => "hidden",
+                "name"  => "infoExp", 
+                "type"  => "hidden",
                 "value" => $exp
             ));
 
@@ -192,7 +194,6 @@
         echo htmlTag("div", false);
 
     echo htmlTag("div", false);
-
 
     echo htmlTag("div", array(
         "ng-controller" => "CvEducation",
@@ -306,8 +307,8 @@
             }
 
             echo formInput(array(
-                "name" => "infoEdu", 
-                "type" => "hidden",
+                "name"  => "infoEdu", 
+                "type"  => "hidden",
                 "value" => $edu
             ));
 
