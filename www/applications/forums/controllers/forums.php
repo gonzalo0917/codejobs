@@ -183,7 +183,6 @@ class Forums_Controller extends ZP_Load
 
 	public function updatePost()
 	{
-		
 		if (POST("title") and POST("content")) {
 			$data = $this->Forums_Model->updatePost();
 
@@ -213,11 +212,13 @@ class Forums_Controller extends ZP_Load
 
 	public function deletePost($deleteID, $forum, $postID = 0)
 	{
-		$this->Forums_Model->deletePost($deleteID);
-		if ($postID == 0) {
-			$this->getForum($forum);		
-		} else {
-			$this->getPost($postID);
+		if($this->Forums_Model->validOwner($deleteID, SESSION("ZanUserID")) or SESSION("ZanUserPrivilegeID") <= 3) {
+			$this->Forums_Model->deletePost($deleteID);
+			if ($postID == 0) {
+				$this->getForum($forum);		
+			} else {
+				$this->getPost($postID);
+			}
 		}
 	}
 
@@ -305,7 +306,6 @@ class Forums_Controller extends ZP_Load
 
 	public function getEditComment($postID, $forum)
 	{
-
 		$data = $this->Forums_Model->getCommentToEdit($postID);
 
 		if ($data) {

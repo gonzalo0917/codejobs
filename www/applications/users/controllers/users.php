@@ -539,27 +539,55 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
-		$data = $this->Users_Model->getInformation();
+		$summary = $this->Users_Model->getSummary();
+		$experiences = $this->Users_Model->getExperiences();
+		$education = $this->Users_Model->getEducation();
+		$skills = $this->Users_Model->getSkills();
 
-		if ($data) {
-			//mostrar el form con toda la info
-			$this->helper(array("forms", "html"));
-			$this->config("users", $this->application);
-			$this->css("forms", "cpanel");
-			$this->css("users", $this->application);
-			$this->css("cv", $this->application);
+		$this->helper(array("forms", "html"));
+		$this->config("users", $this->application);
+		$this->config("cv", $this->application);
+ 
+		$this->css("forms", "cpanel");
+		$this->css("users", $this->application);
+		$this->css("cv", $this->application);
 
-			if (POST("save")) {
+		$this->js("jquery.jdpicker.js");
+		$this->js("cv", $this->application);
+
+		if ($summary OR $experiences OR $education) {
+			if (POST("saveExperiences")) {
+				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
 				$this->helper("alerts");
-				$vars["alert"] = $this->Users_Model->saveCv();
+				$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
 			}
 
-			$this->js("jquery.jdpicker.js");
+			if (POST("saveEducation")) {
+				$action = ((int) POST("ID") !== 0) ? "edit" : "save";
+				$this->helper("alerts");
+				$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
+			}
+
+			if (POST("actionSummary")) {
+				$action = ((int) POST("ID_Summary") !== 0) ? "edit" : "save";
+				$this->helper("alerts");
+				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
+			}
+
+			if (POST("actionSkills")) {
+				$action = ((int) POST("ID_Skills") !== 0) ? "edit" : "save";
+				$this->helper("alerts");
+				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
+			}
 
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
 
-			$vars["user"] = $data[0];
+			$vars["summary"] = $summary;
+			$vars["experiences"] = $experiences;
+			$vars["education"] = $education;
+			$vars["skills"] = $skills;
+
 			$vars["view"] = $this->view("cv", true);
 			$vars["href"] = path("users/cv/");
 
@@ -574,6 +602,9 @@ class Users_Controller extends ZP_Load
 	public function profile($user = null)
 	{
 		$data = $this->Users_Model->getByUsername($user);
+		$this->Blog_Model = $this->model("Blog_Model");
+		$this->Codes_Model = $this->model("Codes_Model");
+		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
 
 		if ($data) {
 			if (_get("webLang") === "en") {
@@ -587,6 +618,9 @@ class Users_Controller extends ZP_Load
 
 			$vars["user"] = $data[0];
 			$vars["view"] = $this->view("profile", true);
+			$vars["posts"] = $this->Blog_Model->getByUser($data[0]["ID_User"], 3);
+			$vars["codes"] = $this->Codes_Model->getByUser($data[0]["ID_User"], 3);
+			$vars["bookmarks"] = $this->Bookmarks_Model->getByUser($data[0]["ID_User"], 3);
 
 			$this->render("content", $vars);
 		} else {

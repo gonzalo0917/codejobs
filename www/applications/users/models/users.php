@@ -18,9 +18,18 @@ class Users_Model extends ZP_Load
 		$this->Data->table("users");
 
 		$this->table = "users";
-		$this->tableCv = "users_cv";
+
+		$this->tableCvSum = "users_cv_summary";
+		$this->tableCvExp = "users_cv_experiences";
+		$this->tableCvEdu = "users_cv_education";
+		$this->tableCvSki = "users_cv_skills";
+
 		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
-		$this->fieldsCv = "";
+		$this->fieldsCvSum = "ID_User, ID_Summary, Summary, Last_Updated";
+		$this->fieldsCvExp = "ID_User, ID_Experience, Company, Job_Title, Location, Period_From, Period_To, Description";
+		$this->fieldsCvEdu = "ID_User, ID_School, School, Degree, Period_From, Period_To, Description";
+		$this->fieldsCvSki = "ID_User, ID_Skills, Skills";
+
 		$this->application = whichApplication();
 		$this->helper("debugging");
 	}
@@ -139,6 +148,44 @@ class Users_Model extends ZP_Load
 		}
 	}
 	
+	private function editOrSaveSummary($action) {
+		$this->helper(array("time", "alerts"));
+
+		if ($action === "save") {
+			$data = array(
+				'ID_User' => SESSION("ZanUserID"),
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		} else {
+			$data = array(
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		}
+
+		return $data;
+	}
+
+	private function editOrSaveSkills($action) {
+		$this->helper(array("time", "alerts"));
+
+		if ($action === "save") {
+			$data = array(
+				'ID_User' => SESSION("ZanUserID"),
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		} else {
+			$data = array(
+				'Summary' => POST("summary"),
+				'Last_Updated' => now(4)
+			);
+		}
+
+		return $data;
+	}
+
 	private function save()
 	{
 		$insertID = $this->Db->insert($this->table, $this->data);
@@ -563,7 +610,7 @@ class Users_Model extends ZP_Load
 
 	public function getByUsername($username)
 	{
-		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Description, Start_Date, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation");
+		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Start_Date, Posts, Codes, Bookmarks, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation");
 	}
 
 	public function getPrivileges()
@@ -637,53 +684,26 @@ class Users_Model extends ZP_Load
 
 	public function setCredits($factor, $application)
 	{
-		$this->config("scores", "users");
-
-		$prefix = $factor > 0 ? "+" : "";
-		$sign = $prefix . $factor;
-
 		switch ($application) {
 			case 9: case "bookmarks":
 				SESSION("ZanUserBookmarks", SESSION("ZanUserBookmarks") + $factor);
-
-				$additional = ", Bookmarks = (Bookmarks) $sign";
-				$credits = $prefix . (BOOKMARKS_CREDITS * $factor);
-				$recommendation = $prefix . (BOOKMARKS_RECOMMENDATIONS * $factor);
 			break;
 
 			case 17: case "codes":
 				SESSION("ZanUserCodes", SESSION("ZanUserCodes") + $factor);
-
-				$additional = ", Codes = (Codes) $sign";
-				$credits = $prefix . (CODES_CREDITS * $factor);
-				$recommendation = $prefix . (CODES_RECOMMENDATIONS * $factor);
 			break;
 			
 			case 3: case "blog":
 				SESSION("ZanUserPosts", SESSION("ZanUserPosts") + $factor);
-
-				$additional = ", Posts = (Posts) $sign";
-				$credits = $prefix . (BLOG_CREDITS * $factor);
-				$recommendation = $prefix . (BLOG_RECOMMENDATIONS * $factor);
 			break;
-			
-			default:
-				$additional = "";
-				$credits = "";
-				$recommendation = "";
 		}
-
-		$userID = SESSION("ZanUserID");
-		$query = "Credits = (Credits) $credits, Recommendation = (Recommendation) $recommendation $additional WHERE ID_User = '$userID'";
-
-		$this->Db->updateBySQL("users", $query);
 
 		return false;
 	}
 
 	public function getInformation()
 	{
-		$fields = "Name, Description, Gender, Birthday, Country, City, District, Phone, Mobile, Website";
+		$fields = "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Website";
 
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, $fields);
 	}
@@ -872,11 +892,11 @@ class Users_Model extends ZP_Load
 	public function saveSocial()
 	{
 		$data = array(
-			"Twitter"  => POST("twitter"),
-			"Facebook" => POST("facebook"),
-			"Linkedin" => POST("linkedin"),
-			"Google"   => POST("google"),
-			"Viadeo"   => POST("viadeo")
+			"Twitter"  => !is_null(POST("twitter")) ? POST("twitter") : "",
+			"Facebook" => !is_null(POST("facebook")) ? POST("facebook") : "",
+			"Linkedin" => !is_null(POST("linkedin")) ? POST("linkedin") : "",
+			"Google"   => !is_null(POST("google")) ? POST("google") : "",
+			"Viadeo"   => !is_null(POST("viadeo")) ? POST("viadeo") : ""
 		);
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
@@ -997,105 +1017,170 @@ class Users_Model extends ZP_Load
 		}
 	}
 
-	public function addCv($action = "save")
-    {
-		$error = $this->editOrSave($action);
+	public function getSummary() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvSum, $this->fieldsCvSum);
+		
+		return $data;
+	}
 
-		if ($error) {
-			return $error;
-		}
+	public function getExperiences() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvExp, $this->fieldsCvExp);
 		
-		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ?
-		 "Active" : "Pending";
-		
-		if ($this->data["Situation"] === "Active") {
-			$this->Cache = $this->core("Cache");
-			$this->Cache->removeAll("codes");
-		}
+		return $data;
+	}
+
+	public function getEducation() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvEdu, $this->fieldsCvEdu);
+
+		return $data;
+	}
+
+	public function getSkills() {
+		$data = $this->Db->findBySQL("ID_User = ". SESSION("ZanUserID"), $this->tableCvSki, $this->fieldsCvSki);
+
+		return $data;
+	}
+
+	public function saveSummary($action = "save") {
+		$data = $this->editOrSaveSummary($action);
 
 		if ($action === "save") {
-			$lastID = $this->Db->insert($this->table, $this->data);
 			
-			if ($lastID) {
-	            $this->data = $this->proccessExperiences($lastID);
-	                        
-	            if (isset($this->data["error"])) {
-	                $this->Db->delete($lastID, $this->table);
-	                return $this->data["error"];
-	            }
-	                        
-	            if ($this->Db->insertBatch("codes_files", $this->data)) {
-					$this->Users_Model = $this->model("Users_Model");
-					$this->Users_Model->setCredits(1, 17);
+			$return = $this->Db->insert($this->tableCvSum, $data);
 
-	                return getAlert(__("The code has been saved correctly"), "success");	
-	            }
+			if ($return) {
+				return getAlert(__("Saved correctly"), "success");
 			}
+				
+			return getAlert(__("Insert error"));
+
 		} elseif ($action === "edit") {
-			return $this->edit();
+			return $this->editSummary($data);
+		}
+	}
+	
+
+	public function saveExperiences($action = "save") {
+
+		if ($action === "save") {
+			$this->helper(array("time", "alerts"));
+
+			$experiences = POST("experience");
+			$company = POST("company");
+	        $title = POST("title");
+	        $location = POST("location");
+	        $periodfrom = POST("periodfrom");
+	        $periodto = POST("periodto");
+	        $description = POST("description");
+	        $total = count($experiences);
+
+			$data = array();
+            
+	        for ($i = 0; $i < $total; $i++) {
+	            $data[] = array(
+	                "ID_User" => SESSION("ZanUserID"),
+	                "Company" => decode(addslashes($company[$i])),
+	                "Job_Title" => decode(addslashes($title[$i])),
+	                "Location" => decode(addslashes($location[$i])),
+	                "Period_From" => decode(addslashes($periodfrom[$i])),
+	                "Period_To" => decode(addslashes($periodto[$i])),
+	                "Description" => decode(addslashes($description[$i]))
+	            );
+	        }
+
+	        if ($this->Db->insertBatch($this->tableCvExp, $data))
+	            return getAlert(__("Saved correctly"), "success");	
+		} elseif ($action === "edit") {
+			return $this->editExperiences();
 		}
 
 		return getAlert(__("Insert error"));
-	}
-
-	private function saveCv()
-	{
-		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
-            $this->data = $this->proccessExperiences($ID);
-                        
-            if (isset($this->data["error"])) {
-                $this->Db->delete($ID, $this->table);
-                return $this->data["error"];
-            }
-                        
-            if ($this->Db->insertBatch("codes_files", $this->data)) {
-            	$this->Cache = $this->core("Cache");
-				$this->Cache->removeAll("codes");
-            	$this->Users_Model = $this->model("Users_Model");
-				$this->Users_Model->setCredits(1, 17);
-                return getAlert(__("The code has been saved correctly"), "success");	
-            }
-		}
 		
+	}
+
+	public function saveEducation($action = "save") {
+
+		if ($action === "save") {
+			$this->helper(array("time", "alerts"));
+
+			$education = POST("school");
+			$school = POST("nameschool");
+			$degree = POST("degree");
+	        $periodfrom = POST("school_periodfrom");
+	        $periodto = POST("school_periodto");
+	        $description = POST("school_description");
+	        $total = count($education);
+
+			$data = array();
+            
+	        for ($i = 0; $i < $total; $i++) {
+	            $data[] = array(
+	                "ID_User" => SESSION("ZanUserID"),
+	                "School" => decode(addslashes($school[$i])),
+	                "Degree" => decode(addslashes($degree[$i])),
+	                "Period_From" => decode(addslashes($periodfrom[$i])),
+	                "Period_To" => decode(addslashes($periodto[$i])),
+	                "Description" => decode(addslashes($description[$i]))
+	            );
+	        }
+
+	        if ($this->Db->insertBatch($this->tableCvEdu, $data))
+	            return getAlert(__("Saved correctly"), "success");
+		} elseif ($action === "edit") {
+			return $this->editEducation();
+		}
+
 		return getAlert(__("Insert error"));
 	}
-	
-	private function editCv()
-	{
-		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
-            $this->data = $this->proccessExperiences(POST("ID"));
-            
-            if (isset($this->data["error"])) {
-                return $this->data["error"];
-            }
-            
-            $filesDB = $this->getFilesBy(POST("ID"));
-            $filesPOST = POST("file");
-            
-            foreach ($filesPOST as $iFile => $fileID) {
-                if ((int)$fileID > 0) {
-                    $this->Db->update("codes_files", $this->data[$iFile], $fileID);
-                    array_splice($filesDB, array_search($fileID, $filesDB), 1);
-                } else { 
-                    $this->Db->insert("codes_files", $this->data[$iFile]);
-                }
-            }
-            
-            if (count($filesDB) > 0) {
-                foreach ($filesDB as $fileDB) {
-                    $this->Db->delete($fileDB, "codes_files");
-                }
-            }
-            
-            $this->Cache = $this->core("Cache");
-			$this->Cache->removeAll("codes");
 
-            return getAlert(__("The code has been edit correctly"), "success");
-        }
-        
-        return getAlert(__("Update error"));
+	public function saveSkills($action = "save") {
+
+		if ($action === "save") {
+			$this->helper(array("time", "alerts"));
+
+			$data = array(
+				'ID_User' => SESSION("ZanUserID"),
+				'Skills' => POST("skills")
+			);
+
+			$return = $this->Db->insert($this->tableCvSki, $data);
+
+			if ($return) {
+				return getAlert(__("Saved correctly"), "success");
+			}
+				
+			return getAlert(__("Insert error"));
+
+		} else {
+			return $this->editSkills();
+		}
+	}
+
+	public function editSummary($data) {
+		if ($this->Db->update($this->tableCvSum, $data, POST("ID_Summary"))) {
+			return getAlert(__("Edited correctly"), "success");
+		}
+		return getAlert(__("Update error"));
+	}
+
+	public function editExperiences() {
+
+	}
+
+	public function editEducation() {
+
 	}
 	
+	public function editSkills() {
+		$data['Skills'] = POST('skills');
+		
+		if ($this->Db->update($this->tableCvSki, $data, POST("ID_Skills"))) {
+			return getAlert(__("Edited correctly"), "success");
+		} 
+		
+		return getAlert(__("Update error"));
+	}
+
 	private function proccessExperiences($ID)
     {
         $files = POST("file");

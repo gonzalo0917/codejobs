@@ -3,7 +3,6 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 	$URL = path("jobs/". $job["ID_Job"] ."/". $job["Slug"], false, $job["Language"]);
-	____($isvacancy);
 	?>
 
 <div class="job">
@@ -52,7 +51,7 @@
 				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
 			} elseif (SESSION("ZanUser") and $isvacancy) {
-				echo '<span class="bold">'. __("You have already apply for this vacancy") .'</span>';
+				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
@@ -62,7 +61,7 @@
 			<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
 
 			<?php echo formInput(array(
-				"type" => "file", 
+				"type" => "file",
 				"id" => "cv",
 				"name" => "cv",
 				"field" => __("Upload your CV here"),
@@ -116,7 +115,7 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-	
+		<?php echo __("Number of applicants") .": ". $job["Counter"]; ?>
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
