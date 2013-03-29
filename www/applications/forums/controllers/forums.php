@@ -14,10 +14,8 @@ class Forums_Controller extends ZP_Load
 		$this->Templates = $this->core("Templates");
 		$this->Cache = $this->core("Cache");
 		$this->Forums_Model = $this->model("Forums_Model");
-		
 		$this->Templates->theme();
 		$this->language = whichLanguage();
-		
 		$this->helper("debugging");
 		$this->helper("pagination");
 		
@@ -183,16 +181,18 @@ class Forums_Controller extends ZP_Load
 
 	public function updatePost()
 	{
-		if (POST("title") and POST("content")) {
-			$data = $this->Forums_Model->updatePost();
+		if($this->Forums_Model->validOwner(POST("postID"), SESSION("ZanUserID")) or SESSION("ZanUserPrivilegeID") <= 3) {
+			if (POST("title") and POST("content")) {
+				$data = $this->Forums_Model->updatePost();
 
-			echo ($data) ? $data : path();
+				echo ($data) ? $data : path();
+			}
 		}
 	}
 
 	public function cancelEdit()
 	{
-		echo path("forums/". POST("fname"));		
+		echo path("forums/". POST("fname"));
 	}
 
 	public function cancelComment()
@@ -203,10 +203,12 @@ class Forums_Controller extends ZP_Load
 
 	public function updateComment()
 	{
-		if (POST("content", "clean")) {
-			$data = $this->Forums_Model->updateComment();
+		if($this->Forums_Model->validOwner(POST("postID"), SESSION("ZanUserID")) or SESSION("ZanUserPrivilegeID") <= 3) {
+			if (POST("content", "clean")) {
+				$data = $this->Forums_Model->updateComment();
 
-			echo ($data) ? $data : path();			
+				echo ($data) ? $data : path();
+			}
 		}
 	}
 
@@ -215,7 +217,7 @@ class Forums_Controller extends ZP_Load
 		if($this->Forums_Model->validOwner($deleteID, SESSION("ZanUserID")) or SESSION("ZanUserPrivilegeID") <= 3) {
 			$this->Forums_Model->deletePost($deleteID);
 			if ($postID == 0) {
-				$this->getForum($forum);		
+				$this->getForum($forum);
 			} else {
 				$this->getPost($postID);
 			}
