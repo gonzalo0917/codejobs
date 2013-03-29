@@ -157,6 +157,13 @@ class Jobs_Model extends ZP_Load
 		$this->Files = $this->core("Files");
 		$this->helper(array("alerts", "forms", "files"));
 		$this->Users_Model = $this->model("Users_Model");
+		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+		$counter = $getcounter[0]["Counter"] += 1;
+		$data2 = array(
+				"Counter" => $counter,
+			);
+
+		$this->Db->update("jobs", $data2, $jid);
 		$data = $this->Users_Model->getUserData(true);
 		
 		if (isset($data[0]["Email"])) {
@@ -280,17 +287,11 @@ class Jobs_Model extends ZP_Load
 
 	public function getByID($ID)
 	{
-		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$ID' ORDER BY ID_Job DESC");
-		$counter = $getcounter[0]["Counter"] += 1;
-		$data = array(
-				"Counter" => $counter,
-			);
-
-		$this->Db->update("jobs", $data, $ID);
 		return $this->Db->findBySQL("ID_Job = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
 	}
 
-	public function getAll($limit) {
+	public function getAll($limit) 
+	{
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
 	}
 

@@ -51,7 +51,7 @@
 				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
 			} elseif (SESSION("ZanUser") and $isvacancy) {
-				echo '<span class="bold">'. __("You have already apply for this vacancy") .'</span>';
+				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
 			<ul>
 				<li><?php echo __("Email"). ": ". $job["Email"] ?></li>
@@ -115,7 +115,7 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-		<?php echo __("Number of views: ") . $job["Counter"]; ?>
+		<?php echo __("Number of applicants") .": ". $job["Counter"]; ?>
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
