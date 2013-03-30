@@ -65,3 +65,16 @@ input[name=actionSummary] {
     display: block;
     margin-bottom: 20px;
 }
+.left, #content {
+    display: inline-block;
+    vertical-align: top;
+}
+#content {
+    margin-left: 0;
+}
+
+@media (max-width: 1366px), (max-device-width: 1366px) {
+    #content {
+        margin-left: 10%;
+    }
+}

@@ -1445,19 +1445,21 @@ INSERT INTO `muu_users` VALUES ('2', '4', 'tester', 'e53e0171e0fa33c534981aab0be
 -- ----------------------------
 DROP TABLE IF EXISTS `muu_users_cv_education`;
 CREATE TABLE `muu_users_cv_education` (
-  `ID_School` int(11) NOT NULL,
+  `ID_School` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) NOT NULL,
   `School` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `Degree` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-  `Period_From` int(11) DEFAULT NULL,
-  `Period_To` int(11) DEFAULT NULL,
+  `Period_From` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `Period_To` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `Description` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`ID_School`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of muu_users_cv_education
 -- ----------------------------
+INSERT INTO `muu_users_cv_education` VALUES ('1', '1', 'ITC_editado', 'Licenciatura', '11/04/2013', '25/04/2013', 'Ingeniero en sistemas');
+INSERT INTO `muu_users_cv_education` VALUES ('3', '1', 'CBTIS76_EDIT', 'TECNICO_EDITE', '25/04/2013', '16/04/2013', 'DESCRIPCION CBTIS_EDIT');
 
 -- ----------------------------
 -- Table structure for `muu_users_cv_experiences`
@@ -1469,31 +1471,52 @@ CREATE TABLE `muu_users_cv_experiences` (
   `Company` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `Job_Title` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `Location` varchar(250) COLLATE utf8_bin DEFAULT NULL,
-  `Period_From` int(11) DEFAULT NULL,
-  `Period_To` int(11) DEFAULT NULL,
+  `Period_From` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `Period_To` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `Description` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`ID_Experience`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
 -- Records of muu_users_cv_experiences
 -- ----------------------------
+INSERT INTO `muu_users_cv_experiences` VALUES ('1', '1', 'Empresa 1_editado', 'Cargo 1_editado', 'Ubicacion 1_editado2', '01/03/2013', '02/03/2013', 'Hola editado 1,2, 3_editado_eliminado');
+INSERT INTO `muu_users_cv_experiences` VALUES ('14', '1', 'empresa2', 'cargo2', 'ubicacion2', '01/03/2013', '02/03/2013', 'descripcion 2');
 
 -- ----------------------------
--- Table structure for `muu_users_cv_extract`
+-- Table structure for `muu_users_cv_skills`
 -- ----------------------------
-DROP TABLE IF EXISTS `muu_users_cv_extract`;
-CREATE TABLE `muu_users_cv_extract` (
-  `ID_Extract` int(10) unsigned NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `muu_users_cv_skills`;
+CREATE TABLE `muu_users_cv_skills` (
+  `ID_Skills` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ID_User` mediumint(8) unsigned DEFAULT NULL,
+  `Skills` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`ID_Skills`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ----------------------------
+-- Records of muu_users_cv_skills
+-- ----------------------------
+INSERT INTO `muu_users_cv_skills` VALUES ('1', '1', 'js, jquery, html5, php, css, ANOTHER');
+INSERT INTO `muu_users_cv_skills` VALUES ('2', '1', 'hola, soldier, corp, php,');
+INSERT INTO `muu_users_cv_skills` VALUES ('3', '1', 'hola, bola');
+
+-- ----------------------------
+-- Table structure for `muu_users_cv_summary`
+-- ----------------------------
+DROP TABLE IF EXISTS `muu_users_cv_summary`;
+CREATE TABLE `muu_users_cv_summary` (
+  `ID_Summary` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL,
-  `Extract` varchar(250) COLLATE utf8_bin DEFAULT NULL,
+  `Summary` varchar(250) COLLATE utf8_bin DEFAULT NULL,
   `Last_Updated` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID_Extract`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`ID_Summary`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- ----------------------------
--- Records of muu_users_cv_extract
+-- Records of muu_users_cv_summary
 -- ----------------------------
+INSERT INTO `muu_users_cv_summary` VALUES ('1', '1', 'soldier corp edited', '1364595304');
 
 -- ----------------------------
 -- Table structure for `muu_users_online`

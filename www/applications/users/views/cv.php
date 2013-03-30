@@ -5,7 +5,8 @@
     
     $ID_Summary     = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["ID_Summary"]) : 0;
     $ID_Skills      = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["ID_Skills"]) : 0;
-    $summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
+    //$summary        = (isset($summary) && $summary != false) ? recoverPOST("summary", $summary[0]["Summary"]) : recoverPOST("summary");
+    $summary        = (isset($summary) && $summary != false) ? $summary : false;
     $skills         = (isset($skills) && $skills != false) ? recoverPOST("skills", $skills[0]["Skills"]) : recoverPOST("skills");
     $experiences    = isset($experiences) ? $experiences : false;
     $education      = isset($education) ? $education : false;
@@ -18,10 +19,20 @@
         $education = recoverEducation();
     }
 
-    echo htmlTag("div", array(
-        "ng-controller" => "CvExperience",
-        "class" => "add-form"
-    ));
+    $exp = "";
+    for ($experience = 0; $experience < count($experiences); $experience++) {
+        $exp .= recoverPOST("experiences", $experiences[$experience]["ID_Experience"]).",";
+    }
+
+    $edu = "";
+    for ($school = 0; $school < count($education); $school++) {
+        $edu .= recoverPOST("education", $education[$school]["ID_School"]).",";
+    }
+
+    $exp = substr($exp, 0, -1)."";
+    $edu = substr($edu, 0, -1)."";
+
+    echo "<strong>". __("Last Update On") ."</strong>: ". howLong($summary[0]["Last_Updated"]);
 
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");
@@ -33,7 +44,7 @@
                 "field" => __("Summary"),
                 "p"     => true, 
                 "style" => "resize: none; height: 100px;",
-                "value" => $summary
+                "value" => $summary[0]["Summary"]
             ));
 
             echo formInput(array("name" => "ID_Summary", "type" => "hidden", "value" => $ID_Summary));
@@ -54,13 +65,20 @@
                 ));
             }
 
-            
+        echo formClose();
+    echo htmlTag("div", false);
+
+    echo htmlTag("div", array(
+        "ng-controller" => "CvExperience",
+        "class" => "add-form"
+    ));
+
+        echo div("edit-profile", "class");
+        echo formOpen($href, "form-add", "form-add");
             echo isset($alertExperience) ? $alertExperience : null;
 
             echo span("field", "&raquo; " . __("Experience") . " ({{experiences.length}})");
             
-            //echo div("sectionExperience", "class");
-
             echo htmlTag("div", array(
                 "class"     => "well span10",
                 "ng-repeat" => "experience in experiences"
@@ -144,7 +162,7 @@
                     ), __("Remove experience"));
                     
                     echo htmlTag("div", false);
-            //echo htmlTag("div", false);
+
             echo htmlTag("div", false);
 
             echo htmlTag("div", array(
@@ -155,25 +173,30 @@
 
             if ($experiences AND $experiences[0]['ID_Experience'] !== "") {
                 echo formInput(array(
-                    "name"  => "updateExperiences", 
+                    "name"  => "actionExperiences", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                "name"  => "saveExperiences", 
-                "class" => "btn btn-success", 
-                "value" => __("Save"), 
-                "type"  => "submit"
-            ));
+                    "name"  => "actionExperiences", 
+                    "class" => "btn btn-success", 
+                    "value" => __("Save"), 
+                    "type"  => "submit"
+                ));
             }
+
+            echo formInput(array(
+                "name"  => "infoExp", 
+                "type"  => "hidden",
+                "value" => $exp
+            ));
 
         echo formClose();
         echo htmlTag("div", false);
 
     echo htmlTag("div", false);
-
 
     echo htmlTag("div", array(
         "ng-controller" => "CvEducation",
@@ -272,19 +295,25 @@
 
             if ($education AND $education[0]['ID_School'] !== "") {
                 echo formInput(array(
-                    "name"  => "updateEducation", 
+                    "name"  => "actionEducation", 
                     "class" => "btn btn-success", 
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
             } else {
                 echo formInput(array(
-                    "name"  => "saveEducation", 
+                    "name"  => "actionEducation", 
                     "class" => "btn btn-success", 
                     "value" => __("Save"), 
                     "type"  => "submit"
                 ));
             }
+
+            echo formInput(array(
+                "name"  => "infoEdu", 
+                "type"  => "hidden",
+                "value" => $edu
+            ));
 
         echo formClose();
 
@@ -312,7 +341,7 @@
             if ($skills != null) {
                 echo formInput(array(
                     "name"  => "actionSkills", 
-                    "class" => "btn btn-success", 
+                    "class" => "btn btn-success",
                     "value" => __("Update"), 
                     "type"  => "submit"
                 ));
@@ -333,6 +362,15 @@
 
 ?>
 <script type="text/javascript">
+/*$(document).ready(function() {
+    <?php
+        $exp = "";
+        for ($experience = 0; $experience < count($experiences); $experience++) {
+            $exp .= recoverPOST("experiences", $experiences[$experience]["ID_Experience"]).",";
+        }
+    ?>
+    $('.infoExperiences').val("<?php print $exp;?>");
+})*/
 function CvExperience($scope) {
     $scope.experiences = [
         <?php
@@ -355,7 +393,7 @@ function CvExperience($scope) {
         var index = $scope.experiences.length;
 
         $scope.experiences.push({
-            id: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: ""
+            idexperience: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: ""
         });
 
         window.setTimeout(function () {
