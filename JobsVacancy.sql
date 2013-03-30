@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-03-2013 a las 19:33:25
+-- Tiempo de generación: 29-03-2013 a las 01:19:07
 -- Versión del servidor: 5.5.24-log
 -- Versión de PHP: 5.4.3
 
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
 
 INSERT INTO `muu_blog` (`ID_Post`, `ID_User`, `Title`, `Slug`, `Content`, `Tags`, `Author`, `Start_Date`, `Modified_Date`, `Text_Date`, `Year`, `Month`, `Day`, `Views`, `Image_Mural`, `Image_Thumbnail`, `Image_Small`, `Image_Medium`, `Image_Original`, `Comments`, `Enable_Comments`, `Language`, `Pwd`, `Buffer`, `Code`, `Situation`) VALUES
 (1, 1, 'Nuevo blog de prueba', 'nuevo-blog-de-prueba', '<p>qweadzasdsdfsdfsdfsdf</p>\r\n', 'php, pdo, mysql, conexion, base datos', 'admin', 1357692854, 1361208893, 'Martes, 08 de Enero de 2013', '2013', '01', '08', 5, '', '', '', '', '', 0, 0, 'Spanish', '', 0, '050F1EAD86', 'Active'),
-(2, 1, 'probando el blog', 'probando-el-blog', '<p>probandu</p>\r\n', 'testing, php', 'admin', 1361208696, 0, 'Lunes, 18 de Febrero de 2013', '2013', '02', '18', 2, '', '', '', '', '', 0, 0, 'Spanish', '', 0, 'E0349ACEC8', 'Active');
+(2, 1, 'probando el blog', 'probando-el-blog', '<p>probandu</p>\r\n', 'testing, php', 'admin', 1361208696, 0, 'Lunes, 18 de Febrero de 2013', '2013', '02', '18', 4, '', '', '', '', '', 0, 0, 'Spanish', '', 0, 'E0349ACEC8', 'Active');
 
 -- --------------------------------------------------------
 
@@ -794,19 +794,21 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   `Counter` smallint(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Volcado de datos para la tabla `muu_jobs`
 --
 
 INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Company`, `Slug`, `Author`, `Country`, `City`, `City_Slug`, `Salary`, `Salary_Currency`, `Allocation_Time`, `Description`, `Tags`, `Email`, `Language`, `Start_Date`, `Modified_Date`, `End_Date`, `Situation`, `Counter`) VALUES
-(24, 1, 'Desarrollador web', 'Alta Villa', 'desarrollador-web', 'admin', 'México', 'Colima', 'colima', '150', 'USD', 'Half Time', 'php, html5, cs', 'Php, Jobs, HTML', 'villita@tuvilla.com', 'Spanish', 1362071126, 0, 1364663126, 'Active', 0),
-(25, 1, 'Prueba 2', 'Codejobs', 'prueba-2', 'admin', 'México', 'Aguascalientes', 'aguascalientes', '130', 'USD', 'Full Time', 'Es sencishito', 'html, css', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active', 2),
-(26, 0, 'Empleo 2', 'Codejobs', 'empleo-2', 'admin', 'México', 'Colima', 'colima', '123', 'USD', 'Full Time', 'Esy', 'html', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1365130406, 'Active', 5),
-(27, 0, 'Prueba 3', 'Independece', 'prueba-3', 'isra', 'México', 'Monterrey', 'monterrey', '212', 'USD', 'Half Time', 'Medium', 'html', 'isr62@hotmail.com', 'Spanish', 1362538406, 0, 1365130406, 'Active', 15),
-(28, 0, 'Prueba 4', 'KFC', 'prueba-4', 'isra', 'México', 'Monterrey', 'monterrey', '432', 'USD', 'Half Time', 'Hard', 'html', 'isr62@hotmail.com', 'Spanish', 1362538406, 0, 1365130406, 'Active', 6),
-(29, 1, 'Cuidador de perros', 'PetFriends', 'cuidador-de-perros', 'admin', 'México', 'Villa de Alvárez', 'villa-de-alvarez', '12', 'USD', 'Half Time', 'Pasear perros y esas cosas', 'dog, croquetas, etc', 'animalplanet@pet.com', 'Spanish', 1363040675, 0, 1365632675, 'Active', 3);
+(24, 1, 'Desarrollador web', 'Alta Villa', 'desarrollador-web', 'admin', 'México', 'Colima', 'colima', '150', 'USD', 'Half Time', 'php, html5, cs', 'Php, Jobs, HTML', 'villita@tuvilla.com', 'Spanish', 1362071126, 0, 1366940746, 'Active', 0),
+(25, 1, 'Prueba 2', 'Codejobs', 'prueba-2', 'admin', 'México', 'Aguascalientes', 'aguascalientes', '130', 'USD', 'Full Time', 'Es sencishito', 'html, css', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1366940746, 'Active', 2),
+(26, 0, 'Empleo 2', 'Codejobs', 'empleo-2', 'admin', 'México', 'Colima', 'colima', '123', 'USD', 'Full Time', 'Esy', 'html', 'codejobs@codejobs.com', 'Spanish', 1362538406, 0, 1366940746, 'Active', 5),
+(27, 0, 'Prueba 3', 'Independece', 'prueba-3', 'isra', 'México', 'Monterrey', 'monterrey', '212', 'USD', 'Half Time', 'Medium', 'html', 'isr62@hotmail.com', 'Spanish', 1362538406, 0, 1366940746, 'Active', 15),
+(28, 0, 'Prueba 4', 'KFC', 'prueba-4', 'isra', 'México', 'Monterrey', 'monterrey', '432', 'USD', 'Half Time', 'Hard', 'html', 'isr62@hotmail.com', 'Spanish', 1362538406, 0, 1366940746, 'Active', 6),
+(29, 1, 'Cuidador de perros', 'PetFriends', 'cuidador-de-perros', 'admin', 'México', 'Villa de Alvárez', 'villa-de-alvarez', '12', 'USD', 'Half Time', 'Pasear perros y esas cosas', 'dog, croquetas, etc', 'animalplanet@pet.com', 'Spanish', 1363040675, 0, 1366940746, 'Active', 4),
+(30, 1, 'Empleo uno', 'Kentocky', 'empleo-uno', 'admin', 'México', 'D.f', 'd-f', '123', 'USD', 'Half Time', 'Corto', 'pollo', 'colima@as.com', 'Spanish', 1364348434, 0, 1366940746, 'Active', 0),
+(31, 1, 'Empleo dos', 'PhpMaster', 'empleo-dos', 'admin', 'México', 'Jalisco', 'jalisco', '1232', 'MXN', 'Half Time', 'Probando', 'php, html', 'empleos@tu.com', 'Spanish', 1364348746, 0, 1366940746, 'Active', 2);
 
 -- --------------------------------------------------------
 
@@ -1455,7 +1457,8 @@ CREATE TABLE IF NOT EXISTS `muu_users_online` (
 --
 
 INSERT INTO `muu_users_online` (`User`, `Start_Date`) VALUES
-('admin', 1363893762);
+('isra', 1364518612),
+('admin', 1364518980);
 
 -- --------------------------------------------------------
 
@@ -1470,6 +1473,13 @@ CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `muu_users_online_anonymous`
+--
+
+INSERT INTO `muu_users_online_anonymous` (`IP`, `Start_Date`) VALUES
+('127.0.0.1', 1364518490);
+
 -- --------------------------------------------------------
 
 --
@@ -1479,7 +1489,7 @@ CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
 CREATE TABLE IF NOT EXISTS `muu_vacancy` (
   `ID_Vacancy` smallint(8) NOT NULL AUTO_INCREMENT,
   `Job_Name` varchar(250) NOT NULL,
-  `Job_Id` smallint(8) NOT NULL,
+  `ID_Job` smallint(8) NOT NULL,
   `Job_Author` varchar(250) NOT NULL,
   `ID_UserVacancy` smallint(8) NOT NULL,
   `Vacancy` varchar(250) NOT NULL,
@@ -1487,16 +1497,14 @@ CREATE TABLE IF NOT EXISTS `muu_vacancy` (
   `Cv` varchar(250) NOT NULL,
   `Message` varchar(250) NOT NULL,
   PRIMARY KEY (`ID_Vacancy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Volcado de datos para la tabla `muu_vacancy`
 --
 
-INSERT INTO `muu_vacancy` (`ID_Vacancy`, `Job_Name`, `Job_Id`, `Job_Author`, `ID_UserVacancy`, `Vacancy`, `Vacancy_Email`, `Cv`, `Message`) VALUES
-(6, 'Prueba 3', 27, 'isra', 1, 'Carlos Santana RoldÃ¡n', 'carlos@milkzoft.com', 'www/lib/files/documents/cv/cv-admin.pdf', 'I''m interested in your Job. Please contact me about position'),
-(7, 'Prueba 4', 28, 'isra', 1, 'Carlos Santana RoldÃ¡n', 'carlos@milkzoft.com', 'www/lib/files/documents/cv/cv-admin.pdf', 'I''m interested in your Job. Please contact me about position'),
-(8, 'Prueba 4', 28, 'isra', 1, 'Carlos Santana RoldÃ¡n', 'carlos@milkzoft.com', 'www/lib/files/documents/cv/cv-admin.pdf', 'I''m interested in your Job. Please contact me about position');
+INSERT INTO `muu_vacancy` (`ID_Vacancy`, `Job_Name`, `ID_Job`, `Job_Author`, `ID_UserVacancy`, `Vacancy`, `Vacancy_Email`, `Cv`, `Message`) VALUES
+(10, 'Empleo dos', 31, 'admin', 1, 'Carlos Santana RoldÃ¡n', 'carlos@milkzoft.com', 'www/lib/files/documents/cv/cv-admin.docx', 'I''m interested in your Job. Please contact me about position');
 
 -- --------------------------------------------------------
 

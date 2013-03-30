@@ -17,12 +17,12 @@ class Ads_Controller extends ZP_Load
 		redirect();	
 	}
 	
-	public function ads($position) 
+	public function ads($tag) 
 	{
-		$data = $this->Ads_Model->getAds($position);
+		$data = $this->Ads_Model->getAds($tag);
 	
 		if ($data) {
-			$vars["data"] = $data;
+			$vars["ads"] = $data;
 			
 			$this->view("ads", $vars, $this->application);				
 		} 
