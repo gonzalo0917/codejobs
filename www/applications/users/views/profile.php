@@ -87,12 +87,11 @@
 				</div>
 			</div>
 			<div class="credits">
-				<div class="header"><?php echo __("Points"); ?></div>
 				<div>
-					<strong><?php echo $user["Credits"]; ?></strong><?php echo __(" credits"); ?>
+					<strong><?php echo $user["Credits"]; ?></strong> <?php echo __("credit points"); ?>
 				</div>
 				<div>
-					<strong><?php echo $user["Recommendation"]; ?></strong><?php echo __(" recommendations"); ?>
+					<strong><?php echo $user["Recommendation"]; ?></strong> <?php echo __("recommendation points"); ?>
 				</div>
 			</div>
 		</div>
