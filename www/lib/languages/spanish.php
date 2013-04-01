@@ -611,5 +611,7 @@ $phrase["zero"] 										= "cero";
 $phrase["7z_file"] 										= "Archivo 7z";
 $phrase["_bookmarks"]									= " marcadores";
 $phrase["_codes"]										= " códigos";
+$phrase["_credits"]										= " créditos";
 $phrase["_posts"]										= " publicaciones";
+$phrase["_recommendations"]								= " recomendaciones";
 

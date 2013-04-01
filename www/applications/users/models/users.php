@@ -612,7 +612,7 @@ class Users_Model extends ZP_Load
 
 	public function getByUsername($username)
 	{
-		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Start_Date, Posts, Codes, Bookmarks, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation");
+		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation");
 	}
 
 	public function getPrivileges()
@@ -1175,14 +1175,14 @@ class Users_Model extends ZP_Load
 	{
 		$idexp = explode(',', POST("infoExp"));
 		$error = false;
+		$experiences = POST("experience");
 
 		for ($i=0; $i < count($idexp); $i++) { 
-			if ((isset(POST("experience")[$i]) AND POST("experience")) != (isset($idexp[$i]) AND $idexp[$i])) {
+			if (($experiences and isset($experiences[$i])) != (isset($idexp[$i]) and $idexp[$i])) {
 				if (!$this->Db->delete($idexp[$i], $this->tableCvExp)) $error = true;
 			} 
 		}
 
-		$experiences = POST("experience");
 		$company = POST("company");
 		$title = POST("title");
 		$location = POST("location");
@@ -1234,9 +1234,10 @@ class Users_Model extends ZP_Load
 	{
 		$idedu = explode(',', POST("infoEdu"));
 		$error = false;
+		$schools = POST("school");
 
 		for ($i=0; $i < count($idedu); $i++) { 
-			if ((isset(POST("school")[$i]) AND POST("school")) != (isset($idedu[$i]) AND $idedu[$i])) {
+			if (($school and isset($schools[$i])) != (isset($idedu[$i]) and $idedu[$i])) {
 				if (!$this->Db->delete($idedu[$i], $this->tableCvEdu)) $error = true;
 			} 
 		}
