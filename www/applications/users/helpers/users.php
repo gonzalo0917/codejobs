@@ -128,3 +128,30 @@ if (!function_exists("recoverEducation")) {
         ));
     }
 }
+
+if (!function_exists("getFlag")) {
+    function getFlag($country)
+    {
+        $country = strtolower($country);
+        
+        switch ($country) {
+            case "argentina":
+            case "chile":
+            case "colombia":
+            case "ecuador":
+            case "mexico":
+            case "panama":
+            case "paraguay":
+            case "peru":
+            case "spain":
+            case "uruguay":
+            case "venezuela":
+                return '<span class="flag '. $country .'-flag"></span>';
+                break;
+            
+            default:
+                return '<span class="flag world-flag"></span>';
+                break;
+        }
+    }
+}

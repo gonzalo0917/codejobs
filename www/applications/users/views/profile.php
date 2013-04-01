@@ -29,6 +29,16 @@
 			<?php } else { ?>
 			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
 			<?php } ?>
+			<div class="gender-country">
+				<div class="gender">
+					<?php if ($user["Gender"] === 'F') { ?>
+					<span class="gender-icon female-icon"></span> <?php echo __("Woman"); } else { ?>
+					<span class="gender-icon"></span> <?php echo __("Man"); } ?>
+				</div>
+				<div class="country">
+					<?php echo getFlag($user["Country"]); ?> &nbsp;<?php echo __($user["Country"]); ?>
+				</div>
+			</div>
 			<?php if (!empty($user["Twitter"]) or !empty($user["Facebook"]) or !empty($user["Linkedin"]) or !empty($user["Google"]) or !empty($user["Viadeo"])) { ?>
 			<div class="social">
 				<?php if (!empty($user["Twitter"])) { ?>
