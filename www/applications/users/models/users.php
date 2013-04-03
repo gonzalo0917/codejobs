@@ -236,7 +236,8 @@ class Users_Model extends ZP_Load
 			),
 			"username" => "required",
 			"name" 	   => "required",
-			"email"    => "email?"
+			"email"    => "email?",
+			"captcha"  => "captcha?"
 		);
 
 		$code = code(10);

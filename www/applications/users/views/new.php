@@ -63,6 +63,12 @@ echo div("new-user", "class");
 					"value"    => $email,
 					"required" => true
 				));
+
+				echo formCaptcha(array(
+					"name" 	   => "captcha",
+					"p"		   => true,
+					"field"    => __("Verification") .' ('. __("answer must be a number") .')'
+				));
 				
 				echo formInput(array(
 					"name"  => "register",
