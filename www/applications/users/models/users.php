@@ -63,13 +63,13 @@ class Users_Model extends ZP_Load
 			if (SESSION("ZanUserPrivilegeID") == 1) {
 				return $this->Db->findBySQL("Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 			} else {
-				return $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $fields, null, $order, $limit);
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanuserID") ."' AND Situation != 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 			}
 		} else {
 			if (SESSION("ZanUserPrivilegeID") === 1) {
 				return $this->Db->findBy("Situation", "Deleted", $this->table, $this->fields, null, $order, $limit);
 			} else {
-				return $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $fields, null, $order, $limit);
+				return $this->Db->findBySQL("ID_User = '". SESSION("ZanAdminID") ."' AND Situation = 'Deleted'", $this->table, $this->fields, null, $order, $limit);
 			}
 		}
 	}
@@ -102,8 +102,6 @@ class Users_Model extends ZP_Load
 				"Email"    => POST("email"),
 				),
 			);
-
-
 		} else {
 			$validations = array(
 				"username" => "required",
@@ -247,7 +245,7 @@ class Users_Model extends ZP_Load
 			"Start_Date" => now(4),
 			"Subscribed" => 1,
 			"Code" 		 => $code,
-			"Situation"  => "Inactive"
+			"Situation"  => "Active"
 		);
 
 		if (!$service) {
