@@ -14,11 +14,13 @@
 	$description = isset($data) ? recoverPOST("description", $data[0]["Description"]) : recoverPOST("description");
 	$tags = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) : recoverPOST("tags");
 	$email = isset($data) ? recoverPOST("email", $data[0]["Email"]) : recoverPOST("email");
+	$type = isset($data) ? recoverPOST("type", $data[0]["Type"]) : recoverPOST("type");
+	$typeurl = isset($data) ? recoverPOST("typeurl", $data[0]["Type_Url"]) : recoverPOST("typeurl");
 	$language = isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
 	$edit = isset($data) ? true : false;
 	$action = isset($data) ? "edit" : "save";
-	$href = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
+	$href = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/add");
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
@@ -49,7 +51,7 @@
 			foreach ($countries as $value) { 
 				$options[$i]["value"] = $value["Country"];
 				$options[$i]["option"] = __($value["Country"]);
-				$options[$i]["selected"] = ($value["Country"] === $country) ? true : false;
+				$options[$i]["selected"] = ($value["Country"]) ? true : false;
 				$i++;
 			}
 
@@ -138,6 +140,29 @@
 				"placeholder" => __("Enter your company email"),
 				"value" => $email,
 				"required" => true
+			));
+
+			$options = array(
+				0 => array("value" => "Internal", "option" => __("Internal"), "selected" => ($type === "Internal") ? true : false),
+				1 => array("value" => "External", "option" => __("External"), "selected" => ($type === "External") ? true : false),
+			);
+
+			echo formSelect(array(
+				"id" => "type",
+				"name" => "type", 
+				"p" => true, 
+				"class" => "span2 required", 
+				"field" => __("Recruitment type")),
+				$options
+			);
+
+			echo formInput(array(
+				"name" => "typeurl", 
+				"class" => "span5 required", 
+				"field" => __("Type the URL of the external page"), 
+				"p" => true, 
+				"placeholder" => __("Type the URL if it's an external recruitment"),
+				"value" => $typeurl
 			));
 
 			echo formField(null, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));

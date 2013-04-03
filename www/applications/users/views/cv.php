@@ -32,7 +32,9 @@
     $exp = substr($exp, 0, -1)."";
     $edu = substr($edu, 0, -1)."";
 
-    echo "<strong>". __("Last Update On") ."</strong>: ". howLong($summary[0]["Last_Updated"]);
+    if ($summary[0]["Last_Updated"]) {
+        echo "<strong>". __("Last Update On") ."</strong>: ". howLong($summary[0]["Last_Updated"]);
+    }
 
     echo div("edit-profile", "class");
         echo formOpen($href, "form-add", "form-add");

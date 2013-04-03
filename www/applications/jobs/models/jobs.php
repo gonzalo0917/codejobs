@@ -11,7 +11,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "jobs";
-		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Language, Start_Date, Situation, Counter";
+		$this->fields = "ID_Job, ID_User, Title, Company, Slug, Author, Country, City, City_Slug, Salary, Salary_Currency, Allocation_Time, Description, Tags, Email, Type, Type_Url, Language, Start_Date, Situation, Counter";
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
 		$this->Email = $this->core("Email");
@@ -93,7 +93,7 @@ class Jobs_Model extends ZP_Load
 
 	public function preview()
 	{
-		if (POST("title") AND POST("email") AND POST("address1") AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
+		if (POST("title") AND POST("email") AND POST("address1") AND POST("type") AND POST("typeurl")  AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
 			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language") AND POST("counter")) {
 			return array(
 				"Allocation_Time" => POST("allocation"),
@@ -103,6 +103,8 @@ class Jobs_Model extends ZP_Load
 				"City" => POST("city"),
 				"Tags" => stripslashes(encode(POST("tags", "decode", null))),
 				"Email" => POST("email"),
+				"Type" => POST("type"),
+				"Type_URL" => POST("typeurl"),
 				"Salary" => POST("salary"),
 				"Salary_Currency"=> POST("salary_currency"),
 				"Description" => stripslashes(encode(POST("requirements", "decode", null))),
