@@ -50,6 +50,9 @@
 			    echo __("You must be registered to display this content").'</br/>';
 				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
+			} elseif (SESSION("ZanUser") and $job["Type"] == "External") {
+				echo '<span class="bold">'. __("Enter the link below to apply") .": ".'</span><br />';
+				echo '<a href = "'. ($job["Type_Url"]) .'">'. __("Recluiter's page") .'</a>';
 			} elseif (SESSION("ZanUser") and $isvacancy) {
 				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
@@ -112,7 +115,11 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-		<?php echo __("Number of applicants") .": ". $job["Counter"]; ?>
+		<?php if ($job["Type"] == "External") {
+			echo "";
+		} else {
+		echo __("Number of applicants") .": ". $job["Counter"]; 
+	} ?>
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
