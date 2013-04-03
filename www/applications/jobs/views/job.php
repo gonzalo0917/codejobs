@@ -52,7 +52,7 @@
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
 			} elseif (SESSION("ZanUser") and $job["Type"] == "External") {
 				echo '<span class="bold">'. __("Enter the link below to apply") .": ".'</span><br />';
-				echo '<a href = "'. ($job["Type_Url"]) .'">'. __("Recluiter's page") .'</a>';
+				echo '<button onclick="window.open(\''. $job["Type_Url"] .'\', \'_blank\'); return false;">Apply for the vacancy</button></a>';
 			} elseif (SESSION("ZanUser") and $isvacancy) {
 				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
