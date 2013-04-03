@@ -537,67 +537,67 @@ class Users_Controller extends ZP_Load
 
 	public function cv()
 	{
-		isConnected();
+		if (isConnected()) {
 
-		$summary = $this->Users_Model->getSummary();
-		$experiences = $this->Users_Model->getExperiences();
-		$education = $this->Users_Model->getEducation();
-		$skills = $this->Users_Model->getSkills();
+			$summary = $this->Users_Model->getSummary();
+			$experiences = $this->Users_Model->getExperiences();
+			$education = $this->Users_Model->getEducation();
+			$skills = $this->Users_Model->getSkills();
 
-		$this->helper(array("time", "forms", "html"));
-		$this->config("users", $this->application);
-		$this->config("cv", $this->application);
- 
-		$this->css("forms", "cpanel");
-		$this->css("users", $this->application);
-		$this->css("cv", $this->application);
+			$this->helper(array("time", "forms", "html"));
+			$this->config("users", $this->application);
+			$this->config("cv", $this->application);
+	 
+			$this->css("forms", "cpanel");
+			$this->css("users", $this->application);
+			$this->css("cv", $this->application);
 
-		$this->js("jquery.jdpicker.js");
-		$this->js("cv", $this->application);
+			$this->js("jquery.jdpicker.js");
+			$this->js("cv", $this->application);
 
-		if ($summary OR $experiences OR $education OR $skills) {
-			if (POST("actionSummary")) {
-				$action = ((int) POST("ID_Summary") !== 0 AND $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
-				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
-				$summary = $this->Users_Model->getSummary();
-			}
+				if (POST("actionSummary")) {
+					$action = ((int) POST("ID_Summary") !== 0 AND $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
+					$this->helper("alerts");
+					$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
+					$summary = $this->Users_Model->getSummary();
+				}
 
-			if (POST("actionExperiences")) {
-				$action = ((int) POST("experience") !== 0 AND $_POST["experience"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
-				$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
-				$experiences = $this->Users_Model->getExperiences();
-			}
+				if (POST("actionExperiences")) {
+					$action = ((int) POST("experience") !== 0 AND $_POST["experience"][0] !== "") ? "edit" : "save";
+					$this->helper("alerts");
+					$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
+					$experiences = $this->Users_Model->getExperiences();
+				}
 
-			if (POST("actionEducation")) {
-				$action = ((int) POST("school") !== 0 AND $_POST["school"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
-				$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
-				$education = $this->Users_Model->getEducation();
-			}
+				if (POST("actionEducation")) {
+					$action = ((int) POST("school") !== 0 AND $_POST["school"][0] !== "") ? "edit" : "save";
+					$this->helper("alerts");
+					$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
+					$education = $this->Users_Model->getEducation();
+				}
 
-			if (POST("actionSkills")) {
-				$action = ((int) POST("ID_Skills") !== 0 AND $_POST["ID_Skills"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
-				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
-				$skills = $this->Users_Model->getSkills();
-			}
+				if (POST("actionSkills")) {
+					$action = ((int) POST("ID_Skills") !== 0 AND $_POST["ID_Skills"][0] !== "") ? "edit" : "save";
+					$this->helper("alerts");
+					$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
+					$skills = $this->Users_Model->getSkills();
+				}
 
-			$this->Configuration_Model = $this->model("Configuration_Model");
-			$this->Cache = $this->core("Cache");
+				$this->Configuration_Model = $this->model("Configuration_Model");
+				$this->Cache = $this->core("Cache");
 
-			$vars["summary"] = $summary;
-			$vars["experiences"] = $experiences;
-			$vars["education"] = $education;
-			$vars["skills"] = $skills;
+				$vars["summary"] = $summary;
+				$vars["experiences"] = $experiences;
+				$vars["education"] = $education;
+				$vars["skills"] = $skills;
 
-			$vars["view"] = $this->view("cv", true);
-			$vars["href"] = path("users/cv/");
+				$vars["view"] = $this->view("cv", true);
+				$vars["href"] = path("users/cv/");
 
-			$this->title("Curriculum Vitae");
+				$this->title("Curriculum Vitae");
 
-			$this->render("content", $vars);
+				$this->render("content", $vars);
+
 		} else {
 			redirect();
 		}
