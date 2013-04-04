@@ -136,6 +136,47 @@
 				}
 			}
 		?>
+		
 		<div class="header subtitle"><?php echo __("Recent codes"); ?></div>
+		<?php
+			if (empty($codes)) {
+		?>
+		<div>
+			<?php echo __("No codes"); ?>
+		</div>
+		<?php
+			} else {
+				foreach ($codes as $code) {
+		?>
+		<div class="post">
+			<strong><?php echo $code["Title"]; ?></strong>
+			<div><?php echo __("Published") ." ". howLong($code["Start_Date"]); ?></div>
+			<div><?php echo $code["Description"]; ?></div>
+		</div>
+		<?php
+				}
+			}
+		?>
+
+		<div class="header subtitle"><?php echo __("Recent bookmarks"); ?></div>
+		<?php
+			if (empty($bookmarks)) {
+		?>
+		<div>
+			<?php echo __("No bookmarks"); ?>
+		</div>
+		<?php
+			} else {
+				foreach ($bookmarks as $bookmark) {
+		?>
+		<div class="post">
+			<strong><?php echo $bookmark["Title"]; ?></strong>
+			<div><?php echo __("Published") ." ". howLong($bookmark["Start_Date"]); ?></div>
+			<div><?php echo $bookmark["Description"]; ?></div>
+		</div>
+		<?php
+				}
+			}
+		?>
 	</div>
 </div>
