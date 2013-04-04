@@ -122,7 +122,7 @@
 		<?php
 			if (empty($posts)) {
 		?>
-		<div>
+		<div class="none">
 			<?php echo __("No posts"); ?>
 		</div>
 		<?php
@@ -130,9 +130,9 @@
 				foreach ($posts as $post) {
 		?>
 		<div class="post">
-			<strong><?php echo $post["Title"]; ?></strong>
-			<div><?php echo __("Published") ." ". howLong($post["Start_Date"]); ?></div>
-			<div><?php echo $post["Content"]; ?></div>
+			<div class="title"><?php echo $post["Title"]; ?></div>
+			<div class="details"><?php echo __("Published") ." ". howLong($post["Start_Date"]); ?></div>
+			<div class="content"><?php echo showContent(pagebreak($post["Content"]));; ?></div>
 		</div>
 		<?php
 				}
@@ -143,7 +143,7 @@
 		<?php
 			if (empty($codes)) {
 		?>
-		<div>
+		<div class="none">
 			<?php echo __("No codes"); ?>
 		</div>
 		<?php
@@ -164,7 +164,7 @@
 		<?php
 			if (empty($bookmarks)) {
 		?>
-		<div>
+		<div class="none">
 			<?php echo __("No bookmarks"); ?>
 		</div>
 		<?php

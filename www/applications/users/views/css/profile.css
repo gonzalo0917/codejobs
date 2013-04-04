@@ -64,7 +64,7 @@
 }
 
 .counter a:hover {
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 .social {
@@ -104,7 +104,9 @@
 }
 
 .subtitle {
+	border-bottom: 1px solid rgb(215,215,215);
 	margin-bottom: 15px;
+	padding-bottom: 10px;
 }
 
 .credits {
@@ -142,4 +144,16 @@
 	box-sizing: border-box;
 	display: block;
 	padding: 30px;
+}
+
+#posts .title {
+	font-size: 1.3em;
+	font-weight: bold;
+	padding-top: 5px;
+}
+
+#posts .details {
+	color: rgb(102,102,102);
+	font-size: 0.8em;
+	margin-top: 5px;
 }
