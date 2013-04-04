@@ -21,7 +21,7 @@
 				"field"     => __("Full name") ."*", 
 				"p"         => true,
 				"maxlength" => "150",
-				"value"     => $name
+				"value"     => encode($name)
 			));
 
 			$options = array(

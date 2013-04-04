@@ -7,14 +7,17 @@
 	<section class="about">
 		<?php $avatar = path("www/lib/files/images/users/". $user["Avatar"], true); ?>
 		<div class="personal">
+
 			<div>
 				<a class="username" href="<?php echo getURL(); ?>"><?php echo $user["Username"]; ?></a>
 			</div>
+
 			<?php if ($user["Name"]) { ?>
 			<div class="fullname header">
 				<?php echo $user["Name"]; ?>
 			</div>
 			<?php } ?>
+
 			<?php if ($user["Website"] and $user["Website"] !== "http://") { ?>
 			<div class="website">
 				<a href="<?php echo $user["Website"]; ?>" target="_blank">
@@ -22,6 +25,7 @@
 				</a>
 			</div>
 			<?php } ?>
+
 			<?php if ($user["Avatar"] !== "default.png") { ?>
 			<a href="<?php echo path("www/lib/files/images/users/". sha1($user["Username"] ."_O") .".png", true); ?>" target="_blank">
 				<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
@@ -29,16 +33,23 @@
 			<?php } else { ?>
 			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
 			<?php } ?>
+
 			<div class="gender-country">
+				
 				<div class="gender">
 					<?php if ($user["Gender"] === 'F') { ?>
 					<span class="gender-icon female-icon"></span> <?php echo __("Woman"); } else { ?>
 					<span class="gender-icon"></span> <?php echo __("Man"); } ?>
 				</div>
+
+				<?php if (!empty($user["Country"])) { ?>
 				<div class="country">
 					<?php echo getFlag($user["Country"]); ?> &nbsp;<?php echo __($user["Country"]); ?>
 				</div>
+				<?php } ?>
+
 			</div>
+
 			<?php if (!empty($user["Twitter"]) or !empty($user["Facebook"]) or !empty($user["Linkedin"]) or !empty($user["Google"]) or !empty($user["Viadeo"])) { ?>
 			<div class="social">
 				<?php if (!empty($user["Twitter"])) { ?>
@@ -69,33 +80,30 @@
 			</div>
 			<?php } ?>
 		</div>
+
 		<div class="information">
 			<div class="date">
 				<?php echo __("Member since") ." ". howLong($user["Start_Date"]); ?>
 			</div>
+
 			<div class="counter">
 				<div>
-					<?php if ($user["Posts"] > 0) { ?>
-					<a href="<?php echo path("blog/author/". $user["Username"]); ?>"><?php echo "<strong>". $user["Posts"] ."</strong>". __(" posts"); ?></a>
-					<?php } else {
-						echo "<strong>0</strong>". __(" posts");
-					} ?>
+					<a href="<?php echo ($user["Posts"] > 0 ? path("blog/author/". $user["Username"]) : "#"); ?>">
+						<?php echo "<strong>". $user["Posts"] ."</strong>". __(" posts"); ?>
+					</a>
 				</div>
 				<div>
-					<?php if ($user["Codes"] > 0) { ?>
-					<a href="<?php echo path("codes/author/". $user["Username"]); ?>"><?php echo "<strong>". $user["Codes"] ."</strong>". __(" codes"); ?></a>
-					<?php } else {
-						echo "<strong>0</strong>". __(" codes");
-					} ?>
+					<a href="<?php echo ($user["Codes"] > 0 ? path("codes/author/". $user["Username"]) : "#"); ?>">
+						<?php echo "<strong>". $user["Codes"] ."</strong>". __(" codes"); ?>
+					</a>
 				</div>
 				<div>
-					<?php if ($user["Bookmarks"] > 0) { ?>
-					<a href="<?php echo path("bookmarks/author/". $user["Username"]); ?>"><?php echo "<strong>". $user["Bookmarks"] ."</strong>". __(" bookmarks"); ?></a>
-					<?php } else {
-						echo "<strong>0</strong>". __(" bookmarks");
-					} ?>
+					<a href="<?php echo ($user["Bookmarks"] > 0 ? path("bookmarks/author/". $user["Username"]) : "#"); ?>">
+						<?php echo "<strong>". $user["Bookmarks"] ."</strong>". __(" bookmarks"); ?>
+					</a>
 				</div>
 			</div>
+
 			<div class="credits">
 				<div>
 					<strong><?php echo $user["Credits"]; ?></strong> <?php echo __("credit points"); ?>
@@ -106,6 +114,7 @@
 			</div>
 		</div>
 	</section>
+
 	<div id="posts">
 		<div class="header subtitle"><?php echo __("Recent posts");?></div>
 		<?php

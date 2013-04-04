@@ -40,8 +40,13 @@
 	margin-top: 5px;
 }
 
-.website a {
+.website a, .counter a {
 	color: rgb(0, 121, 206);
+	text-decoration: none;
+}
+
+.website a:hover, .counter a:hover {
+	text-decoration: underline;
 }
 
 .personal {
@@ -56,15 +61,6 @@
 
 .counter {
 	margin-top: 10px;
-}
-
-.counter a {
-	color: #000;
-	text-decoration: none;
-}
-
-.counter a:hover {
-	text-decoration: underline;
 }
 
 .social {
