@@ -82,9 +82,11 @@
 		</div>
 
 		<div class="information">
+			<?php if (!empty($user["Start_Date"])) { ?>
 			<div class="date">
 				<?php echo __("Member since") ." ". howLong($user["Start_Date"]); ?>
 			</div>
+			<?php } ?>
 
 			<div class="counter">
 				<div>
