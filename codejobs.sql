@@ -2089,12 +2089,6 @@ ALTER TABLE `muu_re_privileges_users`
   ADD CONSTRAINT `muu_re_privileges_users_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_support`
---
-ALTER TABLE `muu_support`
-  ADD CONSTRAINT `muu_support_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `muu_tokens`
 --
 ALTER TABLE `muu_tokens`
