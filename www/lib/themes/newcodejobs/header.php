@@ -149,9 +149,9 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 
 						<div style="float: left; width: 170px; line-height: 15px; margin-left: 10px;">
 							<span class="bold"><a href="<?php echo path("users/about"); ?>"><?php echo SESSION("ZanUserName"); ?></a></span> <br />
-							<!--span class="small grey"><a href="#"><?php echo __("See my profile page"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("user/". SESSION("ZanUser")); ?>"><?php echo __("See my profile page"); ?></a></span><br />
 
-							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
+							<!--div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 							
 							<span class="small grey"><a href="#"><?php echo __("Direct Messages"); ?></a></span><br />
 							<span class="small grey"><a href="#"><?php echo __("Help"); ?></a></span><br /-->

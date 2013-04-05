@@ -18,7 +18,7 @@ if (!defined("ACCESS")) {
 
 			<span class="small italic grey">
 				<?php 
-					echo __("Published") ." ". howLong($code["Start_Date"]) ." ". __("by") .' <a title="'. $code["Author"] .'" href="'. path("codes/author/". $code["Author"]) .'">'. $code["Author"] .'</a> '; 
+					echo __("Published") ." ". howLong($code["Start_Date"]) ." ". __("by") .' <a title="'. $code["Author"] .'" href="'. path("user/". $code["Author"]) .'">'. $code["Author"] .'</a> '; 
 					 
 					if ($code["Languages"] !== "") {
 						echo __("in") ." ". exploding(implode(", ", array_map("strtolower", explode(", ", $code["Languages"]))), "codes/language/");

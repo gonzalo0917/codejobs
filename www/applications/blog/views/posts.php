@@ -26,7 +26,7 @@ if (is_array($posts)) {
 			
 			<div class="post-left">
 				<?php 
-					echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "blog/tag/") ." ". __("by") .' <a href="'. path("blog/author/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
+					echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "blog/tag/") ." ". __("by") .' <a href="'. path("user/". $post["Author"]) .'">'. $post["Author"] .'</a>'; ?>
 			</div>
 			
 			<div class="post-right">
