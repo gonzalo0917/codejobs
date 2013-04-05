@@ -181,12 +181,12 @@
 	text-decoration: underline;
 }
 
-#posts .content a.btn {
+#posts a.btn {
 	color: rgb(0,0,0);
 	font-size: 0.9em;
 	text-decoration: none;
 }
 
-#posts .content .right {
+#posts .right {
 	text-align: right;
 }

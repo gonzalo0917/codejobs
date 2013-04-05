@@ -606,7 +606,11 @@ class Users_Controller extends ZP_Load
 		$data = $this->Users_Model->getByUsername($user);
 		$this->Blog_Model = $this->model("Blog_Model");
 		$this->Codes_Model = $this->model("Codes_Model");
+		$this->application = $this->app("codes");
+		$this->CodesFiles_Model = $this->model("CodesFiles_Model");
+		$this->application = $this->app("users");
 		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
+		$this->Cache = $this->core("Cache");
 
 		if ($data) {
 			if (_get("webLang") === "en") {
@@ -621,9 +625,16 @@ class Users_Controller extends ZP_Load
 
 			$vars["user"] = $data[0];
 			$vars["view"] = $this->view("profile", true);
-			$vars["posts"] = $this->Blog_Model->getByUser($data[0]["ID_User"], 3);
-			$vars["codes"] = $this->Codes_Model->getByUser($data[0]["ID_User"], 3);
-			$vars["bookmarks"] = $this->Bookmarks_Model->getByUser($data[0]["ID_User"], 3);
+			$vars["posts"] = $this->Cache->data("profile-$user", "blog", $this->Blog_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
+			$vars["codes"] = $this->Cache->data("profile-$user", "codes", $this->Codes_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
+			$vars["bookmarks"] = $this->Cache->data("profile-$user", "codes", $this->Bookmarks_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
+
+			if ($vars["codes"]) {
+				foreach ($vars["codes"] as $key => $code) {
+					$file = $this->Cache->data("profile-$user-code-". $code["ID_Code"], "codes", $this->CodesFiles_Model, "getByCode", array($code["ID_Code"], 1), 86400);
+					$vars["codes"][$key]["File"] = $file[0];
+				}
+			}
 
 			$this->render("content", $vars);
 		} else {
