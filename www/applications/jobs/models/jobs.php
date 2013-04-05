@@ -240,6 +240,20 @@ class Jobs_Model extends ZP_Load
 		redirect(path($cv[0]["Cv"], true));
 	}
 
+		public function applyExternal()
+	{
+		$job = segment(1, isLang());
+		$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$job' ORDER BY ID_Vacancy DESC");
+		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+		$counter = $getcounter[0]["Counter"] += 1;
+		$data = array(
+				"Counter" => $counter,
+			);
+
+		$this->Db->update("jobs", $data, $job);
+		redirect($url[0]["Type_Url"], true);
+	}
+
 	public function isVacancy()
 	{
 		$jid = segment(1, isLang());

@@ -29,7 +29,7 @@ echo div("add-form", "class");
 		echo formTextarea(array(
 			"name" => "description", 
 			"class" => "required", 
-			"style" => "height: 250px;", 
+			"style" => "width: 765px; height: 100px;", 
 			"field" => __("Description"), 
 			"p" 	=> true, 
 			"value" => $description

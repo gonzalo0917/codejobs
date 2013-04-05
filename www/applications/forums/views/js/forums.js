@@ -7,15 +7,15 @@ $(document).on("ready", function() {
 		var avatar = $('#avatar').val();
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 		
-		if (content.length == 0) {
+
+		if (content.length < 30) {
 			$("#comment-alert").html(needContent);
 			$("#comment-alert").show();
 			$("#comment-alert").hide(4000);
 		}
 
-		if (content != '' && fid > 0) {
+		if (content.length > 30 && fid > 0 && content != "%3Cp%3E%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%20%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%26nbsp%3B%3C/p%3E") {
 			var newComment = '';
-
 			$.ajax({
 				type: 'POST',
 				url: PATH + '/forums/publishComment',
