@@ -624,7 +624,7 @@ class Users_Controller extends ZP_Load
 			$this->helper("time");
 
 			$vars["user"] = $data[0];
-			$vars["view"] = $this->view("profile", true);
+			$vars["view"] = $this->view("profile", true, "users");
 			$vars["posts"] = $this->Cache->data("profile-$user", "blog", $this->Blog_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
 			$vars["codes"] = $this->Cache->data("profile-$user", "codes", $this->Codes_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
 			$vars["bookmarks"] = $this->Cache->data("profile-$user", "codes", $this->Bookmarks_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
