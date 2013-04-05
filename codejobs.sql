@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 --
 
 INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `TV`, `Enable_Chat`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', '¡El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://www.codejobs.biz', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkItUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'codejobs@codejobs.biz', 'http://www.youtube.com/embed/nsPly37h9os', 1, 'Active');
+(1, 'Codejobs', 'Knowledge makes us free!', '¡El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkItUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'codejobs@codejobs.biz', 'http://www.youtube.com/embed/nsPly37h9os', 1, 'Active');
 
 -- --------------------------------------------------------
 
