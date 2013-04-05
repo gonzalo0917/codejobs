@@ -60,13 +60,14 @@
 			<input id="jauthor" name="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
 			<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
 
-			<?php echo formInput(array(
-				"type" => "file",
-				"id" => "cv",
-				"name" => "cv",
-				"field" => __("Upload your CV here"),
-				"p" => true
-			));
+			<?php 
+				echo formInput(array(
+					"type" => "file",
+					"id" => "cv",
+					"name" => "cv",
+					"field" => __("Upload your CV here"),
+					"p" => true
+				));
 			?>
 			<div id= "message-alert"></div>
 			<input id="needcontent" type="hidden" value="<?php echo __("You need to write the content..."); ?>" />
@@ -74,22 +75,23 @@
 			<?php
 			
 				echo formTextarea(array(
-				"id" => "message",
-				"name" => "message", 
-				"class" => "span5 required",
-				"rows" => "5",
-				"field" => __("Message"), 
-				"p" => "true",
-				"value" => __("I'm interested in your Job. Please contact me about position"),
-			));
+					"id" => "message",
+					"name" => "message", 
+					"class" => "span5 required",
+					"rows" => "5",
+					"field" => __("Message"), 
+					"p" => "true",
+					"value" => __("I'm interested in your Job. Please contact me about position"),
+				));
 
 				echo formInput(array(
-				"type" => "submit", 
-				"id" => "apply",
-				"name" => "apply",
-				"value" => __("Apply for the vacancy"),
-				"p" => "true"
-			)); ?>
+					"type" => "submit", 
+					"id" => "apply",
+					"name" => "apply",
+					"value" => __("Apply for the vacancy"),
+					"p" => "true"
+				));
+			?>
 
 			<?php } ?>
 		</p>
@@ -99,18 +101,7 @@
 	<br />
 
 	<?php
-		echo display('<p>
-                        <script type="text/javascript">
-                            google_ad_client = "ca-pub-4006994369722584";
-                            /* CodeJobs.biz */
-                            google_ad_slot = "1672839256";
-                            google_ad_width = 728;
-                            google_ad_height = 90;
-                            </script>
-                            <script type="text/javascript"
-                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-                        </script>
-                    </p>', 4);
+		echo display('<p>'. getAd("728px") .'</p>', 4);
 	?>
 	<p>
 		<?php echo fbComments($URL); ?>
@@ -118,8 +109,9 @@
 		<?php if ($job["Type"] == "External") {
 			echo "";
 		} else {
-		echo __("Number of applicants") .": ". $job["Counter"]; 
-	} ?>
+			echo __("Number of applicants") .": ". $job["Counter"]; 
+		} 
+		?>
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
