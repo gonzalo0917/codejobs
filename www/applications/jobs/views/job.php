@@ -106,16 +106,13 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-<<<<<<< HEAD
-		<?php echo __("Number of applicants") .": ". $job["Counter"];  ?>
-=======
-		<?php if ($job["Type"] == "External") {
-			echo "";
-		} else {
-			echo __("Number of applicants") .": ". $job["Counter"]; 
-		} 
+		<?php 
+			if ($job["Type"] == "External") {
+				echo "";
+			} else {
+				echo __("Number of applicants") .": ". $job["Counter"]; 
+			} 
 		?>
->>>>>>> 20a512a535c9dc08cfbdd209e494b080e1d3ffee
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
