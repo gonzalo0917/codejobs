@@ -627,7 +627,7 @@ class Users_Controller extends ZP_Load
 			$vars["view"] = $this->view("profile", true, "users");
 			$vars["posts"] = $this->Cache->data("profile-$user", "blog", $this->Blog_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
 			$vars["codes"] = $this->Cache->data("profile-$user", "codes", $this->Codes_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
-			$vars["bookmarks"] = $this->Cache->data("profile-$user", "codes", $this->Bookmarks_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
+			$vars["bookmarks"] = $this->Cache->data("profile-$user", "bookmarks", $this->Bookmarks_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
 
 			if ($vars["codes"]) {
 				foreach ($vars["codes"] as $key => $code) {
