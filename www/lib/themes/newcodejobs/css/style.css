@@ -761,7 +761,7 @@ div.comments-content:hover {
 	font-size: 0.85em;
 }
 
-/*.breadcrumb {
+.breadcrumb {
 	padding: 5px 15px;
 	margin: 0 0 20px;
 	list-style: none;
@@ -784,4 +784,4 @@ div.comments-content:hover {
 
 .breadcrumb > .active {
 	color: #555;
-}*/
+}
