@@ -219,7 +219,7 @@ class Forums_Controller extends ZP_Load
 			if ($postID == 0) {
 				$this->getForum($forum);
 			} else {
-				$this->getPost($postID);
+				redirect(path("forums/". $forum ."/". $postID));
 			}
 		}
 	}
