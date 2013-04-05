@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 --
 
 INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `TV`, `Enable_Chat`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', '¡El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://www.codejobs.biz', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkItUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'codejobs@codejobs.biz', 'http://www.youtube.com/embed/nsPly37h9os', 1, 'Active');
+(1, 'Codejobs', 'Knowledge makes us free!', '¡El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkItUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'codejobs@codejobs.biz', 'http://www.youtube.com/embed/nsPly37h9os', 1, 'Active');
 
 -- --------------------------------------------------------
 
@@ -1496,8 +1496,8 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   PRIMARY KEY (`ID_User`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-INSERT INTO `muu_users` VALUES ('1', '1', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', '0,0,90,90', '26', '88', '', '0', '1', '0', '0', '0', '2', '4', '8', '0', '0', '1', '1337647712', 'BC958D3C97', 'Carlos Santana Roldán', '', '18', '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
-INSERT INTO `muu_users` VALUES ('2', '4', 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', '0,0,90,90', '0', '50', '', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1347453332', 'C3F4E6E123', '', '', '18', '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
+INSERT INTO `muu_users` VALUES ('1', '1', '0', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', '0,0,90,90', '26', '88', '', '0', '1', '0', '0', '0', '2', '4', '8', '0', '0', '1', '1337647712', 'BC958D3C97', 'Carlos Santana Roldán', '', '18', '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
+INSERT INTO `muu_users` VALUES ('2', '4', '0', 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', '0,0,90,90', '0', '50', '', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1347453332', 'C3F4E6E123', '', '', '18', '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
 
 
 DROP TABLE IF EXISTS `muu_users_cv_education`;

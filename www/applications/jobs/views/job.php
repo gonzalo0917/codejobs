@@ -52,7 +52,7 @@
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
 			} elseif (SESSION("ZanUser") and $job["Type"] == "External") {
 				echo '<span class="bold">'. __("Enter the link below to apply") .": ".'</span><br />';
-				echo '<button onclick="window.open(\''. $job["Type_Url"] .'\', \'_blank\'); return false;">Apply for the vacancy</button></a>';
+				echo '<input type="button" value="'. __("apply for the vacancy") .'">';
 			} elseif (SESSION("ZanUser") and $isvacancy) {
 				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
@@ -106,12 +106,16 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
+<<<<<<< HEAD
+		<?php echo __("Number of applicants") .": ". $job["Counter"];  ?>
+=======
 		<?php if ($job["Type"] == "External") {
 			echo "";
 		} else {
 			echo __("Number of applicants") .": ". $job["Counter"]; 
 		} 
 		?>
+>>>>>>> 20a512a535c9dc08cfbdd209e494b080e1d3ffee
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
