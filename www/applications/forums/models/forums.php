@@ -97,7 +97,7 @@ class Forums_Model extends ZP_Load
 			"Forum_Name"  => POST("fname"),
             "Title" 	  => POST("title"),
 			"Slug" 		  => slug(POST("title", "clean")),
-			"Content" 	  => POST("content", "clean"),
+			"Content" 	  => removeRareChars(POST("content", "clean")),
 			"Author" 	  => SESSION("ZanUser"),
 			"Avatar" 	  => $avatar,
 			"Last_Reply"  => now(4),
