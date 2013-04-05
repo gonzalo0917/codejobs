@@ -91,17 +91,17 @@
 			<div class="counter">
 				<div>
 					<a href="<?php echo ($user["Posts"] > 0 ? path("blog/author/". $user["Username"]) : "#"); ?>">
-						<?php echo "<strong>". $user["Posts"] ."</strong>". __(" posts"); ?>
+						<?php echo $user["Posts"] . __(" posts"); ?>
 					</a>
 				</div>
 				<div>
 					<a href="<?php echo ($user["Codes"] > 0 ? path("codes/author/". $user["Username"]) : "#"); ?>">
-						<?php echo "<strong>". $user["Codes"] ."</strong>". __(" codes"); ?>
+						<?php echo $user["Codes"] . __(" codes"); ?>
 					</a>
 				</div>
 				<div>
 					<a href="<?php echo ($user["Bookmarks"] > 0 ? path("bookmarks/author/". $user["Username"]) : "#"); ?>">
-						<?php echo "<strong>". $user["Bookmarks"] ."</strong>". __(" bookmarks"); ?>
+						<?php echo $user["Bookmarks"] . __(" bookmarks"); ?>
 					</a>
 				</div>
 			</div>
@@ -128,11 +128,17 @@
 		<?php
 			} else {
 				foreach ($posts as $post) {
+					$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);
+					$tags = empty($post["Tags"]) ? "" : " ". __("in") ." ". exploding($post["Tags"], "blog/tag/");
 		?>
 		<div class="post">
-			<div class="title"><?php echo $post["Title"]; ?></div>
-			<div class="details"><?php echo __("Published") ." ". howLong($post["Start_Date"]); ?></div>
-			<div class="content"><?php echo showContent(pagebreak($post["Content"]));; ?></div>
+			<div class="title">
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
+					<?php echo $post["Title"]; ?>
+				</a>
+			</div>
+			<div class="details"><?php echo __("Published") ." ". howLong($post["Start_Date"]) . $tags; ?></div>
+			<div class="content"><?php echo showContent(pagebreak($post["Content"], true, '<p class="right"><a href="'. $URL .'" class="btn" title="'. __("Read more") .'">'. __("Read more") .'...</a></p>'));; ?></div>
 		</div>
 		<?php
 				}
@@ -149,11 +155,17 @@
 		<?php
 			} else {
 				foreach ($codes as $code) {
+					$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"]);
+					$languages = empty($code["Languages"]) ? "" : " ". __("in") ." ". exploding($code["Languages"], "codes/language/");
 		?>
 		<div class="post">
-			<strong><?php echo $code["Title"]; ?></strong>
-			<div><?php echo __("Published") ." ". howLong($code["Start_Date"]); ?></div>
-			<div><?php echo $code["Description"]; ?></div>
+			<div class="title">
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($code["Title"]); ?>">
+					<?php echo $code["Title"]; ?>
+				</a>
+			</div>
+			<div class="details"><?php echo __("Published") ." ". howLong($code["Start_Date"]) . $languages; ?></div>
+			<p class="content"><?php echo $code["Description"]; ?></p>
 		</div>
 		<?php
 				}
@@ -170,11 +182,17 @@
 		<?php
 			} else {
 				foreach ($bookmarks as $bookmark) {
+					$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]);
+					$tags = empty($bookmark["Tags"]) ? "" : " ". __("in") ." ". exploding($bookmark["Tags"], "bookmarks/tag/");
 		?>
 		<div class="post">
-			<strong><?php echo $bookmark["Title"]; ?></strong>
-			<div><?php echo __("Published") ." ". howLong($bookmark["Start_Date"]); ?></div>
-			<div><?php echo $bookmark["Description"]; ?></div>
+			<div class="title">
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($bookmark["Title"]); ?>">
+					<?php echo $bookmark["Title"]; ?>
+				</a>
+			</div>
+			<div class="details"><?php echo __("Published") ." ". howLong($bookmark["Start_Date"]) . $tags; ?></div>
+			<p class="content"><?php echo $bookmark["Description"]; ?></p>
 		</div>
 		<?php
 				}

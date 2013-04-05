@@ -60,11 +60,12 @@
 
 .counter a {
 	color: #000;
-	text-decoration: underline;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 .counter a:hover {
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 .social {
@@ -107,6 +108,10 @@
 	border-bottom: 1px solid rgb(215,215,215);
 	margin-bottom: 15px;
 	padding-bottom: 10px;
+}
+
+.subtitle:not(:first-child) {
+	margin-top: 40px;
 }
 
 .credits {
@@ -152,8 +157,36 @@
 	padding-top: 5px;
 }
 
+#posts .title a {
+	color: rgb(0,0,0);
+	text-decoration: none;
+}
+
+#posts .title a:hover {
+	text-decoration: underline;
+}
+
 #posts .details {
 	color: rgb(102,102,102);
 	font-size: 0.8em;
 	margin-top: 5px;
+}
+
+#posts .details a {
+    color: rgb(32, 128, 185);
+    text-decoration: none;
+}
+
+#posts .details a:hover {
+	text-decoration: underline;
+}
+
+#posts .content a.btn {
+	color: rgb(0,0,0);
+	font-size: 0.9em;
+	text-decoration: none;
+}
+
+#posts .content .right {
+	text-align: right;
 }
