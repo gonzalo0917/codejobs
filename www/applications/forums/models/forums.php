@@ -128,7 +128,7 @@ class Forums_Model extends ZP_Load
 			"ID_Parent"  => 0,
             "Title" 	 => POST("title"),
 			"Slug" 		 => slug(POST("title", "clean")),
-			"Content" 	 => POST("content", "clean"),
+			"Content" 	 => removeRareChars(POST("content", "clean")),
 			"Author" 	 => SESSION("ZanUser"),
 			"Start_Date" => now(4),
 			"Text_Date"  => decode(now(2)),
@@ -196,9 +196,13 @@ class Forums_Model extends ZP_Load
 	public function deletePost($postID)
 	{
 		$fid = $this->Db->query("SELECT ID_Parent FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $postID);
+		
 		$totalComments = $this->Db->query("SELECT Total_Comments FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $fid[0]["ID_Parent"]);
+		
 		$i = $totalComments[0]["Total_Comments"] -= 1;
+		
 		$this->Db->updateBySQL("forums_posts", "Total_Comments = '$i' WHERE ID_Post = ". $fid[0]["ID_Parent"]);
+		
 		$this->Db->delete($postID, DB_PREFIX ."forums_posts");
 		
 		$query = "DELETE FROM ". DB_PREFIX ."forums_posts WHERE ID_Parent = '$postID'";
@@ -294,6 +298,7 @@ class Forums_Model extends ZP_Load
 	{
 		$author = str_replace("-", " ", $author);
 		$slug = segment(1, isLang());
+		
 		$query = "SELECT $this->fieldsPosts FROM ". DB_PREFIX ."forums_posts WHERE Author = '$author' 
 				  AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 
 				  AND ID_Forum = (SELECT ID_Forum FROM ". DB_PREFIX ."forums WHERE Slug = '$slug' LIMIT 1) 
@@ -316,6 +321,7 @@ class Forums_Model extends ZP_Load
 	{
 		$tag = str_replace("-", " ", $tag);
 		$slug = segment(1, isLang());
+		
 		$query = "SELECT ". DB_PREFIX ."forums.ID_Forum, ". DB_PREFIX ."forums.Title AS Forum, ". DB_PREFIX ."forums_posts.ID_Post, 
 				  ". DB_PREFIX ."forums_posts.Title, ". DB_PREFIX ."forums_posts.Tags, ". DB_PREFIX ."forums_posts.Slug, 
 				  ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Content, ". DB_PREFIX ."forums_posts.Author,
@@ -405,7 +411,7 @@ class Forums_Model extends ZP_Load
 				"Slug" 		 => null,
 				"Text_Date"  => decode(now(2)),
 				"Tags" 		 => null,
-				"Content" 	 => $content,
+				"Content" 	 => removeRareChars($content),
 				"Author" 	 => $author,
 				"Avatar" 	 => $avatar,
 				"Start_Date" => $now, 
@@ -429,7 +435,7 @@ class Forums_Model extends ZP_Load
 				$json = array(
 					"alert"   => getAlert(__("The comment has been saved correctly"), "success"),
 					"date" 	  => $date,
-					"content" => stripslashes($content),
+					"content" => removeRareChars(stripslashes($content)),
 					"edit"    => $edit,
 					"delete"  => $delete
 				);
