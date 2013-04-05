@@ -1496,9 +1496,8 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   PRIMARY KEY (`ID_User`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-INSERT INTO `muu_users` VALUES ('1', '1', '0', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', '', 'default.png', '0,0,90,90', '26', '88', '', '0', '1', '0', '0', '0', '2', '4', '8', '0', '0', '1', '1337647712', 'BC958D3C97', 'Carlos Santana Roldán', '', '18', '', '', '', '', '0', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
-INSERT INTO `muu_users` VALUES ('2', '4', '0', 'tester', 'e53e0171e0fa33c534981aab0be760bfed2959f1', 'tester@milkzoft.com', '', 'default.png', '0,0,90,90', '0', '50', '', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1347453332', 'C3F4E6E123', '', '', '18', '', '', '', '', '', 'M', 'Single', '', '', '', '', '', '', '', '', '', '', 'Active');
-
+INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `ID_Service`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Avatar_Coordinate`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Subscribed`, `Followers`, `Start_Date`, `Code`, `Name`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
+(1, 1, '', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'azapedia@gmail.com', 'http://www.codejobs.biz', 'default.png', '0,0,90,90', 1246, 2093, '', 0, 1, 0, 0, 0, 390, 42, 17, 0, 0, 0, 0, '', 'Carlos Santana Roldán', 18, '', '', '', '2323423423', '23412313123', 'M', 'Single', '04/01/1980', 'Mexico', 'Colima', 'Colima', '', '', '', '', '', '', 'Active');
 
 DROP TABLE IF EXISTS `muu_users_cv_education`;
 CREATE TABLE IF NOT EXISTS `muu_users_cv_education` (
@@ -2080,13 +2079,6 @@ ALTER TABLE `muu_polls_ips`
 ALTER TABLE `muu_re_permissions_privileges`
   ADD CONSTRAINT `muu_re_permissions_privileges_ibfk_1` FOREIGN KEY (`ID_Privilege`) REFERENCES `muu_privileges` (`ID_Privilege`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `muu_re_permissions_privileges_ibfk_2` FOREIGN KEY (`ID_Application`) REFERENCES `muu_applications` (`ID_Application`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `muu_re_privileges_users`
---
-ALTER TABLE `muu_re_privileges_users`
-  ADD CONSTRAINT `muu_re_privileges_users_ibfk_1` FOREIGN KEY (`ID_Privilege`) REFERENCES `muu_privileges` (`ID_Privilege`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `muu_re_privileges_users_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `muu_tokens`
