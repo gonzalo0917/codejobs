@@ -560,6 +560,7 @@ $phrase["vacancy"]	 	 								= "Vacante";
 $phrase["verification"]  								= "Verificación";
 $phrase["videos"] 	 									= "Videos";
 $phrase["view"]											= "Ver";
+$phrase["view_more"]									= "Ver más";
 $phrase["views"] 										= "Vistas";
 $phrase["visit_bookmark"] 								= "Visitar Marcador";
 $phrase["visits"]										= "Visitas";

@@ -53,27 +53,27 @@
 			<?php if (!empty($user["Twitter"]) or !empty($user["Facebook"]) or !empty($user["Linkedin"]) or !empty($user["Google"]) or !empty($user["Viadeo"])) { ?>
 			<div class="social">
 				<?php if (!empty($user["Twitter"])) { ?>
-				<a href="http://twitter.com/<?php echo $user["Twitter"]; ?>" target="_blank">
+				<a href="http://twitter.com/<?php echo $user["Twitter"]; ?>" title="Twitter" target="_blank">
 					<div class="social-btn twitter-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Facebook"])) { ?>
-				<a href="http://facebook.com/<?php echo $user["Facebook"]; ?>" target="_blank">
+				<a href="http://facebook.com/<?php echo $user["Facebook"]; ?>" title="Facebook" target="_blank">
 					<div class="social-btn facebook-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Linkedin"])) { ?>
-				<a href="http://linkedin.com/in/<?php echo $user["Linkedin"]; ?>" target="_blank">
+				<a href="http://linkedin.com/in/<?php echo $user["Linkedin"]; ?>" title="LinkedIn" target="_blank">
 					<div class="social-btn linkedin-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Google"])) { ?>
-				<a href="https://profiles.google.com/<?php echo $user["Google"]; ?>" target="_blank">
+				<a href="https://profiles.google.com/<?php echo $user["Google"]; ?>" title="Google+" target="_blank">
 					<div class="social-btn google-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Viadeo"])) { ?>
-				<a href="http://viadeo.com/en/profile/<?php echo $user["Viadeo"]; ?>" target="_blank">
+				<a href="http://viadeo.com/en/profile/<?php echo $user["Viadeo"]; ?>" title="Viadeo" target="_blank">
 					<div class="social-btn viadeo-social-btn"></div>
 				</a>
 				<?php } ?>
@@ -114,6 +114,36 @@
 					<strong><?php echo $user["Recommendation"]; ?></strong> <?php echo __("recommendation points"); ?>
 				</div>
 			</div>
+
+			<?php if (!empty($user["Twitter"]) or !empty($user["Facebook"]) or !empty($user["Linkedin"]) or !empty($user["Google"]) or !empty($user["Viadeo"])) { ?>
+			<div class="social-rwd">
+				<?php if (!empty($user["Twitter"])) { ?>
+				<a href="http://twitter.com/<?php echo $user["Twitter"]; ?>" title="Twitter" target="_blank">
+					<div class="social-btn twitter-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Facebook"])) { ?>
+				<a href="http://facebook.com/<?php echo $user["Facebook"]; ?>" title="Facebook" target="_blank">
+					<div class="social-btn facebook-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Linkedin"])) { ?>
+				<a href="http://linkedin.com/in/<?php echo $user["Linkedin"]; ?>" title="LinkedIn" target="_blank">
+					<div class="social-btn linkedin-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Google"])) { ?>
+				<a href="https://profiles.google.com/<?php echo $user["Google"]; ?>" title="Google+" target="_blank">
+					<div class="social-btn google-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Viadeo"])) { ?>
+				<a href="http://viadeo.com/en/profile/<?php echo $user["Viadeo"]; ?>" title="Viadeo" target="_blank">
+					<div class="social-btn viadeo-social-btn"></div>
+				</a>
+				<?php } ?>
+			</div>
+			<?php } ?>
 		</div>
 	</section>
 
@@ -170,8 +200,8 @@
             	<pre class="prettyprint linenums"><?php echo htmlentities(stripslashes((linesWrap($code["File"]["Code"])))); ?></pre>
             </p>
         	<p class="right">
-        		<a href="<?php echo $URL; ?>" class="btn" title="<?php echo __("Read more"); ?>">
-        			<?php echo __("Read more"); ?>...
+        		<a href="<?php echo $URL; ?>" class="btn" title="<?php echo __("View more"); ?>">
+        			<?php echo __("View more"); ?>...
         		</a>
         	</p>
 		</div>
@@ -202,7 +232,7 @@
 			<div class="details"><?php echo __("Published") ." ". howLong($bookmark["Start_Date"]) . $tags; ?></div>
 			<p class="content">
 				<?php echo $bookmark["Description"]; ?>
-				<p class="right"><a href="<?php echo $URL; ?>" class="btn" title="<?php echo __("Read more"); ?>"><?php echo __("Read more"); ?>...</a></p>
+				<p class="right"><a href="<?php echo $URL; ?>" class="btn" title="<?php echo __("View more"); ?>"><?php echo __("View more"); ?>...</a></p>
 			</p>
 		</div>
 		<?php
