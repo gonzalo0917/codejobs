@@ -32,4 +32,11 @@ $routes = array(
 		"method"	  => "getBySlug",
 		"params"	  => array("live")
 	),
+	4 => array(
+		"pattern" 	  => "/^user$/",
+		"application" => "users",
+		"controller"  => "users",
+		"method" 	  => "profile",
+		"params" 	  => array(segment(1, isLang()))
+	)
 );

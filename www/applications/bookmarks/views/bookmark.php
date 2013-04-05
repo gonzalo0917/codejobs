@@ -13,7 +13,7 @@ $URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], fals
 
 	<span class="small italic grey">
 		<?php 
-			echo __("Published") ." ". howLong($bookmark["Start_Date"]) ." ". __("by") .' <a title="'. $bookmark["Author"] .'" href="'. path("bookmarks/author/". $bookmark["Author"]) .'">'. $bookmark["Author"] .'</a> '; 
+			echo __("Published") ." ". howLong($bookmark["Start_Date"]) ." ". __("by") .' <a title="'. $bookmark["Author"] .'" href="'. path("user/". $bookmark["Author"]) .'">'. $bookmark["Author"] .'</a> '; 
 			 
 			if ($bookmark["Tags"] !== "") {
 				echo __("in") ." ". exploding($bookmark["Tags"], "bookmarks/tag/");

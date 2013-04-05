@@ -53,27 +53,27 @@
 			<?php if (!empty($user["Twitter"]) or !empty($user["Facebook"]) or !empty($user["Linkedin"]) or !empty($user["Google"]) or !empty($user["Viadeo"])) { ?>
 			<div class="social">
 				<?php if (!empty($user["Twitter"])) { ?>
-				<a href="http://twitter.com/<?php echo $user["Twitter"]; ?>" target="_blank">
+				<a href="http://twitter.com/<?php echo $user["Twitter"]; ?>" title="Twitter" target="_blank">
 					<div class="social-btn twitter-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Facebook"])) { ?>
-				<a href="http://facebook.com/<?php echo $user["Facebook"]; ?>" target="_blank">
+				<a href="http://facebook.com/<?php echo $user["Facebook"]; ?>" title="Facebook" target="_blank">
 					<div class="social-btn facebook-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Linkedin"])) { ?>
-				<a href="http://linkedin.com/in/<?php echo $user["Linkedin"]; ?>" target="_blank">
+				<a href="http://linkedin.com/in/<?php echo $user["Linkedin"]; ?>" title="LinkedIn" target="_blank">
 					<div class="social-btn linkedin-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Google"])) { ?>
-				<a href="https://profiles.google.com/<?php echo $user["Google"]; ?>" target="_blank">
+				<a href="https://profiles.google.com/<?php echo $user["Google"]; ?>" title="Google+" target="_blank">
 					<div class="social-btn google-social-btn"></div>
 				</a>
 				<?php } ?>
 				<?php if (!empty($user["Viadeo"])) { ?>
-				<a href="http://viadeo.com/en/profile/<?php echo $user["Viadeo"]; ?>" target="_blank">
+				<a href="http://viadeo.com/en/profile/<?php echo $user["Viadeo"]; ?>" title="Viadeo" target="_blank">
 					<div class="social-btn viadeo-social-btn"></div>
 				</a>
 				<?php } ?>
@@ -91,17 +91,17 @@
 			<div class="counter">
 				<div>
 					<a href="<?php echo ($user["Posts"] > 0 ? path("blog/author/". $user["Username"]) : "#"); ?>">
-						<?php echo "<strong>". $user["Posts"] ."</strong>". __(" posts"); ?>
+						<?php echo $user["Posts"] . __(" posts"); ?>
 					</a>
 				</div>
 				<div>
 					<a href="<?php echo ($user["Codes"] > 0 ? path("codes/author/". $user["Username"]) : "#"); ?>">
-						<?php echo "<strong>". $user["Codes"] ."</strong>". __(" codes"); ?>
+						<?php echo $user["Codes"] . __(" codes"); ?>
 					</a>
 				</div>
 				<div>
 					<a href="<?php echo ($user["Bookmarks"] > 0 ? path("bookmarks/author/". $user["Username"]) : "#"); ?>">
-						<?php echo "<strong>". $user["Bookmarks"] ."</strong>". __(" bookmarks"); ?>
+						<?php echo $user["Bookmarks"] . __(" bookmarks"); ?>
 					</a>
 				</div>
 			</div>
@@ -114,6 +114,36 @@
 					<strong><?php echo $user["Recommendation"]; ?></strong> <?php echo __("recommendation points"); ?>
 				</div>
 			</div>
+
+			<?php if (!empty($user["Twitter"]) or !empty($user["Facebook"]) or !empty($user["Linkedin"]) or !empty($user["Google"]) or !empty($user["Viadeo"])) { ?>
+			<div class="social-rwd">
+				<?php if (!empty($user["Twitter"])) { ?>
+				<a href="http://twitter.com/<?php echo $user["Twitter"]; ?>" title="Twitter" target="_blank">
+					<div class="social-btn twitter-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Facebook"])) { ?>
+				<a href="http://facebook.com/<?php echo $user["Facebook"]; ?>" title="Facebook" target="_blank">
+					<div class="social-btn facebook-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Linkedin"])) { ?>
+				<a href="http://linkedin.com/in/<?php echo $user["Linkedin"]; ?>" title="LinkedIn" target="_blank">
+					<div class="social-btn linkedin-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Google"])) { ?>
+				<a href="https://profiles.google.com/<?php echo $user["Google"]; ?>" title="Google+" target="_blank">
+					<div class="social-btn google-social-btn"></div>
+				</a>
+				<?php } ?>
+				<?php if (!empty($user["Viadeo"])) { ?>
+				<a href="http://viadeo.com/en/profile/<?php echo $user["Viadeo"]; ?>" title="Viadeo" target="_blank">
+					<div class="social-btn viadeo-social-btn"></div>
+				</a>
+				<?php } ?>
+			</div>
+			<?php } ?>
 		</div>
 	</section>
 
@@ -128,11 +158,17 @@
 		<?php
 			} else {
 				foreach ($posts as $post) {
+					$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);
+					$tags = empty($post["Tags"]) ? "" : " ". __("in") ." ". exploding($post["Tags"], "blog/tag/");
 		?>
 		<div class="post">
-			<div class="title"><?php echo $post["Title"]; ?></div>
-			<div class="details"><?php echo __("Published") ." ". howLong($post["Start_Date"]); ?></div>
-			<div class="content"><?php echo showContent(pagebreak($post["Content"]));; ?></div>
+			<div class="title">
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
+					<?php echo $post["Title"]; ?>
+				</a>
+			</div>
+			<div class="details"><?php echo __("Published") ." ". howLong($post["Start_Date"]) . $tags; ?></div>
+			<div class="content"><?php echo showContent(pagebreak($post["Content"], true, '<p class="right"><a href="'. $URL .'" class="btn" title="'. __("Read more") .'">'. __("Read more") .'...</a></p>'));; ?></div>
 		</div>
 		<?php
 				}
@@ -149,11 +185,25 @@
 		<?php
 			} else {
 				foreach ($codes as $code) {
+					$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"]);
+					$languages = empty($code["Languages"]) ? "" : " ". __("in") ." ". exploding($code["Languages"], "codes/language/");
 		?>
 		<div class="post">
-			<strong><?php echo $code["Title"]; ?></strong>
-			<div><?php echo __("Published") ." ". howLong($code["Start_Date"]); ?></div>
-			<div><?php echo $code["Description"]; ?></div>
+			<div class="title">
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($code["Title"]); ?>">
+					<?php echo $code["Title"]; ?>
+				</a>
+			</div>
+			<div class="details"><?php echo __("Published") ." ". howLong($code["Start_Date"]) . $languages; ?></div>
+			<p class="content"><?php echo $code["Description"]; ?></p>
+			<p>
+            	<pre class="prettyprint linenums"><?php echo htmlentities(stripslashes((linesWrap($code["File"]["Code"])))); ?></pre>
+            </p>
+        	<p class="right">
+        		<a href="<?php echo $URL; ?>" class="btn" title="<?php echo __("View more"); ?>">
+        			<?php echo __("View more"); ?>...
+        		</a>
+        	</p>
 		</div>
 		<?php
 				}
@@ -170,11 +220,20 @@
 		<?php
 			} else {
 				foreach ($bookmarks as $bookmark) {
+					$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"]);
+					$tags = empty($bookmark["Tags"]) ? "" : " ". __("in") ." ". exploding($bookmark["Tags"], "bookmarks/tag/");
 		?>
 		<div class="post">
-			<strong><?php echo $bookmark["Title"]; ?></strong>
-			<div><?php echo __("Published") ." ". howLong($bookmark["Start_Date"]); ?></div>
-			<div><?php echo $bookmark["Description"]; ?></div>
+			<div class="title">
+				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($bookmark["Title"]); ?>">
+					<?php echo $bookmark["Title"]; ?>
+				</a>
+			</div>
+			<div class="details"><?php echo __("Published") ." ". howLong($bookmark["Start_Date"]) . $tags; ?></div>
+			<p class="content">
+				<?php echo $bookmark["Description"]; ?>
+				<p class="right"><a href="<?php echo $URL; ?>" class="btn" title="<?php echo __("View more"); ?>"><?php echo __("View more"); ?>...</a></p>
+			</p>
 		</div>
 		<?php
 				}
