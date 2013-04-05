@@ -144,6 +144,11 @@ class Jobs_Controller extends ZP_Load
 		$this->Jobs_Model->saveVacant();
 	}
 
+	public function applyExternal()
+	{
+		$this->Jobs_Model->applyExternal();
+	}
+
 	public function search()
 	{
 		$this->Jobs_Model->searching();
