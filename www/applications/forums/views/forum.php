@@ -47,7 +47,7 @@ if ($posts) {
 				<?php echo 'Comments: '. $post["Total_Comments"] .' | Last author: <a href="'. path("forums/". $forum ."/author/". $post["Last_Author"]) .'">'. $post["Last_Author"] .'</a>'; ?>
 			</div>
 
-			<div class="clear"><?php echo cut($post["Content"], 20); ?></div>
+			<div class="clear"><?php echo showContent(cut($post["Content"], 20)); ?></div>
 		</div>
 		<?php
 		$i++;
