@@ -251,9 +251,9 @@ class Forums_Controller extends ZP_Load
 			$this->css("forums", "forums");
 
 			if(!SESSION("ZanUser") and !isset($data[0]["Forum_Name"])) {
-				$vars["noTopics"] = __("There is no new topics");
+				$vars["noTopics"] = true;
 			} else {
-				$vars["noTopics"] = null;
+				$vars["noTopics"] = false;
 			}
 				
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);

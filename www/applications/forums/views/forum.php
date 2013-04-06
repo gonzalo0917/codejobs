@@ -9,8 +9,8 @@ $rand2 = rand(6, 10);
 <div id="fposts">
 
 <?php
-if (isset($noTopics)) {
-	echo $noTopics;
+if ($noTopics) {
+	redirect("users/login/");
 } else {
 	if ($posts) {
 		$i = 0;
