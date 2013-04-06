@@ -292,7 +292,6 @@ class Forums_Controller extends ZP_Load
 	public function getEditPost($postID, $forum)
 	{
 		$data = $this->Cache->data("edit-$postID", "forums", $this->Forums_Model, "getPostToEdit", array($postID));
-		#$data = $this->Forums_Model->getPostToEdit($postID);
 		
 		if ($data) {
 			$this->helper("time");
