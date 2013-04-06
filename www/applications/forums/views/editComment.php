@@ -7,12 +7,13 @@ $fid 	 = isset($data) ? recoverPOST("fid", $data[0]["ID_Parent"]) : recoverPOST(
 $pid 	 = isset($data) ? recoverPOST("pid", $data[0]["ID_Post"]) : recoverPOST("pid");
 $content = isset($data) ? encode(recoverPOST("content", $data[0]["Content"])) : recoverPOST("content", "clean");
 $content = str_replace("%u200B", "", $content);
+$fname   = $data[0]["Forum_Name"];
 ?>
 
 <ul class="breadcrumb">
-	<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
-  	<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo segment(1, islang()); ?></a> <span class="divider">></span></li>
-  	<li class="active">Edit Comment</li>
+	<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a> <span class="divider">></span></li>
+  	<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo $fname; ?></a> <span class="divider">></span></li>
+  	<li class="active"><?php echo __("Edit Comment"); ?></li>
 </ul>
 <p id="fmessage"></p>
 <div class="post-title">

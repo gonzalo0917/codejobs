@@ -271,7 +271,7 @@ class Forums_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit("comments");
 		$data = $this->Cache->data("post-$postID-$limit", "forums", $this->Forums_Model, "getPost", array($postID, $limit));
-		#$data = $this->Forums_Model->getPost($postID, $limit);
+	
 		if ($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");
@@ -313,7 +313,6 @@ class Forums_Controller extends ZP_Load
 	public function getEditComment($postID, $forum)
 	{
 		$data = $this->Cache->data("editComment-$postID", "forums", $this->Forums_Model, "getCommentToEdit", array($postID));
-		#$data = $this->Forums_Model->getCommentToEdit($postID);
 
 		if ($data) {
 			$this->helper("time");

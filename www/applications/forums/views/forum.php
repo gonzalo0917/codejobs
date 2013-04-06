@@ -7,20 +7,29 @@ $i = 1;
 $rand2 = rand(6, 10);
 ?>
 <div id="fposts">
-<ul class="breadcrumb">
-	<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
-	<li class="active"><?php echo ucfirst(str_replace("-", " ", $forum)); ?></li>
-</ul>
 <?php
 if ($posts) {
-	$forum = slug($forum);
+	$i = 0;
 	foreach ($posts as $post) {		
 		$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 		$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
 		$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
 		$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 		$in        = ($forum !== "") ? __("in") : null;				
-		?>				
+		$forum 	   = $post["Forum_Name"];
+
+		if ($i == 0) {
+		?>
+			<ul class="breadcrumb">
+				<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a> <span class="divider">></span></li>
+				<li class="active"><?php echo $post["Forum_Name"]; ?></li>
+			</ul>
+		<?php
+			$i++;
+		}
+		?>			
+
+
 		<div class="post">
 			<div class="post-title">
 				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
@@ -44,7 +53,7 @@ if ($posts) {
 			</div>
 
 			<div class="post-right">
-				<?php echo 'Comments: '. $post["Total_Comments"] .' | Last author: <a href="'. path("forums/". $forum ."/author/". $post["Last_Author"]) .'">'. $post["Last_Author"] .'</a>'; ?>
+				<?php echo __("Comments") .': '. $post["Total_Comments"] .' | '. __("Last author") .': <a href="'. path("forums/". $forum ."/author/". $post["Last_Author"]) .'">'. $post["Last_Author"] .'</a>'; ?>
 			</div>
 
 			<div class="clear"><?php echo showContent(cut($post["Content"], 20)); ?></div>
