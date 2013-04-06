@@ -58,8 +58,8 @@
 	vertical-align: top;
 }
 
-.counter {
-	margin-top: 10px;
+.date {
+	margin-bottom: 10px;
 }
 
 .counter a {
@@ -129,6 +129,10 @@
 
 .gender-country {
 	margin-top: 6px;
+}
+
+.gender-country div {
+	vertical-align: middle;
 }
 
 .gender, .country {
