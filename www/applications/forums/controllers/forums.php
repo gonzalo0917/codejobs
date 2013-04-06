@@ -239,11 +239,10 @@ class Forums_Controller extends ZP_Load
 	}
 
 	public function getForum($forum)
-	{
+	{	
 		$this->CSS("pagination");
 		$limit = $this->limit();
 		$data = $this->Cache->data("forum-$forum-$this->language-$limit", "forums", $this->Forums_Model, "getByForum", array($forum, $this->language, $limit));
-		#$data = $this->Forums_Model->getByForum($forum, $this->language, $limit);
 
 		if ($data) { 
 			$this->helper("time");
@@ -252,9 +251,11 @@ class Forums_Controller extends ZP_Load
 			$this->css("forums", "forums");
 
 			if(!SESSION("ZanUser") and !isset($data[0]["Forum_Name"])) {
-				redirect("forums");
+				$vars["noTopics"] = __("There is no new topics");
+			} else {
+				$vars["noTopics"] = null;
 			}
-
+				
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = isset($data[0]["Forum_Name"]) ? $data[0]["Forum_Name"] : $data[0]["Title"];
@@ -263,6 +264,7 @@ class Forums_Controller extends ZP_Load
 			$vars["view"] = $this->view("forum", true);
 
 			$this->render("content", $vars);
+			
 		}
 	}
 
