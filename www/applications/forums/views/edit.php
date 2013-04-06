@@ -15,7 +15,7 @@ $content = str_replace("%u200B", "", $content);
 <ul class="breadcrumb">
 	<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
   	<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo segment(1, islang()); ?></a> <span class="divider">></span></li>
-  	<li><a href="<?php echo path("forums/". segment(1, isLang()) ."/". $pid ."/". $title); ?>"><?php echo $title; ?></a><span class="divider">></span></li>
+  	<li><a href="<?php echo path("forums/". segment(1, isLang()) ."/". $pid ."/". slug($title)); ?>"><?php echo $title; ?></a><span class="divider">></span></li>
   	<li class="active">Edit</li>
 </ul>
 <div class="post-title">

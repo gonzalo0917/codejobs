@@ -14,7 +14,7 @@ $(document).on("ready", function() {
 			$("#comment-alert").hide(4000);
 		}
 
-		if (content.length > 30 && fid > 0 && content != "%3Cp%3E%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%20%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%26nbsp%3B%3C/p%3E") {
+		if (content.length > 22 && fid > 0 && content != "%3Cp%3E%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%20%26nbsp%3B%3C/p%3E" && content != "%3Cp%3E%26nbsp%3B%20%26nbsp%3B%26nbsp%3B%3C/p%3E") {
 			var newComment = '';
 			$.ajax({
 				type: 'POST',

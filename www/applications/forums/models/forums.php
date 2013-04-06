@@ -11,8 +11,8 @@ class Forums_Model extends ZP_Load
 		$this->language = whichLanguage();
 		$this->table = "forums";
 		$this->fields = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
-		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Title, Slug, Content, Author, Avatar, Start_Date,";
-		$this->fieldsPosts .= "Text_Date, Last_Author, Hour, Visits, Topic, Tags, Language, Situation"; 	
+		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Forum_Name, Title, Slug, Content, Author, Avatar, Start_Date,";
+		$this->fieldsPosts .= "Text_Date, Last_Author, Hour, Visits, Topic, Tags, Total_Comments, Language, Situation"; 	
 		
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
@@ -226,7 +226,7 @@ class Forums_Model extends ZP_Load
 
 	public function getForums($language = "Spanish")
 	{
-		return $this->Db->findBySQL("Language = '$language' AND Situation = 'Active'", $this->table);
+		return $this->Db->findBySQL("Language = '$language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "Title ASC");
 	}
 
 	public function getByForum($slug, $language = "Spanish", $limit = false)
@@ -310,6 +310,7 @@ class Forums_Model extends ZP_Load
 	public function getByAuthorTag($author, $tag, $limit)
 	{
 		$tag = str_replace("-", " ", $tag);
+
 		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM ". DB_PREFIX ."forums_posts 
 			WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Author = '$author' 
 			AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 
@@ -324,8 +325,9 @@ class Forums_Model extends ZP_Load
 		
 		$query = "SELECT ". DB_PREFIX ."forums.ID_Forum, ". DB_PREFIX ."forums.Title AS Forum, ". DB_PREFIX ."forums_posts.ID_Post, 
 				  ". DB_PREFIX ."forums_posts.Title, ". DB_PREFIX ."forums_posts.Tags, ". DB_PREFIX ."forums_posts.Slug, 
-				  ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Content, ". DB_PREFIX ."forums_posts.Author,
-				  ". DB_PREFIX ."forums_posts.Start_Date, ". DB_PREFIX ."forums_posts.Last_Author 
+				  ". DB_PREFIX ."forums_posts.Forum_Name, ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Content, 
+				  ". DB_PREFIX ."forums_posts.Author, ". DB_PREFIX ."forums_posts.Start_Date, ". DB_PREFIX ."forums_posts.Last_Author, 
+				  ". DB_PREFIX ."forums_posts.Total_Comments 
 				  FROM ". DB_PREFIX ."forums 
 				  INNER JOIN ". DB_PREFIX ."forums_posts ON ". DB_PREFIX ."forums_posts.ID_Forum = ". DB_PREFIX ."forums.ID_Forum
 				  WHERE ". DB_PREFIX ."forums.Slug = '$slug' AND (". DB_PREFIX ."forums_posts.Title LIKE '%$tag%'
@@ -407,6 +409,7 @@ class Forums_Model extends ZP_Load
 			$data = array(
 				"ID_User" 	 => SESSION("ZanUserID"),
 				"ID_Parent"  => $fid, 
+				"Forum_Name" => POST("fname"),
 				"Title" 	 => null,
 				"Slug" 		 => null,
 				"Text_Date"  => decode(now(2)),

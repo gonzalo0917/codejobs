@@ -271,6 +271,7 @@ $phrase["job_title"]									= "Cargo";
 $phrase["language"]  									= "Idioma";
 $phrase["language_of_the_post"] 						= "Idioma de la publicación";
 $phrase["languages"] 									= "Idiomas";
+$phrase["last_author"] 									= "Último autor";
 $phrase["last_bookmarks"] 								= "Últimos marcadores";
 $phrase["last_message"]									= "Último mensaje";
 $phrase["last_pages"] 									= "Últimas páginas";

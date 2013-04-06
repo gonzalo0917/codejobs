@@ -257,14 +257,14 @@ class Users_Model extends ZP_Load
 			$data["Pwd"] = null;
 		}
 
-		$this->Data->ignore(array("password", "register", "name", "serviceID"));
+		$this->Data->ignore(array("password", "register", "name", "serviceID", "captcha_token", "captcha_type", "captcha"));
 
 		$data = $this->Data->process($data, $validations);
 		
 		if (isset($data["error"])) {
 			return array("inserted" => false, "alert" => $data["error"]);
 		}
-
+	
 		$ID_User = $this->Db->insert($this->table, $data);
 		
 		if ($ID_User) {
