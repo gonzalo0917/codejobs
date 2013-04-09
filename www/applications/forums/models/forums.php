@@ -112,6 +112,9 @@ class Forums_Model extends ZP_Load
 		$lastID = $this->Db->insert("forums_posts", $data);
 		
 		$URL = path("forums/". slug(POST("fname", "clean")) ."/". $lastID ."/". $data["Slug"]);
+
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
 		
 		return $URL;
 	}
@@ -140,6 +143,9 @@ class Forums_Model extends ZP_Load
 		$this->Db->update("forums_posts", $data, $postID);
 		$URL = path("forums/". slug(POST("fname")) ."/". $postID ."/". $data["Slug"]);
 
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
+
 		return $URL;
 	}
 
@@ -147,11 +153,7 @@ class Forums_Model extends ZP_Load
 	{
 		$owner = $this->Db->query("SELECT ID_USER FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $postID);
 
-		if($owner[0]["ID_USER"] == $userID) {
-			return true; 
-		} else {
-			return false;
-		}
+		return ($owner[0]["ID_USER"] == $userID) ? true : false;
 	}
 
 	public function updateComment()
@@ -167,6 +169,9 @@ class Forums_Model extends ZP_Load
 		);
 
 		$this->Db->update("forums_posts", $data, $postID);
+
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
 		
 		$URL = path("forums/". slug(POST("fname")) ."/". $forumID ."/". $postID);
 
@@ -179,6 +184,9 @@ class Forums_Model extends ZP_Load
             return getAlert(__("This forum already exists"), "error", $this->URL);
         } 
 
+        $this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
+
         $this->Db->insert($this->table, $this->data);
 
         return getAlert(__("The forum has been saved correctly"), "success", $this->URL);
@@ -187,6 +195,9 @@ class Forums_Model extends ZP_Load
 	private function edit()
 	{
 		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("forums");
+
             return getAlert(__("The work has been edit correctly"), "success");
         }
 
@@ -207,12 +218,18 @@ class Forums_Model extends ZP_Load
 		
 		$query = "DELETE FROM ". DB_PREFIX ."forums_posts WHERE ID_Parent = '$postID'";
 		
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
+
 		return $this->Db->query($query);
 	}
 
 	public function editPost($postID)
 	{
 		if ($this->Db->update($this->table, $this->data, $postID)) {
+            $this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("forums");
+
             return getAlert(__("The work has been edit correctly"), "success");
         }
 
@@ -426,6 +443,9 @@ class Forums_Model extends ZP_Load
 			$lastID = $this->Db->insert("forums_posts", $data);
 
 			if ($lastID) {
+				$this->Cache = $this->core("Cache");
+				$this->Cache->removeAll("forums");
+
 				$totalComments = $this->Db->query("SELECT Total_Comments FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $fid);
 				$i = $totalComments[0]["Total_Comments"] += 1;
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author', Total_Comments = '$i' WHERE ID_Post = '$fid'");

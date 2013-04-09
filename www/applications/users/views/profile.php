@@ -195,7 +195,7 @@
 				</a>
 			</div>
 			<div class="details"><?php echo __("Published") ." ". howLong($code["Start_Date"]) . $languages; ?></div>
-			<p class="content"><?php echo $code["Description"]; ?></p>
+			<p class="content"><?php echo stripslashes($code["Description"]); ?></p>
 			<p>
             	<pre class="prettyprint linenums"><?php echo htmlentities(stripslashes((linesWrap($code["File"]["Code"])))); ?></pre>
             </p>
@@ -231,7 +231,7 @@
 			</div>
 			<div class="details"><?php echo __("Published") ." ". howLong($bookmark["Start_Date"]) . $tags; ?></div>
 			<p class="content">
-				<?php echo $bookmark["Description"]; ?>
+				<?php echo stripslashes($bookmark["Description"]); ?>
 				<p class="right"><a href="<?php echo $URL; ?>" class="btn" title="<?php echo __("View more"); ?>"><?php echo __("View more"); ?>...</a></p>
 			</p>
 		</div>
