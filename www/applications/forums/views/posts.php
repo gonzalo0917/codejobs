@@ -53,7 +53,7 @@
 							<br />
 
 							<?php 
-								echo display('<p>'. getAd("728px") .'</p>', 4);
+								echo display('<p style="width: 728px; margin: 0 auto;">'. getAd("728px") .'</p>', 4);
 							?>
 						</div>
 					</div>
