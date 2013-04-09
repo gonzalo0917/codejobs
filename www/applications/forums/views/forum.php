@@ -18,9 +18,9 @@ if ($noTopics) {
 		foreach ($posts as $post) {		
 			$forum 	   = $post["Forum_Name"];
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
-			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
-			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
-			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+			$URL       = path("forums/". slug($forum) ."/". $post["ID_Post"] ."/". $slug);	
+			$URLEdit   = path("forums/". slug($forum) ."/edit/". $post["ID_Post"]);
+			$URLDelete = path("forums/". slug($forum) ."/delete/". $post["ID_Post"]);
 			$in        = ($forum !== "") ? __("in") : null;				
 			
 
@@ -46,7 +46,7 @@ if ($noTopics) {
 				<div class="post-left">
 					<?php 
 						echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' ';
-						echo '<a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
+						echo '<a href="'. path("forums/". slug($forum) ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
 
 						if (SESSION("ZanUserPrivilegeID")) {
 							$confirm = " return confirm('Do you want to delete this post?') ";
