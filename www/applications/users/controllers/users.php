@@ -538,6 +538,21 @@ class Users_Controller extends ZP_Load
 	public function cv()
 	{
 		if (isConnected()) {
+			/* About */
+			$data = $this->Users_Model->getInformation();
+
+			$this->Configuration_Model = $this->model("Configuration_Model");
+			$this->Cache = $this->core("Cache");
+			$list_of_countries = $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
+
+			foreach ($list_of_countries as $country) {
+				$countries[] = array(
+					"option" => $country["Country"],
+					"value" => $country["Country"]
+				);
+			}
+			
+			/* CV */
 			$summary = $this->Users_Model->getSummary();
 			$experiences = $this->Users_Model->getExperiences();
 			$education = $this->Users_Model->getEducation();
@@ -553,6 +568,8 @@ class Users_Controller extends ZP_Load
 
 			$this->js("jquery.jdpicker.js");
 			$this->js("cv", $this->application);
+
+			$this->js("about", $this->application); /* about */
 
 			if (POST("actionSummary")) {
 				$action = ((int) POST("ID_Summary") !== 0 and $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
@@ -589,6 +606,10 @@ class Users_Controller extends ZP_Load
 			$vars["experiences"] = $experiences;
 			$vars["education"] = $education;
 			$vars["skills"] = $skills;
+
+			/* cv */
+			$vars["countries"] = $countries;
+			$vars["data"] = $data;
 
 			$vars["view"] = $this->view("cv", true);
 			$vars["href"] = path("users/cv/");
