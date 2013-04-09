@@ -10,17 +10,19 @@ $rand2 = rand(6, 10);
 
 <?php
 if ($noTopics) {
-	redirect("users/login/");
+	$return = "?return_to=". encode(path("forums/". segment(1, isLang())), true);
+	redirect("users/login/". $return);
 } else {
 	if ($posts) {
 		$i = 0;
 		foreach ($posts as $post) {		
+			$forum 	   = $post["Forum_Name"];
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
 			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
 			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
 			$in        = ($forum !== "") ? __("in") : null;				
-			$forum 	   = $post["Forum_Name"];
+			
 
 			if ($i == 0) {
 			?>
