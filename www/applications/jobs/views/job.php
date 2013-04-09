@@ -52,8 +52,8 @@
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
 			} elseif (SESSION("ZanUser") and $job["Type"] == "External") {
 				echo '<span class="bold">'. __("Enter the link below to apply") .": ".'</span><br />';
-				echo '<input type="button" value="'. __("apply for the vacancy") .'">';
-			} elseif (SESSION("ZanUser") and $isvacancy) {
+				?> <input id="eapply" class="btn btn-success" type="submit" value="<?php echo __("Apply for the vacancy"); ?>" />
+	<?php   } elseif (SESSION("ZanUser") and $isvacancy) {
 				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
 			<input id="jid" name="jid" type="hidden" value="<?php echo $job["ID_Job"]; ?>" />
@@ -106,13 +106,16 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-		<?php 
-			if ($job["Type"] == "External") {
-				echo "";
-			} else {
-				echo __("Number of applicants") .": ". $job["Counter"]; 
-			} 
+<<<<<<< HEAD
+		<?php echo __("Number of applicants") .": ". $job["Counter"];  ?>
+=======
+		<?php if ($job["Type"] == "External") {
+			echo "";
+		} else {
+			echo __("Number of applicants") .": ". $job["Counter"]; 
+		} 
 		?>
+>>>>>>> 20a512a535c9dc08cfbdd209e494b080e1d3ffee
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>
