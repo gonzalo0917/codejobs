@@ -15,15 +15,15 @@
 					    <!-- <li<?php echo $active === "about" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/about/"); ?>"><?php echo __("About me"); ?></a>
 					    </li> -->
+					    <li<?php echo $active === "cv" ? ' class="active"' : ''; ?>>
+					    	<a href="<?php echo path("users/cv/"); ?>"><?php echo __("Update Resume");?></a>
+					    </li>
 					    <li<?php echo $active === "password" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/password/"); ?>"><?php echo __("Password");?></a>
 					    </li>
 					   <!--  <li<?php echo $active === "email" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/email/"); ?>"><?php echo __("E-mail");?></a>
 					    </li> -->
-					    <li<?php echo $active === "cv" ? ' class="active"' : ''; ?>>
-					    	<a href="<?php echo path("users/cv/"); ?>"><?php echo __("Update Resume");?></a>
-					    </li>
 					    <!-- <li<?php echo $active === "avatar" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/avatar/"); ?>"><?php echo __("Avatar");?></a>
 					    </li> -->

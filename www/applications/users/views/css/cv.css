@@ -76,11 +76,18 @@ input[name=actionSummary] {
     border: 1px solid #E3E3E3;
     border-radius: 4px;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 5px 5px;
     font-weight: normal;
+    transition: all 0.5s ease;
+}
+.show-section h3 i {
+    line-height: 10px;
+    vertical-align: 0;
+    margin-right: 5px;
 }
 .show-section h3:hover {
     background: rgba(238,238,238,1.0);
+    padding-left: 10px;
 }
 .inactive-section {
     background: #f5f5f5;
