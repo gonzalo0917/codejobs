@@ -9,8 +9,8 @@
 
 				if ($post["ID_Parent"] === 0) {
 					$URL = path("forums/". segment(1, isLang()) ."/". $post["ID_Post"] ."/". $post["Slug"]);		
-					$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
-					$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
+					$URLEdit   = path("forums/". slug($forum) ."/edit/". $post["ID_Post"]);
+					$URLDelete = path("forums/". slug($forum) ."/delete/". $post["ID_Post"]);
 					$in  = ($post["Tags"] !== "") ? __("in") : null;
 					?>
 					
@@ -65,14 +65,14 @@
 
 						<div class="comments-content">
 						<?php
-							$authorUrl = path("forums/". $forum ."/author/". $post["Author"]);
+							$authorUrl = path("forums/". slug($forum) ."/author/". $post["Author"]);
 						?>
 							<p class="comment-data"><?php echo "<a href='". $authorUrl ."'>". $post["Author"] ." </a> ". __("Published") ." ". howLong($post["Start_Date"]); ?>
 						
 						<?php
 							if (SESSION("ZanUserPrivilegeID")) {
-								$URLEditComment   = path("forums/". $forum ."/editComment/". $post["ID_Post"]);
-								$URLDeleteComment = path("forums/". $forum ."/delete/". $post["ID_Post"] ."/". segment(2, islang()));
+								$URLEditComment   = path("forums/". slug($forum) ."/editComment/". $post["ID_Post"]);
+								$URLDeleteComment = path("forums/". slug($forum) ."/delete/". $post["ID_Post"] ."/". segment(2, islang()));
 								$confirm   = " return confirm('". __("Do you want to delete this post?") ."') ";
 
 								if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserPrivilegeID") == $post["ID_User"]) {
