@@ -642,7 +642,7 @@ class Users_Controller extends ZP_Load
 			$this->helper(array("time", "forms", "html"));
 			$this->config("users", $this->application);
 			$this->config("cv", $this->application);
-	 
+	 	
 			$this->css("forms", "cpanel");
 			$this->css("users", $this->application);
 			$this->css("cv", $this->application);
@@ -683,6 +683,7 @@ class Users_Controller extends ZP_Load
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
 
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["summary"] = $summary;
 			$vars["experiences"] = $experiences;
 			$vars["education"] = $education;

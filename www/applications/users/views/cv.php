@@ -62,13 +62,16 @@
             echo isset($alertSummary) ? $alertSummary : null;
 
             echo formTextArea(array(
+                "id"    => "editor",
                 "name"  => "summary",
-                "class" => "span10 required",
+                "class" => "ckeditor span10 required",
                 "field" => __("Summary"),
                 "p"     => true, 
                 "style" => "resize: none; height: 100px;",
                 "value" => $summary[0]["Summary"]
             ));
+
+            echo $ckeditor;
 
             echo formInput(array("name" => "ID_Summary", "type" => "hidden", "value" => $ID_Summary));
 
@@ -168,13 +171,13 @@
                 echo formTextArea(array(
                     "id"    => "description{{\$index}}", 
                     "name"  => "description[]",
-                    "class" => "required noresize",
+                    "class" => "editor ckeditor required noresize",
                     "style" => "height: 200px;width:100%",
                     "ng-model" => "experience.description",
                     "field" => __("Description"), 
                     "p"     => true
                 ));
-                    
+
                     echo htmlTag("div", array(
                         "class" => "remove remove-{{\$index > 0}}"
                     ));
@@ -289,7 +292,7 @@
                 echo formTextArea(array(
                     "id"        => "school_description{{\$index}}", 
                     "name"      => "school_description[]",
-                    "class"     => "required noresize",
+                    "class"     => "editor ckeditor required noresize",
                     "style"     => "height: 200px;width:100%", 
                     "ng-model"  => "school.description", 
                     "field"     => __("Description"), 
