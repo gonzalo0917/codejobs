@@ -51,10 +51,6 @@
 							</div>
 							<?php echo showContent($post["Content"], $URL); ?>
 							<br />
-
-							<?php 
-								echo display('<p style="width: 728px; margin: 0 auto;">'. getAd("728px") .'</p>', 4);
-							?>
 						</div>
 					</div>
 					<?php
