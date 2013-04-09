@@ -227,7 +227,7 @@ class Forums_Controller extends ZP_Load
 	public function getForums()
 	{
 		$data = $this->Cache->data("forums-$this->language", "forums", $this->Forums_Model, "getForums", array($this->language));
-		#$data = $this->Forums_Model->getForums($this->language);
+
 		if ($data) {
 			$vars["forums"] = $data;
 			$vars["view"] = $this->view("forums", true);
@@ -251,9 +251,9 @@ class Forums_Controller extends ZP_Load
 			$this->css("forums", "forums");
 
 			if(!SESSION("ZanUser") and !isset($data[0]["Forum_Name"])) {
-				$vars["noTopics"] = true;
+				$vars["noTopics"] = __("There is no new topics");
 			} else {
-				$vars["noTopics"] = false;
+				$vars["noTopics"] = null;
 			}
 				
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
