@@ -9,18 +9,20 @@ $rand2 = rand(6, 10);
 <div id="fposts">
 
 <?php
-if (isset($noTopics)) {
-	echo $noTopics;
+if ($noTopics) {
+	$return = "?return_to=". encode(path("forums/". segment(1, isLang())), true);
+	redirect("users/login/". $return);
 } else {
 	if ($posts) {
 		$i = 0;
 		foreach ($posts as $post) {		
-			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
-			$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
-			$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
-			$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
-			$in        = ($forum !== "") ? __("in") : null;				
 			$forum 	   = $post["Forum_Name"];
+			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
+			$URL       = path("forums/". slug($forum) ."/". $post["ID_Post"] ."/". $slug);	
+			$URLEdit   = path("forums/". slug($forum) ."/edit/". $post["ID_Post"]);
+			$URLDelete = path("forums/". slug($forum) ."/delete/". $post["ID_Post"]);
+			$in        = ($forum !== "") ? __("in") : null;				
+			
 
 			if ($i == 0) {
 			?>
@@ -44,7 +46,7 @@ if (isset($noTopics)) {
 				<div class="post-left">
 					<?php 
 						echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' ';
-						echo '<a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
+						echo '<a href="'. path("forums/". slug($forum) ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
 
 						if (SESSION("ZanUserPrivilegeID")) {
 							$confirm = " return confirm('Do you want to delete this post?') ";

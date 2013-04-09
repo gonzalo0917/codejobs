@@ -450,9 +450,9 @@ class Forums_Model extends ZP_Load
 				$i = $totalComments[0]["Total_Comments"] += 1;
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author', Total_Comments = '$i' WHERE ID_Post = '$fid'");
 				$content = $data["Content"];
-				$edit = path("forums/". $fname ."/editComment/". $lastID);
-				$delete = path("forums/". $fname ."/delete/". $lastID ."/". $fid);				
-				$URL = path("forums/". $fname ."/author/". $data["Author"]);
+				$edit = path("forums/". slug($fname) ."/editComment/". $lastID);
+				$delete = path("forums/". slug($fname) ."/delete/". $lastID ."/". $fid);				
+				$URL = path("forums/". slug($fname) ."/author/". $data["Author"]);
 				$date = '<a href="'. $URL .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]);
 
 				$json = array(

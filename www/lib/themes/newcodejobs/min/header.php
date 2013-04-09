@@ -84,10 +84,9 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 						<li><a href="<?php echo path(); ?>"><?php echo __("Home"); ?></a></li>
 						<li><a href="<?php echo path("codes"); ?>"><?php echo __("Codes"); ?></a></li>
 						<!--<li><a href="<?php echo path("jobs"); ?>"><?php echo __("Jobs"); ?></a></li>-->
-						<!--<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>-->
+						<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>
 						<li><a href="http://www.youtube.com/codejobs" target="_blank"><?php echo __("Videos"); ?></a></li>
-						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>
-						<li><a href="<?php echo path("workshop"); ?>"><?php echo __("Proposals"); ?></a></li>		
+						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>							
 						<li>				
 					</ul>
 				</nav>				

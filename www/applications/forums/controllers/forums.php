@@ -216,6 +216,7 @@ class Forums_Controller extends ZP_Load
 	{
 		if($this->Forums_Model->validOwner($deleteID, SESSION("ZanUserID")) or SESSION("ZanUserPrivilegeID") <= 3) {
 			$this->Forums_Model->deletePost($deleteID);
+			
 			if ($postID == 0) {
 				$this->getForum($forum);
 			} else {
@@ -227,7 +228,7 @@ class Forums_Controller extends ZP_Load
 	public function getForums()
 	{
 		$data = $this->Cache->data("forums-$this->language", "forums", $this->Forums_Model, "getForums", array($this->language));
-		#$data = $this->Forums_Model->getForums($this->language);
+
 		if ($data) {
 			$vars["forums"] = $data;
 			$vars["view"] = $this->view("forums", true);
