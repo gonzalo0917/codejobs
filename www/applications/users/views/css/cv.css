@@ -79,6 +79,7 @@ input[name=actionSummary] {
     color: #0088cc;
     cursor: pointer;
     padding: 5px 10px;
+    font-weight: normal;
 }
 .show-section h3:hover {
     background: rgba(238,238,238,1.0);
@@ -86,7 +87,7 @@ input[name=actionSummary] {
 .span10 {
     margin-left: 0px;
 }
-.show-section div {
+.show-section > div {
     display: none;
 }
 @media (max-width: 1366px), (max-device-width: 1366px) {

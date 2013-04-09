@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	$('.show-section h3').on('click',function() {
-		$(this).next('div').slideToggle();
+		$(this).next('div').toggle();
 	})
     /*var listSkills = [ 'c++', 'java', 'php', 'jquery'];
 

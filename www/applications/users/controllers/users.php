@@ -18,6 +18,17 @@ class Users_Controller extends ZP_Load
 		$this->CSS("forms");
 	}
 
+	public function array_push_after($src,$in,$pos)
+	{
+	    if(is_int($pos)) $R=array_merge(array_slice($src,0,$pos+1), $in, array_slice($src,$pos+1));
+	    else{
+	        foreach($src as $k=>$v){
+	            $R[$k]=$v;
+	            if($k==$pos)$R=array_merge($R,$in);
+	        }
+	    }return $R;
+	}
+
 	public function index()
 	{
 		redirect();
@@ -538,9 +549,69 @@ class Users_Controller extends ZP_Load
 	public function cv()
 	{
 		if (isConnected()) {
-			/* About */
-			$data = $this->Users_Model->getInformation();
 
+			$dataAvatar  = $this->Users_Model->getAvatar();
+			$dataAbout = $this->Users_Model->getInformation();
+
+			$data = $this->array_push_after($dataAvatar,$dataAbout,1);
+
+			/* Avatar */
+			if (POST("delete")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->deleteAvatar();
+			} elseif (POST("save")) {
+				$this->helper("alerts");
+				$vars["alert"] = $this->Users_Model->saveAvatar();
+			} elseif (POST("nosupport")) {
+				$user = SESSION("ZanUser");
+				if (isset($_FILES['avatar']) and $user) {
+					$this->helper("alerts");
+
+					$file = $_FILES['avatar'];
+					$error = $file['error'];
+					$type = $file['type'];
+					$name = $file['name'];
+					$tmp_name = $file['tmp_name'];
+
+					if ($error === 1 or $error == 2) {
+						$vars["alert"] = getAlert(__("The file size exceeds the limit allowed"), "error");
+					} elseif ($error > 0) {
+						$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+					} elseif (!preg_match('/^image/', $type)) {
+						$vars["alert"] = getAlert(__("The file is not an image", "error"));
+					} elseif ($type != "image/png" and $type != "image/jpeg" and $type != "image/gif") {
+						$vars["alert"] = getAlert(__("The file is not a known image format", "error"));
+					} elseif (is_uploaded_file($tmp_name)) {
+						$this->Images = $this->core("Images");
+						$this->Images->load($tmp_name);
+						$filename = sha1($user . "_O");
+						$resized = sha1($user);
+						$path = "www/lib/files/images/users";
+						$this->Images->png("$path/$filename.png");
+						$width = $this->Images->getWidth();
+						$coordinates = $this->Images->crop(true, 90, 90);
+						$this->Images->png("$path/$resized.png");
+
+						if ($width > 700) {
+							$aspect = 700 / $width;
+							$coordinates[0] = (int)($coordinates[0] * $aspect);
+							$coordinates[1] = 0;
+							$coordinates[2] = (int)($coordinates[2] * $aspect);
+							$coordinates[3] = $coordinates[2];
+						}
+
+						if ($this->Users_Model->setAvatar("$resized.png", $coordinates)) {
+							SESSION("ZanUserAvatar", "$resized.png?". time());
+
+							$vars["alert"] = getAlert(__("The avatar has been saved correctly"), "success");
+						} else {
+							$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+						}
+					}
+				}
+			}
+		
+			/* About */
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
 			$list_of_countries = $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
@@ -570,6 +641,10 @@ class Users_Controller extends ZP_Load
 			$this->js("cv", $this->application);
 
 			$this->js("about", $this->application); /* about */
+
+			$this->css("avatar", $this->application); /* Avatar */
+			$this->js("jquery.jcrop.js");
+			$this->js("avatar", $this->application);
 
 			if (POST("actionSummary")) {
 				$action = ((int) POST("ID_Summary") !== 0 and $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
