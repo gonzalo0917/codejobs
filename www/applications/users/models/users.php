@@ -704,7 +704,7 @@ class Users_Model extends ZP_Load
 
 	public function getInformation()
 	{
-		$fields = "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Website";
+		$fields = "Name, Gender, Birthday, Country, City, District, Phone, Mobile, Email, Subscribed, Website";
 
 		return $this->Db->findBy("ID_User", SESSION("ZanUserID"), $this->table, $fields);
 	}
@@ -712,11 +712,12 @@ class Users_Model extends ZP_Load
 	public function saveInformation()
 	{
 		$validations = array(
-			"name" 	   => "required",
-			"gender"   => "required",
+			"name" => "required",
+			"gender" => "required",
 			"birthday" => "required",
-			"country"  => "required",
-			"city"     => "required"
+			"country" => "required",
+			"city" => "required",
+			"email" => "required"
 		);
 
 		$this->data = $this->Data->process(null, $validations);

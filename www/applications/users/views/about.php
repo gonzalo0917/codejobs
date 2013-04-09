@@ -1,19 +1,21 @@
 <?php
 	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
-	$name     = recoverPOST("name", $data[1]["Name"]);
-	$gender   = recoverPOST("gender", $data[1]["Gender"]);
-	$birthday = recoverPOST("birthday", $data[1]["Birthday"] !== "" ? $data[1]["Birthday"] : "01/01/1980");
-	$country  = recoverPOST("country", $data[1]["Country"]);
-	$city     = recoverPOST("city", $data[1]["City"]);
-	$district = recoverPOST("district", $data[1]["District"]);
-	$phone    = recoverPOST("phone", $data[1]["Phone"]);
-	$mobile   = recoverPOST("mobile", $data[1]["Mobile"]);
-	$website  = recoverPOST("website", $data[1]["Website"] !== "" ? $data[1]["Website"] : "http://");
+	$name     	= recoverPOST("name", $data[1]["Name"]);
+	$gender   	= recoverPOST("gender", $data[1]["Gender"]);
+	$birthday 	= recoverPOST("birthday", $data[1]["Birthday"] !== "" ? $data[1]["Birthday"] : "01/01/1980");
+	$country  	= recoverPOST("country", $data[1]["Country"]);
+	$city     	= recoverPOST("city", $data[1]["City"]);
+	$district 	= recoverPOST("district", $data[1]["District"]);
+	$phone    	= recoverPOST("phone", $data[1]["Phone"]);
+	$mobile     = recoverPOST("mobile", $data[1]["Mobile"]);
+	$email      = recoverPOST("email", encode($data[1]["Email"]));
+	$subscribed = (boolean) recoverPOST("subscribed", encode($data[1]["Subscribed"]));
+	$website  	= recoverPOST("website", $data[1]["Website"] !== "" ? $data[1]["Website"] : "http://");
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : null;
+			echo isset($alertAbout) ? $alertAbout : null;
 
 			echo formInput(array(
 				"name"      => "name", 
@@ -108,6 +110,25 @@
 			));
 
 			echo formInput(array(
+				"name"      => "email", 
+				"class"     => "field-title span4",
+				"field"     => __("E-mail"), 
+				"p"         => true,
+				"maxlength" => "45",
+				"pattern"   => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+				"value"     => $email
+			));
+
+			echo '<label>';
+
+			echo formCheckbox(array(
+				"name"     => "subscribed",
+				"position" => "right",
+				"text"     => __("Subscribed to our free email newsletters"),
+				"checked"  => $subscribed === true
+			));
+
+			echo formInput(array(
 				"name"      => "website", 
 				"class"     => "field-title field-full-size",
 				"field"     => __("Website"),
@@ -117,7 +138,7 @@
 			));
 
 			echo formInput(array(
-				"name"  => "save", 
+				"name"  => "saveAbout", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"

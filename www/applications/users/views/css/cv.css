@@ -73,16 +73,26 @@ input[name=actionSummary] {
     margin-left: 0;
 }
 .show-section h3 {
-    background: #f5f5f5;
-    border: 1px solid #CCC;
+    border: 1px solid #E3E3E3;
     border-radius: 4px;
-    color: #0088cc;
     cursor: pointer;
     padding: 5px 10px;
     font-weight: normal;
 }
 .show-section h3:hover {
     background: rgba(238,238,238,1.0);
+}
+.inactive-section {
+    background: #f5f5f5;
+    color: #0088cc;
+}
+.active-section {
+    background: #0088cc;
+    color: white;
+}
+.active-section:hover {
+    background: #f5f5f5;
+    color: #0088cc;
 }
 .span10 {
     margin-left: 0px;

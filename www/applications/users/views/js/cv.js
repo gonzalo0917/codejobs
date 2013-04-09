@@ -1,8 +1,13 @@
 $(document).ready(function() {
 
-	$('.show-section h3').on('click',function() {
-		$(this).next('div').toggle();
-	})
+	$('.show-section h3').toggle(
+		function() {
+			$(this).removeClass('inactive-section').addClass('active-section');
+			$(this).next('div').show();
+		}, function() {
+			$(this).removeClass('active-section').addClass('inactive-section');
+			$(this).next('div').hide();
+		})
     /*var listSkills = [ 'c++', 'java', 'php', 'jquery'];
 
     $('input[name=skills]').tagit({
