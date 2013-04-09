@@ -2,11 +2,11 @@ $(document).ready(function() {
 
 	$('.editor').each(function(e){
         CKEDITOR.replace($(this).attr('id'), {
-						toolbar: [
-							{name:'group1', items:['Bold','Italic','Underline','StrikeThrough','PasteFromWord']},
-							{name:'group2', items:['Outdent','Indent','NumberedList','BulletedList','Blockquote']},
-						 	{name:'group3', items:['Image','Link','Unlink','InsertPre']}  
-						]
+					toolbar: [
+						{ name:'group1', items:['Bold','Italic','Underline','StrikeThrough','PasteFromWord'] },
+						{ name:'group2', items:['Outdent','Indent','NumberedList','BulletedList','Blockquote'] },
+					 	{ name:'group3', items:['Image','Link','Unlink','InsertPre'] }  
+					]
 		});
     });
 
