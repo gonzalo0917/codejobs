@@ -1,16 +1,16 @@
 <?php
 	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
-	$twitter  = recoverPOST("twitter", encode($data[0]["Twitter"]));
-	$facebook = recoverPOST("facebook", encode($data[0]["Facebook"]));
-	$linkedin = recoverPOST("linkedin", encode($data[0]["Linkedin"]));
-	$google   = recoverPOST("google", encode($data[0]["Google"]));
-	$viadeo   = recoverPOST("viadeo", encode($data[0]["Viadeo"]));
+	$twitter  = recoverPOST("twitter", encode($data[2]["Twitter"]));
+	$facebook = recoverPOST("facebook", encode($data[2]["Facebook"]));
+	$linkedin = recoverPOST("linkedin", encode($data[2]["Linkedin"]));
+	$google   = recoverPOST("google", encode($data[2]["Google"]));
+	$viadeo   = recoverPOST("viadeo", encode($data[2]["Viadeo"]));
 
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : null;
+			echo isset($alertSocial) ? $alertSocial : null;
 
 			echo div("row", "class");
 
@@ -81,7 +81,7 @@
 			echo div(false);
 			
 			echo formInput(array(
-				"name"  => "save", 
+				"name"  => "saveSocial", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"

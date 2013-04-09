@@ -559,20 +559,21 @@ class Users_Controller extends ZP_Load
 			$education = $this->Users_Model->getEducation();
 			$skills = $this->Users_Model->getSkills();
 
+			$dataSocial = $this->Users_Model->getSocial();
+
 			$data = $this->array_push_after($dataAvatar,$dataAbout,1);
+			$data = $this->array_push_after($data,$dataSocial,1);
+
+			$this->helper("alerts");
 
 			/* Avatar */
 			if (POST("deleteAvatar")) {
-				$this->helper("alerts");
 				$vars["alertAvatar"] = $this->Users_Model->deleteAvatar();
 			} elseif (POST("saveAvatar")) {
-				$this->helper("alerts");
 				$vars["alertAvatar"] = $this->Users_Model->saveAvatar();
 			} elseif (POST("nosupport")) {
 				$user = SESSION("ZanUser");
 				if (isset($_FILES['avatar']) and $user) {
-					$this->helper("alerts");
-
 					$file = $_FILES['avatar'];
 					$error = $file['error'];
 					$type = $file['type'];
@@ -618,7 +619,6 @@ class Users_Controller extends ZP_Load
 			}
 			
 			if (POST("saveAbout")) {
-				$this->helper("alerts");
 				$vars["alertAbout"] = $this->Users_Model->saveInformation();
 			}
 
@@ -634,6 +634,10 @@ class Users_Controller extends ZP_Load
 				);
 			}
 			
+			if (POST("saveSocial")) {
+				$vars["alertSocial"] = $this->Users_Model->saveSocial();
+			}
+
 			/* CV */
 			$this->helper(array("time", "forms", "html"));
 			$this->config("users", $this->application);
@@ -654,28 +658,24 @@ class Users_Controller extends ZP_Load
 
 			if (POST("actionSummary")) {
 				$action = ((int) POST("ID_Summary") !== 0 and $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
 				$summary = $this->Users_Model->getSummary();
 			}
 
 			if (POST("actionExperiences")) {
 				$action = ((int) POST("experience") !== 0 and $_POST["experience"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
 				$experiences = $this->Users_Model->getExperiences();
 			}
 
 			if (POST("actionEducation")) {
 				$action = ((int) POST("school") !== 0 and $_POST["school"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
 				$education = $this->Users_Model->getEducation();
 			}
 
 			if (POST("actionSkills")) {
 				$action = ((int) POST("ID_Skills") !== 0 and $_POST["ID_Skills"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
 				$skills = $this->Users_Model->getSkills();
 			}
@@ -702,6 +702,7 @@ class Users_Controller extends ZP_Load
 			redirect();
 		}
 	}
+
 
 	public function profile($user = null)
 	{

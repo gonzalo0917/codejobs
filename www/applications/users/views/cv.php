@@ -3,6 +3,7 @@
     	die("Error: You don't have permission to access here..."); 
     }
     
+    echo "<a href='#' id='expand-collapse' class='btn btn-primary'>".__("Expand All")."</a>";
     echo div("show-section","class");
         echo "<h3 class='span10 inactive-section'>".__("Avatar")."</h3>";
         echo div("avatar-section");
@@ -14,6 +15,13 @@
         echo "<h3 class='span10 inactive-section'>".__("About me")."</h3>";
         echo div("about-section");
             include 'about.php';
+        echo htmlTag("div", false);
+    echo htmlTag("div", false);
+
+     echo div("show-section","class");
+        echo "<h3 class='span10 inactive-section'>".__("Social Networks")."</h3>";
+        echo div("social-section");
+            include 'social.php';
         echo htmlTag("div", false);
     echo htmlTag("div", false);
 
