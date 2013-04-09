@@ -16,7 +16,7 @@
 					
 					<div class="post">
 						<ul class="breadcrumb">
-							<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
+							<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a> <span class="divider">></span></li>
   							<li><a href="<?php echo path("forums/". segment(1, isLang())); ?>"><?php echo $post["Forum_Name"]; ?></a> <span class="divider">></span></li>
   							<li class="active"><?php echo stripslashes($post["Title"]); ?></li>
 						</ul>
