@@ -1,6 +1,12 @@
 .jdpicker_w {
 	display: inline;
 }
+select {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}
 .education {
 	padding-top: 20px;
 }
@@ -9,6 +15,9 @@
 }
 div.span10 {
     margin-left: 0px;
+}
+.span4 {
+    max-width: 210px;
 }
 div.well {
     box-sizing: border-box;
@@ -41,9 +50,9 @@ a.btn, a.btn:focus {
     color: #ccc !important;
     float: right;
 }
-.field-title {
+/*.field-title {
     width: 100%;
-}
+}*/
 .add-form {
     width: 100% !important;
 }

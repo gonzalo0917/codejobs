@@ -97,7 +97,7 @@
                 echo formInput(array(
                     "name"     => "company[]", 
                     "id"       => "company{{\$index}}", 
-                    "class"    => "required", 
+                    "class"    => "required span4", 
                     "field"    => __("Company"), 
                     "p"        => true,
                     "ng-model" => "experience.company"
@@ -106,7 +106,7 @@
                 echo formInput(array(
                     "name"     => "title[]", 
                     "id"       => "title{{\$index}}", 
-                    "class"    => "required", 
+                    "class"    => "required span4", 
                     "field"    => __("Job Title"), 
                     "p"        => true,
                     "ng-model" => "experience.title"
@@ -115,7 +115,7 @@
                 echo formInput(array(
                     "name"     => "location[]", 
                     "id"       => "location{{\$index}}", 
-                    "class"    => "required", 
+                    "class"    => "required span4", 
                     "field"    => __("Location"), 
                     "p"        => true,
                     "ng-model" => "experience.location"
@@ -126,7 +126,7 @@
                 echo formInput(array(
                     "name"     => "periodfrom[]", 
                     "id"       => "periodfrom{{\$index}}", 
-                    "class"    => "required jdpicker", 
+                    "class"    => "required jdpicker span4", 
                     "field"    => __("Time Period"), 
                     "ng-model" => "experience.periodfrom",
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
@@ -137,7 +137,7 @@
                 echo formInput(array(
                     "name"     => "periodto[]", 
                     "id"       => "periodto{{\$index}}", 
-                    "class"    => "required jdpicker", 
+                    "class"    => "required jdpicker span4", 
                     "ng-model" => "experience.periodto",
                     "data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
                 ));

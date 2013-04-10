@@ -34,6 +34,13 @@
         echo htmlTag("div", false);
     echo htmlTag("div", false);
 
+    echo div("show-section","class");
+        echo "<h3 class='inactive-section'><i class='icon-chevron-right'></i>".__("Password")."</h3>";
+        echo div("password-section");
+            include 'password.php';
+        echo htmlTag("div", false);
+    echo htmlTag("div", false);
+
 ?>
 <script type="text/javascript">
 function CvExperience($scope) {

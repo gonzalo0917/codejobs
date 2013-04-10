@@ -17,9 +17,9 @@
 					    <li<?php echo $active === "password" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/password/"); ?>"><?php echo __("Password");?></a>
 					    </li>
-					    <li<?php echo $active === "options" ? ' class="active"' : ''; ?>>
+					    <!-- <li<?php echo $active === "options" ? ' class="active"' : ''; ?>>
 					    	<a href="<?php echo path("users/options/"); ?>"><?php echo __("Options");?></a>
-					    </li>
+					    </li> -->
 				    </ul>
 				</div>
 			</header>

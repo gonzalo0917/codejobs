@@ -14,9 +14,18 @@
 
 			echo formInput(array(
 				"type"      => "password",
+				"name"      => "prev_password", 
+				"class"     => "field-title span4",
+				"field"     => __("Previous Password"), 
+				"p"         => true,
+				"maxlength" => "40"
+			));
+
+			echo formInput(array(
+				"type"      => "password",
 				"name"      => "new_password", 
 				"class"     => "field-title span4",
-				"field"     => __("Password"), 
+				"field"     => __("New Password"), 
 				"p"         => true,
 				"maxlength" => "40"
 			));

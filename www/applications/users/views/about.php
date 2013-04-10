@@ -33,6 +33,7 @@
 
 			echo formSelect(array(
 				"name"  => "gender", 
+				"class" => "span3 field-title",
 				"p"     => true, 
 				"field" => __("Gender") ."*"),
 				$options
@@ -60,9 +61,10 @@
 			}
 
 			echo formSelect(array(
-				"name"  => "country", 
-				"p"     => true, 
-				"field" => __("Country") ."*"),
+				"name"   => "country", 
+				"class=" => "field-title span3",
+				"p"      => true, 
+				"field"  => __("Country") ."*"),
 				$countries
 			);
 
@@ -76,6 +78,7 @@
 
 			echo formSelect(array(
 				"name"     => "city", 
+				"class"    => "field-title span3",
 				"p"        => true, 
 				"field"    => __("City") ."*",
 				"disabled" => !isset($cities)
@@ -130,7 +133,7 @@
 
 			echo formInput(array(
 				"name"      => "website", 
-				"class"     => "field-title field-full-size",
+				"class"     => "field-title field-full-size span3",
 				"field"     => __("Website"),
 				"value"     => $website, 
 				"p"         => true,
