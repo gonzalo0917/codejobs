@@ -1,12 +1,20 @@
+.top {
+    margin: 0 auto;
+    width: 30%;
+}
 #content {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	display: block;
 	float: none;
-	margin-right: 20px;
-	width: auto;
+	margin: 0 auto;
+	width: 70%;
 }
-
+.nav a {
+	text-decoration: none;
+	color: #0088cc;
+}
+/*
 #content, .left {
 	margin-left: 10%;
 	margin-top: 40px;
@@ -23,7 +31,7 @@
 .left a:hover {
   color: #005580;
   text-decoration: underline;
-}
+}*/
 .resalt {
 	line-height: 1em;
 	margin-bottom: 25px;

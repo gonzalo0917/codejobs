@@ -15,10 +15,11 @@ class Users_Controller extends ZP_Load
 
 		$this->Templates->theme();
 		$this->helper("router");
+		$this->helper("array");
 		$this->CSS("forms");
 	}
 
-	public function array_push_after($src,$in,$pos)
+	/*public function array_push_after($src,$in,$pos)
 	{
 	    if(is_int($pos)) $R=array_merge(array_slice($src,0,$pos+1), $in, array_slice($src,$pos+1));
 	    else{
@@ -28,10 +29,10 @@ class Users_Controller extends ZP_Load
 	        }
 	    }return $R;
 	}
-
+*/
 	public function index()
 	{
-		redirect();
+		redirect("users/cv/");
 	}
 
 	public function service($service = "facebook", $login = false)
@@ -561,8 +562,8 @@ class Users_Controller extends ZP_Load
 
 			$dataSocial = $this->Users_Model->getSocial();
 
-			$data = $this->array_push_after($dataAvatar,$dataAbout,1);
-			$data = $this->array_push_after($data,$dataSocial,1);
+			$data = array_push_after($dataAvatar,$dataAbout,1);
+			$data = array_push_after($data,$dataSocial,1);
 
 			$this->helper("alerts");
 

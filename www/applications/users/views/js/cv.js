@@ -19,18 +19,30 @@ $(document).ready(function() {
 			$(this).next('div').hide();
 	})
 
-	$('#expand-collapse').toggle(
+	/*$('#expand-collapse').toggle(
 		function(e) {
 			e.preventDefault();
 			$('.show-section h3').removeClass('inactive-section').addClass('active-section');
 			$('.show-section h3').next('div').show();
-			$(this).text('Collapse All');
+			//$(this).text('"__("Collapse All")"');
 		}, function(e) {
 			e.preventDefault();
 			$('.show-section h3').removeClass('active-section').addClass('inactive-section');
 			$('.show-section h3').next('div').hide();
-			$(this).text('Expand All');
-		})
+			//$(this).text('Expand All');
+		})*/
+	$('#expand').click(function(e){
+		e.preventDefault();
+		$('.show-section h3').removeClass('inactive-section').addClass('active-section');
+		$('.show-section h3').next('div').show();
+	})
+
+	$('#collapse').click(function(e) {
+		e.preventDefault();
+		$('.show-section h3').removeClass('active-section').addClass('inactive-section');
+		$('.show-section h3').next('div').hide();
+	})
+
     /*var listSkills = [ 'c++', 'java', 'php', 'jquery'];
 
     $('input[name=skills]').tagit({

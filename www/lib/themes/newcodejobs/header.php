@@ -147,7 +147,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px; margin-left: 10px;">
-							<span class="bold"><a href="<?php echo path("users/profile"); ?>"><?php echo SESSION("ZanUserName"); ?></a></span> <br />
+							<span class="bold"><a href="<?php echo path("users/cv"); ?>"><?php echo SESSION("ZanUserName"); ?></a></span> <br />
 							<span class="small grey"><a href="<?php echo path("user/". SESSION("ZanUser")); ?>"><?php echo __("See my profile page"); ?></a></span><br />
 
 							<!--div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
@@ -173,7 +173,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="<?php echo path("users/about"); ?>"><?php echo __("Account settings"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("users/cv"); ?>"><?php echo __("Account settings"); ?></a></span><br />
 							<span class="small grey"><a href="<?php echo path("users/deactivate"); ?>"><?php echo __("Deactivate my account"); ?></a></span><br />
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
