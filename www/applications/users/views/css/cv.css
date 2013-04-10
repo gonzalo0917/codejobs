@@ -17,6 +17,7 @@ div.well {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -o-box-sizing: border-box;
+    width: 99%;
 }
 .remove {
     display: none;
@@ -48,15 +49,14 @@ a.btn, a.btn:focus {
 }
 #add {
     display: block;
-    float: none;
     font-family: Verdana, Arial, Helvetica, Sans-serif;
     font-size: 13px;
     margin-bottom: 20px;
-    margin-right: -12px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -o-box-sizing: border-box;
+    width: 99%;
 }
 .add-form {
     width: 100% !important;
@@ -75,7 +75,7 @@ i {
     padding: 5px 5px;
     font-weight: normal;
     transition: all 0.5s ease;
-    width: 90%;
+    width: 98%;
 }
 .show-section h3 i {
     line-height: 10px;

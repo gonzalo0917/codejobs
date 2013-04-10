@@ -111,7 +111,7 @@
 
 			echo formInput(array(
 				"name"      => "email", 
-				"class"     => "field-title span4",
+				"class"     => "field-title span3",
 				"field"     => __("E-mail"), 
 				"p"         => true,
 				"maxlength" => "45",

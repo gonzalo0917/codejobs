@@ -19,17 +19,6 @@ class Users_Controller extends ZP_Load
 		$this->CSS("forms");
 	}
 
-	/*public function array_push_after($src,$in,$pos)
-	{
-	    if(is_int($pos)) $R=array_merge(array_slice($src,0,$pos+1), $in, array_slice($src,$pos+1));
-	    else{
-	        foreach($src as $k=>$v){
-	            $R[$k]=$v;
-	            if($k==$pos)$R=array_merge($R,$in);
-	        }
-	    }return $R;
-	}
-*/
 	public function index()
 	{
 		redirect("users/cv/");
@@ -566,6 +555,8 @@ class Users_Controller extends ZP_Load
 			$data = array_push_after($data,$dataSocial,1);
 
 			$this->helper("alerts");
+			$this->Configuration_Model = $this->model("Configuration_Model");
+			$this->Cache = $this->core("Cache");
 
 			/* Avatar */
 			if (POST("deleteAvatar")) {
@@ -624,8 +615,6 @@ class Users_Controller extends ZP_Load
 			}
 
 			/* About */
-			$this->Configuration_Model = $this->model("Configuration_Model");
-			$this->Cache = $this->core("Cache");
 			$list_of_countries = $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
 
 			foreach ($list_of_countries as $country) {
@@ -680,9 +669,6 @@ class Users_Controller extends ZP_Load
 				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
 				$skills = $this->Users_Model->getSkills();
 			}
-
-			$this->Configuration_Model = $this->model("Configuration_Model");
-			$this->Cache = $this->core("Cache");
 
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["summary"] = $summary;

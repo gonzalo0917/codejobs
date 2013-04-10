@@ -329,7 +329,7 @@
 
             echo formInput(array(
                 "name"        => "skills",
-                "class"       => "span10 required",
+                "class"       => "span9 required",
                 "field"       => __("Skills"), 
                 "p"           => true, 
                 "placeholder" => __("Write the tags separated by commas"),

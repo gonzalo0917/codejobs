@@ -40,6 +40,8 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
     	}
         
 		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", null, false, true);
+		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/css/bootstrap-responsive.css", null, false, true);
+
 		#$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap.min.css", null, false, true);
 		
 

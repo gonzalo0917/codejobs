@@ -8,30 +8,12 @@
 	display: block;
 	float: none;
 	margin: 0 auto;
-	width: 70%;
+	max-width: 880px !important;
 }
 .nav a {
 	text-decoration: none;
 	color: #0088cc;
 }
-/*
-#content, .left {
-	margin-left: 10%;
-	margin-top: 40px;
-}
-
-.left {
-	margin-right: 5%;
-}
-
-.left a {
-  color: #0088cc;
-  text-decoration: none;
-}
-.left a:hover {
-  color: #005580;
-  text-decoration: underline;
-}*/
 .resalt {
 	line-height: 1em;
 	margin-bottom: 25px;
@@ -44,4 +26,7 @@
 }
 .form-add label {
 	margin-bottom: 15px;
+}
+fieldset {
+	width: 98%;
 }
