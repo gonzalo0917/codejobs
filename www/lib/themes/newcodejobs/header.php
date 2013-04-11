@@ -201,39 +201,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 
 				<div id="top-box">
 					<ul class="top-box-ul">
-						<?php
-							if (!SESSION("ZanUser")) {
-						?>
-								<li class="float-right">
-									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
-										<?php echo __("Login"); ?> <span class="arrow-down"></span>
-									</a>
-								</li>
-								
-								<li class="float-right">
-									<a id="display-register" href="#" title="<?php echo __("Register!"); ?>">
-										<?php echo __("Register!"); ?> <span class="arrow-down"></span>
-									</a>
-								</li>
-						<?php
-							} else {
-						?>
-								<li class="float-right">
-									<a id="display-profile" href="#" title="<?php echo __("Hi"); ?>">
-										<?php echo __("Hi") .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <span class="arrow-down"></span>
-									</a>
-								</li>
-						<?php
-							}
-						?>
-						
-						<li class="float-right">
-							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
-								<?php echo getLanguage(whichLanguage(), true); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
-							</a>
-						</li>
-
-						<li class="float-right" style="margin-right:5px;">
+						<li class="" style="margin-right:5px;">
 							<div class="input-append">
 								<select id="search-app" class="info" style="width:115px; margin-top: 3px; margin-right: 5px;">
 								  	<option value="blog"><?php echo __("Blog"); ?></option>
@@ -247,6 +215,36 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>
 							</div> 
 						</li>
+						<li class="">
+							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
+								<?php echo getLanguage(whichLanguage(), true); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
+							</a>
+						</li>
+						<?php
+							if (!SESSION("ZanUser")) {
+						?>
+								<li class="">
+									<a id="display-register" href="#" title="<?php echo __("Register!"); ?>">
+										<?php echo __("Register!"); ?> <span class="arrow-down"></span>
+									</a>
+								</li>
+								
+								<li class="">
+									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
+										<?php echo __("Login"); ?> <span class="arrow-down"></span>
+									</a>
+								</li>
+						<?php
+							} else {
+						?>
+								<li class="">
+									<a id="display-profile" href="#" title="<?php echo __("Hi"); ?>">
+										<?php echo __("Hi") .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <span class="arrow-down"></span>
+									</a>
+								</li>
+						<?php
+							}
+						?>
 					</ul>
 				</div>
 			</div>

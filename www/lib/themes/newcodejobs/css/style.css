@@ -211,10 +211,10 @@ header #topbar #top-box {
 	width: 55%;
 	float: right;
 }*/
-
-header #top-box, .top-box-ul {
-	overflow: hidden;
+header #topbar #top-box {
+	float: right;
 }
+
 header #topbar nav {
 	float: left;
 }
@@ -525,8 +525,17 @@ footer a:hover {
 	width: 7px;
 }
 
+header #top-box, .top-box-ul {
+	overflow: hidden;
+}
+
+header #top-box .top-box-ul li {
+	vertical-align: top;
+	display: inline-block;
+}
+
 #top-box ul {
-	float: right;
+	//float: right;
 	padding: 0px;
 	margin: 0px;
 	list-style: none;
@@ -547,11 +556,10 @@ footer a:hover {
 #top-box ul li a:hover {
 	color: #3cafd4;
 }
-
 #top-box-languages {
 	border: 1px solid #000;
 	width: 103px;
-	height: 30px;
+	height: auto;
 	position: absolute;
 	top: 32px;
 	left: 920px;

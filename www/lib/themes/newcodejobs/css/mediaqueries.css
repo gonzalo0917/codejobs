@@ -22,6 +22,10 @@
 		max-width: 1500px;
 	}
 
+	/*header #topbar nav {
+		margin-left: 2.5%;
+	}*/
+
 	#top-box-languages {
 		left: 1450px;
 	}
@@ -107,14 +111,14 @@
 	header #wrapper article:first-child {
 		padding-left: 1%;
 	}
-
+	
 	header #topbar {
-		max-width: 1024px;
+		max-width: 1100px;
 	}
 	
-	header #topbar nav ul {
+	/*header #topbar nav ul {
 		margin-left: -125px;
-	}
+	}*/
 
 	aside .transmission ul {
 	    margin-left: 25%;
@@ -193,7 +197,7 @@
 	}*/
 
 	header #topbar {
-		max-width: 1024px;
+		max-width: 1100px;
 	}
 	
 	header #topbar nav ul {
@@ -276,7 +280,7 @@
 	}*/
 
 	header #topbar {
-		max-width: 1024px;
+		max-width: 1100px;
 	}
 	
 	header #topbar nav ul {
@@ -446,6 +450,10 @@
 		float: left;
 	}
 	
+	header #topbar nav {
+		margin-left: 0;
+	}
+
 	header #topbar nav, 
 	header #topbar nav ul,
 	header #topbar #top-box,
@@ -453,11 +461,6 @@
 		text-align: center;
 		width: 100%;
 	}
-
-	header #topbar .top-box-ul {
-		float: none;
-	}
-
 
 	/*header #topbar {
 		max-width: 1024px;
