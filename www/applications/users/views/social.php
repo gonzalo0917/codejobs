@@ -17,7 +17,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "twitter", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Twitter", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -29,7 +29,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "facebook", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Facebook", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -44,7 +44,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "linkedin", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "LinkedIn", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -55,7 +55,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "google", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Google+", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -70,7 +70,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "viadeo", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Viadeo", 
 						"p"         => true,
 						"maxlength" => "150",

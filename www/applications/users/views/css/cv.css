@@ -84,7 +84,7 @@ i {
     padding: 5px 5px;
     font-weight: normal;
     transition: all 0.5s ease;
-    width: 98%;
+    max-width: 98%;
 }
 .show-section h3 i {
     line-height: 10px;

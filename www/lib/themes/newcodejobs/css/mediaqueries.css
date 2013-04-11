@@ -1,10 +1,10 @@
 @media (max-width: 1920px), (max-device-width: 1920px) {
 
-	header #wrapper {
+	/*header #wrapper {
 		width: 1500px;
-	}
+	}*/
 
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 800px;
 		float: right;
 		margin-top: -85px;
@@ -16,7 +16,7 @@
 		position: relative;
 		z-index: 2;
 		margin-left: 2.5%;
-	}
+	}*/
 
 	header #topbar {
 		max-width: 1500px;
@@ -86,24 +86,24 @@
 /* Kindle landscape 1600x1680 */
 @media (max-width: 1600px), (max-device-width: 1600px) {
 
-	header #wrapper {
+	/*header #wrapper {
 		width: 1580px;
-	}
+	}*/
 
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 980px;
 		float: left;
 		margin-top: -85px;
 		margin-left: 665px;
-	}
+	}*/
 
-	header #wrapper nav ul {
+	/*header #wrapper nav ul {
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
 		margin-left: 5.5%;
 	}
-
+*/
 	header #logo {
 		margin-left: 2.5%;
 	}
@@ -170,24 +170,24 @@
 /* Kindle landscape 1440x1536 */
 @media (max-width: 1440px), (max-device-width: 1440px) {
 
-	header #wrapper {
+	/*header #wrapper {
 		width: 1440px;
-	}
+	}*/
 
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 700px;
 		float: left;
 		margin-top: -85px;
 		margin-left: 265px;
-	}
-
+	}*/
+/*
 	header #wrapper nav ul {
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
 		margin-left: 55%;
 	}
-
+*/
 	header #logo {
 		margin-left: 5%;
 	}
@@ -254,22 +254,22 @@
 /* Kindle landscape 1366x786 */
 @media (max-width: 1366px), (max-device-width: 1366px) {
 
-	header #wrapper {
+	/*header #wrapper {
 		width: 1366px;
-	}
+	}*/
 
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 700px;
 		float: left;
 		margin-top: -85px;
 		margin-left: 40%;
-	}
+	}*/
 
-	header #wrapper nav ul {
+	/*header #wrapper nav ul {
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
-	}
+	}*/
 
 	header #logo {
 		margin-left: 9.5%;
@@ -336,23 +336,23 @@
 /* Kindle landscape 1280x1391 */
 @media (max-width: 1280px), (max-device-width: 1280px) {
 	
-	header #wrapper {
+	/*header #wrapper {
 		width: 1200px;
-	}
+	}*/
 
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 700px;
 		float: left;
 		margin-top: -85px;
 		margin-left: 265px;
-	}
+	}*/
 
-	header #wrapper nav ul {
+	/*header #wrapper nav ul {
 		margin: 10px;
 		padding: 0px;
 		z-index: 2;
 		margin-left: 23.5%;
-	}
+	}*/
 
 	header #topbar {
 		max-width: 1024px;
@@ -415,11 +415,11 @@
 
 /* Kindle landscape 1024x600 */
 @media (max-width: 1024px), (max-device-width: 1024px) {
-	header #wrapper {
+	/*header #wrapper {
 		width: 1024px;
-	}
+	}*/
 
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 700px;
 		float: left;
 		margin-top: -85px;
@@ -431,8 +431,14 @@
 		padding: 0px;
 		z-index: 2;
 		max-width: 550px;
-	}
+	}*/
+	
 
+	header #wrapper article:first-child,
+	header #wrapper article:last-child {
+		width: 100%;
+	}
+	
 	header #topbar {
 		max-width: 1024px;
 	}
@@ -495,11 +501,11 @@
 /* iPad portrait 768x1024 */
 
 @media (max-width: 768px), (max-device-width: 768px) {
-	header #wrapper {
+	/*header #wrapper {
 		width: 768px;
-	}
+	}*/
 	
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 550px;
 		float: left;
 		margin-left: 20px;
@@ -511,7 +517,7 @@
 		z-index: 2;
 		margin-left: 9.5%;
 		margin-top: 15.5%;
-	}
+	}*/
 
 	header #topbar {
 		max-width: 1024px;
@@ -596,7 +602,7 @@
 		background-color: #292929;
 	}
 
-	header #wrapper nav ul {
+	/*header #wrapper nav ul {
 		margin: 0px;
 		padding: 0px;
 		position: relative;
@@ -605,7 +611,7 @@
 		width: 500px;
 		font-size: 0.95em;
 		margin-top: 15.5%;
-	}
+	}*/
 
 	header #topbar nav ul {
 		width: 400px;
@@ -705,7 +711,7 @@
 		background-color: #292929;
 	}
 
-	header #wrapper nav {
+	/*header #wrapper nav {
 		width: 550px;
 		float: left;
 		margin-top: 10px;
@@ -721,7 +727,7 @@
 		width: 500px;
 		font-size: 0.95em;
 	}
-
+*/
 	header #topbar nav ul {
 		width: 400px;
 		margin: 0px;

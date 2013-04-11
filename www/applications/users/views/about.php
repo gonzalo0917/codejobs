@@ -62,7 +62,7 @@
 
 			echo formSelect(array(
 				"name"   => "country", 
-				"class=" => "field-title span3",
+				"class" => "field-title span3",
 				"p"      => true, 
 				"field"  => __("Country") ."*"),
 				$countries

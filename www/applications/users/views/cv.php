@@ -3,6 +3,8 @@
     	die("Error: You don't have permission to access here..."); 
     }
     
+    echo p("Mi perfil", "resalt");
+    
     echo "<a href='#' id='expand' class='btn btn-primary'>".__("Expand All")."<i class='icon-plus icon-white'></i></a>";
     echo "<a href='#' id='collapse' class='btn btn-primary'>".__("Collapse All")."<i class='icon-minus icon-white'></i></a>";
 

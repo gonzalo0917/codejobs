@@ -4,12 +4,12 @@
 }
 #contentUsers {
 	box-sizing: border-box;
-	-moz-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
 	display: block;
-	float: none;
-	margin: 0 auto;
-	margin-top: 50px;
-	max-width: 880px;
+	margin: 50px auto 0;
+	max-width: 800px;
 }
 .nav a {
 	text-decoration: none;
@@ -30,4 +30,17 @@
 }
 fieldset {
 	width: 98%;
+}
+@media (max-width: 768px), (max-device-width: 768px) {
+    #contentUsers {
+    	width: 95%;
+		border: 1px solid red;
+    }
+}
+@media (max-width: 480px), (max-device-width: 480px) {
+    #contentUsers {
+    	width: 90%;
+		border: 1px solid green;
+
+    }
 }
