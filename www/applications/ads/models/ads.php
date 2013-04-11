@@ -11,7 +11,7 @@ class Ads_Model extends ZP_Load
 		$this->Db = $this->db();
 			
 		$this->table  = "ads";
-		$this->fields = "ID_Ad, Title, Position, Banner, URL, Principal, Situation";
+		$this->fields = "ID_Ad, Title, Position, Banner, Code, Time, URL, Principal, Situation";
 		
 		$this->Data = $this->core("Data");
 	}
