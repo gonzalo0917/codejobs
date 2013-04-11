@@ -8,8 +8,7 @@ $(document).ready(function() {
 
 		$("#top-box-register").hide();
 		$("#top-box-login").hide();
-		if (diff > 108) {
-			alert("dfsdf");
+		if (parseInt(position.left) > 56.5) {
 			$("#top-box-languages").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
 		} else {
 			$("#top-box-languages").css({"left": (position.left + width - diff + 90) + "px"}).slideToggle("slow");
@@ -23,10 +22,9 @@ $(document).ready(function() {
 			width    = $("#display-register").width(),
 			diff 	 = parseInt($("#top-box-register").width()) + 5;
 
-
 		$("#top-box-languages").hide();
 		$("#top-box-login").hide();
-		if (diff > 275) {
+		if (parseInt(position.left) > 136.5) {
 			$("#top-box-register").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
 		} else {
 			$("#top-box-register").css({"left": (position.left + width - diff + 100) + "px"}).slideToggle("slow");
@@ -43,7 +41,7 @@ $(document).ready(function() {
 		$("#top-box-register").hide();
 		$("#top-box-languages").hide();
 
-		if (diff > 275) {
+		if (parseInt(position.left) > 209.5) {
 			$("#top-box-login").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
 		} else {
 			$("#top-box-login").css({"left": (position.left + width - diff + 35) + "px"}).slideToggle("slow");

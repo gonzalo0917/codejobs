@@ -949,6 +949,13 @@
 		width: 480px;
 		height: 60px;
 	}
+	
+	#top-box-languages,
+	#top-box-register,
+	#top-box-profile,
+	#top-box-login {
+		top: 110px;
+	}
 
 	.comments-content {
 		max-width: 360px !important;
