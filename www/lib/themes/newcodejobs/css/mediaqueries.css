@@ -22,6 +22,11 @@
 		max-width: 1500px;
 	}
 
+	header #topbar nav,
+	header #topbar #top-box {
+		width: auto;
+	}
+
 	/*header #topbar nav {
 		margin-left: 2.5%;
 	}*/
@@ -201,7 +206,8 @@
 	}
 	
 	header #topbar nav ul {
-		margin-left: -55px !important;
+		/*margin-left: -55px !important;*/
+		margin-left: 0;
 	}
 
 	aside .transmission ul {
@@ -284,7 +290,7 @@
 	}
 	
 	header #topbar nav ul {
-		margin-left: -25px !important;
+		margin-left: 0;
 	}
 
 	aside .transmission ul {
@@ -362,9 +368,12 @@
 		max-width: 1024px;
 	}
 	
-	header #topbar nav ul {
-		margin-left: -30px !important;
+	header #topbar nav ul{
+		padding-left: 2.5%;
 	}
+	/*header #topbar nav ul {
+		margin-left: -30px !important;
+	}*/
 
 	aside .transmission ul {
 	    margin-left: 20%;
@@ -437,6 +446,28 @@
 		max-width: 550px;
 	}*/
 	
+	header #topbar-wrapper {
+		height: 85px;
+	}
+
+	header #topbar nav {
+		margin-left: 0;
+	}
+	
+	header #topbar nav, 
+	header #topbar nav ul,
+	header #topbar #top-box,
+	header #topbar .top-box-ul {
+		text-align: center;
+		width: 100%;
+	}
+
+	#top-box-languages,
+	#top-box-register,
+	#top-box-login {
+		top: 70px;
+	}
+	
 	header #wrapper article:first-child {
 		padding-left: -2.5%;
 	}
@@ -450,18 +481,6 @@
 		float: left;
 	}
 	
-	header #topbar nav {
-		margin-left: 0;
-	}
-
-	header #topbar nav, 
-	header #topbar nav ul,
-	header #topbar #top-box,
-	header #topbar .top-box-ul {
-		text-align: center;
-		width: 100%;
-	}
-
 	/*header #topbar {
 		max-width: 1024px;
 	}
@@ -544,14 +563,6 @@
 
 	header #topbar {
 		max-width: 100%;
-	}
-
-	header #topbar nav, 
-	header #topbar nav ul,
-	header #topbar #top-box,
-	header #topbar .top-box-ul {
-		text-align: center;
-		width: 100%;
 	}
 
 	header #topbar .top-box-ul {
@@ -740,8 +751,6 @@
 	}
 
 	header #topbar-wrapper {
-		width: 568px;
-		height: 40px;
 		background-color: #292929;
 	}
 
@@ -763,9 +772,10 @@
 	}
 */
 	header #topbar nav ul {
-		width: 400px;
+		width: 100%;
 		margin: 0px;
 		padding: 0px;
+		text-align: left;
 	}
 
 	header #topbar nav ul a {	
@@ -776,7 +786,7 @@
 		display: none;
 	}
 
-	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+	.social, .transmission, .line, .polls, .ads, .sponsors, .popular, .facebook-like {
 		display: none;
 	}
 
@@ -805,16 +815,16 @@
 	}
 
 	header #topbar {
-		width: 568px;
+		//width: 568px;
 	}
 
 	header #topbar nav ul li {
     	font-size: 55%;
 	}
 
-	header #logo {
+	/*header #logo {
 		margin-left: 8%;
-	}
+	}*/
 
 	footer p {
 		width: 568px;
@@ -872,8 +882,8 @@
 	}
 
 	header #topbar nav ul {
-		width: 400px;
-		margin-left: 20px;
+		width: 100%;
+		margin-left: 0;
 		padding: 0px;
 	}
 
@@ -921,7 +931,7 @@
 	}
 
 	header #logo {
-		margin-left: 2.5%;
+		border: 1px solid red;
 	}
 
 	footer p {
@@ -1047,6 +1057,11 @@
 		width: 320px;
 	}
 
+	header #wrapper {
+		margin-left: 0;
+		width: 100%;
+	}
+
 	header #topbar-wrapper {
 		width: 320px;
 		height: 50px;
@@ -1075,7 +1090,7 @@
 		margin: 0px;
 		padding: 0px;
 		line-height: 20px !important;
-		margin-left: 15px !important;
+		/*margin-left: 15px !important;*/
 	}
 
 	header #topbar nav ul a {	
@@ -1127,7 +1142,8 @@
 	}
 
 	header #logo {
-		margin-left: 2.5%;
+		margin-left: 0px;
+		border: 1px solid green;
 	}
 
 	footer p {

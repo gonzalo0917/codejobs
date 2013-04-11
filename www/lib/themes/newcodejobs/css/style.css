@@ -187,7 +187,7 @@ h4 {
 
 header #topbar-wrapper {
 	width: 100%;
-	height: auto;
+	height: 40px;
 	background-color: #292929;
 }
 
@@ -220,13 +220,14 @@ header #topbar nav {
 }
 
 header #topbar nav ul {
-	width: 470px;
+	width: auto;
 	margin: 0px;
 	padding: 0px;
 }
 
 header #topbar nav ul li {
-    display: inline;
+    display: inline-block;
+    vertical-align: top;
     font-size: 70%;
     list-style-type: none;
     margin-bottom: 2px;
