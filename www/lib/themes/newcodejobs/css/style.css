@@ -263,6 +263,7 @@ header #wrapper article:last-child {
 }
 header #wrapper nav{
 	overflow: hidden;
+	height: auto;
 }
 header #wrapper nav ul {
 	width: 75%;

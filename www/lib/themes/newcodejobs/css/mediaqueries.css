@@ -775,7 +775,7 @@
 		width: 100%;
 		margin: 0px;
 		padding: 0px;
-		text-align: left;
+		text-align: center;
 	}
 
 	header #topbar nav ul a {	
@@ -812,10 +812,6 @@
 	iframe {
 		width: 550px;
 		height: 160px;
-	}
-
-	header #topbar {
-		//width: 568px;
 	}
 
 	header #topbar nav ul li {
@@ -857,15 +853,24 @@
 	body {
 		width: 480px;
 	}
-
+	
 	header #topbar-wrapper {
 		width: 480px;
 		height: 40px;
 		background-color: #292929;
 	}
 
+	header #wrapper {
+		//margin-left: 0;
+		width: 100%;
+	}
+	
+	header #wrapper article:first-child {
+		padding-left: 2.5%;
+	}
+
 	header #wrapper nav {
-		width: 460px;
+		//width: 460px;
 		float: left;
 		margin-top: 10px;
 		margin-left: -40px;
@@ -873,14 +878,19 @@
 
 	header #wrapper nav ul {
 		margin: 0px;
+		margin-left: 10%;
 		padding: 0px;
 		position: relative;
 		z-index: 2;
-		margin-left: 15%;
-		width: 440px;
+		/*margin-left: 15%;*/
+		//width: 440px;
 		font-size: 0.95em;
 	}
 
+	header #topbar-wrapper {
+		height: 125px;
+	}
+	
 	header #topbar nav ul {
 		width: 100%;
 		margin-left: 0;
@@ -894,8 +904,12 @@
 	header #topbar .toggle {
 		display: none;
 	}
+	
+	header #top-box .top-box-ul li:first-child {
+		display: block;
+	}
 
-	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+	.social, .transmission, .line, .polls, .ads, .sponsors, .popular, .facebook-like {
 		display: none;
 	}
 
@@ -928,10 +942,6 @@
 
 	header #topbar nav ul li {
     	font-size: 55%;
-	}
-
-	header #logo {
-		border: 1px solid red;
 	}
 
 	footer p {
@@ -984,7 +994,7 @@
 		padding: 0px;
 		position: relative;
 		z-index: 2;
-		margin-left: 15%;
+		/*margin-left: 15%;*/
 		width: 350px;
 		font-size: .9em;
 	}
@@ -1003,7 +1013,7 @@
 		display: none;
 	}
 
-	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+	.social, .transmission, .line, .polls, .ads, .sponsors, .popular, .facebook-like {
 		display: none;
 	}
 
@@ -1067,12 +1077,18 @@
 		height: 50px;
 		background-color: #292929;
 	}
+	
+	header #wrapper article:first-child,
+	header #wrapper article:last-child {
+		width: 97.5%;
+		margin-left: 2.5%;
+	}
 
 	header #wrapper nav {
-		width: 320px;
+		width: 100%;
 		float: left;
 		margin-top: 10px;
-		margin-left: -40px;
+		margin-left: 0;
 	}
 
 	header #wrapper nav ul {
@@ -1080,13 +1096,12 @@
 		padding: 0px;
 		position: relative;
 		z-index: 2;
-		margin-left: 15%;
-		width: 320px;
+		width: 100%;
 		font-size: .9em;
 	}
 
 	header #topbar nav ul {
-		width: 320px;
+		width: 100%;
 		margin: 0px;
 		padding: 0px;
 		line-height: 20px !important;
@@ -1101,7 +1116,7 @@
 		display: none;
 	}
 
-	.social, .transmission, .line, .polls, .ads, .sponsors, .top-box-ul, .popular, .facebook-like {
+	.social, .transmission, .line, .polls, .ads, .sponsors, .popular, .facebook-like {
 		display: none;
 	}
 
@@ -1143,7 +1158,6 @@
 
 	header #logo {
 		margin-left: 0px;
-		border: 1px solid green;
 	}
 
 	footer p {
