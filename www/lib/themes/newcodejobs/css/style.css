@@ -187,17 +187,34 @@ h4 {
 
 header #topbar-wrapper {
 	width: 100%;
-	height: 40px;
+	height: auto;
 	background-color: #292929;
 }
 
 header #topbar {
 	max-width: 1020px;
-	height: 40px;
+	height: auto;
 	line-height: 40px;
 	margin: 0 auto;
 }
+/*
+header #topbar nav, #top-box {
+	vertical-align: top;
+	display: inline-block;
+}
 
+header #topbar nav {
+	width: 40%;
+}
+
+header #topbar #top-box {
+	width: 55%;
+	float: right;
+}*/
+
+header #top-box, .top-box-ul {
+	overflow: hidden;
+}
 header #topbar nav {
 	float: left;
 }
@@ -229,7 +246,7 @@ header #topbar nav ul li a:hover, header ul li a.current {
 }
 
 header #wrapper {
-	width: 90%;
+	width: 80%;
 	margin: 0 auto;
 	margin-top: 20px;
 }
@@ -242,6 +259,14 @@ header #wrapper article:first-child {
 }
 header #wrapper article:last-child {
 	width: 65%;
+}
+header #wrapper nav{
+	overflow: hidden;
+}
+header #wrapper nav ul {
+	width: 75%;
+	float: right;
+	margin-left: 1%;
 }
 /*header #wrapper nav ul {
 	width: 720px;
