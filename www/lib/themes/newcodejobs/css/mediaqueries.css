@@ -464,6 +464,7 @@
 
 	#top-box-languages,
 	#top-box-register,
+	#top-box-profile,
 	#top-box-login {
 		top: 70px;
 	}
@@ -1077,7 +1078,9 @@
 		height: 50px;
 		background-color: #292929;
 	}
-	
+	header #wrapper article:first-child {
+		padding-left: 0;
+	}
 	header #wrapper article:first-child,
 	header #wrapper article:last-child {
 		width: 97.5%;
@@ -1152,12 +1155,58 @@
 		width: 320px;
 	}
 
-	header #topbar nav ul li {
-    	font-size: 55%;
+	header #topbar-wrapper {
+		height: auto;
 	}
+
+	header #topbar nav ul {
+		width: 320px;
+		padding: 5px 0;
+	}
+
+	header #topbar nav ul li {
+		display: none;
+		margin: 0;
+		border-radius: 0;
+	}
+	
+	header #topbar nav ul li a {
+		border-radius: 0;
+	}
+	header #topbar nav ul li:first-child {
+		display: block;
+	}
+
+	header #topbar nav a {
+		display: block;
+		padding: 5px 5px 5px 32px;
+		text-align: left;
+	}
+	header #topbar nav ul:hover li {
+		display: block;
+		margin: 0 0 3px;
+	}
+
+	/*header #topbar nav ul li {
+		display: block;
+    	font-size: 55%;
+    	max-width: 320px;
+	}
+
+	header #topbar nav ul li a {
+		border-radius: 0;
+    	width: 320px;
+	}*/
 
 	header #logo {
 		margin-left: 0px;
+	}
+
+	#top-box-languages,
+	#top-box-register,
+	#top-box-profile,
+	#top-box-login {
+		top: 110px;
 	}
 
 	footer p {

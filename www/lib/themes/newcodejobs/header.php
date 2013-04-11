@@ -84,6 +84,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 			<div id="topbar">
 				<nav>
 					<ul>
+						<li class="current"><a href="#"><?php echo __("Menu")?></a></li>
 						<li><a href="<?php echo path(); ?>"><?php echo __("Home"); ?></a></li>
 						<li><a href="<?php echo path("codes"); ?>"><?php echo __("Codes"); ?></a></li>
 						<!--<li><a href="<?php echo path("jobs"); ?>"><?php echo __("Jobs"); ?></a></li>-->
@@ -228,7 +229,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 										<?php echo __("Register!"); ?> <span class="arrow-down"></span>
 									</a>
 								</li>
-								
+
 								<li class="">
 									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
 										<?php echo __("Login"); ?> <span class="arrow-down"></span>

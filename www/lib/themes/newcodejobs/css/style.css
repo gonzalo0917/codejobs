@@ -242,6 +242,9 @@ header #topbar nav ul li a {
     text-decoration: none;
 }
 
+header #topbar nav ul li:first-child {
+	display: none;
+}
 header #topbar nav ul li a:hover, header ul li a.current {
     background: none repeat scroll 0 0 #CC2A2A;
 }
@@ -607,7 +610,7 @@ header #top-box .top-box-ul li {
 	width: 270px;
 	position: absolute;
 	top: 32px;
-	left: 900px;
+	left: 200px;
     background-clip: padding-box;
     background-color: #FFFFFF;
     border-color: rgba(0, 0, 0, 0.2);
