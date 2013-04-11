@@ -339,6 +339,7 @@ $phrase["no_codes"] 									= "Ningún código";
 $phrase["no_posts"] 									= "Ninguna publicación";
 $phrase["no_records_were_found"] 						= "No se encontraron registros";
 $phrase["of"]      									    = "de";
+$phrase["the_ad_has_been_saved_correctly"] 				= "El anuncio ha sido guardado correctamente";
 $phrase["the_avatar_has_been_deleted_successfully"] 	= "La imagen de perfil se ha eliminado correctamente";
 $phrase["the_avatar_has_been_saved_correctly"] 			= "La imagen de perfil se ha guardado correctamente";
 $phrase["the_file_is_not_a_known_image_format"] 		= "La imagen no tiene un formato válido";
