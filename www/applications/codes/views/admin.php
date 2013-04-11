@@ -47,10 +47,10 @@
 			<tr>
 				<th style="width: 20px;"><input id="records" type="checkbox" title="<?php echo __("Select all"); ?>" /></th>
 				<th data-field="Title"><a href="#"><?php echo __("Title"); ?></a></th>
-				<th style="width: 70px;" data-field="Views"><a href="#"><?php echo __("Views"); ?></a></th>
-				<th style="width: 100px;"><?php echo __("Language"); ?></th>
-				<th style="width: 70px;"><?php echo __("Situation"); ?></th>
-				<th data-order="DESC" style="width: 120px;" data-field="<?php echo $ID_Column; ?>"><a href="#"><?php echo __("Published"); ?></a></th>
+				<th class="views" style="width: 70px;" data-field="Views"><a href="#"><?php echo __("Views"); ?></a></th>
+				<th class="language" style="width: 100px;"><?php echo __("Language"); ?></th>
+				<th class="situation" style="width: 70px;"><?php echo __("Situation"); ?></th>
+				<th data-order="DESC" class="published" style="width: 120px;" data-field="<?php echo $ID_Column; ?>"><a href="#"><?php echo __("Published"); ?></a></th>
 				<th style="width: 70px;"><?php echo __("Action"); ?></th>
 			</tr>
 		</thead>
@@ -64,10 +64,10 @@
 			<tr>
 				<td data-center><input name="records[]" value="<?php echo $column[$ID_Column]; ?>" type="checkbox" /></td>
 				<td><a title="<?php echo $column["Title"]; ?>" href="<?php echo $URL; ?>" target="_blank"><?php echo $column["Title"]; ?></a></td>
-				<td data-center><?php echo $column["Views"]; ?></td>
-				<td data-center><?php echo getLanguage($column["Language"], true); ?></td>
-				<td data-center><?php echo __($column["Situation"]); ?></td>
-				<td data-center title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
+				<td data-center class="views"><?php echo $column["Views"]; ?></td>
+				<td data-center class="language"><?php echo getLanguage($column["Language"], true); ?></td>
+				<td data-center class="situation"><?php echo __($column["Situation"]); ?></td>
+				<td data-center class="published" title="<?php echo $text_date; ?>"><?php echo $text_date; ?></td>
 				<td data-center>
 					<a href="<?php echo $path ."add/". $column[$ID_Column]; ?>" title="<?php echo __("Edit"); ?>" class="tiny-image tiny-edit no-decoration">&nbsp;&nbsp;&nbsp;</a>
 					<a href="#" title="<?php echo __("Delete"); ?>" class="tiny-image tiny-delete no-decoration">&nbsp;&nbsp;&nbsp;</a>
