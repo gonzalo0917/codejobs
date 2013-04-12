@@ -162,6 +162,7 @@ class Jobs_Controller extends ZP_Load
 
 		if ($data) {
 			$this->helper(array("time", "forms", "alerts"));
+			$this->js("jobs", "jobs");
 			$this->title(__("Jobs") ." - ". decode($data[0]["Title"]), false);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);

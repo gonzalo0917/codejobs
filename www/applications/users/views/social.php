@@ -1,23 +1,23 @@
 <?php
 	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
-	$twitter  = recoverPOST("twitter", encode($data[0]["Twitter"]));
-	$facebook = recoverPOST("facebook", encode($data[0]["Facebook"]));
-	$linkedin = recoverPOST("linkedin", encode($data[0]["Linkedin"]));
-	$google   = recoverPOST("google", encode($data[0]["Google"]));
-	$viadeo   = recoverPOST("viadeo", encode($data[0]["Viadeo"]));
+	$twitter  = recoverPOST("twitter", encode($data[2]["Twitter"]));
+	$facebook = recoverPOST("facebook", encode($data[2]["Facebook"]));
+	$linkedin = recoverPOST("linkedin", encode($data[2]["Linkedin"]));
+	$google   = recoverPOST("google", encode($data[2]["Google"]));
+	$viadeo   = recoverPOST("viadeo", encode($data[2]["Viadeo"]));
 
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : null;
+			echo isset($alertSocial) ? $alertSocial : null;
 
 			echo div("row", "class");
 
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "twitter", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Twitter", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -29,7 +29,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "facebook", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Facebook", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -44,7 +44,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "linkedin", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "LinkedIn", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -55,7 +55,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "google", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Google+", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -70,7 +70,7 @@
 				echo div("span4", "class");
 					echo formInput(array(
 						"name"      => "viadeo", 
-						"class"     => "field-title field-full-size",
+						"class"     => "field-title span3 field-full-size",
 						"field"     => "Viadeo", 
 						"p"         => true,
 						"maxlength" => "150",
@@ -81,7 +81,7 @@
 			echo div(false);
 			
 			echo formInput(array(
-				"name"  => "save", 
+				"name"  => "saveSocial", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"

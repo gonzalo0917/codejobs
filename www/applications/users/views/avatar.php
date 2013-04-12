@@ -11,7 +11,7 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
-			echo isset($alert) ? $alert : null;
+			echo isset($alertAvatar) ? $alertAvatar : null;
 
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 
@@ -117,14 +117,14 @@
 
 			echo div("avatar", "class");
 				echo formInput(array(
-					"name"  => "save", 
+					"name"  => "saveAvatar", 
 					"class" => "btn btn-success", 
 					"value" => __("Save"), 
 					"type"  => "submit"
 				));
 
 				echo formInput(array(
-					"name"  => "delete",
+					"name"  => "deleteAvatar",
 					"type"  => "submit",
 					"class" => "btn btn-danger",
 					"value" => __("Delete")

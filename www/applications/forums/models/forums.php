@@ -11,8 +11,8 @@ class Forums_Model extends ZP_Load
 		$this->language = whichLanguage();
 		$this->table = "forums";
 		$this->fields = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
-		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Title, Slug, Content, Author, Avatar, Start_Date,";
-		$this->fieldsPosts .= "Text_Date, Last_Author, Hour, Visits, Topic, Tags, Language, Situation"; 	
+		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Forum_Name, Title, Slug, Content, Author, Avatar, Start_Date,";
+		$this->fieldsPosts .= "Text_Date, Last_Author, Hour, Visits, Topic, Tags, Total_Comments, Language, Situation"; 	
 		
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
@@ -112,6 +112,9 @@ class Forums_Model extends ZP_Load
 		$lastID = $this->Db->insert("forums_posts", $data);
 		
 		$URL = path("forums/". slug(POST("fname", "clean")) ."/". $lastID ."/". $data["Slug"]);
+
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
 		
 		return $URL;
 	}
@@ -140,6 +143,9 @@ class Forums_Model extends ZP_Load
 		$this->Db->update("forums_posts", $data, $postID);
 		$URL = path("forums/". slug(POST("fname")) ."/". $postID ."/". $data["Slug"]);
 
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
+
 		return $URL;
 	}
 
@@ -147,11 +153,7 @@ class Forums_Model extends ZP_Load
 	{
 		$owner = $this->Db->query("SELECT ID_USER FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $postID);
 
-		if($owner[0]["ID_USER"] == $userID) {
-			return true; 
-		} else {
-			return false;
-		}
+		return ($owner[0]["ID_USER"] == $userID) ? true : false;
 	}
 
 	public function updateComment()
@@ -167,6 +169,9 @@ class Forums_Model extends ZP_Load
 		);
 
 		$this->Db->update("forums_posts", $data, $postID);
+
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
 		
 		$URL = path("forums/". slug(POST("fname")) ."/". $forumID ."/". $postID);
 
@@ -179,6 +184,9 @@ class Forums_Model extends ZP_Load
             return getAlert(__("This forum already exists"), "error", $this->URL);
         } 
 
+        $this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
+
         $this->Db->insert($this->table, $this->data);
 
         return getAlert(__("The forum has been saved correctly"), "success", $this->URL);
@@ -187,6 +195,9 @@ class Forums_Model extends ZP_Load
 	private function edit()
 	{
 		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("forums");
+
             return getAlert(__("The work has been edit correctly"), "success");
         }
 
@@ -207,12 +218,18 @@ class Forums_Model extends ZP_Load
 		
 		$query = "DELETE FROM ". DB_PREFIX ."forums_posts WHERE ID_Parent = '$postID'";
 		
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("forums");
+
 		return $this->Db->query($query);
 	}
 
 	public function editPost($postID)
 	{
 		if ($this->Db->update($this->table, $this->data, $postID)) {
+            $this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("forums");
+
             return getAlert(__("The work has been edit correctly"), "success");
         }
 
@@ -226,7 +243,7 @@ class Forums_Model extends ZP_Load
 
 	public function getForums($language = "Spanish")
 	{
-		return $this->Db->findBySQL("Language = '$language' AND Situation = 'Active'", $this->table);
+		return $this->Db->findBySQL("Language = '$language' AND Situation = 'Active'", $this->table, $this->fields, NULL, "Title ASC");
 	}
 
 	public function getByForum($slug, $language = "Spanish", $limit = false)
@@ -310,6 +327,7 @@ class Forums_Model extends ZP_Load
 	public function getByAuthorTag($author, $tag, $limit)
 	{
 		$tag = str_replace("-", " ", $tag);
+
 		return $this->Db->query("SELECT ". $this->fieldsPosts ." FROM ". DB_PREFIX ."forums_posts 
 			WHERE (Title LIKE '%$tag%' OR Content LIKE '%$tag%' OR Tags LIKE '%$tag%') AND Author = '$author' 
 			AND Language = '$this->language' AND Situation = 'Active' AND ID_Parent = 0 
@@ -324,8 +342,9 @@ class Forums_Model extends ZP_Load
 		
 		$query = "SELECT ". DB_PREFIX ."forums.ID_Forum, ". DB_PREFIX ."forums.Title AS Forum, ". DB_PREFIX ."forums_posts.ID_Post, 
 				  ". DB_PREFIX ."forums_posts.Title, ". DB_PREFIX ."forums_posts.Tags, ". DB_PREFIX ."forums_posts.Slug, 
-				  ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Content, ". DB_PREFIX ."forums_posts.Author,
-				  ". DB_PREFIX ."forums_posts.Start_Date, ". DB_PREFIX ."forums_posts.Last_Author 
+				  ". DB_PREFIX ."forums_posts.Forum_Name, ". DB_PREFIX ."forums_posts.ID_Parent, ". DB_PREFIX ."forums_posts.Content, 
+				  ". DB_PREFIX ."forums_posts.Author, ". DB_PREFIX ."forums_posts.Start_Date, ". DB_PREFIX ."forums_posts.Last_Author, 
+				  ". DB_PREFIX ."forums_posts.Total_Comments 
 				  FROM ". DB_PREFIX ."forums 
 				  INNER JOIN ". DB_PREFIX ."forums_posts ON ". DB_PREFIX ."forums_posts.ID_Forum = ". DB_PREFIX ."forums.ID_Forum
 				  WHERE ". DB_PREFIX ."forums.Slug = '$slug' AND (". DB_PREFIX ."forums_posts.Title LIKE '%$tag%'
@@ -407,6 +426,7 @@ class Forums_Model extends ZP_Load
 			$data = array(
 				"ID_User" 	 => SESSION("ZanUserID"),
 				"ID_Parent"  => $fid, 
+				"Forum_Name" => POST("fname"),
 				"Title" 	 => null,
 				"Slug" 		 => null,
 				"Text_Date"  => decode(now(2)),
@@ -423,13 +443,16 @@ class Forums_Model extends ZP_Load
 			$lastID = $this->Db->insert("forums_posts", $data);
 
 			if ($lastID) {
+				$this->Cache = $this->core("Cache");
+				$this->Cache->removeAll("forums");
+
 				$totalComments = $this->Db->query("SELECT Total_Comments FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $fid);
 				$i = $totalComments[0]["Total_Comments"] += 1;
 				$this->Db->updateBySQL("forums_posts", "Last_Reply = '$now', Last_Author = '$author', Total_Comments = '$i' WHERE ID_Post = '$fid'");
 				$content = $data["Content"];
-				$edit = path("forums/". $fname ."/editComment/". $lastID);
-				$delete = path("forums/". $fname ."/delete/". $lastID ."/". $fid);				
-				$URL = path("forums/". $fname ."/author/". $data["Author"]);
+				$edit = path("forums/". slug($fname) ."/editComment/". $lastID);
+				$delete = path("forums/". slug($fname) ."/delete/". $lastID ."/". $fid);				
+				$URL = path("forums/". slug($fname) ."/author/". $data["Author"]);
 				$date = '<a href="'. $URL .'">'. $data["Author"] .'</a> '. __("Published") ." ". howLong($data["Start_Date"]);
 
 				$json = array(

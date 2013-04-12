@@ -15,12 +15,13 @@ class Users_Controller extends ZP_Load
 
 		$this->Templates->theme();
 		$this->helper("router");
+		$this->helper("array");
 		$this->CSS("forms");
 	}
 
 	public function index()
 	{
-		redirect();
+		redirect("users/cv/");
 	}
 
 	public function service($service = "facebook", $login = false)
@@ -538,15 +539,100 @@ class Users_Controller extends ZP_Load
 	public function cv()
 	{
 		if (isConnected()) {
+
+			$dataAvatar  = $this->Users_Model->getAvatar();
+			
+			$dataAbout = $this->Users_Model->getInformation();
+
 			$summary = $this->Users_Model->getSummary();
 			$experiences = $this->Users_Model->getExperiences();
 			$education = $this->Users_Model->getEducation();
 			$skills = $this->Users_Model->getSkills();
 
+			$dataSocial = $this->Users_Model->getSocial();
+
+			$data = array_push_after($dataAvatar,$dataAbout,1);
+			$data = array_push_after($data,$dataSocial,1);
+
+			$this->helper("alerts");
+			$this->Configuration_Model = $this->model("Configuration_Model");
+			$this->Cache = $this->core("Cache");
+
+			/* Avatar */
+			if (POST("deleteAvatar")) {
+				$vars["alertAvatar"] = $this->Users_Model->deleteAvatar();
+			} elseif (POST("saveAvatar")) {
+				$vars["alertAvatar"] = $this->Users_Model->saveAvatar();
+			} elseif (POST("nosupport")) {
+				$user = SESSION("ZanUser");
+				if (isset($_FILES['avatar']) and $user) {
+					$file = $_FILES['avatar'];
+					$error = $file['error'];
+					$type = $file['type'];
+					$name = $file['name'];
+					$tmp_name = $file['tmp_name'];
+
+					if ($error === 1 or $error == 2) {
+						$vars["alertAvatar"] = getAlert(__("The file size exceeds the limit allowed"), "error");
+					} elseif ($error > 0) {
+						$vars["alertAvatar"] = getAlert(__("An error occurred while handling file upload", "error"));
+					} elseif (!preg_match('/^image/', $type)) {
+						$vars["alertAvatar"] = getAlert(__("The file is not an image", "error"));
+					} elseif ($type != "image/png" and $type != "image/jpeg" and $type != "image/gif") {
+						$vars["alertAvatar"] = getAlert(__("The file is not a known image format", "error"));
+					} elseif (is_uploaded_file($tmp_name)) {
+						$this->Images = $this->core("Images");
+						$this->Images->load($tmp_name);
+						$filename = sha1($user . "_O");
+						$resized = sha1($user);
+						$path = "www/lib/files/images/users";
+						$this->Images->png("$path/$filename.png");
+						$width = $this->Images->getWidth();
+						$coordinates = $this->Images->crop(true, 90, 90);
+						$this->Images->png("$path/$resized.png");
+
+						if ($width > 700) {
+							$aspect = 700 / $width;
+							$coordinates[0] = (int)($coordinates[0] * $aspect);
+							$coordinates[1] = 0;
+							$coordinates[2] = (int)($coordinates[2] * $aspect);
+							$coordinates[3] = $coordinates[2];
+						}
+
+						if ($this->Users_Model->setAvatar("$resized.png", $coordinates)) {
+							SESSION("ZanUserAvatar", "$resized.png?". time());
+
+							$vars["alertAvatar"] = getAlert(__("The avatar has been saved correctly"), "success");
+						} else {
+							$vars["alertAvatar"] = getAlert(__("An error occurred while handling file upload", "error"));
+						}
+					}
+				}
+			}
+			
+			if (POST("saveAbout")) {
+				$vars["alertAbout"] = $this->Users_Model->saveInformation();
+			}
+
+			/* About */
+			$list_of_countries = $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
+
+			foreach ($list_of_countries as $country) {
+				$countries[] = array(
+					"option" => $country["Country"],
+					"value" => $country["Country"]
+				);
+			}
+			
+			if (POST("saveSocial")) {
+				$vars["alertSocial"] = $this->Users_Model->saveSocial();
+			}
+
+			/* CV */
 			$this->helper(array("time", "forms", "html"));
 			$this->config("users", $this->application);
 			$this->config("cv", $this->application);
-	 
+	 	
 			$this->css("forms", "cpanel");
 			$this->css("users", $this->application);
 			$this->css("cv", $this->application);
@@ -554,41 +640,45 @@ class Users_Controller extends ZP_Load
 			$this->js("jquery.jdpicker.js");
 			$this->js("cv", $this->application);
 
+			$this->js("about", $this->application); /* about */
+
+			$this->css("avatar", $this->application); /* Avatar */
+			$this->js("jquery.jcrop.js");
+			$this->js("avatar", $this->application);
+
 			if (POST("actionSummary")) {
 				$action = ((int) POST("ID_Summary") !== 0 and $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
 				$summary = $this->Users_Model->getSummary();
 			}
 
 			if (POST("actionExperiences")) {
 				$action = ((int) POST("experience") !== 0 and $_POST["experience"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
 				$experiences = $this->Users_Model->getExperiences();
 			}
 
 			if (POST("actionEducation")) {
 				$action = ((int) POST("school") !== 0 and $_POST["school"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
 				$education = $this->Users_Model->getEducation();
 			}
 
 			if (POST("actionSkills")) {
 				$action = ((int) POST("ID_Skills") !== 0 and $_POST["ID_Skills"][0] !== "") ? "edit" : "save";
-				$this->helper("alerts");
 				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
 				$skills = $this->Users_Model->getSkills();
 			}
 
-			$this->Configuration_Model = $this->model("Configuration_Model");
-			$this->Cache = $this->core("Cache");
-
+			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["summary"] = $summary;
 			$vars["experiences"] = $experiences;
 			$vars["education"] = $education;
 			$vars["skills"] = $skills;
+
+			/* cv */
+			$vars["countries"] = $countries;
+			$vars["data"] = $data;
 
 			$vars["view"] = $this->view("cv", true);
 			$vars["href"] = path("users/cv/");
@@ -600,6 +690,7 @@ class Users_Controller extends ZP_Load
 			redirect();
 		}
 	}
+
 
 	public function profile($user = null)
 	{
@@ -627,7 +718,7 @@ class Users_Controller extends ZP_Load
 			$vars["view"] = $this->view("profile", true, "users");
 			$vars["posts"] = $this->Cache->data("profile-$user", "blog", $this->Blog_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
 			$vars["codes"] = $this->Cache->data("profile-$user", "codes", $this->Codes_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
-			$vars["bookmarks"] = $this->Cache->data("profile-$user", "codes", $this->Bookmarks_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
+			$vars["bookmarks"] = $this->Cache->data("profile-$user", "bookmarks", $this->Bookmarks_Model, "getByUser", array($data[0]["ID_User"], 3), 86400);
 
 			if ($vars["codes"]) {
 				foreach ($vars["codes"] as $key => $code) {

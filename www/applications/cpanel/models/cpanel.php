@@ -229,7 +229,7 @@ class CPanel_Model extends ZP_Load
 					$data = $this->$Model->cpanel("all", $limit, $order, null, null, $trash);
 				}
 			}
-
+			
 			if ($data) {
 				return $data;
 			} else {

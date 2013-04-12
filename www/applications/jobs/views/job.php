@@ -52,8 +52,8 @@
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
 			} elseif (SESSION("ZanUser") and $job["Type"] == "External") {
 				echo '<span class="bold">'. __("Enter the link below to apply") .": ".'</span><br />';
-				echo '<input type="button" value="'. __("apply for the vacancy") .'">';
-			} elseif (SESSION("ZanUser") and $isvacancy) {
+				?> <input id="eapply" class="btn btn-success" type="submit" value="<?php echo __("Apply for the vacancy"); ?>" />
+	<?php   } elseif (SESSION("ZanUser") and $isvacancy) {
 				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
 			<input id="jid" name="jid" type="hidden" value="<?php echo $job["ID_Job"]; ?>" />

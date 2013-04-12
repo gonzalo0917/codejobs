@@ -4,11 +4,15 @@ $(document).ready(function() {
 
 		var position = $("#display-languages").offset(),
 			width    = $("#display-languages").width(),
-			diff 	 = $("#top-box-languages").width() + 5;
+			diff 	 = parseInt($("#top-box-languages").width()) + 5;
 
 		$("#top-box-register").hide();
 		$("#top-box-login").hide();
-		$("#top-box-languages").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
+		if (parseInt(position.left) > 56.5) {
+			$("#top-box-languages").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
+		} else {
+			$("#top-box-languages").css({"left": (position.left + width - diff + 90) + "px"}).slideToggle("slow");
+		}
 	});
 
 	$("#display-register").on("click", function(e) {
@@ -16,11 +20,15 @@ $(document).ready(function() {
 
 		var position = $("#display-register").offset(),
 			width    = $("#display-register").width(),
-			diff 	 = $("#top-box-register").width() + 5;
+			diff 	 = parseInt($("#top-box-register").width()) + 5;
 
 		$("#top-box-languages").hide();
 		$("#top-box-login").hide();
-		$("#top-box-register").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
+		if (parseInt(position.left) > 136.5) {
+			$("#top-box-register").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
+		} else {
+			$("#top-box-register").css({"left": (position.left + width - diff + 100) + "px"}).slideToggle("slow");
+		}
 	});
 
 	$("#display-login").on("click", function(e) {
@@ -28,11 +36,16 @@ $(document).ready(function() {
 
 		var position = $("#display-login").offset(),
 			width    = $("#display-login").width(),
-			diff 	 = $("#top-box-login").width() + 5;
+			diff 	 = parseInt($("#top-box-login").width()) + 5;
 
 		$("#top-box-register").hide();
 		$("#top-box-languages").hide();
-		$("#top-box-login").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");		
+
+		if (parseInt(position.left) > 209.5) {
+			$("#top-box-login").css({"left": (position.left + width - diff) + "px"}).slideToggle("slow");
+		} else {
+			$("#top-box-login").css({"left": (position.left + width - diff + 35) + "px"}).slideToggle("slow");
+		}
 	});
 
 	$("#display-profile").on("click", function(e) {

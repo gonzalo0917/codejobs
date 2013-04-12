@@ -7,58 +7,73 @@ $i = 1;
 $rand2 = rand(6, 10);
 ?>
 <div id="fposts">
-<ul class="breadcrumb">
-	<li><a href="<?php echo path("forums"); ?>"> <?php echo __("Forums"); ?></a> <span class="divider">></span></li>
-	<li class="active"><?php echo ucfirst(str_replace("-", " ", $forum)); ?></li>
-</ul>
+
 <?php
-if ($posts) {
-	$forum = slug($forum);
-	foreach ($posts as $post) {		
-		$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
-		$URL       = path("forums/". $forum ."/". $post["ID_Post"] ."/". $slug);	
-		$URLEdit   = path("forums/". $forum ."/edit/". $post["ID_Post"]);
-		$URLDelete = path("forums/". $forum ."/delete/". $post["ID_Post"]);
-		$in        = ($forum !== "") ? __("in") : null;				
-		?>				
-		<div class="post">
-			<div class="post-title">
-				<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
-					<?php echo stripslashes($post["Title"]); ?>
-				</a>
-			</div>
+if ($noTopics) {
+	$return = "?return_to=". encode(path("forums/". segment(1, isLang())), true);
+	redirect("users/login/". $return);
+} else {
+	if ($posts) {
+		$i = 0;
+		foreach ($posts as $post) {		
+			$forum 	   = $post["Forum_Name"];
+			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
+			$URL       = path("forums/". slug($forum) ."/". $post["ID_Post"] ."/". $slug);	
+			$URLEdit   = path("forums/". slug($forum) ."/edit/". $post["ID_Post"]);
+			$URLDelete = path("forums/". slug($forum) ."/delete/". $post["ID_Post"]);
+			$in        = ($forum !== "") ? __("in") : null;				
+			
 
-			<div class="post-left">
-				<?php 
-					echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' ';
-					echo '<a href="'. path("forums/". $forum ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
+			if ($i == 0) {
+			?>
+				<ul class="breadcrumb">
+					<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a> <span class="divider">></span></li>
+					<li class="active"><?php echo $post["Forum_Name"]; ?></li>
+				</ul>
+			<?php
+				$i++;
+			}
+			?>			
 
-					if (SESSION("ZanUserPrivilegeID")) {
-						$confirm = " return confirm('Do you want to delete this post?') ";
 
-						if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
-							echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
+			<div class="post">
+				<div class="post-title">
+					<a href="<?php echo $URL; ?>" title="<?php echo stripslashes($post["Title"]); ?>">
+						<?php echo stripslashes($post["Title"]); ?>
+					</a>
+				</div>
+
+				<div class="post-left">
+					<?php 
+						echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' ';
+						echo '<a href="'. path("forums/". slug($forum) ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
+
+						if (SESSION("ZanUserPrivilegeID")) {
+							$confirm = " return confirm('Do you want to delete this post?') ";
+
+							if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
+								echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
+							}
 						}
-					}
-				?>
-			</div>
+					?>
+				</div>
 
-			<div class="post-right">
-				<?php echo 'Comments: '. $post["Total_Comments"] .' | Last author: <a href="'. path("forums/". $forum ."/author/". $post["Last_Author"]) .'">'. $post["Last_Author"] .'</a>'; ?>
-			</div>
+				<div class="post-right">
+					<?php echo __("Comments") .': '. $post["Total_Comments"] .' | '. __("Last author") .': <a href="'. path("forums/". $forum ."/author/". $post["Last_Author"]) .'">'. $post["Last_Author"] .'</a>'; ?>
+				</div>
 
-			<div class="clear"><?php echo showContent(cut($post["Content"], 20)); ?></div>
-		</div>
-		<?php
-		$i++;
+				<div class="clear"><?php echo showContent(cut($post["Content"], 20)); ?></div>
+			</div>
+			<?php
+			$i++;
+		}
 	}
 }
-?>
-</div>
+	?>
+	</div>
 
-<?php
-echo isset($pagination) ? $pagination : null;
-
+	<?php
+	echo isset($pagination) ? $pagination : null;
 
 if (SESSION("ZanUser")) {
 ?>
@@ -85,5 +100,4 @@ if (SESSION("ZanUser")) {
 	<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to create a topic'); ?></div>
 <?php	
 }
-echo $ckeditor;
-?>
+	?>

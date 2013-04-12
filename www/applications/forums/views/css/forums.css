@@ -1,3 +1,11 @@
+#cke_editor {
+	width: 618px !important;
+}
+
+.forums-options {
+	margin-top: 50px;
+}
+
 .forums-create {
 	color: #6F675E;
 }

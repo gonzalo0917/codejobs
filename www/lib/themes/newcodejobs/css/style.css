@@ -5,7 +5,7 @@ body {
 	padding: 0px;
 	width: 100%;
    	height: 100%;
-   	overflow-x: hidden;
+   	/*overflow-x: hidden;*/
 }
 
 #tagcloud {
@@ -193,9 +193,26 @@ header #topbar-wrapper {
 
 header #topbar {
 	max-width: 1020px;
-	height: 40px;
+	height: auto;
 	line-height: 40px;
 	margin: 0 auto;
+}
+/*
+header #topbar nav, #top-box {
+	vertical-align: top;
+	display: inline-block;
+}
+
+header #topbar nav {
+	width: 40%;
+}
+
+header #topbar #top-box {
+	width: 55%;
+	float: right;
+}*/
+header #topbar #top-box {
+	float: right;
 }
 
 header #topbar nav {
@@ -203,13 +220,14 @@ header #topbar nav {
 }
 
 header #topbar nav ul {
-	width: 470px;
+	width: auto;
 	margin: 0px;
 	padding: 0px;
 }
 
 header #topbar nav ul li {
-    display: inline;
+    display: inline-block;
+    vertical-align: top;
     font-size: 70%;
     list-style-type: none;
     margin-bottom: 2px;
@@ -224,17 +242,39 @@ header #topbar nav ul li a {
     text-decoration: none;
 }
 
+header #topbar nav ul li:first-child {
+	display: none;
+}
 header #topbar nav ul li a:hover, header ul li a.current {
     background: none repeat scroll 0 0 #CC2A2A;
 }
 
 header #wrapper {
-	width: 1020px;
+	width: 80%;
 	margin: 0 auto;
 	margin-top: 20px;
+	overflow: hidden;
 }
-
+header #wrapper article {
+	vertical-align: top;
+	display: inline-block;
+}
+header #wrapper article:first-child {
+	width: 30%;	
+}
+header #wrapper article:last-child {
+	width: 65%;
+}
+header #wrapper nav{
+	overflow: hidden;
+	height: auto;
+}
 header #wrapper nav ul {
+	width: 75%;
+	float: right;
+	margin-left: 1%;
+}
+/*header #wrapper nav ul {
 	width: 720px;
 	margin: 0px;
 	padding: 0px;
@@ -243,14 +283,13 @@ header #wrapper nav ul {
 	margin-left: 35%;
 	margin-top: -70px;
 }
-
+*/
 header #wrapper nav ul li {
     display: inline;
     font-size: 70%;
     list-style-type: none;
     margin-bottom: 2px;
 }
-
 header #wrapper nav ul li a {
     background: none repeat scroll 0 0 #292929;
     border-radius: 12px 12px 12px 12px;
@@ -492,8 +531,17 @@ footer a:hover {
 	width: 7px;
 }
 
+header #top-box, .top-box-ul {
+	overflow: hidden;
+}
+
+header #top-box .top-box-ul li {
+	vertical-align: top;
+	display: inline-block;
+}
+
 #top-box ul {
-	float: right;
+	//float: right;
 	padding: 0px;
 	margin: 0px;
 	list-style: none;
@@ -514,11 +562,10 @@ footer a:hover {
 #top-box ul li a:hover {
 	color: #3cafd4;
 }
-
 #top-box-languages {
 	border: 1px solid #000;
 	width: 103px;
-	height: 30px;
+	height: auto;
 	position: absolute;
 	top: 32px;
 	left: 920px;
@@ -564,7 +611,7 @@ footer a:hover {
 	width: 270px;
 	position: absolute;
 	top: 32px;
-	left: 900px;
+	left: 200px;
     background-clip: padding-box;
     background-color: #FFFFFF;
     border-color: rgba(0, 0, 0, 0.2);

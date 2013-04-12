@@ -1,6 +1,7 @@
 .dotted {
 	border: 1px dotted #CCC; 
-	padding: 2px; 
+	margin: 6px;
+	padding: 3px; 
 }
 
 .center {

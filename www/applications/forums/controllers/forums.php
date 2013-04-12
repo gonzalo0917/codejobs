@@ -216,6 +216,7 @@ class Forums_Controller extends ZP_Load
 	{
 		if($this->Forums_Model->validOwner($deleteID, SESSION("ZanUserID")) or SESSION("ZanUserPrivilegeID") <= 3) {
 			$this->Forums_Model->deletePost($deleteID);
+			
 			if ($postID == 0) {
 				$this->getForum($forum);
 			} else {
@@ -227,7 +228,7 @@ class Forums_Controller extends ZP_Load
 	public function getForums()
 	{
 		$data = $this->Cache->data("forums-$this->language", "forums", $this->Forums_Model, "getForums", array($this->language));
-		#$data = $this->Forums_Model->getForums($this->language);
+
 		if ($data) {
 			$vars["forums"] = $data;
 			$vars["view"] = $this->view("forums", true);
@@ -239,11 +240,10 @@ class Forums_Controller extends ZP_Load
 	}
 
 	public function getForum($forum)
-	{
+	{	
 		$this->CSS("pagination");
 		$limit = $this->limit();
 		$data = $this->Cache->data("forum-$forum-$this->language-$limit", "forums", $this->Forums_Model, "getByForum", array($forum, $this->language, $limit));
-		#$data = $this->Forums_Model->getByForum($forum, $this->language, $limit);
 
 		if ($data) { 
 			$this->helper("time");
@@ -252,9 +252,11 @@ class Forums_Controller extends ZP_Load
 			$this->css("forums", "forums");
 
 			if(!SESSION("ZanUser") and !isset($data[0]["Forum_Name"])) {
-				redirect("forums");
+				$vars["noTopics"] = __("There is no new topics");
+			} else {
+				$vars["noTopics"] = null;
 			}
-
+				
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["forumID"] = $data[0]["ID_Forum"];
 			$vars["forum"] = isset($data[0]["Forum_Name"]) ? $data[0]["Forum_Name"] : $data[0]["Title"];
@@ -263,6 +265,7 @@ class Forums_Controller extends ZP_Load
 			$vars["view"] = $this->view("forum", true);
 
 			$this->render("content", $vars);
+			
 		}
 	}
 
@@ -271,7 +274,7 @@ class Forums_Controller extends ZP_Load
 		$this->CSS("pagination");
 		$limit = $this->limit("comments");
 		$data = $this->Cache->data("post-$postID-$limit", "forums", $this->Forums_Model, "getPost", array($postID, $limit));
-		#$data = $this->Forums_Model->getPost($postID, $limit);
+	
 		if ($data) {
 			$this->helper("time");
 			$this->css("posts", "blog");
@@ -292,7 +295,6 @@ class Forums_Controller extends ZP_Load
 	public function getEditPost($postID, $forum)
 	{
 		$data = $this->Cache->data("edit-$postID", "forums", $this->Forums_Model, "getPostToEdit", array($postID));
-		#$data = $this->Forums_Model->getPostToEdit($postID);
 		
 		if ($data) {
 			$this->helper("time");
@@ -313,7 +315,6 @@ class Forums_Controller extends ZP_Load
 	public function getEditComment($postID, $forum)
 	{
 		$data = $this->Cache->data("editComment-$postID", "forums", $this->Forums_Model, "getCommentToEdit", array($postID));
-		#$data = $this->Forums_Model->getCommentToEdit($postID);
 
 		if ($data) {
 			$this->helper("time");

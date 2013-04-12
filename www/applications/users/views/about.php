@@ -1,19 +1,21 @@
 <?php
 	if (!defined("ACCESS")) die("Error: You don't have permission to access here...");
 
-	$name     = recoverPOST("name", encode($data[0]["Name"]));
-	$gender   = recoverPOST("gender", $data[0]["Gender"]);
-	$birthday = recoverPOST("birthday", $data[0]["Birthday"] !== "" ? $data[0]["Birthday"] : "01/01/1980");
-	$country  = recoverPOST("country", encode($data[0]["Country"]));
-	$city     = recoverPOST("city", encode($data[0]["City"]));
-	$district = recoverPOST("district", encode($data[0]["District"]));
-	$phone    = recoverPOST("phone", $data[0]["Phone"]);
-	$mobile   = recoverPOST("mobile", $data[0]["Mobile"]);
-	$website  = recoverPOST("website", $data[0]["Website"] !== "" ? $data[0]["Website"] : "http://");
+	$name     	= recoverPOST("name", $data[1]["Name"]);
+	$gender   	= recoverPOST("gender", $data[1]["Gender"]);
+	$birthday 	= recoverPOST("birthday", $data[1]["Birthday"] !== "" ? $data[1]["Birthday"] : "01/01/1980");
+	$country  	= recoverPOST("country", $data[1]["Country"]);
+	$city     	= recoverPOST("city", $data[1]["City"]);
+	$district 	= recoverPOST("district", $data[1]["District"]);
+	$phone    	= recoverPOST("phone", $data[1]["Phone"]);
+	$mobile     = recoverPOST("mobile", $data[1]["Mobile"]);
+	$email      = recoverPOST("email", encode($data[1]["Email"]));
+	$subscribed = (boolean) recoverPOST("subscribed", encode($data[1]["Subscribed"]));
+	$website  	= recoverPOST("website", $data[1]["Website"] !== "" ? $data[1]["Website"] : "http://");
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : null;
+			echo isset($alertAbout) ? $alertAbout : null;
 
 			echo formInput(array(
 				"name"      => "name", 
@@ -21,7 +23,7 @@
 				"field"     => __("Full name") ."*", 
 				"p"         => true,
 				"maxlength" => "150",
-				"value"     => encode($name)
+				"value"     => $name
 			));
 
 			$options = array(
@@ -31,6 +33,7 @@
 
 			echo formSelect(array(
 				"name"  => "gender", 
+				"class" => "span3 field-title",
 				"p"     => true, 
 				"field" => __("Gender") ."*"),
 				$options
@@ -58,9 +61,10 @@
 			}
 
 			echo formSelect(array(
-				"name"  => "country", 
-				"p"     => true, 
-				"field" => __("Country") ."*"),
+				"name"   => "country", 
+				"class" => "field-title span3",
+				"p"      => true, 
+				"field"  => __("Country") ."*"),
 				$countries
 			);
 
@@ -74,6 +78,7 @@
 
 			echo formSelect(array(
 				"name"     => "city", 
+				"class"    => "field-title span3",
 				"p"        => true, 
 				"field"    => __("City") ."*",
 				"disabled" => !isset($cities)
@@ -108,8 +113,27 @@
 			));
 
 			echo formInput(array(
+				"name"      => "email", 
+				"class"     => "field-title span3",
+				"field"     => __("E-mail"), 
+				"p"         => true,
+				"maxlength" => "45",
+				"pattern"   => "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$",
+				"value"     => $email
+			));
+
+			echo '<label>';
+
+			echo formCheckbox(array(
+				"name"     => "subscribed",
+				"position" => "right",
+				"text"     => __("Subscribed to our free email newsletters"),
+				"checked"  => $subscribed === true
+			));
+
+			echo formInput(array(
 				"name"      => "website", 
-				"class"     => "field-title field-full-size",
+				"class"     => "field-title field-full-size span3",
 				"field"     => __("Website"),
 				"value"     => $website, 
 				"p"         => true,
@@ -117,7 +141,7 @@
 			));
 
 			echo formInput(array(
-				"name"  => "save", 
+				"name"  => "saveAbout", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"

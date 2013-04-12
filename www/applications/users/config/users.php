@@ -6,4 +6,3 @@ if (!defined("ACCESS")) {
 
 define("BOOTSTRAP", true);
 define("HIDE_RIGHT", true);
-define("SHOW_LEFT", true);

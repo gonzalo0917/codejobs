@@ -1,28 +1,19 @@
-#content {
+.top {
+    margin: 0 auto;
+    width: 30%;
+}
+#contentUsers {
 	box-sizing: border-box;
-	-moz-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
 	display: block;
-	float: none;
-	margin-right: 20px;
-	width: auto;
+	margin: 50px auto 0;
+	max-width: 800px;
 }
-
-#content, .left {
-	margin-left: 10%;
-	margin-top: 40px;
-}
-
-.left {
-	margin-right: 5%;
-}
-
-.left a {
-  color: #0088cc;
-  text-decoration: none;
-}
-.left a:hover {
-  color: #005580;
-  text-decoration: underline;
+.nav a {
+	text-decoration: none;
+	color: #0088cc;
 }
 .resalt {
 	line-height: 1em;
@@ -36,4 +27,12 @@
 }
 .form-add label {
 	margin-bottom: 15px;
+}
+fieldset {
+	width: 98%;
+}
+@media (max-width: 768px), (max-device-width: 768px) {
+    #contentUsers {
+    	padding: 0 3%;
+    }
 }
