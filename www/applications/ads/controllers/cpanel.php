@@ -159,7 +159,7 @@ class CPanel_Controller extends ZP_Load
 			$this->login();
 		}
 
-		$this->helper("forms");
+		$this->helper(array("forms", "time"));
 		$this->title("Add");		
 		$this->CSS("forms", "cpanel");
 		
@@ -170,6 +170,8 @@ class CPanel_Controller extends ZP_Load
 		} elseif (POST("cancel")) {
 			redirect("cpanel");
 		}
+
+		$this->js("jquery.jdpicker.js");
 
 		$this->vars["view"] = $this->view("add", true, $this->application);
 		

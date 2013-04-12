@@ -102,6 +102,7 @@ $phrase["remove"]										= "Borrar";
 $phrase["requirements"]									= "Requisitos";
 $phrase["results_for"]								    = "Resultados para";
 $phrase["experience"]									= "Experiencia";
+$phrase["expiration_date"]								= "Fecha límite";
 $phrase["activities"]									= "Actividades";
 $phrase["points"]										= "Puntos";
 $phrase["profile"]										= "Perfil";
