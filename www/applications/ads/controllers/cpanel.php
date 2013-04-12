@@ -160,7 +160,7 @@ class CPanel_Controller extends ZP_Load
 		}
 
 		$this->helper(array("forms", "time"));
-		$this->title("Add");		
+		$this->title(__("Add"));		
 		$this->CSS("forms", "cpanel");
 		
 		$this->vars["alert"] = false;
@@ -186,7 +186,7 @@ class CPanel_Controller extends ZP_Load
 				
 		$ID = ($ID == 0) ? (int) POST("ID") : (int) $ID;
 
-		$this->title("Edit");
+		$this->title(__("Edit"));
 		
 		$this->CSS("forms", "cpanel");		
 		
@@ -200,6 +200,7 @@ class CPanel_Controller extends ZP_Load
 	
 		if ($data) {
 			$this->helper(array("forms", "debugging"));
+			$this->js("jquery.jdpicker.js");
 
 			$this->vars["data"] = $data;				
 			$this->vars["view"] = $this->view("add", true, $this->application);
