@@ -245,6 +245,7 @@ header #topbar nav ul li a {
 header #topbar nav ul li:first-child {
 	display: none;
 }
+
 header #topbar nav ul li a:hover, header ul li a.current {
     background: none repeat scroll 0 0 #CC2A2A;
 }
@@ -538,6 +539,10 @@ header #top-box, .top-box-ul {
 header #top-box .top-box-ul li {
 	vertical-align: top;
 	display: inline-block;
+}
+
+header #top-box .top-box-ul #search-nav {
+	display: inline;
 }
 
 #top-box ul {

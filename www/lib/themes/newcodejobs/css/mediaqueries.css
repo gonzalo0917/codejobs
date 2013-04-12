@@ -1104,8 +1104,17 @@
 		margin-left: 0;
 		width: 100%;
 	}
-	#seach-nav #seach {
+	#search-nav #search {
 		display: none;
+	}
+	
+	#search-app {
+		border-radius: 0;
+	}
+
+	#search-term {
+		width: 165px;
+		border-radius: 0;
 	}
 
 	header #topbar-wrapper {
@@ -1208,6 +1217,7 @@
 	header #topbar nav ul li a {
 		border-radius: 0;
 	}
+
 	header #topbar nav ul li:first-child {
 		display: block;
 	}
@@ -1217,6 +1227,7 @@
 		padding: 5px 5px 5px 32px;
 		text-align: left;
 	}
+
 	header #topbar nav ul:hover li {
 		display: block;
 		margin: 0 0 3px;
