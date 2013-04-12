@@ -150,7 +150,6 @@ class CPanel_Controller extends ZP_Load
 		$this->vars["trash"] = $trash;	
 		$this->vars["search"] = getSearch(); 			
 		$this->vars["view"] = $this->view("results", true, $this->application);
-		
 		$this->render("content", $this->vars);
 	}
 	
