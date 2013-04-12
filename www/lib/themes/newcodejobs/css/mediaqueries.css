@@ -1217,6 +1217,7 @@
 	header #topbar nav ul li a {
 		border-radius: 0;
 	}
+
 	header #topbar nav ul li:first-child {
 		display: block;
 	}
@@ -1226,6 +1227,7 @@
 		padding: 5px 5px 5px 32px;
 		text-align: left;
 	}
+
 	header #topbar nav ul:hover li {
 		display: block;
 		margin: 0 0 3px;
