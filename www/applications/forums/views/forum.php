@@ -8,7 +8,7 @@ $rand2 = rand(6, 10);
 ?>
 <div id="fposts">
 <ul class="breadcrumb">
-	<li><a href="<?php echo path("forums"); ?>">Forums</a> <span class="divider">></span></li>
+	<li><a href="<?php echo path("forums"); ?>"> <?php echo __("Forums"); ?></a> <span class="divider">></span></li>
 	<li class="active"><?php echo ucfirst(str_replace("-", " ", $forum)); ?></li>
 </ul>
 <?php
@@ -80,6 +80,10 @@ if (SESSION("ZanUser")) {
 		</form>
 	</div>
 <?php 
+} else {
+?>
+	<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to create a topic'); ?></div>
+<?php	
 }
 echo $ckeditor;
 ?>
