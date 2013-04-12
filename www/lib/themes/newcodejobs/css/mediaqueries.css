@@ -1104,8 +1104,17 @@
 		margin-left: 0;
 		width: 100%;
 	}
-	#seach-nav #seach {
+	#search-nav #search {
 		display: none;
+	}
+	
+	#search-app {
+		border-radius: 0;
+	}
+
+	#search-term {
+		width: 165px;
+		border-radius: 0;
 	}
 
 	header #topbar-wrapper {
