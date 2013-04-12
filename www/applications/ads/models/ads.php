@@ -11,7 +11,7 @@ class Ads_Model extends ZP_Load
 		$this->Db = $this->db();
 			
 		$this->table  = "ads";
-		$this->fields = "ID_Ad, Title, Position, Banner, Code, Time, URL, Principal, Situation";
+		$this->fields = "ID_Ad, Title, Position, Banner, Time, URL, Principal, End_Date, Situation";
 		
 		$this->Data = $this->core("Data");
 	}
@@ -69,10 +69,12 @@ class Ads_Model extends ZP_Load
 
 		$this->helper(array("alerts", "time", "files"));
 
+		$date_parts = explode("/", POST("end_date"));
+
 		$data = array(
 			"ID_User"    => SESSION("ZanUserID"),
 			"Start_Date" => now(4),
-			"End_Date"   => now(4) + 2419200
+			"End_Date"   => mktime(23, 59, 59, $date_parts[1], $date_parts[0], $date_parts[2])
 		);
 
 		if ($action === "edit") {

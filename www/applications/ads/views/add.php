@@ -9,7 +9,7 @@
 	$URL       = isset($data) ? recoverPOST("URL", $data[0]["URL"]) : "http://";
 	$time 	   = isset($data) ? recoverPOST("time", $data[0]["Time"]) : recoverPOST("time");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
-	$end_date  = isset($data) ? recoverPOST("end_date", $data[0]["End_Date"]) : recoverPOST("end_date", now(1));
+	$end_date  = isset($data) ? recoverPOST("end_date", date("d/m/Y", $data[0]["End_Date"])) : recoverPOST("end_date", now(true));
 	$principal = isset($data) ? recoverPOST("principal", $data[0]["Principal"]) : recoverPOST("principal");
 	$edit      = isset($data) ? true : false;	
 	$action	   = isset($data) ? "edit" : "save";
