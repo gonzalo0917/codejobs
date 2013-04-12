@@ -363,13 +363,26 @@
 		z-index: 2;
 		margin-left: 23.5%;
 	}*/
+	
+	header #wrapper article:first-child {
+		width: auto;
+	}
+	
+	header #wrapper article:last-child {
+		width: 55%;
+		float: right;
+	}
+
+	header #wrapper article:last-child nav ul {
+		width: 100%;
+	}
 
 	header #topbar {
 		max-width: 1024px;
 	}
 	
 	header #topbar nav ul{
-		padding-left: 2.5%;
+		//padding-left: 2.5%;
 	}
 	/*header #topbar nav ul {
 		margin-left: -30px !important;
@@ -473,15 +486,19 @@
 		padding-left: -2.5%;
 	}
 
-	header #wrapper article:first-child,
-	header #wrapper article:last-child {
-		width: 100%;
-	}
-
-	header #wrapper nav ul {
-		float: left;
+	header #wrapper article:first-child {
+		width: auto;
 	}
 	
+	header #wrapper article:last-child {
+		width: 55%;
+		float: right;
+	}
+
+	/*header #wrapper nav ul {
+		float: left;
+	}
+	*/
 	/*header #topbar {
 		max-width: 1024px;
 	}
@@ -561,6 +578,9 @@
 		margin-left: 9.5%;
 		margin-top: 15.5%;
 	}*/
+	header #wrapper {
+		width: 100%;
+	}
 
 	header #topbar {
 		max-width: 100%;
@@ -665,6 +685,11 @@
 		margin: 0px;
 		padding: 0px;
 	}*/
+	header #wrapper article:first-child,
+	header #wrapper article:last-child {
+		width: 100%;
+	}
+
 	header #topbar nav ul a {	
 		font-size: 1.2em;	
 	}
@@ -874,7 +899,7 @@
 		//width: 460px;
 		float: left;
 		margin-top: 10px;
-		margin-left: -40px;
+		margin-left: 2.5%;
 	}
 
 	header #wrapper nav ul {
@@ -1078,6 +1103,9 @@
 	header #wrapper {
 		margin-left: 0;
 		width: 100%;
+	}
+	#seach-nav #seach {
+		display: none;
 	}
 
 	header #topbar-wrapper {

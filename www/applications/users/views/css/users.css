@@ -31,14 +31,8 @@
 fieldset {
 	width: 98%;
 }
-/*@media (max-width: 768px), (max-device-width: 768px) {
+@media (max-width: 768px), (max-device-width: 768px) {
     #contentUsers {
-    	width: 95%;
-		border: 1px solid red;
+    	padding: 0 3%;
     }
 }
-@media (max-width: 480px), (max-device-width: 480px) {
-    #contentUsers {
-    	width: 90%;
-    }
-}*/

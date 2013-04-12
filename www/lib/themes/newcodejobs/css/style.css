@@ -253,6 +253,7 @@ header #wrapper {
 	width: 80%;
 	margin: 0 auto;
 	margin-top: 20px;
+	overflow: hidden;
 }
 header #wrapper article {
 	vertical-align: top;

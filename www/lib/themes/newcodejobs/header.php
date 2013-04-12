@@ -209,11 +209,14 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 								  	<option value="codes"><?php echo __("Codes"); ?></option>
 								  	<option value="bookmarks"><?php echo __("Bookmarks"); ?></option>								  	
 								</select> 
-
-							  	<input id="search-term" class="span2" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
-							  	<input id="search-app-hidden" type="hidden">
-							  	<input id="search-term-hidden" type="hidden">
-							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>
+								
+								<form id="search-nav">
+							  		<input id="search-term" class="span2" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
+							  		<input id="search-app-hidden" type="hidden">
+							  		<input id="search-term-hidden" type="hidden">
+							  		<!--<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>-->
+							  		<input type="submit" id="search" class="btn btn-inverse" style="margin-top: 2px;"><?php echo __("Search"); ?>/>
+							  	</form>
 							</div> 
 						</li>
 						<li class="">

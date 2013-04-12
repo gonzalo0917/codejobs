@@ -70,12 +70,18 @@ a.btn, a.btn:focus {
 .add-form {
     width: 100% !important;
 }
+input[name=skills] {
+    width: 97%;
+}
 input[name=actionSummary] {
     display: block;
     margin-bottom: 20px;
 }
 i {
     margin-left: 5px;
+}
+.show-section {
+    width: 100%;
 }
 .show-section h3 {
     border: 1px solid #E3E3E3;
@@ -116,7 +122,14 @@ i {
 }
 .show-section > div {
     display: none;
+    width: 100%;
 }
-@media (max-width: 1366px), (max-device-width: 1366px) {
+@media (max-width: 320px), (max-device-width: 320px) {
+    #expand {
+        margin-bottom: 10px;
+    }
     
+    #expand, #collapse {
+        width: 90%;
+    }
 }
