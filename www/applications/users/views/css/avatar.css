@@ -35,7 +35,7 @@ div.avatar-image {
 	margin: 0 auto;
 	padding: 10px;
 	position: relative;
-	width: 275px;
+	width: auto;
 }
 
 div.marker {

@@ -3,22 +3,13 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alert) ? $alert : null;
+			echo isset($alertPassword) ? $alertPassword : null;
 
 			echo formInput(array(
 				"type"  => "hidden",
 				"name"  => "username",
 				"p"     => false,
 				"value" => SESSION("ZanUser")
-			));
-
-			echo formInput(array(
-				"type"      => "password",
-				"name"      => "prev_password", 
-				"class"     => "field-title span4",
-				"field"     => __("Previous Password"), 
-				"p"         => true,
-				"maxlength" => "40"
 			));
 
 			echo formInput(array(
@@ -40,7 +31,7 @@
 			));
 
 			echo formInput(array(
-				"name"  => "save", 
+				"name"  => "savePassword", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"
