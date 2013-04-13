@@ -162,6 +162,7 @@ class CPanel_Controller extends ZP_Load
 		$this->helper(array("forms", "time"));
 		$this->title(__("Add"));		
 		$this->CSS("forms", "cpanel");
+		$this->CSS("add", $this->application);
 		
 		$this->vars["alert"] = false;
 		
@@ -172,6 +173,7 @@ class CPanel_Controller extends ZP_Load
 		}
 
 		$this->js("jquery.jdpicker.js");
+		$this->js("add.js", $this->application);
 
 		$this->vars["view"] = $this->view("add", true, $this->application);
 		
@@ -189,6 +191,7 @@ class CPanel_Controller extends ZP_Load
 		$this->title(__("Edit"));
 		
 		$this->CSS("forms", "cpanel");		
+		$this->CSS("add", $this->application);
 		
 		if (POST("edit")) {
 			$this->vars["alert"] = $this->{"$this->Model"}->cpanel("edit");
@@ -199,8 +202,9 @@ class CPanel_Controller extends ZP_Load
 		$data = $this->{"$this->Model"}->getByID($ID);
 	
 		if ($data) {
-			$this->helper(array("forms", "debugging"));
+			$this->helper(array("forms", "debugging", "time"));
 			$this->js("jquery.jdpicker.js");
+			$this->js("add.js", $this->application);
 
 			$this->vars["data"] = $data;				
 			$this->vars["view"] = $this->view("add", true, $this->application);

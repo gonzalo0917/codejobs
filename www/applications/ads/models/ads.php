@@ -69,17 +69,24 @@ class Ads_Model extends ZP_Load
 
 		$this->helper(array("alerts", "time", "files"));
 
-		$date_parts = explode("/", POST("end_date"));
+		if (POST("date") === "never") {
+			$end_date = 0;
+		} else {
+			$date_parts = explode("/", POST("end_date"));
+			$end_date = mktime(23, 59, 59, $date_parts[1], $date_parts[0], $date_parts[2]);
+		}
 
 		$data = array(
 			"ID_User"    => SESSION("ZanUserID"),
 			"Start_Date" => now(4),
-			"End_Date"   => mktime(23, 59, 59, $date_parts[1], $date_parts[0], $date_parts[2])
+			"End_Date"   => $end_date
 		);
 
 		if ($action === "edit") {
 			$this->Data->ignore("banner");
 		}
+
+		$this->Data->ignore("date");
 
 		$this->data = $this->Data->process($data, $validations);
 

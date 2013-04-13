@@ -27,7 +27,7 @@ $j = 2;
 			<th>&nbsp;</th>
 			<th>ID</th>
 			<th><?php echo __("Title"); ?></th>
-			<th><?php echo __("Expiration date"); ?></th>
+			<th><?php echo __("End date"); ?></th>
 			<th><?php echo __("Banner"); ?></th>
 			<th><?php echo __("Principal"); ?></th>
 			<th><?php echo __("Situation"); ?></th>
@@ -71,7 +71,13 @@ $j = 2;
 					</td>
 								
 					<td class="center">
-						<?php echo date("d/m/Y", $column["End_Date"]); ?>
+						<?php
+							if ($column["End_Date"]) {
+								echo date("d/m/Y", $column["End_Date"]);
+							} else {
+								echo __("Never");
+							}
+						?>
 					</td>
 								
 					<?php

@@ -9,7 +9,8 @@
 	$URL       = isset($data) ? recoverPOST("URL", $data[0]["URL"]) : "http://";
 	$time 	   = isset($data) ? recoverPOST("time", $data[0]["Time"]) : recoverPOST("time");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
-	$end_date  = isset($data) ? recoverPOST("end_date", date("d/m/Y", $data[0]["End_Date"])) : recoverPOST("end_date", now(true));
+	$date      = isset($data) ? ($data[0]["End_Date"] ? "date" : "never") : recoverPOST("date", "date");
+	$end_date  = isset($data) ? recoverPOST("end_date", ($data[0]["End_Date"] ? date("d/m/Y", $data[0]["End_Date"]) : now(true))) : recoverPOST("end_date", now(true));
 	$principal = isset($data) ? recoverPOST("principal", $data[0]["Principal"]) : recoverPOST("principal");
 	$edit      = isset($data) ? true : false;	
 	$action	   = isset($data) ? "edit" : "save";
@@ -90,15 +91,50 @@
 
 			$months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
 
-			echo formInput(array(
-				"type"  => "text",
-				"name" 	=> "end_date", 
-				"class" => "span3 required jdpicker", 
-				"field" => __("Expiration date"), 
-				"p" 	=> true, 
-				"value" => $end_date,
-				"data-options" => '{"date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
-			));
+			echo p(true, "");
+
+				echo span("field", "&raquo; ". __("End date"));
+
+				echo br();
+
+				echo '<label class="date_option">';
+
+					echo formInput(array(
+						"id"      => "date",
+						"checked" => ($date === "date"),
+						"type"    => "radio",
+						"name"    => "date",
+						"value"   => "date",
+						"p"       => false
+					));
+
+				echo '</label>';
+
+					echo formInput(array(
+						"type"  => "text",
+						"name" 	=> "end_date", 
+						"class" => "span3 required jdpicker",
+						"p" 	=> false, 
+						"value" => $end_date,
+						"data-options" => '{"placeholder": "'. date("d/m/Y") .'", "date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
+					));
+
+				echo '<label class="date_option">';
+
+					echo formInput(array(
+						"id"   => "never",
+						"checked" => ($date === "never"),
+						"type" => "radio",
+						"name" => "date",
+						"value" => "never",
+						"p"    => false
+					));
+
+					echo __("Never");
+
+				echo '</label>';
+
+			echo p(false);
 
 			echo formSelect(array(
 				"name" 	=> "situation", 

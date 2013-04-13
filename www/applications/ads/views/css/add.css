@@ -1,0 +1,17 @@
+.jdpicker_w {
+	margin-right: 5%;
+}
+
+.jdpicker[readonly] {
+	background-color: #fff;
+	cursor: default;
+}
+
+.jdpicker_w, .date_option {
+	display: inline;
+}
+
+.jdpicker, .date_option input {
+	margin: 0 !important;
+	vertical-align: middle;
+}
