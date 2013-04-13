@@ -14,7 +14,7 @@
 				<p><input type="password" /></p> \
 			</div> \
 			<div class="modal-footer"> \
-				<button class="btn btn-danger" onclick="requestPasswordAccepted()">' + acceptLabel + '</button> \
+				<button id="doChangePassword" class="btn btn-danger">' + acceptLabel + '</button> \
 				<button class="btn" data-dismiss="modal" aria-hidden="true">' + cancelLabel + '</button> \
 			</div> \
 		</div> \
@@ -37,7 +37,7 @@
 		$("#request-password input").val("");
 	});
 
-	function requestPasswordAccepted() {
+	$('#doChangePassword').on('click', function() {
 		if($("#request-password input").val().length > 0) {
 			$("#request-password").modal("hide");
 			$('<input name="password" type="hidden" value="' + $("#request-password input").val() + '" />').appendTo($form.find("fieldset"));
@@ -46,5 +46,5 @@
 		} else {
 			$("#request-password input").focus();
 		}
-	}
+	})
 }(jQuery, window, document);

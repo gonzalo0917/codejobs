@@ -726,6 +726,7 @@ class Users_Model extends ZP_Load
 			return $this->data["error"];
 		}
 
+		var_dump($this->data);
 		if ($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
 			SESSION("ZanUserName", POST("name"));
 			return getAlert(__("The information has been saved correctly"), "success");	
@@ -737,8 +738,8 @@ class Users_Model extends ZP_Load
 	public function changePassword()
 	{
 		$this->data = $this->Data->process(null, array(
-			"password" 		  => "required",
-			"new_password" 	  => "length:6",
+			"password" => "required",
+			"new_password" => "length:6",
 			"re_new_password" => "length:6"
 		));
 

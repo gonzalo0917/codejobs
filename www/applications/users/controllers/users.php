@@ -551,9 +551,6 @@ class Users_Controller extends ZP_Load
 
 			$dataSocial = $this->Users_Model->getSocial();
 
-			$data = array_push_after($dataAvatar,$dataAbout,1);
-			$data = array_push_after($data,$dataSocial,1);
-
 			$this->helper("alerts");
 			$this->Configuration_Model = $this->model("Configuration_Model");
 			$this->Cache = $this->core("Cache");
@@ -561,8 +558,10 @@ class Users_Controller extends ZP_Load
 			/* Avatar */
 			if (POST("deleteAvatar")) {
 				$vars["alertAvatar"] = $this->Users_Model->deleteAvatar();
+				$dataAvatar  = $this->Users_Model->getAvatar();
 			} elseif (POST("saveAvatar")) {
 				$vars["alertAvatar"] = $this->Users_Model->saveAvatar();
+				$dataAvatar  = $this->Users_Model->getAvatar();
 			} elseif (POST("nosupport")) {
 				$user = SESSION("ZanUser");
 				if (isset($_FILES['avatar']) and $user) {
@@ -608,10 +607,13 @@ class Users_Controller extends ZP_Load
 						}
 					}
 				}
+				$dataAvatar  = $this->Users_Model->getAvatar();
 			}
 			
 			if (POST("saveAbout")) {
 				$vars["alertAbout"] = $this->Users_Model->saveInformation();
+				$dataAbout = $this->Users_Model->getInformation();
+
 			}
 
 			/* About */
@@ -626,6 +628,12 @@ class Users_Controller extends ZP_Load
 			
 			if (POST("saveSocial")) {
 				$vars["alertSocial"] = $this->Users_Model->saveSocial();
+				$dataSocial = $this->Users_Model->getSocial();
+			}
+
+			if (POST("savePassword")) {
+				$this->helper("alerts");
+				$vars["alertPassword"] = $this->Users_Model->changePassword();
 			}
 
 			/* CV */
@@ -645,6 +653,9 @@ class Users_Controller extends ZP_Load
 			$this->css("avatar", $this->application); /* Avatar */
 			$this->js("jquery.jcrop.js");
 			$this->js("avatar", $this->application);
+
+			$this->js("bootstrap"); /* Password */
+			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
 			if (POST("actionSummary")) {
 				$action = ((int) POST("ID_Summary") !== 0 and $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
@@ -669,6 +680,10 @@ class Users_Controller extends ZP_Load
 				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
 				$skills = $this->Users_Model->getSkills();
 			}
+
+
+			$data = array_push_after($dataAvatar,$dataAbout,1);
+			$data = array_push_after($data,$dataSocial,1);
 
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["summary"] = $summary;

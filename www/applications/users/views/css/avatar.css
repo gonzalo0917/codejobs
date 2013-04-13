@@ -29,16 +29,13 @@ p.size {
 	margin-top: -5px;
 }
 
-#avatar-container {
-	max-width: auto;
-}
 div.avatar-image {
 	background-color: white;
 	display: inline-block;
 	margin: 0 auto;
 	padding: 10px;
 	position: relative;
-	width: auto: ;
+	width: auto;
 }
 
 div.marker {
