@@ -721,15 +721,26 @@ class Users_Model extends ZP_Load
 		);
 
 		$this->data = $this->Data->process(null, $validations);
-
-		$this->data["Subscribed"] = (POST("Subscribed") == "on" ? 1 : 0);
 		
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 
-		var_dump($this->data);
-		if ($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
+		$data = array(
+			'Name' => POST('name'),
+			'Gender' => POST('gender'),
+			'Birthday' => POST('birthday'),
+			'Country' => POST('country'),
+			'City' => POST('state'),
+			'District' => POST('city'),
+			'Phone' => POST('phone'),
+			'Mobile' => POST('mobile'),
+			'Email' => POST('email'),
+			'Subscribed' => POST("subscribed") == "on" ? 1 : 0,
+			'Website' => POST('website')
+		);
+
+		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 			SESSION("ZanUserName", POST("name"));
 			return getAlert(__("The information has been saved correctly"), "success");	
 		}

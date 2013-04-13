@@ -484,6 +484,7 @@ $phrase["sort_descending"]								= "Ordenar descendentemente";
 $phrase["spain"]										= "España";
 $phrase["spanish"] 	 									= "Español";
 $phrase["sponsors"]										= "Patrocinadores";
+$phrase["state"]										= "Estado";
 $phrase["stylesheet"]									= "Hoja de estilo";
 $phrase["subject"]										= "Asunto";
 $phrase["submit_my_proposal"]                           = "Enviar mi propuesta";
