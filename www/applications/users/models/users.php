@@ -727,7 +727,7 @@ class Users_Model extends ZP_Load
 		}
 
 		$data = array(
-			'Name' => POST('name'),
+			'Name' => utf8_decode(POST('name')),
 			'Gender' => POST('gender'),
 			'Birthday' => POST('birthday'),
 			'Country' => POST('country'),
@@ -740,6 +740,7 @@ class Users_Model extends ZP_Load
 			'Website' => POST('website')
 		);
 
+		var_dump($data);
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 			SESSION("ZanUserName", POST("name"));
 			return getAlert(__("The information has been saved correctly"), "success");	
