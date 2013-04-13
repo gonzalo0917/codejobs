@@ -333,6 +333,7 @@ $phrase["my_courses"]  									= "Mis cursos";
 $phrase["my_jobs"]  									= "Mis empleos";
 $phrase["my_points"]  									= "Mis puntos";
 $phrase["my_posts"]  									= "Mis publicaciones";
+$phrase["my_profile"]									= "Mi perfil";
 $phrase["my_vacancies"]  								= "Mis vacantes";
 $phrase["name"]								  			= "Nombre";
 $phrase["name_of_the_website"] 							= "Nombre del Sitio Web";
