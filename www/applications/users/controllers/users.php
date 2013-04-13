@@ -543,7 +543,7 @@ class Users_Controller extends ZP_Load
 			$dataAvatar  = $this->Users_Model->getAvatar();
 			
 			$dataAbout = $this->Users_Model->getInformation();
-
+			
 			$summary = $this->Users_Model->getSummary();
 			$experiences = $this->Users_Model->getExperiences();
 			$education = $this->Users_Model->getEducation();
@@ -625,7 +625,7 @@ class Users_Controller extends ZP_Load
 					"value" => $country["Country"]
 				);
 			}
-			
+
 			if (POST("saveSocial")) {
 				$vars["alertSocial"] = $this->Users_Model->saveSocial();
 				$dataSocial = $this->Users_Model->getSocial();
@@ -699,6 +699,19 @@ class Users_Controller extends ZP_Load
 			$vars["href"] = path("users/cv/");
 
 			$this->title("Curriculum Vitae");
+
+			if ($country = recoverPOST("country", encode($vars["data"][1]["Country"]))) {
+				$list_of_states = $this->Cache->data("$country-states", "world", $this->Configuration_Model, "getStates", array($country), 86400);
+
+				foreach ($list_of_states as $state) {
+					$states[] = array(
+						"option" => $state["District"],
+						"value" => $state["District"]
+					);
+				}
+
+				$vars["states"] = $states;
+			}
 
 			$this->render("content", $vars);
 		} else {

@@ -1,12 +1,12 @@
 !function($) {
 	$("select[name='country']").change(function () {
-		var $city, $obj;
+		var $state, $obj;
 
-		$city = $("select[name='city']");
+		$state = $("select[name='state']");
 		$obj  = $("select[name='country']");
 
-		$city.attr('disabled', true);
-		$city.empty();
+		$state.attr('disabled', true);
+		$state.empty();
 
 		if ($obj.val() !== "") {
 			$obj.attr('disabled', true);
@@ -15,10 +15,10 @@
 				dataType: "json",
 				success: function (data) {
 					$.each(data, function(val, text) {
-					    $city.append(new Option(text, val));
+					    $state.append(new Option(text, val));
 					});
 
-					$city.attr('disabled', false);
+					$state.attr('disabled', false);
 					$obj.attr('disabled', false);
 				},
 				error: function () {

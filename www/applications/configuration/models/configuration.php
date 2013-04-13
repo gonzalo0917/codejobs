@@ -75,7 +75,7 @@ class Configuration_Model extends ZP_Load
 		return $this->Db->findAll("world", "DISTINCT Country", null, "Country ASC");
 	}
 
-	public function getCities($country)
+	public function getStates($country)
 	{
 		return $this->Db->findBy("Country", $country, "world", "District", null, "District ASC");
 	}

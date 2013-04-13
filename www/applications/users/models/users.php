@@ -153,12 +153,12 @@ class Users_Model extends ZP_Load
 		if ($action === "save") {
 			$data = array(
 				'ID_User' => SESSION("ZanUserID"),
-				'Summary' => POST("summary"),
+				'Summary' => addslashes(htmlspecialchars(recoverPOST("summary"))),
 				'Last_Updated' => now(4)
 			);
 		} else {
 			$data = array(
-				'Summary' => POST("summary"),
+				'Summary' => addslashes(htmlspecialchars_decode(recoverPOST("summary"))),
 				'Last_Updated' => now(4)
 			);
 		}
@@ -722,6 +722,8 @@ class Users_Model extends ZP_Load
 
 		$this->data = $this->Data->process(null, $validations);
 
+		$this->data["Subscribed"] = (POST("Subscribed") == "on" ? 1 : 0);
+		
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
@@ -1063,6 +1065,7 @@ class Users_Model extends ZP_Load
 			return getAlert(__("Insert error"));
 
 		} elseif ($action === "edit") {
+
 			return $this->editSummary($data);
 		}
 	}
