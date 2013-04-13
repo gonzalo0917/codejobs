@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+	window.loadCalendar = function() {
+		$('.jdpicker').each(function(){
+			if ($(this).parent('div').attr('class') != "jdpicker_w") {
+	        	$(this).jdPicker();
+	    	}
+	    });
+	}
+
 	$('.editor').each(function(e){
         CKEDITOR.replace($(this).attr('id'), {
 					toolbar: [

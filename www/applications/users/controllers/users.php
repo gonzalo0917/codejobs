@@ -645,8 +645,8 @@ class Users_Controller extends ZP_Load
 			$this->css("users", $this->application);
 			$this->css("cv", $this->application);
 
-			$this->js("jquery.jdpicker.js");
 			$this->js("cv", $this->application);
+			$this->js("jquery.jdpicker.js");
 
 			$this->js("about", $this->application); /* about */
 

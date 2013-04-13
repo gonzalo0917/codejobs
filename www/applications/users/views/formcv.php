@@ -361,7 +361,7 @@
     echo htmlTag("div", false);
 ?>
 <script type="text/javascript">
-function CvExperience($scope) {
+function CvExperience($scope) {    
     $scope.experiences = [
         <?php
         for ($experience = 0; $experience < count($experiences); $experience++) {
@@ -374,7 +374,8 @@ function CvExperience($scope) {
                 periodfrom: "<?php print recoverPOST("periodfrom$experience", $experiences[$experience]["Period_From"]); ?>",
                 periodto: "<?php print recoverPOST("periodto$experience", $experiences[$experience]["Period_To"]); ?>",
                 description: "<?php print removeBreaklines(htmlspecialchars_decode(recoverPOST('description$experience', $experiences[$experience]['Description']))); ?>"
-            } <?php print $experience < (count($experiences) - 1) ? ',' : '';
+            }
+            <?php print $experience < (count($experiences) - 1) ? ',' : '';
         }
         ?>
     ];
@@ -383,16 +384,23 @@ function CvExperience($scope) {
         var index = $scope.experiences.length;
 
         $scope.experiences.push({
-            idexperience: "", company: "", title: "", location: "", periodfromdos: "", periodtodos: "", description: ""
+            idexperience: "", company: "", title: "", location: "", periodfrom: "", periodto: "", description: ""
         });
 
         window.setTimeout(function () {
+            window.load = loadCalendar();
             $('html, body').animate({
                 scrollTop: $("#company" + ($scope.experiences.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
                 $("#company" + ($scope.experiences.length - 1)).focus();
             });
         }, 0);
+
+        /*var elements = document.getElementsByClassName('jdpicker');
+
+        for (var i = 0; i <= elements.length; i++) {
+            console.log(elements[i].id);
+        }*/
     };
 
     $scope.removeExperience = function (index) {
@@ -430,6 +438,8 @@ function CvEducation($scope) {
         });
 
         window.setTimeout(function () {
+            window.load = loadCalendar();
+        
             $('html, body').animate({
                 scrollTop: $("#nameschool" + ($scope.education.length - 1)).parent().parent().offset().top - 10
             }, 1000, function () {
@@ -445,7 +455,6 @@ function CvEducation($scope) {
             }
         }
     };
-    //Configurar addschool y removeschool para que se utilicen para en school y experience
 
 }
 </script>
