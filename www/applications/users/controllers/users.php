@@ -682,8 +682,8 @@ class Users_Controller extends ZP_Load
 			}
 
 
-			$data = array_push_after($dataAvatar,$dataAbout,1);
-			$data = array_push_after($data,$dataSocial,1);
+			$data = arrayPushAfter($dataAvatar,$dataAbout,1);
+			$data = arrayPushAfter($data,$dataSocial,1);
 
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["summary"] = $summary;
