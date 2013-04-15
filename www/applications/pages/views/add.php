@@ -30,7 +30,8 @@
 
 			echo formTextarea(array(
 				"id"    => "editor", 
-				"name"  => "content", 
+				"name"  => "content",
+				"class" => "span10 required", 
 				"style" => "height: 400px;", 
 				"field" => __("Content"), 
 				"p"     => true, 
@@ -83,7 +84,7 @@
 				$options
 			);
 
-			echo formSave($action);
+			echo formAction($action);
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
 	echo div(false);
