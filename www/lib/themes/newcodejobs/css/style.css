@@ -199,15 +199,17 @@ header #topbar {
 }
 
 header #topbar #top-box {
-
+	float: left;
+	width: 550px !important;
 }
 
 header #topbar nav {
 	float: left;
+	width: 600px;
 }
 
 header #topbar nav ul {
-	width: 500px;
+	width: 400px;
 	margin: 0px;
 	padding: 0px;
 }
