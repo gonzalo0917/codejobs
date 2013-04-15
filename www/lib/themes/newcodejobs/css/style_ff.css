@@ -200,8 +200,8 @@ header #topbar {
 
 header #topbar #top-box {
 	float: left;
-	width: 570px !important;
-	margin-left: 50px;
+	width: 580px !important;
+	margin-left: 30px;
 }
 
 header #topbar nav {
