@@ -293,6 +293,8 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 						<li><a href="<?php echo path("$application/tag/zanphp"); ?>">ZanPHP</a></li>
 					</ul>
 				</nav>
+
+				<div class="clear"></div>
 			</div>
 		<?php
 			}
