@@ -552,9 +552,10 @@ header #top-box .top-box-ul #search-nav {
 #top-box ul li a:hover {
 	color: #3cafd4;
 }
+
 #top-box-languages {
 	border: 1px solid #000;
-	width: 103px;
+	width: 120px;
 	height: auto;
 	position: absolute;
 	top: 32px;
