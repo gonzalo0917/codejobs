@@ -201,6 +201,7 @@ header #topbar {
 header #topbar #top-box {
 	float: left;
 	width: 550px !important;
+	margin-left: 50px;
 }
 
 header #topbar nav {
