@@ -124,6 +124,10 @@ class CPanel_Controller extends ZP_Load
 
 		$this->title("Add");
 		$this->CSS("forms", "cpanel");
+		$this->CSS("add", "pages");
+		$this->CSS("codemirror");
+		$this->js("codemirror", "php");
+		$this->js("add", "pages");
 		$this->vars["alert"] = false;
 		$Model = ucfirst($this->application) ."_Model";
 		$this->$Model = $this->model($Model);
@@ -146,6 +150,10 @@ class CPanel_Controller extends ZP_Load
 		}
 
 		$this->CSS("forms", "cpanel");
+		$this->CSS("add", "pages");
+		$this->CSS("codemirror");
+		$this->js("codemirror", "php");
+		$this->js("add", "pages");
 
 		if ((int) $ID === 0) { 
 			redirect($this->application ."/cpanel/results");
