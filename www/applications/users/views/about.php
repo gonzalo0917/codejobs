@@ -5,8 +5,8 @@
 	$gender   	= recoverPOST("gender", $data[1]["Gender"]);
 	$birthday 	= recoverPOST("birthday", $data[1]["Birthday"] !== "" ? $data[1]["Birthday"] : "01/01/1980");
 	$country  	= recoverPOST("country", $data[1]["Country"]);
-	$city     	= recoverPOST("city", $data[1]["City"]);
-	$district 	= recoverPOST("district", $data[1]["District"]);
+	$state     	= recoverPOST("city", $data[1]["City"]);
+	$city 		= recoverPOST("district", $data[1]["District"]);
 	$phone    	= recoverPOST("phone", $data[1]["Phone"]);
 	$mobile     = recoverPOST("mobile", $data[1]["Mobile"]);
 	$email      = recoverPOST("email", encode($data[1]["Email"]));
@@ -68,30 +68,29 @@
 				$countries
 			);
 
-			if (isset($cities)) {
-				$city_index = array_search(array("option" => $city, "value" => $city), $cities);
+			if (isset($states)) {
+				$state_index = array_search(array("option" => $state, "value" => $state), $states);
 
-				if ($city_index !== false) {
-					$cities[$city_index]["selected"] = true;
+				if ($state_index !== false) {
+					$states[$state_index]["selected"] = true;
 				}
 			}
 
 			echo formSelect(array(
-				"name"     => "city", 
+				"name"     => "state", 
 				"class"    => "field-title span3",
 				"p"        => true, 
-				"field"    => __("City") ."*",
-				"disabled" => !isset($cities)
-				), isset($cities) ? $cities : array()
+				"field"    => __("State") ."*"
+				), isset($states) ? $states : array()
 			);
 
 			echo formInput(array(
-				"name"      => "district", 
+				"name"      => "city", 
 				"class"     => "field-title span3",
-				"field"     => __("District"), 
+				"field"     => __("City"), 
 				"p"         => true, 
 				"maxlength" => "100",
-				"value"     => $district
+				"value"     => $city
 			));
 
 			echo formInput(array(
@@ -149,3 +148,4 @@
 
 		echo formClose();
 	echo div(false);
+?>

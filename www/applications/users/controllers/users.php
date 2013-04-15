@@ -543,7 +543,7 @@ class Users_Controller extends ZP_Load
 			$dataAvatar  = $this->Users_Model->getAvatar();
 			
 			$dataAbout = $this->Users_Model->getInformation();
-
+			
 			$summary = $this->Users_Model->getSummary();
 			$experiences = $this->Users_Model->getExperiences();
 			$education = $this->Users_Model->getEducation();
@@ -625,7 +625,7 @@ class Users_Controller extends ZP_Load
 					"value" => $country["Country"]
 				);
 			}
-			
+
 			if (POST("saveSocial")) {
 				$vars["alertSocial"] = $this->Users_Model->saveSocial();
 				$dataSocial = $this->Users_Model->getSocial();
@@ -645,8 +645,8 @@ class Users_Controller extends ZP_Load
 			$this->css("users", $this->application);
 			$this->css("cv", $this->application);
 
-			$this->js("jquery.jdpicker.js");
 			$this->js("cv", $this->application);
+			$this->js("jquery.jdpicker.js");
 
 			$this->js("about", $this->application); /* about */
 
@@ -682,8 +682,8 @@ class Users_Controller extends ZP_Load
 			}
 
 
-			$data = array_push_after($dataAvatar,$dataAbout,1);
-			$data = array_push_after($data,$dataSocial,1);
+			$data = arrayPushAfter($dataAvatar,$dataAbout,1);
+			$data = arrayPushAfter($data,$dataSocial,1);
 
 			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
 			$vars["summary"] = $summary;
@@ -699,6 +699,19 @@ class Users_Controller extends ZP_Load
 			$vars["href"] = path("users/cv/");
 
 			$this->title("Curriculum Vitae");
+
+			if ($country = recoverPOST("country", encode($vars["data"][1]["Country"]))) {
+				$list_of_states = $this->Cache->data("$country-states", "world", $this->Configuration_Model, "getStates", array($country), 86400);
+
+				foreach ($list_of_states as $state) {
+					$states[] = array(
+						"option" => $state["District"],
+						"value" => $state["District"]
+					);
+				}
+
+				$vars["states"] = $states;
+			}
 
 			$this->render("content", $vars);
 		} else {

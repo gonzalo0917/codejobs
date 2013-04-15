@@ -153,12 +153,12 @@ class Users_Model extends ZP_Load
 		if ($action === "save") {
 			$data = array(
 				'ID_User' => SESSION("ZanUserID"),
-				'Summary' => POST("summary"),
+				'Summary' => addslashes(htmlspecialchars(recoverPOST("summary"))),
 				'Last_Updated' => now(4)
 			);
 		} else {
 			$data = array(
-				'Summary' => POST("summary"),
+				'Summary' => addslashes(htmlspecialchars_decode(recoverPOST("summary"))),
 				'Last_Updated' => now(4)
 			);
 		}
@@ -721,13 +721,26 @@ class Users_Model extends ZP_Load
 		);
 
 		$this->data = $this->Data->process(null, $validations);
-
+		
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		}
 
-		var_dump($this->data);
-		if ($this->Db->update($this->table, $this->data, SESSION("ZanUserID"))) {
+		$data = array(
+			'Name' => utf8_decode(POST('name')),
+			'Gender' => POST('gender'),
+			'Birthday' => POST('birthday'),
+			'Country' => POST('country'),
+			'City' => POST('state'),
+			'District' => POST('city'),
+			'Phone' => POST('phone'),
+			'Mobile' => POST('mobile'),
+			'Email' => POST('email'),
+			'Subscribed' => POST("subscribed") == "on" ? 1 : 0,
+			'Website' => POST('website')
+		);
+
+		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 			SESSION("ZanUserName", POST("name"));
 			return getAlert(__("The information has been saved correctly"), "success");	
 		}
@@ -1063,6 +1076,7 @@ class Users_Model extends ZP_Load
 			return getAlert(__("Insert error"));
 
 		} elseif ($action === "edit") {
+
 			return $this->editSummary($data);
 		}
 	}
