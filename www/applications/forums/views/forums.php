@@ -9,6 +9,10 @@ if (is_array($forums)) {
 	?>
 		<h3><a href="<?php echo path("forums/". $forum["Slug"]); ?>"><?php echo $forum["Title"]; ?></a></h3>
 		<small><?php echo $forum["Description"]; ?></small>
+		<div class="post-right">
+			<?php echo __("Posts") .': '. $forum["Total_Posts"]; ?>
+		</div>
+
 	<?php
 	}
 }

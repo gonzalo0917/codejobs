@@ -10,7 +10,7 @@ class Forums_Model extends ZP_Load
 		$this->Db = $this->db();
 		$this->language = whichLanguage();
 		$this->table = "forums";
-		$this->fields = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Language, Situation";
+		$this->fields = "ID_Forum, Title, Slug, Description, Topics, Replies, Last_Reply, Last_Date, Total_Posts, Language, Situation";
 		$this->fieldsPosts  = "ID_Post, ID_User, ID_Forum, ID_Parent, Forum_Name, Title, Slug, Content, Author, Avatar, Start_Date,";
 		$this->fieldsPosts .= "Text_Date, Last_Author, Hour, Visits, Topic, Tags, Total_Comments, Language, Situation"; 	
 		
@@ -90,9 +90,11 @@ class Forums_Model extends ZP_Load
 			$avatar = path("www/lib/files/images/users/". SESSION("ZanUserAvatar"), true);
 		}
 
+		$fid = (int) POST("forumID");
+
 		$data = array(
 			"ID_User" 	  => SESSION("ZanUserID"),
-			"ID_Forum" 	  => (int) POST("forumID"),
+			"ID_Forum" 	  => $fid,
 			"ID_Parent"   => 0,
 			"Forum_Name"  => POST("fname"),
             "Title" 	  => POST("title"),
@@ -110,6 +112,15 @@ class Forums_Model extends ZP_Load
 		);
 
 		$lastID = $this->Db->insert("forums_posts", $data);
+
+		if($lastID) {
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("forums");
+
+			$totalPosts = $this->Db->query("SELECT Total_Posts FROM ". DB_PREFIX ."forums WHERE ID_Forum = ". $fid);
+			$i = $totalPosts[0]["Total_Comments"] += 1;
+			$this->Db->updateBySQL("forums", "Total_Posts = '$i' WHERE ID_Forum = '$fid'");
+		}
 		
 		$URL = path("forums/". slug(POST("fname", "clean")) ."/". $lastID ."/". $data["Slug"]);
 
