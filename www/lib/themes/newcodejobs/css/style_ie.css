@@ -501,6 +501,7 @@ footer a:hover {
 	display: inline-block;
 	float: none;
 	height: 11px;
+	margin-top: 0px;
 	margin-left: 0px;
 	width: 16px;
 	vertical-align: middle;
@@ -508,7 +509,7 @@ footer a:hover {
 
 #top-box-languages .flag {
 	margin-left: 1px;
-	margin-top: -8px;
+	margin-top: 0px;
 }
 
 #top-box .arrow-down {
@@ -575,6 +576,9 @@ header #top-box .top-box-ul #search-nav {
     display: none;
     margin: 8px 0 0;
     padding: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
 }
 
 #top-box-register {
