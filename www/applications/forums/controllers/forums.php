@@ -228,9 +228,8 @@ class Forums_Controller extends ZP_Load
 	public function getForums()
 	{
 		$data = $this->Cache->data("forums-$this->language", "forums", $this->Forums_Model, "getForums", array($this->language));
-
+		
 		if ($data) {
-			#____($data);
 			$vars["forums"] = $data;
 			$vars["view"] = $this->view("forums", true);
 
