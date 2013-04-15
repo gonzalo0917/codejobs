@@ -197,30 +197,20 @@ header #topbar {
 	line-height: 40px;
 	margin: 0 auto;
 }
-/*
-header #topbar nav, #top-box {
-	vertical-align: top;
-	display: inline-block;
-}
-
-header #topbar nav {
-	width: 40%;
-}
 
 header #topbar #top-box {
-	width: 55%;
-	float: right;
-}*/
-header #topbar #top-box {
-	float: right;
+	float: left;
+	width: 550px !important;
+	margin-left: 50px;
 }
 
 header #topbar nav {
 	float: left;
+	width: 600px;
 }
 
 header #topbar nav ul {
-	width: auto;
+	width: 400px;
 	margin: 0px;
 	padding: 0px;
 }
@@ -256,41 +246,38 @@ header #wrapper {
 	margin-top: 20px;
 	overflow: hidden;
 }
+
 header #wrapper article {
 	vertical-align: top;
 	display: inline-block;
 }
+
 header #wrapper article:first-child {
 	width: 30%;	
 }
+
 header #wrapper article:last-child {
 	width: 65%;
 }
-header #wrapper nav{
+
+header #wrapper nav {
 	overflow: hidden;
 	height: auto;
 }
+
 header #wrapper nav ul {
-	width: 75%;
+	width: 90%;
 	float: right;
 	margin-left: 1%;
 }
-/*header #wrapper nav ul {
-	width: 720px;
-	margin: 0px;
-	padding: 0px;
-	position: relative;
-	z-index: 2;
-	margin-left: 35%;
-	margin-top: -70px;
-}
-*/
+
 header #wrapper nav ul li {
     display: inline;
     font-size: 70%;
     list-style-type: none;
     margin-bottom: 2px;
 }
+
 header #wrapper nav ul li a {
     background: none repeat scroll 0 0 #292929;
     border-radius: 12px 12px 12px 12px;
@@ -307,7 +294,8 @@ header #wrapper nav ul li a:hover, header ul li a.current {
     background: none repeat scroll 0 0 #045c98;
 }
 
-header #logo {
+#logo {
+	float: left;
 	width: 250px;
 	height: 90px;
 }
@@ -546,7 +534,7 @@ header #top-box .top-box-ul #search-nav {
 }
 
 #top-box ul {
-	//float: right;
+	float: right;
 	padding: 0px;
 	margin: 0px;
 	list-style: none;
@@ -567,9 +555,10 @@ header #top-box .top-box-ul #search-nav {
 #top-box ul li a:hover {
 	color: #3cafd4;
 }
+
 #top-box-languages {
 	border: 1px solid #000;
-	width: 103px;
+	width: 120px;
 	height: auto;
 	position: absolute;
 	top: 32px;

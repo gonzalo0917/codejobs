@@ -199,15 +199,18 @@ header #topbar {
 }
 
 header #topbar #top-box {
-	float: right;
+	float: left;
+	width: 550px !important;
+	margin-left: 50px;
 }
 
 header #topbar nav {
 	float: left;
+	width: 600px;
 }
 
 header #topbar nav ul {
-	width: 500px;
+	width: 400px;
 	margin: 0px;
 	padding: 0px;
 }
@@ -552,9 +555,10 @@ header #top-box .top-box-ul #search-nav {
 #top-box ul li a:hover {
 	color: #3cafd4;
 }
+
 #top-box-languages {
 	border: 1px solid #000;
-	width: 103px;
+	width: 120px;
 	height: auto;
 	position: absolute;
 	top: 32px;
