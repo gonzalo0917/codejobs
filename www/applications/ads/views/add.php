@@ -45,6 +45,20 @@
 				"field" => __("Image"), 
 				"p" 	=> true
 			));
+
+			echo p(true, "");
+
+				echo span("field", "&raquo; ". __("Preview"));
+
+				echo br();
+
+				echo htmlTag("canvas", array(
+					"id" 	 => "preview",
+					"width"  => "250",
+					"height" => "100"
+				));
+
+			echo p(false);
 			
 			echo formInput(array(
 				"type" 	=> "url",
