@@ -58,6 +58,16 @@
 					"height" => "100"
 				));
 
+				echo br();
+
+				echo htmlTag("button", array(
+					"id" 	  => "transparent",
+					"type" 	  => "button",
+					"data-on" => "0",
+					"data-set" => __("Set transparent color"), 
+					"data-select" => __("Select a color") ."..." 
+				), __("Set transparent color"));
+
 			echo p(false);
 			
 			echo formInput(array(
@@ -159,6 +169,36 @@
 			);			
 			
 			echo formAction($action);
+
+			echo formInput(array(
+				"name"  => "MAX_FILE_SIZE",
+				"type"  => "hidden",
+				"value" => "1048576"
+			));
+
+			echo formInput(array(
+				"id"    => "small-error",
+				"type"  => "hidden",
+				"value" => __("The file size must be greater than or equal to") ." 1KB"
+			));
+
+			echo formInput(array(
+				"id"    => "big-error",
+				"type"  => "hidden",
+				"value" => __("The file size must be less than or equal to") ." 2MB"
+			));
+
+			echo formInput(array(
+				"id"    => "type-error",
+				"type"  => "hidden",
+				"value" => __("Image type not supported")
+			));
+
+			echo formInput(array(
+				"id"    => "orientation-error",
+				"type"  => "hidden",
+				"value" => __("Image orientation must be horizontal")
+			));
 			
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
