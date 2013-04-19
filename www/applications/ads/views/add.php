@@ -68,18 +68,20 @@
 				echo formInput(array("name" => "banner", "type" => "hidden", "value" => $banner));
 			}
 
-			echo p(true, "");
-				echo span("field", "&raquo; ". __("Image"));
-			echo p(false);
+			echo p(span("field", "&raquo; ". __("Image")));
 
 			echo p(true, "preview");
 
-				echo formInput(array(
-					"type" 	=> "file", 
-					"name" 	=> "image", 
-					"class" => "required", 
-					"p" 	=> false
-				));
+				echo p(true);
+					
+					echo formInput(array(
+						"type" 	=> "file", 
+						"name" 	=> "image", 
+						"class" => "required", 
+						"p" 	=> false
+					));
+
+				echo p(false);
 
 				echo span("field", "&raquo; ". __("Large") ." (250x100)");
 
