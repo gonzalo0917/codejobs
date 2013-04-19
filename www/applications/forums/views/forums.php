@@ -12,7 +12,6 @@ if (is_array($forums)) {
 		<div class="post-right">
 			<?php echo __("Posts") .': '. $forum["Total_Posts"]; ?>
 		</div>
-
 	<?php
 	}
 }

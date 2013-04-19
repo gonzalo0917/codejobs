@@ -620,6 +620,7 @@ $phrase["you_need_to_login_to_send_your_proposal"] 	    = "Necesitas iniciar ses
 $phrase["you_need_to_write_at_least_one_tag"]	 		= "Necesitas escribir al menos una etiqueta";
 $phrase["you_need_to_write_the_content"]	 			= "Necesitas escribir el contenido";
 $phrase["you_need_to_write_the_title"]	 				= "Necesitas escribir el titulo";
+$phrase["you_need_to_login_or_create_an_account_to_create_a_topic"] = "Necesitas iniciar session o crear una cuenta para crear un topic";
 $phrase["you_still_have_not_published_a_code"]	 		= "Aún no has publicado ningún código";
 $phrase["you_still_have_not_published_a_bookmark"]	 	= "Aún no has publicado ningún marcador";
 $phrase["you_still_have_not_published_a_post"]	 		= "Aún no has publicado ninguna entrada";
