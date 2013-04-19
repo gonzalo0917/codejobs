@@ -22,7 +22,7 @@
 				"value" => $tv
 			));
 
-			echo p(true);
+			echo p(true, "left");
 
 			$opt = array(
 				"id" 	=> "enable_chat",

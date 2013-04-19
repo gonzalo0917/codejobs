@@ -29,47 +29,7 @@
 				"p" 	=> true, 
 				"value" => $title
 			));
-			
-			if (isset($banner)) {
-				$image = img(path($banner, true), array("alt" => "Banner", "class" => "no-border", "style" => "max-width: 780px;"));
-			
-				echo __("If you change the banner image, this image will be deleted") . "<br />";
-				echo $image;
-				echo formInput(array("name" => "banner", "type" => "hidden", "value" => $banner));
-			} 
 
-			echo formInput(array(
-				"type" 	=> "file", 
-				"name" 	=> "image", 
-				"class" => "required", 
-				"field" => __("Image"), 
-				"p" 	=> true
-			));
-
-			echo p(true, "");
-
-				echo span("field", "&raquo; ". __("Preview"));
-
-				echo br();
-
-				echo htmlTag("canvas", array(
-					"id" 	 => "preview",
-					"width"  => "250",
-					"height" => "100"
-				));
-
-				echo br();
-
-				echo htmlTag("button", array(
-					"id" 	  => "transparent",
-					"type" 	  => "button",
-					"data-on" => "0",
-					"data-set" => __("Set transparent color"), 
-					"data-select" => __("Select a color") ."..." 
-				), __("Set transparent color"));
-
-			echo p(false);
-			
 			echo formInput(array(
 				"type" 	=> "url",
 				"name" 	=> "URL", 
@@ -98,7 +58,64 @@
 				"p" 	=> true, 
 				"field" => __("Principal")), 
 				$options
-			);			
+			);
+			
+			if (isset($banner)) {
+				$image = img(path($banner, true), array("alt" => "Banner", "class" => "no-border", "style" => "max-width: 780px;"));
+			
+				echo __("If you change the banner image, this image will be deleted") . "<br />";
+				echo $image;
+				echo formInput(array("name" => "banner", "type" => "hidden", "value" => $banner));
+			}
+
+			echo p(true, "");
+				echo span("field", "&raquo; ". __("Image"));
+			echo p(false);
+
+			echo p(true, "preview");
+
+				echo formInput(array(
+					"type" 	=> "file", 
+					"name" 	=> "image", 
+					"class" => "required", 
+					"p" 	=> false
+				));
+
+				echo span("field", "&raquo; ". __("Large") ." (250x100)");
+
+				echo br();
+
+				echo htmlTag("canvas", array(
+					"id" 	 => "preview",
+					"class"  => "transparent",
+					"width"  => "250",
+					"height" => "100"
+				));
+
+			echo p(false);
+
+			echo p(true, "preview");
+
+				echo span("field", "&raquo; ". __("Miniature") ." (100x40)");
+
+				echo br();
+
+				echo htmlTag("canvas", array(
+					"id" 	 => "miniature",
+					"class"  => "transparent",
+					"width"  => "100",
+					"height" => "40"
+				));
+
+			echo p(false);
+
+			echo htmlTag("button", array(
+				"id" 	  => "transparent",
+				"type" 	  => "button",
+				"data-on" => "0",
+				"data-set" => __("Set transparent color"), 
+				"data-select" => __("Select a color") ."..." 
+			), __("Set transparent color"));
 			
 			$options = array(
 				0 => array(

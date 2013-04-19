@@ -53,7 +53,7 @@ echo div("add-form", "class");
 		));
 
 		if ($action === "edit" and $mural != "") { 
-			echo p(img(path($mural, true), array("style" => "max-width:700px;", "class" => "mural")));
+			echo p(img(path($mural, true), array("style" => "max-width:700px;", "class" => "mural")), "left");
 			
 			echo formInput(array(	
 				"name" 	=> "delete_mural", 
@@ -85,7 +85,7 @@ echo div("add-form", "class");
 		));
 
 		if ($action === "edit" and $image != "") { 
-			echo p(img(path($image, true)));
+			echo p(img(path($image, true)), "left");
 			
 			echo formInput(array(	
 				"name" 	=> "delete_image", 

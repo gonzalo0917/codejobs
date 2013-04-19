@@ -3,6 +3,7 @@
 +function ($, window, document, undefined) {
 	var transparent = {};
 
+	$("input[name='image']").val("");
 
 	function changeDate (enabled) {
 		$(".jdpicker").attr("disabled", enabled);
@@ -45,8 +46,14 @@
 							};
 						}
 
+						document.querySelector("#preview").width = "250";
 						context.drawImage(this, 0, 0, this.width, this.height, attr.left, attr.top, attr.width, attr.height);
 						
+						if ($("#transparent").data("on") == "1") {
+							$("#transparent").click();
+						}
+
+						$("#transparent").slideDown("fast");
 					}
 				};
 

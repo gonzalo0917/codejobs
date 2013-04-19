@@ -13,7 +13,7 @@ echo div("new-user", "class");
 		echo isset($alert) ? $alert : null;
 
 		if (isset($tokenID)) {
-			echo p(__("Enter your new password twice to change"));
+			echo p(__("Enter your new password twice to change"), "left");
 
 			echo formInput(array(
 				"name"     => "password1",
@@ -47,7 +47,7 @@ echo div("new-user", "class");
 			));
 		} else {
 			if (!isset($inserted)) {
-				echo p(__("To recover your password, please enter your username or your e-mail"));
+				echo p(__("To recover your password, please enter your username or your e-mail"), "left");
 				
 				echo formInput(array(
 					"id"      => "username",
