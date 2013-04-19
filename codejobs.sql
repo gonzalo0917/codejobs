@@ -577,6 +577,7 @@ CREATE TABLE IF NOT EXISTS `muu_forums` (
   `Replies` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Last_Reply` int(11) unsigned NOT NULL DEFAULT '0',
   `Last_Date` varchar(50) NOT NULL,
+  `Total_Posts` int(10) unsigned NOT NULL DEFAULT '0',
   `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Forum`)
