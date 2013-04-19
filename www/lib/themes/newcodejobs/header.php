@@ -214,8 +214,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 							  		<input id="search-term" class="span2" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
 							  		<input id="search-app-hidden" type="hidden">
 							  		<input id="search-term-hidden" type="hidden">
-							  		<!--<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>-->
-							  		<input type="submit" id="search" class="btn btn-inverse" style="margin-top: 2px;"><?php echo __("Search"); ?>/>
+							  		<input type="button" id="search" class="btn btn-inverse" style="margin-top: 2px;" value="<?php echo __("Search"); ?>" />
 							  	</form>
 							</div> 
 						</li>
@@ -263,39 +262,38 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 		if (!defined("HIDE_WRAPPER")) {
 		?>
 			<div id="wrapper">
-				<article>
-					<div id="logo">
-						<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", true); ?>" alt="CodeJobs" class="noborder" /></a>
-					</div>
-				</article>
-				<article>
-					<nav>
-						<ul>
-							<li><a href="<?php echo path("$application/tag/ajax"); ?>">Ajax</a></li>
-							<li><a href="<?php echo path("$application/tag/android"); ?>">Android</a></li>
-							<li><a href="<?php echo path("$application/tag/backbone"); ?>">Backbone.js</a></li>
-							<li><a href="<?php echo path("$application/tag/codeigniter"); ?>">CodeIgniter</a></li>
-							<li><a href="<?php echo path("$application/tag/css3"); ?>">CSS3</a></li>
-							<li><a href="<?php echo path("$application/tag/databases"); ?>">Databases</a></li>
-							<li><a href="<?php echo path("$application/tag/emarketing"); ?>">eMarketing</a></li>
-							<li><a href="<?php echo path("$application/tag/git"); ?>">Git &amp; Github</a></li>
-							<li><a href="<?php echo path("$application/tag/html5"); ?>">HTML5</a></li>
-							<li><a href="<?php echo path("$application/tag/ios"); ?>">iOS</a></li>
-							<li><a href="<?php echo path("$application/tag/java"); ?>">Java</a></li>
-							<li><a href="<?php echo path("$application/tag/javascript"); ?>">Javascript</a></li>
-							<li><a href="<?php echo path("$application/tag/jquery"); ?>">jQuery</a></li>
-							<li><a href="<?php echo path("$application/tag/mongodb"); ?>">MongoDB</a></li>
-							<li><a href="<?php echo path("$application/tag/mysql"); ?>">MySQL</a></li>
-							<li><a href="<?php echo path("$application/tag/nodejs"); ?>">Node.js</a></li>
-							<li><a href="<?php echo path("$application/tag/php"); ?>">PHP</a></li>
-							<li><a href="<?php echo path("$application/tag/python"); ?>">Python</a></li>
-							<li><a href="<?php echo path("$application/tag/ruby"); ?>">Ruby</a></li>
-							<li><a href="<?php echo path("$application/tag/ror"); ?>">RoR</a></li>
-							<li><a href="<?php echo path("$application/tag/social-media"); ?>">Social Media</a></li>		
-							<li><a href="<?php echo path("$application/tag/zanphp"); ?>">ZanPHP</a></li>
-						</ul>
-					</nav>
-				</article>
+				<div id="logo">
+					<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", true); ?>" alt="CodeJobs" class="noborder" /></a>
+				</div>
+			
+				<nav>
+					<ul>
+						<li><a href="<?php echo path("$application/tag/ajax"); ?>">Ajax</a></li>
+						<li><a href="<?php echo path("$application/tag/android"); ?>">Android</a></li>
+						<li><a href="<?php echo path("$application/tag/backbone"); ?>">Backbone.js</a></li>
+						<li><a href="<?php echo path("$application/tag/codeigniter"); ?>">CodeIgniter</a></li>
+						<li><a href="<?php echo path("$application/tag/css3"); ?>">CSS3</a></li>
+						<li><a href="<?php echo path("$application/tag/databases"); ?>">Databases</a></li>
+						<li><a href="<?php echo path("$application/tag/emarketing"); ?>">eMarketing</a></li>
+						<li><a href="<?php echo path("$application/tag/git"); ?>">Git &amp; Github</a></li>
+						<li><a href="<?php echo path("$application/tag/html5"); ?>">HTML5</a></li>
+						<li><a href="<?php echo path("$application/tag/ios"); ?>">iOS</a></li>
+						<li><a href="<?php echo path("$application/tag/java"); ?>">Java</a></li>
+						<li><a href="<?php echo path("$application/tag/javascript"); ?>">Javascript</a></li>
+						<li><a href="<?php echo path("$application/tag/jquery"); ?>">jQuery</a></li>
+						<li><a href="<?php echo path("$application/tag/mongodb"); ?>">MongoDB</a></li>
+						<li><a href="<?php echo path("$application/tag/mysql"); ?>">MySQL</a></li>
+						<li><a href="<?php echo path("$application/tag/nodejs"); ?>">Node.js</a></li>
+						<li><a href="<?php echo path("$application/tag/php"); ?>">PHP</a></li>
+						<li><a href="<?php echo path("$application/tag/python"); ?>">Python</a></li>
+						<li><a href="<?php echo path("$application/tag/ruby"); ?>">Ruby</a></li>
+						<li><a href="<?php echo path("$application/tag/ror"); ?>">RoR</a></li>
+						<li><a href="<?php echo path("$application/tag/social-media"); ?>">Social Media</a></li>		
+						<li><a href="<?php echo path("$application/tag/zanphp"); ?>">ZanPHP</a></li>
+					</ul>
+				</nav>
+
+				<div class="clear"></div>
 			</div>
 		<?php
 			}

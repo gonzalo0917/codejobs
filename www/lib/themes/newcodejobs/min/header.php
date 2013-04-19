@@ -40,6 +40,9 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
     	}
         
 		$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap-codejobs.css", null, false, true);
+		//$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/css/bootstrap-responsive.css", null, false, true);
+
+		#$this->CSS(CORE_PATH ."/vendors/css/frameworks/bootstrap/bootstrap.min.css", null, false, true);
 		
 
 		if (defined("CODEMIRROR")) {
@@ -81,12 +84,13 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 			<div id="topbar">
 				<nav>
 					<ul>
+						<li class="current"><a href="#"><?php echo __("Menu")?></a></li>
 						<li><a href="<?php echo path(); ?>"><?php echo __("Home"); ?></a></li>
 						<li><a href="<?php echo path("codes"); ?>"><?php echo __("Codes"); ?></a></li>
 						<!--<li><a href="<?php echo path("jobs"); ?>"><?php echo __("Jobs"); ?></a></li>-->
 						<li><a href="<?php echo path("forums"); ?>"><?php echo __("Forums"); ?></a></li>
 						<li><a href="http://www.youtube.com/codejobs" target="_blank"><?php echo __("Videos"); ?></a></li>
-						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>							
+						<li><a href="<?php echo path("bookmarks"); ?>"><?php echo __("Bookmarks"); ?></a></li>						
 						<li>				
 					</ul>
 				</nav>				
@@ -146,7 +150,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 						</div>
 
 						<div style="float: left; width: 170px; line-height: 15px; margin-left: 10px;">
-							<span class="bold"><a href="<?php echo path("users/about"); ?>"><?php echo SESSION("ZanUserName"); ?></a></span> <br />
+							<span class="bold"><a href="<?php echo path("users/cv"); ?>"><?php echo SESSION("ZanUserName"); ?></a></span> <br />
 							<span class="small grey"><a href="<?php echo path("user/". SESSION("ZanUser")); ?>"><?php echo __("See my profile page"); ?></a></span><br />
 
 							<!--div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
@@ -159,8 +163,8 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 							<span class="small grey"><a href="<?php echo path("blog/admin"); ?>"><?php echo __("My posts"); ?>: <span id="my_blog"><?php echo (int)SESSION("ZanUserPosts"); ?></span></a></span><br />
 							<span class="small grey"><a href="<?php echo path("codes/admin"); ?>"><?php echo __("My codes"); ?>: <span id="my_codes"><?php echo (int)SESSION("ZanUserCodes"); ?></span></a></span><br />
 							<span class="small grey"><a href="<?php echo path("bookmarks/admin"); ?>"><?php echo __("My bookmarks"); ?>: <span id="my_bookmarks"><?php echo (int)SESSION("ZanUserBookmarks"); ?></span></a></span><br />
-							<!--span class="small grey"><strong><?php echo __("My jobs"); ?></strong>: <a href="#">0</a></span><br />
-							<span class="small grey"><strong><?php echo __("My courses"); ?></strong>: <a href="#">0</a></span><br />
+							<span class="small grey"><a href="<?php echo path("jobs/vacancy"); ?>"><?php echo __("My Vacancies"); ?></a></span><br />
+							<!--span class="small grey"><strong><?php echo __("My courses"); ?></strong>: <a href="#">0</a></span><br />
 							<span class="small grey"><strong><?php echo __("My points"); ?></strong>: 0</span><br /-->
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
@@ -172,7 +176,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
 
-							<span class="small grey"><a href="<?php echo path("users/about"); ?>"><?php echo __("Account settings"); ?></a></span><br />
+							<span class="small grey"><a href="<?php echo path("users/cv"); ?>"><?php echo __("Account settings"); ?></a></span><br />
 							<span class="small grey"><a href="<?php echo path("users/deactivate"); ?>"><?php echo __("Deactivate my account"); ?></a></span><br />
 
 							<div style="width: 170px; border-top: 1px dotted #CCC; margin-top: 5px; margin-bottom: 5px;"></div>
@@ -198,24 +202,45 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 
 				<div id="top-box">
 					<ul class="top-box-ul">
+						<li class="" style="margin-right:5px;">
+							<div class="input-append">
+								<select id="search-app" class="info" style="width:115px; margin-top: 3px; margin-right: 5px;">
+								  	<option value="blog"><?php echo __("Blog"); ?></option>
+								  	<option value="codes"><?php echo __("Codes"); ?></option>
+								  	<option value="bookmarks"><?php echo __("Bookmarks"); ?></option>								  	
+								</select> 
+								
+								<form id="search-nav">
+							  		<input id="search-term" class="span2" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
+							  		<input id="search-app-hidden" type="hidden">
+							  		<input id="search-term-hidden" type="hidden">
+							  		<input type="button" id="search" class="btn btn-inverse" style="margin-top: 2px;" value="<?php echo __("Search"); ?>" />
+							  	</form>
+							</div> 
+						</li>
+						<li class="">
+							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
+								<?php echo getLanguage(whichLanguage(), true); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
+							</a>
+						</li>
 						<?php
 							if (!SESSION("ZanUser")) {
 						?>
-								<li class="float-right">
-									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
-										<?php echo __("Login"); ?> <span class="arrow-down"></span>
-									</a>
-								</li>
-								
-								<li class="float-right">
+								<li class="">
 									<a id="display-register" href="#" title="<?php echo __("Register!"); ?>">
 										<?php echo __("Register!"); ?> <span class="arrow-down"></span>
+									</a>
+								</li>
+
+								<li class="">
+									<a id="display-login" href="#" title="<?php echo __("Login"); ?>">
+										<?php echo __("Login"); ?> <span class="arrow-down"></span>
 									</a>
 								</li>
 						<?php
 							} else {
 						?>
-								<li class="float-right">
+								<li class="">
 									<a id="display-profile" href="#" title="<?php echo __("Hi"); ?>">
 										<?php echo __("Hi") .', <span style="color: #00a0ff">'. SESSION("ZanUser") .'</span>'; ?> <span class="arrow-down"></span>
 									</a>
@@ -223,27 +248,6 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 						<?php
 							}
 						?>
-						
-						<li class="float-right">
-							<a id="display-languages" href="#" title="<?php echo __("Language"); ?>">
-								<?php echo getLanguage(whichLanguage(), true); ?> <?php echo __("Language"); ?> <span class="arrow-down"></span>
-							</a>
-						</li>
-
-						<li class="float-right" style="margin-right:5px;">
-							<div class="input-append">
-								<select id="search-app" class="info" style="width:115px; margin-top: 3px; margin-right: 5px;">
-								  	<option value="blog"><?php echo __("Blog"); ?></option>
-								  	<option value="codes"><?php echo __("Codes"); ?></option>
-								  	<option value="bookmarks"><?php echo __("Bookmarks"); ?></option>								  	
-								</select> 
-
-							  	<input id="search-term" class="span2" placeholder="<?php echo __("Write your search..."); ?>" type="text" style="margin-top: 3px;">
-							  	<input id="search-app-hidden" type="hidden">
-							  	<input id="search-term-hidden" type="hidden">
-							  	<button id="search" class="btn btn-inverse" type="button" style="margin-top: 2px;"><?php echo __("Search"); ?></button>
-							</div> 
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -261,7 +265,7 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 				<div id="logo">
 					<a href="<?php echo path(); ?>"><img src="<?php echo path("www/lib/themes/newcodejobs/images/logo.png", true); ?>" alt="CodeJobs" class="noborder" /></a>
 				</div>
-
+			
 				<nav>
 					<ul>
 						<li><a href="<?php echo path("$application/tag/ajax"); ?>">Ajax</a></li>
@@ -288,6 +292,8 @@ $application = (segment(0, isLang()) === "bookmarks") ? "bookmarks" : "blog";
 						<li><a href="<?php echo path("$application/tag/zanphp"); ?>">ZanPHP</a></li>
 					</ul>
 				</nav>
+
+				<div class="clear"></div>
 			</div>
 		<?php
 			}
