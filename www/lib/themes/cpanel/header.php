@@ -34,7 +34,7 @@ if (!defined("ACCESS")) {
 					$li[] = " | ". span("bold", __("Welcome")) .": " . SESSION("ZanUser");
 					$li[] = " | ". span("bold", __("Online users")) .": $online";
 					$li[] = " | ". span("bold", __("Registered users")) .": $registered";
-					$li[] = " | ". span("bold", __("Last user")) .": ". a($lastUser["Username"], path("users/". $lastUser["Username"] .""));
+					$li[] = " | ". span("bold", __("Last user")) .": ". a($lastUser["Username"], path("user/". $lastUser["Username"] .""));
 					$li[] = " | ". a(__("Logout") ."&rsaquo;&rsaquo;", path("cpanel/logout/")) ."";			
 					
 					echo ul($li);				

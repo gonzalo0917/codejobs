@@ -114,7 +114,7 @@ class CPanel_Model extends ZP_Load
 						$list[] = li(a(getLanguage($record["Language"], true) .' '. $i .". ". stripslashes($record["Title"]), path("bookmarks/go/". $record["ID_Bookmark"] ."/". $record["Slug"], false, $record["Language"]), stripslashes($record["Title"]), true));
 						break;
 					case "users":
-						$list[] = li(a($i .". ". $record["Username"], path("users/". $record["Username"]), $record["Username"], true));
+						$list[] = li(a($i .". ". $record["Username"], path("user/". $record["Username"]), $record["Username"], true));
 						break;
 				}
 

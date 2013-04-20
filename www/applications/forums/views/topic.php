@@ -70,7 +70,7 @@
 					<div class="userinfo">
 						<p>
 							<strong>
-								<a href="<?php echo path("users/". $data["topic"][0]["Username"]); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>">
+								<a href="<?php echo path("user/". $data["topic"][0]["Username"]); ?>" title="<?php echo $data["topic"][0]["Username"]; ?>">
 									<?php echo $data["topic"][0]["Username"]; ?>
 								</a>
 							</strong>
@@ -184,7 +184,7 @@
 					<div class="userinfo">
 						<p>
 							<strong>
-								<a href="<?php echo path("users/". $reply["Username"]); ?>" title="<?php echo $reply["Username"]; ?>">
+								<a href="<?php echo path("user/". $reply["Username"]); ?>" title="<?php echo $reply["Username"]; ?>">
 									<?php echo $reply["Username"]; ?>
 								</a>
 							</strong>
