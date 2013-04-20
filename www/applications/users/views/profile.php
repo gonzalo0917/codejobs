@@ -28,13 +28,15 @@
 
 			<?php if ($user["Avatar"] !== "default.png") { ?>
 			<a href="<?php echo path("www/lib/files/images/users/". sha1($user["Username"] ."_O") .".png", true); ?>" target="_blank">
-				<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
+				<img src="<?php echo $avatar ?>" alt="<?php echo $user["Username"]; ?>" class="avatar" />
 			</a>
 			<?php } else { ?>
-			<img src="<?php echo $avatar ?>" alt="<?php echo SESSION("ZanUser"); ?>" class="avatar" />
+			<img src="<?php echo $avatar ?>" alt="<?php echo $user["Username"]; ?>" class="avatar" />
 			<?php } ?>
 			
-			<div><a href="<?php echo path("users/cv"); ?>">Actualizar mi perfil</a></div>
+			<?php if ($user["ID_User"] == SESSION("ZanUserID")) { ?>
+				<div class="website"><a href="<?php echo path("users/cv"); ?>"><?php echo __("Update my profile"); ?></a></div>
+			<?php } ?>
 
 			<div class="gender-country">
 				

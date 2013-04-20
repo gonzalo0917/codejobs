@@ -565,6 +565,7 @@ $phrase["two"] 											= "dos";
 $phrase["united_kingdom"]								= "Reino Unido";
 $phrase["united_states"]								= "Estados Unidos";
 $phrase["update"]										= "Actualizar";
+$phrase["update_my_profile"]							= "Actualizar mi perfil";
 $phrase["upload_your_cv_here"]							= "Sube tu cv aqui";
 $phrase["update_error"]  								= "Error de actualización";
 $phrase["update_my_resume"]  							= "Actualizar mi currículum";
