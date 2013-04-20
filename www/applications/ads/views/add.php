@@ -68,20 +68,16 @@
 				echo formInput(array("name" => "banner", "type" => "hidden", "value" => $banner));
 			}
 
-			echo p(span("field", "&raquo; ". __("Image")));
+			echo p(span("field", "&raquo; ". __("Image")), "image-label");
 
 			echo p(true, "preview");
 
-				echo p(true);
-					
-					echo formInput(array(
-						"type" 	=> "file", 
-						"name" 	=> "image", 
-						"class" => "required", 
-						"p" 	=> false
-					));
-
-				echo p(false);
+				echo formInput(array(
+					"type" 	=> "file", 
+					"name" 	=> "image", 
+					"class" => "required", 
+					"p" 	=> false
+				));
 
 				echo span("field", "&raquo; ". __("Large") ." (250x100)");
 
@@ -98,6 +94,14 @@
 
 			echo p(true, "preview");
 
+				echo formInput(array(
+					"type" 	=> "file", 
+					"name" 	=> "miniature", 
+					"class" => "required",
+					"disabled" => "disabled", 
+					"p" 	=> false
+				));
+
 				echo span("field", "&raquo; ". __("Miniature") ." (100x40)");
 
 				echo br();
@@ -108,6 +112,14 @@
 					"width"  => "100",
 					"height" => "40"
 				));
+
+				echo htmlTag("label", array("class" => "copy-label"),
+					formCheckbox(array(
+						"id"   => "copy",
+						"text" => __("Draw from large image"),
+						"position" => "right"
+					))
+				);
 
 			echo p(false);
 
@@ -134,7 +146,7 @@
 
 			$months = array(__("January"), __("February"), __("March"), __("April"), __("May"), __("June"), __("July"), __("August"), __("September"), __("October"), __("November"), __("December"));
 
-			echo p(true, "");
+			echo p(true, "date-label");
 
 				echo span("field", "&raquo; ". __("End date"));
 

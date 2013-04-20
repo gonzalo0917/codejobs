@@ -26,10 +26,23 @@
 
 .preview {
 	display: inline-block;
+	margin-bottom: 20px;
 	vertical-align: top;
 	width: 45%;
 }
 
+.image-label {
+	margin-bottom: 0;
+}
+
+.date-label {
+	margin-bottom: 20px;
+}
+
+.copy-label {
+	margin-top: 5px;
+	vertical-align: middle;
+}
 
 #transparent {
 	display: none;
@@ -45,4 +58,9 @@
 	margin-bottom: 1px;
 	width: 15px;
 	vertical-align: middle;
+}
+
+input[type='file'] {
+	display: block;
+	margin-bottom: 5px;
 }
