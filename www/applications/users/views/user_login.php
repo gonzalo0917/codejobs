@@ -13,10 +13,9 @@ $email = isset($email) ? recoverPOST("email", $email) : recoverPOST("email");
 echo div("login-form", "class");
 
 	echo a(img(path("$this->themeRoute/images/logo.png", true), array(
-		"id" => "logo",
 		"align" => "center",
 		"alt" => "CodeJobs",
-		"class" => "noborder"
+		"class" => "noborder logo"
 	)), path());
 
 	if (isset($alert)) {
