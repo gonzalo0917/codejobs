@@ -41,7 +41,24 @@
 
 .copy-label {
 	margin-top: 5px;
-	vertical-align: middle;
+}
+
+.copy-label input {
+	vertical-align: top;
+}
+
+.browse {
+	cursor: default;
+	margin-bottom: 10px;
+	overflow: hidden;
+	position: relative;
+}
+
+.browse input {
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 0;
 }
 
 #transparent {

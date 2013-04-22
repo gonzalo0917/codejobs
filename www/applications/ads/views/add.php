@@ -72,12 +72,14 @@
 
 			echo p(true, "preview");
 
-				echo formInput(array(
-					"type" 	=> "file", 
-					"name" 	=> "image", 
-					"class" => "required", 
-					"p" 	=> false
-				));
+				echo '<span class="browse btn">'. __("Browse") ."...".
+					formInput(array(
+						"type" 	=> "file", 
+						"name" 	=> "image", 
+						"p" 	=> false
+					)) .'</span>';
+
+				echo br();
 
 				echo span("field", "&raquo; ". __("Large") ." (250x100)");
 
@@ -94,13 +96,15 @@
 
 			echo p(true, "preview");
 
-				echo formInput(array(
-					"type" 	=> "file", 
-					"name" 	=> "miniature", 
-					"class" => "required",
-					"disabled" => "disabled", 
-					"p" 	=> false
-				));
+				echo '<span class="browse btn" disabled>'. __("Browse") ."...".
+					formInput(array(
+						"type" 	=> "file", 
+						"name" 	=> "miniature", 
+						"p" 	=> false,
+						"disabled" => true
+					)) .'</span>';
+
+				echo br();
 
 				echo span("field", "&raquo; ". __("Miniature") ." (100x40)");
 
