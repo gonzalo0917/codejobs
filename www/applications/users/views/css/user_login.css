@@ -72,5 +72,6 @@ a.btn, a.btn:active {
 }
 
 #logo {
+	float: none;
 	margin-bottom: 10px;
 }
