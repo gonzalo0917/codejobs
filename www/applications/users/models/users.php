@@ -742,10 +742,10 @@ class Users_Model extends ZP_Load
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 			SESSION("ZanUserName", POST("name"));
-			return getAlert(__("The information has been saved correctly"), "success");	
+			return true;
 		}
 		
-		return getAlert(__("Update error"));
+		return false;
 	}
 
 	public function changePassword()

@@ -15,7 +15,6 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alertAbout) ? $alertAbout : null;
 
 			echo formInput(array(
 				"name"      => "name", 
@@ -130,6 +129,8 @@
 				"checked"  => $subscribed === true
 			));
 
+			echo '</label>';
+
 			echo formInput(array(
 				"name"      => "website", 
 				"class"     => "field-title field-full-size span3",
@@ -140,7 +141,7 @@
 			));
 
 			echo formInput(array(
-				"name"  => "saveAbout", 
+				"name"  => "save", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"

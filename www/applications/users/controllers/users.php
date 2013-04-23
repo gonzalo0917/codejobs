@@ -282,9 +282,15 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
+		$json = array();
 		if (POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->saveInformation();
+			/*$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->saveInformation();*/
+			if ($this->Users_Model->saveInformation())
+				$json["status"] = __("The information has been saved correctly");
+			else
+				$json["fail"] = __("Update error");
+
 		}
 
 		$data = $this->Users_Model->getInformation();
@@ -308,30 +314,32 @@ class Users_Controller extends ZP_Load
 				);
 			}
 
-			$this->title(__("About me"));
+			/*$this->title(__("About me"));
 
 			$vars["countries"] = $countries;
 			$vars["view"] = $this->view("about", true);
-			$vars["href"] = path("users/about/");
+			$vars["href"] = path("users/about/");*/
 			$vars["data"] = $data;
 
 			if ($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
-				$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
+				$list_of_states = $this->Cache->data("$country-states", "world", $this->Configuration_Model, "getStates", array($country), 86400);
 
-				foreach ($list_of_cities as $city) {
-					$cities[] = array(
-						"option" => $city["District"],
-						"value" => $city["District"]
+				foreach ($list_of_states as $state) {
+					$states[] = array(
+						"option" => $state["District"],
+						"value" => $state["District"]
 					);
 				}
 
-				$vars["cities"] = $cities;
+				//$vars["states"] = $states;
 			}
 
-			$this->render("content", $vars);
+			//$this->render("content", $vars);
 		} else {
 			redirect();
 		}
+
+		echo json_encode($json);
 	}
 
 	public function password()

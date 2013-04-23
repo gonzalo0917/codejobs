@@ -27,4 +27,33 @@
 			});
 		}
 	});
+
+	$('#about-section').on('submit','form',function() {
+    	$('.float-msg').css(errorMSG);
+
+    	formData = $(this).serializeArray();
+
+    	formData.push({
+    		name: $(this).find('input[type=submit]').attr('name'),
+    		value: $(this).find('input[type=submit]').val()
+    	});
+
+    	$.ajax({
+    			url: PATH + '/users/about',
+    			type: 'post',
+    			data: formData,
+    			dataType: 'json',
+    			success: function (data) {
+    				if (data.status) {
+    					$('.float-msg').animate({top: 0}, 800, null);
+						$('.float-msg').text("(+) "+data.status).css(successMSG);
+    				} else {
+    					$('.float-msg').animate({top: 0}, 800, null);
+						$('.float-msg').text("(X) "+data.fail).css(errorMSG);
+    				}
+    			}
+    		});
+
+    	return false;
+    })
 }(jQuery);
