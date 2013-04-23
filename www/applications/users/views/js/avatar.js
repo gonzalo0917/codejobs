@@ -17,7 +17,7 @@
 		restoreImage();
 	});
 
-	$('input[name="delete"]').click(function () {
+	$('input[name="deleteAvatar"]').click(function () {
 		return removeImage();
 	});
 
@@ -50,7 +50,7 @@
 
 			reader.onload = function (event) {
 				var result = event.target.result;
-
+				console.log(result);
 				$("#avatar-image").attr("src", result);
 
 				setFile(result, file.name, file.size);
@@ -163,7 +163,9 @@
 	}
 
 	function removeImage() {
-		restoreImage();
+		$('#avatar-image').attr('src',window.location.host+"/www/lib/files/images/users/default.png");
+		previewImage();
+		//restoreImage();
 
 		return confirm($("#delete-message").val());
 	}
@@ -214,8 +216,8 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		if ($("#filedrag").css("display") === "block") {
+		/*if ($("#filedrag").css("display") === "block") {
 			$("#filedrag").css("display", "none");
-		}
+		}*/
 	});
 }(jQuery);

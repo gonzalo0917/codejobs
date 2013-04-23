@@ -10,7 +10,6 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alertSocial) ? $alertSocial : null;
 
 			echo div("row", "class");
 
@@ -81,7 +80,7 @@
 			echo div(false);
 			
 			echo formInput(array(
-				"name"  => "saveSocial", 
+				"name"  => "save", 
 				"class" => "btn btn-success", 
 				"value" => __("Save"), 
 				"type"  => "submit"

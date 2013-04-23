@@ -11,7 +11,7 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
-			echo isset($alertAvatar) ? $alertAvatar : null;
+			/*echo isset($alertAvatar) ? $alertAvatar : null;*/
 
 			echo p(span("field", "&raquo; " . __("Select a image or use drag & drop")), "");
 

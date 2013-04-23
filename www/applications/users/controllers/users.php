@@ -282,9 +282,15 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
+		$json = array();
 		if (POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->saveInformation();
+			/*$this->helper("alerts");
+			$vars["alert"] = $this->Users_Model->saveInformation();*/
+			if ($this->Users_Model->saveInformation())
+				$json["status"] = __("The information has been saved correctly");
+			else
+				$json["fail"] = __("Update error");
+
 		}
 
 		$data = $this->Users_Model->getInformation();
@@ -308,30 +314,32 @@ class Users_Controller extends ZP_Load
 				);
 			}
 
-			$this->title(__("About me"));
+			/*$this->title(__("About me"));
 
 			$vars["countries"] = $countries;
 			$vars["view"] = $this->view("about", true);
-			$vars["href"] = path("users/about/");
+			$vars["href"] = path("users/about/");*/
 			$vars["data"] = $data;
 
 			if ($country = recoverPOST("country", encode($vars["data"][0]["Country"]))) {
-				$list_of_cities = $this->Cache->data("$country-cities", "world", $this->Configuration_Model, "getCities", array($country), 86400);
+				$list_of_states = $this->Cache->data("$country-states", "world", $this->Configuration_Model, "getStates", array($country), 86400);
 
-				foreach ($list_of_cities as $city) {
-					$cities[] = array(
-						"option" => $city["District"],
-						"value" => $city["District"]
+				foreach ($list_of_states as $state) {
+					$states[] = array(
+						"option" => $state["District"],
+						"value" => $state["District"]
 					);
 				}
 
-				$vars["cities"] = $cities;
+				//$vars["states"] = $states;
 			}
 
-			$this->render("content", $vars);
+			//$this->render("content", $vars);
 		} else {
 			redirect();
 		}
+
+		echo json_encode($json);
 	}
 
 	public function password()
@@ -395,12 +403,19 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
-		if (POST("delete")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->deleteAvatar();
-		} elseif (POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->saveAvatar();
+		$json = array();
+		if (POST("action") == "delete") {
+			//$vars["alert"] = $this->Users_Model->deleteAvatar();
+			if ($this->Users_Model->deleteAvatar()) 
+				$json["status"] = __("The avatar has been deleted successfully");
+			else
+				$json["status"] = __("Update error");
+		} elseif (POST("action") == "save") {
+			//$vars["alert"] = $this->Users_Model->saveAvatar();
+			if ($this->Users_Model->saveAvatar())
+				$json["status"] = __("The avatar has been saved correctly");
+			else
+				$json["fail"] = __("Error while tried to upload the files");
 		} elseif (POST("nosupport")) {
 			$user = SESSION("ZanUser");
 			if (isset($_FILES['avatar']) and $user) {
@@ -413,13 +428,17 @@ class Users_Controller extends ZP_Load
 				$tmp_name = $file['tmp_name'];
 
 				if ($error === 1 or $error == 2) {
-					$vars["alert"] = getAlert(__("The file size exceeds the limit allowed"), "error");
+					//$vars["alert"] = getAlert(__("The file size exceeds the limit allowed"), "error");
+					$json["fail"] = __("The file size exceeds the limit allowed");
 				} elseif ($error > 0) {
-					$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+					//$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+					$json["fail"] = __("An error occurred while handling file upload");
 				} elseif (!preg_match('/^image/', $type)) {
-					$vars["alert"] = getAlert(__("The file is not an image", "error"));
+					//$vars["alert"] = getAlert(__("The file is not an image", "error"));
+					$json["fail"] = __("The file is not an image");
 				} elseif ($type != "image/png" and $type != "image/jpeg" and $type != "image/gif") {
-					$vars["alert"] = getAlert(__("The file is not a known image format", "error"));
+					//$vars["alert"] = getAlert(__("The file is not a known image format", "error"));
+					$json["fail"] = __("The file is not a known image format");
 				} elseif (is_uploaded_file($tmp_name)) {
 					$this->Images = $this->core("Images");
 					$this->Images->load($tmp_name);
@@ -442,9 +461,11 @@ class Users_Controller extends ZP_Load
 					if ($this->Users_Model->setAvatar("$resized.png", $coordinates)) {
 						SESSION("ZanUserAvatar", "$resized.png?". time());
 
-						$vars["alert"] = getAlert(__("The avatar has been saved correctly"), "success");
+						//$vars["alert"] = getAlert(__("The avatar has been saved correctly"), "success");
+						$json["status"] = __("The avatar has been saved correctly");
 					} else {
-						$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+						//$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+						$json["fail"] = __("An error occurred while handling file upload");
 					}
 				}
 			}
@@ -461,16 +482,15 @@ class Users_Controller extends ZP_Load
 			$this->js("jquery.jcrop.js");
 			$this->js("avatar", $this->application);
 
-			$this->title(__("Avatar"));
-
-			$vars["view"] = $this->view("avatar", true);
+			/*$vars["view"] = $this->view("avatar", true);
 			$vars["href"] = path("users/avatar/");
 			$vars["data"] = $data;
 
-			$this->render("content", $vars);
+			$this->render("content", $vars);*/
 		} else {
 			redirect();
 		}
+		echo json_encode($json);
 	}
 
 	public function options()
@@ -509,11 +529,15 @@ class Users_Controller extends ZP_Load
 	public function social()
 	{
 		isConnected();
-
+		$json = array();
+		
 		if (POST("save")) {
-			$this->helper("alerts");
-
-			$vars["alert"] = $this->Users_Model->saveSocial();
+			//$this->helper("alerts");
+			//$vars["alert"] = $this->Users_Model->saveSocial();
+			if ($this->Users_Model->saveSocial()) 
+				$json["status"] = __("Data have been saved correctly");
+			else
+				$json["fail"] = __("Update error");
 		}
 
 		$data = $this->Users_Model->getSocial();
@@ -524,16 +548,18 @@ class Users_Controller extends ZP_Load
 			$this->css("forms", "cpanel");
 			$this->css("users", $this->application);
 
-			$this->title(__("Social Networks"));
+			/*$this->title(__("Social Networks"));
 
 			$vars["view"] = $this->view("social", true);
 			$vars["href"] = path("users/social/");
 			$vars["data"] = $data;
 
-			$this->render("content", $vars);
+			$this->render("content", $vars);*/
 		} else {
 			redirect();
 		}
+
+		echo json_encode($json);
 	}
 
 	public function cv()

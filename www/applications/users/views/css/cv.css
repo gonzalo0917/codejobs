@@ -1,3 +1,18 @@
+.float-msg {
+    color: #FFF;
+    cursor: pointer;
+    background: rgba(203,33,34,0.9); 
+    border-bottom: 2px solid #FFF;
+    height: 40px;
+    left: 0;
+    line-height: 2em;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: -42px;
+    width: 100%;
+    z-index: 2000;
+}
 .jdpicker_w {
 	display: inline;
 }

@@ -1,4 +1,4 @@
-!function($) {
+$(document).ready(function() {
 	$("select[name='country']").change(function () {
 		var $state, $obj;
 
@@ -27,4 +27,4 @@
 			});
 		}
 	});
-}(jQuery);
+});
