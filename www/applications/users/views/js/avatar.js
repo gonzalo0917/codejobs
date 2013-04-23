@@ -1,11 +1,49 @@
 !function($) {
-	var jcrop_api, avatar_file, avatar_coordinate;
+	var jcrop_api, avatar_file, avatar_coordinate, submitPressed;
+
+	console.log($('input.avatar-file').files);
+
+    $('.btn').click(function() {
+    	submitPressed = $(this).attr('name');
+    })
+
+    $('#avatar-section').on('submit','form',function() {
+    	$('.float-msg').css(errorMSG);
+
+    	formData = $(this).serializeArray();
+    	editOrSave = submitPressed == "saveAvatar" ? "save" : "delete" ;
+
+    	formData.push({
+    		name: 'action',
+    		value: editOrSave
+    	});
+
+    	$.ajax({
+    			url: PATH + '/users/avatar',
+    			type: 'post',
+    			data: formData,
+    			dataType: 'json',
+    			success: function (data) {
+    				if (data.status) {
+    					$('.float-msg').animate({top: 0}, 800, null);
+						$('.float-msg').text("(+) "+data.status).css(successMSG);
+    				} else {
+    					$('.float-msg').animate({top: 0}, 800, null);
+						$('.float-msg').text("(X) "+data.status);
+    				}
+    			}
+    		});
+    	console.log($('input.avatar-file').files);
+    	//previewImage();
+    	return false;
+    })
 
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();
 	});
 
 	$('input.avatar-file').change(function () {
+		console.log(this);
 		if ('files' in this) {
 			selectFile(this.files);
 		} else { // IE9+
@@ -45,6 +83,7 @@
 	}
 
 	function previewImage(file, coordinate) {
+		console.log(file);
 		if (typeof FileReader !== "undefined" && typeof file !== "string") {
 			var reader = new FileReader();
 
@@ -214,8 +253,8 @@
 		event.stopPropagation();
 		event.preventDefault();
 
-		if ($("#filedrag").css("display") === "block") {
+		/*if ($("#filedrag").css("display") === "block") {
 			$("#filedrag").css("display", "none");
-		}
+		}*/
 	});
 }(jQuery);

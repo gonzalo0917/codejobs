@@ -395,12 +395,19 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 
-		if (POST("delete")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->deleteAvatar();
-		} elseif (POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->saveAvatar();
+		$json = array();
+		if (POST("action") == "delete") {
+			//$vars["alert"] = $this->Users_Model->deleteAvatar();
+			if ($this->Users_Model->deleteAvatar()) 
+				$json["status"] = __("The avatar has been deleted successfully");
+			else
+				$json["status"] = __("Update error");
+		} elseif (POST("action") == "save") {
+			//$vars["alert"] = $this->Users_Model->saveAvatar();
+			if ($this->Users_Model->saveAvatar())
+				$json["status"] = __("The avatar has been saved correctly");
+			else
+				$json["fail"] = __("Error while tried to upload the files");
 		} elseif (POST("nosupport")) {
 			$user = SESSION("ZanUser");
 			if (isset($_FILES['avatar']) and $user) {
@@ -413,13 +420,17 @@ class Users_Controller extends ZP_Load
 				$tmp_name = $file['tmp_name'];
 
 				if ($error === 1 or $error == 2) {
-					$vars["alert"] = getAlert(__("The file size exceeds the limit allowed"), "error");
+					//$vars["alert"] = getAlert(__("The file size exceeds the limit allowed"), "error");
+					$json["fail"] = __("The file size exceeds the limit allowed");
 				} elseif ($error > 0) {
-					$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+					//$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+					$json["fail"] = __("An error occurred while handling file upload");
 				} elseif (!preg_match('/^image/', $type)) {
-					$vars["alert"] = getAlert(__("The file is not an image", "error"));
+					//$vars["alert"] = getAlert(__("The file is not an image", "error"));
+					$json["fail"] = __("The file is not an image");
 				} elseif ($type != "image/png" and $type != "image/jpeg" and $type != "image/gif") {
-					$vars["alert"] = getAlert(__("The file is not a known image format", "error"));
+					//$vars["alert"] = getAlert(__("The file is not a known image format", "error"));
+					$json["fail"] = __("The file is not a known image format");
 				} elseif (is_uploaded_file($tmp_name)) {
 					$this->Images = $this->core("Images");
 					$this->Images->load($tmp_name);
@@ -442,9 +453,11 @@ class Users_Controller extends ZP_Load
 					if ($this->Users_Model->setAvatar("$resized.png", $coordinates)) {
 						SESSION("ZanUserAvatar", "$resized.png?". time());
 
-						$vars["alert"] = getAlert(__("The avatar has been saved correctly"), "success");
+						//$vars["alert"] = getAlert(__("The avatar has been saved correctly"), "success");
+						$json["status"] = __("The avatar has been saved correctly");
 					} else {
-						$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+						//$vars["alert"] = getAlert(__("An error occurred while handling file upload", "error"));
+						$json["fail"] = __("An error occurred while handling file upload");
 					}
 				}
 			}
@@ -461,16 +474,15 @@ class Users_Controller extends ZP_Load
 			$this->js("jquery.jcrop.js");
 			$this->js("avatar", $this->application);
 
-			$this->title(__("Avatar"));
-
-			$vars["view"] = $this->view("avatar", true);
+			/*$vars["view"] = $this->view("avatar", true);
 			$vars["href"] = path("users/avatar/");
 			$vars["data"] = $data;
 
-			$this->render("content", $vars);
+			$this->render("content", $vars);*/
 		} else {
 			redirect();
 		}
+		echo json_encode($json);
 	}
 
 	public function options()

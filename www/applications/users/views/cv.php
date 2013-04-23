@@ -3,6 +3,9 @@
     	die("Error: You don't have permission to access here..."); 
     }
     
+    echo div("float-msg","class");
+    echo htmlTag("div",false);
+    
     echo p(__("My profile"), "resalt");
     
     echo "<a href='#' id='expand' class='btn btn-primary'>".__("Expand All")."<i class='icon-plus icon-white'></i></a>";

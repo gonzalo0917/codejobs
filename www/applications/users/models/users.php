@@ -828,11 +828,12 @@ class Users_Model extends ZP_Load
 				if ($this->setAvatar($avatar)) {
 					SESSION("ZanUserAvatar", current($avatar) ."?". time());
 
-					return getAlert(__("The avatar has been saved correctly"), "success");
+					return true;
 				}
 			}
 
-			return getAlert(__("Error while tried to upload the files"));
+			//return getAlert(__("Error while tried to upload the files"));
+			return false;
 		}
 	}
 
@@ -869,10 +870,10 @@ class Users_Model extends ZP_Load
 				$this->removeAvatar($data[0]["Avatar"]);
 			}
 
-			return getAlert(__("The avatar has been deleted successfully"), "success");
+			return true;
 		}
 
-		return getAlert(__("Update error"));
+		return false;
 	}
 
 	public function getOptions()

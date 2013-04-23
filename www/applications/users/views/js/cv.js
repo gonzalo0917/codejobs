@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	successMSG = { 'background' : 'rgba(92,164,81,1)' };
+	errorMSG = { 'background' : 'rgba(203,33,34,0.8)' };
+
 	window.loadCalendar = function() {
 		$('.jdpicker').each(function(){
 			if ($(this).parent('div').attr('class') != "jdpicker_w") {
@@ -60,4 +63,8 @@ $(document).ready(function() {
     });
 
     $('ul.tagit').addClass("span10");*/
+
+    $('.float-msg').on('click', function() {
+		$(this).animate({top: -50}, 1000, null);
+	})
 });
