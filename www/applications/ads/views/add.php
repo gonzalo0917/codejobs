@@ -72,21 +72,21 @@
 
 			echo p(true, "preview");
 
-				echo '<span class="browse btn">'. __("Browse") ."...".
+				echo htmlTag("span", array("class" => "browse btn"),
+					__("Browse") ."...".
 					formInput(array(
 						"type" 	=> "file", 
-						"name" 	=> "image", 
+						"name" 	=> "large", 
 						"p" 	=> false
-					)) .'</span>';
+					))
+				);
 
 				echo br();
 
-				echo span("field", "&raquo; ". __("Large") ." (250x100)");
-
-				echo br();
+				echo span("field block", "&raquo; ". __("Large") ." (250x100)");
 
 				echo htmlTag("canvas", array(
-					"id" 	 => "preview",
+					"id" 	 => "large",
 					"class"  => "transparent",
 					"width"  => "250",
 					"height" => "100"
@@ -101,14 +101,11 @@
 						"type" 	=> "file", 
 						"name" 	=> "miniature", 
 						"p" 	=> false,
-						"disabled" => true
-					)) .'</span>';
+					), true) .'</span>';
 
 				echo br();
 
-				echo span("field", "&raquo; ". __("Miniature") ." (100x40)");
-
-				echo br();
+				echo span("field block", "&raquo; ". __("Miniature") ." (100x40)");
 
 				echo htmlTag("canvas", array(
 					"id" 	 => "miniature",
@@ -127,13 +124,14 @@
 
 			echo p(false);
 
-			echo htmlTag("button", array(
+			echo p(htmlTag("button", array(
 				"id" 	  => "transparent",
 				"type" 	  => "button",
+				"class"   => "btn",
 				"data-on" => "0",
 				"data-set" => __("Set transparent color"), 
 				"data-select" => __("Select a color") ."..." 
-			), __("Set transparent color"));
+			), __("Set transparent color")), "no-margin");
 			
 			$options = array(
 				0 => array(
