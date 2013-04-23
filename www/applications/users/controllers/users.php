@@ -529,11 +529,15 @@ class Users_Controller extends ZP_Load
 	public function social()
 	{
 		isConnected();
-
+		$json = array();
+		
 		if (POST("save")) {
-			$this->helper("alerts");
-
-			$vars["alert"] = $this->Users_Model->saveSocial();
+			//$this->helper("alerts");
+			//$vars["alert"] = $this->Users_Model->saveSocial();
+			if ($this->Users_Model->saveSocial()) 
+				$json["status"] = __("Data have been saved correctly");
+			else
+				$json["fail"] = __("Update error");
 		}
 
 		$data = $this->Users_Model->getSocial();
@@ -544,16 +548,18 @@ class Users_Controller extends ZP_Load
 			$this->css("forms", "cpanel");
 			$this->css("users", $this->application);
 
-			$this->title(__("Social Networks"));
+			/*$this->title(__("Social Networks"));
 
 			$vars["view"] = $this->view("social", true);
 			$vars["href"] = path("users/social/");
 			$vars["data"] = $data;
 
-			$this->render("content", $vars);
+			$this->render("content", $vars);*/
 		} else {
 			redirect();
 		}
+
+		echo json_encode($json);
 	}
 
 	public function cv()

@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
-	successMSG = { 'background' : 'rgba(92,164,81,1)' };
-	errorMSG = { 'background' : 'rgba(203,33,34,0.8)' };
+	var successMSG = { 'background' : 'rgba(92,164,81,1)' };
+	var errorMSG = { 'background' : 'rgba(203,33,34,0.8)' };
+	var submitPressed;
 
 	window.loadCalendar = function() {
 		$('.jdpicker').each(function(){
@@ -63,6 +64,52 @@ $(document).ready(function() {
     });
 
     $('ul.tagit').addClass("span10");*/
+
+     $('.btn').click(function() {
+    	submitPressed = $(this).attr('name');
+    })
+
+    $('.show-section form').on('submit', function() {
+		section = $(this).parent('div').parent('div').attr('id');
+		app = section.substring(0,section.indexOf('-'));
+
+        $('.float-msg').css(errorMSG);
+
+        formData = $(this).serializeArray();
+
+        if (app == "avatar") {
+			editOrSave = submitPressed == "saveAvatar" ? "save" : "delete" ;
+
+	    	formData.push({
+	    		name: 'action',
+	    		value: editOrSave
+	    	});
+		} else {
+	        formData.push({
+	            name: $(this).find('input[type=submit]').attr('name'),
+	            value: $(this).find('input[type=submit]').val()
+	        });
+	    }
+
+        console.log(formData);
+        $.ajax({
+                url: PATH + '/users/' + app,
+                type: 'post',
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status) {
+                        $('.float-msg').animate({top: 0}, 800, null);
+                        $('.float-msg').text("(+) "+data.status).css(successMSG);
+                    } else {
+                        $('.float-msg').animate({top: 0}, 800, null);
+                        $('.float-msg').text("(X) "+data.fail).css(errorMSG);
+                    }
+                }
+            });
+
+        return false;
+	})
 
     $('.float-msg').on('click', function() {
 		$(this).animate({top: -50}, 1000, null);

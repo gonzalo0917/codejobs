@@ -1,41 +1,5 @@
 !function($) {
-	var jcrop_api, avatar_file, avatar_coordinate, submitPressed;
-
-	//console.log($('input.avatar-file').files);
-
-    $('.btn').click(function() {
-    	submitPressed = $(this).attr('name');
-    })
-
-    $('#avatar-section').on('submit','form',function() {
-    	$('.float-msg').css(errorMSG);
-
-    	formData = $(this).serializeArray();
-    	editOrSave = submitPressed == "saveAvatar" ? "save" : "delete" ;
-
-    	formData.push({
-    		name: 'action',
-    		value: editOrSave
-    	});
-
-    	$.ajax({
-    			url: PATH + '/users/avatar',
-    			type: 'post',
-    			data: formData,
-    			dataType: 'json',
-    			success: function (data) {
-    				if (data.status) {
-    					$('.float-msg').animate({top: 0}, 800, null);
-						$('.float-msg').text("(+) "+data.status).css(successMSG);
-    				} else {
-    					$('.float-msg').animate({top: 0}, 800, null);
-						$('.float-msg').text("(X) "+data.fail).css(errorMSG);
-    				}
-    			}
-    		});
-
-    	return false;
-    })
+	var jcrop_api, avatar_file, avatar_coordinate;
 
 	$('input[name="browse"]').click(function () {
 		$('input.avatar-file').click();

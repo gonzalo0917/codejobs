@@ -917,10 +917,10 @@ class Users_Model extends ZP_Load
 		);
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
-			return getAlert(__("Data have been saved correctly"), "success");
+			return true;
 		}
 		
-		return getAlert(__("Update error"));
+		return false;
 	}
 
 	public function records($only = false, $start = 0, $order = null, $search = false)
