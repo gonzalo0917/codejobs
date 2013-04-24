@@ -350,21 +350,26 @@ class Users_Controller extends ZP_Load
 		$this->config("users", $this->application);
 		$this->css("forms", "cpanel");
 		$this->css("users", $this->application);
+		$json = array();
 
 		if (POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->changePassword();
+			//$this->helper("alerts");
+			//$vars["alert"] = $this->Users_Model->changePassword();
+			$json["status"] = $this->Users_Model->changePassword();
+
 		}
 
 		$this->js("bootstrap");
 		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
-		$this->title(decode(__("Change password")));
+		echo json_encode($json);
+
+		/*$this->title(decode(__("Change password")));
 
 		$vars["view"] = $this->view("password", true);
 		$vars["href"] = path("users/password/");
 
-		$this->render("content", $vars);
+		$this->render("content", $vars);*/
 	}
 
 	public function email()
@@ -530,7 +535,7 @@ class Users_Controller extends ZP_Load
 	{
 		isConnected();
 		$json = array();
-		
+
 		if (POST("save")) {
 			//$this->helper("alerts");
 			//$vars["alert"] = $this->Users_Model->saveSocial();
@@ -566,180 +571,199 @@ class Users_Controller extends ZP_Load
 	{
 		if (isConnected()) {
 
-			$dataAvatar  = $this->Users_Model->getAvatar();
-			
-			$dataAbout = $this->Users_Model->getInformation();
-			
-			$summary = $this->Users_Model->getSummary();
-			$experiences = $this->Users_Model->getExperiences();
-			$education = $this->Users_Model->getEducation();
-			$skills = $this->Users_Model->getSkills();
+			if (POST("actionSummary") || POST("actionExperiences") || POST("actionEducation") || POST("actionSkills")) {
+				if (POST("actionSummary")) {
+					$action = ((int) POST("ID_Summary") !== 0 and $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
+					/*$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
+					$summary = $this->Users_Model->getSummary();*/
+					if ($this->Users_Model->saveSummary($action))
+						$json["status"] = __("Saved correctly");
+					else 
+						$json["fail"] = __("Update error");
+				}
 
-			$dataSocial = $this->Users_Model->getSocial();
+				if (POST("actionExperiences")) {
+					$action = ((int) POST("experience") !== 0 and $_POST["experience"][0] !== "") ? "edit" : "save";
+					/*$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
+					$experiences = $this->Users_Model->getExperiences();*/
+					if ($this->Users_Model->saveExperiences($action))
+						$json["status"] = __("Saved correctly");
+					else 
+						$json["fail"] = __("Update error");
+				}
 
-			$this->helper("alerts");
-			$this->Configuration_Model = $this->model("Configuration_Model");
-			$this->Cache = $this->core("Cache");
+				if (POST("actionEducation")) {
+					$action = ((int) POST("school") !== 0 and $_POST["school"][0] !== "") ? "edit" : "save";
+					/*$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
+					$education = $this->Users_Model->getEducation();*/
+					if ($this->Users_Model->saveEducation($action))
+						$json["status"] = __("Saved correctly");
+					else 
+						$json["fail"] = __("Update error");
+				}
 
-			/* Avatar */
-			if (POST("deleteAvatar")) {
-				$vars["alertAvatar"] = $this->Users_Model->deleteAvatar();
+				if (POST("actionSkills")) {
+					$action = ((int) POST("ID_Skills") !== 0 and $_POST["ID_Skills"][0] !== "") ? "edit" : "save";
+					/*$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
+					$skills = $this->Users_Model->getSkills();*/
+					if ($this->Users_Model->saveSkills($action))
+						$json["status"] = __("Saved correctly");
+					else 
+						$json["fail"] = __("Update error");
+				}
+
+				echo json_encode($json);
+			} else {
 				$dataAvatar  = $this->Users_Model->getAvatar();
-			} elseif (POST("saveAvatar")) {
-				$vars["alertAvatar"] = $this->Users_Model->saveAvatar();
-				$dataAvatar  = $this->Users_Model->getAvatar();
-			} elseif (POST("nosupport")) {
-				$user = SESSION("ZanUser");
-				if (isset($_FILES['avatar']) and $user) {
-					$file = $_FILES['avatar'];
-					$error = $file['error'];
-					$type = $file['type'];
-					$name = $file['name'];
-					$tmp_name = $file['tmp_name'];
+				
+				$dataAbout = $this->Users_Model->getInformation();
+				
+				$summary = $this->Users_Model->getSummary();
+				$experiences = $this->Users_Model->getExperiences();
+				$education = $this->Users_Model->getEducation();
+				$skills = $this->Users_Model->getSkills();
 
-					if ($error === 1 or $error == 2) {
-						$vars["alertAvatar"] = getAlert(__("The file size exceeds the limit allowed"), "error");
-					} elseif ($error > 0) {
-						$vars["alertAvatar"] = getAlert(__("An error occurred while handling file upload", "error"));
-					} elseif (!preg_match('/^image/', $type)) {
-						$vars["alertAvatar"] = getAlert(__("The file is not an image", "error"));
-					} elseif ($type != "image/png" and $type != "image/jpeg" and $type != "image/gif") {
-						$vars["alertAvatar"] = getAlert(__("The file is not a known image format", "error"));
-					} elseif (is_uploaded_file($tmp_name)) {
-						$this->Images = $this->core("Images");
-						$this->Images->load($tmp_name);
-						$filename = sha1($user . "_O");
-						$resized = sha1($user);
-						$path = "www/lib/files/images/users";
-						$this->Images->png("$path/$filename.png");
-						$width = $this->Images->getWidth();
-						$coordinates = $this->Images->crop(true, 90, 90);
-						$this->Images->png("$path/$resized.png");
+				$dataSocial = $this->Users_Model->getSocial();
 
-						if ($width > 700) {
-							$aspect = 700 / $width;
-							$coordinates[0] = (int)($coordinates[0] * $aspect);
-							$coordinates[1] = 0;
-							$coordinates[2] = (int)($coordinates[2] * $aspect);
-							$coordinates[3] = $coordinates[2];
-						}
+				//$this->helper("alerts");
+				$this->Configuration_Model = $this->model("Configuration_Model");
+				$this->Cache = $this->core("Cache");
 
-						if ($this->Users_Model->setAvatar("$resized.png", $coordinates)) {
-							SESSION("ZanUserAvatar", "$resized.png?". time());
+				$this->helper(array("time", "forms", "html"));
+				
+				$this->config("users", $this->application);
+				$this->config("cv", $this->application);
+		 		
+				$this->css("forms", "cpanel");
+				$this->css("users", $this->application);
+				$this->css("avatar", $this->application);
+				$this->css("cv", $this->application);
 
-							$vars["alertAvatar"] = getAlert(__("The avatar has been saved correctly"), "success");
-						} else {
+				$this->js("jquery.jcrop.js");
+				$this->js("avatar", $this->application);
+				$this->js("jquery.jdpicker.js");
+				$this->js("about", $this->application);
+				$this->js("cv", $this->application);
+				$this->js("bootstrap"); /* Password */
+				$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
+
+				/* Avatar */
+				/*if (POST("deleteAvatar")) {
+					$vars["alertAvatar"] = $this->Users_Model->deleteAvatar();
+					$dataAvatar  = $this->Users_Model->getAvatar();
+				} elseif (POST("saveAvatar")) {
+					$vars["alertAvatar"] = $this->Users_Model->saveAvatar();
+					$dataAvatar  = $this->Users_Model->getAvatar();
+				} elseif (POST("nosupport")) {
+					$user = SESSION("ZanUser");
+					if (isset($_FILES['avatar']) and $user) {
+						$file = $_FILES['avatar'];
+						$error = $file['error'];
+						$type = $file['type'];
+						$name = $file['name'];
+						$tmp_name = $file['tmp_name'];
+
+						if ($error === 1 or $error == 2) {
+							$vars["alertAvatar"] = getAlert(__("The file size exceeds the limit allowed"), "error");
+						} elseif ($error > 0) {
 							$vars["alertAvatar"] = getAlert(__("An error occurred while handling file upload", "error"));
+						} elseif (!preg_match('/^image/', $type)) {
+							$vars["alertAvatar"] = getAlert(__("The file is not an image", "error"));
+						} elseif ($type != "image/png" and $type != "image/jpeg" and $type != "image/gif") {
+							$vars["alertAvatar"] = getAlert(__("The file is not a known image format", "error"));
+						} elseif (is_uploaded_file($tmp_name)) {
+							$this->Images = $this->core("Images");
+							$this->Images->load($tmp_name);
+							$filename = sha1($user . "_O");
+							$resized = sha1($user);
+							$path = "www/lib/files/images/users";
+							$this->Images->png("$path/$filename.png");
+							$width = $this->Images->getWidth();
+							$coordinates = $this->Images->crop(true, 90, 90);
+							$this->Images->png("$path/$resized.png");
+
+							if ($width > 700) {
+								$aspect = 700 / $width;
+								$coordinates[0] = (int)($coordinates[0] * $aspect);
+								$coordinates[1] = 0;
+								$coordinates[2] = (int)($coordinates[2] * $aspect);
+								$coordinates[3] = $coordinates[2];
+							}
+
+							if ($this->Users_Model->setAvatar("$resized.png", $coordinates)) {
+								SESSION("ZanUserAvatar", "$resized.png?". time());
+
+								$vars["alertAvatar"] = getAlert(__("The avatar has been saved correctly"), "success");
+							} else {
+								$vars["alertAvatar"] = getAlert(__("An error occurred while handling file upload", "error"));
+							}
 						}
 					}
+					$dataAvatar  = $this->Users_Model->getAvatar();
 				}
-				$dataAvatar  = $this->Users_Model->getAvatar();
-			}
-			
-			if (POST("saveAbout")) {
-				$vars["alertAbout"] = $this->Users_Model->saveInformation();
-				$dataAbout = $this->Users_Model->getInformation();
+				
+				if (POST("saveAbout")) {
+					$vars["alertAbout"] = $this->Users_Model->saveInformation();
+					$dataAbout = $this->Users_Model->getInformation();
 
-			}
+				}
 
-			/* About */
-			$list_of_countries = $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
+				/* About */
+				$list_of_countries = $this->Cache->data("countries", "world", $this->Configuration_Model, "getCountries", array(), 86400);
 
-			foreach ($list_of_countries as $country) {
-				$countries[] = array(
-					"option" => $country["Country"],
-					"value" => $country["Country"]
-				);
-			}
-
-			if (POST("saveSocial")) {
-				$vars["alertSocial"] = $this->Users_Model->saveSocial();
-				$dataSocial = $this->Users_Model->getSocial();
-			}
-
-			if (POST("savePassword")) {
-				$this->helper("alerts");
-				$vars["alertPassword"] = $this->Users_Model->changePassword();
-			}
-
-			/* CV */
-			$this->helper(array("time", "forms", "html"));
-			$this->config("users", $this->application);
-			$this->config("cv", $this->application);
-	 	
-			$this->css("forms", "cpanel");
-			$this->css("users", $this->application);
-			$this->css("cv", $this->application);
-
-			$this->js("cv", $this->application);
-			$this->js("jquery.jdpicker.js");
-
-			$this->js("about", $this->application); /* about */
-
-			$this->css("avatar", $this->application); /* Avatar */
-			$this->js("jquery.jcrop.js");
-			$this->js("avatar", $this->application);
-
-			$this->js("bootstrap"); /* Password */
-			$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
-
-			if (POST("actionSummary")) {
-				$action = ((int) POST("ID_Summary") !== 0 and $_POST["ID_Summary"][0] !== "") ? "edit" : "save";
-				$vars["alertSummary"] = $this->Users_Model->saveSummary($action);
-				$summary = $this->Users_Model->getSummary();
-			}
-
-			if (POST("actionExperiences")) {
-				$action = ((int) POST("experience") !== 0 and $_POST["experience"][0] !== "") ? "edit" : "save";
-				$vars["alertExperience"] = $this->Users_Model->saveExperiences($action);
-				$experiences = $this->Users_Model->getExperiences();
-			}
-
-			if (POST("actionEducation")) {
-				$action = ((int) POST("school") !== 0 and $_POST["school"][0] !== "") ? "edit" : "save";
-				$vars["alertEducation"] = $this->Users_Model->saveEducation($action);
-				$education = $this->Users_Model->getEducation();
-			}
-
-			if (POST("actionSkills")) {
-				$action = ((int) POST("ID_Skills") !== 0 and $_POST["ID_Skills"][0] !== "") ? "edit" : "save";
-				$vars["alertSkills"] = $this->Users_Model->saveSkills($action);
-				$skills = $this->Users_Model->getSkills();
-			}
-
-
-			$data = arrayPushAfter($dataAvatar,$dataAbout,1);
-			$data = arrayPushAfter($data,$dataSocial,1);
-
-			$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
-			$vars["summary"] = $summary;
-			$vars["experiences"] = $experiences;
-			$vars["education"] = $education;
-			$vars["skills"] = $skills;
-
-			/* cv */
-			$vars["countries"] = $countries;
-			$vars["data"] = $data;
-
-			$vars["view"] = $this->view("cv", true);
-			$vars["href"] = path("users/cv/");
-
-			$this->title("Curriculum Vitae");
-
-			if ($country = recoverPOST("country", encode($vars["data"][1]["Country"]))) {
-				$list_of_states = $this->Cache->data("$country-states", "world", $this->Configuration_Model, "getStates", array($country), 86400);
-
-				foreach ($list_of_states as $state) {
-					$states[] = array(
-						"option" => $state["District"],
-						"value" => $state["District"]
+				foreach ($list_of_countries as $country) {
+					$countries[] = array(
+						"option" => $country["Country"],
+						"value" => $country["Country"]
 					);
 				}
 
-				$vars["states"] = $states;
-			}
+				/*
+				if (POST("saveSocial")) {
+					$vars["alertSocial"] = $this->Users_Model->saveSocial();
+					$dataSocial = $this->Users_Model->getSocial();
+				}
 
-			$this->render("content", $vars);
+				if (POST("savePassword")) {
+					$this->helper("alerts");
+					$vars["alertPassword"] = $this->Users_Model->changePassword();
+				}*/
+
+				/* CV */
+
+				$data = arrayPushAfter($dataAvatar,$dataAbout,1);
+				$data = arrayPushAfter($data,$dataSocial,1);
+
+				$vars["ckeditor"] = $this->js("ckeditor", "basic", true);
+				$vars["summary"] = $summary;
+				$vars["experiences"] = $experiences;
+				$vars["education"] = $education;
+				$vars["skills"] = $skills;
+
+				/* cv */
+				$vars["countries"] = $countries;
+				$vars["data"] = $data;
+
+				$vars["view"] = $this->view("cv", true);
+				$vars["href"] = path("users/cv/");
+
+				$this->title("Curriculum Vitae");
+
+				if ($country = recoverPOST("country", encode($vars["data"][1]["Country"]))) {
+					$list_of_states = $this->Cache->data("$country-states", "world", $this->Configuration_Model, "getStates", array($country), 86400);
+
+					foreach ($list_of_states as $state) {
+						$states[] = array(
+							"option" => $state["District"],
+							"value" => $state["District"]
+						);
+					}
+
+					$vars["states"] = $states;
+				}
+
+				$this->render("content", $vars);
+			}
 		} else {
 			redirect();
 		}

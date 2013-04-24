@@ -17,7 +17,7 @@ $(document).ready(function() {
 					toolbar: [
 						{ name:'group1', items:['Bold','Italic','Underline','StrikeThrough','PasteFromWord'] },
 						{ name:'group2', items:['Outdent','Indent','NumberedList','BulletedList','Blockquote'] },
-					 	{ name:'group3', items:['Image','Link','Unlink','InsertPre'] }  
+					 	{ name:'group3', items:['Image','Link','Unlink','InsertPre'] }
 					]
 		});
     });
@@ -70,24 +70,40 @@ $(document).ready(function() {
     })
 
     $('.show-section form').on('submit', function() {
-		section = $(this).parent('div').parent('div').attr('id');
+    	$this = $(this);
+
+		section = $this.parents('div').eq(1).attr('id');
+		if (section === undefined) {
+			section = $this.parents('div').eq(2).attr('id'); //Forms of CV
+		}
+
 		app = section.substring(0,section.indexOf('-'));
 
         $('.float-msg').css(errorMSG);
 
-        formData = $(this).serializeArray();
+        if (app === "cv" ) {
+        	for (instance in CKEDITOR.instances)
+            	CKEDITOR.instances[instance].updateElement();
+        }
 
-        if (app == "avatar") {
+        formData = $this.serializeArray();
+
+        if (app === "avatar") {
 			editOrSave = submitPressed == "saveAvatar" ? "save" : "delete" ;
 
 	    	formData.push({
 	    		name: 'action',
 	    		value: editOrSave
 	    	});
+		} else if(app === "cv") {
+			formData.push({
+				name: $("input[name="+submitPressed+"]").attr('name'),
+				value: $("input[name="+submitPressed+"]").val()
+			});	
 		} else {
 	        formData.push({
-	            name: $(this).find('input[type=submit]').attr('name'),
-	            value: $(this).find('input[type=submit]').val()
+	            name: $this.find('input[type=submit]').attr('name'),
+	            value: $this.find('input[type=submit]').val()
 	        });
 	    }
 

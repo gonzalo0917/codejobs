@@ -424,7 +424,7 @@ function CvEducation($scope) {
                 degree: "<?php print recoverPOST("degree$school", $education[$school]["Degree"]); ?>",
                 periodfrom: "<?php print recoverPOST("school_periodfrom$school", $education[$school]["Period_From"]); ?>",
                 periodto: "<?php print recoverPOST("school_periodto$school", $education[$school]["Period_To"]); ?>",
-                description: "<?php print recoverPOST("description$school", $education[$school]["Description"]); ?>"
+                description: "<?php print removeBreaklines(htmlspecialchars_decode(recoverPOST("school_description$school", $education[$school]["Description"]))); ?>"
             } <?php print $school < (count($education) - 1) ? ',' : '';
         }
         ?>

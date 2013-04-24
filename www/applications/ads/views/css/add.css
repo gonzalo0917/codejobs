@@ -61,6 +61,14 @@
 	top: 0;
 }
 
+.block {
+	display: block;
+}
+
+.no-margin {
+	margin: 0;
+}
+
 #transparent {
 	display: none;
 	margin: 0 auto;

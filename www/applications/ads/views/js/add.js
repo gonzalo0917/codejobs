@@ -3,14 +3,14 @@
 +function ($, window, document, undefined) {
 	var transparent = {};
 
-	$("input[name='image']").val("");
+	$("input[name='large']").val("");
 
 	function changeDate (enabled) {
 		$(".jdpicker").attr("disabled", enabled);
 		$(".date_clearer").css("visibility", (enabled ? "hidden" : "visible"));
 	}
 
-	function previewImage(file) {
+	function previewImage(file, id) {
 		if (typeof FileReader !== "undefined") {
 			var reader = new FileReader();
 
@@ -22,32 +22,43 @@
 				image.onload = function (event) {
 					if (this.height > this.width) {
 						alert($("#orientation-error").val());
-						$("input[name='image']").val("");
+						$("input[name='" + id + "']").val("");
 					} else {
-						var canvas = $("#preview").get(0), context = canvas.getContext("2d"), ratio, dimensions, attr;
+						var canvas = $("#" + id).get(0), context = canvas.getContext("2d"), ratio, dimensions, attr, width = $("#" + id).width(), height = $("#" + id).height();
 
 						if (this.width / this.height < 2.5) {
 							// Stretch to height
-							ratio = 100 / this.height;
+							ratio = height / this.height;
 							attr = {
-								"height" : 100,
+								"height" : height,
 								"width"  : ratio * this.width,
 								"top"    : 0,
-								"left"   : (250 - ratio * this.width) / 2
+								"left"   : (width - ratio * this.width) / 2
 							};
 						} else {
 							// Stretch to width
-							ratio = 250 / this.width;
+							ratio = width / this.width;
 							attr = {
-								"width"  : 250,
+								"width"  : width,
 								"height" : ratio * this.height,
 								"left"   : 0,
-								"top"    : (100 - ratio * this.height) / 2
+								"top"    : (height - ratio * this.height) / 2
 							};
 						}
 
-						document.querySelector("#preview").width = "250";
+						if (id == "large") {
+							clearCanvas(true, false);
+						}
+
+						if (id == "miniature") {
+							clearCanvas(false, true);
+						}
+
 						context.drawImage(this, 0, 0, this.width, this.height, attr.left, attr.top, attr.width, attr.height);
+
+						if (id == "large" && $("#copy").attr("checked")) {
+							changeCopy(true);
+						}
 						
 						if ($("#transparent").data("on") == "1") {
 							$("#transparent").click();
@@ -63,7 +74,7 @@
 		}
 	}
 
-	function selectFile(files) {
+	function selectFile(files, name) {
 		if (files.length === 1) {
 			var file = files[0];
 			
@@ -74,7 +85,7 @@
 			} else if (file.size > 2097152) {
 				alert($("#big-error").val());
 			} else {
-				previewImage(file);
+				previewImage(file, name);
 			}
 		}
 	}
@@ -94,8 +105,47 @@
 	    return undefined;
 	}
 
+	function changeType(main) {
+		clearCanvas(true, true);
+
+		if (main == 0) {
+			$(".preview:first, .preview:last .field, .preview:last .copy-label").hide();
+			$(".preview:last .browse, .preview:last .browse input").attr("disabled", false);
+		} else {
+			$(".preview:first, .preview:last .field, .preview:last .copy-label").show();
+			$(".preview:last .browse, .preview:last .browse input").attr("disabled", true);
+			$("#copy").attr("checked", true);
+		}
+	}
+
+	function clearCanvas(large, miniature) {
+		if (large) {
+			document.querySelector("#large").width = document.querySelector("#large").width;
+		}
+		if (miniature) {
+			document.querySelector("#miniature").width = document.querySelector("#miniature").width;
+		}
+	}
+
+	function changeCopy(copy) {
+		clearCanvas(false, true);
+
+		if (copy) {
+			var canvas = document.querySelector("#miniature"),
+			context = canvas.getContext("2d");
+
+			context.drawImage(document.querySelector("#large"), 0, 0, canvas.width, canvas.height);
+
+			$(".preview:last .browse, .preview:last .browse input").attr("disabled", true);
+		} else {
+			$(".preview:last .browse, .preview:last .browse input").attr("disabled", false);
+		}
+	}
+
 	$("#never").change(function () { changeDate(true); });
 	$("#date").change(function () { changeDate(false); });
+	$("select[name='principal']").change(function () { changeType($(this).val()); });
+	$("#copy").change(function () { changeCopy($(this).attr("checked")); });
 
 	$(document).ready(function (event) {
 		if ($("#never").attr("checked")) {
@@ -103,27 +153,29 @@
 		} else if ($("#date").attr("checked")) {
 			changeDate(false);
 		}
+
+		changeType($("select[name='principal']").val());
 	});
 
-	$("input[name='image']").change(function (event) {
+	$("input[name='large'], input[name='miniature']").change(function (event) {
 		if ("files" in this) {
-			selectFile(this.files);
+			selectFile(this.files, $(this).attr("name"));
 		}
 	});
 
 	$("#transparent").click(function (event) {
 		if ($(this).data("on") == "0") {
 			$(this).html($(this).data("select") + ' <span class="color"></span>');
-			$("#preview").css("cursor", "crosshair");
+			$("#large").css("cursor", "crosshair");
 			$(this).data("on", "1");
 		} else {
 			$(this).text($(this).data("set"));
-			$("#preview").css("cursor", "default");
+			$("#large").css("cursor", "default");
 			$(this).data("on", "0");
 		}
 	});
 
-	$("#preview").mousemove(function (e) {
+	$("#large").mousemove(function (e) {
 		if ($("#transparent").data("on") == "1") {
 		    var pos = findPos(this);
 		    var x = e.pageX - pos.x;
@@ -135,9 +187,9 @@
 		}
 	});
 
-	$("#preview").click(function (e) {
+	$("#large").click(function (e) {
 		if ($("#transparent").data("on") == "1" && transparent[3] > 0) {
-			var context = document.querySelector("#preview").getContext("2d"), data = context.getImageData(0, 0, 250, 100), pos;
+			var context = document.querySelector("#large").getContext("2d"), data = context.getImageData(0, 0, 250, 100), pos;
 
 			for (var x = 0; x < 250; x++) {
 			    for (var y = 0; y < 100; y++) {
