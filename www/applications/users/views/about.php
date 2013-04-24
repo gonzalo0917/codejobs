@@ -18,7 +18,7 @@
 
 			echo formInput(array(
 				"name"      => "name", 
-				"class"     => "field-title field-full-size",
+				"class"     => "required field-title field-full-size",
 				"field"     => __("Full name") ."*", 
 				"p"         => true,
 				"maxlength" => "150",
@@ -32,7 +32,7 @@
 
 			echo formSelect(array(
 				"name"  => "gender", 
-				"class" => "span3 field-title",
+				"class" => "span3 required field-title",
 				"p"     => true, 
 				"field" => __("Gender") ."*"),
 				$options

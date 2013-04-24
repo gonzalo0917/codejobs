@@ -3,7 +3,7 @@
 
 	echo div("edit-profile", "class");
 		echo formOpen($href, "form-add", "form-add");
-			echo isset($alertPassword) ? $alertPassword : null;
+			//echo isset($alertPassword) ? $alertPassword : null;
 
 			echo formInput(array(
 				"type"  => "hidden",
