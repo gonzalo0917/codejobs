@@ -1071,10 +1071,10 @@ class Users_Model extends ZP_Load
 			$return = $this->Db->insert($this->tableCvSum, $data);
 
 			if ($return) {
-				return getAlert(__("Saved correctly"), "success");
+				return true;
 			}
 				
-			return getAlert(__("Insert error"));
+			return false;
 
 		} elseif ($action === "edit") {
 
@@ -1112,12 +1112,14 @@ class Users_Model extends ZP_Load
 	        }
 
 	        if ($this->Db->insertBatch($this->tableCvExp, $data))
-	            return getAlert(__("Saved correctly"), "success");	
+	            //return getAlert(__("Saved correctly"), "success");	
+	            return true;
 		} elseif ($action === "edit") {
 			return $this->editExperiences();
 		}
 
-		return getAlert(__("Insert error"));
+		//return getAlert(__("Insert error"));
+		return false;
 		
 	}
 
@@ -1148,12 +1150,12 @@ class Users_Model extends ZP_Load
 	        }
 
 	        if ($this->Db->insertBatch($this->tableCvEdu, $data))
-	            return getAlert(__("Saved correctly"), "success");
+	            return true;
 		} elseif ($action === "edit") {
 			return $this->editEducation();
 		}
 
-		return getAlert(__("Insert error"));
+		return false;
 	}
 
 	public function saveSkills($action = "save")
@@ -1169,10 +1171,10 @@ class Users_Model extends ZP_Load
 			$return = $this->Db->insert($this->tableCvSki, $data);
 
 			if ($return) {
-				return getAlert(__("Saved correctly"), "success");
+				return true;
 			}
 				
-			return getAlert(__("Insert error"));
+			return false;
 
 		} else {
 			return $this->editSkills();
@@ -1182,9 +1184,9 @@ class Users_Model extends ZP_Load
 	public function editSummary($data) 
 	{
 		if ($this->Db->update($this->tableCvSum, $data, POST("ID_Summary"))) {
-			return getAlert(__("Edited correctly"), "success");
+			return true;
 		}
-		return getAlert(__("Update error"));
+		return false;
 	}
 
 	public function editExperiences() 
@@ -1243,7 +1245,7 @@ class Users_Model extends ZP_Load
 		if (!$error) 
 			return $this->updateDateCv();
 		else
-			return getAlert(__("Update error"));
+			return false;
 	}
 
 	public function editEducation() 
@@ -1253,7 +1255,7 @@ class Users_Model extends ZP_Load
 		$schools = POST("school");
 
 		for ($i=0; $i < count($idedu); $i++) { 
-			if (($school and isset($schools[$i])) != (isset($idedu[$i]) and $idedu[$i])) {
+			if (($schools and isset($schools[$i])) != (isset($idedu[$i]) and $idedu[$i])) {
 				if (!$this->Db->delete($idedu[$i], $this->tableCvEdu)) $error = true;
 			} 
 		}
@@ -1300,7 +1302,7 @@ class Users_Model extends ZP_Load
 		if (!$error)
 			return $this->updateDateCv();
 		else
-			return getAlert(__("Update error"));
+			return false;
 	}
 	
 	public function editSkills() 
@@ -1311,7 +1313,7 @@ class Users_Model extends ZP_Load
 			return $this->updateDateCv();
 		} 
 		
-		return getAlert(__("Update error"));
+		return false;
 	}
 
 	private function updateDateCv() 
