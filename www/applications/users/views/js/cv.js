@@ -17,7 +17,7 @@ $(document).ready(function() {
 					toolbar: [
 						{ name:'group1', items:['Bold','Italic','Underline','StrikeThrough','PasteFromWord'] },
 						{ name:'group2', items:['Outdent','Indent','NumberedList','BulletedList','Blockquote'] },
-					 	{ name:'group3', items:['Image','Link','Unlink','InsertPre'] }  
+					 	{ name:'group3', items:['Image','Link','Unlink','InsertPre'] }
 					]
 		});
     });
@@ -81,16 +81,21 @@ $(document).ready(function() {
 
         $('.float-msg').css(errorMSG);
 
+        if (app === "cv" ) {
+        	for (instance in CKEDITOR.instances)
+            	CKEDITOR.instances[instance].updateElement();
+        }
+
         formData = $this.serializeArray();
 
-        if (app == "avatar") {
+        if (app === "avatar") {
 			editOrSave = submitPressed == "saveAvatar" ? "save" : "delete" ;
 
 	    	formData.push({
 	    		name: 'action',
 	    		value: editOrSave
 	    	});
-		} else if(app == "cv") {
+		} else if(app === "cv") {
 			formData.push({
 				name: $("input[name="+submitPressed+"]").attr('name'),
 				value: $("input[name="+submitPressed+"]").val()
