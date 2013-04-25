@@ -48,7 +48,7 @@ class Buffer_Controller extends ZP_Load
 				for ($i = 0; $i <= $count; $i++) {
 					foreach ($posts as $post) {
 						$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], false, $post["Language"]);					
-						die(var_dump($URL));
+						
 						$data = array(
 							"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
 							"profile_ids[]" => $this->bufferProfiles[$i]
