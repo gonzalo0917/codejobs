@@ -146,6 +146,8 @@
 	$("#date").change(function () { changeDate(false); });
 	$("select[name='principal']").change(function () { changeType($(this).val()); });
 	$("#copy").change(function () { changeCopy($(this).attr("checked")); });
+	$(".browse").mouseup(function (e) { if(e.target.tagName === "SPAN") $("input[name='" + $(this).data("input") + "']").click(); e.preventDefault(); });
+	$(window).keyup(function (e) { if (e.keyCode == 27 && $("#transparent").data("on") == "1") $("#transparent").click(); });
 
 	$(document).ready(function (event) {
 		if ($("#never").attr("checked")) {
@@ -167,16 +169,17 @@
 		if ($(this).data("on") == "0") {
 			$(this).html($(this).data("select") + ' <span class="color"></span>');
 			$("#large").css("cursor", "crosshair");
+			if (!$("#copy").attr("checked")) $("#miniature").css("cursor", "crosshair");
 			$(this).data("on", "1");
 		} else {
 			$(this).text($(this).data("set"));
-			$("#large").css("cursor", "default");
+			$("#large, #miniature").css("cursor", "default");
 			$(this).data("on", "0");
 		}
 	});
 
-	$("#large").mousemove(function (e) {
-		if ($("#transparent").data("on") == "1") {
+	$("#large, #miniature").mousemove(function (e) {
+		if ($("#transparent").data("on") == "1" && $(this).css("cursor") === "crosshair") {
 		    var pos = findPos(this);
 		    var x = e.pageX - pos.x;
 		    var y = e.pageY - pos.y;
@@ -187,9 +190,9 @@
 		}
 	});
 
-	$("#large").click(function (e) {
-		if ($("#transparent").data("on") == "1" && transparent[3] > 0) {
-			var context = document.querySelector("#large").getContext("2d"), data = context.getImageData(0, 0, 250, 100), pos;
+	$("#large, #miniature").click(function (e) {
+		if ($("#transparent").data("on") == "1" && $(this).css("cursor") === "crosshair" && transparent[3] > 0) {
+			var context = this.getContext("2d"), data = context.getImageData(0, 0, 250, 100), pos;
 
 			for (var x = 0; x < 250; x++) {
 			    for (var y = 0; y < 100; y++) {
@@ -204,9 +207,13 @@
 			}
 
 			context.putImageData(data, 0, 0);
-		}
 
-		$("#transparent").click();
+			if ($(this).attr("id") === "large" && $("#copy").attr("checked")) {
+				changeCopy(true);
+			}
+			
+			$("#transparent").click();
+		}
 	});
 } (jQuery, window, document);
 
