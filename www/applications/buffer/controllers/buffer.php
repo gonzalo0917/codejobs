@@ -56,9 +56,9 @@ class Buffer_Controller extends ZP_Load
 
 						echo $data["text"] ."<br />";			
 
-						#$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+						$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
-						#$this->RESTClient->POST($data);	
+						$this->RESTClient->POST($data);	
 					}	
 				}
 			} elseif (strlen($profile) === 24) {
