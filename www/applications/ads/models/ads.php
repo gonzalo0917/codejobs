@@ -134,6 +134,9 @@ class Ads_Model extends ZP_Load
 
 			$this->data["Banner"] = "$dir/$name";
 		}
+
+		$this->Cache = $this->core("Cache");
+		$this->Cache->removeAll("ads");
 	}
 	
 	private function save()

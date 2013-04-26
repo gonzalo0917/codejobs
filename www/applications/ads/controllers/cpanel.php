@@ -89,6 +89,9 @@ class CPanel_Controller extends ZP_Load
 		}
 		
 		if ($this->CPanel_Model->restore($ID)) {
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("ads");
+			
 			if ($return) {
 				return true;
 			}
@@ -109,7 +112,10 @@ class CPanel_Controller extends ZP_Load
 			$this->login();
 		}
 		
-		if ($this->CPanel_Model->trash($ID)) {		
+		if ($this->CPanel_Model->trash($ID)) {
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("ads");
+
 			if ($return) {
 				return true;
 			}	
