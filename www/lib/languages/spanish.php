@@ -136,6 +136,7 @@ $phrase["credit_points"]				  				= "puntos de créditos";
 $phrase["date"]											= "Fecha";
 $phrase["date_of_birth"]								= "Fecha de nacimiento";
 $phrase["deactivate_my_account"]						= "Desactivar mi cuenta";
+$phrase["deadline"]										= "Fecha límite";
 $phrase["december"]  									= "Diciembre";
 $phrase["default_application"] 							= "Aplicación por defecto";
 $phrase["default_editor"]	 							= "Editor por defecto";

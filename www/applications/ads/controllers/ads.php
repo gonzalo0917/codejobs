@@ -10,6 +10,7 @@ class Ads_Controller extends ZP_Load
 	{		
 		$this->Ads_Model = $this->model("Ads_Model");
 		$this->application = $this->app("ads");
+		$this->Cache = $this->core("Cache");
 	}
 	
 	public function index($action = null, $position = "Top") 
@@ -17,14 +18,29 @@ class Ads_Controller extends ZP_Load
 		redirect();	
 	}
 	
-	public function ads($tag) 
+	public function principal() 
 	{
-		$data = $this->Ads_Model->getAds($tag);
+		$data = $this->Cache->data("principal", "ads", $this->Ads_Model, "getAds", array(1));
 	
 		if ($data) {
 			$vars["ads"] = $data;
 			
-			$this->view("ads", $vars, $this->application);				
+			$this->view("principal", $vars, $this->application);				
+		} 
+
+		return false;
+	}
+
+	public function tv() 
+	{
+		$this->helper("time");
+		
+		$data = $this->Cache->data("tv", "ads", $this->Ads_Model, "getAds", array(0));
+	
+		if ($data) {
+			$vars["ads"] = $data;
+			
+			$this->view("tv", $vars, $this->application);				
 		} 
 
 		return false;

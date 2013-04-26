@@ -27,7 +27,7 @@ $j = 2;
 			<th>&nbsp;</th>
 			<th>ID</th>
 			<th><?php echo __("Title"); ?></th>
-			<th><?php echo __("End date"); ?></th>
+			<th><?php echo __("Deadline"); ?></th>
 			<th><?php echo __("Banner"); ?></th>
 			<th><?php echo __("Principal"); ?></th>
 			<th><?php echo __("Situation"); ?></th>
@@ -84,9 +84,7 @@ $j = 2;
 						if ($column["Banner"] !== "") { 				
 						?>
 							<td class="center">
-								<a href="<?php echo path($column["Banner"], true); ?>" title="Banner" class="banner-lightbox">
-									<?php echo __("Preview"); ?>
-								</a>
+								<img src="<?php echo path($column["Banner"], true); ?>_small.png" title="Banner" width="100" height="40" />
 							</td>
 						<?php
 						} else {

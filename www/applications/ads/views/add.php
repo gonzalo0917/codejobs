@@ -6,7 +6,7 @@
 	$ID  	   = isset($data) ? recoverPOST("ID", $data[0]["ID_Ad"]) : 0;
 	$title     = isset($data) ? recoverPOST("title", $data[0]["Title"]) : recoverPOST("title");
 	$banner    = isset($data) ? recoverPOST("banner", $data[0]["Banner"]) : null;
-	$URL       = isset($data) ? recoverPOST("URL", $data[0]["URL"]) : "http://";
+	$URL       = isset($data) ? recoverPOST("URL", $data[0]["URL"]) : recoverPost("URL", "http://");
 	$time 	   = isset($data) ? recoverPOST("time", $data[0]["Time"]) : recoverPOST("time");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
 	$date      = isset($data) ? ($data[0]["End_Date"] ? "date" : "never") : recoverPOST("date", "date");
@@ -61,10 +61,6 @@
 			);
 			
 			if (isset($banner)) {
-				$image = img(path($banner, true), array("alt" => "Banner", "class" => "no-border", "style" => "max-width: 780px;"));
-			
-				echo __("If you change the banner image, this image will be deleted") . "<br />";
-				echo $image;
 				echo formInput(array("name" => "banner", "type" => "hidden", "value" => $banner));
 			}
 
@@ -91,6 +87,8 @@
 					"width"  => "250",
 					"height" => "100"
 				));
+
+				echo formInput(array("name" => "large", "type" => "hidden", "value" => ""));
 
 			echo p(false);
 
@@ -123,6 +121,8 @@
 						"position" => "right"
 					))
 				);
+
+				echo formInput(array("name" => "miniature", "type" => "hidden", "value" => ""));
 
 			echo p(false);
 
@@ -238,3 +238,12 @@
 			echo formInput(array("name" => "ID", "type" => "hidden", "value" => $ID));
 		echo formClose();
 	echo div(false);
+
+	if ($banner) {
+?>
+	<script>
+		var banner_url = "<?php echo $banner ? path($banner, true) : null; ?>";
+	</script>
+<?php
+	}
+?>

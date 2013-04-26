@@ -59,9 +59,15 @@ class Ads_Model extends ZP_Load
 	private function editOrSave($action)
 	{
 		$validations = array(
-			"title" => "required",
-			"URL"   => "ping"
+			"title"     => "required",
+			"miniature" => "required",
+			"large"     => "required",
+			"URL"       => "ping"
 		);
+
+		if (POST("principal") === "0" or $action === "edit") {
+			unset($validations["large"]);
+		}
 
 		if (POST("code")) {
 			unset($validations["URL"]);
@@ -84,9 +90,11 @@ class Ads_Model extends ZP_Load
 
 		if ($action === "edit") {
 			$this->Data->ignore("banner");
+
+			unset($validations["miniature"]);
 		}
 
-		$this->Data->ignore("date");
+		$this->Data->ignore(array("date", "large", "miniature", "MAX_FILE_SIZE"));
 
 		$this->data = $this->Data->process($data, $validations);
 
@@ -94,25 +102,42 @@ class Ads_Model extends ZP_Load
 			return $this->data["error"];
 		}
 
-		if (FILES("image", "name")) {
-			if (POST("banner")) {
-				@unlink(POST("banner"));
+		if (POST("large") or POST("miniature")) {
+			$this->Files = $this->core("Files");
+
+			$dir  = "www/lib/files/images/ads";
+			$name = slug(POST("title", "clean"));
+
+			if (POST("large")) {
+				if (POST("banner")) {
+					@unlink(POST("banner") .".png");
+				}
+
+				if (!$this->Files->createFileFromBase64(POST("large", "clean"), "$dir/$name.png")) {
+					return getAlert(__("Upload error"));
+				}
 			}
-			
-			$dir = "www/lib/files/images/ads/";
-			
-			$this->Files = $this->core("Files");									
-			
-			$this->data["Banner"] = $this->Files->uploadImage($dir, "image", "normal");
-			
-			if (!$this->data["Banner"]) {
-				return getAlert(__("Upload error")); 
+
+			if (POST("miniature")) {
+				if (POST("banner")) {
+					@unlink(POST("banner") ."_small.png");
+				}
+
+				if (!$this->Files->createFileFromBase64(POST("miniature", "clean"), "$dir/{$name}_small.png")) {
+					return getAlert(__("Upload error"));
+				}
 			}
+
+			if (POST("principal") === "0" and POST("banner")) {
+				@unlink(POST("banner") .".png");
+			}
+
+			$this->data["Banner"] = "$dir/$name";
 		}
 	}
 	
 	private function save()
-	{		
+	{
 		$this->Db->insert($this->table, $this->data);
 					
 		return getAlert(__("The ad has been saved correctly"), "success");	
@@ -145,9 +170,14 @@ class Ads_Model extends ZP_Load
 		return $this->Db->find($ID, $this->table, $this->fields);
 	}
 	
-	public function getAds($tag = null)
+	public function getAds($principal = 0)
 	{		
 		$date = now(4);
-		return $this->Db->findBySQL("Tag = '$tag' AND Situation = 'Active' AND End_Date >= $date", $this->table, $this->fields);
+
+		if ($principal === 1) {
+			return $this->Db->findBySQL("Situation = 'Active' AND (End_Date >= $date OR End_Date = 0) AND Principal = 1", $this->table, $this->fields);
+		} else {
+			return $this->Db->findBySQL("Situation = 'Active' AND (End_Date >= $date OR End_Date = 0)", $this->table, $this->fields);
+		}
 	}
 }
