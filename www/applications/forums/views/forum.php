@@ -16,7 +16,7 @@ if ($noTopics) {
 	if ($posts) {
 		$i = 0;
 		foreach ($posts as $post) {		
-			$forum 	   = $post["Forum_Name"];
+			$forum 	   = $post["Forum"];
 			$slug      = isset($post["Post_Slug"]) ? $post["Post_Slug"] : $post["Slug"];
 			$URL       = path("forums/". slug($forum) ."/". $post["ID_Post"] ."/". $slug);	
 			$URLEdit   = path("forums/". slug($forum) ."/edit/". $post["ID_Post"]);
@@ -100,4 +100,4 @@ if (SESSION("ZanUser")) {
 	<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to create a topic'); ?></div>
 <?php	
 }
-	?>
+	echo $ckeditor;
