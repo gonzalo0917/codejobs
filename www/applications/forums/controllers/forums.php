@@ -265,7 +265,6 @@ class Forums_Controller extends ZP_Load
 			$vars["view"] = $this->view("forum", true);
 
 			$this->render("content", $vars);
-			
 		}
 	}
 

@@ -118,7 +118,7 @@ class Forums_Model extends ZP_Load
 			$this->Cache->removeAll("forums");
 
 			$totalPosts = $this->Db->query("SELECT Total_Posts FROM ". DB_PREFIX ."forums WHERE ID_Forum = ". $fid);
-			$i = $totalPosts[0]["Total_Comments"] += 1;
+			$i = $totalPosts[0]["Total_Posts"] += 1;
 			$this->Db->updateBySQL("forums", "Total_Posts = '$i' WHERE ID_Forum = '$fid'");
 		}
 		
@@ -217,14 +217,15 @@ class Forums_Model extends ZP_Load
 
 	public function deletePost($postID)
 	{
-		$fid = $this->Db->query("SELECT ID_Parent FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $postID);
-		
+		$fid = $this->Db->query("SELECT ID_Parent, ID_Forum FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $postID);
 		$totalComments = $this->Db->query("SELECT Total_Comments FROM ". DB_PREFIX ."forums_posts WHERE ID_Post = ". $fid[0]["ID_Parent"]);
+		$totalPosts = $this->Db->query("SELECT Total_Posts FROM ". DB_PREFIX ."forums WHERE ID_Forum = ". $fid[0]["ID_Forum"]);
 		
-		$i = $totalComments[0]["Total_Comments"] -= 1;
+		$comments = $totalComments[0]["Total_Comments"] -= 1;
+		$posts = $totalPosts[0]["Total_Posts"] -= 1;
 		
-		$this->Db->updateBySQL("forums_posts", "Total_Comments = '$i' WHERE ID_Post = ". $fid[0]["ID_Parent"]);
-		
+		$this->Db->updateBySQL("forums_posts", "Total_Comments = '$comments' WHERE ID_Post = ". $fid[0]["ID_Parent"]);
+		$this->Db->updateBySQL("forums", "Total_Posts = '$posts' WHERE ID_Forum = ". $fid[0]["ID_Forum"]);
 		$this->Db->delete($postID, DB_PREFIX ."forums_posts");
 		
 		$query = "DELETE FROM ". DB_PREFIX ."forums_posts WHERE ID_Parent = '$postID'";
@@ -271,7 +272,7 @@ class Forums_Model extends ZP_Load
 				  ORDER BY ". DB_PREFIX ."forums_posts.Last_Reply DESC LIMIT ". $limit;
 
 		$data = $this->Db->query($query);
-
+		
 		if ($data) {
 			return $data;
 		} else {
