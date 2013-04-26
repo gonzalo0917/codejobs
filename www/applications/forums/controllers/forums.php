@@ -246,6 +246,7 @@ class Forums_Controller extends ZP_Load
 		$data = $this->Cache->data("forum-$forum-$this->language-$limit", "forums", $this->Forums_Model, "getByForum", array($forum, $this->language, $limit));
 
 		if ($data) { 
+
 			$this->helper("time");
 			$this->js("forums", "forums");
 			$this->css("posts", "blog");
@@ -265,7 +266,6 @@ class Forums_Controller extends ZP_Load
 			$vars["view"] = $this->view("forum", true);
 
 			$this->render("content", $vars);
-			
 		}
 	}
 

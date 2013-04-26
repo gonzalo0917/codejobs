@@ -271,7 +271,7 @@ class Forums_Model extends ZP_Load
 				  ORDER BY ". DB_PREFIX ."forums_posts.Last_Reply DESC LIMIT ". $limit;
 
 		$data = $this->Db->query($query);
-
+		
 		if ($data) {
 			return $data;
 		} else {
