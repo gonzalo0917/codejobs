@@ -350,21 +350,26 @@ class Users_Controller extends ZP_Load
 		$this->config("users", $this->application);
 		$this->css("forms", "cpanel");
 		$this->css("users", $this->application);
+		$json = array();
 
 		if (POST("save")) {
-			$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->changePassword();
+			//$this->helper("alerts");
+			//$vars["alert"] = $this->Users_Model->changePassword();
+			$json["status"] = $this->Users_Model->changePassword();
+
 		}
 
 		$this->js("bootstrap");
 		$this->js("www/lib/themes/newcodejobs/js/requestpassword.js");
 
-		$this->title(decode(__("Change password")));
+		echo json_encode($json);
+
+		/*$this->title(decode(__("Change password")));
 
 		$vars["view"] = $this->view("password", true);
 		$vars["href"] = path("users/password/");
 
-		$this->render("content", $vars);
+		$this->render("content", $vars);*/
 	}
 
 	public function email()

@@ -48,7 +48,7 @@ class Buffer_Controller extends ZP_Load
 				for ($i = 0; $i <= $count; $i++) {
 					foreach ($posts as $post) {
 						$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], false, $post["Language"]);					
-		
+						die(var_dump($URL));
 						$data = array(
 							"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
 							"profile_ids[]" => $this->bufferProfiles[$i]
@@ -56,9 +56,9 @@ class Buffer_Controller extends ZP_Load
 
 						echo $data["text"] ."<br />";			
 
-						$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
+						#$this->RESTClient->setURL("https://api.bufferapp.com/1/updates/create.json?access_token=". _bufferToken);
 
-						$this->RESTClient->POST($data);	
+						#$this->RESTClient->POST($data);	
 					}	
 				}
 			} elseif (strlen($profile) === 24) {

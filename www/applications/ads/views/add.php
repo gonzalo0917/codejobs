@@ -72,7 +72,7 @@
 
 			echo p(true, "preview");
 
-				echo htmlTag("span", array("class" => "browse btn"),
+				echo htmlTag("span", array("class" => "browse btn", "data-input" => "large"),
 					__("Browse") ."...".
 					formInput(array(
 						"type" 	=> "file", 
@@ -96,12 +96,14 @@
 
 			echo p(true, "preview");
 
-				echo '<span class="browse btn" disabled>'. __("Browse") ."...".
+				echo htmlTag("span", array("class" => "browse btn", "disabled" => "", "data-input" => "miniature"),
+					__("Browse") ."...".
 					formInput(array(
 						"type" 	=> "file", 
 						"name" 	=> "miniature", 
-						"p" 	=> false,
-					), true) .'</span>';
+						"p" 	=> false
+					), true)
+				);
 
 				echo br();
 
