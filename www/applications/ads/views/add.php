@@ -10,7 +10,7 @@
 	$time 	   = isset($data) ? recoverPOST("time", $data[0]["Time"]) : recoverPOST("time");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
 	$date      = isset($data) ? ($data[0]["End_Date"] ? "date" : "never") : recoverPOST("date", "date");
-	$end_date  = isset($data) ? recoverPOST("end_date", ($data[0]["End_Date"] ? date("d/m/Y", $data[0]["End_Date"]) : now(true))) : recoverPOST("end_date", now(true));
+	$end_date  = isset($data) ? recoverPOST("end_date", ($data[0]["End_Date"] ? date("d/m/Y", $data[0]["End_Date"]) : date("d/m/Y", strtotime("+1 months")))) : recoverPOST("end_date", date("d/m/Y", strtotime("+1 months")));
 	$principal = isset($data) ? recoverPOST("principal", $data[0]["Principal"]) : recoverPOST("principal");
 	$edit      = isset($data) ? true : false;	
 	$action	   = isset($data) ? "edit" : "save";
@@ -175,7 +175,7 @@
 						"class" => "span3 required jdpicker",
 						"p" 	=> false, 
 						"value" => $end_date,
-						"data-options" => '{"placeholder": "'. date("d/m/Y") .'", "date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
+						"data-options" => '{"placeholder": "'. date("d/m/Y", strtotime("+1 months")) .'", "date_format": "dd/mm/YYYY", "month_names": ["'. implode('", "', $months) .'"], "short_month_names": ["'. implode('", "', array_map(create_function('$month', 'return substr($month, 0, 3);'), $months)) .'"], "short_day_names": ['. __('"S", "M", "T", "W", "T", "F", "S"') .']}'
 					));
 
 				echo '<label class="date_option">';
