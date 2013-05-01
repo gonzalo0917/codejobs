@@ -59,7 +59,8 @@ INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Ad
 (16, 'Works', 'works', 1, 1, 1, 0, 'Active'),
 (17, 'Codes', 'codes', 1, 1, 1, 0, 'Active'),
 (18, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active'),
-(19, 'Proposals', 'workshop', 1, 0, 1, 0, 'Active');
+(19, 'Proposals', 'workshop', 1, 0, 1, 0, 'Active'),
+(20, 'Newsletters', 'newsletters', 1, 1, 0, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -1048,7 +1049,11 @@ INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `
 (3, 17, 1, 0, 0, 1),
 (4, 17, 0, 0, 0, 0),
 (1, 18, 1, 1, 1, 1),
-(1, 19, 1, 1, 1, 1);
+(1, 19, 1, 1, 1, 1),
+(1, 20, 1, 1, 1, 1),
+(2, 20, 1, 1, 1, 1),
+(3, 20, 0, 0, 0, 1),
+(4, 20, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
