@@ -346,6 +346,7 @@ $phrase["name_of_the_website"] 							= "Nombre del Sitio Web";
 $phrase["never"] 										= "Nunca";
 $phrase["new"] 											= "Nuevo";
 $phrase["new_password"]									= "Nueva contraseña";
+$phrase["newsletters"]									= "Boletines";
 $phrase["no_bookmarks"] 								= "Ningún marcador";
 $phrase["no_codes"] 									= "Ningún código";
 $phrase["no_posts"] 									= "Ninguna publicación";
