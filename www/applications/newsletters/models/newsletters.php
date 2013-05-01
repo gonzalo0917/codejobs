@@ -3,7 +3,7 @@ if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
-class Ads_Model extends ZP_Load
+class Newsletters_Model extends ZP_Load
 {
 	
 	public function __construct()

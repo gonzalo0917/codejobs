@@ -221,6 +221,10 @@
 				array(
 					"value"  => "world",
 					"option" => __("World")
+				),
+				array(
+					"value"  => "ads",
+					"option" => __("Ads")
 				)
 			)) . formInput(array("type" => "submit", "value" => __("Delete"), "name" => "delete_cache", "class" => "btn btn-danger", "style" => "margin-bottom: 9px")));
 

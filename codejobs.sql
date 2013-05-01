@@ -59,7 +59,8 @@ INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Ad
 (16, 'Works', 'works', 1, 1, 1, 0, 'Active'),
 (17, 'Codes', 'codes', 1, 1, 1, 0, 'Active'),
 (18, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active'),
-(19, 'Proposals', 'workshop', 1, 0, 1, 0, 'Active');
+(19, 'Proposals', 'workshop', 1, 0, 1, 0, 'Active'),
+(20, 'Newsletters', 'newsletters', 1, 1, 0, 0, 'Active');
 
 -- --------------------------------------------------------
 
@@ -760,7 +761,6 @@ CREATE TABLE IF NOT EXISTS `muu_multimedia` (
   PRIMARY KEY (`ID_File`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
-
 -- --------------------------------------------------------
 
 --
@@ -778,6 +778,32 @@ CREATE TABLE IF NOT EXISTS `muu_mural` (
   PRIMARY KEY (`ID_Mural`),
   KEY `ID_Post` (`ID_Post`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `muu_newsletters`
+--
+
+DROP TABLE IF EXISTS `muu_newsletters`;
+CREATE TABLE `muu_newsletters` (
+  `ID_Newsletter` mediumint(8) unsigned NOT NULL,
+  `ID_User` mediumint(8) unsigned NOT NULL,
+  `Title` varchar(250) NOT NULL,
+  `Message` text NOT NULL,
+  `File` varchar(250) DEFAULT NULL,
+  `To_Group` smallint(6) DEFAULT NULL,
+  `To_Users` text,
+  `Create_Date` int(11) NOT NULL,
+  `Send_Date` int(11) DEFAULT NULL,
+  `Situation` varchar(15) NOT NULL DEFAULT 'Draft'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `muu_pages`
+--
 
 DROP TABLE IF EXISTS `muu_pages`;
 CREATE TABLE IF NOT EXISTS `muu_pages` (
@@ -1023,7 +1049,11 @@ INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `
 (3, 17, 1, 0, 0, 1),
 (4, 17, 0, 0, 0, 0),
 (1, 18, 1, 1, 1, 1),
-(1, 19, 1, 1, 1, 1);
+(1, 19, 1, 1, 1, 1),
+(1, 20, 1, 1, 1, 1),
+(2, 20, 1, 1, 1, 1),
+(3, 20, 0, 0, 0, 1),
+(4, 20, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
