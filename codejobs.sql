@@ -760,7 +760,6 @@ CREATE TABLE IF NOT EXISTS `muu_multimedia` (
   PRIMARY KEY (`ID_File`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
-
 -- --------------------------------------------------------
 
 --
@@ -778,6 +777,32 @@ CREATE TABLE IF NOT EXISTS `muu_mural` (
   PRIMARY KEY (`ID_Mural`),
   KEY `ID_Post` (`ID_Post`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `muu_newsletters`
+--
+
+DROP TABLE IF EXISTS `muu_newsletters`;
+CREATE TABLE `muu_newsletters` (
+  `ID_Newsletter` mediumint(8) unsigned NOT NULL,
+  `ID_User` mediumint(8) unsigned NOT NULL,
+  `Title` varchar(250) NOT NULL,
+  `Message` text NOT NULL,
+  `File` varchar(250) DEFAULT NULL,
+  `To_Group` smallint(6) DEFAULT NULL,
+  `To_Users` text,
+  `Create_Date` int(11) NOT NULL,
+  `Send_Date` int(11) DEFAULT NULL,
+  `Situation` varchar(15) NOT NULL DEFAULT 'Draft'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `muu_pages`
+--
 
 DROP TABLE IF EXISTS `muu_pages`;
 CREATE TABLE IF NOT EXISTS `muu_pages` (
