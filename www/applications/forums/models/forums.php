@@ -143,7 +143,6 @@ class Forums_Model extends ZP_Load
             "Title" 	 => POST("title"),
 			"Slug" 		 => slug(POST("title", "clean")),
 			"Content" 	 => removeRareChars(POST("content", "clean")),
-			"Author" 	 => SESSION("ZanUser"),
 			"Start_Date" => now(4),
 			"Text_Date"  => decode(now(2)),
 			"Tags" 		 => POST("tags") ? POST("tags") : "",
