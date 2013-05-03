@@ -86,7 +86,7 @@
 					"class"  => "transparent",
 					"width"  => "250",
 					"height" => "100"
-				));
+				), false);
 
 				echo formInput(array("name" => "large", "type" => "hidden", "value" => ""));
 
@@ -112,7 +112,7 @@
 					"class"  => "transparent",
 					"width"  => "100",
 					"height" => "40"
-				));
+				), false);
 
 				echo htmlTag("label", array("class" => "copy-label"),
 					formCheckbox(array(
