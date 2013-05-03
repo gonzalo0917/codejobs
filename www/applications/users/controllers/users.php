@@ -353,7 +353,7 @@ class Users_Controller extends ZP_Load
 		$json = array();
 
 		if (POST("save")) {
-			//$this->helper("alerts");
+			$this->helper("alerts");
 			//$vars["alert"] = $this->Users_Model->changePassword();
 			$json["status"] = $this->Users_Model->changePassword();
 
@@ -639,6 +639,7 @@ class Users_Controller extends ZP_Load
 				$this->css("avatar", $this->application);
 				$this->css("cv", $this->application);
 
+				$this->js("jquery.validate", $this->application);
 				$this->js("jquery.jcrop.js");
 				$this->js("avatar", $this->application);
 				$this->js("jquery.jdpicker.js");
