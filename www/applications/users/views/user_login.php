@@ -1,7 +1,4 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
@@ -22,8 +19,7 @@ echo div("login-form", "class");
 		echo $alert;
 	}
 
-	echo formOpen(getURL(), "form", "form");
-		
+	echo formOpen(getURL(), "form", "form");		
 		if (!isset($inserted) or !$inserted) {
 			if (!SESSION("UserRegistered")) {
 				echo formInput(array(

@@ -188,7 +188,7 @@ class Users_Controller extends ZP_Load
 		
 				if ($data) {
 					createLoginSessions($data[0], false);
-
+					
 					redirect(GET("return_to") ? GET("return_to") : false);
 				} else { 
 					$this->helper("alerts");
