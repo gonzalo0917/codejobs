@@ -105,10 +105,9 @@
 					<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
 				</div>
 		<?php
-			} else {
-				$return = "?return_to=". encode(path("forums/". segment(1, isLang())), true);
+			} else {				
 		?>
-				<div class="no-connected"><?php echo __('You need to'). ' <a href="'. path("users/login/". $return) .'">'. __('login'). '</a> '. __('or'). '<a href="'. path("users/register") .'"> '. __('create'). '</a> '. __('an account to comment this topic'); ?></div>
+				<div class="no-connected"><?php echo __('You need to'). ' <a href="'. path("users/login/". returnTo(getURL())) .'">'. __('login'). '</a> '. __('or'). '<a href="'. path("users/register") .'"> '. __('create'). '</a> '. __('an account to comment this topic'); ?></div>
 		<?php
 			}
 		}
