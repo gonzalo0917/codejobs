@@ -9,9 +9,8 @@ $rand2 = rand(6, 10);
 <div id="fposts">
 
 <?php
-if ($noTopics) {
-	$return = "?return_to=". encode(path("forums/". segment(1, isLang())), true);
-	redirect("users/login/". $return);
+if ($noTopics) {	
+	redirect("users/login/". returnTo(getURL()));
 } else {
 	if ($posts) {
 		$i = 0;

@@ -30,7 +30,7 @@
 							<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". segment(1, islang()) ."/tag/") ." " . __("by") . ' <a href="'. path("forums/". segment(1, islang()) ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a> ';
 								
 								if (SESSION("ZanUserPrivilegeID")) {
-								$confirm = " return confirm('Do you want to delete this post?') ";
+									$confirm = " return confirm('Do you want to delete this post?') ";
 
 									if (SESSION("ZanUserPrivilegeID") <= 3 or SESSION("ZanUserID") == $post["ID_User"]) {
 										echo '| <a href="'. $URLEdit .'">'. __("Edit") .'</a> | <a href="'. $URLDelete .'" onclick="'. $confirm .'">'. __("Delete") .'</a>';
@@ -105,9 +105,9 @@
 					<input id="cpublish" class="btn btn-success" name="save" type="submit" value="<?php echo __("_Comment"); ?>" />
 				</div>
 		<?php
-			} else {
+			} else {				
 		?>
-				<div class="no-connected"><?php echo __('You need to'). ' <a href="'. path("users/login") .'">'. __('login'). '</a> '. __('or'). '<a href="'. path("users/register") .'"> '. __('create'). '</a> '. __('an account to comment this topic'); ?></div>
+				<div class="no-connected"><?php echo __('You need to'). ' <a href="'. path("users/login/". returnTo(getURL())) .'">'. __('login'). '</a> '. __('or'). '<a href="'. path("users/register") .'"> '. __('create'). '</a> '. __('an account to comment this topic'); ?></div>
 		<?php
 			}
 		}

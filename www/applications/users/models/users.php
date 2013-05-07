@@ -234,8 +234,8 @@ class Users_Model extends ZP_Load
 			),
 			"username" => "required",
 			"name" 	   => "required",
-			"email"    => "email?",
-			"captcha"  => "captcha?"
+			"email"    => "email?"
+			//"captcha"  => "captcha?" Deshabilitado por hacer fallar al registro por Facebook y Twitter
 		);
 
 		$code = code(10);
