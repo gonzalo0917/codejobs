@@ -97,7 +97,7 @@ if (SESSION("ZanUser")) {
 <?php 
 } else {
 ?>
-	<div class="no-connected"><?php echo __('You need to <a href="'. path("users/login") .'">login</a> or <a href="'. path("users/register") .'">create</a> an account to create a topic'); ?></div>
+	<div class="no-connected"><?php echo __('You need to'). ' <a href="'. path("users/login") .'">'. __('login'). '</a> '. __('or'). ' <a href="'. path("users/register") .'">'. __('create'). '</a> '. __('an account to create a topic'); ?></div>
 <?php	
 }
 	echo $ckeditor;

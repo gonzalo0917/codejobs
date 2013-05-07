@@ -139,6 +139,13 @@ i {
     display: none;
     width: 100%;
 }
+.modal-header {
+    background: rgba(0, 136, 204,1.0);
+}
+.modal-header h3 {
+    border:none;
+    color: white;
+}
 @media (max-width: 320px), (max-device-width: 320px) {
     #expand {
         margin-bottom: 10px;

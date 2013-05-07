@@ -1,5 +1,7 @@
 ;+function($, window, document, undefined) {
 	var $form = $("form:last");
+	var successMSG = { 'background' : 'rgba(92,164,81,1)' };
+	var errorMSG = { 'background' : 'rgba(203,33,34,0.8)' };
 
 	$form.find(btnSelector).get(0).dataset.toggle = "modal";
 	$form.find(btnSelector).get(0).dataset.target = "#request-password";
@@ -38,30 +40,64 @@
 	});
 
 	$('#doChangePassword').on('click', function() {
+		requestPasswordAccepted();
+	})
+
+	function requestPasswordAccepted() {
 		if($("#request-password input").val().length > 0) {
 			$("#request-password").modal("hide");
-			$('<input name="password" type="hidden" value="' + $("#request-password input").val() + '" />').appendTo($form.find("fieldset"));
-			$('<input name="' + $form.find(btnSelector).attr("name") + '" type="hidden" value="1" />').appendTo($form.find("fieldset"));
+			/*$('<input name="password" type="hidden" value="' + $("#request-password input").val() + '" />').appendTo($form.find("fieldset"));
+			$('<input name="' + $form.find(btnSelector).attr("name") + '" type="hidden" value="1" />').appendTo($form.find("fieldset"));*/
 			//$form.submit();
-			console.log($('#request-password').find('input:password').val());
-			formData = {
-				'password' : $('#request-password').find('input:password').val(),
-				'new_password' : $('input[name=new_password]').val(),
-				're_new_password' : $('input[name=re_new_password]').val(),
-				'save' : 'Guardar'
-			}
+
+			/*$($form).validate({
+	            rules: {
+	                new_password: {
+	                    required: true,
+	                    minlength: 6
+	                },
+	                re_new_password: {
+	                    required: true,
+	                    minlength: 6
+	                },
+	                messages: {
+	                   new_password: {
+	                           required: "Dude, enter a name",
+	                           minlength: $.format("Keep typing, at least {0} characters required!")
+		            	}
+		            }
+		        }
+	        });*/
+
+	  		formData = $form.serializeArray();
+
+			formData.push({ name: 'password', value: $('#request-password').find('input:password').val() })
+			formData.push({ name: 'save', value: 'Guardar' })
+
 			$.ajax({
                 url: PATH + '/users/password',
                 type: 'post',
                 data: formData,
                 dataType: 'json',
                 success: function (data) {
+                	if (data.status.find('div').length > 0) {
+                		console.log("holaaa");
+                	} else {
+                		console.log("deaaaaadd");
+                	}
+                	if(data.status.indexOf('div').length > 0) {
+                		console.log("contiene");
+                	} else {
+                		console.log("No contiene");
+                	}
+                	var result = $(data.status).remove("div").html();
+
                     if (data.status) {
                         $('.float-msg').animate({top: 0}, 800, null);
-                        $('.float-msg').text("(+) "+data.status).css(successMSG);
+                        $('.float-msg').text("(+) "+result).css(successMSG);
                     } else {
                         $('.float-msg').animate({top: 0}, 800, null);
-                        $('.float-msg').text("(X) "+data.fail).css(errorMSG);
+                        $('.float-msg').text("(X) "+result).css(errorMSG);
                     }
                 }
             });
@@ -70,5 +106,5 @@
 		} else {
 			$("#request-password input").focus();
 		}
-	})
+	}
 }(jQuery, window, document);

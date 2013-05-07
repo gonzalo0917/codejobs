@@ -756,6 +756,8 @@ class Users_Model extends ZP_Load
 			"re_new_password" => "length:6"
 		));
 
+			$this->helper("alerts");
+		
 		if (isset($this->data["error"])) {
 			return $this->data["error"];
 		} else{
