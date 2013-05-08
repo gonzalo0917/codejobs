@@ -174,7 +174,7 @@ class CPanel_Controller extends ZP_Load
 			$this->vars["alert"] = $this->$Model->cpanel("edit");
 		} elseif (POST("cancel")) {
 			redirect("cpanel");
-		} 
+		}
 
 		$data = $this->{"$this->Model"}->getByID($ID);
 

@@ -252,6 +252,7 @@ $phrase["hour"] 										= "Hora";
 $phrase["how_much_is_"] 	 							= "¿Cuánto es ";
 $phrase["i_dislike"]									= "No me gusta";
 $phrase["i_like"]										= "Me gusta";
+$phrase["id_or_username"]								= "ID o Nombre de usuario";
 $phrase["if_you_are_sure_to_deactivate_your_account_please_choose_an_option_below_and_click_the_confirm_button_to_continue"] = "Si estás seguro de desactivar tu cuenta, por favor elige una de las opciones y haz clic en el botón de confirmación para continuar.";
 $phrase["if_you_change_the_image_this_image_will_be_deleted"] = "Si se cambia la imagen la anterior será eliminada";
 $phrase["if_you_change_the_banner_image_this_image_will_be_deleted"] = "Si eliges otra imagen, esta imagen será borrada";
