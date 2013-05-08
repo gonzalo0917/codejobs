@@ -19,6 +19,7 @@ $edit 		= isset($data) ? true : false;
 $action 	= isset($data) ? "edit" : "save";
 $href 		= isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/cpanel/add");
 $enable 	= isset($data) ? (int) recoverPOST("enable_comments", $data[0]["Enable_Comments"]) : 1;
+$bio 		= isset($data) ? recoverPOST("display_bio", $data[0]["Display_Bio"]) : recoverPOST("display_bio", true);
 
 echo div("add-form", "class");
 	echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
@@ -106,6 +107,19 @@ echo div("add-form", "class");
 		echo formField(null, __("Language of the post") ."<br />". getLanguagesInput($language, "language", "select"));
 
 		$options = array(
+			array("value" => 1, "option" => __("Yes"), "selected" => ($bio === 1) ? true : false),
+			array("value" => 0, "option" => __("No"),  "selected" => ($bio === 0) ? true : false)
+		);
+
+		echo formSelect(array(
+			"name" 	=> "display_bio", 
+			"class" => "required", 
+			"p" 	=> true, 
+			"field" => __("Display author bio")), 
+			$options
+		);
+
+		$options = array(
 			0 => array("value" => 1, "option" => __("Yes"), "selected" => ($enable === 1) ? true : false),
 			1 => array("value" => 0, "option" => __("No"),  "selected" => ($enable === 0) ? true : false)
 		);
@@ -116,7 +130,7 @@ echo div("add-form", "class");
 			"p" 	=> true, 
 			"field" => __("Enable Comments")), 
 			$options
-		);		
+		);
 
 		$options = array(
 			0 => array("value" => 1, "option" => __("Active"), "selected" => ($buffer === 1) ? true : false),

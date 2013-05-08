@@ -45,7 +45,10 @@
 				"value" => $tags
 			));
 
-			echo htmlTag("p", span("field", "&raquo; ". __("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select"));
+			echo htmlTag(
+				"p",
+				span("field", "&raquo; ". __("Language of the post")) ."<br />". getLanguagesInput($language, "language", "select")
+			);
 
 			echo formInput(array(	
 				"name" => "save", 

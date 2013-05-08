@@ -24,7 +24,7 @@ class Users_Model extends ZP_Load
 		$this->tableCvEdu = "users_cv_education";
 		$this->tableCvSki = "users_cv_skills";
 
-		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
+		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation";
 		$this->fieldsCvSum = "ID_User, ID_Summary, Summary, Last_Updated";
 		$this->fieldsCvExp = "ID_User, ID_Experience, Company, Job_Title, Location, Period_From, Period_To, Description";
 		$this->fieldsCvEdu = "ID_User, ID_School, School, Degree, Period_From, Period_To, Description";
