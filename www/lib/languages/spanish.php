@@ -151,6 +151,7 @@ $phrase["delete_my_account"]							= "Eliminar mi cuenta";
 $phrase["descending"] 									= "Descendentemente";
 $phrase["description"] 									= "Descripción";
 $phrase["direct_messages"]  							= "Mensajes Directos";
+$phrase["display_author_bio"]							= "Mostrar biografía de autor";
 $phrase["dislikes"]		  								= "No me gusta";
 $phrase["district"]		  								= "Distrito";
 $phrase["document_file"]		  						= "Archivo de documento";

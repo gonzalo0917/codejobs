@@ -92,6 +92,7 @@
 	border: 1px solid #333;
 	background-color: #CCC;
 }
+
 .preview {
 	background: rgb(255,255,255);
 	border-radius: 5px;
@@ -119,4 +120,73 @@
 	text-align: center;
 	top: 50%;
 	width: 280px;
+}
+
+div.bio {
+	background-color: #f5f5f5;
+	border: 1px solid #d7d7d7;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	display: block;
+	font-size: 14px;
+	margin: 0;
+	padding: 15px;
+}
+
+.avatar {
+	background-color: rgb(255,255,255);
+	border: 1px dotted rgb(170,170,170);
+	border-radius: 4px;
+}
+
+table.bio {
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+table.bio td {
+	height: 95px;
+}
+
+table.bio td:first-child {
+	width: 100px;
+}
+
+table.bio td:last-child {
+	padding: 10px;
+}
+
+.author-name {
+	font-weight: bold;
+	font-size: 1.6em;
+}
+
+.author-username {
+	color: rgb(111,111,111);
+	font-weight: bold;
+	font-size: 1.2em;
+	margin-left: 1em;
+}
+
+.author-details {
+	margin: 0;
+}
+
+.author-location {
+	margin: 0;
+	margin-top: 5px;
+}
+
+.gender-icon {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAALCAYAAAB7/H1+AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QQBFjEkzb1YVQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAACzklEQVQoz32Sa0hTYRjH/+fsndvMtTlcpRFCUh9KC0WT6A4SkiRdEKKESpAiIlKoPkYQFFZE9aEPakRWYBe6WgmVkJXZDZOSWq0sDdtc7uzd2c57rm9fWi2Lno/Pn//v+T88j4D/1NYb70/ZRLGUc54R/x5a17ZxQV9KG2hoLMyUogdFxmZoSXmEmta+kpsdXSmd/A8cS+oniGjdVXXLp8TiuQD6AOBNzZrlOe8+dEYCgePCyNCRCDfL/f7s+3fcGY2Vce3oH+Dac73ehDS2iNhIvm5Z3V7/5LeqmqiXDfRw8CHdMGwA0ANkEW67EX7YtaeQRpt+2rv6q1f1Tz1/uqPZ7bpeH1eCIgCsP/OoRlaNoOn0tCskcwt3uvticvJRgqkFV/dvq2YybbYE8SkAaIUFJdbHIPlG6a307Q53dj92TZkke5PKAgAgq1sf5EZkdtK0+ON72ytWAsCyox0Fot3R7yTitdIVa/md7RUvUwAlPKrRTA2yaDlg/Qbnx6MOlSg2yQQFADE0/LmYqWp2CgoAXQ1VQYVG62XGqrwzi93pySrD9MnXGO0lBHvT+4s1aVdodIy/zfV0AgBJJuQ8l8v9YfzhIgPPnvmK5k9U1b8PLFFalW3y17c9LhY3zE6nqc3LkBO+jxqKjozEFAAQDcH2StfUmUsPXZ6RbvbPKW9kjAWZorDx4DqTR6WJKIrElMYct7taZWh9b6JoM0fg17vpCdpvEvLCNB29C5su7JaGB194pk3fIVF5E+d858D+Tcl/vWKJb3Lhl0y1OmZwxVc21+Ea/JSPUfobfGxJHn9HjQ2XhrUrWlJvnuDPhSlTzMoSWg/MJhd72s5OB7gqCMJYbW2tkjIyO9EFKZ4hMN2lBwLzwjHlSfpgoaWlJcfpdJQBmBJmPF+z4PLYBcNjh2Ry6IIgUAAhTdOe19XVhcYnP5ftNdqjkv06wNP7PwA1eWelhc4DvAAAAABJRU5ErkJggg==);
+	display: inline-block;
+	height: 11px;
+	width: 11px;
+}
+
+table.bio .flag {
+	float: none;
 }

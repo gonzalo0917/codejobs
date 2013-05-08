@@ -270,10 +270,15 @@ class Blog_Controller extends ZP_Load
 		
 		$data = $this->Cache->data("$slug-$year-$month-$day-". $this->language, "blog", $this->Blog_Model, "getPost", array($year, $month, $day, $slug));
 
+		$this->Users_Model = $this->model("Users_Model");
+
+		$user = $this->Users_Model->getByUsername($data[0]["post"][0]["Author"]);
+
 		$URL = path("blog/$year/$month/$day/". segment(4, isLang()));
 		
 		$vars["ID_Post"] = $data[0]["post"][0]["ID_Post"];
 		$vars["post"] = $data[0]["post"][0];
+		$vars["author"] = $user[0];
 		$vars["URL"] = $URL;					
 		
 		if ($data) {	
