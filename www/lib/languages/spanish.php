@@ -592,6 +592,7 @@ $phrase["verification"]  								= "Verificación";
 $phrase["videos"] 	 									= "Videos";
 $phrase["view"]											= "Ver";
 $phrase["view_more"]									= "Ver más";
+$phrase["view_more_publications_by_this_author"]		= "Ver más publicaciones de este autor";
 $phrase["views"] 										= "Vistas";
 $phrase["visit_bookmark"] 								= "Visitar Marcador";
 $phrase["visits"]										= "Visitas";

@@ -147,10 +147,6 @@ table.bio {
 	padding: 0;
 }
 
-table.bio td {
-	height: 95px;
-}
-
 table.bio td:first-child {
 	width: 100px;
 }
@@ -175,7 +171,7 @@ table.bio td:last-child {
 	margin: 0;
 }
 
-.author-location {
+.author-location, .author-social {
 	margin: 0;
 	margin-top: 5px;
 }

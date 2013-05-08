@@ -5,6 +5,28 @@ if (!defined("ACCESS")) {
 
 $URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);		
 $in  = ($post["Tags"] !== "") ? __("in") : null;
+
+if ($author["Twitter"]) {
+	$social[] = a("Twitter", "https://twitter.com/". $author["Twitter"], true, array("rel" => "nofollow"));
+}
+
+if ($author["Facebook"]) {
+	$social[] = a("Facebook", "http://facebook.com/". $author["Facebook"], true, array("rel" => "nofollow"));
+}
+
+if ($author["Linkedin"]) {
+	$social[] = a("LinkedIn", "http://linkedin.com/in/". $author["Linkedin"], true, array("rel" => "nofollow"));
+}
+
+if ($author["Google"]) {
+	$social[] = a("Google+", "https://profiles.google.com/". $author["Google"], true, array("rel" => "nofollow"));
+}
+
+if ($author["Viadeo"]) {
+	$social[] = a("Viadeo", "http://viadeo.com/en/profile/". $author["Viadeo"], true, array("rel" => "nofollow"));
+}
+
+$social[] = a(__("View more publications by this author"), path("user/". $author["Username"] . "/"));
 ?>
 <div class="post">
 	<div class="post-title">
@@ -42,7 +64,7 @@ $in  = ($post["Tags"] !== "") ? __("in") : null;
 			<table class="bio">
 				<tr>
 					<td>
-						<?php echo getAvatar($author["Avatar"], $author["ID_User"]); ?>
+						<?php echo getAvatar($author["Avatar"], $author["Username"]); ?>
 					</td>
 					<td>
 						<p class="author-details">
@@ -52,25 +74,19 @@ $in  = ($post["Tags"] !== "") ? __("in") : null;
 
 						<?php if ($author["Country"] or ($author["Website"] and $author["Website"] !== "http://")) { ?>
 						<p class="author-location">
-							<?php if ($author["Gender"] === 'F') { ?>
-							<span class="gender-icon female-icon"></span> <?php echo __("Woman"); } else { ?>
-							<span class="gender-icon"></span> <?php echo __("Man"); } ?>
-
 							<?php if ($author["Country"]) {
-								echo "&#xb7; ". getFlag($author["Country"]); ?>&nbsp;<?php echo __($author["Country"]); ?>
+								echo getFlag($author["Country"]); ?>&nbsp;<?php echo __($author["Country"]); ?>
 							<?php } ?>
 
 							<?php if ($author["Website"] and $author["Website"] !== "http://") {
-								echo "&#xb7; ". a($author["Website"], $author["Website"], true);
+								echo "&#xb7; ". a($author["Website"], $author["Website"], true, array("rel" => "nofollow"));
 							} ?>
 						</p>
 						<?php } ?>
 
-						<?php if ($author["Twitter"] or $author["Facebook"] or $author["Google"] or $author["Linkedin"] or $author["Viadeo"]) { ?>
 						<p class="author-social">
-							<?php echo __("Follow him on"); ?>
+							<?php echo implode(" | ", $social); ?> 
 						</p>
-						<?php } ?>
 					</td>
 				</tr>
 			</table>
