@@ -17,7 +17,7 @@ class Jobs_Model extends ZP_Load
 		$this->Email = $this->core("Email");
  	 	$this->Email->fromName = _get("webName");
  		$this->Email->fromEmail = _get("webEmailSend");
- 		$this->helper("time");
+ 		$this->helper(array("time", "alerts"));
  		$date = now(4);
 	}
 
@@ -73,14 +73,14 @@ class Jobs_Model extends ZP_Load
 		);
 
 		$this->helper(array("alerts", "time", "files"));
-		$date = now(4);
+		//$date = now(4);
 		$data = array(
 			"ID_User" => SESSION("ZanUserID"),
 			"Author" => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Slug" => slug(POST("title", "clean")),
 			"City_Slug" => slug(POST("city", "clean")),
 			"Start_Date" => $date,
-			"End_Date" => $date + (3600 * 24 * 30)
+		//	"End_Date" => $date + (3600 * 24 * 30)
  		);
 
 		$this->Data->change("allocation", "Allocation_Time");
@@ -111,7 +111,7 @@ class Jobs_Model extends ZP_Load
 				"Language" => POST("language"),
 				"Phone" => POST("phone"),
 				"Start_Date" => now(4),
-				"End_Date" => $date + (3600 * 24 * 30),
+				//"End_Date" => $date + (3600 * 24 * 30),
 				"Title" => stripslashes(encode(POST("title", "decode", null))),
 			);
 		} else {
@@ -167,7 +167,7 @@ class Jobs_Model extends ZP_Load
 
 		$this->Db->update("jobs", $data2, $jid);
 		$data = $this->Users_Model->getUserData(true);
-		
+
 		if (isset($data[0]["Email"])) {
 			$email = $data[0]["Email"];
 		}
@@ -212,14 +212,12 @@ class Jobs_Model extends ZP_Load
 			$this->Email->subject = __("An user has applied to your job")." - ". _get("webName");
 			$this->Email->message = $this->view("apply_email", array(), "jobs", true);
 			$this->Email->send();
-			$this->Cache = $this->core("Cache");
-			$this->Cache->removeAll("job");
 			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
 		} else {
 			return false;
 		}
 	}
-	
+
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");
@@ -232,7 +230,7 @@ class Jobs_Model extends ZP_Load
 		$job = segment(3, isLang());
 		$email = $this->Db->query("SELECT Email FROM ". DB_PREFIX ."users WHERE ID_User = '$user' ORDER BY ID_User DESC");
 		$cv = $this->Db->query("SELECT Cv FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$job' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
-		
+
 		$this->Email->email = $email[0]["Email"];
 		$this->Email->subject = __("A recluiter has downloaded your cv");
 		$this->Email->message = $this->view("download_cv", array(), "jobs", true);
