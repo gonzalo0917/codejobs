@@ -614,33 +614,6 @@ class Users_Model extends ZP_Load
 		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Viadeo, Avatar, Situation");
 	}
 
-	public function checkSocial($user)
-	{
-		if (is_integer($user)) {
-			$data = $this->Db->find($user, $this->table, "ID_User, Twitter, Facebook, Linkedin, Google, Viadeo");
-		} else {
-			$data = $this->Db->findBy("Username", $user, $this->table, "ID_User, Twitter, Facebook, Linkedin, Google, Viadeo");
-		}
-
-		if ($data) {
-			$user = $data[0]["ID_User"];
-
-			foreach ($data[0] as $social => $username) {
-				if (preg_match('%^.*//.*/(.+)%', $username, $matches)) {
-					if (isset($matches[1])) {
-						$values[$social] = $matches[1];
-					}
-				}
-			}
-
-			if (isset($values)) {
-				return $this->Db->update($this->table, $values, $user);
-			}
-		}
-
-		return false;
-	}
-
 	public function getPrivileges()
 	{
 		return $this->Db->findAll("privileges");

@@ -614,8 +614,6 @@ class Users_Controller extends ZP_Load
 
 				echo json_encode($json);
 			} else {
-				$this->Users_Model->checkSocial((int)SESSION("ZanUserID"));
-
 				$dataAvatar  = $this->Users_Model->getAvatar();
 				
 				$dataAbout = $this->Users_Model->getInformation();
@@ -775,16 +773,14 @@ class Users_Controller extends ZP_Load
 
 	public function profile($user = null)
 	{
-		$this->Users_Model->checkSocial($user);
-
-		$data = $this->Users_Model->getByUsername($user);
+		$this->Cache = $this->core("Cache");
+		$data = $this->Cache->data("profile-$user", "users", $this->Users_Model, "getByUsername", array($user), 86400);
 		$this->Blog_Model = $this->model("Blog_Model");
 		$this->Codes_Model = $this->model("Codes_Model");
 		$this->application = $this->app("codes");
 		$this->CodesFiles_Model = $this->model("CodesFiles_Model");
 		$this->application = $this->app("users");
 		$this->Bookmarks_Model = $this->model("Bookmarks_Model");
-		$this->Cache = $this->core("Cache");
 
 		if ($data) {
 			if (_get("webLang") === "en") {

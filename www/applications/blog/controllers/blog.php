@@ -277,7 +277,7 @@ class Blog_Controller extends ZP_Load
 
 		$this->Users_Model = $this->model("Users_Model");
 
-		$user = $this->Users_Model->getByUsername($data[0]["post"][0]["Author"]);
+		$user = $this->Cache->data("profile-". $data[0]["post"][0]["Author"], "users", $this->Users_Model, "getByUsername", array($data[0]["post"][0]["Author"]), 86400);
 
 		$URL = path("blog/$year/$month/$day/". segment(4, isLang()));
 		
