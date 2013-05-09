@@ -96,7 +96,7 @@ class CPanel_Model extends ZP_Load
 			$fields = "ID_Bookmark, Title, Slug, Language";
 		}
 
-		$data = $this->Db->findAll($application, $fields, null, "DESC", MAX_LIMIT);
+		$data = $this->Db->findBySQL("Situation = 'Active' OR Situation = 'Draft'", $application, $fields, null, "DESC", MAX_LIMIT);
 
 		if ($data) {
 			$i = 1;	
