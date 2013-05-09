@@ -66,6 +66,10 @@ class Blog_Controller extends ZP_Load
 			$this->helper(array("forms","html"));
 			$this->title(htmlentities(encode(POST("title", "decode", null)), ENT_QUOTES, "UTF-8"));
 
+			$this->Users_Model = $this->model("Users_Model");
+
+			$user = $this->Users_Model->getByUsername(SESSION("ZanUser"));
+
 			$data = $this->Blog_Model->preview();
 
 			if ($data) {
@@ -75,6 +79,7 @@ class Blog_Controller extends ZP_Load
 				$this->config("user", $this->application);
 
 				$vars["post"] = $data;
+				$vars["author"] = $user[0];
 				$vars["URL"] = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
 				$vars["view"] = $this->view("preview", true);
 			} else {
