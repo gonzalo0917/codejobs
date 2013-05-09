@@ -95,7 +95,7 @@ $j = 2;
 
 					<td class="center">
 						<?php
-							echo getSituation($column["Situation"], $ID);
+							echo getSituation($column["Situation"], $ID, $column["Author"]);
 						?>
 					</td>
 

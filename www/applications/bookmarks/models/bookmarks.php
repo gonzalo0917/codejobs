@@ -146,6 +146,7 @@ class Bookmarks_Model extends ZP_Load
 		if ($this->data["Situation"] === "Active") {
 			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("bookmarks");
+			$this->Cache->remove("profile-". $this->data["Author"], "users");
 		}
 		
 		if ($return) {
@@ -178,6 +179,7 @@ class Bookmarks_Model extends ZP_Load
 		if ($this->Db->insert($this->table, $this->data)) {
 			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("bookmarks");
+			$this->Cache->remove("profile-". $this->data["Author"], "users");
 
 			$this->Users_Model = $this->model("Users_Model");
 			$this->Users_Model->setCredits(1, 9);
@@ -194,6 +196,7 @@ class Bookmarks_Model extends ZP_Load
 
 		$this->Cache = $this->core("Cache");	
 		$this->Cache->removeAll("bookmarks");
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
 		
 		return getAlert(__("The bookmark has been edit correctly"), "success");
 	}
