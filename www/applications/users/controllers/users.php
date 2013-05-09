@@ -614,6 +614,8 @@ class Users_Controller extends ZP_Load
 
 				echo json_encode($json);
 			} else {
+				$this->Users_Model->checkSocial((int)SESSION("ZanUserID"));
+
 				$dataAvatar  = $this->Users_Model->getAvatar();
 				
 				$dataAbout = $this->Users_Model->getInformation();
@@ -773,6 +775,8 @@ class Users_Controller extends ZP_Load
 
 	public function profile($user = null)
 	{
+		$this->Users_Model->checkSocial($user);
+
 		$data = $this->Users_Model->getByUsername($user);
 		$this->Blog_Model = $this->model("Blog_Model");
 		$this->Codes_Model = $this->model("Codes_Model");

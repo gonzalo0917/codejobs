@@ -24,7 +24,7 @@ class Users_Model extends ZP_Load
 		$this->tableCvEdu = "users_cv_education";
 		$this->tableCvSki = "users_cv_skills";
 
-		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation";
+		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Viadeo, Avatar, Situation";
 		$this->fieldsCvSum = "ID_User, ID_Summary, Summary, Last_Updated";
 		$this->fieldsCvExp = "ID_User, ID_Experience, Company, Job_Title, Location, Period_From, Period_To, Description";
 		$this->fieldsCvEdu = "ID_User, ID_School, School, Degree, Period_From, Period_To, Description";
@@ -611,7 +611,34 @@ class Users_Model extends ZP_Load
 
 	public function getByUsername($username)
 	{
-		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation");
+		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Viadeo, Avatar, Situation");
+	}
+
+	public function checkSocial($user)
+	{
+		if (is_integer($user)) {
+			$data = $this->Db->find($user, $this->table, "ID_User, Twitter, Facebook, Linkedin, Google, Viadeo");
+		} else {
+			$data = $this->Db->findBy("Username", $user, $this->table, "ID_User, Twitter, Facebook, Linkedin, Google, Viadeo");
+		}
+
+		if ($data) {
+			$user = $data[0]["ID_User"];
+
+			foreach ($data[0] as $social => $username) {
+				if (preg_match('%^.*//.*/(.+)%', $username, $matches)) {
+					if (isset($matches[1])) {
+						$values[$social] = $matches[1];
+					}
+				}
+			}
+
+			if (isset($values)) {
+				return $this->Db->update($this->table, $values, $user);
+			}
+		}
+
+		return false;
 	}
 
 	public function getPrivileges()
