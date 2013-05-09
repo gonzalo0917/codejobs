@@ -89,14 +89,14 @@ class CPanel_Model extends ZP_Load
 		if ($application === "users") {
 			$fields = "Username";
 		} elseif ($application === "blog") {
-			$fields = "Title, Slug, Year, Month, Day, Language";
+			$fields = "Situation, Title, Slug, Year, Month, Day, Language";
 		} elseif ($application === "pages") {
 			$fields = "Title, Slug, Language";
 		} elseif ($application === "bookmarks") {
-			$fields = "ID_Bookmark, Title, Slug, Language";
+			$fields = "Situation, ID_Bookmark, Title, Slug, Language";
 		}
 
-		$data = $this->Db->findBySQL("Situation = 'Active' OR Situation = 'Draft'", $application, $fields, null, "DESC", MAX_LIMIT);
+		$data = $this->Db->findBySQL("Situation = 'Active' OR Situation = 'Pending'", $application, $fields, null, "DESC", MAX_LIMIT);
 
 		if ($data) {
 			$i = 1;	
@@ -104,17 +104,19 @@ class CPanel_Model extends ZP_Load
 			foreach ($data as $record) {
 				switch ($application) {
 					case "pages":
-						$list[] = li(a(getLanguage($record["Language"], true) ." $i. ". stripslashes($record["Title"]), path("pages/". $record["Slug"], false, $record["Language"]), stripslashes($record["Title"]), true));
+						$list[] = li(a(getLanguage($record["Language"], true) ." $i. ". stripslashes($record["Title"]), path("pages/". $record["Slug"], false, $record["Language"]), true));
 						break;
 					case "blog":						
 						$URL = path("blog/". $record["Year"] ."/". $record["Month"] ."/". $record["Day"] ."/". $record["Slug"], false, $record["Language"]);
-						$list[] = li(a(getLanguage($record["Language"], true) .' '. $i .'. '. stripslashes($record["Title"]), $URL , stripslashes($record["Title"]), true));
+						$attrs = ($record["Situation"] === "Pending" ? array("class" => "pending") : false);
+						$list[] = li(a(getLanguage($record["Language"], true) .' '. $i .'. '. stripslashes($record["Title"]), $URL , true, $attrs));
 						break;
 					case "bookmarks":
-						$list[] = li(a(getLanguage($record["Language"], true) .' '. $i .". ". stripslashes($record["Title"]), path("bookmarks/go/". $record["ID_Bookmark"] ."/". $record["Slug"], false, $record["Language"]), stripslashes($record["Title"]), true));
+						$attrs = ($record["Situation"] === "Pending" ? array("class" => "pending") : false);
+						$list[] = li(a(getLanguage($record["Language"], true) .' '. $i .". ". stripslashes($record["Title"]), path("bookmarks/go/". $record["ID_Bookmark"] ."/". $record["Slug"], false, $record["Language"]), true, $attrs));
 						break;
 					case "users":
-						$list[] = li(a($i .". ". $record["Username"], path("user/". $record["Username"]), $record["Username"], true));
+						$list[] = li(a($i .". ". $record["Username"], path("user/". $record["Username"]), true));
 						break;
 				}
 
