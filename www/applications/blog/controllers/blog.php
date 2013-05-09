@@ -325,7 +325,7 @@ class Blog_Controller extends ZP_Load
 		
 		$limit = $this->limit();
 		$data = $this->Cache->data("last-". $this->language ."-$limit", "blog", $this->Blog_Model, "getPosts", array($limit));
-
+		
 		$this->helper(array("html","time"));
 		
 		if ($data) {			
