@@ -727,7 +727,7 @@ class Users_Model extends ZP_Load
 		}
 
 		$data = array(
-			'Name' => utf8_decode(POST('name')),
+			'Name' => POST('name'),
 			'Gender' => POST('gender'),
 			'Birthday' => POST('birthday'),
 			'Country' => POST('country'),
