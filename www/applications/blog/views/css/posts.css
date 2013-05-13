@@ -186,3 +186,50 @@ table.bio td:last-child {
 table.bio .flag {
 	float: none;
 }
+
+.avatar {
+	width: 90px !important;
+}
+
+.author-social-mobile, .author-country-mobile, .author-website-mobile {
+	font-size: 0.9em;
+	margin: 0;
+	padding: 0 !important;
+}
+
+@media (max-width: 480px), (max-device-width: 480px) {
+	div.bio {
+		display: inline-block !important;
+		width: auto !important;
+	}
+}
+
+@media (max-width: 640px), (max-device-width: 640px) {
+	.author-name, .author-username {
+		display: block;
+		font-size: 1em;
+		margin: 0;
+	}
+
+	.author-social, .author-location {
+		display: none;
+	}
+
+	.author-social-mobile {
+		display: table-cell !important;
+	}
+
+	.author-country-mobile, .author-website-mobile {
+		display: block !important;
+	}
+
+	div.bio {
+		width: 90%;
+	}
+}
+
+@media (min-width: 641px), (min-device-width: 641px) {
+	.author-social-mobile, .author-country-mobile, .author-website-mobile {
+		display: none;
+	}
+}
