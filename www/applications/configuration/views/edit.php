@@ -202,6 +202,10 @@
 				"p" 	=> false
 			), array(
 				array(
+					"value"  => "ads",
+					"option" => __("Ads")
+				),
+				array(
 					"value"  => "blog",
 					"option" => __("Blog"),
 					"selected" => true
@@ -219,12 +223,12 @@
 					"option" => __("Pages")
 				),
 				array(
-					"value"  => "world",
-					"option" => __("World")
+					"value"  => "users",
+					"option" => __("Users")
 				),
 				array(
-					"value"  => "ads",
-					"option" => __("Ads")
+					"value"  => "world",
+					"option" => __("World")
 				)
 			)) . formInput(array("type" => "submit", "value" => __("Delete"), "name" => "delete_cache", "class" => "btn btn-danger", "style" => "margin-bottom: 9px")));
 

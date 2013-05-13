@@ -6,7 +6,8 @@
 	?>
 
 <div class="job">
-	<form action="<?php echo path("jobs/apply/"); ?>" method="post" enctype="multipart/form-data">
+	<?php $url = $job["ID_Job"]; ?>
+	<form action="<?php echo path("jobs/". $url . "/apply/"); ?>" method="post" enctype="multipart/form-data">
 	<h2>
 		<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo path("jobs/visit/". $job["ID_Job"], false, $job["Language"]); ?>" target="_blank" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
 	</h2>
@@ -50,12 +51,12 @@
 			    echo __("You must be registered to display this content").'</br/>';
 				echo "<a title=" .__("Sign Up"). " href=" .path("users/register"). ">". __("Sign Up"). 
 					"</a> ". __("or"). " <a title=" .__("Login"). " href=" .path("users/login"). ">" .__("Login"). "</a></span>";
+			} elseif (SESSION("ZanUser") and $isvacancy) {
+				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
 			} elseif (SESSION("ZanUser") and $job["Type"] == "External") {
 				echo '<span class="bold">'. __("Enter the link below to apply") .": ".'</span><br />';
 				?> <input id="eapply" class="btn btn-success" type="submit" value="<?php echo __("Apply for the vacancy"); ?>" />
-	<?php   } elseif (SESSION("ZanUser") and $isvacancy) {
-				echo '<span class="bold">'. __("You have already applied for this vacancy") .'</span>';
-			} elseif (SESSION("ZanUser") and !$isvacancy) { ?>
+	<?php   }  elseif (SESSION("ZanUser") and !$isvacancy) { ?>
 			<input id="jid" name="jid" type="hidden" value="<?php echo $job["ID_Job"]; ?>" />
 			<input id="jauthor" name="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
 			<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
@@ -106,16 +107,11 @@
 	<p>
 		<?php echo fbComments($URL); ?>
 	</p>
-<<<<<<< HEAD
-		<?php echo __("Number of applicants") .": ". $job["Counter"];  ?>
-=======
-		<?php if ($job["Type"] == "External") {
-			echo "";
-		} else {
-			echo __("Number of applicants") .": ". $job["Counter"]; 
-		} 
+
+		<?php 
+			echo __("Number of applicants") .": ". $job["Counter"];
 		?>
->>>>>>> 20a512a535c9dc08cfbdd209e494b080e1d3ffee
+
 	<p>
 		<a href="<?php echo path("jobs"); ?>">&lt;&lt; <?php echo __("Go back"); ?></a>
 	</p>

@@ -156,6 +156,7 @@ class Codes_Model extends ZP_Load
 		if ($this->data["Situation"] === "Active") {
 			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("codes");
+			$this->Cache->remove("profile-". $this->data["Author"], "users");
 		}
 
 		if ($action === "save") {
@@ -196,6 +197,7 @@ class Codes_Model extends ZP_Load
             if ($this->Db->insertBatch("codes_files", $this->data)) {
             	$this->Cache = $this->core("Cache");	
 				$this->Cache->removeAll("codes");
+				$this->Cache->remove("profile-". $this->data["Author"], "users");
             	$this->Users_Model = $this->model("Users_Model");
 				$this->Users_Model->setCredits(1, 17);
                 return getAlert(__("The code has been saved correctly"), "success");	
@@ -243,6 +245,7 @@ class Codes_Model extends ZP_Load
             
             $this->Cache = $this->core("Cache");	
 			$this->Cache->removeAll("codes");
+			$this->Cache->remove("profile-". $this->data["Author"], "users");
 
             return getAlert(__("The code has been edit correctly"), "success");
         }

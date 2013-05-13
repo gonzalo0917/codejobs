@@ -126,7 +126,7 @@
 				"class" => "span5 required", 
 				"field" => __("Tags"), 
 				"p" 	=> true,
-				"placeholder" => _("Write the tags separated by commas"),
+				"placeholder" => __("Write the tags separated by commas"),
 				"value" => $tags
 			));
 

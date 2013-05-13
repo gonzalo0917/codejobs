@@ -61,7 +61,9 @@ class CPanel_Controller extends ZP_Load
 			$this->helper("alerts");
 
 			switch (POST("cache")) {
-				case "blog": case "bookmarks": case "codes": case "pages": case "world": case "ads":
+				case "blog": case "bookmarks": case "codes":
+					$this->Cache->removeAll("users");
+				case "blog": case "bookmarks": case "codes": case "pages": case "world": case "ads": case "users":
 					$this->Cache->removeAll(POST("cache"));
 					
 					$this->vars["alert"] = getAlert(__("The cache files were removed"), "success");
