@@ -73,14 +73,14 @@ class Jobs_Model extends ZP_Load
 		);
 
 		$this->helper(array("alerts", "time", "files"));
-		//$date = now(4);
+		$date = now(4);
 		$data = array(
 			"ID_User" => SESSION("ZanUserID"),
 			"Author" => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Slug" => slug(POST("title", "clean")),
 			"City_Slug" => slug(POST("city", "clean")),
 			"Start_Date" => $date,
-		//	"End_Date" => $date + (3600 * 24 * 30)
+			"End_Date" => $date + (3600 * 24 * 30)
  		);
 
 		$this->Data->change("allocation", "Allocation_Time");
@@ -111,7 +111,7 @@ class Jobs_Model extends ZP_Load
 				"Language" => POST("language"),
 				"Phone" => POST("phone"),
 				"Start_Date" => now(4),
-				//"End_Date" => $date + (3600 * 24 * 30),
+				"End_Date" => $date + (3600 * 24 * 30),
 				"Title" => stripslashes(encode(POST("title", "decode", null))),
 			);
 		} else {
@@ -160,6 +160,19 @@ class Jobs_Model extends ZP_Load
 		$this->helper(array("alerts", "forms", "files"));
 		$this->Users_Model = $this->model("Users_Model");
 		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+		$vtype = $this->Db->query("SELECT Type FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+		
+		if ($vtype == "External") {
+		$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Vacancy DESC");
+		$counter = $getcounter[0]["Counter"] += 1;
+		$data = array(
+				"Counter" => $counter,
+			);
+
+		$this->Db->update("jobs", $data, $job);
+		redirect($url[0]["Type_Url"], true);
+		}
+		else {
 		$counter = $getcounter[0]["Counter"] += 1;
 		$data2 = array(
 				"Counter" => $counter,
@@ -215,6 +228,7 @@ class Jobs_Model extends ZP_Load
 			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
 		} else {
 			return false;
+		  }
 		}
 	}
 
