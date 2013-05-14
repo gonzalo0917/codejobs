@@ -72,6 +72,15 @@ class CPanel_Controller extends ZP_Load
 				default:
 					$this->vars["alert"] = getAlert(__("Does not exist cache group specified"));
 			}
+		} elseif (POST("update_credits")) {
+			$this->helper("alerts");
+			$this->Cache = $this->core("Cache");
+			$this->Users_Model = $this->model("Users_Model");
+
+			$this->Users_Model->updateCredits();
+			$this->Cache->removeAll("users");
+
+			$this->vars["alert"] = getAlert(__("Updated successfully"), "success");
 		}
 		
 		$data = $this->$Model->getByID(1);
