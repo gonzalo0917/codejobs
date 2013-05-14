@@ -207,6 +207,14 @@ a:hover {
 	background-color: #FFFFFF;
 }
 
+.pending {
+	color: #FF0000;
+}
+
+.pending:hover {
+	color: #D25050;
+}
+
 .resalt {
 	font-size: 5em;
 	font-family: Georgia, Times, serif;

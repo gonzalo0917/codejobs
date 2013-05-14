@@ -61,7 +61,9 @@ class CPanel_Controller extends ZP_Load
 			$this->helper("alerts");
 
 			switch (POST("cache")) {
-				case "blog": case "bookmarks": case "codes": case "pages": case "world": case "ads":
+				case "blog": case "bookmarks": case "codes":
+					$this->Cache->removeAll("users");
+				case "blog": case "bookmarks": case "codes": case "pages": case "world": case "ads": case "users":
 					$this->Cache->removeAll(POST("cache"));
 					
 					$this->vars["alert"] = getAlert(__("The cache files were removed"), "success");
@@ -70,6 +72,15 @@ class CPanel_Controller extends ZP_Load
 				default:
 					$this->vars["alert"] = getAlert(__("Does not exist cache group specified"));
 			}
+		} elseif (POST("update_credits")) {
+			$this->helper("alerts");
+			$this->Cache = $this->core("Cache");
+			$this->Users_Model = $this->model("Users_Model");
+
+			$this->Users_Model->updateCredits();
+			$this->Cache->removeAll("users");
+
+			$this->vars["alert"] = getAlert(__("Updated successfully"), "success");
 		}
 		
 		$data = $this->$Model->getByID(1);

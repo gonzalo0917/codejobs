@@ -614,33 +614,6 @@ class Users_Model extends ZP_Load
 		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Viadeo, Avatar, Situation");
 	}
 
-	public function checkSocial($user)
-	{
-		if (is_integer($user)) {
-			$data = $this->Db->find($user, $this->table, "ID_User, Twitter, Facebook, Linkedin, Google, Viadeo");
-		} else {
-			$data = $this->Db->findBy("Username", $user, $this->table, "ID_User, Twitter, Facebook, Linkedin, Google, Viadeo");
-		}
-
-		if ($data) {
-			$user = $data[0]["ID_User"];
-
-			foreach ($data[0] as $social => $username) {
-				if (preg_match('%^.*//.*/(.+)%', $username, $matches)) {
-					if (isset($matches[1])) {
-						$values[$social] = $matches[1];
-					}
-				}
-			}
-
-			if (isset($values)) {
-				return $this->Db->update($this->table, $values, $user);
-			}
-		}
-
-		return false;
-	}
-
 	public function getPrivileges()
 	{
 		return $this->Db->findAll("privileges");
@@ -754,7 +727,7 @@ class Users_Model extends ZP_Load
 		}
 
 		$data = array(
-			'Name' => utf8_decode(POST('name')),
+			'Name' => POST('name'),
 			'Gender' => POST('gender'),
 			'Birthday' => POST('birthday'),
 			'Country' => POST('country'),
@@ -857,12 +830,15 @@ class Users_Model extends ZP_Load
 				if ($this->setAvatar($avatar)) {
 					SESSION("ZanUserAvatar", current($avatar) ."?". time());
 
-					return true;
+					$json["msg"] = __("The avatar has been saved correctly");
+					$json["type"] = "success";
+					return $json;
 				}
 			}
 
-			//return getAlert(__("Error while tried to upload the files"));
-			return false;
+			$json["msg"] = __("Error while tried to upload the files");
+			$json["type"] = "fail";
+			return $json;
 		}
 	}
 
@@ -1342,6 +1318,21 @@ class Users_Model extends ZP_Load
 			return $this->updateDateCv();
 		} 
 		
+		return false;
+	}
+
+	public function updateCredits($user = null)
+	{
+		if (is_null($user)) {
+			$set = "Posts = (SELECT COUNT(*) FROM muu_blog blog WHERE (blog.Situation = 'Active' OR blog.Situation = 'Pending') AND blog.ID_User = muu_users.ID_User), ";
+			$set .= "Codes = (SELECT COUNT(*) FROM muu_codes codes WHERE (codes.Situation = 'Active' OR codes.Situation = 'Pending') AND codes.ID_User = muu_users.ID_User), ";
+			$set .= "Bookmarks = (SELECT COUNT(*) FROM muu_bookmarks bookmarks WHERE (bookmarks.Situation = 'Active' OR bookmarks.Situation = 'Pending') AND bookmarks.ID_User = muu_users.ID_User)";
+
+			if ($this->Db->updateBySQL($this->table, $set)) {
+				return $this->Db->updateBySQL($this->table, "Credits = 3*Posts + 2*Codes + Bookmarks, Recommendation = 50 + 5*Posts + 3*Codes + Bookmarks");
+			}
+		}
+
 		return false;
 	}
 

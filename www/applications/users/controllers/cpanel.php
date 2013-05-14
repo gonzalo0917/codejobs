@@ -142,6 +142,9 @@ class CPanel_Controller extends ZP_Load
 
 		if (POST("save")) {
 			$this->vars["alert"] = $this->$Model->cpanel("save");
+
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("users");
 		} elseif (POST("cancel")) {
 			redirect("cpanel");
 		}
@@ -172,6 +175,9 @@ class CPanel_Controller extends ZP_Load
 
 		if (POST("edit")) {
 			$this->vars["alert"] = $this->$Model->cpanel("edit");
+
+			$this->Cache = $this->core("Cache");
+			$this->Cache->removeAll("users");
 		} elseif (POST("cancel")) {
 			redirect("cpanel");
 		}

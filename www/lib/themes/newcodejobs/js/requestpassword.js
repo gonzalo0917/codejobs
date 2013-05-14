@@ -80,7 +80,7 @@
                 data: formData,
                 dataType: 'json',
                 success: function (data) {
-                	if (data.status.find('div').length > 0) {
+                	/*if (data.status.find('div').length > 0) {
                 		console.log("holaaa");
                 	} else {
                 		console.log("deaaaaadd");
@@ -89,7 +89,7 @@
                 		console.log("contiene");
                 	} else {
                 		console.log("No contiene");
-                	}
+                	}*/
                 	var result = $(data.status).remove("div").html();
 
                     if (data.status) {

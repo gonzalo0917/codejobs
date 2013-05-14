@@ -170,6 +170,7 @@ class Blog_Model extends ZP_Load
 
 		$this->Cache = $this->core("Cache");
 		$this->Cache->removeAll("blog");
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
 		
 		$this->Users_Model = $this->model("Users_Model");
 		$this->Users_Model->setCredits(1, 3);
@@ -232,6 +233,7 @@ class Blog_Model extends ZP_Load
 	{	
 		$this->Cache = $this->core("Cache");
 		$this->Cache->removeAll("blog");
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
 		$this->Db->update($this->table, $this->data, POST("ID"));
 	
 		return getAlert(__("The post has been edited correctly"), "success");
@@ -261,6 +263,7 @@ class Blog_Model extends ZP_Load
 		if ($this->data["Situation"] === "Active") {
 			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("blog");
+			$this->Cache->remove("profile-". $this->data["Author"], "users");
 		}
 
 		if ($return) {

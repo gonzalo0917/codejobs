@@ -5,28 +5,6 @@ if (!defined("ACCESS")) {
 
 $URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"]);		
 $in  = ($post["Tags"] !== "") ? __("in") : null;
-
-if ($author["Twitter"]) {
-	$social[] = a("Twitter", "https://twitter.com/". $author["Twitter"], true, array("rel" => "nofollow"));
-}
-
-if ($author["Facebook"]) {
-	$social[] = a("Facebook", "http://facebook.com/". $author["Facebook"], true, array("rel" => "nofollow"));
-}
-
-if ($author["Linkedin"]) {
-	$social[] = a("LinkedIn", "http://linkedin.com/in/". $author["Linkedin"], true, array("rel" => "nofollow"));
-}
-
-if ($author["Google"]) {
-	$social[] = a("Google+", "https://profiles.google.com/". $author["Google"], true, array("rel" => "nofollow"));
-}
-
-if ($author["Viadeo"]) {
-	$social[] = a("Viadeo", "http://viadeo.com/en/profile/". $author["Viadeo"], true, array("rel" => "nofollow"));
-}
-
-$social[] = a(__("View more publications by this author"), path("user/". $author["Username"] . "/"));
 ?>
 <div class="post">
 	<div class="post-title">
@@ -56,6 +34,28 @@ $social[] = a(__("View more publications by this author"), path("user/". $author
 			echo showContent($post["Content"]); 
 
 			if ($post["Display_Bio"]) {
+
+				if ($author["Twitter"]) {
+					$social[] = a("Twitter", "https://twitter.com/". $author["Twitter"], true, array("rel" => "nofollow"));
+				}
+
+				if ($author["Facebook"]) {
+					$social[] = a("Facebook", "http://facebook.com/". $author["Facebook"], true, array("rel" => "nofollow"));
+				}
+
+				if ($author["Linkedin"]) {
+					$social[] = a("LinkedIn", "http://linkedin.com/in/". $author["Linkedin"], true, array("rel" => "nofollow"));
+				}
+
+				if ($author["Google"]) {
+					$social[] = a("Google+", "https://profiles.google.com/". $author["Google"], true, array("rel" => "nofollow"));
+				}
+
+				if ($author["Viadeo"]) {
+					$social[] = a("Viadeo", "http://viadeo.com/en/profile/". $author["Viadeo"], true, array("rel" => "nofollow"));
+				}
+
+				$social[] = a(__("View more publications by this author"), path("user/". $author["Username"] . "/"));
 		?>
 		
 		<br />
@@ -84,9 +84,33 @@ $social[] = a(__("View more publications by this author"), path("user/". $author
 						</p>
 						<?php } ?>
 
+						<?php if ($author["Country"]) { ?>
+						<p class="author-country-mobile">
+							<?php echo getFlag($author["Country"]); ?>&nbsp;<?php echo __($author["Country"]); ?>
+						</p>
+						<?php } ?>
+
+						<?php if ($author["Website"] and $author["Website"] !== "http://") { ?>
+						<p class="author-website-mobile">
+							<?php echo a($author["Website"], $author["Website"], true, array("rel" => "nofollow")); ?>
+						</p>
+						<?php } ?>
+
 						<p class="author-social">
 							<?php echo implode(" | ", $social); ?> 
 						</p>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="author-social-mobile">
+						<?php
+							$more = array_pop($social);
+							if (count($social) > 0) {
+								echo implode(" | ", $social) . "<br />";
+							}
+
+							echo $more;
+						?>
 					</td>
 				</tr>
 			</table>
