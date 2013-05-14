@@ -830,12 +830,15 @@ class Users_Model extends ZP_Load
 				if ($this->setAvatar($avatar)) {
 					SESSION("ZanUserAvatar", current($avatar) ."?". time());
 
-					return true;
+					$json["msg"] = __("The avatar has been saved correctly");
+					$json["type"] = "success";
+					return $json;
 				}
 			}
 
-			//return getAlert(__("Error while tried to upload the files"));
-			return false;
+			$json["msg"] = __("Error while tried to upload the files");
+			$json["type"] = "fail";
+			return $json;
 		}
 	}
 
