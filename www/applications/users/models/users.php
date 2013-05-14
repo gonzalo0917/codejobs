@@ -1318,6 +1318,21 @@ class Users_Model extends ZP_Load
 		return false;
 	}
 
+	public function updateCredits($user = null)
+	{
+		if (is_null($user)) {
+			$set = "Posts = (SELECT COUNT(*) FROM muu_blog blog WHERE (blog.Situation = 'Active' OR blog.Situation = 'Pending') AND blog.ID_User = muu_users.ID_User), ";
+			$set .= "Codes = (SELECT COUNT(*) FROM muu_codes codes WHERE (codes.Situation = 'Active' OR codes.Situation = 'Pending') AND codes.ID_User = muu_users.ID_User), ";
+			$set .= "Bookmarks = (SELECT COUNT(*) FROM muu_bookmarks bookmarks WHERE (bookmarks.Situation = 'Active' OR bookmarks.Situation = 'Pending') AND bookmarks.ID_User = muu_users.ID_User)";
+
+			if ($this->Db->updateBySQL($this->table, $set)) {
+				return $this->Db->updateBySQL($this->table, "Credits = 3*Posts + 2*Codes + Bookmarks, Recommendation = 50 + 5*Posts + 3*Codes + Bookmarks");
+			}
+		}
+
+		return false;
+	}
+
 	private function updateDateCv() 
 	{
 		if ($this->Db->update($this->tableCvSum, array('Last_Updated' => now(4)), SESSION("ZanUserID"))) {

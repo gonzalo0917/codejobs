@@ -191,10 +191,14 @@
 			);			
 
 			echo formField(null, __("Update minified files") ."<br />" . 
-								 formInput(array("type" => "submit", "value" => "CSS", "name" => "minify_css", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")) .
-								 formInput(array("type" => "submit", "value" => "JS", "name" => "minify_js", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")) .
-								 formInput(array("type" => "submit", "value" => __("All files"), "name" => "minify", "class" => "btn btn-danger", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')"))
-						  );
+				formInput(array("type" => "submit", "value" => "CSS", "name" => "minify_css", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")) .
+				formInput(array("type" => "submit", "value" => "JS", "name" => "minify_js", "class" => "btn btn-primary", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')")) .
+				formInput(array("type" => "submit", "value" => __("All files"), "name" => "minify", "class" => "btn btn-danger", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')"))
+			);
+
+			echo formField(null, __("Publications, credits and recommendations") ."<br />" . 
+				formInput(array("type" => "submit", "value" => __("Update"), "name" => "update_credits", "class" => "btn", "onclick" => "return confirm('". __("This may take several minutes. Are you sure you want to do this?") ."')"))
+			);
 			
 			echo formField(null, __("Cache") . "<br />" . formSelect(array(
 				"name" 	=> "cache", 

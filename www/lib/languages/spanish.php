@@ -419,6 +419,7 @@ $phrase["processing"] 									= "Procesando";
 $phrase["programming_language"]							= "Lenguaje";
 $phrase["programming_languages"]						= "Lenguajes";
 $phrase["proposals"]                                    = "Propuestas";
+$phrase["publications_credits_and_recommendations"] 	= "Publicaciones, créditos y recomendaciones";
 $phrase["publish"] 										= "Publicar";
 $phrase["publish_a_bookmark"]  							= "Publicar un marcador";
 $phrase["publish_a_code"]  								= "Publicar un código";
