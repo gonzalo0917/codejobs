@@ -1321,15 +1321,27 @@ class Users_Model extends ZP_Load
 		return false;
 	}
 
-	public function updateCredits($user = null)
+	public function updateCredits($ID_User = 0, $application = null)
 	{
-		if (is_null($user)) {
-			$set = "Posts = (SELECT COUNT(*) FROM muu_blog blog WHERE (blog.Situation = 'Active' OR blog.Situation = 'Pending') AND blog.ID_User = muu_users.ID_User), ";
-			$set .= "Codes = (SELECT COUNT(*) FROM muu_codes codes WHERE (codes.Situation = 'Active' OR codes.Situation = 'Pending') AND codes.ID_User = muu_users.ID_User), ";
-			$set .= "Bookmarks = (SELECT COUNT(*) FROM muu_bookmarks bookmarks WHERE (bookmarks.Situation = 'Active' OR bookmarks.Situation = 'Pending') AND bookmarks.ID_User = muu_users.ID_User)";
+		$blog = "Posts = (SELECT COUNT(*) FROM muu_blog blog WHERE (blog.Situation = 'Active' OR blog.Situation = 'Pending') AND blog.ID_User = muu_users.ID_User)";
+		$codes = "Codes = (SELECT COUNT(*) FROM muu_codes codes WHERE (codes.Situation = 'Active' OR codes.Situation = 'Pending') AND codes.ID_User = muu_users.ID_User)";
+		$bookmarks = "Bookmarks = (SELECT COUNT(*) FROM muu_bookmarks bookmarks WHERE (bookmarks.Situation = 'Active' OR bookmarks.Situation = 'Pending') AND bookmarks.ID_User = muu_users.ID_User)";
 
+		if (is_null($application)) {
+			$set = "$blog, $codes, $bookmarks";
+		} else {
+			$set = $$application;
+		}
+
+		$credits = "Credits = 3*Posts + 2*Codes + Bookmarks, Recommendation = 50 + 5*Posts + 3*Codes + Bookmarks";
+
+		if ($ID_User === 0) {
 			if ($this->Db->updateBySQL($this->table, $set)) {
-				return $this->Db->updateBySQL($this->table, "Credits = 3*Posts + 2*Codes + Bookmarks, Recommendation = 50 + 5*Posts + 3*Codes + Bookmarks");
+				return $this->Db->updateBySQL($this->table, $credits);
+			}
+		} else {
+			if ($this->Db->updateBySQL($this->table, "$set WHERE ID_User = $ID_User")) {
+				return $this->Db->updateBySQL($this->table, "$credits WHERE ID_User = $ID_User");
 			}
 		}
 

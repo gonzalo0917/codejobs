@@ -168,13 +168,14 @@ class Blog_Model extends ZP_Load
 		
 		$insertID = (!$data) ? $this->Db->insert($this->table, $this->data) : $this->Db->update($this->table, $this->data, $data[0]["ID_Post"]);
 
+		$this->Users_Model = $this->model("Users_Model");
+		$this->Users_Model->updateCredits($this->data["ID_User"], "blog");
+		$this->Users_Model->setCredits(1, 3);
+		
 		$this->Cache = $this->core("Cache");
 		$this->Cache->removeAll("blog");
 		$this->Cache->remove("profile-". $this->data["Author"], "users");
-		
-		$this->Users_Model = $this->model("Users_Model");
-		$this->Users_Model->setCredits(1, 3);
-			
+
 		return getAlert(__("The post has been saved correctly"), "success");
 	}
 
@@ -231,10 +232,14 @@ class Blog_Model extends ZP_Load
 	
 	private function edit() 
 	{	
+		$this->Db->update($this->table, $this->data, POST("ID"));
+		
+		$this->Users_Model = $this->model("Users_Model");
+		$this->Users_Model->updateCredits($this->data["ID_User"], "blog");
+		
 		$this->Cache = $this->core("Cache");
 		$this->Cache->removeAll("blog");
 		$this->Cache->remove("profile-". $this->data["Author"], "users");
-		$this->Db->update($this->table, $this->data, POST("ID"));
 	
 		return getAlert(__("The post has been edited correctly"), "success");
 	}
@@ -251,19 +256,23 @@ class Blog_Model extends ZP_Load
 		$this->data["Enable_Comments"] = true;
 		$this->data["Display_Bio"] = true;
 
+		$this->Users_Model = $this->model("Users_Model");
+
 		if ($action === "save") {
 			$return = $this->Db->insert($this->table, $this->data);
 
-			$this->Users_Model = $this->model("Users_Model");
 			$this->Users_Model->setCredits(1, 3);
 		} elseif ($action === "edit") {
 			$return = $this->Db->update($this->table, $this->data, POST("ID"));
 		}
 
+		$this->Users_Model->updateCredits($this->data["ID_User"], "blog");
+		
+		$this->Cache = $this->core("Cache");
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
+		
 		if ($this->data["Situation"] === "Active") {
-			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("blog");
-			$this->Cache->remove("profile-". $this->data["Author"], "users");
 		}
 
 		if ($return) {
