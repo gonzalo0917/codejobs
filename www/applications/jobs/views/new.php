@@ -15,12 +15,12 @@
 	$tags = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) : recoverPOST("tags");
 	$email = isset($data) ? recoverPOST("email", $data[0]["Email"]) : recoverPOST("email");
 	$type = isset($data) ? recoverPOST("type", $data[0]["Type"]) : recoverPOST("type");
-	$typeurl = isset($data) ? recoverPOST("typeurl", $data[0]["Type_Url"]) : recoverPOST("typeurl");
+	$typeurl = isset($data) ? recoverPOST("type_url", $data[0]["Type_Url"]) : recoverPOST("type_url");
 	$language = isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
 	$edit = isset($data) ? true : false;
 	$action = isset($data) ? "edit" : "save";
-	$href = isset($data) ? path(whichApplication() ."/cpanel/$action/$ID/") : path(whichApplication() ."/add");
+	$href = isset($data) ? path(whichApplication() ."/$action/$ID/") : path(whichApplication() ."/add");
 
 	echo div("add-form", "class");
 		echo formOpen($href, "form-add", "form-add", null, "post", "multipart/form-data");
@@ -157,7 +157,7 @@
 			);
 
 			echo formInput(array(
-				"name" => "typeurl", 
+				"name" => "type_url", 
 				"class" => "span5 required", 
 				"field" => __("Type the URL of the external page"), 
 				"p" => true, 

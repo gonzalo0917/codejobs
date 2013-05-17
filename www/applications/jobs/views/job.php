@@ -7,7 +7,7 @@
 
 <div class="job">
 	<?php $url = $job["ID_Job"]; ?>
-	<form action="<?php echo path("jobs/". $url . "/apply/"); ?>" method="post" enctype="multipart/form-data">
+	<form action="<?php echo path("jobs/apply/"); ?>" method="post" enctype="multipart/form-data">
 	<h2>
 		<?php echo getLanguage($job["Language"], true); ?> <a href="<?php echo path("jobs/visit/". $job["ID_Job"], false, $job["Language"]); ?>" target="_blank" title="<?php echo quotes($job["Title"]); ?>"><?php echo quotes($job["Title"]); ?></a>
 	</h2>
@@ -44,7 +44,9 @@
 				<li><?php echo __("Allocation Time"). ": ". __($job["Allocation_Time"]) ?></li>
 			</ul>
 		</p>
-
+				<input id="jid" name="jid" type="hidden" value="<?php echo $job["ID_Job"]; ?>" />
+				<input id="jauthor" name="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
+				<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
 		<p>
 			<?php if (!SESSION("ZanUser")) {
 				echo '<span class="small italic grey">';
@@ -57,9 +59,6 @@
 				echo '<span class="bold">'. __("Enter the link below to apply") .": ".'</span><br />';
 				?> <input id="eapply" class="btn btn-success" type="submit" value="<?php echo __("Apply for the vacancy"); ?>" />
 	<?php   }  elseif (SESSION("ZanUser") and !$isvacancy) { ?>
-			<input id="jid" name="jid" type="hidden" value="<?php echo $job["ID_Job"]; ?>" />
-			<input id="jauthor" name="jauthor" type="hidden" value="<?php echo $job["Author"]; ?>" />
-			<input id="jname" name="jname" type="hidden" value="<?php echo $job["Title"]; ?>" />
 
 			<?php 
 				echo formInput(array(
