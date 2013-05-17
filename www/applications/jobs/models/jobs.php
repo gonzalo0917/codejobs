@@ -93,7 +93,7 @@ class Jobs_Model extends ZP_Load
 
 	public function preview()
 	{
-		if (POST("title") AND POST("email") AND POST("address1") AND POST("type") AND POST("typeurl")  AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
+		if (POST("title") AND POST("email") AND POST("type") AND POST("typeurl")  AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
 			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language") AND POST("counter")) {
 			return array(
 				"Allocation_Time" => POST("allocation"),
@@ -162,7 +162,7 @@ class Jobs_Model extends ZP_Load
 		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
 		$vtype = $this->Db->query("SELECT Type FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
 		
-		if ($vtype == "External") {
+		if ($vtype[0]["Type"] == "External") {
 		$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Vacancy DESC");
 		$counter = $getcounter[0]["Counter"] += 1;
 		$data = array(
@@ -172,6 +172,7 @@ class Jobs_Model extends ZP_Load
 		$this->Db->update("jobs", $data, $job);
 		redirect($url[0]["Type_Url"], true);
 		}
+
 		else {
 		$counter = $getcounter[0]["Counter"] += 1;
 		$data2 = array(
@@ -250,20 +251,6 @@ class Jobs_Model extends ZP_Load
 		$this->Email->message = $this->view("download_cv", array(), "jobs", true);
 		$this->Email->send();
 		redirect(path($cv[0]["Cv"], true));
-	}
-
-		public function applyExternal()
-	{
-		$job = segment(1, isLang());
-		$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$job' ORDER BY ID_Vacancy DESC");
-		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
-		$counter = $getcounter[0]["Counter"] += 1;
-		$data = array(
-				"Counter" => $counter,
-			);
-
-		$this->Db->update("jobs", $data, $job);
-		redirect($url[0]["Type_Url"], true);
 	}
 
 	public function isVacancy()
