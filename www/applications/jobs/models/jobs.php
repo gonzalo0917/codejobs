@@ -73,14 +73,14 @@ class Jobs_Model extends ZP_Load
 		);
 
 		$this->helper(array("alerts", "time", "files"));
-		//$date = now(4);
+		$date = now(4);
 		$data = array(
 			"ID_User" => SESSION("ZanUserID"),
 			"Author" => POST("author") ? POST("author") : SESSION("ZanUser"),
 			"Slug" => slug(POST("title", "clean")),
 			"City_Slug" => slug(POST("city", "clean")),
 			"Start_Date" => $date,
-		//	"End_Date" => $date + (3600 * 24 * 30)
+			"End_Date" => $date + (3600 * 24 * 30)
  		);
 
 		$this->Data->change("allocation", "Allocation_Time");
@@ -93,7 +93,7 @@ class Jobs_Model extends ZP_Load
 
 	public function preview()
 	{
-		if (POST("title") AND POST("email") AND POST("address1") AND POST("type") AND POST("typeurl")  AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
+		if (POST("title") AND POST("email") AND POST("type") AND POST("typeurl")  AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
 			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language") AND POST("counter")) {
 			return array(
 				"Allocation_Time" => POST("allocation"),
@@ -104,14 +104,14 @@ class Jobs_Model extends ZP_Load
 				"Tags" => stripslashes(encode(POST("tags", "decode", null))),
 				"Email" => POST("email"),
 				"Type" => POST("type"),
-				"Type_URL" => POST("typeurl"),
+				"Type_Url" => POST("typeurl"),
 				"Salary" => POST("salary"),
 				"Salary_Currency"=> POST("salary_currency"),
 				"Description" => stripslashes(encode(POST("requirements", "decode", null))),
 				"Language" => POST("language"),
 				"Phone" => POST("phone"),
 				"Start_Date" => now(4),
-				//"End_Date" => $date + (3600 * 24 * 30),
+				"End_Date" => $date + (3600 * 24 * 30),
 				"Title" => stripslashes(encode(POST("title", "decode", null))),
 			);
 		} else {
@@ -148,7 +148,7 @@ class Jobs_Model extends ZP_Load
 		}
 	}
 
-	public function saveVacant()
+	public function saveVacancy()
 	{
 		$jname = POST("jname");
 		$jauthor = POST("jauthor");
@@ -160,68 +160,79 @@ class Jobs_Model extends ZP_Load
 		$this->helper(array("alerts", "forms", "files"));
 		$this->Users_Model = $this->model("Users_Model");
 		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
-		$counter = $getcounter[0]["Counter"] += 1;
-		$data2 = array(
+		$vtype = $this->Db->query("SELECT Type FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+		$query = "SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC";
+
+		if ($vtype[0]["Type"] == "External") {
+			$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+			$counter = $getcounter[0]["Counter"] + 1;
+			$data = array(
 				"Counter" => $counter,
 			);
 
-		$this->Db->update("jobs", $data2, $jid);
-		$data = $this->Users_Model->getUserData(true);
-
-		if (isset($data[0]["Email"])) {
-			$email = $data[0]["Email"];
-		}
-
-		$dir = "www/lib/files/documents/cv/";
-
-		if (!file_exists($dir)) {
-			mkdir($dir, 0777);
-		}
-
-		if (FILES("cv", "name")) {
-			$ext = getExtension(FILES("cv", "name"));
-
-			$this->Files->filename  = "cv_". slug(SESSION("ZanUser")) .".". $ext;
-			$this->Files->fileType  = FILES("cv", "type");
-			$this->Files->fileSize  = FILES("cv", "size");
-			$this->Files->fileError = FILES("cv", "error");
-			$this->Files->fileTmp   = FILES("cv", "tmp_name");
-			$upload = $this->Files->upload($dir, "document");
-
-			if (isset($upload["filename"])) {
-				$cv = $dir . $upload["filename"];
-			} else {
-				return getAlert(__("Error uploading file"));
-			}
-		}
-
-		if ($jid and $jname and $jauthor and $message) {
-			$data = array(
-				"Job_Name"	 	 => $jname,
-				"ID_Job"		 => $jid,
-				"Job_Author" 	 => decode($jauthor),
-				"ID_UserVacancy" => SESSION("ZanUserID"),
-				"Cv" 			 => $cv,
-				"Vacancy" 	 	 => SESSION("ZanUserName"),
-				"Vacancy_Email"  => $email,
-				"Message" 	 	 => $message,
+			$this->Db->update("jobs", $data, $jid);
+			redirect($url[0]["Type_Url"]);
+		} else {
+			$counter = $getcounter[0]["Counter"] + 1;
+			$data2 = array(
+				"Counter" => $counter,
 			);
 
-			$this->Db->insert("vacancy", $data);
-			$this->Email->email = $email2[0]["Email"];
-			$this->Email->subject = __("An user has applied to your job")." - ". _get("webName");
-			$this->Email->message = $this->view("apply_email", array(), "jobs", true);
-			$this->Email->send();
-			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
-		} else {
-			return false;
+			$this->Db->update("jobs", $data2, $jid);
+			$data = $this->Users_Model->getUserData(true);
+			if (isset($data[0]["Email"])) {
+				$email = $data[0]["Email"];
+			}
+
+			$dir = "www/lib/files/documents/cv/";
+
+			if (!file_exists($dir)) {
+				mkdir($dir, 0777);
+			}
+
+			if (FILES("cv", "name")) {
+				$ext = getExtension(FILES("cv", "name"));
+
+				$this->Files->filename  = "cv_". slug(SESSION("ZanUser")) .".". $ext;
+				$this->Files->fileType  = FILES("cv", "type");
+				$this->Files->fileSize  = FILES("cv", "size");
+				$this->Files->fileError = FILES("cv", "error");
+				$this->Files->fileTmp   = FILES("cv", "tmp_name");
+				$upload = $this->Files->upload($dir, "document");
+				if (isset($upload["filename"])) {
+					$cv = $dir . $upload["filename"];
+				} else {
+					return getAlert(__("Error uploading file"));
+				}
+			}
+
+			if ($jid and $jname and $jauthor and $message) {
+				$data = array(
+					"Job_Name"	 	 => $jname,
+					"ID_Job"		 => $jid,
+					"Job_Author" 	 => decode($jauthor),
+					"ID_User" 		 => SESSION("ZanUserID"),
+					"Cv" 			 => $cv,
+					"Vacancy" 	 	 => decode(SESSION("ZanUserName")),
+					"Vacancy_Email"  => $email,
+					"Message" 	 	 => $message,
+				);
+				$this->Db->insert("vacancy", $data);
+				$this->Email->email = $email2[0]["Email"];
+				$this->Email->subject = __("An user has applied to your job")." - ". _get("webName");
+				$this->Email->message = $this->view("apply_email", array(), "jobs", true);
+				$this->Email->send();
+				return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
+			} else {
+				return false;
+			}
 		}
 	}
 
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");
-		return $this->Db->query("SELECT Job_Name, ID_Job, Job_Author, ID_UserVacancy, Vacancy, Cv, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
+		return $this->Db->query("SELECT Job_Name, ID_Job, Job_Author, ID_User, Vacancy, Cv, Vacancy_Email, Message FROM ". DB_PREFIX ."vacancy WHERE Job_Author = '$author' ORDER BY ID_Vacancy DESC");
 	}
 
 	public function downloadCv()
@@ -229,7 +240,7 @@ class Jobs_Model extends ZP_Load
 		$user = segment(2, isLang());
 		$job = segment(3, isLang());
 		$email = $this->Db->query("SELECT Email FROM ". DB_PREFIX ."users WHERE ID_User = '$user' ORDER BY ID_User DESC");
-		$cv = $this->Db->query("SELECT Cv FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$job' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		$cv = $this->Db->query("SELECT Cv FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$job' AND ID_User = '$user' ORDER BY ID_Vacancy DESC");
 
 		$this->Email->email = $email[0]["Email"];
 		$this->Email->subject = __("A recluiter has downloaded your cv");
@@ -238,25 +249,11 @@ class Jobs_Model extends ZP_Load
 		redirect(path($cv[0]["Cv"], true));
 	}
 
-		public function applyExternal()
-	{
-		$job = segment(1, isLang());
-		$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$job' ORDER BY ID_Vacancy DESC");
-		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
-		$counter = $getcounter[0]["Counter"] += 1;
-		$data = array(
-				"Counter" => $counter,
-			);
-
-		$this->Db->update("jobs", $data, $job);
-		redirect($url[0]["Type_Url"], true);
-	}
-
 	public function isVacancy()
 	{
 		$jid = segment(1, isLang());
 		$user = SESSION("ZanUserID");
-		$data = $this->Db->query("SELECT Job_Name, ID_UserVacancy FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$jid' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
+		$data = $this->Db->query("SELECT ID_Job, ID_User FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$jid' AND ID_User = '$user' ORDER BY ID_Vacancy DESC");
 		return $data;
 	}
 

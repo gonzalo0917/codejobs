@@ -284,12 +284,13 @@ class Users_Controller extends ZP_Load
 
 		$json = array();
 		if (POST("save")) {
-			/*$this->helper("alerts");
-			$vars["alert"] = $this->Users_Model->saveInformation();*/
-			if ($this->Users_Model->saveInformation())
+			$this->helper("alerts");
+			/*$vars["alert"] = $this->Users_Model->saveInformation();*/
+			$json["status"] = $this->Users_Model->saveInformation();
+			/*if ($this->Users_Model->saveInformation())
 				$json["status"] = __("The information has been saved correctly");
 			else
-				$json["fail"] = __("Update error");
+				$json["fail"] = __("Update error");*/
 
 		}
 
@@ -417,10 +418,10 @@ class Users_Controller extends ZP_Load
 				$json["status"] = __("Update error");
 		} elseif (POST("action") == "save") {
 			//$vars["alert"] = $this->Users_Model->saveAvatar();
-			if ($this->Users_Model->saveAvatar())
-				$json["status"] = __("The avatar has been saved correctly");
-			else
-				$json["fail"] = __("Error while tried to upload the files");
+			//if ($this->Users_Model->saveAvatar())
+			$json["status"] = $this->Users_Model->saveAvatar();
+			/*else
+				$json["fail"] = __("Error while tried to upload the files");*/
 		} elseif (POST("nosupport")) {
 			$user = SESSION("ZanUser");
 			if (isset($_FILES['avatar']) and $user) {

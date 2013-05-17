@@ -723,7 +723,9 @@ class Users_Model extends ZP_Load
 		$this->data = $this->Data->process(null, $validations);
 		
 		if (isset($this->data["error"])) {
-			return $this->data["error"];
+			$json["msg"] = $this->data["error"];
+			$json["type"] = "fail";
+			return $json;			
 		}
 
 		$data = array(
@@ -742,10 +744,13 @@ class Users_Model extends ZP_Load
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 			SESSION("ZanUserName", POST("name"));
-			return true;
+			$json["msg"] = __("The information has been saved correctly");
+			$json["type"] = "success";
+			return $json;
 		}
-		
-		return false;
+		$json["msg"] = __("Upload error");
+		$json["type"] = "fail";
+		return $json;
 	}
 
 	public function changePassword()
@@ -830,12 +835,15 @@ class Users_Model extends ZP_Load
 				if ($this->setAvatar($avatar)) {
 					SESSION("ZanUserAvatar", current($avatar) ."?". time());
 
-					return true;
+					$json["msg"] = __("The avatar has been saved correctly");
+					$json["type"] = "success";
+					return $json;
 				}
 			}
 
-			//return getAlert(__("Error while tried to upload the files"));
-			return false;
+			$json["msg"] = __("Error while tried to upload the files");
+			$json["type"] = "fail";
+			return $json;
 		}
 	}
 
@@ -1315,6 +1323,33 @@ class Users_Model extends ZP_Load
 			return $this->updateDateCv();
 		} 
 		
+		return false;
+	}
+
+	public function updateCredits($ID_User = 0, $application = null)
+	{
+		$blog = "Posts = (SELECT COUNT(*) FROM muu_blog blog WHERE (blog.Situation = 'Active' OR blog.Situation = 'Pending') AND blog.ID_User = muu_users.ID_User)";
+		$codes = "Codes = (SELECT COUNT(*) FROM muu_codes codes WHERE (codes.Situation = 'Active' OR codes.Situation = 'Pending') AND codes.ID_User = muu_users.ID_User)";
+		$bookmarks = "Bookmarks = (SELECT COUNT(*) FROM muu_bookmarks bookmarks WHERE (bookmarks.Situation = 'Active' OR bookmarks.Situation = 'Pending') AND bookmarks.ID_User = muu_users.ID_User)";
+
+		if (is_null($application)) {
+			$set = "$blog, $codes, $bookmarks";
+		} else {
+			$set = $$application;
+		}
+
+		$credits = "Credits = 3*Posts + 2*Codes + Bookmarks, Recommendation = 50 + 5*Posts + 3*Codes + Bookmarks";
+
+		if ($ID_User === 0) {
+			if ($this->Db->updateBySQL($this->table, $set)) {
+				return $this->Db->updateBySQL($this->table, $credits);
+			}
+		} else {
+			if ($this->Db->updateBySQL($this->table, "$set WHERE ID_User = $ID_User")) {
+				return $this->Db->updateBySQL($this->table, "$credits WHERE ID_User = $ID_User");
+			}
+		}
+
 		return false;
 	}
 

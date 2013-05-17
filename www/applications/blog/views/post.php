@@ -84,9 +84,33 @@ $in  = ($post["Tags"] !== "") ? __("in") : null;
 						</p>
 						<?php } ?>
 
+						<?php if ($author["Country"]) { ?>
+						<p class="author-country-mobile">
+							<?php echo getFlag($author["Country"]); ?>&nbsp;<?php echo __($author["Country"]); ?>
+						</p>
+						<?php } ?>
+
+						<?php if ($author["Website"] and $author["Website"] !== "http://") { ?>
+						<p class="author-website-mobile">
+							<?php echo a($author["Website"], $author["Website"], true, array("rel" => "nofollow")); ?>
+						</p>
+						<?php } ?>
+
 						<p class="author-social">
 							<?php echo implode(" | ", $social); ?> 
 						</p>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="author-social-mobile">
+						<?php
+							$more = array_pop($social);
+							if (count($social) > 0) {
+								echo implode(" | ", $social) . "<br />";
+							}
+
+							echo $more;
+						?>
 					</td>
 				</tr>
 			</table>

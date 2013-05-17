@@ -290,9 +290,9 @@ class CPanel_Controller extends ZP_Load
 		$this->render("content", $this->vars);
 	}
 
-	public function activate($id = 0, $author = null)
+	public function activate($ID = 0, $ID_User = 0, $author = null)
 	{
-		if ($id > 0 and !is_null($author)) {
+		if ($ID > 0 and $ID_User > 0 and !is_null($author)) {
 			$this->Users_Model = $this->model("Users_Model");
 			$edit = $this->Users_Model->isAllow("edit");
 
@@ -300,8 +300,10 @@ class CPanel_Controller extends ZP_Load
 				$Model = ucfirst($this->application) ."_Model";
 				$this->$Model = $this->model($Model);
 
-				if ($this->$Model->activate($id)) {
+				if ($this->$Model->activate($ID)) {
 					$vars["data"] = 1;
+
+					$this->Users_Model->updateCredits($ID_User, "codes");
 
 					$this->Cache = $this->core("Cache");	
 					$this->Cache->removeAll("codes");

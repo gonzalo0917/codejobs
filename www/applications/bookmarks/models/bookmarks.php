@@ -134,19 +134,23 @@ class Bookmarks_Model extends ZP_Load
 		
 		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 or SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 
+		$this->Users_Model = $this->model("Users_Model");
+
 		if ($action === "save") {
 			$return = $this->Db->insert($this->table, $this->data);
 
-			$this->Users_Model = $this->model("Users_Model");
 			$this->Users_Model->setCredits(1, 9);
 		} elseif ($action === "edit") {
 			$return = $this->Db->update($this->table, $this->data, POST("ID"));
 		}
 
+		$this->Users_Model->updateCredits($this->data["ID_User"], "bookmarks");
+
+		$this->Cache = $this->core("Cache");
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
+		
 		if ($this->data["Situation"] === "Active") {
-			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("bookmarks");
-			$this->Cache->remove("profile-". $this->data["Author"], "users");
 		}
 		
 		if ($return) {
@@ -177,12 +181,13 @@ class Bookmarks_Model extends ZP_Load
 	private function save() 
 	{
 		if ($this->Db->insert($this->table, $this->data)) {
+			$this->Users_Model = $this->model("Users_Model");
+			$this->Users_Model->setCredits(1, 9);
+			$this->Users_Model->updateCredits($this->data["ID_User"], "bookmarks");
+
 			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("bookmarks");
 			$this->Cache->remove("profile-". $this->data["Author"], "users");
-
-			$this->Users_Model = $this->model("Users_Model");
-			$this->Users_Model->setCredits(1, 9);
 
 			return getAlert(__("The bookmark has been saved correctly"), "success");	
 		}
@@ -193,6 +198,9 @@ class Bookmarks_Model extends ZP_Load
 	private function edit() 
 	{
 		$this->Db->update($this->table, $this->data, POST("ID"));
+
+		$this->Users_Model = $this->model("Users_Model");
+		$this->Users_Model->updateCredits($this->data["ID_User"], "bookmarks");
 
 		$this->Cache = $this->core("Cache");	
 		$this->Cache->removeAll("bookmarks");
