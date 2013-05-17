@@ -116,11 +116,11 @@ $(document).ready(function() {
                 success: function (data) {
                     if (data.status) {
                         $('.float-msg').animate({top: 0}, 800, null);
-                        $('.float-msg').text("(+) "+data["status"].msg);
+                        $('.float-msg').text("(+) "+$(data["status"].msg).text());
                     	if (data["status"].type == "success") {
-                        	 $('.float-msg').css(successMSG);
+                        	$('.float-msg').css(successMSG);
                         } else {
-                        	 $('.float-msg').css(errorMSG);
+                        	$('.float-msg').css(errorMSG);
                         }
                     }
                 }

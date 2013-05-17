@@ -723,7 +723,9 @@ class Users_Model extends ZP_Load
 		$this->data = $this->Data->process(null, $validations);
 		
 		if (isset($this->data["error"])) {
-			return $this->data["error"];
+			$json["msg"] = $this->data["error"];
+			$json["type"] = "fail";
+			return $json;			
 		}
 
 		$data = array(
@@ -742,10 +744,13 @@ class Users_Model extends ZP_Load
 
 		if ($this->Db->update($this->table, $data, SESSION("ZanUserID"))) {
 			SESSION("ZanUserName", POST("name"));
-			return true;
+			$json["msg"] = __("The information has been saved correctly");
+			$json["type"] = "success";
+			return $json;
 		}
-		
-		return false;
+		$json["msg"] = __("Upload error");
+		$json["type"] = "fail";
+		return $json;
 	}
 
 	public function changePassword()
