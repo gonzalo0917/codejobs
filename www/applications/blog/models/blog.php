@@ -13,7 +13,7 @@ class Blog_Model extends ZP_Load
 		$this->table = "blog";
 		$this->fields = "ID_Post, ID_User, Title, Slug, Content, Tags, Author, Start_Date, Year, Month, Day, Views, 
 						 Image_Mural, Image_Thumbnail, Image_Small, Image_Medium, Image_Original, Comments, 
-						 Enable_Comments, Language, Pwd, Buffer, Code, Situation";
+						 Enable_Comments, Language, Display_Bio, Pwd, Buffer, Code, Situation";
 		
 		$this->Data = $this->core("Data");
 		$this->Data->table($this->table);
@@ -168,12 +168,14 @@ class Blog_Model extends ZP_Load
 		
 		$insertID = (!$data) ? $this->Db->insert($this->table, $this->data) : $this->Db->update($this->table, $this->data, $data[0]["ID_Post"]);
 
+		$this->Users_Model = $this->model("Users_Model");
+		$this->Users_Model->updateCredits($this->data["ID_User"], "blog");
+		$this->Users_Model->setCredits(1, 3);
+		
 		$this->Cache = $this->core("Cache");
 		$this->Cache->removeAll("blog");
-		
-		$this->Users_Model = $this->model("Users_Model");
-		$this->Users_Model->setCredits(1, 3);
-			
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
+
 		return getAlert(__("The post has been saved correctly"), "success");
 	}
 
@@ -230,9 +232,14 @@ class Blog_Model extends ZP_Load
 	
 	private function edit() 
 	{	
+		$this->Db->update($this->table, $this->data, POST("ID"));
+		
+		$this->Users_Model = $this->model("Users_Model");
+		$this->Users_Model->updateCredits($this->data["ID_User"], "blog");
+		
 		$this->Cache = $this->core("Cache");
 		$this->Cache->removeAll("blog");
-		$this->Db->update($this->table, $this->data, POST("ID"));
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
 	
 		return getAlert(__("The post has been edited correctly"), "success");
 	}
@@ -247,18 +254,24 @@ class Blog_Model extends ZP_Load
 		
 		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ? "Active" : "Pending";
 		$this->data["Enable_Comments"] = true;
+		$this->data["Display_Bio"] = true;
+
+		$this->Users_Model = $this->model("Users_Model");
 
 		if ($action === "save") {
 			$return = $this->Db->insert($this->table, $this->data);
 
-			$this->Users_Model = $this->model("Users_Model");
 			$this->Users_Model->setCredits(1, 3);
 		} elseif ($action === "edit") {
 			$return = $this->Db->update($this->table, $this->data, POST("ID"));
 		}
 
+		$this->Users_Model->updateCredits($this->data["ID_User"], "blog");
+		
+		$this->Cache = $this->core("Cache");
+		$this->Cache->remove("profile-". $this->data["Author"], "users");
+		
 		if ($this->data["Situation"] === "Active") {
-			$this->Cache = $this->core("Cache");
 			$this->Cache->removeAll("blog");
 		}
 

@@ -97,9 +97,9 @@
 			$options = array(
 				0 => array("value" => "Full Time", "option" => __("Full Time"), "selected" => ($allocation === "Full Time") ? true : false),
 				1 => array("value" => "Half Time", "option" => __("Half Time"), "selected" => ($allocation === "Half Time") ? true : false),
-				2 => array("value" => "Half Time", "option" => __("Contract"), "selected" => ($allocation === "Contract") ? true : false),
-				3 => array("value" => "Half Time", "option" => __("Intership"), "selected" => ($allocation === "Intership") ? true : false),
-				4 => array("value" => "Half Time", "option" => __("Temporal"), "selected" => ($allocation === "Temporal") ? true : false)
+				2 => array("value" => "Contract", "option" => __("Contract"), "selected" => ($allocation === "Contract") ? true : false),
+				3 => array("value" => "Intership", "option" => __("Intership"), "selected" => ($allocation === "Intership") ? true : false),
+				4 => array("value" => "Temporal", "option" => __("Temporal"), "selected" => ($allocation === "Temporal") ? true : false)
 			);
 
 			echo formSelect(array(
@@ -126,7 +126,7 @@
 				"class" => "span5 required", 
 				"field" => __("Tags"), 
 				"p" 	=> true,
-				"placeholder" => _("Write the tags separated by commas"),
+				"placeholder" => __("Write the tags separated by commas"),
 				"value" => $tags
 			));
 

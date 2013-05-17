@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Comments` mediumint(8) NOT NULL DEFAULT '0',
   `Enable_Comments` tinyint(1) NOT NULL DEFAULT '0',
   `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
+  `Display_Bio` tinyint(1) NOT NULL DEFAULT '0',
   `Pwd` varchar(40) NOT NULL,
   `Buffer` tinyint(1) NOT NULL DEFAULT '1',
   `Code` varchar(10) NOT NULL,

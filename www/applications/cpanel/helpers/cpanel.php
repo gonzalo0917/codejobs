@@ -151,7 +151,7 @@ function getSearch()
 	return $HTML;
 }
 
-function getSituation($situation, $id)
+function getSituation($situation, $ID, $ID_User, $author)
 {
 	global $Load;
 
@@ -161,7 +161,7 @@ function getSituation($situation, $id)
 	if ($edit) {
 		if ($situation === "Pending") {
 			return "<a href=\"#\" onclick=\"if(confirm('". htmlentities(__("Do you want to activate this publication?")) ."')) 
-			{ parent = $(this).parent(); link = $(this).detach(); parent.html('". htmlentities(__("Processing")) ."'); $.get('". path("$application/cpanel/activate/$id") ."', function(data) 
+			{ parent = $(this).parent(); link = $(this).detach(); parent.html('". htmlentities(__("Processing")) ."'); $.get('". path("$application/cpanel/activate/$ID/$ID_User/$author/") ."', function(data) 
 				{ if(data.return == 1) parent.html('". htmlentities(__("Active")) ."'); else { alert('". htmlentities(__("An error has occurred")) ."'); 
 				parent.append(link); } }, 'json') } return false; \">". __($situation) ."</a>";
 		} else {

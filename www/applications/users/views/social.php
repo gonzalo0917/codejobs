@@ -20,7 +20,8 @@
 						"field"     => "Twitter", 
 						"p"         => true,
 						"maxlength" => "150",
-						"placeholder" => "@",
+						"pattern" 	=> "^[\w\.]{3,150}$",
+						"placeholder" => __("Username"),
 						"value"     => $twitter
 					));
 				echo div(false);
@@ -32,6 +33,8 @@
 						"field"     => "Facebook", 
 						"p"         => true,
 						"maxlength" => "150",
+						"pattern" 	=> "^[\w\.]{3,150}$",
+						"placeholder" => __("ID or Username"),
 						"value"     => $facebook
 					));
 				echo div(false);
@@ -47,6 +50,8 @@
 						"field"     => "LinkedIn", 
 						"p"         => true,
 						"maxlength" => "150",
+						"pattern" 	=> "^[\w\.]{3,150}$",
+						"placeholder" => __("Username"),
 						"value"     => $linkedin
 					));
 				echo div(false);
@@ -58,6 +63,8 @@
 						"field"     => "Google+", 
 						"p"         => true,
 						"maxlength" => "150",
+						"pattern" 	=> "^[\w\.]{3,150}$",
+						"placeholder" => __("ID or Username"),
 						"value"     => $google
 					));
 				echo div(false);
@@ -73,6 +80,8 @@
 						"field"     => "Viadeo", 
 						"p"         => true,
 						"maxlength" => "150",
+						"pattern" 	=> "^[\w\.]{3,150}$",
+						"placeholder" => __("Username"),
 						"value"     => $viadeo
 					));
 				echo div(false);

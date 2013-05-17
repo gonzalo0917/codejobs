@@ -24,7 +24,7 @@ class Users_Model extends ZP_Load
 		$this->tableCvEdu = "users_cv_education";
 		$this->tableCvSki = "users_cv_skills";
 
-		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Start_Date, Subscribed, Code, Situation";
+		$this->fields = "ID_User, ID_Privilege, ID_Service, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Viadeo, Avatar, Situation";
 		$this->fieldsCvSum = "ID_User, ID_Summary, Summary, Last_Updated";
 		$this->fieldsCvExp = "ID_User, ID_Experience, Company, Job_Title, Location, Period_From, Period_To, Description";
 		$this->fieldsCvEdu = "ID_User, ID_School, School, Degree, Period_From, Period_To, Description";
@@ -234,8 +234,8 @@ class Users_Model extends ZP_Load
 			),
 			"username" => "required",
 			"name" 	   => "required",
-			"email"    => "email?",
-			"captcha"  => "captcha?"
+			"email"    => "email?"
+			//"captcha"  => "captcha?" Deshabilitado por hacer fallar al registro por Facebook y Twitter
 		);
 
 		$code = code(10);
@@ -611,7 +611,7 @@ class Users_Model extends ZP_Load
 
 	public function getByUsername($username)
 	{
-		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Avatar, Situation");
+		return $this->Db->findBy("Username", $username, $this->table, "ID_User, ID_Privilege, Username, Email, Website, Name, Gender, Country, Start_Date, Posts, Codes, Bookmarks, Credits, Recommendation, Subscribed, Code, Twitter, Facebook, Linkedin, Google, Viadeo, Avatar, Situation");
 	}
 
 	public function getPrivileges()
@@ -727,7 +727,7 @@ class Users_Model extends ZP_Load
 		}
 
 		$data = array(
-			'Name' => utf8_decode(POST('name')),
+			'Name' => POST('name'),
 			'Gender' => POST('gender'),
 			'Birthday' => POST('birthday'),
 			'Country' => POST('country'),
@@ -830,12 +830,15 @@ class Users_Model extends ZP_Load
 				if ($this->setAvatar($avatar)) {
 					SESSION("ZanUserAvatar", current($avatar) ."?". time());
 
-					return true;
+					$json["msg"] = __("The avatar has been saved correctly");
+					$json["type"] = "success";
+					return $json;
 				}
 			}
 
-			//return getAlert(__("Error while tried to upload the files"));
-			return false;
+			$json["msg"] = __("Error while tried to upload the files");
+			$json["type"] = "fail";
+			return $json;
 		}
 	}
 
@@ -1315,6 +1318,33 @@ class Users_Model extends ZP_Load
 			return $this->updateDateCv();
 		} 
 		
+		return false;
+	}
+
+	public function updateCredits($ID_User = 0, $application = null)
+	{
+		$blog = "Posts = (SELECT COUNT(*) FROM muu_blog blog WHERE (blog.Situation = 'Active' OR blog.Situation = 'Pending') AND blog.ID_User = muu_users.ID_User)";
+		$codes = "Codes = (SELECT COUNT(*) FROM muu_codes codes WHERE (codes.Situation = 'Active' OR codes.Situation = 'Pending') AND codes.ID_User = muu_users.ID_User)";
+		$bookmarks = "Bookmarks = (SELECT COUNT(*) FROM muu_bookmarks bookmarks WHERE (bookmarks.Situation = 'Active' OR bookmarks.Situation = 'Pending') AND bookmarks.ID_User = muu_users.ID_User)";
+
+		if (is_null($application)) {
+			$set = "$blog, $codes, $bookmarks";
+		} else {
+			$set = $$application;
+		}
+
+		$credits = "Credits = 3*Posts + 2*Codes + Bookmarks, Recommendation = 50 + 5*Posts + 3*Codes + Bookmarks";
+
+		if ($ID_User === 0) {
+			if ($this->Db->updateBySQL($this->table, $set)) {
+				return $this->Db->updateBySQL($this->table, $credits);
+			}
+		} else {
+			if ($this->Db->updateBySQL($this->table, "$set WHERE ID_User = $ID_User")) {
+				return $this->Db->updateBySQL($this->table, "$credits WHERE ID_User = $ID_User");
+			}
+		}
+
 		return false;
 	}
 

@@ -1,20 +1,16 @@
 <?php
-/**
- * Access from index.php:
- */
 if (!defined("ACCESS")) {
 	die("Error: You don't have permission to access here...");
 }
 
 $socialUser = SESSION("socialUser");
-
-$service   = recoverPOST("service", $socialUser["service"]);
-$username  = recoverPOST("username", $socialUser["username"]);
-$email     = recoverPOST("email", $socialUser["email"]);
-$name      = recoverPOST("name", $socialUser["name"]);
-$avatar    = recoverPOST("avatar", $socialUser["avatar"]);
-$birthday  = recoverPOST("birthday", $socialUser["birthday"]);
-$serviceID = recoverPOST("serviceID", $socialUser["serviceID"]);
+$service    = recoverPOST("service", $socialUser["service"]);
+$username   = recoverPOST("username", $socialUser["username"]);
+$email      = recoverPOST("email", $socialUser["email"]);
+$name       = recoverPOST("name", $socialUser["name"]);
+$avatar     = recoverPOST("avatar", $socialUser["avatar"]);
+$birthday   = recoverPOST("birthday", $socialUser["birthday"]);
+$serviceID  = recoverPOST("serviceID", $socialUser["serviceID"]);
 
 echo div("new-user", "class");
 	echo formOpen(path("users/register/$service"), "form", "form");

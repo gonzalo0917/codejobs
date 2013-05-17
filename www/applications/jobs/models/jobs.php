@@ -17,7 +17,7 @@ class Jobs_Model extends ZP_Load
 		$this->Email = $this->core("Email");
  	 	$this->Email->fromName = _get("webName");
  		$this->Email->fromEmail = _get("webEmailSend");
- 		$this->helper("time");
+ 		$this->helper(array("time", "alerts"));
  		$date = now(4);
 	}
 
@@ -93,7 +93,7 @@ class Jobs_Model extends ZP_Load
 
 	public function preview()
 	{
-		if (POST("title") AND POST("email") AND POST("address1") AND POST("type") AND POST("typeurl")  AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
+		if (POST("title") AND POST("email") AND POST("type") AND POST("typeurl")  AND POST("phone") AND POST("company") AND POST("country") AND POST("city") AND POST("salary") 
 			AND POST("salary_currency") AND POST("allocation") AND POST("description") AND POST("language") AND POST("counter")) {
 			return array(
 				"Allocation_Time" => POST("allocation"),
@@ -160,6 +160,20 @@ class Jobs_Model extends ZP_Load
 		$this->helper(array("alerts", "forms", "files"));
 		$this->Users_Model = $this->model("Users_Model");
 		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+		$vtype = $this->Db->query("SELECT Type FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
+		
+		if ($vtype[0]["Type"] == "External") {
+		$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Vacancy DESC");
+		$counter = $getcounter[0]["Counter"] += 1;
+		$data = array(
+				"Counter" => $counter,
+			);
+
+		$this->Db->update("jobs", $data, $job);
+		redirect($url[0]["Type_Url"], true);
+		}
+
+		else {
 		$counter = $getcounter[0]["Counter"] += 1;
 		$data2 = array(
 				"Counter" => $counter,
@@ -167,7 +181,7 @@ class Jobs_Model extends ZP_Load
 
 		$this->Db->update("jobs", $data2, $jid);
 		$data = $this->Users_Model->getUserData(true);
-		
+
 		if (isset($data[0]["Email"])) {
 			$email = $data[0]["Email"];
 		}
@@ -212,14 +226,13 @@ class Jobs_Model extends ZP_Load
 			$this->Email->subject = __("An user has applied to your job")." - ". _get("webName");
 			$this->Email->message = $this->view("apply_email", array(), "jobs", true);
 			$this->Email->send();
-			$this->Cache = $this->core("Cache");
-			$this->Cache->removeAll("job");
 			return showAlert(__("An email has been sent to the recluiter"), path("jobs/". POST("jid")));
 		} else {
 			return false;
+		  }
 		}
 	}
-	
+
 	public function getVacancy()
 	{
 		$author = SESSION("ZanUser");
@@ -232,26 +245,12 @@ class Jobs_Model extends ZP_Load
 		$job = segment(3, isLang());
 		$email = $this->Db->query("SELECT Email FROM ". DB_PREFIX ."users WHERE ID_User = '$user' ORDER BY ID_User DESC");
 		$cv = $this->Db->query("SELECT Cv FROM ". DB_PREFIX ."vacancy WHERE ID_Job = '$job' AND ID_UserVacancy = '$user' ORDER BY ID_Vacancy DESC");
-		
+
 		$this->Email->email = $email[0]["Email"];
 		$this->Email->subject = __("A recluiter has downloaded your cv");
 		$this->Email->message = $this->view("download_cv", array(), "jobs", true);
 		$this->Email->send();
 		redirect(path($cv[0]["Cv"], true));
-	}
-
-		public function applyExternal()
-	{
-		$job = segment(1, isLang());
-		$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$job' ORDER BY ID_Vacancy DESC");
-		$getcounter = $this->Db->query("SELECT Counter FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
-		$counter = $getcounter[0]["Counter"] += 1;
-		$data = array(
-				"Counter" => $counter,
-			);
-
-		$this->Db->update("jobs", $data, $job);
-		redirect($url[0]["Type_Url"], true);
 	}
 
 	public function isVacancy()

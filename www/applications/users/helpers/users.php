@@ -155,3 +155,27 @@ if (!function_exists("getFlag")) {
         }
     }
 }
+
+if (!function_exists("getAvatar")) {
+    function getAvatar($avatar, $username, $link = true, $path = "www/lib/files/images/users/")
+    {
+        $prepended = "";
+        $appended = "";
+        $url = preg_match('/^https?:/', $avatar);
+
+        if ($avatar !== "default.png" and $link === true) {
+            if ($url) {
+                $prepended = '<a href="'. $avatar .'" target="_blank">';
+            } else {
+                $prepended = '<a href="'. path($path . sha1($username ."_O") .".png", true) .'" target="_blank">';
+            }
+            $appended = '</a>';
+        }
+
+        if ($url) {
+            return $prepended .'<img src="'. $avatar .'" alt="'. $username .'" class="avatar" />'. $appended;
+        } else {
+            return $prepended .'<img src="'. path($path . $avatar, true) . '" alt="'. $username .'" class="avatar" />'. $appended;
+        }
+    }
+}

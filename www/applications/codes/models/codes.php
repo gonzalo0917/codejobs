@@ -150,15 +150,14 @@ class Codes_Model extends ZP_Load
 			return $error;
 		}
 		
-		$this->data["Situation"] = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ?
+		$situation = (SESSION("ZanUserPrivilegeID") == 1 OR SESSION("ZanUserRecommendation") > 100) ?
 		 "Active" : "Pending";
+		$author = $this->data["Author"];
+		$ID_User = $this->data["ID_User"];
 		
-		if ($this->data["Situation"] === "Active") {
-			$this->Cache = $this->core("Cache");
-			$this->Cache->removeAll("codes");
-		}
-
 		if ($action === "save") {
+			$this->data["Situation"] = $situation;
+
 			$lastID = $this->Db->insert($this->table, $this->data);
 			
 			if ($lastID) {
@@ -170,8 +169,16 @@ class Codes_Model extends ZP_Load
 	            }
 	                        
 	            if ($this->Db->insertBatch("codes_files", $this->data)) {
+					$this->Cache = $this->core("Cache");
+
 					$this->Users_Model = $this->model("Users_Model");
 					$this->Users_Model->setCredits(1, 17);
+					$this->Users_Model->updateCredits($ID_User, "codes");
+					$this->Cache->remove("profile-". $author, "users");
+
+					if ($situation === "Active") {
+						$this->Cache->removeAll("codes");
+					}
 
 	                return getAlert(__("The code has been saved correctly"), "success");	
 	            }
@@ -186,6 +193,8 @@ class Codes_Model extends ZP_Load
 	private function save()
 	{
 		if (($ID = $this->Db->insert($this->table, $this->data)) !== false) {
+			$ID_User = $this->data["ID_User"];
+
             $this->data = $this->processFiles($ID);
                         
             if (isset($this->data["error"])) {
@@ -194,10 +203,14 @@ class Codes_Model extends ZP_Load
             }
                         
             if ($this->Db->insertBatch("codes_files", $this->data)) {
-            	$this->Cache = $this->core("Cache");	
-				$this->Cache->removeAll("codes");
             	$this->Users_Model = $this->model("Users_Model");
 				$this->Users_Model->setCredits(1, 17);
+				$this->Users_Model->updateCredits($ID_User, "codes");
+
+            	$this->Cache = $this->core("Cache");	
+				$this->Cache->removeAll("codes");
+				$this->Cache->remove("profile-". $this->data["Author"], "users");
+                
                 return getAlert(__("The code has been saved correctly"), "success");	
             }
 		}
@@ -217,6 +230,8 @@ class Codes_Model extends ZP_Load
 	private function edit()
 	{
 		if ($this->Db->update($this->table, $this->data, POST("ID"))) {
+			$ID_User = $this->data["ID_User"];
+
             $this->data = $this->processFiles(POST("ID"));
             
             if (isset($this->data["error"])) {
@@ -241,8 +256,12 @@ class Codes_Model extends ZP_Load
                 }
             }
             
+            $this->Users_Model = $this->model("Users_Model");
+            $this->Users_Model->updateCredits($ID_User, "codes");
+
             $this->Cache = $this->core("Cache");	
 			$this->Cache->removeAll("codes");
+			$this->Cache->remove("profile-". $this->data["Author"], "users");
 
             return getAlert(__("The code has been edit correctly"), "success");
         }

@@ -66,6 +66,10 @@ class Blog_Controller extends ZP_Load
 			$this->helper(array("forms","html"));
 			$this->title(htmlentities(encode(POST("title", "decode", null)), ENT_QUOTES, "UTF-8"));
 
+			$this->Users_Model = $this->model("Users_Model");
+
+			$user = $this->Users_Model->getByUsername(SESSION("ZanUser"));
+
 			$data = $this->Blog_Model->preview();
 
 			if ($data) {
@@ -75,6 +79,7 @@ class Blog_Controller extends ZP_Load
 				$this->config("user", $this->application);
 
 				$vars["post"] = $data;
+				$vars["author"] = $user[0];
 				$vars["URL"] = path("blog/". $data["Year"] ."/". $data["Month"] ."/". $data["Day"] ."/". $data["Slug"]);					
 				$vars["view"] = $this->view("preview", true);
 			} else {
@@ -270,10 +275,15 @@ class Blog_Controller extends ZP_Load
 		
 		$data = $this->Cache->data("$slug-$year-$month-$day-". $this->language, "blog", $this->Blog_Model, "getPost", array($year, $month, $day, $slug));
 
+		$this->Users_Model = $this->model("Users_Model");
+
+		$user = $this->Cache->data("profile-". $data[0]["post"][0]["Author"], "users", $this->Users_Model, "getByUsername", array($data[0]["post"][0]["Author"]), 86400);
+
 		$URL = path("blog/$year/$month/$day/". segment(4, isLang()));
 		
 		$vars["ID_Post"] = $data[0]["post"][0]["ID_Post"];
 		$vars["post"] = $data[0]["post"][0];
+		$vars["author"] = $user[0];
 		$vars["URL"] = $URL;					
 		
 		if ($data) {	
