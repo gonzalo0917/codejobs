@@ -471,7 +471,8 @@ class Forums_Model extends ZP_Load
 					"date" 	  => $date,
 					"content" => removeRareChars(stripslashes($content)),
 					"edit"    => $edit,
-					"delete"  => $delete
+					"delete"  => $delete,
+					"avatar"  => $avatar
 				);
 
 				echo json_encode($json);

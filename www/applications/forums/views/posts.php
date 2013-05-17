@@ -111,5 +111,5 @@
 		<?php
 			}
 		}
-		
+
 		echo $ckeditor;

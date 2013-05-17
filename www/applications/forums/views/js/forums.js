@@ -4,7 +4,7 @@ $(document).on("ready", function() {
 		var content2 = $(".cke_wysiwyg_frame").contents().find('body').html();
 		var fid = $('#fid').val();
 		var fname = $('#fname').val();
-		var avatar = $('#avatar').val();
+		//var avatar = $('#avatar').val();
 		var needContent = '<div id="alert-message" class="alert alert-error">' + $("#needcontent").val() + '</div>';
 		
 
@@ -22,12 +22,11 @@ $(document).on("ready", function() {
 				dataType: 'json',
 				data: 'fid=' + fid + '&content=' + content + '&fname=' + fname,
 				success: function(response) {
-					console.log(response);
 					$("#comment-alert").html(response.alert);
 					var oldComments = $("#forum-content").html();
 					newComment = newComment + '<div class="comments">';
 					newComment = newComment + '	<div class="comments-author">';
-					newComment = newComment + '	  <img src="' + avatar + '" class="dotted" style="max-width: 70px;" /> ';
+					newComment = newComment + '	  <img src="' + response.avatar + '" class="dotted" style="max-width: 70px;" /> ';
 					newComment = newComment + '	</div>';
 					newComment = newComment + '	<div class="comments-content">';
 					newComment = newComment + '   <p class="comment-data">' + response.date + ' | <a href="' + response.edit + '">Edit</a> | <a href="' + response.delete + '" onclick=" return confirm(\'Do you want to delete this post?\')">Delete</a></p>';
