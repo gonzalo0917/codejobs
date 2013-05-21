@@ -239,6 +239,18 @@ class Jobs_Controller extends ZP_Load
 		} 
 	}
 
+	public function myjobs()
+	{
+		$this->CSS("jobs", $this->application);
+		$this->CSS("results", "cpanel");
+		$this->CSS("pagination");
+		$this->helper(array("time", "forms", "alerts"));
+		$this->title(__("Your Jobs"));
+		$vars["myjobs"] = $this->Jobs_Model->getAllByUser();
+		$vars["view"] = $this->view("my_jobs", true);
+		$this->render("content", $vars);
+	}
+
 	public function city($city)
 	{
 		$this->title(__("Jobs of") ." ". $city);
