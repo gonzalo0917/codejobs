@@ -764,21 +764,31 @@ class Users_Model extends ZP_Load
 			$this->helper("alerts");
 		
 		if (isset($this->data["error"])) {
-			return $this->data["error"];
+			$json["msg"] = $this->data["error"];
+			$json["type"] = "fail";
+			return $json;
 		} else{
 			$this->helper("alerts");
 
 			if (POST("new_password", "clean") !== POST("re_new_password", "clean")) {
-				return __("The password does not match the confirm password");
+				$json["msg"] = __("The password does not match the confirm password");
+				$json["type"] = "fail";
+				return $json;
 			} elseif (!$this->isMember()) {
-				return __("Incorrect password");
+				$json["msg"] = __("Incorrect password");
+				$json["type"] = "fail";
+				return $json;
 			}
 
 			if ($this->Db->update($this->table, array("Pwd" => POST("new_password", "encrypt")), SESSION("ZanUserID"))) {
-				return __("The password has been changed correctly");
+				$json["msg"] = __("The password has been changed correctly");
+				$json["type"] = "success";
+				return $json;
 			}
 
-			return __("Update error");
+			$json["msg"] = __("Update error");
+			$json["type"] = "fail";
+			return $json;
 		}
 	}
 

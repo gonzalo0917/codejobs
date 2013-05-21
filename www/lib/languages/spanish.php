@@ -467,6 +467,7 @@ $phrase["restore_image"] 								= "Restablecer";
 $phrase["restore_sign"] 								= "Restablecer";
 $phrase["result"] 										= "Resultado";
 $phrase["results"] 										= "Resultados";
+$phrase["re_new_password"]								= "Confirmación de la contraseña";
 $phrase["right"]										= "Derecha";
 $phrase["s_m_t_w_t_f_s"]  								= '"D", "L", "M", "M", "J", "V", "S"';
 $phrase["saturday"]  									= "Sábado";
