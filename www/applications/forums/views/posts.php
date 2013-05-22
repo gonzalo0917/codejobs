@@ -27,7 +27,7 @@
 						</div>
 
 						<div class="post-left">
-							<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". segment(1, islang()) ."/tag/") ." " . __("by") . ' <a href="'. path("forums/". segment(1, islang()) ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a> ';
+							<?php echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". segment(1, islang()) ."/tag/") ." " . __("by") . ' <a href="'. path("user/". $post["Author"]) .'">'. $post["Author"] .'</a> ';
 								
 								if (SESSION("ZanUserPrivilegeID")) {
 									$confirm = " return confirm('Do you want to delete this post?') ";
