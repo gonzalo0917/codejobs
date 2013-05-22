@@ -48,8 +48,8 @@ class Jobs_Controller extends ZP_Load
 		isConnected();
 
 		if (POST("save")) {
-			$vars["alert"] = $this->Jobs_Model->save();
-		} 
+			$vars["alert"] = $this->Jobs_Model->cpanel("save");
+		}
 
 		$vars["countries"] = $this->Jobs_Model->getCountries();
 
@@ -141,13 +141,8 @@ class Jobs_Controller extends ZP_Load
 
 	public function apply()
 	{
-		$this->Jobs_Model->saveVacant();
+		$this->Jobs_Model->saveVacancy();
 	}
-
-	//public function applyExternal()
-	//{
-	//	$this->Jobs_Model->applyExternal();
-	//}
 
 	public function search()
 	{
@@ -162,7 +157,6 @@ class Jobs_Controller extends ZP_Load
 
 		if ($data) {
 			$this->helper(array("time", "forms", "alerts"));
-			//$this->js("jobs", "jobs");
 			$this->title(__("Jobs") ." - ". decode($data[0]["Title"]), false);
 			$this->meta("keywords", $data[0]["Tags"]);
 			$this->meta("description", $data[0]["Description"]);
@@ -243,6 +237,18 @@ class Jobs_Controller extends ZP_Load
 		} else {
 			redirect($this->application);
 		} 
+	}
+
+	public function myjobs()
+	{
+		$this->CSS("jobs", $this->application);
+		$this->CSS("results", "cpanel");
+		$this->CSS("pagination");
+		$this->helper(array("time", "forms", "alerts"));
+		$this->title(__("Your Jobs"));
+		$vars["myjobs"] = $this->Jobs_Model->getAllByUser();
+		$vars["view"] = $this->view("my_jobs", true);
+		$this->render("content", $vars);
 	}
 
 	public function city($city)

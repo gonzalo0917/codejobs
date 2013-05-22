@@ -15,7 +15,7 @@
 	$tags = isset($data) ? recoverPOST("tags", $data[0]["Tags"]) : recoverPOST("tags");
 	$email = isset($data) ? recoverPOST("email", $data[0]["Email"]) : recoverPOST("email");
 	$type = isset($data) ? recoverPOST("type", $data[0]["Type"]) : recoverPOST("type");
-	$typeurl = isset($data) ? recoverPOST("typeurl", $data[0]["Type_Url"]) : recoverPOST("typeurl");
+	$typeurl = isset($data) ? recoverPOST("type_url", $data[0]["Type_Url"]) : recoverPOST("type_url");
 	$language = isset($data) ? recoverPOST("language", $data[0]["Language"]) : recoverPOST("language");
 	$situation = isset($data) ? recoverPOST("situation", $data[0]["Situation"]) : recoverPOST("situation");
 	$edit = isset($data) ? true : false;
@@ -81,8 +81,8 @@
 			));
 
 			$options = array(
-				0 => array("value" => "USD", "option" => __("USD"), "selected" => ($currency === "USD") ? true : false),
-				1 => array("value" => "MXN", "option" => __("MXN"), "selected" => ($currency === "MXN") ? true : false),
+				0 => array("value" => "MXN", "option" => __("MXN"), "selected" => ($currency === "MXN") ? true : false),
+				1 => array("value" => "USD", "option" => __("USD"), "selected" => ($currency === "USD") ? true : false),
 				2 => array("value" => "EUR", "option" => __("EUR"), "selected" => ($currency === "EUR") ? true : false)
 			);
 
@@ -114,7 +114,7 @@
 			echo formTextarea(array(
 				"id" => "description",
 				"name" => "description", 
-				"class" => "required",
+				"class" => "span5 required",
 				"field" => __("Description"), 
 				"p" => "true",
 				"placeholder" => __("Enter the description of the job"),
@@ -157,20 +157,21 @@
 			);
 
 			echo formInput(array(
-				"name" => "typeurl", 
+				"name" => "type_url",
+				"pattern" => "|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i",
 				"class" => "span5 required", 
 				"field" => __("Type the URL of the external page"), 
 				"p" => true, 
-				"placeholder" => __("Type the URL if it's an external recruitment"),
+				"placeholder" => __("Should contain") . " http://",
 				"value" => $typeurl
 			));
 
 			echo formField(null, __("Language") ."<br />". getLanguagesInput($language, "language", "select"));
 
 			$options = array(
-				0 => array("value" => "Draft", "option" => __("Draft"), "selected" => ($situation === "Draft") ? true : false),
-				1 => array("value" => "Active", "option" => __("Active"), "selected" => ($situation === "Active") ? true : false),
-				2 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false)
+				0 => array("value" => "Active", "option" => __("Active"), "selected" => ($situation === "Active") ? true : false),
+				1 => array("value" => "Inactive", "option" => __("Inactive"), "selected" => ($situation === "Inactive") ? true : false),
+				2 => array("value" => "Draft", "option" => __("Draft"), "selected" => ($situation === "Draft") ? true : false)
 			);
 
 			echo formSelect(array(
