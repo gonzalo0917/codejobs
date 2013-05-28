@@ -77,6 +77,32 @@ class Jobs_Controller extends ZP_Load
 		}
 	}
 
+	public function edit()
+	{
+		isConnected();
+
+		$this->title(__("Edit"));
+		$this->helper(array("forms", "html"));
+		$this->CSS("forms", "cpanel");
+
+		if (POST("edit")) {
+			$this->vars["alert"] = $this->Jobs_Model->cpanel("edit");
+		} elseif (POST("cancel")) {
+			redirect("jobs/myjobs");
+		} 
+
+		$data = $this->Jobs_Model->getJob();
+		$this->vars["countries"] = $this->Jobs_Model->getCountries();
+
+		if ($data) {
+			$this->vars["data"] = $data;
+			$this->vars["view"] = $this->view("new", true, "jobs");
+			$this->render("content", $this->vars);
+		} else {
+			redirect("$this->application/cpanel/results");
+		}
+	}
+
 	public function admin()
 	{
 		isConnected();

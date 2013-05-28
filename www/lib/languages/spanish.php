@@ -656,6 +656,7 @@ $phrase["your_account_has_been_deactivated"]			= "Tu cuenta ha sido desactivada"
 $phrase["your_account_has_been_deleted"]				= "Tu cuenta ha sido eliminada";
 $phrase["your_answer_was_incorrect"]					= "Tu respuesta fue incorrecta";
 $phrase["your_comment_is_very_vulgar"] 					= "Su comentario es muy vulgar, favor de quitar las malas palabras";
+$phrase["your_jobs"]									= "Tus empleos";
 $phrase["your_password_has_been_changed_successfully"] 	= "Tu contraseña ha sido cambiada exitosamente";
 $phrase["your_proposal_has_been_sent"]					= "Tu propuesta ha sido enviada correctamente";
 $phrase["your_message_has_been_sent_successfully_we_will_contact_you_as_soon_as_possible_thank_you_very_much"] = "Tu mensaje ha sido enviado con éxito, nos pondremos en contacto contigo lo antes posible, ¡muchas gracias!";

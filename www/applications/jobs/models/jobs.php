@@ -320,6 +320,12 @@ class Jobs_Model extends ZP_Load
 		return $this->Db->findBySQL("ID_Job = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
 	}
 
+	public function getJob()
+	{
+		$jid = segment(2, isLang());
+		return $this->Db->findBySQL("ID_Job = '$jid' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
+	}
+
 	public function getAll($limit) 
 	{
 		return $this->Db->findBySQL("Situation = 'Active'", $this->table, $this->fields, null, "ID_Job DESC", $limit);
