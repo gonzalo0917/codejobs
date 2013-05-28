@@ -144,6 +144,11 @@ class Jobs_Controller extends ZP_Load
 		$this->Jobs_Model->saveVacancy();
 	}
 
+	public function delete()
+	{
+		$this->Jobs_Model->deleteJob();
+	}
+
 	public function search()
 	{
 		$this->Jobs_Model->searching();

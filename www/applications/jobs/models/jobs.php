@@ -128,6 +128,13 @@ class Jobs_Model extends ZP_Load
 		return getAlert(__("Insert Error"));
 	}
 
+	public function deleteJob()
+	{
+		$jid = segment(2, isLang());
+		$this->Db->delete($jid);
+		redirect(path("jobs/myjobs"));
+	}
+
 	public function searching()
 	{
 		$this->helper("alerts");

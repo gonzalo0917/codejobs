@@ -307,6 +307,7 @@ $phrase["legal_notice"] 				 				= "Aviso legal";
 $phrase["likes"]		  								= "Me Gusta";
 $phrase["links"]										= "Enlaces";
 $phrase["list_of_vacancies"]							= "Lista de vacantes";
+$phrase["list_of_jobs"]									= "Lista de empleos";
 $phrase["live_broadcast"] 								= "Transmisión en vivo";
 $phrase["load_time"] 									= "Tiempo de carga";
 $phrase["log_in"]  										= "Entrar";
