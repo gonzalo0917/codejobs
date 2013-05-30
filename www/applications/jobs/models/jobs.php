@@ -132,7 +132,7 @@ class Jobs_Model extends ZP_Load
 	{
 		$jid = segment(2, isLang());
 		$this->Db->delete($jid);
-		redirect(path("jobs/myjobs"));
+		return showAlert(__("The job has been deleted"), path("jobs/myjobs"));
 	}
 
 	public function searching()

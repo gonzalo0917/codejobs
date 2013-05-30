@@ -541,6 +541,7 @@ $phrase["the_image_file_size_must_be_less_than"] 		= "El archivo de la imagen no
 $phrase["the_information_has_been_saved_correctly"]		= "La información ha sido guardada correctamente";
 $phrase["the_job_has_been_saved_correctly"]				= "El empleo ha sido guardado correctamente";
 $phrase["the_job_has_been_edit_correctly"]				= "El empleo ha sido editado correctamente";
+$phrase["the_job_has_been_deleted"]						= "El empleo ha sido eliminado";
 $phrase["the_bookmark_has_been_edit_correctly"]			= "El marcador ha sido editado correctamente";
 $phrase["the_code_has_been_edit_correctly"]				= "El código ha sido editado correctamente";
 $phrase["the_page_has_been_edit_correctly"]				= "La página ha sido editada correctamente";

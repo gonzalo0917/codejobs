@@ -207,11 +207,11 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("jobs", $this->application);
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
-			$this->helper(array("time", "forms", "alerts"));
-			$this->title(__("Your Vacancy"));
-			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
-			$vars["view"] = $this->view("vacancy", true);
-			$this->render("content", $vars);
+		$this->helper(array("time", "forms", "alerts"));
+		$this->title(__("Your Vacancy"));
+		$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+		$vars["view"] = $this->view("vacancy", true);
+		$this->render("content", $vars);
 	}
 	
 	public function visit($jobID = 0)
