@@ -72,7 +72,15 @@ class Buffer_Controller extends ZP_Load
 			} elseif (strlen($profile) === 24) {
 				foreach ($posts as $post) {
 					$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], false, $post["Language"]);					
-	
+					
+					$adflyAPI = 'http://api.adf.ly/api.php?key=1f623be7584b81f4513d0730a17710c&uid=4317454&advert_type=int&domain=adf.ly&url=$URL';
+
+					$adflyURL = file_get_contents($adflyAPI);
+
+					if ($adflyURL != "error") {
+						$URL = $adflyURL;
+					}
+
 					$data = array(
 						"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
 						"profile_ids[]" => $profile
@@ -95,6 +103,14 @@ class Buffer_Controller extends ZP_Load
 					foreach ($bookmarks as $bookmark) {
 						$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], false, $bookmark["Language"]);
 
+						$adflyAPI = 'http://api.adf.ly/api.php?key=1f623be7584b81f4513d0730a17710c&uid=4317454&advert_type=int&domain=adf.ly&url=$URL';
+
+						$adflyURL = file_get_contents($adflyAPI);
+
+						if ($adflyURL != "error") {
+							$URL = $adflyURL;
+						}
+
 						$count = count($this->bufferProfiles) - 1;
 
 						$data = array(
@@ -112,6 +128,14 @@ class Buffer_Controller extends ZP_Load
 			} elseif (strlen($profile) === 24) {
 				foreach ($bookmarks as $bookmark) {
 					$URL = path("bookmarks/". $bookmark["ID_Bookmark"] ."/". $bookmark["Slug"], false, $bookmark["Language"]);
+
+					$adflyAPI = 'http://api.adf.ly/api.php?key=1f623be7584b81f4513d0730a17710c&uid=4317454&advert_type=int&domain=adf.ly&url=$URL';
+
+					$adflyURL = file_get_contents($adflyAPI);
+
+					if ($adflyURL != "error") {
+						$URL = $adflyURL;
+					}
 
 					$count = count($this->bufferProfiles) - 1;
 
@@ -136,6 +160,14 @@ class Buffer_Controller extends ZP_Load
 				for ($i = 0; $i <= $count; $i++) {
 					foreach ($codes as $code) {
 						$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], false, $code["Language"]);
+						
+						$adflyAPI = 'http://api.adf.ly/api.php?key=1f623be7584b81f4513d0730a17710c&uid=4317454&advert_type=int&domain=adf.ly&url=$URL';
+
+						$adflyURL = file_get_contents($adflyAPI);
+
+						if ($adflyURL != "error") {
+							$URL = $adflyURL;
+						}
 
 						$count = count($this->bufferProfiles) - 1;
 
@@ -155,6 +187,14 @@ class Buffer_Controller extends ZP_Load
 				foreach ($codes as $code) {
 					$URL = path("codes/". $code["ID_Code"] ."/". $code["Slug"], false, $code["Language"]);
 
+					$adflyAPI = 'http://api.adf.ly/api.php?key=1f623be7584b81f4513d0730a17710c&uid=4317454&advert_type=int&domain=adf.ly&url=$URL';
+
+					$adflyURL = file_get_contents($adflyAPI);
+
+					if ($adflyURL != "error") {
+						$URL = $adflyURL;
+					}
+					
 					$count = count($this->bufferProfiles) - 1;
 
 					$data = array(
