@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 05-04-2013 a las 04:39:18
+-- Tiempo de generación: 30-05-2013 a las 04:08:04
 -- Versión del servidor: 5.5.24-log
--- Versión de PHP: 5.4.3
+-- Versión de PHP: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -51,7 +51,16 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   `Counter` smallint(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `muu_jobs`
+--
+
+INSERT INTO `muu_jobs` (`ID_Job`, `ID_User`, `Title`, `Company`, `Slug`, `Author`, `Country`, `City`, `City_Slug`, `Salary`, `Salary_Currency`, `Allocation_Time`, `Description`, `Tags`, `Email`, `Type`, `Type_Url`, `Language`, `Start_Date`, `Modified_Date`, `End_Date`, `Situation`, `Counter`) VALUES
+(1, 1, 'Mantenimiento de Software', 'Focal Inc.', '', 'Admin', 'Mexico', 'Jalisco', '', '3500', 'MXN', 'Half Time', 'Se necesita programador con experiencia en dar mantenimiento.', 'software, mantenimiento', 'isr62@hotmail.com', 'Internal', 'http://www.google.com', 'Spanish', 0, 0, 0, 'Active', 18),
+(2, 1, 'Probando', 'Testers Inc', 'probando', 'admin', 'Alemania', 'Colima', 'colima', '1200', 'MXN', 'Full Time', 'Probando el save', 'probando, test, save, php', 'isr62@hotmail.com', 'External', 'http://www.google.com', 'Spanish', 1368755289, 0, 1371347289, 'Active', 5),
+(3, 1, 'Probando trabajos de fuera', 'Codejobs', 'probando-trabajos-de-fuera', 'admin', 'Venezuela', 'Colima', 'colima', '1200', 'USD', 'Full Time', 'Probando', 'html, php', 'isr62@hotmail.com', 'External', 'http://www.editando.com', 'Spanish', 1369766915, 0, 1372358915, 'Active', 4);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

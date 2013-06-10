@@ -77,6 +77,32 @@ class Jobs_Controller extends ZP_Load
 		}
 	}
 
+	public function edit()
+	{
+		isConnected();
+
+		$this->title(__("Edit"));
+		$this->helper(array("forms", "html"));
+		$this->CSS("forms", "cpanel");
+
+		if (POST("edit")) {
+			$this->vars["alert"] = $this->Jobs_Model->cpanel("edit");
+		} elseif (POST("cancel")) {
+			redirect("jobs/myjobs");
+		} 
+
+		$data = $this->Jobs_Model->getJob();
+		$this->vars["countries"] = $this->Jobs_Model->getCountries();
+
+		if ($data) {
+			$this->vars["data"] = $data;
+			$this->vars["view"] = $this->view("new", true, "jobs");
+			$this->render("content", $this->vars);
+		} else {
+			redirect("$this->application/cpanel/results");
+		}
+	}
+
 	public function admin()
 	{
 		isConnected();
@@ -144,6 +170,11 @@ class Jobs_Controller extends ZP_Load
 		$this->Jobs_Model->saveVacancy();
 	}
 
+	public function delete()
+	{
+		$this->Jobs_Model->deleteJob();
+	}
+
 	public function search()
 	{
 		$this->Jobs_Model->searching();
@@ -176,11 +207,11 @@ class Jobs_Controller extends ZP_Load
 		$this->CSS("jobs", $this->application);
 		$this->CSS("results", "cpanel");
 		$this->CSS("pagination");
-			$this->helper(array("time", "forms", "alerts"));
-			$this->title(__("Your Vacancy"));
-			$vars["vacancy"] = $this->Jobs_Model->getVacancy();
-			$vars["view"] = $this->view("vacancy", true);
-			$this->render("content", $vars);
+		$this->helper(array("time", "forms", "alerts"));
+		$this->title(__("Your Vacancy"));
+		$vars["vacancy"] = $this->Jobs_Model->getVacancy();
+		$vars["view"] = $this->view("vacancy", true);
+		$this->render("content", $vars);
 	}
 	
 	public function visit($jobID = 0)
@@ -237,6 +268,18 @@ class Jobs_Controller extends ZP_Load
 		} else {
 			redirect($this->application);
 		} 
+	}
+
+	public function myjobs()
+	{
+		$this->CSS("jobs", $this->application);
+		$this->CSS("results", "cpanel");
+		$this->CSS("pagination");
+		$this->helper(array("time", "forms", "alerts"));
+		$this->title(__("Your Jobs"));
+		$vars["myjobs"] = $this->Jobs_Model->getAllByUser();
+		$vars["view"] = $this->view("my_jobs", true);
+		$this->render("content", $vars);
 	}
 
 	public function city($city)

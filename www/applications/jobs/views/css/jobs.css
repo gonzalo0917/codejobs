@@ -68,6 +68,11 @@
 	text-decoration: none;
 }
 
+.myjobs a {
+	color: #2080b9 !important;
+	text-decoration: none;
+}
+
 .preview {
 	background: rgb(255,255,255);
 	border-radius: 5px;

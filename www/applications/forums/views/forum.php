@@ -45,7 +45,7 @@ if ($noTopics) {
 				<div class="post-left">
 					<?php 
 						echo __("Published") ." ". howLong($post["Start_Date"]) ." $in ". exploding($post["Tags"], "forums/". $forum ."/tag/") ." ". __("by") .' ';
-						echo '<a href="'. path("forums/". slug($forum) ."/author/". $post["Author"]) .'">'. $post["Author"] .'</a>';
+						echo '<a href="'. path("user/". $post["Author"]) .'">'. $post["Author"] .'</a>';
 
 						if (SESSION("ZanUserPrivilegeID")) {
 							$confirm = " return confirm('Do you want to delete this post?') ";

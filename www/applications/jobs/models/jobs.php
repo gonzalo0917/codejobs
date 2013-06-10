@@ -128,6 +128,13 @@ class Jobs_Model extends ZP_Load
 		return getAlert(__("Insert Error"));
 	}
 
+	public function deleteJob()
+	{
+		$jid = segment(2, isLang());
+		$this->Db->delete($jid);
+		return showAlert(__("The job has been deleted"), path("jobs/myjobs"));
+	}
+
 	public function searching()
 	{
 		$this->helper("alerts");
@@ -166,12 +173,22 @@ class Jobs_Model extends ZP_Load
 		if ($vtype[0]["Type"] == "External") {
 			$url = $this->Db->query("SELECT Type_Url FROM ". DB_PREFIX ."jobs WHERE ID_Job = '$jid' ORDER BY ID_Job DESC");
 			$counter = $getcounter[0]["Counter"] + 1;
+			
 			$data = array(
 				"Counter" => $counter,
 			);
 
 			$this->Db->update("jobs", $data, $jid);
-			redirect($url[0]["Type_Url"]);
+
+			$data2 = array(
+					"Job_Name"	 	 => $jname,
+					"ID_Job"		 => $jid,
+					"Job_Author" 	 => decode($jauthor),
+					"ID_User" 		 => SESSION("ZanUserID"),
+					);
+
+			$this->Db->insert("vacancy", $data2);
+			redirect($url[0]["Type_Url"], true);
 		} else {
 			$counter = $getcounter[0]["Counter"] + 1;
 			$data2 = array(
@@ -301,6 +318,12 @@ class Jobs_Model extends ZP_Load
 	public function getByID($ID)
 	{
 		return $this->Db->findBySQL("ID_Job = '$ID' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
+	}
+
+	public function getJob()
+	{
+		$jid = segment(2, isLang());
+		return $this->Db->findBySQL("ID_Job = '$jid' AND Situation = 'Active' OR Situation = 'Pending'", $this->table, $this->fields);
 	}
 
 	public function getAll($limit) 
