@@ -49,13 +49,13 @@ class Buffer_Controller extends ZP_Load
 					foreach ($posts as $post) {
 						$URL = path("blog/". $post["Year"] ."/". $post["Month"] ."/". $post["Day"] ."/". $post["Slug"], false, $post["Language"]);
 																						   
-						$adflyAPI = "http://api.adf.ly/api.php?key=1f623be7584b81f45313d0730a17710c&uid=4317454&advert_type=int&domain=adf.ly&url=$URL";
+						/*$adflyAPI = "http://api.adf.ly/api.php?key=1f623be7584b81f45313d0730a17710c&uid=4317454&advert_type=int&domain=adf.ly&url=$URL";
 
 						$adflyURL = file_get_contents($adflyAPI);
 						
 						if ($adflyURL != "error") {
 							$URL = $adflyURL;
-						}
+						}*/
 
 						$data = array(
 							"text" 			=> stripslashes($post["Title"]) ." ". $URL ." ". _bufferVia,
