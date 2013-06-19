@@ -17,7 +17,7 @@ function stripslashes(str) {
 }
 
 function saveDraft() {		
-	var title = $('#title').val();
+	/*var title = $('#title').val();
 	var tags = $('#tags').val();
 	var code = $('#code').val();
 	var buffer = $('#buffer').val();
@@ -43,7 +43,7 @@ function saveDraft() {
 				$('#temp_tags').val(addslashes(tags));
 			}
 		});
-	}		
+	}*/		
 }
 
 /*setInterval(function() {
