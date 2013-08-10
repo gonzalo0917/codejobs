@@ -841,12 +841,6 @@ CREATE TABLE IF NOT EXISTS `muu_multimedia` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `muu_mural`
---
-
 CREATE TABLE IF NOT EXISTS `muu_mural` (
   `ID_Mural` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Post` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -857,11 +851,7 @@ CREATE TABLE IF NOT EXISTS `muu_mural` (
   PRIMARY KEY (`ID_Mural`),
   KEY `ID_Post` (`ID_Post`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `muu_pages`
---
 
 CREATE TABLE IF NOT EXISTS `muu_pages` (
   `ID_Page` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -880,21 +870,6 @@ CREATE TABLE IF NOT EXISTS `muu_pages` (
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Volcado de datos para la tabla `muu_pages`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `muu_phrases`
---
-
- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `muu_polls`
---
 
 CREATE TABLE IF NOT EXISTS `muu_polls` (
   `ID_Poll` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -928,11 +903,7 @@ CREATE TABLE IF NOT EXISTS `muu_polls_ips` (
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   KEY `ID_Poll` (`ID_Poll`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-----------------------------------------
 
---
--- Estructura de tabla para la tabla `muu_privileges`
---
 
 CREATE TABLE IF NOT EXISTS `muu_privileges` (
   `ID_Privilege` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -940,21 +911,11 @@ CREATE TABLE IF NOT EXISTS `muu_privileges` (
   PRIMARY KEY (`ID_Privilege`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
--- Volcado de datos para la tabla `muu_privileges`
---
-
 INSERT INTO `muu_privileges` (`ID_Privilege`, `Privilege`) VALUES
 (1, 'Super Admin'),
 (2, 'Admin'),
 (3, 'Moderator'),
 (4, 'Member');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `muu_resumes`
---
 
 CREATE TABLE IF NOT EXISTS `muu_resumes` (
   `ID_Resume` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
@@ -1270,20 +1231,12 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Viadeo` varchar(150) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1088 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Volcado de datos para la tabla `muu_users`
---
 
 INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `ID_Service`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Avatar_Coordinate`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Subscribed`, `Followers`, `Start_Date`, `Code`, `Name`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
-(1, 1, '', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', 'http://www.codejobs.biz', 'd2794ec4411d168fa73ef33aeb372d2ac01fe992.png', '0,95,480,575', 1414, 2373, '', 0, 1, 0, 0, 0, 446, 42, 17, 0, 1, 0, 0, '', 'Carlos Santana Roldán', 18, '', '', '', '', '', 'M', 'Single', '21/11/1987', 'Mexico', 'Colima', 'Colima', '', '@codejobs', '', '', '', '', 'Active'),
+(1, 1, '', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', 'http://www.codejobs.biz', 'd2794ec4411d168fa73ef33aeb372d2ac01fe992.png', '0,95,480,575', 1414, 2373, '', 0, 1, 0, 0, 0, 446, 42, 17, 0, 1, 0, 0, '', 'Carlos Santana Roldán', 18, '', '', '', '', '', 'M', 'Single', '21/11/1987', 'Mexico', 'Colima', 'Colima', '', '@codejobs', '', '', '', '', 'Active');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `muu_users_cv_education`
---
 
 CREATE TABLE IF NOT EXISTS `muu_users_cv_education` (
   `ID_School` int(11) unsigned NOT NULL AUTO_INCREMENT,
