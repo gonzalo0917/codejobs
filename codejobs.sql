@@ -1277,7 +1277,7 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
 --
 
 INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `ID_Service`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Avatar_Coordinate`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Subscribed`, `Followers`, `Start_Date`, `Code`, `Name`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
-(1, 1, '', 'CodeJobs', 'd2c5e80447a51ed16b3b7a3b0f88a556dff05f1b', 'carlos@milkzoft.com', 'http://www.codejobs.biz', 'd2794ec4411d168fa73ef33aeb372d2ac01fe992.png', '0,95,480,575', 1414, 2373, '', 0, 1, 0, 0, 0, 446, 42, 17, 0, 1, 0, 0, '', 'Carlos Santana Roldán', 18, '', '', '', '', '', 'M', 'Single', '21/11/1987', 'Mexico', 'Colima', 'Colima', '', '@codejobs', '', '', '', '', 'Active'),
+(1, 1, '', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'carlos@milkzoft.com', 'http://www.codejobs.biz', 'd2794ec4411d168fa73ef33aeb372d2ac01fe992.png', '0,95,480,575', 1414, 2373, '', 0, 1, 0, 0, 0, 446, 42, 17, 0, 1, 0, 0, '', 'Carlos Santana Roldán', 18, '', '', '', '', '', 'M', 'Single', '21/11/1987', 'Mexico', 'Colima', 'Colima', '', '@codejobs', '', '', '', '', 'Active'),
 
 -- --------------------------------------------------------
 
