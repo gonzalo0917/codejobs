@@ -1,4 +1,31 @@
-DROP TABLE IF EXISTS `muu_ads`;
+-- phpMyAdmin SQL Dump
+-- version 3.4.11.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 10-08-2013 a las 14:09:27
+-- Versión del servidor: 5.1.63
+-- Versión de PHP: 5.2.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de datos: `muucmsco_codejobs`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_ads`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_ads` (
   `ID_Ad` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -15,15 +42,14 @@ CREATE TABLE IF NOT EXISTS `muu_ads` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Ad`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_applications`
+-- Estructura de tabla para la tabla `muu_applications`
 --
 
-DROP TABLE IF EXISTS `muu_applications`;
 CREATE TABLE IF NOT EXISTS `muu_applications` (
   `ID_Application` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Title` varchar(45) NOT NULL,
@@ -37,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `muu_applications` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- Dumping data for table `muu_applications`
+-- Volcado de datos para la tabla `muu_applications`
 --
 
 INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Adding`, `BeDefault`, `Comments`, `Situation`) VALUES
@@ -59,16 +85,14 @@ INSERT INTO `muu_applications` (`ID_Application`, `Title`, `Slug`, `CPanel`, `Ad
 (16, 'Works', 'works', 1, 1, 1, 0, 'Active'),
 (17, 'Codes', 'codes', 1, 1, 1, 0, 'Active'),
 (18, 'Multimedia', 'multimedia', 1, 1, 1, 0, 'Active'),
-(19, 'Proposals', 'workshop', 1, 0, 1, 0, 'Active'),
-(20, 'Newsletters', 'newsletters', 1, 1, 0, 0, 'Active');
+(19, 'Proposals', 'workshop', 1, 0, 1, 0, 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_blog`
+-- Estructura de tabla para la tabla `muu_blog`
 --
 
-DROP TABLE IF EXISTS `muu_blog`;
 CREATE TABLE IF NOT EXISTS `muu_blog` (
   `ID_Post` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -92,16 +116,20 @@ CREATE TABLE IF NOT EXISTS `muu_blog` (
   `Comments` mediumint(8) NOT NULL DEFAULT '0',
   `Enable_Comments` tinyint(1) NOT NULL DEFAULT '0',
   `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
-  `Display_Bio` tinyint(1) NOT NULL DEFAULT '0',
+  `Display_Bio` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `Pwd` varchar(40) NOT NULL,
   `Buffer` tinyint(1) NOT NULL DEFAULT '1',
   `Code` varchar(10) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
-DROP TABLE IF EXISTS `muu_bookmarks`;
+--
+-- Volcado de datos para la tabla `muu_blog`
+--
+
+
 CREATE TABLE IF NOT EXISTS `muu_bookmarks` (
   `ID_Bookmark` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -122,10 +150,12 @@ CREATE TABLE IF NOT EXISTS `muu_bookmarks` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Bookmark`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Estructura de tabla para la tabla `muu_codes`
+--
 
-DROP TABLE IF EXISTS `muu_codes`;
 CREATE TABLE IF NOT EXISTS `muu_codes` (
   `ID_Code` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -145,9 +175,15 @@ CREATE TABLE IF NOT EXISTS `muu_codes` (
   `Buffer` tinyint(1) NOT NULL DEFAULT '1',
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_codes_files`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_codes_files`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_codes_files` (
   `ID_File` int(11) NOT NULL AUTO_INCREMENT,
   `ID_Code` int(11) unsigned NOT NULL,
@@ -157,10 +193,10 @@ CREATE TABLE IF NOT EXISTS `muu_codes_files` (
   PRIMARY KEY (`ID_File`),
   KEY `ID_Code` (`ID_Code`),
   KEY `ID_Syntax` (`ID_Syntax`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1418 ;
 
 
-DROP TABLE IF EXISTS `muu_codes_syntax`;
+
 CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
   `ID_Syntax` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
@@ -168,10 +204,10 @@ CREATE TABLE IF NOT EXISTS `muu_codes_syntax` (
   `Filename` varchar(50) NOT NULL,
   `Extension` varchar(10) NOT NULL,
   PRIMARY KEY (`ID_Syntax`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
--- Dumping data for table `muu_codes_syntax`
+-- Volcado de datos para la tabla `muu_codes_syntax`
 --
 
 INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extension`) VALUES
@@ -200,10 +236,9 @@ INSERT INTO `muu_codes_syntax` (`ID_Syntax`, `Name`, `MIME`, `Filename`, `Extens
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_comments`
+-- Estructura de tabla para la tabla `muu_comments`
 --
 
-DROP TABLE IF EXISTS `muu_comments`;
 CREATE TABLE IF NOT EXISTS `muu_comments` (
   `ID_Comment` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -217,8 +252,44 @@ CREATE TABLE IF NOT EXISTS `muu_comments` (
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_configuration`;
+--
+-- Estructura de tabla para la tabla `muu_companies`
+--
+
+CREATE TABLE IF NOT EXISTS `muu_companies` (
+  `ID_Company` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `RFC` varchar(20) NOT NULL,
+  `Name` varchar(250) NOT NULL,
+  `Legal_Name` varchar(100) NOT NULL,
+  `Legal_Last_Name` varchar(100) NOT NULL,
+  `Legal_Maiden_Name` varchar(100) NOT NULL,
+  `Legal_Title` varchar(100) NOT NULL,
+  `Legal_Email` varchar(100) NOT NULL,
+  `Legal_Phone` varchar(15) NOT NULL,
+  `Legal_Mobile` varchar(15) NOT NULL,
+  `Vacancies` smallint(5) NOT NULL,
+  `Type_Vacancy` varchar(50) NOT NULL,
+  `Employees` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Sector` varchar(100) NOT NULL,
+  `Turn` varchar(100) NOT NULL,
+  `Country` varchar(50) NOT NULL,
+  `State` varchar(50) NOT NULL,
+  `City` varchar(50) NOT NULL,
+  `Address` varchar(255) NOT NULL,
+  `Zip_Code` varchar(10) NOT NULL,
+  `Website` varchar(100) NOT NULL,
+  `Logo` varchar(250) NOT NULL,
+  PRIMARY KEY (`ID_Company`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_configuration`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_configuration` (
   `ID_Configuration` tinyint(1) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
@@ -245,19 +316,18 @@ CREATE TABLE IF NOT EXISTS `muu_configuration` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `muu_configuration`
+-- Volcado de datos para la tabla `muu_configuration`
 --
 
 INSERT INTO `muu_configuration` (`ID_Configuration`, `Name`, `Slogan_English`, `Slogan_Spanish`, `Slogan_French`, `Slogan_Portuguese`, `Slogan_Italian`, `URL`, `Lang`, `Language`, `Theme`, `Validation`, `Application`, `Editor`, `Message`, `Activation`, `Email_Recieve`, `Email_Send`, `TV`, `Enable_Chat`, `Situation`) VALUES
-(1, 'Codejobs', 'Knowledge makes us free!', '¡El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://localhost/codejobs', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkItUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'codejobs@codejobs.biz', 'http://www.youtube.com/embed/nsPly37h9os', 1, 'Active');
+(1, 'Aprende a Programar - Codejobs', 'Knowledge makes us free!', '¡El conocimiento nos hace libres!', 'Connaissance nous rend libres!', 'Conhecimento nos torna livres!', 'La conoscenza ci rende liberi!', 'http://www.codejobs.biz', 'es', 'Spanish', 'newcodejobs', 'Active', 'blog', 'MarkItUp', 'El Sitio Web esta en mantenimiento', 'User', 'azapedia@gmail.com', 'codejobs@codejobs.biz', 'http://www.youtube.com/embed/nsPly37h9os', 1, 'Active');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_categories`
+-- Estructura de tabla para la tabla `muu_courses_categories`
 --
 
-DROP TABLE IF EXISTS `muu_courses_categories`;
 CREATE TABLE IF NOT EXISTS `muu_courses_categories` (
   `ID_Category` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Parent` smallint(5) unsigned NOT NULL DEFAULT '0',
@@ -272,10 +342,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_categories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_enrollments`
+-- Estructura de tabla para la tabla `muu_courses_enrollments`
 --
 
-DROP TABLE IF EXISTS `muu_courses_enrollments`;
 CREATE TABLE IF NOT EXISTS `muu_courses_enrollments` (
   `ID_Enrollment` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Student` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -289,10 +358,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_enrollments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_help`
+-- Estructura de tabla para la tabla `muu_courses_help`
 --
 
-DROP TABLE IF EXISTS `muu_courses_help`;
 CREATE TABLE IF NOT EXISTS `muu_courses_help` (
   `ID_Help` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Topic` varchar(250) NOT NULL,
@@ -305,10 +373,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_help` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_lessons`
+-- Estructura de tabla para la tabla `muu_courses_lessons`
 --
 
-DROP TABLE IF EXISTS `muu_courses_lessons`;
 CREATE TABLE IF NOT EXISTS `muu_courses_lessons` (
   `ID_Lesson` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Parent` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -320,10 +387,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_lessons` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_material`
+-- Estructura de tabla para la tabla `muu_courses_material`
 --
 
-DROP TABLE IF EXISTS `muu_courses_material`;
 CREATE TABLE IF NOT EXISTS `muu_courses_material` (
   `ID_Material` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Course` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -337,10 +403,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_material` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_resources`
+-- Estructura de tabla para la tabla `muu_courses_resources`
 --
 
-DROP TABLE IF EXISTS `muu_courses_resources`;
 CREATE TABLE IF NOT EXISTS `muu_courses_resources` (
   `ID_Resource` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Course` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -353,10 +418,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_resources` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_roles`
+-- Estructura de tabla para la tabla `muu_courses_roles`
 --
 
-DROP TABLE IF EXISTS `muu_courses_roles`;
 CREATE TABLE IF NOT EXISTS `muu_courses_roles` (
   `ID_Role` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Role` varchar(100) NOT NULL,
@@ -368,10 +432,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_roles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_students`
+-- Estructura de tabla para la tabla `muu_courses_students`
 --
 
-DROP TABLE IF EXISTS `muu_courses_students`;
 CREATE TABLE IF NOT EXISTS `muu_courses_students` (
   `ID_Student` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Enrollment` varchar(9) NOT NULL,
@@ -396,10 +459,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_students` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_students_archive`
+-- Estructura de tabla para la tabla `muu_courses_students_archive`
 --
 
-DROP TABLE IF EXISTS `muu_courses_students_archive`;
 CREATE TABLE IF NOT EXISTS `muu_courses_students_archive` (
   `ID_Student` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Test` mediumint(8) unsigned NOT NULL DEFAULT '0'
@@ -408,10 +470,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_students_archive` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tests`
+-- Estructura de tabla para la tabla `muu_courses_tests`
 --
 
-DROP TABLE IF EXISTS `muu_courses_tests`;
 CREATE TABLE IF NOT EXISTS `muu_courses_tests` (
   `ID_Test` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Student` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -427,10 +488,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tests_answers`
+-- Estructura de tabla para la tabla `muu_courses_tests_answers`
 --
 
-DROP TABLE IF EXISTS `muu_courses_tests_answers`;
 CREATE TABLE IF NOT EXISTS `muu_courses_tests_answers` (
   `ID_Question` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Answer` varchar(100) NOT NULL
@@ -439,10 +499,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests_answers` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tests_questions`
+-- Estructura de tabla para la tabla `muu_courses_tests_questions`
 --
 
-DROP TABLE IF EXISTS `muu_courses_tests_questions`;
 CREATE TABLE IF NOT EXISTS `muu_courses_tests_questions` (
   `ID_Question` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Test` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -457,10 +516,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tests_questions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tutors`
+-- Estructura de tabla para la tabla `muu_courses_tutors`
 --
 
-DROP TABLE IF EXISTS `muu_courses_tutors`;
 CREATE TABLE IF NOT EXISTS `muu_courses_tutors` (
   `ID_Tutor` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
@@ -474,10 +532,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tutors_alerts`
+-- Estructura de tabla para la tabla `muu_courses_tutors_alerts`
 --
 
-DROP TABLE IF EXISTS `muu_courses_tutors_alerts`;
 CREATE TABLE IF NOT EXISTS `muu_courses_tutors_alerts` (
   `ID_Alert` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Student` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -493,10 +550,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_alerts` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_courses_tutors_messages`
+-- Estructura de tabla para la tabla `muu_courses_tutors_messages`
 --
 
-DROP TABLE IF EXISTS `muu_courses_tutors_messages`;
 CREATE TABLE IF NOT EXISTS `muu_courses_tutors_messages` (
   `ID_Message` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Student` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -513,10 +569,9 @@ CREATE TABLE IF NOT EXISTS `muu_courses_tutors_messages` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_dislikes`
+-- Estructura de tabla para la tabla `muu_dislikes`
 --
 
-DROP TABLE IF EXISTS `muu_dislikes`;
 CREATE TABLE IF NOT EXISTS `muu_dislikes` (
   `ID_Dislike` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -524,14 +579,21 @@ CREATE TABLE IF NOT EXISTS `muu_dislikes` (
   `ID_Record` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Dislike`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Table structure for table `muu_events`
+-- Volcado de datos para la tabla `muu_dislikes`
 --
 
-DROP TABLE IF EXISTS `muu_events`;
+INSERT INTO `muu_dislikes` (`ID_Dislike`, `ID_User`, `ID_Application`, `ID_Record`, `Start_Date`) VALUES
+(1, 1, 10, 2, 1338350663);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_events`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_events` (
   `ID_Event` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Title` varchar(250) NOT NULL,
@@ -550,10 +612,9 @@ CREATE TABLE IF NOT EXISTS `muu_events` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_feedback`
+-- Estructura de tabla para la tabla `muu_feedback`
 --
 
-DROP TABLE IF EXISTS `muu_feedback`;
 CREATE TABLE IF NOT EXISTS `muu_feedback` (
   `ID_Feedback` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
@@ -567,9 +628,15 @@ CREATE TABLE IF NOT EXISTS `muu_feedback` (
   `Text_Date` varchar(60) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Inactive',
   PRIMARY KEY (`ID_Feedback`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_forums`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_forums`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_forums` (
   `ID_Forum` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Title` varchar(120) NOT NULL,
@@ -577,29 +644,19 @@ CREATE TABLE IF NOT EXISTS `muu_forums` (
   `Description` varchar(250) NOT NULL,
   `Topics` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Replies` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Total_Posts` mediumint(8) NOT NULL DEFAULT '0',
   `Last_Reply` int(11) unsigned NOT NULL DEFAULT '0',
   `Last_Date` varchar(50) NOT NULL,
-  `Total_Posts` int(10) unsigned NOT NULL DEFAULT '0',
   `Language` varchar(20) NOT NULL DEFAULT 'Spanish',
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Forum`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `muu_forums`
---
-
-INSERT INTO `muu_forums` (`ID_Forum`, `Title`, `Slug`, `Description`, `Topics`, `Replies`, `Last_Reply`, `Last_Date`, `Language`, `Situation`) VALUES
-(1, 'Programación', 'programacion', 'aasdasdsadasdasdasdasd', 0, 0, 0, '', 'Spanish', 'Active'),
-(2, 'PHP', 'php', 'SADSADSADASD', 0, 0, 0, '', 'Spanish', 'Active');
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_forums_posts`
+-- Estructura de tabla para la tabla `muu_forums_posts`
 --
 
-DROP TABLE IF EXISTS `muu_forums_posts`;
 CREATE TABLE IF NOT EXISTS `muu_forums_posts` (
   `ID_Post` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -625,10 +682,14 @@ CREATE TABLE IF NOT EXISTS `muu_forums_posts` (
   PRIMARY KEY (`ID_Post`),
   KEY `ID_User` (`ID_User`),
   KEY `ID_Forum` (`ID_Forum`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_gallery`;
+--
+-- Estructura de tabla para la tabla `muu_gallery`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_gallery` (
   `ID_Image` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -647,8 +708,26 @@ CREATE TABLE IF NOT EXISTS `muu_gallery` (
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_inbox`;
+--
+-- Estructura de tabla para la tabla `muu_gallery_themes`
+--
+
+CREATE TABLE IF NOT EXISTS `muu_gallery_themes` (
+  `ID_Gallery_Theme` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `Title` varchar(50) NOT NULL,
+  `Slug` varchar(50) NOT NULL,
+  `Description` varchar(200) NOT NULL,
+  PRIMARY KEY (`ID_Gallery_Theme`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_inbox`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_inbox` (
   `ID_Inbox` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Receiver` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -662,10 +741,9 @@ CREATE TABLE IF NOT EXISTS `muu_inbox` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_jobs`
+-- Estructura de tabla para la tabla `muu_jobs`
 --
 
-DROP TABLE IF EXISTS `muu_jobs`;
 CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `ID_Job` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -689,10 +767,10 @@ CREATE TABLE IF NOT EXISTS `muu_jobs` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   `Counter` smallint(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Job`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
 
-DROP TABLE IF EXISTS `muu_learning`;
 CREATE TABLE IF NOT EXISTS `muu_learning` (
   `ID_Course` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Tutor` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -712,10 +790,9 @@ CREATE TABLE IF NOT EXISTS `muu_learning` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_likes`
+-- Estructura de tabla para la tabla `muu_likes`
 --
 
-DROP TABLE IF EXISTS `muu_likes`;
 CREATE TABLE IF NOT EXISTS `muu_likes` (
   `ID_Like` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -723,9 +800,11 @@ CREATE TABLE IF NOT EXISTS `muu_likes` (
   `ID_Record` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Start_Date` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Like`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+--
+-- Estructura de tabla para la tabla `muu_logs`
+--
 
-DROP TABLE IF EXISTS `muu_logs`;
 CREATE TABLE IF NOT EXISTS `muu_logs` (
   `ID_Log` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -741,10 +820,9 @@ CREATE TABLE IF NOT EXISTS `muu_logs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_multimedia`
+-- Estructura de tabla para la tabla `muu_multimedia`
 --
 
-DROP TABLE IF EXISTS `muu_multimedia`;
 CREATE TABLE IF NOT EXISTS `muu_multimedia` (
   `ID_File` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -760,15 +838,15 @@ CREATE TABLE IF NOT EXISTS `muu_multimedia` (
   `Downloads` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `Situation` varchar(20) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_File`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_mural`
+-- Estructura de tabla para la tabla `muu_mural`
 --
 
-DROP TABLE IF EXISTS `muu_mural`;
 CREATE TABLE IF NOT EXISTS `muu_mural` (
   `ID_Mural` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Post` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -778,35 +856,13 @@ CREATE TABLE IF NOT EXISTS `muu_mural` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Mural`),
   KEY `ID_Post` (`ID_Post`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
-
--- --------------------------------------------------------
---
--- Table structure for table `muu_newsletters`
---
-
-DROP TABLE IF EXISTS `muu_newsletters`;
-CREATE TABLE `muu_newsletters` (
-  `ID_Newsletter` mediumint(8) unsigned NOT NULL,
-  `ID_User` mediumint(8) unsigned NOT NULL,
-  `Title` varchar(250) NOT NULL,
-  `Message` text NOT NULL,
-  `File` varchar(250) DEFAULT NULL,
-  `To_Group` smallint(6) DEFAULT NULL,
-  `To_Users` text,
-  `Create_Date` int(11) NOT NULL,
-  `Send_Date` int(11) DEFAULT NULL,
-  `Situation` varchar(15) NOT NULL DEFAULT 'Draft'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_pages`
+-- Estructura de tabla para la tabla `muu_pages`
 --
 
-DROP TABLE IF EXISTS `muu_pages`;
 CREATE TABLE IF NOT EXISTS `muu_pages` (
   `ID_Page` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -822,23 +878,24 @@ CREATE TABLE IF NOT EXISTS `muu_pages` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Page`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `muu_pages`
+-- Volcado de datos para la tabla `muu_pages`
 --
 
-INSERT INTO `muu_pages` (`ID_Page`, `ID_User`, `ID_Translation`, `Title`, `Slug`, `Content`, `Views`, `Language`, `Principal`, `Start_Date`, `Text_Date`, `Situation`) VALUES
-(1, 1, 0, 'Publicidad', 'publicidad', '<h2>Publicidad</h2> \r\n\r\n<p>En CodeJobs te ofrecemos 3 formas de poder promocionar tu empresa, startup, blog o negocio.</p>\r\n\r\n<h3>Paquete básico</h3>\r\n\r\n<p><strong>Costo:</strong> $18 USD/mes</p>\r\n\r\n<p><strong>Incluye:</strong></p>\r\n\r\n<ul>\r\n<li>Logotipo de 100x31px en la sección de <a href=\\"http://www.codejobs.biz/tv\\">CodeJobs TV!</a>, dónde cada sábado hacemos talleres en vivo sobre diferentes tecnologías.</li>\r\n<li>10 tweets al mes en la cuenta oficial de @<a href=\\"http://www.twitter.com/codejobs\\">codejobs</a> (ustedes deciden la fecha y hora que quieran que publiquemos cada tweet).</li>\r\n<li>5 publicaciones en nuestra página de <a href=\\"http://www.facebook.com/codejobs\\">Facebook</a>.</li>\r\n</ul>\r\n\r\n<h3>Paquete recomendado</h3>\r\n\r\n<p><strong>Costo:</strong> $30 USD/mes</p>\r\n\r\n<p><strong>Incluye:</strong></p>\r\n\r\n<ul>\r\n<li>Logotipo de 100x31px en la sección de CodeJobs TV!, dónde cada sábado hacemos talleres en vivo sobre diferentes tecnologías.</li>\r\n<li>12 tweets al mes en la cuenta oficial de @codejobs (ustedes deciden la fecha y hora que quieran que publiquemos cada tweet).</li>\r\n<li>5 tweets en nuestras cuentas específicas (@<a href=\\"http://www.twitter.com/codejobsphp\\">CodeJobsPHP</a>, @<a href=\\"http://www.twitter.com/codejobspython\\">CodeJobsPython</a>, @<a href=\\"http://www.twitter.com/codejobsrails\\">CodeJobsRails</a>, @<a href=\\"http://www.twitter.com/codejobsjava\\">CodeJobsJava</a> y @<a href=\\"http://www.twitter.com/codejobsandroid\\">CodeJobsAndroid</a>).</li>\r\n<li>5 publicaciones en nuestra página de Facebook.</li>\r\n</ul>\r\n\r\n<p><strong>NOTA:</strong> La ventaja de publicar en nuestras cuentas específicas es que los programadores están filtrados y segmentados por tecnología lo cual hace más fácil la tarea de conseguir a algún programador de una tecnología específica.</p>\r\n\r\n<h3>Paquete premium</h3>\r\n\r\n<p><strong>Costo:</strong> $60 USD/mes</p>\r\n\r\n<ul>\r\n<li>Logotipo de 100x31px en la sección de CodeJobs TV!, dónde cada sábado hacemos talleres en vivo sobre diferentes tecnologías.</li>\r\n<li>Logotipo de 250x100px en nuestra página principal y en todas sus secciones www.codejobs.biz (incluyendo todos los idiomas: español, inglés, portugués, francés e italiano).</li>\r\n<li>15 tweets al mes en la cuenta oficial de @codejobs (ustedes deciden la fecha y hora que quieran que publiquemos cada tweet).</li>\r\n<li>10 tweets en nuestras cuentas específicas (@<a href=\\"http://www.twitter.com/codejobsphp\\">CodeJobsPHP</a>, @<a href=\\"http://www.twitter.com/codejobspython\\">CodeJobsPython</a>, @<a href=\\"http://www.twitter.com/codejobsrails\\">CodeJobsRails</a>, @<a href=\\"http://www.twitter.com/codejobsjava\\">CodeJobsJava</a> y @<a href=\\"http://www.twitter.com/codejobsandroid\\">CodeJobsAndroid</a>).</li>\r\n<li>10 publicaciones en nuestra página de Facebook</li>\r\n</ul>\r\n\r\n<h3>Estadísticas</h3>\r\n\r\n<p><strong><a href=\\"http://www.twitter.com/codejobs\\" target=\\"_blank\\">Twitter</a>:</strong> la comunidad actualmente consta de más de 43,000 followers y tiene un promedio de 150 seguidores diarios.</p>\r\n\r\n<p><strong><a href=\\"http://www.youtube.com/codejobs\\" target=\\"_blank\\">Canal de Youtube</a>:</strong> dónde quedan grabados nuestros talleres (dónde recomendamos a los patrocinadores) tiene actualmente más de 6,500 suscritos y tenemos un promedio de 45 suscritos diarios</p>\r\n\r\n<p><strong><a href=\\"http://www.facebook.com/codejobs\\" target=\\"_blank\\">Facebook</a>:</strong> nuestra cuenta de Facebook actualmente consta de más de 2500 likes y tenemos un promedio de 25 likes diarios</p>\r\n\r\n<p>Actualmente los principales países que nos visitan son: México, España, Estados Unidos, Brasil, Venezuela, El Salvador, Argentina, Chile, Colombia, Ecuador, Canadá y Francia.</p>\r\n\r\n<h3>Pagos</h3>\r\n\r\n<p>Los pagos se pueden hacer mediante transferencia bancaria, depósito bancario o utilizando PayPal.</p>\r\n\r\n<p>Para contrataciones ó más información favor de visitar nuestra sección de <a href=\\"http://www.codejobs.biz/es/feedback\\">contacto</a>.</p>', 2078, 'Spanish', 0, 1355941374, 'Miércoles, 19 de Diciembre de 2012', 'Active'),
-(2, 1, 0, 'Links', 'links', '<h1>Sitios Web Recomendados</h1>\r\n\r\n<p>\r\n<strong><a href="http://www.milkzoft.com" target="_blank">MilkZoft</a></strong>\r\nEmpresa de Desarrollo de Software\r\n</p>\r\n\r\n<p>\r\n<strong><a href="http://www.zanphp.com" target="_blank">ZanPHP</a></strong>\r\nPHP5 Framework\r\n</p>\r\n\r\n<p>\r\n<strong><a href="http://www.anpstudio.com" target="_blank">Themes Wordpress en Español</a></strong>\r\nDesarrollo de themes para Wordpress con soporte en español\r\n</p>\r\n\r\n<p>\r\n<strong><a href="http://juliochinchilla.com/" target="_blank">Julio Chinchilla</a></strong>\r\nIngeniería en Sistemas y Desarrollo Multimedia\r\n</p>\r\n\r\n<p>\r\n<strong><a href="http://guillermocerezo.com" target="_blank">Guillermo Cerezo Somera</a></strong> \r\nDesarrollo de aplicaciones Web\r\n</p>\r\n\r\n<p>\r\n<strong><a href="http://afinandocodigo.wordpress.com/" target="_blank">Algo con que empezar</a></strong> \r\nAfinando Código\r\n</p>\r\n\r\n<p>\r\n<strong><a href="http://www.strikegeek.org/" target="_blank">StrikeGeek</a></strong> \r\nTutoriales De Seguridad y Programación\r\n</p>\r\n\r\n<p>Tienes un blog o página Web de tecnología o de programación y te gustaría intercambiar enlaces con <a href="http://www.codejobs.biz">www.codejobs.biz</a>, ponte en contácto con nosotros <a href="http://www.codejobs.biz/es/feedback">aquí</a>.</p>', 1230, 'Spanish', 0, 1357242445, 'Jueves, 03 de Enero de 2013', 'Active'),
-(3, 1, 0, 'Live', 'live', '<div id="tweet-container" class="span12">\r\n        <div id="tweets"></div>\r\n        <script id="tweet-template" type="text/x-handlebars-template">\r\n          <div class="tweet">\r\n            <blockquote class="twitter-tweet">\r\n              <div class="vcard author">\r\n                <a rel="nofollow" target="_blank" class="screen-name url" href="https://twitter.com/{{user.screen_name}}">\r\n                  <span class="avatar">\r\n                    <img src="{{user.profile_image_url}}" class="photo">\r\n                  </span>\r\n                  <span class="fn">{{user.name}}</span>\r\n                </a>\r\n                <a rel="nofollow" target="_blank" class="nickname" href="https://twitter.com/{{user.screen_name}}"><span>@{{user.screen_name}}</span></a>\r\n              </div>\r\n              <div class="entry-content">\r\n                <p class="entry-title">{{text}}</p>\r\n              </div>\r\n              <div class="footer">\r\n                <a rel="nofollow" target="_blank" class="view-details" href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}">{{created_at}}</a>\r\n              </div>\r\n            </blockquote>\r\n          </div>\r\n        </script>\r\n      </div>', 1019, 'Spanish', 0, 0, '', 'Active'),
-(4, 1, 0, 'Live', 'live', '<div id="tweet-container" class="span12">\r\n        <div id="tweets"></div>\r\n        <script id="tweet-template" type="text/x-handlebars-template">\r\n          <div class="tweet">\r\n            <blockquote class="twitter-tweet">\r\n              <div class="vcard author">\r\n                <a rel="nofollow" target="_blank" class="screen-name url" href="https://twitter.com/{{user.screen_name}}">\r\n                  <span class="avatar">\r\n                    <img src="{{user.profile_image_url}}" class="photo">\r\n                  </span>\r\n                  <span class="fn">{{user.name}}</span>\r\n                </a>\r\n                <a rel="nofollow" target="_blank" class="nickname" href="https://twitter.com/{{user.screen_name}}"><span>@{{user.screen_name}}</span></a>\r\n              </div>\r\n              <div class="entry-content">\r\n                <p class="entry-title">{{text}}</p>\r\n              </div>\r\n              <div class="footer">\r\n                <a rel="nofollow" target="_blank" class="view-details" href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}">{{created_at}}</a>\r\n              </div>\r\n            </blockquote>\r\n          </div>\r\n        </script>\r\n      </div>', 159, 'English', 0, 0, '', 'Active'),
-(5, 1, 0, 'Live', 'live', '<div id="tweet-container" class="span12">\r\n        <div id="tweets"></div>\r\n        <script id="tweet-template" type="text/x-handlebars-template">\r\n          <div class="tweet">\r\n            <blockquote class="twitter-tweet">\r\n              <div class="vcard author">\r\n                <a rel="nofollow" target="_blank" class="screen-name url" href="https://twitter.com/{{user.screen_name}}">\r\n                  <span class="avatar">\r\n                    <img src="{{user.profile_image_url}}" class="photo">\r\n                  </span>\r\n                  <span class="fn">{{user.name}}</span>\r\n                </a>\r\n                <a rel="nofollow" target="_blank" class="nickname" href="https://twitter.com/{{user.screen_name}}"><span>@{{user.screen_name}}</span></a>\r\n              </div>\r\n              <div class="entry-content">\r\n                <p class="entry-title">{{text}}</p>\r\n              </div>\r\n              <div class="footer">\r\n                <a rel="nofollow" target="_blank" class="view-details" href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}">{{created_at}}</a>\r\n              </div>\r\n            </blockquote>\r\n          </div>\r\n        </script>\r\n      </div>', 67, 'French', 0, 1352144315, '', 'Active'),
-(6, 1, 0, 'Live', 'live', '<div id="tweet-container" class="span12">\r\n        <div id="tweets"></div>\r\n        <script id="tweet-template" type="text/x-handlebars-template">\r\n          <div class="tweet">\r\n            <blockquote class="twitter-tweet">\r\n              <div class="vcard author">\r\n                <a rel="nofollow" target="_blank" class="screen-name url" href="https://twitter.com/{{user.screen_name}}">\r\n                  <span class="avatar">\r\n                    <img src="{{user.profile_image_url}}" class="photo">\r\n                  </span>\r\n                  <span class="fn">{{user.name}}</span>\r\n                </a>\r\n                <a rel="nofollow" target="_blank" class="nickname" href="https://twitter.com/{{user.screen_name}}"><span>@{{user.screen_name}}</span></a>\r\n              </div>\r\n              <div class="entry-content">\r\n                <p class="entry-title">{{text}}</p>\r\n              </div>\r\n              <div class="footer">\r\n                <a rel="nofollow" target="_blank" class="view-details" href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}">{{created_at}}</a>\r\n              </div>\r\n            </blockquote>\r\n          </div>\r\n        </script>\r\n      </div>', 71, 'Portuguese', 0, 0, '', 'Active'),
-(7, 1, 0, 'Live', 'live', '<div id="tweet-container" class="span12">\r\n        <div id="tweets"></div>\r\n        <script id="tweet-template" type="text/x-handlebars-template">\r\n          <div class="tweet">\r\n            <blockquote class="twitter-tweet">\r\n              <div class="vcard author">\r\n                <a rel="nofollow" target="_blank" class="screen-name url" href="https://twitter.com/{{user.screen_name}}">\r\n                  <span class="avatar">\r\n                    <img src="{{user.profile_image_url}}" class="photo">\r\n                  </span>\r\n                  <span class="fn">{{user.name}}</span>\r\n                </a>\r\n                <a rel="nofollow" target="_blank" class="nickname" href="https://twitter.com/{{user.screen_name}}"><span>@{{user.screen_name}}</span></a>\r\n              </div>\r\n              <div class="entry-content">\r\n                <p class="entry-title">{{text}}</p>\r\n              </div>\r\n              <div class="footer">\r\n                <a rel="nofollow" target="_blank" class="view-details" href="https://twitter.com/{{user.screen_name}}/status/{{id_str}}">{{created_at}}</a>\r\n              </div>\r\n            </blockquote>\r\n          </div>\r\n        </script>\r\n      </div>', 58, 'Italian', 0, 0, '', 'Active');
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `muu_phrases`
+--
 
-DROP TABLE IF EXISTS `muu_polls`;
+ --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_polls`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_polls` (
   `ID_Poll` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -849,10 +906,8 @@ CREATE TABLE IF NOT EXISTS `muu_polls` (
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Poll`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
-
-DROP TABLE IF EXISTS `muu_polls_answers`;
 CREATE TABLE IF NOT EXISTS `muu_polls_answers` (
   `ID_Answer` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Poll` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -860,9 +915,12 @@ CREATE TABLE IF NOT EXISTS `muu_polls_answers` (
   `Votes` mediumint(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_Answer`),
   KEY `ID_Poll` (`ID_Poll`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_polls_ips`;
+--
+-- Estructura de tabla para la tabla `muu_polls_ips`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_polls_ips` (
   `ID_Poll` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `IP` varchar(15) NOT NULL,
@@ -870,14 +928,21 @@ CREATE TABLE IF NOT EXISTS `muu_polls_ips` (
   `End_Date` int(11) unsigned NOT NULL DEFAULT '0',
   KEY `ID_Poll` (`ID_Poll`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+----------------------------------------
 
+--
+-- Estructura de tabla para la tabla `muu_privileges`
+--
 
-DROP TABLE IF EXISTS `muu_privileges`;
 CREATE TABLE IF NOT EXISTS `muu_privileges` (
   `ID_Privilege` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Privilege` varchar(25) NOT NULL DEFAULT 'Member',
   PRIMARY KEY (`ID_Privilege`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `muu_privileges`
+--
 
 INSERT INTO `muu_privileges` (`ID_Privilege`, `Privilege`) VALUES
 (1, 'Super Admin'),
@@ -885,8 +950,12 @@ INSERT INTO `muu_privileges` (`ID_Privilege`, `Privilege`) VALUES
 (3, 'Moderator'),
 (4, 'Member');
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_resumes`;
+--
+-- Estructura de tabla para la tabla `muu_resumes`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_resumes` (
   `ID_Resume` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Elementary_School` varchar(250) NOT NULL,
@@ -907,8 +976,12 @@ CREATE TABLE IF NOT EXISTS `muu_resumes` (
   PRIMARY KEY (`ID_Resume`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_re_comments_applications`;
+--
+-- Estructura de tabla para la tabla `muu_re_comments_applications`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_re_comments_applications` (
   `ID_Comment2Application` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Application` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -917,9 +990,13 @@ CREATE TABLE IF NOT EXISTS `muu_re_comments_applications` (
   PRIMARY KEY (`ID_Comment2Application`),
   KEY `ID_Application` (`ID_Application`),
   KEY `ID_Comment` (`ID_Comment`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_re_companies_jobs`;
+
+--
+-- Estructura de tabla para la tabla `muu_re_companies_jobs`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_re_companies_jobs` (
   `ID_Company` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Job` int(11) unsigned NOT NULL DEFAULT '0'
@@ -928,10 +1005,9 @@ CREATE TABLE IF NOT EXISTS `muu_re_companies_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_courses_course_categories`
+-- Estructura de tabla para la tabla `muu_re_courses_course_categories`
 --
 
-DROP TABLE IF EXISTS `muu_re_courses_course_categories`;
 CREATE TABLE IF NOT EXISTS `muu_re_courses_course_categories` (
   `ID_Category` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Course` mediumint(8) unsigned NOT NULL DEFAULT '0'
@@ -940,10 +1016,9 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_course_categories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_courses_lesson_course`
+-- Estructura de tabla para la tabla `muu_re_courses_lesson_course`
 --
 
-DROP TABLE IF EXISTS `muu_re_courses_lesson_course`;
 CREATE TABLE IF NOT EXISTS `muu_re_courses_lesson_course` (
   `ID_Course` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Lesson` mediumint(8) unsigned NOT NULL DEFAULT '0'
@@ -952,10 +1027,9 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_lesson_course` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_courses_tests_question_answer`
+-- Estructura de tabla para la tabla `muu_re_courses_tests_question_answer`
 --
 
-DROP TABLE IF EXISTS `muu_re_courses_tests_question_answer`;
 CREATE TABLE IF NOT EXISTS `muu_re_courses_tests_question_answer` (
   `ID_Question` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Answer` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -965,10 +1039,9 @@ CREATE TABLE IF NOT EXISTS `muu_re_courses_tests_question_answer` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_permissions_privileges`
+-- Estructura de tabla para la tabla `muu_re_permissions_privileges`
 --
 
-DROP TABLE IF EXISTS `muu_re_permissions_privileges`;
 CREATE TABLE IF NOT EXISTS `muu_re_permissions_privileges` (
   `ID_Privilege` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Application` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -981,7 +1054,7 @@ CREATE TABLE IF NOT EXISTS `muu_re_permissions_privileges` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `muu_re_permissions_privileges`
+-- Volcado de datos para la tabla `muu_re_permissions_privileges`
 --
 
 INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `Adding`, `Deleting`, `Editing`, `Viewing`) VALUES
@@ -1050,19 +1123,14 @@ INSERT INTO `muu_re_permissions_privileges` (`ID_Privilege`, `ID_Application`, `
 (3, 17, 1, 0, 0, 1),
 (4, 17, 0, 0, 0, 0),
 (1, 18, 1, 1, 1, 1),
-(1, 19, 1, 1, 1, 1),
-(1, 20, 1, 1, 1, 1),
-(2, 20, 1, 1, 1, 1),
-(3, 20, 0, 0, 0, 1),
-(4, 20, 0, 0, 0, 0);
+(1, 19, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_privileges_users`
+-- Estructura de tabla para la tabla `muu_re_privileges_users`
 --
 
-DROP TABLE IF EXISTS `muu_re_privileges_users`;
 CREATE TABLE IF NOT EXISTS `muu_re_privileges_users` (
   `ID_Privilege` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1071,364 +1139,18 @@ CREATE TABLE IF NOT EXISTS `muu_re_privileges_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `muu_re_privileges_users`
+-- Volcado de datos para la tabla `muu_re_privileges_users`
 --
 
 INSERT INTO `muu_re_privileges_users` (`ID_Privilege`, `ID_User`) VALUES
-(4, 2),
-(4, 3),
-(4, 4),
-(4, 5),
-(4, 6),
-(4, 7),
-(4, 8),
-(4, 9),
-(4, 10),
-(4, 11),
-(4, 12),
-(4, 13),
-(4, 14),
-(4, 15),
-(4, 16),
-(4, 17),
-(4, 18),
-(4, 19),
-(4, 20),
-(4, 21),
-(4, 22),
-(4, 23),
-(4, 24),
-(4, 25),
-(4, 26),
-(4, 27),
-(4, 28),
-(4, 29),
-(4, 30),
-(4, 31),
-(4, 32),
-(4, 33),
-(4, 34),
-(4, 35),
-(4, 36),
-(4, 37),
-(4, 38),
-(4, 39),
-(4, 40),
-(4, 41),
-(4, 42),
-(4, 43),
-(4, 44),
-(4, 45),
-(4, 46),
-(4, 47),
-(4, 48),
-(4, 49),
-(4, 50),
-(4, 51),
-(4, 52),
-(4, 53),
-(4, 54),
-(4, 55),
-(4, 56),
-(4, 57),
-(4, 58),
-(4, 59),
-(4, 60),
-(4, 61),
-(4, 62),
-(4, 63),
-(4, 64),
-(4, 65),
-(4, 66),
-(4, 67),
-(4, 68),
-(4, 69),
-(4, 70),
-(4, 71),
-(4, 72),
-(4, 73),
-(4, 74),
-(4, 75),
-(4, 76),
-(4, 77),
-(4, 78),
-(4, 79),
-(4, 80),
-(4, 81),
-(4, 82),
-(4, 83),
-(4, 84),
-(4, 85),
-(4, 86),
-(4, 87),
-(4, 88),
-(4, 89),
-(4, 90),
-(4, 91),
-(4, 92),
-(4, 93),
-(4, 94),
-(4, 95),
-(4, 96),
-(4, 97),
-(4, 98),
-(4, 99),
-(4, 100),
-(4, 101),
-(4, 102),
-(4, 103),
-(4, 104),
-(4, 105),
-(4, 106),
-(4, 107),
-(4, 108),
-(4, 109),
-(4, 110),
-(4, 111),
-(4, 112),
-(4, 113),
-(4, 114),
-(4, 115),
-(4, 116),
-(4, 117),
-(4, 119),
-(4, 120),
-(4, 121),
-(4, 122),
-(4, 123),
-(4, 124),
-(4, 125),
-(4, 126),
-(4, 127),
-(4, 128),
-(4, 129),
-(4, 130),
-(4, 131),
-(4, 132),
-(4, 133),
-(4, 134),
-(4, 135),
-(4, 136),
-(4, 137),
-(4, 138),
-(4, 139),
-(4, 140),
-(4, 141),
-(4, 142),
-(4, 143),
-(4, 144),
-(4, 145),
-(4, 146),
-(4, 147),
-(4, 148),
-(4, 149),
-(4, 150),
-(4, 151),
-(4, 152),
-(4, 153),
-(4, 154),
-(4, 155),
-(4, 156),
-(4, 157),
-(4, 158),
-(4, 159),
-(4, 160),
-(4, 161),
-(4, 162),
-(4, 163),
-(4, 164),
-(4, 165),
-(4, 166),
-(4, 167),
-(4, 168),
-(4, 169),
-(4, 170),
-(4, 171),
-(4, 172),
-(4, 173),
-(4, 174),
-(4, 175),
-(4, 176),
-(4, 177),
-(4, 178),
-(4, 179),
-(4, 180),
-(4, 181),
-(4, 182),
-(4, 183),
-(4, 184),
-(4, 185),
-(4, 186),
-(4, 187),
-(4, 188),
-(4, 189),
-(4, 190),
-(4, 191),
-(4, 192),
-(4, 193),
-(4, 194),
-(4, 195),
-(4, 196),
-(4, 197),
-(4, 198),
-(4, 199),
-(4, 200),
-(4, 201),
-(4, 202),
-(4, 203),
-(4, 204),
-(4, 205),
-(4, 206),
-(4, 207),
-(4, 208),
-(4, 209),
-(4, 210),
-(4, 211),
-(4, 212),
-(4, 213),
-(4, 214),
-(4, 215),
-(4, 216),
-(4, 217),
-(4, 218),
-(4, 219),
-(4, 220),
-(4, 221),
-(4, 222),
-(4, 223),
-(4, 224),
-(4, 225),
-(4, 226),
-(4, 227),
-(4, 228),
-(4, 229),
-(4, 230),
-(4, 231),
-(4, 232),
-(4, 233),
-(4, 234),
-(4, 235),
-(4, 236),
-(4, 237),
-(4, 238),
-(4, 239),
-(4, 240),
-(4, 241),
-(4, 242),
-(4, 243),
-(4, 244),
-(4, 245),
-(4, 246),
-(4, 247),
-(4, 248),
-(4, 249),
-(4, 250),
-(4, 251),
-(4, 252),
-(4, 253),
-(4, 254),
-(4, 255),
-(4, 256),
-(4, 257),
-(4, 258),
-(4, 259),
-(4, 260),
-(4, 261),
-(4, 262),
-(4, 263),
-(4, 264),
-(4, 265),
-(4, 266),
-(4, 267),
-(4, 268),
-(4, 269),
-(4, 270),
-(4, 271),
-(4, 272),
-(4, 273),
-(4, 274),
-(4, 275),
-(4, 276),
-(4, 277),
-(4, 278),
-(4, 279),
-(4, 280),
-(4, 281),
-(4, 282),
-(4, 283),
-(4, 284),
-(4, 285),
-(4, 286),
-(4, 287),
-(4, 288),
-(4, 289),
-(4, 290),
-(4, 291),
-(4, 292),
-(4, 293),
-(4, 294),
-(4, 295),
-(4, 296),
-(4, 297),
-(4, 298),
-(4, 299),
-(4, 300),
-(4, 301),
-(4, 302),
-(4, 303),
-(4, 304),
-(4, 305),
-(4, 306),
-(4, 307),
-(4, 308),
-(4, 309),
-(4, 310),
-(4, 311),
-(4, 312),
-(4, 313),
-(4, 314),
-(4, 315),
-(4, 316),
-(4, 317),
-(4, 318),
-(4, 319),
-(4, 320),
-(4, 321),
-(4, 322),
-(4, 323),
-(4, 324),
-(4, 325),
-(4, 326),
-(4, 327),
-(4, 328),
-(4, 329),
-(4, 330),
-(4, 331),
-(4, 332),
-(4, 333),
-(4, 334),
-(4, 335),
-(4, 336),
-(4, 337),
-(4, 338),
-(4, 339),
-(4, 340),
-(4, 341),
-(4, 342),
-(4, 343),
-(4, 344),
-(4, 345),
-(4, 346),
-(4, 347),
-(4, 348);
+(1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_users_companies`
+-- Estructura de tabla para la tabla `muu_re_users_companies`
 --
 
-DROP TABLE IF EXISTS `muu_re_users_companies`;
 CREATE TABLE IF NOT EXISTS `muu_re_users_companies` (
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Company` mediumint(8) unsigned NOT NULL DEFAULT '0'
@@ -1437,10 +1159,9 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_companies` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_re_users_events`
+-- Estructura de tabla para la tabla `muu_re_users_events`
 --
 
-DROP TABLE IF EXISTS `muu_re_users_events`;
 CREATE TABLE IF NOT EXISTS `muu_re_users_events` (
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Event` mediumint(8) unsigned NOT NULL DEFAULT '0'
@@ -1449,23 +1170,41 @@ CREATE TABLE IF NOT EXISTS `muu_re_users_events` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_search`
+-- Estructura de tabla para la tabla `muu_search`
 --
 
-DROP TABLE IF EXISTS `muu_search`;
 CREATE TABLE IF NOT EXISTS `muu_search` (
   `ID_Search` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Term` varchar(255) NOT NULL,
   `Counter` mediumint(8) unsigned NOT NULL DEFAULT '1',
   `Last_Search` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`ID_Search`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+
+
+CREATE TABLE IF NOT EXISTS `muu_support` (
+  `ID_Ticket` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `ID_Parent` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `Title` varchar(250) NOT NULL,
+  `Slug` varchar(250) NOT NULL,
+  `Content` text NOT NULL,
+  `Image` varchar(255) NOT NULL,
+  `Code` varchar(10) NOT NULL,
+  `Start_Date` int(11) NOT NULL DEFAULT '0',
+  `Text_Date` varchar(40) NOT NULL,
+  `Situation` varchar(15) NOT NULL DEFAULT 'Active',
+  PRIMARY KEY (`ID_Ticket`),
+  KEY `ID_User` (`ID_User`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `muu_tokens`
+-- Estructura de tabla para la tabla `muu_tokens`
 --
 
-DROP TABLE IF EXISTS `muu_tokens`;
 CREATE TABLE IF NOT EXISTS `muu_tokens` (
   `ID_Token` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1476,9 +1215,14 @@ CREATE TABLE IF NOT EXISTS `muu_tokens` (
   `Situation` varchar(10) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_Token`),
   KEY `ID_User` (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_users`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_users`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_users` (
   `ID_User` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_Privilege` mediumint(8) NOT NULL DEFAULT '4',
@@ -1526,12 +1270,21 @@ CREATE TABLE IF NOT EXISTS `muu_users` (
   `Viadeo` varchar(150) NOT NULL,
   `Situation` varchar(15) NOT NULL DEFAULT 'Active',
   PRIMARY KEY (`ID_User`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1088 ;
+
+--
+-- Volcado de datos para la tabla `muu_users`
+--
 
 INSERT INTO `muu_users` (`ID_User`, `ID_Privilege`, `ID_Service`, `Username`, `Pwd`, `Email`, `Website`, `Avatar`, `Avatar_Coordinate`, `Credits`, `Recommendation`, `Sign`, `Messages`, `Recieve_Messages`, `Topics`, `Replies`, `Comments`, `Posts`, `Bookmarks`, `Codes`, `Jobs`, `Subscribed`, `Followers`, `Start_Date`, `Code`, `Name`, `Age`, `Title`, `Address`, `Zip`, `Phone`, `Mobile`, `Gender`, `Relationship`, `Birthday`, `Country`, `District`, `City`, `Technologies`, `Twitter`, `Facebook`, `Linkedin`, `Google`, `Viadeo`, `Situation`) VALUES
-(1, 1, '', 'admin', 'b9223847e1566884893656e84798ff39cea2b8c4', 'azapedia@gmail.com', 'http://www.codejobs.biz', 'default.png', '0,0,90,90', 1246, 2093, '', 0, 1, 0, 0, 0, 390, 42, 17, 0, 0, 0, 0, '', 'Carlos Santana Roldán', 18, '', '', '', '2323423423', '23412313123', 'M', 'Single', '04/01/1980', 'Mexico', 'Colima', 'Colima', '', '', '', '', '', '', 'Active');
+(1, 1, '', 'CodeJobs', 'd2c5e80447a51ed16b3b7a3b0f88a556dff05f1b', 'carlos@milkzoft.com', 'http://www.codejobs.biz', 'd2794ec4411d168fa73ef33aeb372d2ac01fe992.png', '0,95,480,575', 1414, 2373, '', 0, 1, 0, 0, 0, 446, 42, 17, 0, 1, 0, 0, '', 'Carlos Santana Roldán', 18, '', '', '', '', '', 'M', 'Single', '21/11/1987', 'Mexico', 'Colima', 'Colima', '', '@codejobs', '', '', '', '', 'Active'),
 
-DROP TABLE IF EXISTS `muu_users_cv_education`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_users_cv_education`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_users_cv_education` (
   `ID_School` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) NOT NULL,
@@ -1541,10 +1294,13 @@ CREATE TABLE IF NOT EXISTS `muu_users_cv_education` (
   `Period_To` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `Description` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`ID_School`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `muu_users_cv_experiences`
+--
 
-DROP TABLE IF EXISTS `muu_users_cv_experiences`;
 CREATE TABLE IF NOT EXISTS `muu_users_cv_experiences` (
   `ID_Experience` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) NOT NULL,
@@ -1555,27 +1311,34 @@ CREATE TABLE IF NOT EXISTS `muu_users_cv_experiences` (
   `Period_To` varchar(10) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `Description` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`ID_Experience`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_users_cv_skills`;
+
+
 CREATE TABLE IF NOT EXISTS `muu_users_cv_skills` (
   `ID_Skills` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned DEFAULT NULL,
   `Skills` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`ID_Skills`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Estructura de tabla para la tabla `muu_users_cv_summary`
+--
 
-DROP TABLE IF EXISTS `muu_users_cv_summary`;
 CREATE TABLE IF NOT EXISTS `muu_users_cv_summary` (
   `ID_Summary` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL,
   `Summary` varchar(250) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `Last_Updated` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID_Summary`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_users_online`;
+
+--
+-- Estructura de tabla para la tabla `muu_users_online`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_users_online` (
   `User` varchar(20) NOT NULL DEFAULT '',
   `Start_Date` int(10) unsigned NOT NULL DEFAULT '0',
@@ -1583,8 +1346,12 @@ CREATE TABLE IF NOT EXISTS `muu_users_online` (
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_users_online_anonymous`;
+--
+-- Estructura de tabla para la tabla `muu_users_online_anonymous`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
   `IP` varchar(20) NOT NULL DEFAULT '',
   `Start_Date` int(10) unsigned NOT NULL DEFAULT '0',
@@ -1592,15 +1359,25 @@ CREATE TABLE IF NOT EXISTS `muu_users_online_anonymous` (
   KEY `Date_Start` (`Start_Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `muu_users_services`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_users_services`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_users_services` (
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `ID_Service` varchar(30) NOT NULL,
   `Service` varchar(15) NOT NULL DEFAULT 'Facebook'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_vacancy`;
+--
+-- Estructura de tabla para la tabla `muu_vacancy`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_vacancy` (
   `ID_Vacancy` smallint(8) NOT NULL AUTO_INCREMENT,
   `Job_Name` varchar(250) NOT NULL,
@@ -1612,9 +1389,14 @@ CREATE TABLE IF NOT EXISTS `muu_vacancy` (
   `Cv` varchar(250) NOT NULL,
   `Message` varchar(250) NOT NULL,
   PRIMARY KEY (`ID_Vacancy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_videos`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_videos`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_videos` (
   `ID_Video` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ID_User` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -1633,8 +1415,12 @@ CREATE TABLE IF NOT EXISTS `muu_videos` (
   KEY `ID_User` (`ID_User`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `muu_works`;
+--
+-- Estructura de tabla para la tabla `muu_works`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_works` (
   `ID_Work` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `Title` varchar(100) NOT NULL,
@@ -1651,10 +1437,9 @@ CREATE TABLE IF NOT EXISTS `muu_works` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `muu_workshop`
+-- Estructura de tabla para la tabla `muu_workshop`
 --
 
-DROP TABLE IF EXISTS `muu_workshop`;
 CREATE TABLE IF NOT EXISTS `muu_workshop` (
   `ID_Workshop` int(8) unsigned NOT NULL AUTO_INCREMENT,
   `Title` varchar(250) NOT NULL,
@@ -1672,9 +1457,19 @@ CREATE TABLE IF NOT EXISTS `muu_workshop` (
   `Start_Date` int(11) NOT NULL,
   `Situation` varchar(15) NOT NULL,
   PRIMARY KEY (`ID_Workshop`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-DROP TABLE IF EXISTS `muu_world`;
+--
+-- Volcado de datos para la tabla `muu_workshop`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `muu_world`
+--
+
 CREATE TABLE IF NOT EXISTS `muu_world` (
   `Continent` varchar(20) NOT NULL,
   `Code` varchar(5) NOT NULL,
@@ -1685,7 +1480,7 @@ CREATE TABLE IF NOT EXISTS `muu_world` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `muu_world`
+-- Volcado de datos para la tabla `muu_world`
 --
 
 INSERT INTO `muu_world` (`Continent`, `Code`, `Country`, `District`, `Town`) VALUES
@@ -2047,79 +1842,96 @@ INSERT INTO `muu_world` (`Continent`, `Code`, `Country`, `District`, `Town`) VAL
 ('Oceania', 'NZL', 'New Zealand', 'Wellington', '');
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `muu_ads`
+-- Filtros para la tabla `muu_ads`
 --
 ALTER TABLE `muu_ads`
   ADD CONSTRAINT `muu_ads_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_codes_files`
+-- Filtros para la tabla `muu_codes_files`
 --
 ALTER TABLE `muu_codes_files`
   ADD CONSTRAINT `muu_codes_files_ibfk_1` FOREIGN KEY (`ID_Code`) REFERENCES `muu_codes` (`ID_Code`),
   ADD CONSTRAINT `muu_codes_files_ibfk_2` FOREIGN KEY (`ID_Syntax`) REFERENCES `muu_codes_syntax` (`ID_Syntax`);
 
 --
--- Constraints for table `muu_forums_posts`
+-- Filtros para la tabla `muu_forums_posts`
 --
 ALTER TABLE `muu_forums_posts`
   ADD CONSTRAINT `muu_forums_posts_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_gallery`
+-- Filtros para la tabla `muu_gallery`
 --
 ALTER TABLE `muu_gallery`
   ADD CONSTRAINT `muu_gallery_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_logs`
+-- Filtros para la tabla `muu_logs`
 --
 ALTER TABLE `muu_logs`
   ADD CONSTRAINT `muu_logs_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_pages`
+-- Filtros para la tabla `muu_pages`
 --
 ALTER TABLE `muu_pages`
   ADD CONSTRAINT `muu_pages_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_polls`
+-- Filtros para la tabla `muu_polls`
 --
 ALTER TABLE `muu_polls`
   ADD CONSTRAINT `muu_polls_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_polls_answers`
+-- Filtros para la tabla `muu_polls_answers`
 --
 ALTER TABLE `muu_polls_answers`
   ADD CONSTRAINT `muu_polls_answers_ibfk_1` FOREIGN KEY (`ID_Poll`) REFERENCES `muu_polls` (`ID_Poll`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_polls_ips`
+-- Filtros para la tabla `muu_polls_ips`
 --
 ALTER TABLE `muu_polls_ips`
   ADD CONSTRAINT `muu_polls_ips_ibfk_1` FOREIGN KEY (`ID_Poll`) REFERENCES `muu_polls` (`ID_Poll`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_re_permissions_privileges`
+-- Filtros para la tabla `muu_re_permissions_privileges`
 --
 ALTER TABLE `muu_re_permissions_privileges`
   ADD CONSTRAINT `muu_re_permissions_privileges_ibfk_1` FOREIGN KEY (`ID_Privilege`) REFERENCES `muu_privileges` (`ID_Privilege`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `muu_re_permissions_privileges_ibfk_2` FOREIGN KEY (`ID_Application`) REFERENCES `muu_applications` (`ID_Application`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_tokens`
+-- Filtros para la tabla `muu_re_privileges_users`
+--
+ALTER TABLE `muu_re_privileges_users`
+  ADD CONSTRAINT `muu_re_privileges_users_ibfk_1` FOREIGN KEY (`ID_Privilege`) REFERENCES `muu_privileges` (`ID_Privilege`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `muu_re_privileges_users_ibfk_2` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `muu_support`
+--
+ALTER TABLE `muu_support`
+  ADD CONSTRAINT `muu_support_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `muu_tokens`
 --
 ALTER TABLE `muu_tokens`
   ADD CONSTRAINT `muu_tokens_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `muu_videos`
+-- Filtros para la tabla `muu_videos`
 --
 ALTER TABLE `muu_videos`
   ADD CONSTRAINT `muu_videos_ibfk_1` FOREIGN KEY (`ID_User`) REFERENCES `muu_users` (`ID_User`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
