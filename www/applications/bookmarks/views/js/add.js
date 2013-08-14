@@ -31,7 +31,7 @@
 		$("input[name='URL']").removeClass("loading");
 		$("input[name='title']").val(data.Title);
 		$("textarea[name='description']").val(data.Description);
-		$("input[name=tags]").val(data.Keywords);
+		$("input[name='tags']").val(data.Keywords);
 
 		requesting = false;
 	}
